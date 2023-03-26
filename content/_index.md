@@ -1,41 +1,35 @@
 ---
-title: Introduction
+title: Distributed Networks Institute (DNI)
 type: docs
 ---
 
-# Acerbo datus maxime
+# DNI Mission
+
+Distributed Networks Institute (DNI) focuses on helping distributed networks achieve resilience and sustainable growth through standardization, documentation, and education.
+
+# Axes of research
 
 {{< columns >}}
-## Astris ipse furtiva
+### Standardization
 
-Est in vagis et Pittheus tu arge accipiter regia iram vocatur nurus. Omnes ut
-olivae sensit **arma sorori** deducit, inesset **crudus**, ego vetuere aliis,
-modo arsit? Utinam rapta fiducia valuere litora _adicit cursu_, ad facies
+_adapting stricter security and transparency standards_
+
+DNI pushes the industry to consolidate efforts on peer-reviewed technologies and their implementations. This work goes beyond the obvious network engineering and touches on proactive fraud prevention and compliance.
 
 <--->
 
-## Suis quot vota
+### Documentation
 
-Ea _furtique_ risere fratres edidit terrae magis. Colla tam mihi tenebat:
-miseram excita suadent es pecudes iam. Concilio _quam_ velatus posset ait quod
-nunc! Fragosis suae dextra geruntur functus vulgata.
+_threat reduction by focusing on things that matter_
+
+We maintain a crowdsourced knowledge base on distributed networks IT security vulnerabilities and attack taxonomy. Our attack surface maps and corresponding datasets help regulators and law enforcement focus attention on the biggest threats and principal actors.
+
+<--->
+
+### Education
+
+_thought leadership and popularization_
+
+By publishing periodical articles, DNI contributes to combating the snake oil being sold through pseudo-scientific papers, talks, and lobbying. We also work with industry partners to develop and deliver educational programs that meet their specific needs.
+
 {{< /columns >}}
-
-
-## Tempora nisi nunc
-
-Lorem **markdownum** emicat gestu. Cannis sol pressit ducta. **Est** Idaei,
-tremens ausim se tutaeque, illi ulnis hausit, sed, lumina cutem. Quae avis
-sequens!
-
-    var panel = ram_design;
-    if (backup + system) {
-        file.readPoint = network_native;
-        sidebar_engine_device(cell_tftp_raster,
-                dual_login_paper.adf_vci.application_reader_design(
-                graphicsNvramCdma, lpi_footer_snmp, integer_model));
-    }
-
-## Locis suis novi cum suoque decidit eadem
-
-Idmoniae ripis, at aves, ali missa adest, ut _et autem_, et ab?

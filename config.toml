@@ -1,6 +1,6 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://dn.institute/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'Distributed Networks Institute'
 theme = 'hugo-book'
 
 # Book configuration
@@ -19,13 +19,8 @@ enableGitInfo = true
 # [[menu.before]]
 [[menu.after]]
   name = "Github"
-  url = "https://github.com/alex-shpak/hugo-book"
+  url = "https://github.com/1712n/dni-website"
   weight = 10
-
-[[menu.after]]
-  name = "Hugo Themes"
-  url = "https://themes.gohugo.io/hugo-book/"
-  weight = 20
 
 [params]
   # (Optional, default light) Sets color theme: light, dark or auto.
