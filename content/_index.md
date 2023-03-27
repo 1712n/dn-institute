@@ -5,7 +5,7 @@ type: docs
 
 # DNI Mission
 
-Distributed Networks Institute (DNI) focuses on helping distributed networks achieve resilience and sustainable growth through standardization, documentation, and education.
+Distributed Networks Institute (DNI) aims to help distributed networks achieve resilience and sustainable growth through standardization, documentation, and education.
 
 # Axes of research
 
@@ -22,7 +22,7 @@ DNI pushes the industry to consolidate efforts on peer-reviewed technologies and
 
 _threat reduction by focusing on things that matter_
 
-We maintain a crowdsourced knowledge base on distributed networks IT security vulnerabilities and attack taxonomy. Our attack surface maps and corresponding datasets help regulators and law enforcement focus attention on the biggest threats and principal actors.
+We maintain a crowdsourced knowledge base on IT security vulnerabilities and hacker attack taxonomy across distributed networks. Our attack surface maps and corresponding datasets help regulators and law enforcement focus attention on the biggest threats and principal actors.
 
 <--->
 
