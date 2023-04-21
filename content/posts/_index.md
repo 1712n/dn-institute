@@ -1,7 +1,7 @@
 ---
 menu:
-  after:
+  before:
     name: blog
-    weight: 5
-title: Blog
+    weight: 1
+title: Security Incidents
 ---
