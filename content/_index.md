@@ -1,13 +1,14 @@
 ---
 title: Distributed Networks Institute (DNI)
 type: docs
+bookFlatSection: true
 ---
 
-# DNI Mission
+## DNI Mission
 
-Distributed Networks Institute (DNI) aims to help distributed networks achieve resilience and sustainable growth through standardization, documentation, and education.
+Distributed Networks Institute (DNI) aims to help distributed networks achieve resilience and sustainable growth through standardization, documentation, and education. We are a part of a 501(c)3 non-profit incubator in Washington DC called [BlockShop](https://blockshop.org).
 
-# Axes of research
+## Axes of research
 
 {{< columns >}}
 ### Standardization
@@ -33,3 +34,16 @@ _thought leadership and popularization_
 By publishing periodical articles, DNI contributes to combating the snake oil being sold through pseudo-scientific papers, talks, and lobbying. We also work with industry partners to develop and deliver educational programs that meet their specific needs.
 
 {{< /columns >}}
+
+## Projects
+
+### Crowdsourced Attack Wiki
+
+As part of our documentation efforts, we maintain a [crowdsourced knowledge base](posts/) on all distributed network attacks. This wiki can be a valuable resource for IT security professionals as well as a source of ground truth for treat modeling systems. [Feel free to contribute](https://github.com/1712n/dni-website/).
+
+### Improving Oracles
+Oracles are one of the pillars of modern distributed networks, providing smart contracts larger visibility for and allowing them to interact with the external world. We focus on [building models](https://github.com/1712n/yachay-public) capable of answering what, when, and where questions.
+
+### MVT API
+
+[Market Venue Transparency API](docs/mvt/) is our effort to bring accountability and transparency to the crypto market venues.
