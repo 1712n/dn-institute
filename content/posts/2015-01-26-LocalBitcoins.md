@@ -1,6 +1,6 @@
 ---
 date: 2015-01-26
-tags: LocalBitcoins
+custodians: LocalBitcoins
 categories: Custodian
 title: LocalBitcoins suffers a security breach, resulting in the loss of 17 BTC
 ---
