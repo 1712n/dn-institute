@@ -1,3 +1,14 @@
 .center {
     text-align: center;
+}
+
+.taxonomy-list {
+  font-size: .85em;
+
+  .taxonomy-name {
+    font-size: .85em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: hsl(0, 0%, 45%);
   }
+}
