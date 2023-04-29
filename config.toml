@@ -22,6 +22,10 @@ enableGitInfo = true
   url = "https://github.com/1712n/dni-website"
   weight = 10
 
+[taxonomies]
+  category = "categories"
+  custodian = "custodians"
+
 [params]
   # (Optional, default light) Sets color theme: light, dark or auto.
   # Theme 'auto' switches between dark and light modes based on browser/os preferences
