@@ -7,8 +7,27 @@
 
   .taxonomy-name {
     font-size: .85em;
-    text-transform: uppercase;
     font-weight: 600;
+    text-transform: uppercase;
     color: hsl(0, 0%, 45%);
   }
+}
+
+.book-search {
+  margin-left: -0.5rem;
+}
+
+.book-submenu {
+  h3 {
+    font-size: .85em;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  ul {
+  }
+}
+
+.book-submenu ~ .book-submenu {
+  margin-top: 1.5rem;
 }
