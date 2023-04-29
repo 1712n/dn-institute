@@ -16,8 +16,22 @@ enableGitInfo = true
   startLevel = 1
 
 [menu]
-# [[menu.before]]
-[[menu.after]]
+[[menu.incidents]]
+  name = "Recent"
+  url = "/posts"
+  weight = 10
+  
+[[menu.incidents]]
+  name = "By Category"
+  url = "/categories"
+  weight = 20
+
+[[menu.incidents]]
+  name = "By Custodian"
+  url = "/custodians"
+  weight = 30
+
+[[menu.external]]
   name = "Github"
   url = "https://github.com/1712n/dni-website"
   weight = 10
@@ -39,10 +53,6 @@ enableGitInfo = true
   # (Optional, default none) Set the path to a logo for the book. If the logo is
   # /static/logo.png then the path would be logo.png
   BookLogo = 'dni-circle.png'
-
-  # (Optional, default none) Set leaf bundle to render as side menu
-  # When not specified file structure and weights will be used
-  # BookMenuBundle = '/menu'
 
   # (Optional, default docs) Specify root page to render child pages as menu.
   # Page is resoled by .GetPage function: https://gohugo.io/functions/getpage/
