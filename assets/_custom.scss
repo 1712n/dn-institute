@@ -2,14 +2,16 @@
     text-align: center;
 }
 
-.taxonomy-list {
-  font-size: .85em;
-
-  .taxonomy-name {
+.post-meta {
+  .taxonomy-list {
     font-size: .85em;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: hsl(0, 0%, 45%);
+
+    .taxonomy-name {
+      font-size: .85em;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: hsl(0, 0%, 45%);
+    }
   }
 }
 
@@ -30,4 +32,23 @@
 
 .book-submenu ~ .book-submenu {
   margin-top: 1.5rem;
+}
+
+.book-page >.taxonomy-list {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1em;
+
+  .taxonomy-item {
+    font-size: 1.1em;
+    padding: 1em;
+    border: 2px solid black;
+    border-radius: 10px;
+    color: black;
+
+    &:hover {
+      border-color: var(--color-link);
+      color: var(--color-link);
+    }
+  }
 }
