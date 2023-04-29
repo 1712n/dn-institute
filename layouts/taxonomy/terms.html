@@ -1,0 +1,13 @@
+{{ define "main" }}
+  <div class="taxonomy-list">
+    {{ range sort .Paginator.Pages }}
+      <a class="taxonomy-item" href="{{ .RelPermalink }}">{{ partial "docs/title.html" . }}</a>
+    {{ end }}
+  </div>
+
+  {{ template "_internal/pagination.html" . }}
+{{ end }}
+
+{{ define "toc" }}
+  {{ partial "docs/taxonomy" . }}
+{{ end }}
