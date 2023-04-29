@@ -1,4 +1,8 @@
-public/
-exampleSite/public/
-.DS_Store
+# Hugo
+/resources/
+/assets/jsconfig.json
+/public/
 .hugo_build.lock
+
+# Misc
+.DS_Store
