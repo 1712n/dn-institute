@@ -1,6 +1,5 @@
 ---
-title: MVT API
-type: docs
+title: "MVT API Documentation"
 bookToc: true
 ---
 
@@ -200,3 +199,4 @@ In order to promote transparency and accountability at crypto trading venues, we
 |takerAccountId|A unique identifier of the market taker's account associated with the trade execution|
 |orderId|A unique identifier of the market maker's order associated with the trade execution|
 |takerOrderId|A unique identifier of the market taker's order associated with the trade execution|
+
