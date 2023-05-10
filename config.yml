@@ -39,6 +39,19 @@ taxonomies:
   category: "categories"
   custodian: "custodians"
 
+cascade:
+- _target:
+    path: "**/posts/**"
+  type: posts
+
+- _target:
+    path: "**/docs/**"
+  type: docs 
+
+- _target:
+    path: "mvt/**"
+  type: docs 
+
 params:
   # (Optional, default light) Sets color theme: light, dark or auto.
   # Theme 'auto' switches between dark and light modes based on browser/os preferences
@@ -52,11 +65,6 @@ params:
   # (Optional, default none) Set the path to a logo for the book. If the logo is
   # /static/logo.png then the path would be logo.png
   BookLogo: 'dni-circle.png'
-
-  # (Optional, default docs) Specify root page to render child pages as menu.
-  # Page is resoled by .GetPage function: https://gohugo.io/functions/getpage/
-  # For backward compatibility you can set '*' to render all sections to menu. Acts same as '/'
-  BookSection: 'docs'
 
   # Set source repository location.
   # Used for 'Last Modified' and 'Edit this page' links.
