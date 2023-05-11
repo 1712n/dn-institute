@@ -1,3 +1,6 @@
+@import "fonts";
+@import "icons";
+
 .center {
     text-align: center;
 }
@@ -60,6 +63,21 @@
       margin-bottom: 1.5em;
     }
   }
+
+  .external-links {
+    ul {
+      display: flex;
+      flex-flow: row wrap;
+      
+      li {
+        margin: 0;
+      }
+    }
+
+    .icon {
+      font-size: 1.5em;
+    }
+  }
 }
 
 .book-page >.taxonomy-list {
@@ -80,5 +98,3 @@
     }
   }
 }
-
-@import "fonts";
