@@ -18,9 +18,11 @@ markup:
 
 menu:
   external:
-    - name: " Github"
+    - name: "Github"
       url: "https://github.com/1712n/dni-website"
       weight: 10
+      params:
+        icon: ""
 
 taxonomies:
   category: "categories"
