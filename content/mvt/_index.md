@@ -1,5 +1,5 @@
 ---
-title: "MVT API Documentation"
+title: "MVT API"
 bookToc: true
 ---
 

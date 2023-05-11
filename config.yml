@@ -17,19 +17,6 @@ markup:
     startLevel: 1
 
 menu:
-  incidents:
-    - name: "Recent"
-      url: "/posts"
-      weight: 10
-  
-    - name: "By Category"
-      url: "/categories"
-      weight: 20
-
-    - name: "By Custodian"
-      url: "/custodians"
-      weight: 30
-
   external:
     - name: "Github"
       url: "https://github.com/1712n/dni-website"

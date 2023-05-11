@@ -19,19 +19,47 @@
   margin-left: -0.5rem;
 }
 
-.book-submenu {
-  h3 {
-    font-size: .85em;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
+
+.book-tree {
+  font-size: .9em;
 
   ul {
+    padding: 0 0 0 .5rem;
   }
-}
 
-.book-submenu ~ .book-submenu {
-  margin-top: 1.5rem;
+  .submenu {
+    h2 {
+      font-size: 1.1em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      font-size: 1.1em;
+    }
+
+    > ul {
+      padding: 0;
+    }
+  }
+
+  .submenu ~ .submenu {
+    margin-top: 1.5em;
+  }
+
+  .subsection {
+    li {
+      margin: 0;
+    }
+
+    li ~ li {
+      margin-top: .5em;
+    }
+
+    li:last-child {
+      margin-bottom: 1.5em;
+    }
+  }
 }
 
 .book-page >.taxonomy-list {
