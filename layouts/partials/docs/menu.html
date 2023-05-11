@@ -26,16 +26,27 @@
                     <a href="{{ .RelPermalink }}">{{ .Title }}</a>
                   </h3>
 
-                  <ul>
-                    <li>
-                      <a href="{{ .RelPermalink }}/all">All</a>
-                    </li>
-                    <li>
-                      <a href="{{ .RelPermalink }}/categories">Categories</a>
-                    </li>
-                    <li>
-                      <a href="{{ .RelPermalink }}/custodians">Custodians</a>
-                    </li>
+                  <ul class="taxonomies">
+                    <!-- NOTE: Taxonomies are site-wide and not section-specific. -->
+                    {{ range $taxonomy, $terms := site.Taxonomies }}
+                      <li>
+                        {{ with site.GetPage $taxonomy }}
+                          <h4>
+                            <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+                          </h4>
+                        {{ end }}
+                       
+                        {{ with $terms }}
+                          <ul class="terms">
+                            {{ range . }}
+                              <li>
+                                <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
+                              </li>
+                            {{ end }}
+                          </ul>
+                        {{ end }}
+                      </li>
+                    {{ end }}
                   </ul>
                 </li>
 
