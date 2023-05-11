@@ -1,25 +1,62 @@
 <nav>
-{{ partial "docs/brand" . }}
-{{ partial "docs/search" . }}
-{{ if .Site.IsMultiLingual }}
-  {{ partial "docs/languages" . }}
-{{ end }}
+  {{ partial "docs/brand" . }}
+  {{ partial "docs/search" . }}
+  {{ if .Site.IsMultiLingual }}
+    {{ partial "docs/languages" . }}
+  {{ end }}
 
-{{ partial "docs/inject/menu-before" . }}
-  
-  <div class="book-submenu">
-    <h3>Security Incidents</h3>
-    {{ partial "docs/menu-hugo" .Site.Menus.incidents }}
-  </div>
+  {{ partial "docs/inject/menu-before" . }}
 
-  <div class="book-submenu">
-    <h3>Wiki</h3>
-    {{ partial "docs/menu-filetree" . }}
-  </div>
+  <div class="book-tree">
+    <!-- list main sections -->
+    {{ range site.Home.Pages }}
+      <div class="submenu">
+        <h2>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </h2>
+        
+        <ul>
+          <!-- list sub sections -->
+          {{ range .Pages }}
+            {{ if eq .Kind "section" }}
+              <!-- special case: posts -->
+              {{ if eq .Type "posts" }}
+                <li class="subsection">
+                  <h3>
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                  </h3>
 
-  <div class="book-submenu">
-    <h3>External</h3>
-    {{ partial "docs/menu-hugo" .Site.Menus.external }}
+                  <ul>
+                    <li>
+                      <a href="{{ .RelPermalink }}/all">All</a>
+                    </li>
+                    <li>
+                      <a href="{{ .RelPermalink }}/categories">Categories</a>
+                    </li>
+                    <li>
+                      <a href="{{ .RelPermalink }}/custodians">Custodians</a>
+                    </li>
+                  </ul>
+                </li>
+
+              <!-- other cases -->
+              {{ else }}
+                <li class="subsection">
+                  <h3>
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                  </h3>
+                </li>
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        </ul>
+      </div>
+    {{ end }}
+
+    <div class="submenu external-links">
+      <h2>External</h2>
+      {{ partial "docs/menu-hugo" .Site.Menus.external }}
+    </div>
   </div>
     
   {{ partial "docs/inject/menu-after" . }}
