@@ -56,6 +56,16 @@
                   <h3>
                     <a href="{{ .RelPermalink }}">{{ .Title }}</a>
                   </h3>
+
+                  {{ with .Pages }}
+                    <ul class="pages">
+                      {{ range . }}
+                        <li>
+                          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                        </li>
+                      {{ end }}
+                    </ul>
+                  {{ end }}
                 </li>
               {{ end }}
             {{ end }}
