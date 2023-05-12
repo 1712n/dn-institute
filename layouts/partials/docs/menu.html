@@ -16,58 +16,83 @@
   {{ end }}
   
   <div class="book-tree">
+    <!-- initialize sections ids -->
+    {{ $ul2 := "" }}
+    {{ $ul3 := "" }}
+    {{ $ul4 := "" }}
+
     <!-- list main sections -->
     {{ range site.Home.Pages }}
-      <div class="submenu">
-        <h2>{{ template "menu-link" . }}</h2>
+      <!-- show collapsibles only in sections with children -->
+      {{ if (gt (.Pages | len) 0) }}
+        <div class="submenu collapsible">
+          <h2>
+            {{ template "menu-link" . }}
+            <button class="collapsible-control"></button>
+          </h2>
         
-        <ul>
-          <!-- list sub sections -->
-          {{ range .Pages }}
-            {{ if eq .Kind "section" }}
-              <!-- special case: posts -->
-              {{ if eq .Type "posts" }}
-                <li class="subsection">
-                  <h3>{{ template "menu-link" . }}</h3>
-
-                  <ul class="taxonomies">
-                    <!-- NOTE: Taxonomies are site-wide and not section-specific. -->
-                    {{ range $taxonomy, $terms := site.Taxonomies }}
-                      <li>
-                        {{ with site.GetPage $taxonomy }}
-                          <h4>{{ template "menu-link" . }}</h4>
-                        {{ end }}
-                       
-                        {{ with $terms }}
-                          <ul class="terms">
-                            {{ range . }}
-                              <li>{{ template "menu-link" .Page }}</li>
-                            {{ end }}
-                          </ul>
-                        {{ end }}
-                      </li>
+          {{ $ul2 = add .LinkTitle | urlize | lower }}
+          <ul class="collapsible-target" id="ul2-{{ $ul2 }}">
+            <!-- list sub sections -->
+            {{ range .Pages }}
+              {{ if eq .Kind "section" }}
+                <li class="subsection collapsible">
+                  <h3>
+                    {{ template "menu-link" . }}
+                    {{ if or (eq .Type "posts") .Pages }}
+                      <button class="collapsible-control"></button>
                     {{ end }}
-                  </ul>
-                </li>
+                  </h3>
 
-              <!-- other cases -->
-              {{ else }}
-                <li class="subsection">
-                  <h3>{{ template "menu-link" . }}</h3>
-
-                  {{ with .Pages }}
-                    <ul class="pages">
-                      {{ range . }}
-                        <li>{{ template "menu-link" . }}</li>
+                  <!-- special case: posts -->
+                  {{ if eq .Type "posts" }}
+                    {{ $ul3 = add .LinkTitle | urlize | lower }}
+                    <ul class="taxonomies collapsible-target" id="ul3-{{ $ul2 }}-{{ $ul3 }}">
+                      <!-- NOTE: Taxonomies are site-wide and not section-specific. -->
+                      {{ range $taxonomy, $terms := site.Taxonomies }}
+                        <li class="taxonomy collapsible">
+                          {{ with site.GetPage $taxonomy }}
+                            <h4>
+                              {{ template "menu-link" . }}
+                              <button class="collapsible-control"></button>
+                            </h4>
+                          {{ end }}
+                         
+                          {{ with $terms }}
+                            {{ $ul4 = add .LinkTitle | urlize | lower }}
+                            <ul class="terms collapsible-target" id="ul4-{{ $ul2 }}-{{ $ul3 }}-{{ $ul4 }}">
+                              {{ range . }}
+                                <li>{{ template "menu-link" .Page }}</li>
+                              {{ end }}
+                            </ul>
+                          {{ end }}
+                        </li>
                       {{ end }}
                     </ul>
+
+                  <!-- other cases -->
+                  {{ else }}
+                    {{ if .Pages }}
+                      {{ $ul3 = add .LinkTitle | urlize | lower }}
+                      <ul class="pages collapsible-target" id="ul3-{{ $ul2 }}-{{ $ul3 }}">
+                        {{ range .Pages }}
+                          <li>{{ template "menu-link" . }}</li>
+                        {{ end }}
+                      </ul>
+                    {{ end }}
                   {{ end }}
                 </li>
               {{ end }}
             {{ end }}
-          {{ end }}
-        </ul>
-      </div>
+          </ul>
+        </div>
+      {{ else }}
+        <div class="submenu">
+          <h2>
+            {{ template "menu-link" . }}
+          </h2>
+        </div>
+      {{ end }}
     {{ end }}
 
     <div class="submenu external-links">
@@ -75,6 +100,33 @@
       {{ partial "docs/menu-hugo" .Site.Menus.external }}
     </div>
   </div>
+
+  <script type="module">
+    import Collapsible from "/js/collapsible.js"
+
+
+    const sections = document.querySelectorAll(".collapsible")
+    sections.forEach((item) => {
+      // const isCurrent = (content.querySelector(".current")) 
+      const isCurrent = true 
+      const control = item.querySelector(".collapsible-control")
+      const target = item.querySelector(".collapsible-target")
+
+      new Collapsible({
+        control: control,
+        target: {
+          element: target,
+        },
+        aria: {
+          expanded: true,
+          controls: true
+        },
+      })
+
+      // if (!isCurrent)
+      //   content.hidden = true    
+    })
+  </script>
     
   {{ partial "docs/inject/menu-after" . }}
 </nav>

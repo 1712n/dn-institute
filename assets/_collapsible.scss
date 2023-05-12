@@ -1,0 +1,35 @@
+.collapsible {
+  // control containers
+  h2, h3, h4, h5, h6 {
+
+    display: grid;
+    grid: auto / auto max-content;
+    align-items: center;
+  }
+
+  .collapsible-control {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 300;
+
+    &:hover {
+      font-weight: 400;
+    }
+
+    &[aria-expanded="false"]:after {
+      // content: "";
+      content: "";
+    }
+
+    &[aria-expanded="true"]:after {
+      // content: "";
+      content: "";
+    }
+  }
+
+  // .collapsible-target {
+  // }
+}
