@@ -1,5 +1,4 @@
 ---
-baseURL: 'https://dn.institute/'
 languageCode: 'en-us'
 title: 'Distributed Networks Institute'
 theme: 'hugo-book'
