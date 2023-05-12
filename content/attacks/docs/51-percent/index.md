@@ -10,7 +10,7 @@ In plain language, the 51% attack is centered around overpowering network valida
 The retro arcade game Frogger is a good analogy to describe the chances of successfully attacking a network these days. There are 6 lanes of traffic and the frog needs to cross each lane of traffic to make it across the road. In this example, the frog needs at least a 51% chance of making it across the whole road, otherwise it's not worth trying. For a 51% chance of crossing the whole road, it’s not as simple as a one-in two-chance per lane. In fact, the frog needs a 90% chance of making it past each lane in order to have a 51% chance of crossing the whole road. Here's the Frogger Formula: 
 **90%<sup>6</sup> ~= 51%**
 
-{{< image src="../frogger.png" alt="Frogger" >}}
+{{< image src="frogger.png" alt="Frogger" >}}
 
 With this example, lanes represent blocks and the whole road represents convincing someone to accept a fraudulent transaction. Just as the frog can’t successfully cross the road if it doesn’t make it past one of the lanes, an attacker can’t leave orphaned blocks without arousing suspicion at a crypto custodian.
 
