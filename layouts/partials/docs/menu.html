@@ -7,13 +7,15 @@
 
   {{ partial "docs/inject/menu-before" . }}
 
+  {{ define "menu-link" }}
+    <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+  {{ end }}
+  
   <div class="book-tree">
     <!-- list main sections -->
     {{ range site.Home.Pages }}
       <div class="submenu">
-        <h2>
-          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-        </h2>
+        <h2>{{ template "menu-link" . }}</h2>
         
         <ul>
           <!-- list sub sections -->
@@ -22,26 +24,20 @@
               <!-- special case: posts -->
               {{ if eq .Type "posts" }}
                 <li class="subsection">
-                  <h3>
-                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-                  </h3>
+                  <h3>{{ template "menu-link" . }}</h3>
 
                   <ul class="taxonomies">
                     <!-- NOTE: Taxonomies are site-wide and not section-specific. -->
                     {{ range $taxonomy, $terms := site.Taxonomies }}
                       <li>
                         {{ with site.GetPage $taxonomy }}
-                          <h4>
-                            <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-                          </h4>
+                          <h4>{{ template "menu-link" . }}</h4>
                         {{ end }}
                        
                         {{ with $terms }}
                           <ul class="terms">
                             {{ range . }}
-                              <li>
-                                <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
-                              </li>
+                              <li>{{ template "menu-link" .Page }}</li>
                             {{ end }}
                           </ul>
                         {{ end }}
@@ -53,16 +49,12 @@
               <!-- other cases -->
               {{ else }}
                 <li class="subsection">
-                  <h3>
-                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-                  </h3>
+                  <h3>{{ template "menu-link" . }}</h3>
 
                   {{ with .Pages }}
                     <ul class="pages">
                       {{ range . }}
-                        <li>
-                          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-                        </li>
+                        <li>{{ template "menu-link" . }}</li>
                       {{ end }}
                     </ul>
                   {{ end }}
