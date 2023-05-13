@@ -1,6 +1,6 @@
 ---
-title: Distributed Networks Institute (DNI)
 type: docs
+title: Distributed Networks Institute (DNI)
 bookFlatSection: true
 ---
 
