@@ -8,7 +8,11 @@
   {{ partial "docs/inject/menu-before" . }}
 
   {{ define "menu-link" }}
-    <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+    {{ if .Page.Params.hide }}
+      {{ .Title }}
+    {{ else }}
+      <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+    {{ end }}
   {{ end }}
   
   <div class="book-tree">
