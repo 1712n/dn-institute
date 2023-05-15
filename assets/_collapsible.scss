@@ -7,6 +7,11 @@
     align-items: center;
   }
 
+  // current page
+  .anchor[aria-current="page"] {
+    font-weight: bold;
+  }
+
   .collapsible-control {
     background: none;
     border: none;
@@ -20,16 +25,11 @@
     }
 
     &[aria-expanded="false"]:after {
-      // content: "";
       content: "";
     }
 
     &[aria-expanded="true"]:after {
-      // content: "";
       content: "";
     }
   }
-
-  // .collapsible-target {
-  // }
 }
