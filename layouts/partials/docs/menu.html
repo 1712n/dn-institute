@@ -42,7 +42,7 @@
       <!-- show collapsibles only in sections with children -->
       {{ if (gt (.Pages | len) 0) }}
         <div class="submenu collapsible">
-          {{ $ul2 = add .LinkTitle | urlize | lower }}
+          {{ $ul2 = .LinkTitle | urlize | lower }}
           <h2>{{ template "menu-anchor" (dict "page" $page "item" . "control" true) }}</h2>
           <ul class="collapsible-target" id="ul2-{{ $ul2 }}">
             <!-- list sub sections -->
@@ -51,7 +51,7 @@
                 <li class="subsection collapsible">
                   <!-- special case: posts -->
                   {{ if eq .Type "posts" }}
-                    {{ $ul3 = add .LinkTitle | urlize | lower }}
+                    {{ $ul3 = .LinkTitle | urlize | lower }}
                     <h3>{{ template "menu-anchor" (dict "page" $page "item" . "control" true) }}</h3>
                     <ul class="taxonomies collapsible-target" id="ul3-{{ $ul2 }}-{{ $ul3 }}">
                       <!-- NOTE: Taxonomies are site-wide and not section-specific. -->
@@ -63,7 +63,7 @@
                             {{ end }}
 
                             {{ with $terms }}
-                              {{ $ul4 = add .LinkTitle | urlize | lower }}
+                              {{ $ul4 = .LinkTitle | urlize | lower }}
                               <ul class="terms collapsible-target" id="ul4-{{ $ul2 }}-{{ $ul3 }}-{{ $ul4 }}">
                                 {{ range . }}
                                   <li>{{ template "menu-anchor" (dict "page" $page "item" .Page) }}</li>
@@ -84,7 +84,7 @@
                   <!-- other cases -->
                   {{ else }}
                     {{ if .Pages }}
-                      {{ $ul3 = add .LinkTitle | urlize | lower }}
+                      {{ $ul3 = .LinkTitle | urlize | lower }}
                       <h3>{{ template "menu-anchor" (dict "page" $page "item" . "control" true) }}</h3>
                       <ul class="pages collapsible-target" id="ul3-{{ $ul2 }}-{{ $ul3 }}">
                         {{ range .Pages }}
