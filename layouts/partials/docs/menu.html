@@ -56,20 +56,28 @@
                     <ul class="taxonomies collapsible-target" id="ul3-{{ $ul2 }}-{{ $ul3 }}">
                       <!-- NOTE: Taxonomies are site-wide and not section-specific. -->
                       {{ range $taxonomy, $terms := site.Taxonomies }}
-                        <li class="taxonomy collapsible">
+                        {{ if site.Params.expandTerms }}
+                          <li class="taxonomy collapsible">
+                            {{ with site.GetPage $taxonomy }}
+                              <h4>{{ template "menu-anchor" (dict "page" $page "item" . "control" true) }}</h4>
+                            {{ end }}
+
+                            {{ with $terms }}
+                              {{ $ul4 = add .LinkTitle | urlize | lower }}
+                              <ul class="terms collapsible-target" id="ul4-{{ $ul2 }}-{{ $ul3 }}-{{ $ul4 }}">
+                                {{ range . }}
+                                  <li>{{ template "menu-anchor" (dict "page" $page "item" .Page) }}</li>
+                                {{ end }}
+                              </ul>
+                            {{ end }}
+                          </li>
+                        {{ else }}
                           {{ with site.GetPage $taxonomy }}
-                            <h4>{{ template "menu-anchor" (dict "page" $page "item" . "control" true) }}</h4>
+                          <li class="taxonomy">
+                            <h4>{{ template "menu-anchor" (dict "page" $page "item" . "control" false) }}</h4>
+                          </li>
                           {{ end }}
-                         
-                          {{ with $terms }}
-                            {{ $ul4 = add .LinkTitle | urlize | lower }}
-                            <ul class="terms collapsible-target" id="ul4-{{ $ul2 }}-{{ $ul3 }}-{{ $ul4 }}">
-                              {{ range . }}
-                                <li>{{ template "menu-anchor" (dict "page" $page "item" .Page) }}</li>
-                              {{ end }}
-                            </ul>
-                          {{ end }}
-                        </li>
+                        {{ end }}
                       {{ end }}
                     </ul>
 
