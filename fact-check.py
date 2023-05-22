@@ -7,7 +7,7 @@ Extract and verify statements from text content in a pull request using a LLM mo
 __author__ = "Mikhail Orzhenovskii <orzhan057@gmail.com>, Daniel Souza <me@posix.dev.br>"
 
 # core
-import os, argparse
+import os, sys, argparse
 
 # deps
 import requests
