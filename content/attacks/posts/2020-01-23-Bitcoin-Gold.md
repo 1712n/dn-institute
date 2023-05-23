@@ -21,6 +21,7 @@ The attackers were able to double-spend coins, resulting in a loss of over $70,0
 
 - **January 23, 2020:** The attackers removed 14 blocks from the BTG network, replacing them with 13 blocks and double spending 1,900 BTG, worth around $19,000 at the time.
 - **January 24, 2020:** The attackers removed 15 blocks from the network and issued another 16 blocks, which resulted in the double spending of 5,267 BTG, which was just over $53,000 at the time.
+- **January 24, 2020:** Binance increased its BTG withdrawal requirement to 20 confirmations
 
 ## Security Failure Causes
 
