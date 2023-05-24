@@ -39,11 +39,11 @@ By publishing periodical articles, DNI contributes to combating the snake oil be
 
 ### Crowdsourced Attack Wiki
 
-As part of our documentation efforts, we maintain a [crowdsourced knowledge base](posts/) on all distributed network attacks. This wiki can be a valuable resource for IT security professionals, as well as a source of ground truth for threat modeling systems. [Feel free to contribute](https://github.com/1712n/dni-website/).
+As part of our documentation efforts, we maintain a [crowdsourced knowledge base](attacks/posts/) on all distributed network attacks. This wiki can be a valuable resource for IT security professionals, as well as a source of ground truth for threat modeling systems. [Feel free to contribute](https://github.com/1712n/dni-website/).
 
 ### Improving Oracles
 Oracles are one of the pillars of modern distributed networks, allowing smart contracts to interact with the external world. We focus on [building models](https://github.com/1712n/yachay-public) capable of answering what, when, and where questions.
 
 ### MVT API
 
-[Market Venue Transparency API](docs/mvt/) is our effort to bring accountability and transparency to the crypto market venues.
+[Market Venue Transparency API](mvt/) is our effort to bring accountability and transparency to the crypto market venues.
