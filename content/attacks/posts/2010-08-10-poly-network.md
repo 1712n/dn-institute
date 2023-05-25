@@ -2,7 +2,7 @@
 ---
 date: 2021-08-10
 categories: Decentralized Finance (DeFi), Smart Contract Exploit
-title: Poly Network Exploited, Largest DeFi Hack in Histor
+title: Poly Network Exploited, Largest DeFi Hack in History
 ---
 
 
