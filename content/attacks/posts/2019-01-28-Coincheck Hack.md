@@ -10,7 +10,11 @@ In January 2019, Coincheck, one of Japan's largest cryptocurrency exchanges, exp
 
 ## Attackers
 
-The identity of the attackers behind the Coincheck hack remains unknown. Investigations were conducted by law enforcement agencies and cybersecurity experts to trace the stolen funds and identify the responsible individuals. The incident shed light on the evolving sophistication of cybercriminals targeting cryptocurrency exchanges.
+According to the BIG Blockchain Intelligence Group Inc., some of the stolen NEM were traced back to a Canadian exchange and a Japanese exchange named Zaif. The NEM development team created an automated tagging system to ensure that all funds stolen from Coincheck are traced. By tagging stolen funds as tainted funds, cryptocurrency exchanges can now easily verify if stolen NEM funds are withdrawn or deposited to regulated trading platforms. As of now, the hackers behind the Coincheck NEM security breach are out of options. It is not possible for the hackers to convert the stolen NEM to other major cryptocurrencies like Bitcoin and Ethereum because the automated tagging system will immediately alert exchanges about the tainted funds
+
+The Tokyo police said they had arrested two men for allegedly hacking cryptocurrency exchange Coincheck. The platform was hacked, and about $400 million of "NEM" tokens were stolen in January 2018, which is considered one of the largest hacking operations of cryptocurrency exchanges. The police have been pursuing the perpetrators ever since, and they believe they have now made progress in the case. According to media reports, investigators focused on tracking an alleged sale made on the dark web in which a large amount of "NEM" was traded at a 15% discount. Tokyo police believe hackers were able to exchange their XEM funds for Bitcoin. 
+On March 11, 2022, two men were taken into custody. The details about the detainees are limited, but they are males, one from Osaka Prefecture and the other from Hokkaido. The Osaka resident is accused of transacting 24 million NEM coins and may have gained access to about 200 accounts. The two were arrested under the provisions of the Punishment of Organized Crimes and Proceeds of Crime Control Act.
+
 
 ## Losses
 
