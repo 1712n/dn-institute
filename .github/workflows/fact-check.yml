@@ -1,10 +1,6 @@
 on:
-  pull_request:
-    types:
-      # - opened
-      # - reopened
-      - ready_for_review
-      - review_requested
+  pull_request_target:
+    types: [labeled]
  
     paths:
       - "content/**/*.md"
@@ -13,9 +9,11 @@ jobs:
   fact-check:
     runs-on: ubuntu-latest
     name: "Verify statements in content diff for truthness"
-
+    if: contains(github.event.pull_request.labels.*.name, 'Verify Content')
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install poetry
         run: pipx install poetry
