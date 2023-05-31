@@ -8,6 +8,8 @@ bookFlatSection: true
 
 Distributed Networks Institute (DNI) aims to help distributed networks achieve resilience and sustainable growth through standardization, documentation, and education. We are a part of a 501(c)3 non-profit incubator in Washington DC called [BlockShop](https://blockshop.org).
 
+TEST
+
 ## Axes of research
 
 {{< columns >}}
