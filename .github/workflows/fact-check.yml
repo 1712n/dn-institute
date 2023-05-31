@@ -1,9 +1,7 @@
 on:
   pull_request_target:
     types: [labeled]
- 
-    paths:
-      - "content/**/*.md"
+
 
 jobs:
   fact-check:
