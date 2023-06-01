@@ -6,7 +6,7 @@ jobs:
   fact-check:
     runs-on: ubuntu-latest
     name: "Verify statements in content diff for truthness"
-    if: github.event.issue.pull_request && contains(github.event.comment.body, '/factcheck')
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/qualitycheck')
     steps:
       - name: Check if user is a member of the team
         uses: tspascoal/get-user-teams-membership@v2
