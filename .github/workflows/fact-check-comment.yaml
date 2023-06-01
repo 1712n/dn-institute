@@ -1,0 +1,48 @@
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  fact-check:
+    runs-on: ubuntu-latest
+    name: "Verify statements in content diff for truthness"
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/factcheck')
+    steps:
+      - name: Check if user is a member of the team
+        uses: tspascoal/get-user-teams-membership@v2
+        id: checkUserMember
+        with:
+          username: ${{ github.actor }}
+          team: 'Crypto Attack Wiki Team'
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - if: ${{ steps.checkUserMember.outputs.isTeamMember == 'false' }}
+        run: exit 1
+
+      - uses: actions/checkout@v3
+
+      - name: Install poetry
+        run: pipx install poetry
+      
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "poetry"
+
+      - name: Install Python dependencies
+        run: poetry install
+      
+      - uses: xt0rted/pull-request-comment-branch@v2
+        id: comment-branch
+
+      - name: Run fact-checking script
+        run: |
+          PR_URL="${{ github.event.issue.pull_request.url }}"
+          PR_NUM=${PR_URL##*/}
+          poetry run python fact-check.py \
+            --repo-url "${{ github.event.repository.full_name }}" \
+            --pull-request-head "${{ steps.comment-branch.outputs.head_ref }}" \
+            --pull-request-base "${{  steps.comment-branch.outputs.base_ref }}" \
+            --pull-request-number $PR_NUM \
+            --github-token "${{ secrets.GITHUB_TOKEN }}" \
+            --openai-key "${{ secrets.OPENAI_KEY }}" \
+            --content-path "content"
