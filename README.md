@@ -4,7 +4,7 @@ Before committing to the wikis, please ensure your submission meets the followin
 
 - File name - YYYY-MM-DD-entity-that-was-hacked.md
 - Required headers:
-  - Date: YYYY-MM-DD-Attacked-Entity
+  - Date: YYYY-MM-DD
   - Categories: "Type of attack"
   - Title: "Article Title"
 - Focus on **facts and numbers** instead of vague phrases and value judgments (such as "huge losses", "important lesson")
