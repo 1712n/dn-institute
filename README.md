@@ -1,4 +1,5 @@
-## Before committing to this repository, please ensure your submission meets the following criteria:
+## DNI PR Approval Criteria
+Before committing to this repository, please ensure your submission meets the following criteria:
 
 - File name - YYYY-MM-DD-entity-that-was-hacked.md
 - All required headers:
