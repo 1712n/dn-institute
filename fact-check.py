@@ -133,6 +133,7 @@ def get_diff(pull_request) -> str:
     # Get the repository path on the runner
     repo_path = os.environ["GITHUB_WORKSPACE"]
     print("repo_path", repo_path)
+    tmp_branch_name = "tmp_pull_branch"
 
     # Check out the base branch and head branch
     print(
@@ -160,7 +161,18 @@ def get_diff(pull_request) -> str:
     print(
         "git2",
         subprocess.run(
-            ["git", "checkout", args.pull_request_head],
+            ["git", "fetch", "origin", f"pull/{args.pull_request_number}/head:{tmp_branch_name}"],
+            cwd=repo_path,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=False,
+        ),
+    )
+    print(
+        "git3",
+        subprocess.run(
+            ["git", "checkout", tmp_branch_name],
             cwd=repo_path,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -177,7 +189,7 @@ def get_diff(pull_request) -> str:
             "--no-prefix",
             "--unified=0",
             args.pull_request_base,
-            args.pull_request_head,
+            tmp_branch_name,
             "--",
             subpath,
         ],
