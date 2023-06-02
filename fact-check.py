@@ -188,6 +188,7 @@ def get_diff(pull_request) -> str:
             "diff",
             "--no-prefix",
             "--unified=0",
+            "--diff-filter=m",
             args.pull_request_base,
             tmp_branch_name,
             "--",
