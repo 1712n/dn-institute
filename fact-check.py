@@ -68,7 +68,7 @@ def openai_call(
     prompt: str,
     model: str = "gpt-3.5-turbo",
     temperature: float = 0.5,
-    max_tokens: int = 1000,
+    max_tokens: int = 500,
 ):
     messages = [{"role": "user", "content": prompt}]
     response = openai.ChatCompletion.create(
@@ -227,7 +227,7 @@ def verify_statements(diff: str) -> tuple[bool, bool, str]:
     for p in parts:
         if len(p.strip()) <= 1:
             continue
-        ans = openai_call(EXTRACT_STATEMENTS % p)
+        ans = openai_call(EXTRACT_STATEMENTS % p, max_tokens=1000)
         print("Prompt: " + EXTRACT_STATEMENTS % p)
         ans = ans.strip().strip("`").strip()
         ans = ans[ans.find("[") :]
