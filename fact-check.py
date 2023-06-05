@@ -216,7 +216,9 @@ def fix_uncompleted_json(json_string: str) -> str:
 
 def verify_statements(diff: str) -> tuple[bool, bool, str]:
     # Break into segments
-    parts = diff.split("\n##")
+    parts = diff.split("\n")
+    # Remove files names
+    parts = [x for x in parts if not x.startswith("+++")]
     # to do: split long parts
     # Get statements from each segment
 
@@ -227,7 +229,7 @@ def verify_statements(diff: str) -> tuple[bool, bool, str]:
     for p in parts:
         if len(p.strip()) <= 1:
             continue
-        ans = openai_call(EXTRACT_STATEMENTS % p, max_tokens=1000)
+        ans = openai_call(EXTRACT_STATEMENTS % p)
         print("Prompt: " + EXTRACT_STATEMENTS % p)
         ans = ans.strip().strip("`").strip()
         ans = ans[ans.find("[") :]
