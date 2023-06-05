@@ -68,7 +68,7 @@ def openai_call(
     prompt: str,
     model: str = "gpt-3.5-turbo",
     temperature: float = 0.5,
-    max_tokens: int = 500,
+    max_tokens: int = 1000,
 ):
     messages = [{"role": "user", "content": prompt}]
     response = openai.ChatCompletion.create(
@@ -202,6 +202,17 @@ def get_diff(pull_request) -> str:
     # Print the diff
     return diff_str
 
+def fix_uncompleted_json(json_string: str) -> str:
+    while True:
+        if not json_string:
+            raise ValueError("Couldn't fix JSON")
+        try:
+            data = json.loads(json_string + "]")
+        except json.decoder.JSONDecodeError:
+            json_string = json_string[:-1]
+            continue
+        break
+    return json_string + "]"
 
 def verify_statements(diff: str) -> tuple[bool, bool, str]:
     # Break into segments
@@ -222,6 +233,8 @@ def verify_statements(diff: str) -> tuple[bool, bool, str]:
         ans = ans[ans.find("[") :]
         print("Answer: " + ans)
         try:
+            if ans[-1] != "]":
+                ans = fix_uncompleted_json(ans)
             obj = json.loads(ans)
         except Exception as ex:
             print(ex)
