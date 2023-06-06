@@ -1,13 +1,13 @@
 ---
 date: 2019-01-28
 categories: Cryptocurrency, Exchange Hack, Security Breach
-title: Coincheck Hack: A $530 Million NEM Theft Unveiling Centralized Exchange Vulnerabilities
+title: "Coincheck Hack: A $530 Million NEM Theft Unveiling Centralized Exchange Vulnerabilities"
 
 ---
 
 ## Summary
 
-In January 2019, Coincheck, one of Japan's largest cryptocurrency exchanges, suffered a colossal security breach, resulting in the theft of approximately $530 million worth of NEM tokens. This incident stands as one of the most significant cryptocurrency exchange hacks in history, shedding light on the vulnerabilities inherent in centralized exchanges and emphasizing the urgent need for robust security measures within the crypto ecosystem.
+In January 2019, Coincheck, one of Japan's largest cryptocurrency exchanges, suffered a colossal security breach, resulting in the theft of approximately $530 million worth of NEM tokens. This incident shedding light on the vulnerabilities inherent in centralized exchanges and emphasizing the urgent need for robust security measures within the crypto ecosystem.
 
 ## Attackers
 
@@ -27,6 +27,7 @@ The attack resulted in the theft of 523 million NEM tokens, valued at approximat
 - Authorities and regulatory bodies initiated investigations into the incident, focusing on identifying the attackers and recovering the stolen funds.
 - Coincheck announced its intention to compensate affected users by repurchasing the stolen NEM tokens at a fixed rate, ensuring reimbursement for each user impacted by the hack.
 - **March 12, 2019:** Coincheck completed the reimbursement process, compensating affected users with Japanese yen in exchange for their lost NEM tokens.
+- **March 11, 2022:** Two individuals, one from Osaka Prefecture and the other from Hokkaido, were arrested by the police. The Osaka resident is accused of transacting 24 million NEM coins and potentially accessing approximately 200 accounts. Both detainees were arrested under the Punishment of Organized Crimes and Proceeds of Crime Control Act.
 
 ## Security Failure Causes
 
