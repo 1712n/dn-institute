@@ -92,8 +92,8 @@ def google_search(query):
 
 EXTRACT_STATEMENTS = """```%s```
 
-Extract all claims that can be fact-checked from the text section. For each "claim", generate a "query". The "query" should include a short one sentence summary of the whole text section followed by the corresponding "claim" itself. Critical: the output must be machine-readable, and formatted as json:
-```[{"claim": "", "query": ""}, {"claim": "", "query": ""}]```
+First, extract all claims that can be fact-checked from the text section. Then, generate a valid machine-readable JSON usung the following instructions. For each "claim", generate a "query". The "query" should have 2 sentences. First sentence is a short summary of the whole original text section that focuses on dates and named entities. Second sentence is the content of the corresponding "claim" itself. Use the following format ```[{"claim": "", "query": ""}, {"claim": "", "query": ""}]```.
+
 """
 
 
