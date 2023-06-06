@@ -8,10 +8,11 @@ __author__ = "Mikhail Orzhenovskii <orzhan057@gmail.com>, Daniel Souza <me@posix
 
 # core
 import os, sys, argparse
+from typing import List
 
 # deps
-import requests
-from github import Github, GithubException
+import re
+from github import Github
 import subprocess
 import json
 from duckduckgo_search import ddg
@@ -190,8 +191,7 @@ def get_diff(pull_request) -> str:
             "--unified=0",
             f"{args.pull_request_base}...{tmp_branch_name}",
             "--",
-            subpath,
-            '| egrep "^\+"'
+            subpath
         ],
         cwd=repo_path,
     )
@@ -214,14 +214,31 @@ def fix_uncompleted_json(json_string: str) -> str:
         break
     return json_string + "]"
 
-def verify_statements(diff: str) -> tuple[bool, bool, str]:
-    # Break into segments
+def split_content(diff: str) -> List[str]:
+    # remove all tech info and stay only changed and append
     parts = diff.split("\n")
-    # Remove files names
+    parts = [x for x in parts if x.startswith("+")]
+    # remove file names
     parts = [x for x in parts if not x.startswith("+++")]
-    # to do: split long parts
-    # Get statements from each segment
+    # remove '+' sign from start
+    parts = [x.lstrip("+") for x in parts]
 
+    # Join string between # symbol
+    final = []
+    buff = []
+    for p in parts:
+        if p.startswith("#"):
+            final.append("\n".join(buff))
+            buff = []
+        buff.append(p)
+    final.append("\n".join(buff))
+
+    final = [x for x in final if not x.startswith("---") and not x.endswith("---\n")]
+
+    return final
+
+def verify_statements(diff: str) -> tuple[bool, bool, str]:
+    parts = split_content(diff)
     comment = ""
     claims = []
     had_error = False
