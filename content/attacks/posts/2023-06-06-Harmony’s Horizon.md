@@ -8,7 +8,7 @@ title: Harmony's Horizon Bridge was the victim of a massive cyberattack from Nor
 ## Summary
 
 On Thursday, June 23, 2022, the Harmony Protocol team was notified of a malicious attack on their proprietary Horizon Bridge. Blockchain bridges, also known as cross-chain bridges, facilitate communication between different blockchain networks and allow users to transfer assets from one network to another. Using Harmony's Horizon Bridge, users can move assets, including tokens, stablecoins, and NFTs, between the Ethereum, Binance Smart Chain, and Harmony blockchains.
-At 5:30 AM Pacific Standard Time, several transactions compromised the bridge, with 11 transactions extracting tokens stored in the bridge. The hackers were able to steal the following assets: Frax (FRAX), Wrapped Ether (WETH), Aave (AAVE), Sushi (SUSHI), Frax Share (FXS), AAG (AAG), Binance USD (BUSD), Dai (DAI), Tether (USDT), Wrapped BTC (WBTC), and USD Coin (USDC). All of these tokens were exchanged for ETH on the decentralized exchange Uniswap.
+At 5:30 AM Pacific Standard Time, several transactions compromised the bridge, with 11 transactions extracting tokens stored in the bridge. The hackers were able to steal the following assets: Frax (FRAX), Wrapped Ether (WETH), Aave (AAVE), Sushi (SUSHI), Frax Share (FXS), AAG (AAG), Binance USD (BUSD), Dai (DAI), Tether (USDT), Wrapped BTC (WBTC), and USD Coin (USDC). Some of these tokens have been exchanged for ETH on decentralized exchanges.
 
 ## Attackers
 
@@ -22,11 +22,10 @@ The estimated value at the time of the attack was approximately $100 million USD
 
 ## Timeline
 
-- **June 23, 2022 5:30 AM PST:** Time of the hacking incident.
-- **June 23, 2022 4:13 PM PST:** The project team reported the hack and announced the start of work with national authorities and forensic experts to identify the culprit and return the stolen funds.
-- **June 24, 2022 10:03 AM PST:** The team announced that today at 8:30 Pacific Time, they shared their findings with their colleagues in the United States.
-- **June 25, 2022 08:47 PM PST:** The project team offered the hackers a reward of one million dollars for a refund.
-- **June 29, 2022 07:01 PM PST:** The project team came up with a final offer of $10 million and an end to the investigation in exchange for the remaining amount stolen.
+- **June 23, 2022 4:13 PM PST:** [The project team reported](https://twitter.com/harmonyprotocol/status/1540110924400324608?cxt=HHwWgMCjubquyd8qAAAA) the hack and announced the start of work with national authorities and forensic experts to identify the culprit and return the stolen funds.
+- **June 24, 2022 10:03 AM PST:** [The team announced that](https://twitter.com/harmonyprotocol/status/1540380101308608512?cxt=HHwWgMCj2c7iw-AqAAAA) today at 8:30 Pacific Time, they shared their findings with their colleagues in the United States.
+- **June 25, 2022 08:47 PM PST:** [The project team offered](https://twitter.com/harmonyprotocol/status/1540904433525088256?cxt=HHwWgICzkeKasuIqAAAA) the hackers a reward of one million dollars for a refund.
+- **June 29, 2022 07:01 PM PST:** [The project team came up with a final offer](https://twitter.com/harmonyprotocol/status/1542327345175879680?cxt=HHwWgICjiZCjuecqAAAA) of $10 million and an end to the investigation in exchange for the remaining amount stolen.
 - **January 23, 2023:** The FBI announced that it has identified the North Korean hacking group Lazarus Group as responsible for the breach.
 
 ## Security Failure Causes
