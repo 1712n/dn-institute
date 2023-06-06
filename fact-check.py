@@ -92,7 +92,7 @@ def google_search(query):
 
 EXTRACT_STATEMENTS = """```%s```
 
-Extract all the claims that can be fact-checked from the text section. For each claim, generate a search query that includes the claim and at least one relevant keyword. Critical: the output must be machine-readable, and formatted as json:
+Extract all the claims that can be fact-checked from the text section. For each claim, generate a search query that includes a title for the text section followed by the claim itself. Critical: the output must be machine-readable, and formatted as json:
 ```[{"claim": "", "query": ""}, {"claim": "", "query": ""}]```
 """
 
