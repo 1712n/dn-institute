@@ -7,7 +7,7 @@ title: "BSC Token Hub Hit By $586 Million Bridge Hack"
 
 ## Summary
 
-On October 6, 2022, BSC Token Hub, a bridge between BNB Beacon Chain (BEP2) and Binance Smart Chain (BEP20) was exploited. The native cross-chain bridge between BNB Beacon Chain (BEP2) and BNB Smart Chain (BEP20), also known as BNB Token Hub was exploited. The hacker used a low-level proof vulnerability and minted 2,000,000 $BNB to their address. Consequently, the hacker began bridging the funds to Fantom and Ethereum chains. The security experts in collaboration with validators were able to save the majority of the funds. The hacker managed to bridge 127,000,000 $USD using AnySwap and Stargate bridges, with 53% of the stolen funds going to Ethereum, 33% to Fantom, and the rest to other chains. Tether blacklisted the attacker's address. The remaining 459,000,000 $USD worth of assets were left frozen in the attacker's address. 
+On October 6, 2022, BSC Token Hub, a bridge between BNB Beacon Chain (BEP2) and Binance Smart Chain (BEP20) was exploited. The native cross-chain bridge between BNB Beacon Chain (BEP2) and BNB Smart Chain (BEP20), also known as BNB Token Hub was exploited. The hacker used a low-level proof vulnerability and 2,000,000 $BNB were drained out of thin air. Consequently, the hacker began bridging the funds to Fantom and Ethereum chains. The security experts in collaboration with validators were able to save the majority of the funds. The hacker managed to bridge 127,000,000 $USD using AnySwap and Stargate bridges, with 53% of the stolen funds going to Ethereum, 33% to Fantom, and the rest to other chains. Tether blacklisted the attacker's address. The remaining 459,000,000 $USD worth of assets were left frozen in the attacker's address. 
 
 ## Attacker
 
