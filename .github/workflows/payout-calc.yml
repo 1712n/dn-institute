@@ -1,0 +1,34 @@
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: write
+
+jobs:
+  payout-calc:
+    runs-on: ubuntu-latest
+    name: "Calculate author payout"
+    # TODO: Is it possible to use an environment variable to better manage the list of allowed actors?
+    if: github.event.issue.pull_request && github.event.pull_request.merged == true && contains(github.event.comment.body, '/payout' && && contains(fromJSON('["celestenoll", "NikoAnita", "LundbergPaul", "eric-oconnor", "alxarno", "evgenydmitriev", "jhirschkorn", "marina-chibizova"]'), github.actor))
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install poetry
+        run: pipx install poetry
+      
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "poetry"
+
+      - name: Install Python dependencies
+        run: poetry -C payout-calc/ install
+      
+      - name: Run payout calculation script
+        run: |
+          poetry -C payout-calc/ run python payout-calc \
+            --pull-url "${{ github.event.issue.pull_request.url }}" \
+            --github-token "${{ secrets.GITHUB_TOKEN }}" \
