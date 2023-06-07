@@ -86,13 +86,12 @@ def openai_call(
     return ret
 
 
-def google_search(output):
-    return "\n\n----".join([x["title"] + "\n" + x["body"] for x in ddg(output)[:4]])
+def google_search(query):
+    return "\n\n----".join([x["title"] + "\n" + x["body"] for x in ddg(query)[:4]])
 
 
 EXTRACT_STATEMENTS = """```%s```
-First, extract 5 most important keywords (dates and named entities) from the text section and save it as "5-keywords" variable. Then extract all claims that can be fact-checked from the text section. Then, for each "claim", copy the claim and add the value of the "5-keywords" variable to make the corresponding "output". Important: Respond only with an array of valid JSONs in the following format: ```[{"claim": "", "output": ""}, {"claim": "", "output": ""}]```."""
-
+Extract all claims that can be fact-checked from the text section above. Then, for each "claim", copy the claim and add synopsys of the whole text section above to make the corresponding "query". Important: Respond only with an array of valid JSONs in the following format: ```[{"claim": "", "query": ""}, {"claim": "", "query": ""}]```."""
 
 VERIFY_STATEMENT = """
 Given a claim and a set of search results from a search engine API, determine whether the claim is true or false, or if there is not enough evidence to verify it. Use the search results to provide evidence for your determination.
@@ -261,16 +260,16 @@ def verify_statements(diff: str) -> tuple[bool, bool, str]:
             pass
 
         for s in obj:
-            if s is None or s["output"] == "" or s["claim"] == "":
+            if s is None or s["query"] == "" or s["claim"] == "":
                 continue
             claims.append(s)
             try:
-                summary = google_search(s["output"])
+                summary = google_search(s["query"])
             except Exception as ex:
                 print(ex)
                 had_error = True
                 continue
-            print("Query: " + s["output"])
+            print("Query: " + s["query"])
             print("Summary: " + summary)
             try:
                 ans = openai_call(VERIFY_STATEMENT % (s["claim"], summary))
