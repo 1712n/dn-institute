@@ -86,14 +86,13 @@ def openai_call(
     return ret
 
 
-def google_search(query):
-    return "\n\n----".join([x["title"] + "\n" + x["body"] for x in ddg(query)[:4]])
+def google_search(output):
+    return "\n\n----".join([x["title"] + "\n" + x["body"] for x in ddg(output)[:4]])
 
 
 EXTRACT_STATEMENTS = """```%s```
 
-Extract all claims that can be fact-checked from the text section. For each "claim", generate a "query". The "query" should include a short one sentence summary of the whole text section followed by the corresponding "claim" itself. Critical: the output must be machine-readable, and formatted as json:
-```[{"claim": "", "query": ""}, {"claim": "", "query": ""}]```
+Use the following JSON format in your response: ```[{"claim": "", "output": ""}, {"claim": "", "output": ""}]```. Respond only with the array of claims and corresponding outputs. First, extract 5 most important keywords (dates and named entities) from the text section and save it as "5-keywords" variable. Then extract all claims that can be fact-checked from the text section. Then, for each "claim", copy the claim and add the value of the "5-keywords" variable to make the corresponding "output".
 """
 
 
@@ -261,16 +260,16 @@ def verify_statements(diff: str) -> tuple[bool, bool, str]:
             pass
 
         for s in obj:
-            if s is None or s["query"] == "" or s["claim"] == "":
+            if s is None or s["output"] == "" or s["claim"] == "":
                 continue
             claims.append(s)
             try:
-                summary = google_search(s["query"])
+                summary = google_search(s["output"])
             except Exception as ex:
                 print(ex)
                 had_error = True
                 continue
-            print("Query: " + s["query"])
+            print("Query: " + s["output"])
             print("Summary: " + summary)
             try:
                 ans = openai_call(VERIFY_STATEMENT % (s["claim"], summary))
