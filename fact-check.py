@@ -200,6 +200,9 @@ def get_diff(pull_request) -> str:
     return diff_str
 
 def fix_uncompleted_json(json_string: str) -> str:
+    # if start not presented, just make it empty list
+    if "[" not in json_string:
+        json_string = "["
     while True:
         if not json_string:
             raise ValueError("Couldn't fix JSON")
