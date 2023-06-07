@@ -8,7 +8,7 @@ __author__ = "Mikhail Orzhenovskii <orzhan057@gmail.com>, Daniel Souza <me@posix
 
 # core
 import os, sys, argparse
-from typing import List
+from typing import List, Tuple
 
 # deps
 import re
@@ -213,7 +213,7 @@ def fix_uncompleted_json(json_string: str) -> str:
         break
     return json_string + "]"
 
-def split_content(diff: str) -> List[str]:
+def split_content(diff: str) -> Tuple[List[str], str]:
     # remove all tech info and stay only changed and append
     parts = diff.split("\n")
     parts = [x for x in parts if x.startswith("+")]
@@ -232,12 +232,19 @@ def split_content(diff: str) -> List[str]:
         buff.append(p)
     final.append("\n".join(buff))
 
+    meta = [x for x in final if x.startswith("---") and x.endswith("---\n")]
+    if len(meta) != 0:
+        meta = meta[0].split("\n")
+        meta = [x.replace("date: ", "").replace("title: ", "").removeprefix('"').removesuffix('"') for x in meta if "date: " in x or "title: " in x]
+        meta_str = " ".join(meta)
+    else:
+        meta_str = ""
     final = [x for x in final if not x.startswith("---") and not x.endswith("---\n")]
 
-    return final
+    return (final, meta_str)
 
 def verify_statements(diff: str) -> tuple[bool, bool, str]:
-    parts = split_content(diff)
+    parts, meta = split_content(diff)
     comment = ""
     claims = []
     had_error = False
@@ -264,12 +271,12 @@ def verify_statements(diff: str) -> tuple[bool, bool, str]:
                 continue
             claims.append(s)
             try:
-                summary = google_search(s["query"])
+                summary = google_search(f"{meta} {s['query']}")
             except Exception as ex:
                 print(ex)
                 had_error = True
                 continue
-            print("Query: " + s["query"])
+            print(f"Query: {meta} {s['query']}")
             print("Summary: " + summary)
             try:
                 ans = openai_call(VERIFY_STATEMENT % (s["claim"], summary))
