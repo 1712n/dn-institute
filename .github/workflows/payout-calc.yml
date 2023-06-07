@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     name: "Calculate author payout"
     # TODO: Is it possible to use an environment variable to better manage the list of allowed actors?
-    if: github.event.issue.pull_request && github.event.pull_request.merged == true && contains(github.event.comment.body, '/payout' && && contains(fromJSON('["celestenoll", "NikoAnita", "LundbergPaul", "eric-oconnor", "alxarno", "evgenydmitriev", "jhirschkorn", "marina-chibizova"]'), github.actor))
+    if: github.event.issue.pull_request && github.event.pull_request.merged == true && contains(github.event.comment.body, '/payout' && contains(fromJSON('["celestenoll", "NikoAnita", "LundbergPaul", "eric-oconnor", "alxarno", "evgenydmitriev", "jhirschkorn", "marina-chibizova"]'), github.actor))
     steps:
       - uses: actions/checkout@v3
 
