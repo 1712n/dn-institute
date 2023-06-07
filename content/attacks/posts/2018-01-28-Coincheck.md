@@ -1,5 +1,5 @@
 ---
-date: 2019-01-28
+date: 2018-01-28
 categories: Cryptocurrency, Exchange Hack, Security Breach
 title: "Coincheck Hack: A $530 Million NEM Theft Unveiling Centralized Exchange Vulnerabilities"
 
@@ -7,7 +7,7 @@ title: "Coincheck Hack: A $530 Million NEM Theft Unveiling Centralized Exchange 
 
 ## Summary
 
-In January 2019, Coincheck, one of Japan's largest cryptocurrency exchanges, suffered a colossal security breach, resulting in the theft of approximately $530 million worth of NEM tokens. This incident shedding light on the vulnerabilities inherent in centralized exchanges and emphasizing the urgent need for robust security measures within the crypto ecosystem.
+In January 2018, Coincheck, one of Japan's largest cryptocurrency exchanges, suffered a colossal security breach, resulting in the theft of approximately $530 million worth of NEM tokens. This incident shedding light on the vulnerabilities inherent in centralized exchanges and emphasizing the urgent need for robust security measures within the crypto ecosystem.
 
 ## Attackers
 
@@ -21,9 +21,9 @@ The attack resulted in the theft of 523 million NEM tokens, valued at approximat
 
 ## Timeline
 
-- **January 26, 2019:** Coincheck detected an unauthorized outflow of NEM tokens from their hot wallet, prompting an immediate investigation into the security breach.
+- **January 26, 2018:** Coincheck detected an unauthorized outflow of NEM tokens from their hot wallet, prompting an immediate investigation into the security breach.
 - As a precautionary measure, Coincheck swiftly suspended all withdrawals and deposits of NEM tokens and other cryptocurrencies.
-- **January 27, 2019:** Coincheck publicly confirmed the security breach, acknowledging the substantial loss of NEM tokens and pledging to compensate affected users.
+- **January 27, 2018:** Coincheck publicly confirmed the security breach, acknowledging the substantial loss of NEM tokens and pledging to compensate affected users.
 - Authorities and regulatory bodies initiated investigations into the incident, focusing on identifying the attackers and recovering the stolen funds.
 - Coincheck announced its intention to compensate affected users by repurchasing the stolen NEM tokens at a fixed rate, ensuring reimbursement for each user impacted by the hack.
 - **March 12, 2019:** Coincheck completed the reimbursement process, compensating affected users with Japanese yen in exchange for their lost NEM tokens.
@@ -35,4 +35,4 @@ The Coincheck hack exposed several security failures within the exchange's infra
 
 - Inadequate hot wallet security: Coincheck lacked sufficient measures to secure their hot wallet, which enabled the attackers to gain unauthorized access.
 - Insufficient multi-signature authentication protocols: Coincheck's authentication mechanisms were inadequate, allowing the hackers to exploit vulnerabilities and bypass authentication controls.
-- Lack of comprehensive risk management practices: Coincheck's failure to implement robust risk management practices contributed to the success of the attack
+- Lack of comprehensive risk management practices: Coincheck's failure to implement robust risk management practices contributed to the success of the attack.
