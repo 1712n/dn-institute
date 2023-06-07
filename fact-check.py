@@ -86,8 +86,8 @@ def openai_call(
     return ret
 
 
-def google_search(query):
-    return "\n\n----".join([x["title"] + "\n" + x["body"] for x in ddg(query)[:4]])
+def google_search(output):
+    return "\n\n----".join([x["title"] + "\n" + x["body"] for x in ddg(output)[:4]])
 
 
 EXTRACT_STATEMENTS = """```%s```
@@ -260,16 +260,16 @@ def verify_statements(diff: str) -> tuple[bool, bool, str]:
             pass
 
         for s in obj:
-            if s is None or s["query"] == "" or s["claim"] == "":
+            if s is None or s["output"] == "" or s["claim"] == "":
                 continue
             claims.append(s)
             try:
-                summary = google_search(s["query"])
+                summary = google_search(s["output"])
             except Exception as ex:
                 print(ex)
                 had_error = True
                 continue
-            print("Query: " + s["query"])
+            print("Query: " + s["output"])
             print("Summary: " + summary)
             try:
                 ans = openai_call(VERIFY_STATEMENT % (s["claim"], summary))
