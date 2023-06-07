@@ -213,104 +213,111 @@ def fix_uncompleted_json(json_string: str) -> str:
         break
     return json_string + "]"
 
-def split_content(diff: str) -> Tuple[List[str], str]:
-    # remove all tech info and stay only changed and append
-    parts = diff.split("\n")
-    parts = [x for x in parts if x.startswith("+")]
-    # remove file names
-    parts = [x for x in parts if not x.startswith("+++")]
-    # remove '+' sign from start
-    parts = [x.lstrip("+") for x in parts]
+def split_content(diff: str) -> List[Tuple[List[str], str]]:
+    files = diff.split("diff --git")
+    results = []
+    for f in files:
+        if f == '':
+            continue
+        # remove all tech info and stay only changed and append
+        parts = f.split("\n")
+        parts = [x for x in parts if x.startswith("+")]
+        # remove file names
+        parts = [x for x in parts if not x.startswith("+++")]
+        # remove '+' sign from start
+        parts = [x.lstrip("+") for x in parts]
 
-    # Join string between # symbol
-    final = []
-    buff = []
-    for p in parts:
-        if p.startswith("#"):
-            final.append("\n".join(buff))
-            buff = []
-        buff.append(p)
-    final.append("\n".join(buff))
+        # Join string between # symbol
+        final = []
+        buff = []
+        for p in parts:
+            if p.startswith("#"):
+                final.append("\n".join(buff))
+                buff = []
+            buff.append(p)
+        final.append("\n".join(buff))
 
-    meta = [x for x in final if x.startswith("---") and x.endswith("---\n")]
-    if len(meta) != 0:
-        meta = meta[0].split("\n")
-        meta = [x.replace("date: ", "").replace("title: ", "").removeprefix('"').removesuffix('"') for x in meta if "date: " in x or "title: " in x]
-        meta_str = " ".join(meta)
-    else:
-        meta_str = ""
-    final = [x for x in final if not x.startswith("---") and not x.endswith("---\n")]
-
-    return (final, meta_str)
+        meta = [x for x in final if x.startswith("---") and x.endswith("---\n")]
+        if len(meta) != 0:
+            meta = meta[0].split("\n")
+            meta = [x.replace("date: ", "").replace("title: ", "").removeprefix('"').removesuffix('"') for x in meta if "date: " in x or "title: " in x]
+            meta_str = " ".join(meta)
+        else:
+            meta_str = ""
+        final = [x for x in final if not x.startswith("---") and not x.endswith("---\n")]
+        results.append((final, meta_str))
+    return results
 
 def verify_statements(diff: str) -> tuple[bool, bool, str]:
-    parts, meta = split_content(diff)
+    files = split_content(diff)
     comment = ""
-    claims = []
     had_error = False
     had_false_claim = False
-    for p in parts:
-        if len(p.strip()) <= 1:
-            continue
-        ans = openai_call(EXTRACT_STATEMENTS % p)
-        print("Prompt: " + EXTRACT_STATEMENTS % p)
-        ans = ans.strip().strip("`").strip()
-        ans = ans[ans.find("[") :]
-        print("Answer: " + ans)
-        try:
-            if ans[-1] != "]":
-                ans = fix_uncompleted_json(ans)
-            obj = json.loads(ans)
-        except Exception as ex:
-            print(ex)
-            had_error = True
-            pass
+    claims = []
 
-        for s in obj:
-            if s is None or s["query"] == "" or s["claim"] == "":
+    for (parts, meta) in files:
+        for p in parts:
+            if len(p.strip()) <= 1:
                 continue
-            claims.append(s)
-            try:
-                summary = google_search(f"{meta} {s['query']}")
-            except Exception as ex:
-                print(ex)
-                had_error = True
-                continue
-            print(f"Query: {meta} {s['query']}")
-            print("Summary: " + summary)
-            try:
-                ans = openai_call(VERIFY_STATEMENT % (s["claim"], summary))
-            except Exception as ex:
-                print(ex)
-                had_error = True
-                continue
-            print("Prompt: " + VERIFY_STATEMENT % (s["claim"], summary))
+            ans = openai_call(EXTRACT_STATEMENTS % p)
+            print("Prompt: " + EXTRACT_STATEMENTS % p)
             ans = ans.strip().strip("`").strip()
-            ans = ans[ans.find("{") :]
+            ans = ans[ans.find("[") :]
             print("Answer: " + ans)
             try:
+                if ans[-1] != "]":
+                    ans = fix_uncompleted_json(ans)
                 obj = json.loads(ans)
-                print("Parsed:", obj)
-
-                is_false = False
-
-                if obj["verdict"] != "true" and obj["verdict"] != True:
-                    is_false = True
-
-                emoji = ":x:" if is_false else ":white_check_mark:"
-                comment += (
-                    f"`" + obj["claim"] + "` " + emoji
-                    + "\n"
-                    + obj["explanation"]
-                    + "\n\n"
-                )
-
-                if is_false:
-                    had_false_claim = True
-
             except Exception as ex:
                 print(ex)
                 had_error = True
+                pass
+
+            for s in obj:
+                if s is None or s["query"] == "" or s["claim"] == "":
+                    continue
+                claims.append(s)
+                try:
+                    summary = google_search(f"{meta} {s['query']}")
+                except Exception as ex:
+                    print(ex)
+                    had_error = True
+                    continue
+                print(f"Query: {meta} {s['query']}")
+                print("Summary: " + summary)
+                try:
+                    ans = openai_call(VERIFY_STATEMENT % (s["claim"], summary))
+                except Exception as ex:
+                    print(ex)
+                    had_error = True
+                    continue
+                print("Prompt: " + VERIFY_STATEMENT % (s["claim"], summary))
+                ans = ans.strip().strip("`").strip()
+                ans = ans[ans.find("{") :]
+                print("Answer: " + ans)
+                try:
+                    obj = json.loads(ans)
+                    print("Parsed:", obj)
+
+                    is_false = False
+
+                    if obj["verdict"] != "true" and obj["verdict"] != True:
+                        is_false = True
+
+                    emoji = ":x:" if is_false else ":white_check_mark:"
+                    comment += (
+                        f"`" + obj["claim"] + "` " + emoji
+                        + "\n"
+                        + obj["explanation"]
+                        + "\n\n"
+                    )
+
+                    if is_false:
+                        had_false_claim = True
+
+                except Exception as ex:
+                    print(ex)
+                    had_error = True
 
     if had_error:
         comment += f"Fact-check failed due to errors"
