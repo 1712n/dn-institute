@@ -87,7 +87,7 @@ def openai_call(
 
 
 def google_search(query):
-    return "\n\n----".join([x["title"] + "\n" + x["body"] for x in ddg(query)[:4]])
+    return "\n\n----".join([x["title"] + "\n" + x["body"] for x in ddg(query)[:10]])
 
 
 EXTRACT_STATEMENTS = """```%s```
