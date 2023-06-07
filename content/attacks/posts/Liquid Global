@@ -1,0 +1,41 @@
+---
+date: 2021-08-19
+custodians: Liquid Global
+categories: Custodian
+title: `Liquid Global suffered the hack loosing about $97 million worth of digital coins`
+---
+
+##Summary
+
+On August 19, 2021, Liquid Global, a prominent custodian in the blockchain space, experienced a significant security breach. Liquid Global did not provide an estimate for the loss. It says it is regulated by Japan’s Financial Services Agency, but according to Elliptic's analysis, just over $97 million in cryptoassets have been received by the accounts identified by Liquid as belonging to the thief. Liquid Global claimed the hack targeted a multi-party computation (MPC) wallet. 
+
+##Attackers
+
+The identity of the attackers remains unknown at this time. However, the attack was executed by exploiting a flaw in warm wallets code. By leveraging this vulnerability, the attacker was able to gain unauthorized access to the funds held by the custodian.
+These crypto wallets were used:
+- **ERC20** 0x11cf04ee89c9ef56d9ef6126e914286770b8571f 
+- **ERC20** 0x5D2C9f717Da427a9c8Cc20c44EA57BA61d5bc457 
+- **ERC20** 0xF87694E29C55D8B971c851ed5936eaC65BAbFbC1 
+- **ERC20** 0xc4af9d67850ed5523b876b2276656170689162ce 
+- **BTC** 1KNkqryYzeCX36qGhREAsCenowSQqZaKuf 
+- **BTC** 1BuEFBns18qmG73ZAA9Pz3f2cWB6UiihuB 
+- **BTC** 14Gm6XdWuRPetSsgktkiBWFMfaMqxrKfGn 
+- **BTC** 158khNHxJksxCmWKitms8sATHJpmpzFRtS 
+- **BTC** 13Vsw6YXm6e4zpj48y3orV1rHtd3A42Xzg
+
+##Losses
+
+Elliptic, a blockchain analytics company, said its analysis showed that about $97 million in cryptocurrencies have been obtained by the hackers.
+This includes $45 million in Ethereum tokens, which are being converted into Ether using decentralised exchanges (DEXs) such as Uniswap and SushiSwap. This enables the hacker to avoid having these assets frozen — as is possible with many Ethereum tokens.
+This Ether is now being laundered through Tornado Cash, a smart-contract based mixer used to obscure the blockchain money trail. Close to $20 million of the stolen assets have been sent to Tornado. 
+
+##Timeline
+
+- **August 19, 2021:** Japan’s Liquid Global exchange said it has been hacked, and has suspended deposits and withdrawals.
+- **August 26, 2021:** FTX, the crypto exchange founded and led by billionaire Sam Bankman-Fried, will lend $120 million to Liquid Global.
+- **September 27, 2021:** Liquid GLobal have fully resumed deposits and withdrawals for all cryptocurrencies.
+- **February 2, 2022:** Liquid Closes US$120,000,000 Debt Financing from FTX.
+
+##Security Failure Causes
+
+`Liquid explains on their website that they utilize “a combination of cold wallets and MPC [multi-party computation]” to manage digital assets, which is found to be one of the most secure and efficient possible methods. As Liquid says that their “warm wallets were compromised” in their tweet, this means that the hackers broke into Liquid’s MPC algorithm.`
