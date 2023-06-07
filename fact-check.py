@@ -91,9 +91,7 @@ def google_search(output):
 
 
 EXTRACT_STATEMENTS = """```%s```
-
-Use the following JSON format in your response: ```[{"claim": "", "output": ""}, {"claim": "", "output": ""}]```. Respond only with the array of claims and corresponding outputs. First, extract 5 most important keywords (dates and named entities) from the text section and save it as "5-keywords" variable. Then extract all claims that can be fact-checked from the text section. Then, for each "claim", copy the claim and add the value of the "5-keywords" variable to make the corresponding "output".
-"""
+First, extract 5 most important keywords (dates and named entities) from the text section and save it as "5-keywords" variable. Then extract all claims that can be fact-checked from the text section. Then, for each "claim", copy the claim and add the value of the "5-keywords" variable to make the corresponding "output". Important: Respond only with an array of valid JSONs in the following format: ```[{"claim": "", "output": ""}, {"claim": "", "output": ""}]```."""
 
 
 VERIFY_STATEMENT = """
