@@ -1,5 +1,5 @@
 on:
-  pull_request:
+  pull_request_target:
     types:
       # - opened
       # - reopened
@@ -16,6 +16,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: main
 
       - name: Install poetry
         run: pipx install poetry
@@ -31,7 +33,7 @@ jobs:
       - name: Run fact-checking script
         run: | 
           poetry run python fact-check.py \
-            --repo-url "${{ github.event.pull_request.head.repo.clone_url }}" \
+            --repo-url "${{ github.event.pull_request.base.repo.clone_url }}" \
             --pull-request-head "${{ github.event.pull_request.head.ref }}" \
             --pull-request-base "${{ github.event.pull_request.base.ref }}" \
             --pull-request-number "${{ github.event.pull_request.number }}" \
