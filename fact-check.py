@@ -8,10 +8,11 @@ __author__ = "Mikhail Orzhenovskii <orzhan057@gmail.com>, Daniel Souza <me@posix
 
 # core
 import os, sys, argparse
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 
 # deps
 import re
+import time
 from github import Github
 import subprocess
 import json
@@ -68,18 +69,27 @@ def count_tokens(text):
 def openai_call(
     prompt: str,
     model: str = "gpt-3.5-turbo",
+    retry: int = 3,
     temperature: float = 0.5,
     max_tokens: int = 500,
 ):
     messages = [{"role": "user", "content": prompt}]
-    response = openai.ChatCompletion.create(
-        model=model,
-        messages=messages,
-        temperature=temperature,
-        max_tokens=max_tokens,
-        n=1,
-        stop=None,
-    )
+    try:
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=messages,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            n=1,
+            stop=None,
+        )
+    except Exception as ex:
+        if retry == 0: raise(ex)
+        print(ex)
+        print(f"Retry - {retry}, waiting 15 seconds")
+        time.sleep(15)
+        return openai_call(prompt, model, retry-1)
+
     ret = response.choices[0].message.content.strip()
     token_usage["prompt"] += count_tokens(prompt)
     token_usage["completion"] += count_tokens(ret)
@@ -247,81 +257,85 @@ def split_content(diff: str) -> List[Tuple[List[str], str]]:
         results.append((final, meta_str))
     return results
 
+def verify_claim(claim: Dict, meta: str) -> Tuple[bool, str]:
+    print(f"\nQuery: {meta} {claim['query']}")
+    summary = google_search(f"{meta} {claim['query']}")
+    print("Summary: " + summary)
+
+    print("Veryfy Statement Prompt: " + VERIFY_STATEMENT % (claim["claim"], summary))
+    ans = openai_call(VERIFY_STATEMENT % (claim["claim"], summary))
+    ans = ans.strip().strip("`").strip()
+    ans = ans[ans.find("{") :]
+    print("Answer: " + ans)
+
+    obj = json.loads(ans)
+    print("Parsed:", obj)
+
+    is_false = False
+    if obj["verdict"] != "true" and obj["verdict"] != True:
+        is_false = True
+    emoji = ":x:" if is_false else ":white_check_mark:"
+    return (is_false, (
+        f"`" + obj["claim"] + "` " + emoji
+        + "\n"
+        + obj["explanation"]
+        + "\n\n"
+    ))
+
+def verify_file(parts: List[str], meta: str) -> tuple[int, bool, str]:
+    print(f"\n\nProcessing: {meta} | {len(parts)} splits")
+    # Filter out empty parts
+    parts = list(filter(lambda x: (len(x.strip()) > 1), parts))
+    exceptions = 0
+    had_false_claim = False
+    file_comment = ""
+
+    for p in parts:
+        try:
+            print("\nPrompt: " + EXTRACT_STATEMENTS % p)
+            ans = openai_call(EXTRACT_STATEMENTS % p)
+        except Exception as ex:
+            print(ex)
+            exceptions+=1
+            continue
+        ans = ans.strip().strip("`").strip()
+        ans = ans[ans.find("[") :]
+        print("Answer: " + ans)
+        try:
+            if ans[-1] != "]": ans = fix_uncompleted_json(ans)
+            claims = json.loads(ans)
+            claims = list(filter(lambda x: (x and "query" in x and "claim" in x and x["query"] != "" and x["claim"] != ""), claims))
+        except Exception as ex:
+            print(ex)
+            exceptions+=1
+            continue
+        for claim in claims:
+            try:
+                (is_false, comment) = verify_claim(claim, meta)
+                file_comment += comment
+                if is_false: had_false_claim = True
+            except Exception as ex:
+                print(ex)
+                exceptions+=1
+                continue
+
+    return exceptions, had_false_claim, file_comment
+
 def verify_statements(diff: str) -> tuple[bool, bool, str]:
     files = split_content(diff)
     comment = ""
-    had_error = False
+    exceptions = 0
     had_false_claim = False
-    claims = []
-
     for (parts, meta) in files:
-        for p in parts:
-            if len(p.strip()) <= 1:
-                continue
-            ans = openai_call(EXTRACT_STATEMENTS % p)
-            print("Prompt: " + EXTRACT_STATEMENTS % p)
-            ans = ans.strip().strip("`").strip()
-            ans = ans[ans.find("[") :]
-            print("Answer: " + ans)
-            try:
-                if ans[-1] != "]":
-                    ans = fix_uncompleted_json(ans)
-                obj = json.loads(ans)
-            except Exception as ex:
-                print(ex)
-                had_error = True
-                pass
+        file_exceptions, false_claim, file_comment = verify_file(parts, meta)
+        if file_exceptions!= 0: print(f"File processing contains {file_exceptions} exceptions")
+        exceptions+=file_exceptions
+        if false_claim: had_false_claim = True
+        comment+=file_comment
+    if exceptions > 0:
+        comment += f"Fact-check failed due to {exceptions} errors"
 
-            for s in obj:
-                if s is None or s["query"] == "" or s["claim"] == "":
-                    continue
-                claims.append(s)
-                try:
-                    summary = google_search(f"{meta} {s['query']}")
-                except Exception as ex:
-                    print(ex)
-                    had_error = True
-                    continue
-                print(f"Query: {meta} {s['query']}")
-                print("Summary: " + summary)
-                try:
-                    ans = openai_call(VERIFY_STATEMENT % (s["claim"], summary))
-                except Exception as ex:
-                    print(ex)
-                    had_error = True
-                    continue
-                print("Prompt: " + VERIFY_STATEMENT % (s["claim"], summary))
-                ans = ans.strip().strip("`").strip()
-                ans = ans[ans.find("{") :]
-                print("Answer: " + ans)
-                try:
-                    obj = json.loads(ans)
-                    print("Parsed:", obj)
-
-                    is_false = False
-
-                    if obj["verdict"] != "true" and obj["verdict"] != True:
-                        is_false = True
-
-                    emoji = ":x:" if is_false else ":white_check_mark:"
-                    comment += (
-                        f"`" + obj["claim"] + "` " + emoji
-                        + "\n"
-                        + obj["explanation"]
-                        + "\n\n"
-                    )
-
-                    if is_false:
-                        had_false_claim = True
-
-                except Exception as ex:
-                    print(ex)
-                    had_error = True
-
-    if had_error:
-        comment += f"Fact-check failed due to errors"
-
-    return had_error, had_false_claim, comment
+    return exceptions > 0, had_false_claim, comment
 
 
 def main():
