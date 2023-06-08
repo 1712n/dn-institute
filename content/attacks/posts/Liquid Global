@@ -2,7 +2,7 @@
 date: 2021-08-19
 custodians: Liquid Global
 categories: Custodian
-title: `Liquid Global suffered the hack loosing about $97 million worth of digital coins`
+title: Liquid Global suffered the hack loosing about $97 million worth of digital coins
 ---
 
 ##Summary
@@ -38,4 +38,4 @@ This Ether is now being laundered through Tornado Cash, a smart-contract based m
 
 ##Security Failure Causes
 
-`Liquid explains on their website that they utilize “a combination of cold wallets and MPC [multi-party computation]” to manage digital assets, which is found to be one of the most secure and efficient possible methods. As Liquid says that their “warm wallets were compromised” in their tweet, this means that the hackers broke into Liquid’s MPC algorithm.`
+Liquid explains on their website that they utilize “a combination of cold wallets and MPC [multi-party computation]” to manage digital assets, which is found to be one of the most secure and efficient possible methods. As Liquid says that their “warm wallets were compromised” in their tweet, this means that the hackers broke into Liquid’s MPC algorithm.
