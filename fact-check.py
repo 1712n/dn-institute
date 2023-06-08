@@ -237,9 +237,8 @@ def split_content(diff: str) -> List[Tuple[List[str], str]]:
             buff.append(p)
         final.append("\n".join(buff))
 
-        meta = [x for x in final if x.startswith("---") and x.endswith("---\n")]
-        if len(meta) != 0:
-            meta = meta[0].split("\n")
+        if "---" in final[0] and "date:" in final[0] and "title:" in final[0]:
+            meta = final[0].split("\n")
             meta = [x.replace("date: ", "").replace("title: ", "").removeprefix('"').removesuffix('"') for x in meta if "date: " in x or "title: " in x]
             meta_str = " ".join(meta)
         else:
