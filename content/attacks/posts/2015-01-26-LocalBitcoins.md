@@ -9,14 +9,6 @@ title: LocalBitcoins suffers a security breach, resulting in the loss of 17 BTC
 
 In January 2015, LocalBitcoins, a peer-to-peer Bitcoin trading platform, experienced a security breach that resulted in the theft of 17 BTC (approximately $3,850 at the time). The breach was caused by a vulnerability in the platform's forum software, which allowed the attacker to gain access to user accounts. LocalBitcoins quickly responded to the incident by disabling the forum and reimbursing affected users.
 
-## Attackers
-
-The identity of the attacker remains unknown.
-
-## Losses
-
-17 BTC was stolen, which was worth approximately $3,850 at the time of the attack. LocalBitcoins covered the losses and reimbursed affected users.
-
 ## Timeline
 
 - **Late December 2014 - Early January 2015:** The attacker starts probing LocalBitcoins' security systems and infrastructure, looking for vulnerabilities.
@@ -27,6 +19,15 @@ The identity of the attacker remains unknown.
 - **January 29, 2015:** LocalBitcoins provides an update on the situation, confirming that the attack was carried out using the Live Chat feature and urging users to enable two-factor authentication (2FA) as a security measure.
 - **February 2, 2015:** LocalBitcoins announces that the Live Chat vulnerability has been patched and the feature is re-enabled.
 
+## Attackers
+
+The identity of the attacker remains unknown.
+
+## Losses
+
+17 BTC was stolen, which was worth approximately $3,850 at the time of the attack. LocalBitcoins covered the losses and reimbursed affected users.
+
 ## Security Failure Causes
 
 The security breach was caused by a vulnerability in the forum software used by LocalBitcoins. The attacker exploited this vulnerability to gain unauthorized access to user accounts, which allowed them to steal 17 BTC. To mitigate future risks, LocalBitcoins disabled the forum, advised users to change their passwords, and urged them to enable two-factor authentication.
+
