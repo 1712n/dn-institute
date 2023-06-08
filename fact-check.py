@@ -91,7 +91,7 @@ def google_search(query):
 
 
 EXTRACT_STATEMENTS = """```%s```
-Extract all claims that can be fact-checked from the text section above. Then, for each "claim", copy the claim and add synopsys of the whole text section above to make the corresponding "query". Important: Respond only with an array of valid JSONs in the following format: ```[{"claim": "", "query": ""}, {"claim": "", "query": ""}]```."""
+Extract all claims that can be fact-checked from the text section above. Make sure to keep associated URLs found in the claims. Then, for each "claim", copy the claim and add synopsys of the whole text section above to make the corresponding "query". Make sure to add associated URLs found in the claims to the corresponding queries. Important: Respond only with an array of valid JSONs in the following format: ```[{"claim": "", "query": ""}, {"claim": "", "query": ""}]```."""
 
 VERIFY_STATEMENT = """
 Given a claim and a set of search results from a search engine API, determine whether the claim is true or false, or if there is not enough evidence to verify it. Use the search results to provide evidence for your determination.
