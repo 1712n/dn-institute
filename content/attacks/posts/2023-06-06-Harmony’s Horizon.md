@@ -2,7 +2,7 @@
 date: 2022-06-23
 custodians: Harmony’s Horizon
 categories: Bridge Hack
-title: Harmony's Horizon Bridge was the victim of a massive cyberattack from North Korea
+title: "Harmony's Horizon Bridge was the victim of a massive cyberattack from North Korea"
 ---
 
 ## Summary
