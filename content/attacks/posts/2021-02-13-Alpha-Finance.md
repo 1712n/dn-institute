@@ -7,15 +7,21 @@ title: "Alpha Finance DeFi Hack: $37.5 Million Exploited"
 
 ## Summary
 
-On February 13, 2021, Alpha Finance, a decentralized finance (DeFi) project, experienced a sophisticated hack that resulted in the exploitation of a vulnerability in the Alpha Homora v2 contract. The attacker successfully extracted $37.5 million from the project, highlighting the risks associated with smart contract vulnerabilities and emphasizing the need for robust security measures within the DeFi ecosystem.
+On February 13, 2021, Alpha Finance, a decentralized finance (DeFi) project, was hacked, exploiting a vulnerability in the Alpha Homora v2 contract. The attacker successfully extracted $37.5 million from the project.
 
 ## Attackers
 
-The identity of the attackers involved in the Alpha Finance DeFi hack remains unknown. It must be mentioned that in nine transactions, the hacker created a number of loans from HomoraBankV2, depositing the borrowed funds to CREAM’s Iron Bank. These loans made use of an “evil spell” (similar to a “strategy” in a Yearn Vault), to call a sUSD pool that exists at the contract level on HomoraBankV2. The post-mortem points out the ALPHA team placed the sUSD pool on the HomoraBankV2 contract in preparation for an upcoming release. Information on this contract was not publicly available, nor is it accessible through the user interface.This suggests the hacker possessed a degree of inside knowledge in order to carry out the attack.
+The identity of the attackers involved in the Alpha Finance DeFi hack remains unknown. Information using in this incident was not publicly available and was not accessible through the user interface, suggesting that the attacker may have possessed insider knowledge to carry out the attack.
 
 ## Losses
 
-The Alpha Finance DeFi hack resulted in financial losses, with $37.5 million extracted from the project. The stolen funds were distributed among various destinations, including Iron Bank, Alpha Homora, Tornado.cash, and the attacker's wallet.
+The Alpha Finance DeFi hack resulted in financial losses, with $37.5 million extracted from the project. The stolen funds were distributed among various destinations as follows:
+
+    Aave: the specific amount is not provided.
+    Iron Bank: 1,000 ETH
+    Alpha Homora: 1,000 ETH
+    Tornado.cash:  320 ETH 
+    Attacker's wallet: 10,925 ETH (worth roughly $20 million)
 
 ## Timeline
 
