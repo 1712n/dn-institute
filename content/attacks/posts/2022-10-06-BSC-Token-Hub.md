@@ -11,7 +11,8 @@ On October 6, 2022, BSC Token Hub, a bridge between BNB Beacon Chain (BEP2) and 
 
 ## Attacker
 
-Attackers address on BSC: 0x489a8756c18c0b8b24ec2a2b9ff3d4d447f79bec
+Attackers address: 0x489a8756c18c0b8b24ec2a2b9ff3d4d447f79bec
+Attacker has several wallets with the same address in Ethereum, Fantom, Avalanche, Polygon, Arbitrum, Optimism.
 
 ## Losses
 
