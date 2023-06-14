@@ -7,11 +7,11 @@ title: "The Collapse of Terra Classic Network Resulting in a $40 Billion Loss"
 
 ## Summary
 
-The $40 billion Terra Classic Network experienced an implosion triggered by a complex interplay of market dynamics and key events. Central to the Terra Luna Network were its two native coins, $LUNC and $USTC. $USTC was an algorithmic Stablecoin meant to maintain a $1 peg, with $LUNC acting as a satellite asset absorbing $USTC's volatility through a mint and burn functionality and inherent arbitrage opportunities. However, the withdrawal of a substantial amount of $USTC from the Curve3pool by the Luna Foundation Guard, in preparation for the new Curve4pool, set off a bank run. Consequently, a handful of whales also withdrew large sums from the anchor protocol, causing $USTC to devalue on exchanges, leading to an uncontrollable minting of $LUNC tokens and a rapid fall in its valuation. The network further faced transaction overload due to market panic, leading to large scale liquidations of collateral in the Anchor protocol. The CEO of Terra Classic, Do Kwon, was later arrested on charges of various forms of fraud.
+The Terra Classic Network, worth $40 billion, collapsed due to a mix of market factors and significant events. The network hinged on its two primary coins, $LUNC and $USTC. $USTC, an algorithmic Stablecoin, was designed to hold a steady value of $1. $LUNC was created to soak up $USTC's instability through minting and burning processes and built-in opportunities for arbitrage. Trouble began when the Luna Foundation Guard withdrew a large portion of $USTC from Curve3pool to make room for the new Curve4pool. This caused a bank run. As a result, several large investors also pulled out significant sums from the anchor protocol, which made $USTC lose value on trading platforms. This triggered an uncontrolled production of $LUNC tokens and a quick drop in its value. The network was then overwhelmed by transactions due to market panic, which led to mass liquidations of collateral in the Anchor protocol. Eventually, Terra Classic's CEO, Do Kwon, was arrested on various fraud charges.
 
 ## Attackers
 
-While not traditional attackers, the following whale addresses were instrumental in triggering the crisis:
+The following whale addresses, although not traditional attackers, played a key role in causing the crisis:
 
 - [0x8d47f08ebc5554504742f547eb721a43d4947d0a](https://etherscan.io/address/0x8d47f08ebc5554504742f547eb721a43d4947d0a)
 - [0x4b5e60cb1cd6c5e67af5e6cf63229d1614bb781c](https://etherscan.io/address/0x4b5e60cb1cd6c5e67af5e6cf63229d1614bb781c)
@@ -41,4 +41,6 @@ The Terra Classic Network incurred a loss of $40 billion, primarily due to the m
 
 ## Security Failure Causes
 
-The crisis was the result of a combination of factors: poor decision-making by the Luna Foundation Guard (the decision to withdraw 250 million $USTC from Curve3pool), significant withdrawals by whales from the anchor protocol, an imbalance between $USTC and other stablecoins in the pool, a firesale of $USTC resulting in uncontrollable minting of $LUNC, and network overload. The systemic failure to predict and manage these risks led to the implosion of the Terra Classic Network.
+**Poor Choices:** The Luna Foundation Guard's decision to withdraw 250 million $USTC from Curve3pool contributed to the crisis.
+
+**Actions of Large Investors:** The crisis was also caused by large investors taking out a lot of money from the Anchor Protocol. This upset the balance of $USTC and other stablecoins in the pool, led to a quick sale of $USTC, and caused too many $LUNC coins to be made. The network couldn't handle all this, and the inability to predict and manage these risks caused the Terra Classic Network to collapse.
