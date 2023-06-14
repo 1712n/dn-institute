@@ -7,14 +7,11 @@ title: "Harmony's Horizon Bridge was the victim of a massive cyberattack from No
 
 ## Summary
 
-On Thursday, June 23, 2022, the Harmony Protocol team was notified of a malicious attack on their proprietary Horizon Bridge. Blockchain bridges, also known as cross-chain bridges, facilitate communication between different blockchain networks and allow users to transfer assets from one network to another. Using Harmony's Horizon Bridge, users can move assets, including tokens, stablecoins, and NFTs, between the Ethereum, Binance Smart Chain, and Harmony blockchains.
-At 5:30 AM Pacific Standard Time, several transactions compromised the bridge. The hackers were able to steal the following assets: Frax (FRAX), Wrapped Ether (WETH), Aave (AAVE), Sushi (SUSHI), Frax Share (FXS), AAG (AAG), Binance USD (BUSD), Dai (DAI), Tether (USDT), Wrapped BTC (WBTC), and USD Coin (USDC). Some of these tokens have been exchanged for ETH on decentralized exchanges.
+On June 23, 2022, the Harmony Protocol team discovered a malicious attack on their Horizon Bridge, a blockchain bridge enabling asset transfers between Ethereum, Binance Smart Chain, and Harmony blockchains. In the morning, several transactions compromised the bridge. The hackers were able to steal the following assets: Frax (FRAX), Wrapped Ether (WETH), Aave (AAVE), Sushi (SUSHI), Frax Share (FXS), AAG (AAG), Binance USD (BUSD), Dai (DAI), Tether (USDT), Wrapped BTC (WBTC), and USD Coin (USDC). Some of these tokens have been exchanged for ETH on decentralized exchanges.
 
 ## Attackers
 
-On January 23, 2023, the FBI announced that the North Korean organizations Lazarus Group and APT38 were responsible for the invasion. On January 13th, the hackers made an attempt to transfer 41,000 ETH ($63.5 million) through 11 transactions that extracted tokens stored in the bridge. 
-Nevertheless, a portion of the funds was frozen and recovered by exchanges when the hackers tried to convert them into Bitcoin. The remaining unrecovered funds were then transferred to 11 Ethereum addresses.
-According to the announcement, the FBI and its investigative partners will continue to identify and disrupt North Korea's theft and laundering of virtual currency, which is used to support North Korea's ballistic missile and Weapons of Mass Destruction programs.
+The FBI announced on January 23, 2023, that the Lazarus Group and APT38, North Korean organizations, were responsible for the breach. The FBI stated that the hackers, identified as "cyber actors associated with the Democratic People's Republic of Korea," utilized a malware campaign called "TraderTraitor" in the Harmony attack. On January 13th, the attackers attempted to transfer 41,000 ETH (equivalent to $63.5 million) through 11 transactions to extract tokens from the bridge. However, a portion of the stolen funds was frozen and recovered by exchanges when the hackers tried to convert them into Bitcoin. The remaining unrecovered funds were subsequently transferred to 11 Ethereum addresses.
 
 ## Losses
 
@@ -30,4 +27,5 @@ The estimated value at the time of the attack was approximately $100 million USD
 
 ## Security Failure Causes
 
-Harmony did not disclose how the funds were stolen. However, in April 2022, the founder of Chainstride Capital, known as "@_apedev", [expressed concerns](https://twitter.com/_apedev/status/1510007663832223751) about the security of Harmony's Horizon bridge. The researcher warned on Twitter that the security of the Horizon bridge relied on a multisignature wallet, which required only two signatures to initiate transactions. Multisignature wallets require the consent of multiple parties to ensure additional transaction security.
+**Insufficient System Security Measures:** The presence of the malware suggests that there may have been insufficient security measures in place to detect and prevent such attacks. This could include inadequate network monitoring, lack of intrusion detection systems, or insufficient measures to protect against advanced malware threats.
+**Lack of Employee Awareness and Training:** Human error or lack of awareness among employees could have played a role in the security failure. Insufficient training or education on recognizing and responding to phishing attempts, social engineering, or other attack vectors may have made the organization more susceptible to the initial malware infiltration.
