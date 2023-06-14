@@ -1,6 +1,6 @@
 ---
 date: 2021-02-13
-categories: Cryptocurrency, DeFi Hack
+categories: DeFi, Protocol Exploit
 title: "Alpha Finance DeFi Hack: $37.5 Million Exploited"
 
 ---
@@ -17,11 +17,11 @@ The identity of the attackers involved in the Alpha Finance DeFi hack remains un
 
 The Alpha Finance DeFi hack resulted in financial losses, with $37.5 million extracted from the project. The stolen funds were distributed among various destinations as follows:
 
-    Aave: the specific amount is not provided.
-    Iron Bank: 1,000 ETH
-    Alpha Homora: 1,000 ETH
-    Tornado.cash:  320 ETH 
-    Attacker's wallet: 10,925 ETH (worth roughly $20 million)
+  + Aave: the specific amount is not provided.
+  + Iron Bank: 1,000 ETH
+  + Alpha Homora: 1,000 ETH
+  + Tornado.cash:  320 ETH 
+  + Attacker's wallet: 10,925 ETH (worth roughly $20 million)
 
 ## Timeline
 
@@ -41,8 +41,6 @@ Over a period of 2.5 months, AH, on behalf of the depositors, engaged in negotia
 
 
 ## Security Failure Causes
-
-The Alpha Finance DeFi hack revealed several security failure causes that allowed the attacker to exploit the vulnerabilities in the Alpha Homora v2 contract:
 
 - **Loophole in Custom Spells:** The Alpha Homora v2 contract allowed the usage of custom spells without strict checks, providing an avenue for the attacker to execute the attack.
 - **Rounding Error Exploitation:** The attacker took advantage of a rounding error in the protocol during repayment, resulting in a manipulated debt and borrow share.
