@@ -6,7 +6,7 @@ title: "PancakeBunny suffers a flash loan attack"
 
 Summary
 
-On May 19, 2021 PancakeBunny, a yield farming aggregator built on Binance Smart Chain decentralized finance (DeFi) protocol, suffered a flash loan attack. The attack was investigated and the report was posted on the PancakeBinny Medium blog: https://pancakebunny.medium.com/hello-bunny-fam-a7bf0c7a07ba
+On May 19, 2021 PancakeBunny, a yield farming aggregator built on Binance Smart Chain decentralized finance (DeFi) protocol, suffered a flash loan attack. The attack was investigated and the report was posted on the PancakeBunny Medium blog: https://pancakebunny.medium.com/hello-bunny-fam-a7bf0c7a07ba
 The actions described below in this section were done withing one transaction¹ (which made this attack possible).
 The attacker borrowed 2323373 WBNB from PancakeBunny lending pools and 2961750 USDT from another source.
 2961750 USDT and 7744 BNB were deposited on the PancakeSwap Version 2 (PCS V2) USDT/BNB pool (having created 144445 LP tokens).
@@ -25,19 +25,19 @@ Attacker's wallet address:
 Losses
 
 If calculated based on the average Bunny price shortly before the attack, PancakeBunny's loss was roughly $150 million (697246Bunny~$105M + 114631BNB~$45M).
-Bunny token plummeted to almost 0 (the price was $150 before attack, within minutes after it fall to 0, but before that it increased up to $240 for a short time). Later that day it recovered about 5% of its value.
+Bunny token plummeted to almost 0 (the price was ~$150 before attack, it increased up to ~$240 for a short time right after, then it fell within minutes after). Later that day it recovered about 5% of its value.
 To compensate losses of Bunny holders the Team declared creating a compensation pool as well as a new token - polyBunny, for Polygon PancakeBunny, was announced (was initially planned to be done several months later). Then another flash loan attack happenned (on July 17, 2021) causing losses again, polyBunny price fell.
 
 Timeline
 
 May 19, 2021
 10:31:25PM - 1BNB deposited on the USDT/BNB Flip Vault to stage the attack
-10:34:28PM - the time of ¹the exploit transaction
+¹10:34:28PM - the time of the exploit transaction
 10:36:00PM - the Bunny Team detected unusual increase of Bunny's price
 10:45:10PM - 114631BNB were sent to this address (for being laundered):
 0x158c244b62058330f2c328c720b072d8db2c612f
 11:18:10PM - the Flash Loan attack is officially confirmed, deposits/withdrawals to the Vault are paused (to prevent further attacks)
-11:59:55PM - 488071Bunny (hereafter non-integral numbers are round down) were swapped (from the same address as on 10:45) for 9161BNB, of which 327BNB were swapped for 43ETH
+11:59:55PM - 488071,9...Bunny were swapped for 9161,3...BNB from the same address as on 10:45
 
 May 21, 2021
 06:30:00AM - withdrawal/deposit function is restored to the Vault
