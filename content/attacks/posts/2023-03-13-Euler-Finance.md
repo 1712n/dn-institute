@@ -2,7 +2,7 @@
 date: 2023-03-13
 custodians: Euler Finance
 categories: Exploit/Flash Loan Attack
-title: Euler Finance Exploited with Flash Loan Attack Resulting in Loss of $196 Million
+title: "Euler Finance Exploited with Flash Loan Attack Resulting in Loss of $196 Million"
 ---
 
 ## Summary
