@@ -9,7 +9,7 @@
       {{ $currDropCap = .Title | upper | truncate 1 "" }}
 
       {{ if not (eq $currDropCap $lastDropCap) }}
-        {{ if not (eq $currDropCap "") }}
+        {{ if not (eq $lastDropCap "") }}
         </ul>
         {{ end }}
 
