@@ -1,11 +1,26 @@
 {{ define "main" }}
   {{ $paginator := .Paginate (.Pages.ByTitle) 50 }}
 
-  <div class="taxonomy-list">
+  <ul class="taxonomy-list">
+    {{ $lastDropCap := "" }}
+    {{ $currDropCap := "" }}
+
     {{ range $paginator.Pages }}
-      <a class="taxonomy-item" href="{{ .RelPermalink }}">{{ partial "docs/title.html" . }}</a>
+      {{ $currDropCap = .Title | upper | truncate 1 "" }}
+
+      {{ if not (eq $currDropCap $lastDropCap) }}
+        {{ if not (eq $currDropCap "") }}
+        </ul>
+        {{ end }}
+
+        <ul class="taxonomy-section">
+          <h2>{{ $currDropCap }}</h2>
+      {{ end }}
+
+      {{ $lastDropCap = $currDropCap }}
+          <a class="taxonomy-item" href="{{ .RelPermalink }}">{{ partial "docs/title.html" . }}</a>
     {{ end }}
-  </div>
+  </ul>
 
   {{ template "_internal/pagination.html" . }}
 {{ end }}
