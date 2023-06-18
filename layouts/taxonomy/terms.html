@@ -1,6 +1,8 @@
 {{ define "main" }}
+  {{ $paginator := .Paginate (.Pages.ByTitle) 50 }}
+
   <div class="taxonomy-list">
-    {{ range sort .Paginator.Pages }}
+    {{ range $paginator.Pages }}
       <a class="taxonomy-item" href="{{ .RelPermalink }}">{{ partial "docs/title.html" . }}</a>
     {{ end }}
   </div>
