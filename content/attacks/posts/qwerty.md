@@ -16,19 +16,19 @@ The BNB tokens were used to manipulate Bunny/BNB price, as a result of which 697
 Having got this reward the attacker dumped most (on PCS V1 and V2 summarily 6275209Bunny were swapped for 2441024BNB) of it in the market which caused Bunny's value to plummet. Then BNB tokens were paid back, after which 114631BNB left over (another part of the hacker's profit was the reminder of Bunny tokens: 697246).
 The borrowed USDT were paid back here either.
 
-Attackers
+## Attackers
 
 The attacker remain unidentified. 
 Attacker's wallet address:
 0xa0ACC61547f6bd066f7c9663C17A312b6Ad7E187
 
-Losses
+## Losses
 
 If calculated based on the average Bunny price shortly before the attack, PancakeBunny's loss was roughly $150 million (697246Bunny~$105M + 114631BNB~$45M).
 Bunny token plummeted to almost 0 (the price was ~$150 before attack, it increased up to ~$240 for a short time right after, then it fell within minutes after). Later that day it recovered about 5% of its value.
 To compensate losses of Bunny holders the Team declared creating a compensation pool as well as a new token - polyBunny, for Polygon PancakeBunny, was announced (was initially planned to be done several months later). Then another flash loan attack happenned (on July 17, 2021) causing losses again, polyBunny price fell.
 
-Timeline
+## Timeline
 
 May 19, 2021
 10:31:25PM - 1BNB deposited on the USDT/BNB Flip Vault to stage the attack
@@ -42,7 +42,7 @@ May 19, 2021
 May 21, 2021
 06:30:00AM - withdrawal/deposit function is restored to the Vault
 
-Security Failure Causes
+## Security Failure Causes
 
 ²Calculating the amount of Bunny tokens to be issued was based on the proportion of BNB/USDT tokens in the pool.
 The availability of borrowing of huge amount of assets was crucial in this case (probably the variety mattered either).
