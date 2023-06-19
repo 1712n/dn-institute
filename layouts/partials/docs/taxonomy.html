@@ -5,22 +5,10 @@
     <li class="book-section-flat">
       <strong>{{ .Title | title }}</strong>
       <ul>
-      {{ $pages := slice }}
-
-      {{ range .Pages }}
-        {{ $page := (dict
-          "title" (.Title | default "") 
-          "url"   (.RelPermalink | default "")
-          "size"  (len .Pages)
-          )
-        }}
-        {{ $pages = $pages | append $page }}
-      {{ end }}
-
-      {{ range (sort $pages "size" "desc") }}
+      {{ range .Pages.ByTitle }}
         <li class="flex justify-between">
-          <a href="{{ .url }}">{{ .title }}</a>
-          <span>{{ .size }}</span>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          <span>{{ len .Pages }}</span>
         </li>
       {{ end }}
       </ul>
