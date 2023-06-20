@@ -10,9 +10,9 @@
       
       <ul class="collapsible-target" id="ul2-{{ $ul2 }}">
       {{ range .Pages.ByTitle }}
-        <li class="flex justify-between">
+        <li class="section-item">
           <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-          <span>{{ len .Pages }}</span>
+          <span class="size">{{ len .Pages }}</span>
         </li>
       {{ end }}
       </ul>

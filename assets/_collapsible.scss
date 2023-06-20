@@ -1,7 +1,6 @@
 .collapsible {
   // control containers
-  h2, h3, h4, h5, h6 {
-
+  h2, h3, h4, h5, h6, .section-item {
     display: grid;
     grid: auto / auto max-content;
     align-items: center;
@@ -31,5 +30,22 @@
     &[aria-expanded="true"]:after {
       content: "";
     }
+  }
+
+  .collapsible-control,
+  .section-item > .size {
+    width: 30px;
+    text-align: center;
+  }
+}
+
+.book-toc .collapsible {
+  h2 {
+    font-size: 1em;
+  }
+
+  .anchor {
+    color: black;
+    font-weight: bold;
   }
 }
