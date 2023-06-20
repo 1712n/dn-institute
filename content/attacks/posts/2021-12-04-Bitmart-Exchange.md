@@ -35,4 +35,4 @@ The stolen assets mainly consisted of memecoins like SHIB and SAFEMOON.
 
 ## Security Failure Causes
 
-**Compromised Private Key:** Although the BitMart Exchange has not officially disclosed the cause of their recent security issues, it is highly probable that the private key of the hot wallets was compromised. This breach provided unauthorized access to the funds stored within these wallets, resulting in a significant loss of assets.
+**Compromised Private Key:** Although the BitMart Exchange has not officially disclosed the cause of their recent security issues, it is highly probable that the private key of the hot wallets was compromised.
