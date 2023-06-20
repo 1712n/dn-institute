@@ -27,4 +27,4 @@ Attacker has several wallets with the same address in Ethereum, Fantom, Avalanch
 
 ## Security Failure Causes
 
-**Transaction verifying vulnerability:** The BSC Token Hub was possible to exploit via low-level proof vulnerability. Upon conducting a vulnerability root cause analysis, it was confirmed that there is a flaw in the IAVL verification implementation designed by Cosmos, which was later incorporated by BSC into their contract's proof verification process. The same vulnerability also affected other projects whose implementation of the IAVL library was flawed, prompting Cosmos to release an emergency patch.
+**Protocol vulnerability:** The BSC Token Hub was attacked by forging a low-level proof into a single common library. Protocol code analysis identified a flaw in Cosmos IAVL verification implementation, which was later incorporated by BSC into their contract proof verification process. The same vulnerability also affected other projects using the vulnerable IAVL library, prompting Cosmos to release an emergency patch.
