@@ -1,10 +1,14 @@
 <nav>
+  {{ $page := .Page }}
+
   <ul>
   {{ range $term, $_ := .Site.Taxonomies }}
     {{ with $.Site.GetPage (printf "/%s" $term | urlize) }}
-    <li class="book-section-flat">
-      <strong>{{ .Title | title }}</strong>
-      <ul>
+    <li class="book-section-flat collapsible">
+      {{ $ul2 := .Title | urlize | lower }}
+      <h2>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "control" true) }}</h2>
+      
+      <ul class="collapsible-target" id="ul2-{{ $ul2 }}">
       {{ range .Pages.ByTitle }}
         <li class="flex justify-between">
           <a href="{{ .RelPermalink }}">{{ .Title }}</a>
