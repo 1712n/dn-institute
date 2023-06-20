@@ -11,7 +11,7 @@ On June 23, 2022, the Harmony Protocol team discovered a malicious attack on the
 
 ## Attackers
 
-The FBI announced on January 23, 2023, that the Lazarus Group and APT38, North Korean organizations, were responsible for the breach. The FBI stated that the hackers, identified as "cyber actors associated with the Democratic People's Republic of Korea," utilized a malware campaign called "TraderTraitor" in the Harmony attack. On January 13th, the attackers attempted to transfer 41,000 ETH (equivalent to $63.5 million) through 11 transactions to extract tokens from the bridge. However, a portion of the stolen funds was frozen and recovered by exchanges when the hackers tried to convert them into Bitcoin. The remaining unrecovered funds were subsequently transferred to 11 Ethereum addresses.
+The FBI has officially announced that the Lazarus Group and APT38, North Korean organizations, were responsible for the breach. The FBI also shared that the hackers, identified as "cyber actors associated with the Democratic People's Republic of Korea," utilized a malware campaign called "TraderTraitor" in the Harmony attack. 
 
 ## Losses
 
