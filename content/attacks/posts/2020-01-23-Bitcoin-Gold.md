@@ -1,6 +1,6 @@
 ---
 date: 2020-01-23
-categories: 51%
+attacks/posts/categories: 51%
 title: Bitcoin Gold suffers a 51% attack again
 ---
 
