@@ -83,7 +83,7 @@ def get_diff(pr) -> str:
 @logging_decorator("Parse Diff")
 def parse_diff(diff: str) -> list[dict]:
     # split into files
-    raw_files = diff.split("diff --git a/")
+    raw_files = diff.split("diff --git ")
     raw_files.remove(raw_files[0])  # remove first element which is empty
 
     # construct files as dictionaries
