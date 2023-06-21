@@ -29,6 +29,20 @@ args = parser.parse_args()
 g = Github(args.github_token)
 
 
+def logging_decorator(group_name):
+    def decorator_wrapper(original_func):
+        def wrapper_func(*func_args, **func_kwargs):
+            print(f"::group::{group_name}")
+            result = original_func(*func_args, **func_kwargs)
+            print("::endgroup::\n\n")
+            return result
+
+        return wrapper_func
+
+    return decorator_wrapper
+
+
+@logging_decorator("Get PR")
 def get_pull_request(pull_url):
     url_split = pull_url.split("/")
 
@@ -39,10 +53,12 @@ def get_pull_request(pull_url):
 
     repo = g.get_repo(repo_name)
     pr_num = int(url_split[-1])
+    print(f"Getting PR {pr_num} from {repo_name}")
     pr = repo.get_pull(pr_num)
     return pr
 
 
+@logging_decorator("Get Diff")
 def get_diff(pr) -> str:
     # TODO: Improve diff method.
     # Git by default diff line by line. This means that if a single character is changed in a line, the whole line is counted. Using `--world-diff` makes git diff word by word which would provide a more accurate estimate.
@@ -50,9 +66,9 @@ def get_diff(pr) -> str:
 
     # url = f"https://patch-diff.githubusercontent.com/raw/<user>/<repo>/pull/{pr_num}.diff"
     url = pr.diff_url
+    print(f"Getting diff from: {url}\n")
 
     response = requests.get(url)
-
     if response.status_code == 200:
         diff = response.text
     else:
@@ -60,9 +76,11 @@ def get_diff(pr) -> str:
             "Request was not successful. Status code:", response.status_code
         )
 
-    return diff
+    print(diff)
+    return diff, url
 
 
+@logging_decorator("Parse Diff")
 def parse_diff(diff: str) -> list[dict]:
     # split into files
     raw_files = diff.split("diff --git a/")
@@ -90,6 +108,7 @@ def parse_diff(diff: str) -> list[dict]:
         file = {"header": file_header, "body": segments}
         files.append(file)
 
+    print(files)
     return files
 
 
@@ -116,25 +135,15 @@ def calc_payout(chars_count: int) -> str:
 
 
 def main():
-    print("::group::Diff")
     pr = get_pull_request(args.pull_url)
     author = pr.user
-    diff = get_diff(pr)
-    print(diff)
-    print("::endgroup::\n\n")
-
-    print("::group::Parse Diff")
+    diff, diff_url = get_diff(pr)
     diff_struct = parse_diff(diff)
-    print(diff_struct)
-    print("::endgroup::\n\n")
-
-    print("::group::Calculate Payout")
     chars_count = count_chars(diff_struct)
     payout = calc_payout(chars_count)
-    print("::endgroup::\n\n")
-    
+
     print("::group::Comment")
-    comment = f"Thanks, @{author.login}! {chars_count} characters were added or changed in this PR and your contribution is worth ${payout}. @{payout_assignee} will process your payment."
+    comment = f"Thanks, @{author.login}! {chars_count} characters were added or changed in this [PR]({diff_url}) and your contribution is worth ${payout}. @{payout_assignee} will process your payment."
 
     # check if running on Github
     if os.environ.get("GITHUB_ACTIONS") == "true":
@@ -142,5 +151,6 @@ def main():
 
     print(comment)
     print("::endgroup::\n\n")
+
 
 main()
