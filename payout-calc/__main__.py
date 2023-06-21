@@ -116,13 +116,24 @@ def calc_payout(chars_count: int) -> str:
 
 
 def main():
+    print("::group::Diff")
     pr = get_pull_request(args.pull_url)
     author = pr.user
     diff = get_diff(pr)
-    files = parse_diff(diff)
-    chars_count = count_chars(files)
-    payout = calc_payout(chars_count)
+    print(diff)
+    print("::endgroup::\n\n")
 
+    print("::group::Parse Diff")
+    diff_struct = parse_diff(diff)
+    print(diff_struct)
+    print("::endgroup::\n\n")
+
+    print("::group::Calculate Payout")
+    chars_count = count_chars(diff_struct)
+    payout = calc_payout(chars_count)
+    print("::endgroup::\n\n")
+    
+    print("::group::Comment")
     comment = f"Thanks, @{author.login}! {chars_count} characters were added or changed in this PR and your contribution is worth ${payout}. @{payout_assignee} will process your payment."
 
     # check if running on Github
@@ -130,6 +141,6 @@ def main():
         pr.create_issue_comment(comment)
 
     print(comment)
-
+    print("::endgroup::\n\n")
 
 main()
