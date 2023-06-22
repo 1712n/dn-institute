@@ -2,7 +2,7 @@
 date: 2021-12-13
 custodians: Vulcan Forged
 categories: Custodian
-title: Vulcan Forged hacked for $140 million worth of PYR tokens
+title: "Vulcan Forged hacked for $140 million worth of PYR tokens"
 ---
 
 ## Summary
