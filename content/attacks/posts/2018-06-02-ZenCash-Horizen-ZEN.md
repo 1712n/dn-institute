@@ -21,7 +21,6 @@ The attackers managed to double-spend approximately 23,000 ZEN coins during the 
 
 - **June 2, 2018:** The 51% attack on the ZenCash network began. The attackers gained control of a majority of the network's hashrate, which allowed them to mine blocks at an accelerated rate.
 - **June 2, 2018:** The ZenCash team became aware of the attack and issued a warning to exchanges and mining pools, advising them to increase the number of confirmations required for ZEN transactions.
-- **June 3, 2018:** The ZenCash team communicated to the community that they were actively investigating the attack and working on countermeasures.
 - **June 6, 2018:** The ZenCash team released a post-mortem report, detailing the attack and the steps taken to mitigate such incidents in the future.
 
 ## Security Failure Causes
