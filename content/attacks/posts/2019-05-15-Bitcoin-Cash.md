@@ -2,7 +2,7 @@
 date: 2019-05-15
 custodians: Bitcoin Cash
 categories: 51%
-title: Bitcoin Cash Users Survive 51% Attack
+title: "Bitcoin Cash Users Survive 51% Attack"
 ---
 
 ## Summary
@@ -11,7 +11,7 @@ Bitcoin Cash (BCH) faced a 51% attack on May 15, 2019, in which a group of miner
 
 ## Attackers
 
-The initial attack on the Bitcoin Cash network was attempted by an unidentified entity aiming to exploit a network upgrade by introducing invalid transactions. However, two major mining pools, BTC.com and BTC.top, counteracted by joining forces to temporarily control more than 51% of the network’s hash rate. Although BTC.com and BTC.top's intervention was aimed at preventing the malicious activity, their ability to gain majority control raised questions about the centralization and vulnerability of the Bitcoin Cash network.
+The initial attack on the Bitcoin Cash network was attempted by an unidentified entity aiming to exploit a network upgrade by introducing invalid transactions. However, two major mining pools, BTC.com and BTC.top, counteracted by joining forces to temporarily control more than 51% of the network’s hash rate.
 
 ## Losses
 
@@ -22,8 +22,6 @@ There were no financial losses incurred during the attack as the actions of BTC.
 - **May 15, 2019:** An anonymous entity attempted to introduce invalid transactions into the Bitcoin Cash network during a scheduled upgrade.
 - **May 15, 2019:** BTC.com and BTC.top combined their hash power to launch a 51% counter-attack to reverse these invalid transactions.
 - **May 15, 2019:** The counter-attack was successful, and the invalid transactions were excluded from the blockchain. No funds were lost during the event.
-- **May 16, 2019:** Discussions around network security and the level of decentralization within Bitcoin Cash began to take place within the crypto community.
-
 
 ## Security Failure Causes
 
