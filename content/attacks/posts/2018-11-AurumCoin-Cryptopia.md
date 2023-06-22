@@ -15,11 +15,10 @@ The attackers remain unidentified.
 
 ## Losses
 
-The attack led to the double-spending of 15,752.26 AurumCoins, which were withdrawn from the Cryptopia exchange. At the time, these AurumCoins were valued at approximately $500,000. The loss had a significant impact on the AurumCoin community and raised questions about the security measures in place.
+The attack led to the double-spending of 15,752.26 AurumCoins, which were withdrawn from the Cryptopia exchange. At the time, these AurumCoins were valued at approximately $500,000. 
 
 ## Timeline
 
-- **November 2018:** AurumCoin network experiences a sudden increase in hash rate, indicating an attempted takeover of the network.
 - **November 2018:** The 51% attack occurs as the anonymous attacker gains control over the majority of the network’s hash rate, which enables them to alter the blockchain ledger and execute double-spend transactions.
 - **November 2018:** Cryptopia exchange reports a loss of 15,752.26 AurumCoins valued at approximately $500,000 due to the attack.
 
