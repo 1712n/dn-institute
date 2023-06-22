@@ -2,7 +2,7 @@
 date: 2018-11
 custodians: AurumCoin, Cryptopia
 categories: 51%
-title: AurumCoin Users Face Losses in a 51% Attack
+title: "AurumCoin Users Face Losses in a 51% Attack"
 ---
 
 ## Summary
@@ -11,7 +11,7 @@ In November 2018, AurumCoin (AU), a relatively lesser-known cryptocurrency, was 
 
 ## Attackers
 
-The attackers behind the 51% attack on AurumCoin remain unidentified. They were able to accumulate a majority of the network’s hash power, thereby taking control of the AurumCoin blockchain. This control enabled them to alter the blockchain ledger to their advantage and execute double-spend transactions.
+The attackers remain unidentified.
 
 ## Losses
 
@@ -22,7 +22,6 @@ The attack led to the double-spending of 15,752.26 AurumCoins, which were withdr
 - **November 2018:** AurumCoin network experiences a sudden increase in hash rate, indicating an attempted takeover of the network.
 - **November 2018:** The 51% attack occurs as the anonymous attacker gains control over the majority of the network’s hash rate, which enables them to alter the blockchain ledger and execute double-spend transactions.
 - **November 2018:** Cryptopia exchange reports a loss of 15,752.26 AurumCoins valued at approximately $500,000 due to the attack.
-- **Following Days:** The cryptocurrency community discusses the implications of the attack, with many raising concerns regarding the security of smaller cryptocurrencies like AurumCoin.
 
 ## Security Failure Causes
 
