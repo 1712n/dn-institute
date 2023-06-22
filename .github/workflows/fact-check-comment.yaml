@@ -11,7 +11,7 @@ jobs:
   fact-check:
     runs-on: ubuntu-latest
     name: "Verify statements in content diff for truthness"
-    if: github.event.issue.pull_request && contains(github.event.comment.body, '/qualitycheck') && contains(fromJSON('["celestenoll", "NikoAnita", "LundbergPaul", "eric-oconnor", "alxarno", "evgenydmitriev", "jhirschkorn", "marina-chibizova"]'), github.actor)
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/qualitycheck') && contains(fromJSON('${{ secrets.WIKI_REVIEWERS }}'), github.actor)
     steps:
       - uses: actions/checkout@v3
 
