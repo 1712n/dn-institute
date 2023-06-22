@@ -1,0 +1,37 @@
+---
+date: 2021-08-10
+custodians: Poly Network
+categories: Protocol exploit
+title: Poly Network Hack - $610 Million Stolen in 2021
+---
+
+## Summary
+
+On August 10, 2021, Poly Network, a cross-chain decentralized finance (DeFi) platform, was hacked for over $610 million in digital assets. The attackers exploited a vulnerability in Poly Network's code to transfer the funds to their own wallets.
+
+## Attackers
+
+The attackers are believed to be a group of hackers who have been active in the DeFi space for some time. They have been known to exploit vulnerabilities in DeFi protocols to steal funds. However, the attackers' identities have not been publicly disclosed. The hacker used the following addresses to transfer the funds:
+
+- Ethereum:
+    - [0xC8a65Fadf0e0dDAf421F28FEAb69Bf6E2E589963](https://etherscan.io/address/0xC8a65Fadf0e0dDAf421F28FEAb69Bf6E2E589963)
+- BSC:
+    - [0x0D6e286A7cfD25E0c01fEe9756765D8033B32C71](https://bscscan.com/address/0x0D6e286A7cfD25E0c01fEe9756765D8033B32C71)
+- Polygon:
+    - [0x5dc3603C9D42Ff184153a8a9094a73d461663214](https://polygonscan.com/address/0x5dc3603c9d42ff184153a8a9094a73d461663214)
+
+## Losses
+
+The total amount of losses resulting from the Poly Network hack was over $610 million. The stolen funds consisted of 6,014 ETH, 273,900 Binance Coin (BNB), 2,651 Tether (USDT), and 1,000 Polygon (MATIC).
+
+## Timeline
+
+- **August 10, 2021:** Poly Network is hacked.
+- **August 10, 2021:** Tether froze ~33M $USDt on [0xC8a65Fadf0e0dDAf421F28FEAb69Bf6E2E589963](https://etherscan.io/address/0xC8a65Fadf0e0dDAf421F28FEAb69Bf6E2E589963)
+- **August 11, 2021:** The attackers return most of the stolen funds.
+- **August 12, 2021:** The remaining stolen funds are returned.
+
+## Security Failure Causes
+
+- **Vulnerabilities in Poly Network's code:** The attackers exploited a vulnerability in Poly Network's code to transfer the funds to their own wallets.
+- **Lack of security updates:** Poly Network had not released a security update for several months before the hack, which may have made it easier for the attackers to exploit the vulnerability.
