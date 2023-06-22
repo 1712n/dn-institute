@@ -1,0 +1,30 @@
+---
+date: 2016-08-23
+custodians: Krypton
+categories: 51%
+title: Krypton (KR) suffers a 51% attack in August 2016
+---
+
+## Summary
+
+Krypton, an Ethereum-based blockchain, experienced a 51% attack in August 2016. The attackers were able to control more than half of the network's hash rate, enabling them to manipulate the blockchain and double-spend KR tokens.
+
+## Attackers
+
+The identity of the attackers behind the Krypton 51% attack remains unknown. It is presumed that they were able to amass a significant amount of mining power, which was used to take control of the Krypton network.
+
+## Losses
+
+It was reported that the attackers managed to steal approximately 21,465 KR tokens, which had a value of about $3,000 at the time of the attack.
+
+## Timeline
+
+- **August 23, 2016:** The Krypton network experiences a sudden spike in its hash rate, and the 51% attack begins.
+- **August 24, 2016:** The Krypton team becomes aware of the attack and starts to investigate the incident.
+- **Late August, 2016:** Krypton developers work on countermeasures to prevent similar attacks in the future.
+
+## Security Failure Causes
+
+- **Lack of Decentralization:** Similar to other 51% attacks, the Krypton network suffered from a lack of decentralization in its mining power. This allowed the attackers to easily gain control over the network.
+- **Low Network Hash Rate:** At the time, Krypton was a relatively small cryptocurrency, with a low network hash rate, making it an easy target for attackers.
+- **Exploitation of Network Vulnerabilities:** The attackers exploited specific vulnerabilities in the Krypton network, which had not been sufficiently secured against potential 51% attacks.
