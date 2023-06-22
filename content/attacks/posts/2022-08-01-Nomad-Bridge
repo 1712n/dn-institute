@@ -1,0 +1,29 @@
+---
+date: 2022-08-01
+custodians: Nomad Bridge
+categories: Bridge Hack
+title: Nomad Bridge Hack - $190 Million Stolen in 2022
+---
+
+## Summary
+
+On August 1, 2022, Nomad Bridge, a cross-chain bridge that allows users to transfer tokens between Ethereum, Avalanche, Evmos, Milkomeda C1, and Moonbeam, was hacked for over 190 million USD in digital assets. The attackers exploited a vulnerability in Nomad Bridge's code to transfer the funds to their own wallets.
+
+## Attackers
+
+The identity of the hacker(s) behind the Nomad Bridge hack is still unknown. [However, according to some sources, the hack involved a total of 960 transactions with 1,175 individual withdrawals from the bridge](https://www.halborn.com/blog/post/the-nomad-bridge-hack-a-deeper-dive)
+
+## Losses
+
+The total amount of losses resulting from the Nomad Bridge hack was over 190 million USD. The stolen funds consisted of 17,900 ETH, 117,500 USDC, and 1,000 AVAX.
+
+## Timeline:
+
+- **August 1, 2022:** Nomad Bridge [tweeted](https://twitter.com/nomadxyz_/status/1554246853348036608) that it was aware of a security issue and that it was investigating.
+- **August 2, 2022:** Nomad Bridge confirmed that it had been hacked and that over 190 million USD in digital assets had been stolen.
+- **August 8, 2022:** 36.9 million USD of the stolen funds [were returned](https://twitter.com/nomadxyz_/status/1556681397993058304) to Nomad's wallet by whitehat hackers.
+
+## Security Failure Causes
+
+[Vulnerabilities in Nomad Bridge's code:](https://www.coinbase.com/blog/nomad-bridge-incident-analysis) The attackers exploited a vulnerability in Nomad Bridge's code to transfer the funds to their own wallets.
+Lack of security updates: Nomad Bridge had not released a security update for several months before the hack, which may have made it easier for the attackers to exploit the vulnerability.
