@@ -2,7 +2,7 @@
 date: 2022-08-01
 custodians: Nomad Bridge
 categories: Bridge Hack
-title: Nomad Bridge Hack - $190 Million Stolen in 2022
+title: "Nomad Bridge Hack - $190 Million Stolen in 2022"
 ---
 
 ## Summary
