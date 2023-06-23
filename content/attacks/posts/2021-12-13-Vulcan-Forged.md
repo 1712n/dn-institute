@@ -30,4 +30,4 @@ Decrmber 13, 2021
 
 ## Security Failure Causes
 
-- **Custodial wallet:** Vulcan Forged acknowledges that private keys were exposed through phishing techniques and hacking of the server since they were using a semi-custodial wallet. They state their commitment to moving to a 100% decentralized solution
+- **Custodial wallet:** Vulcan Forged acknowledges that private keys were exposed through phishing techniques and hacking of the server since they were using a semi-custodial wallet.
