@@ -2,7 +2,7 @@
 date: 2021-08-10
 custodians: Poly Network
 categories: Protocol exploit
-title: Poly Network Hack - $610 Million Stolen in 2021
+title: "Poly Network Hack - $610 Million Stolen in 2021"
 ---
 
 ## Summary
@@ -34,4 +34,3 @@ The total amount of losses resulting from the Poly Network hack was over $610 mi
 ## Security Failure Causes
 
 - **Vulnerabilities in Poly Network's code:** The attackers exploited a vulnerability in Poly Network's code to transfer the funds to their own wallets.
-- **Lack of security updates:** Poly Network had not released a sec
