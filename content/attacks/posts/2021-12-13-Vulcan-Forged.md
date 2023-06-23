@@ -7,7 +7,7 @@ title: "Vulcan Forged hacked for $140 million worth of PYR tokens"
 
 ## Summary
 
-In December 2021, Vulcan Forged, a well-known play-to-earn cryptocurrency operating on the Polygon Network, faced a devastating exploit involving the theft of $140 million. As outlined in the post-mortem report released by the developers, the attacker managed to employ social engineering tactics to compromise the credentials of user wallets, thereby gaining access to private keys. Consequently, the hacker succeeded in withdrawing 4.5 million Vulcan Forged tokens (PYR), which, at that time, held a value exceeding $140,000,000.
+In December 2021, Vulcan Forged, a well-known play-to-earn cryptocurrency operating on the Polygon Network, faced a devastating exploit involving the theft of $140 million. As outlined in the post-mortem report released by the developers, the [attacker managed to employ social engineering tactics to compromise the credentials of user wallets](https://twitter.com/VulcanForged/status/1470323775988240387), thereby gaining access to private keys. Consequently, the hacker succeeded in withdrawing 4.5 million Vulcan Forged tokens (PYR), which, at that time, held a value exceeding $140,000,000.
 
 ## Attackers
 
@@ -18,7 +18,7 @@ This adresses [play main role](https://twitter.com/VulcanForged/status/147020609
 
 ## Losses
 
-[The majority of PYR has been refunded to affected wallets from the Vulcan Forged treasury.](https://twitter.com/VulcanForged/status/1470365117774770180) and company have isolated the tokens stolen from all CEX exchanges, but PYR has dropped in value by over 30% in the next 24 hours after hack. 
+[The majority of PYR has been refunded to affected wallets from the Vulcan Forged treasury and company have isolated the tokens stolen from all CEX exchanges](https://twitter.com/VulcanForged/status/1470365117774770180), but [PYR has dropped in value by over 30% in the next 24 hours after hack.](https://www.tradingview.com/x/kRKHypFp/) 
 
 ## Timeline:
 
