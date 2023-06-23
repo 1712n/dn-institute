@@ -19,7 +19,7 @@ There were no financial losses incurred during the attack as the actions of BTC.
 
 ## Timeline
 
-- **May 15, 2019:** An anonymous entity attempted to introduce invalid transactions into the Bitcoin Cash network during a scheduled upgrade.
+- **May 15, 2019:** An anonymous entity attempted to introduce invalid transactions into the Bitcoin Cash network during a [scheduled upgrade](https://github.com/bitcoincashorg/bitcoincash.org/blob/master/spec/2019-05-15-upgrade.md).
 - **May 15, 2019:** BTC.com and BTC.top combined their hash power to launch a 51% counter-attack to reverse these invalid transactions.
 - **May 15, 2019:** The counter-attack was successful, and the invalid transactions were excluded from the blockchain. No funds were lost during the event.
 
