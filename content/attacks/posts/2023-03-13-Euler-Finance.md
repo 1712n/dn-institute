@@ -1,6 +1,6 @@
 ---
 date: 2023-03-13
-categories: Flash loan attack
+attacks/posts/categories: Flash loan attack
 title: "Euler Finance Exploited with Flash Loan Attack Resulting in Loss of $196 Million"
 ---
 
