@@ -11,7 +11,7 @@ On April 17, 2022, Beanstalk Farms, an Ethereum-based DeFi protocol that enables
 
 ## Attackers
 
-The identities of the attackers involved in the Beanstalk Farms attack remain unknown. However, their address on the Ethereum blockchain is [0x1c5dCdd006EA78a7E4783f9e6021C32935a10fb4](https://etherscan.io/address/0x1c5dcdd006ea78a7e4783f9e6021c32935a10fb4). This specific address has been labeled as the "Beanstalk Flashloan Exploiter," indicating their involvement in the exploit.
+The identities of the attackers involved in the Beanstalk Farms attack remain unknown. However, their address on the Ethereum blockchain is [0x1c5dCdd006EA78a7E4783f9e6021C32935a10fb4](https://etherscan.io/address/0x1c5dcdd006ea78a7e4783f9e6021c32935a10fb4). This specific address has been labeled as the "Beanstalk Flashloan Exploiter," indicating their involvement in the exploit. 
 
 ## Losses
 
@@ -32,5 +32,4 @@ Breakdown of the lost $182 million:
 - **August 6, 2022:** On its one-year anniversary, Beanstalk [resumed its protocol operations](https://bean.money/blog/beanstalk-one-year-anniversary) and relaunched on the Ethereum mainnet.
 
 ## Security Failure Causes
-
 The hack occurred due to a security flaw in the governance design of the protocol. [The attacker leveraged a flash loan acquired through Aave to borrow nearly $1 billion](https://etherscan.io/tx/0xcd314668aaa9bbfebaf1a0bd2b6553d01dd58899c508d4729fa7311dc5d33ad7) in cryptocurrency assets, granting them a 67% voting stake in Beanstalk. Exploiting this majority control, they authorized the execution of code that facilitated the transfer of assets to their personal wallet. This attack exploited the emergencyCommit() function, which enabled the immediate implementation of a proposal with a 2/3 majority vote, bypassing the protocol's protective measures.
