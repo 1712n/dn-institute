@@ -1,7 +1,6 @@
 ---
 date: 2021-12-13
-custodians: Vulcan Forged
-categories: Custodian
+categories: Protocol exploit
 title: "Vulcan Forged hacked for $140 million worth of PYR tokens"
 ---
 
