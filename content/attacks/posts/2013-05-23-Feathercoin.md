@@ -1,6 +1,5 @@
 ---
 date: 2013-05-23
-custodians: Feathercoin
 categories: 51%
 title: FTC users lose millions after a 51% attack 
 ---

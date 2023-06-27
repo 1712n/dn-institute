@@ -1,6 +1,5 @@
 ---
 date: 2019-05-15
-custodians: Bitcoin Cash
 categories: 51%
 title: "Bitcoin Cash Users Survive 51% Attack"
 ---
