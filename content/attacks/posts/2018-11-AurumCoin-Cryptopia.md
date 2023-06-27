@@ -1,6 +1,5 @@
 ---
 date: 2018-11
-custodians: AurumCoin, Cryptopia
 categories: 51%
 title: "AurumCoin Users Face Losses in a 51% Attack"
 ---
