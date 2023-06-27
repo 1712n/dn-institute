@@ -1,6 +1,5 @@
 ---
 date: 2018-05-19
-custodians: Bitcoin Gold
 categories: 51%
 title: BTG users lose millions in a 51% attack
 ---

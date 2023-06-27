@@ -1,26 +1,35 @@
 ---
 date: 2021-08-10
-categories: DeFi
-title: Poly Network Exploited
+categories: Protocol exploit
+title: "Poly Network Hack - $610 Million Stolen in 2021"
 ---
 
 ## Summary
 
-In August 2021, Poly Network, a cross-chain decentralized finance (DeFi) platform, fell victim to a sophisticated attack, resulting in the largest DeFi hack in history. The attackers exploited a vulnerability in the platform's smart contracts, allowing them to transfer and control a vast amount of digital assets across different blockchain networks. The incident exposed significant flaws in the security of DeFi protocols and highlighted the challenges of ensuring robust protection in the rapidly evolving blockchain ecosystem.
+On August 10, 2021, Poly Network, a cross-chain decentralized finance (DeFi) platform, was hacked for over $610 million in digital assets. The attackers exploited a vulnerability in Poly Network's code to transfer the funds to their own wallets.
 
 ## Attackers
 
-The identity of the attackers initially remained unknown. However, in a surprising turn of events, the hackers, acting under the pretext of exposing vulnerabilities and returning the stolen funds, engaged in a dialogue with the Poly Network team and eventually returned the majority of the stolen assets.
+Attackers' identities have not been publicly disclosed. The hacker used the following addresses to transfer the funds:
+
+- Ethereum:
+    - [0xC8a65Fadf0e0dDAf421F28FEAb69Bf6E2E589963](https://etherscan.io/address/0xC8a65Fadf0e0dDAf421F28FEAb69Bf6E2E589963)
+- BSC:
+    - [0x0D6e286A7cfD25E0c01fEe9756765D8033B32C71](https://bscscan.com/address/0x0D6e286A7cfD25E0c01fEe9756765D8033B32C71)
+- Polygon:
+    - [0x5dc3603C9D42Ff184153a8a9094a73d461663214](https://polygonscan.com/address/0x5dc3603c9d42ff184153a8a9094a73d461663214)
 
 ## Losses
 
-The attack led to the theft of approximately $600 million worth of various cryptocurrencies, including Ethereum, Binance Smart Chain tokens, and Polygon tokens. The stolen assets comprised funds from different users, liquidity providers, and even the Poly Network treasury itself. The incident had a profound impact on the affected individuals and highlighted the financial risks associated with decentralized platforms.
+The total amount of losses resulting from the Poly Network hack was over $610 million. The stolen funds consisted of 6,014 ETH, 273,900 Binance Coin (BNB), 2,651 Tether (USDT), and 1,000 Polygon (MATIC).
 
 ## Timeline
 
-- **August 10, 2021:** The Poly Network team discovered the attack and quickly responded by posting a public message alerting users to the exploit and urging miners and blockchain validators to blacklist the addresses involved in the hack. Shortly after the initial discovery, the hackers started engaging in a dialogue with the Poly Network team, expressing their intentions to return the stolen funds. Over the following days, a complex negotiation process took place between the Poly Network team and the hackers, resulting in the gradual return of the majority of the stolen assets.
-- **August 15, 2021:** Poly Network issued a statement acknowledging the return of most of the stolen funds and expressed gratitude to the hacker(s) for their cooperation.
+- **August 10, 2021:** [Poly Network is hacked.](https://twitter.com/PolyNetwork2/status/1425073987164381196)
+- **August 10, 2021:** [Tether froze ~33M $USDt on 0xC8a65Fadf0e0dDAf421F28FEAb69Bf6E2E589963](https://twitter.com/paoloardoino/status/1425090760609832978)
+- **August 12, 2021:** [The attackers return most of the stolen funds](https://twitter.com/PolyNetwork2/status/1425733950614360064)
+- **August 23, 2021:** [Poly Network Commences Full Asset Restoration](https://medium.com/poly-network/poly-network-commences-full-asset-restoration-7f5c548423b9)
 
 ## Security Failure Causes
 
-- Lack of security audits and vulnerability assessments.
+- **Vulnerabilities in Poly Network's code:** The attackers exploited a vulnerability in Poly Network's code to transfer the funds to their own wallets.

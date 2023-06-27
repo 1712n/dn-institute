@@ -1,7 +1,6 @@
 ---
 date: 2023-03-13
-custodians: Euler Finance
-categories: DeFi
+categories: Flash loan attack
 title: "Euler Finance Exploited with Flash Loan Attack Resulting in Loss of $196 Million"
 ---
 
