@@ -1,7 +1,7 @@
 ---
 date: 2021-04-13
-custodians: Africrypt
-categories: Custodian
+attacks/posts/custodians: Africrypt
+attacks/posts/categories: Custodian
 title: "Africrypt Founders Vanished with $3.6 Billion in Bitcoin"
 ---
 

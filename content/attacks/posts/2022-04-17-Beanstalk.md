@@ -1,6 +1,6 @@
 ---
 date: 2022-04-17
-categories: Flash loan attack
+attacks/posts/categories: Flash loan attack
 title: Beanstalk Farms Lost $182 Million Due To The Governance Mechanism
 ---
 

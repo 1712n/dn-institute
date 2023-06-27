@@ -24,13 +24,23 @@ menu:
         icon: ""
 
 taxonomies:
-  category: "categories"
-  custodian: "custodians"
+  category: "attacks/posts/categories"
+  custodian: "attacks/posts/custodians"
 
 cascade:
 - _target:
     path: "**/posts/**"
   type: posts
+
+- _target:
+    path: "**/posts/categories"
+  title: Categories
+  type: categories
+
+- _target:
+    path: "**/posts/custodians"
+  title: Custodians
+  type: custodians
 
 - _target:
     path: "**/docs/**"

@@ -1,6 +1,6 @@
 ---
 date: 2018-11
-categories: 51%
+attacks/posts/categories: 51%
 title: "AurumCoin Users Face Losses in a 51% Attack"
 ---
 
