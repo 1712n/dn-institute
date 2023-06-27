@@ -1,5 +1,6 @@
 ---
 date: 2018-01-28
+custodians: "Coincheck"
 categories: "Custodian"
 title: "Coincheck Hack: A $530 Million NEM Theft Unveiling Centralized Exchange Vulnerabilities"
 
