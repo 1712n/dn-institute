@@ -1,0 +1,19 @@
+  {{ $isCurrent := hasPrefix .page.RelPermalink .item.RelPermalink | default false }}
+
+  {{ if .item.Page.Params.hide }}
+    <span
+      class="anchor"
+      {{ if $isCurrent }}aria-current="page"{{ end }}
+    >{{ .item.Title }}</span>
+
+  {{ else }}
+    <a
+      class="anchor"
+      href="{{ .item.RelPermalink }}"
+      {{ if $isCurrent }}aria-current="page"{{ end }}
+    >{{ .item.LinkTitle }}</a>
+  {{ end }}
+
+  {{ if .control }}
+    <button class="collapsible-control"></button>
+  {{ end }}

@@ -20,6 +20,7 @@ export default class Collapsible {
   constructor(opts) {
     this.control = opts.control
     this.target = opts.target
+    this.debug = opts.debug
 
     if (this.control === null)
       throw new Error("Control element is null");
@@ -27,9 +28,8 @@ export default class Collapsible {
     if (this.target === null)
       throw new Error("Target element is null");
 
-    if (opts.aria) {
+    if (opts.aria)
       this.setAria(opts.aria)
-    }
 
     this.control.addEventListener("click", () => {
       this.dispatch("toggle")
@@ -68,7 +68,7 @@ export default class Collapsible {
   }
 
   hide(item) {
-    if (item.debug)
+    if (this.debug)
       console.log(`"action: hide; id: ${item.element.id}; class: ${item.element.class}"`)
 
     // 'hidden' remove from layout
@@ -85,7 +85,7 @@ export default class Collapsible {
   }
 
   show(item) {
-    if (item.debug)
+    if (this.debug == true)
       console.log(`"action: show; id: ${item.element.id}; class: ${item.element.class}"`)
 
     if (!item.visibility) {
