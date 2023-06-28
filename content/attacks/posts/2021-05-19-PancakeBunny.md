@@ -6,15 +6,19 @@ title: "PancakeBunny suffers a flash loan attack"
 
 ## Summary
 
-On May 19, 2021 PancakeBunny, a yield farming aggregator built on Binance Smart Chain decentralized finance (DeFi) protocol, suffered a flash loan attack. The attack was investigated and the report was posted on the PancakeBunny Medium blog: https://pancakebunny.medium.com/hello-bunny-fam-a7bf0c7a07ba
-The actions described below in this section were done withing one transaction¹ which made this attack possible.
-The attacker borrowed 2323373 WBNB from PancakeBunny lending pools and 2961750 USDT from another source.
-2961750 USDT and 7744 BNB were deposited on the PancakeSwap Version 2 (PCS V2) USDT/BNB pool having created 144445 LP tokens.
-2315631 WBNB were swapped to USDT (on the PCS V1 USDT/BNB pool, exploiting its pricing).
-Then the hacker removed liquidity from USDT/BNB pool on all 144445LP tokens. 
-The BNB tokens were used to manipulate Bunny/BNB price, as a result of which 6972455Bunny were issued after PancakeBunny protocol's calculating².
-Having got this reward the attacker dumped most (on PCS V1 and V2 summarily 6275209Bunny were swapped for 2441024BNB) of it in the market which caused Bunny's value to plummet. Then BNB tokens were paid back, after which 114631BNB left over. Another part of the hacker's profit was the reminder of Bunny tokens: 697246.
-The borrowed USDT were paid back here either.
+On May 19, 2021 PancakeBunny, a yield farming aggregator built on Binance Smart Chain decentralized finance (DeFi) protocol, suffered a flash loan attack. According to [the SlowMist report they shared after investigating the incident](https://slowmist.medium.com/slowmist-pancakebunny-hack-analysis-4a708e284693) the attacker "first borrows a huge amount of WBNB tokens from the multiple liqudity pools of PancakeSwap and borrows a huge amount of WBNB tokens from the Fortube project". These assets were then used to manipulate the price of BUNNY/BNB and USDT/BNB.
+
+[Cofounder of Halborn Rob Behnke commenting the attack](https://www.halborn.com/blog/post/explained-the-pancakebunny-protocol-hack-may-2021) describes the main steps of this manipulating:
+
+"1. Mint liquidity provider (LP) tokens by depositing a pair of tokens (i.e. BNB and USDT)
+
+2. Modify the exchange rate by swapping a large number of one token for another (i.e. WBNB for USDT) on a pool
+
+3. Exchange LP tokens for share of invested tokens, taking advantage of unbalanced value".
+
+Behnke then continues: "when extracting value or exchanging BUNNY for BNB, the attacker received more tokens than they "should" have. As a result, after paying off the flash loan, the attacker had 114,631 WBNB left over, which is the profit from the attack".
+
+Another part of the attacker's profit (mentioned in Timeline section on 11:59 PM) was the remainder of BUNNY tokens he acquired according to the BunnyMinterV2 contract.
 
 ## Attackers
 
@@ -24,25 +28,24 @@ Attacker's wallet address:
 
 ## Losses
 
-If calculated based on the average Bunny price shortly before the attack, PancakeBunny's loss was roughly $150 million (697246Bunny~$105M + 114631BNB~$45M).
-Bunny token plummeted to almost 0 (the price was ~$150 before attack, it increased up to ~$240 for a short time right after, then it fell within minutes after). Later that day it recovered about 5% of its value.
-To compensate losses of Bunny holders the Team declared creating a compensation pool as well as a new token - polyBunny, for Polygon PancakeBunny, was announced (was initially planned to be done several months later). Another flash loan attack happenned on July 17, 2021 causing losses again, polyBunny price fell.
+If calculated at prices at the time of the incident, PancakeBunny's loss was about $200 million.
+BUNNY token lost almost 95% of its value (the average price was around $150 before the attack, it raised up to $240 for a short time after, then fell to almost 0 within minutes and, hours later, recovered about 5% of the average price).
 
 ## Timeline
 
-May 19, 2021
-10:31:25PM - 1BNB deposited on the USDT/BNB Flip Vault to stage the attack
-¹10:34:28PM - the time of the exploit transaction
-10:36:00PM - the Bunny Team detected unusual increase of Bunny's price
-10:45:10PM - 114631BNB were sent to this address (for being laundered):
-0x158c244b62058330f2c328c720b072d8db2c612f
-11:18:10PM - the Flash Loan attack is officially confirmed, deposits/withdrawals to the Vault are paused (to prevent further attacks)
-11:59:55PM - 488071,8...Bunny were swapped for 9161,3...BNB from the same address as on 10:45
+The timeline of the incident with more details is provided on [the PancakeBunny Medium blog](https://pancakebunny.medium.com/hello-bunny-fam-a7bf0c7a07ba)
+**May 19, 2021**
+- **10:31 PM:** 1BNB deposited on the USDT/BNB Flip Vault to stage the attack
+- **10:34 PM:** the time of the exploit transaction
+- **10:36 PM:** the Bunny Team detected unusual increase of Bunny's price
+- **10:45 PM:** 114631BNB were sent to this address: 0x158c244b62058330f2c328c720b072d8db2c612f
+- **11:18 PM:** the Flash Loan attack is officially confirmed, the Bunny Team paused deposits/withdrawals to the Vault to prevent further attacks
+- **11:59 PM:** 488071,8...Bunny were swapped for 9161,3...BNB from the same address as on 10:45
 
-May 21, 2021
-06:30:00AM - withdrawal/deposit function is restored to the Vault
+**May 21, 2021**
+- **06:30 AM:** the Team restored withdrawal/deposit function to the Vault
 
 ## Security Failure Causes
 
-²Calculating the amount of Bunny tokens to be issued was based on the proportion of BNB/USDT tokens in the pool.
-The availability of borrowing of huge amount of assets was crucial in this case (probably the variety mattered either).
+- According to the abovementioned SlowMist's report "the price calculation of WBNB-BUNNY LP is flawed, and the number of BUNNY minted by the BunnyMinterV2 contract depends on this flawed LP price calculation method" and "the final LP price was maliciously manipulated and increased by the attacker, which resulted in the BunnyMinterV2 contract eventually minting a large number of BUNNY tokens". To avoid this they recommend to use a credible delayed price feed oracle.
+- Provided a flash loan is borrowed and paid back in the same transaction, there is no limit to the amount of assets that can be borrowed.
