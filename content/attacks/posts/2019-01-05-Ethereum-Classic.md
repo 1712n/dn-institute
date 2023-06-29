@@ -1,6 +1,6 @@
 ---
 date: 2019-01-05
-categories: 51%
+attacks/posts/categories: 51%
 title: Ethereum Classic suffers a 51% attack
 ---
 

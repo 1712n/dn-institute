@@ -1,7 +1,7 @@
 ---
 date: 2022-09-20
-custodians: Wintermute
-categories: Custodian
+attacks/posts/custodians: Wintermute
+attacks/posts/categories: Custodian
 title: "Wintermute Incurs $160 Million Loss from Brute Force Private Key Compromise Linked to Profanity's Vulnerability"
 ---
 

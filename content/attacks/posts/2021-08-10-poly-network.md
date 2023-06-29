@@ -1,6 +1,6 @@
 ---
 date: 2021-08-10
-categories: Protocol exploit
+attacks/posts/categories: Protocol exploit
 title: "Poly Network Hack - $610 Million Stolen in 2021"
 ---
 
