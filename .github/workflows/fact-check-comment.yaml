@@ -1,0 +1,56 @@
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: write
+
+jobs:
+  permission-check-job:
+    runs-on: ubuntu-latest
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/qualitycheck')
+    outputs:
+      permission: ${{ steps.permissions-check.outputs.defined }}
+    steps:
+      - name: Check for Secret availability
+        id: permissions-check
+        shell: bash
+        run: |
+          echo "defined=${{ contains(fromJSON(secrets.WIKI_REVIEWERS), github.actor) }}" >> $GITHUB_OUTPUT;
+
+  fact-check:
+    runs-on: ubuntu-latest
+    name: "Verify statements in content diff for truthness"
+    needs: [permission-check-job]
+    if: needs.permission-check-job.outputs.permission == 'true'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install poetry
+        run: pipx install poetry
+      
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "poetry"
+
+      - name: Install Python dependencies
+        run: poetry install
+      
+      - uses: xt0rted/pull-request-comment-branch@v2
+        id: comment-branch
+
+      - name: Run fact-checking script
+        run: |
+          PR_URL="${{ github.event.issue.pull_request.url }}"
+          PR_NUM=${PR_URL##*/}
+          poetry run python fact-check.py \
+            --repo-url "${{ github.event.repository.full_name }}" \
+            --pull-request-head "${{ steps.comment-branch.outputs.head_ref }}" \
+            --pull-request-base "${{  steps.comment-branch.outputs.base_ref }}" \
+            --pull-request-number $PR_NUM \
+            --github-token "${{ secrets.GITHUB_TOKEN }}" \
+            --openai-key "${{ secrets.OPENAI_KEY }}" \
+            --content-path "content"
