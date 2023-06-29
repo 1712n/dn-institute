@@ -28,8 +28,7 @@ Attacker's wallet address:
 
 ## Losses
 
-If calculated at prices at the time of the incident, PancakeBunny's loss was about $200 million.
-BUNNY token lost almost 95% of its value (the average price was around $150 before the attack, it raised up to $240 for a short time after, then fell to almost 0 within minutes and, hours later, recovered about 5% of the average price).
+If calculated at prices at the time of the incident, PancakeBunny's loss was about $200 million. BUNNY token lost almost 95% of its value.
 
 ## Timeline
 
