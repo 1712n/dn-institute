@@ -8,28 +8,6 @@
   {{ partial "docs/inject/menu-before" . }}
 
   {{ $page := .Page }}
-
-  {{ define "menu-anchor" }}
-    {{ $isCurrent := hasPrefix .page.RelPermalink .item.RelPermalink | default false }}
-
-    {{ if .item.Page.Params.hide }}
-    <span
-      class="anchor"
-      {{ if $isCurrent }}aria-current="page"{{ end }}
-    >{{ .item.Title }}</span>
-
-    {{ else }}
-      <a
-        class="anchor"
-        href="{{ .item.RelPermalink }}"
-        {{ if $isCurrent }}aria-current="page"{{ end }}
-      >{{ .item.LinkTitle }}</a>
-    {{ end }}
-
-    {{ if .control }}
-      <button class="collapsible-control"></button>
-    {{ end }}
-  {{ end }}
   
   <div class="book-tree">
     <!-- initialize sections ids -->
@@ -43,7 +21,7 @@
       {{ if (gt (.Pages | len) 0) }}
         <div class="submenu collapsible">
           {{ $ul2 = .LinkTitle | urlize | lower }}
-          <h2>{{ template "menu-anchor" (dict "page" $page "item" . "control" true) }}</h2>
+          <h2>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "control" true) }}</h2>
           <ul class="collapsible-target" id="ul2-{{ $ul2 }}">
             <!-- list sub sections -->
             {{ range .Pages }}
@@ -52,21 +30,21 @@
                   <!-- special case: posts -->
                   {{ if eq .Type "posts" }}
                     {{ $ul3 = .LinkTitle | urlize | lower }}
-                    <h3>{{ template "menu-anchor" (dict "page" $page "item" . "control" true) }}</h3>
+                    <h3>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "control" true) }}</h3>
                     <ul class="taxonomies collapsible-target" id="ul3-{{ $ul2 }}-{{ $ul3 }}">
                       <!-- NOTE: Taxonomies are site-wide and not section-specific. -->
                       {{ range $taxonomy, $terms := site.Taxonomies }}
                         {{ if site.Params.expandTerms }}
                           <li class="taxonomy collapsible">
                             {{ with site.GetPage $taxonomy }}
-                              <h4>{{ template "menu-anchor" (dict "page" $page "item" . "control" true) }}</h4>
+                              <h4>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "control" true) }}</h4>
                             {{ end }}
 
                             {{ with $terms }}
                               {{ $ul4 = .LinkTitle | urlize | lower }}
                               <ul class="terms collapsible-target" id="ul4-{{ $ul2 }}-{{ $ul3 }}-{{ $ul4 }}">
                                 {{ range . }}
-                                  <li>{{ template "menu-anchor" (dict "page" $page "item" .Page) }}</li>
+                                  <li>{{ partial "docs/menu-anchor" (dict "page" $page "item" .Page) }}</li>
                                 {{ end }}
                               </ul>
                             {{ end }}
@@ -74,7 +52,7 @@
                         {{ else }}
                           {{ with site.GetPage $taxonomy }}
                           <li class="taxonomy">
-                            <h4>{{ template "menu-anchor" (dict "page" $page "item" . "control" false) }}</h4>
+                            <h4>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "control" false) }}</h4>
                           </li>
                           {{ end }}
                         {{ end }}
@@ -85,14 +63,14 @@
                   {{ else }}
                     {{ if .Pages }}
                       {{ $ul3 = .LinkTitle | urlize | lower }}
-                      <h3>{{ template "menu-anchor" (dict "page" $page "item" . "control" true) }}</h3>
+                      <h3>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "control" true) }}</h3>
                       <ul class="pages collapsible-target" id="ul3-{{ $ul2 }}-{{ $ul3 }}">
                         {{ range .Pages }}
-                          <li>{{ template "menu-anchor" (dict "page" $page "item" .) }}</li>
+                          <li>{{ partial "docs/menu-anchor" (dict "page" $page "item" .) }}</li>
                         {{ end }}
                       </ul>
                     {{ else }}
-                      <h3>{{ template "menu-anchor" (dict "page" $page "item" .) }}</h3>
+                      <h3>{{ partial "docs/menu-anchor" (dict "page" $page "item" .) }}</h3>
                     {{ end }}
                   {{ end }}
                 </li>
@@ -102,7 +80,7 @@
         </div>
       {{ else }}
         <div class="submenu">
-          <h2>{{ template "menu-anchor" (dict "page" $page "item" .) }}</h2>
+          <h2>{{ partial "docs/menu-anchor" (dict "page" $page "item" .) }}</h2>
         </div>
       {{ end }}
     {{ end }}
@@ -113,34 +91,6 @@
     </div>
   </div>
 
-  <script type="module">
-    import Collapsible from "/js/collapsible.js"
-
-
-    const sections = document.querySelectorAll(".collapsible")
-    sections.forEach((item) => {
-      const control = item.querySelector(".collapsible-control")
-      const target = item.querySelector(".collapsible-target")
-      // FIXME: Taxonomies pages will not trigger section as current due to different paths
-      // const isCurrent = (control.previousElementSibling.getAttribute("aria-current"))
-      const isCurrent = true
-
-      new Collapsible({
-        control: control,
-        target: {
-          element: target,
-        },
-        aria: {
-          expanded: isCurrent ? true : false,
-          controls: true
-        },
-      })
-
-      // if (!isCurrent)
-      //   target.hidden = true
-    })
-  </script>
-    
   {{ partial "docs/inject/menu-after" . }}
 </nav>
 
