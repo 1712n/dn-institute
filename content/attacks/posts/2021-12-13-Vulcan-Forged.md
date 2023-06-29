@@ -1,6 +1,6 @@
 ---
 date: 2021-12-13
-categories: Protocol exploit
+attacks/posts/categories: Protocol exploit
 title: "Vulcan Forged hacked for $140 million worth of PYR tokens"
 ---
 

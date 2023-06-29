@@ -1,6 +1,6 @@
 ---
 date: 2022-10-06
-categories: Bridge Hack
+attacks/posts/categories: Bridge Hack
 title: "BSC Token Hub Hit By $586 Million Bridge Hack"
 ---
 
