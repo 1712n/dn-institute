@@ -1,6 +1,6 @@
 ---
 date: 2019-05-15
-categories: 51%
+attacks/posts/categories: 51%
 title: "Bitcoin Cash Users Survive 51% Attack"
 ---
 

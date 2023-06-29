@@ -1,6 +1,6 @@
 ---
 date: 2018-05-19
-categories: 51%
+attacks/posts/categories: 51%
 title: BTG users lose millions in a 51% attack
 ---
 

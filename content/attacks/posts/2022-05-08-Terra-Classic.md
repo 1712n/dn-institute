@@ -1,6 +1,6 @@
 ---
 date: 2022-05-08
-categories: Protocol exploit
+attacks/posts/categories: Protocol exploit
 title: "The Collapse of Terra Classic Network Resulting in a $40 Billion Loss"
 ---
 
