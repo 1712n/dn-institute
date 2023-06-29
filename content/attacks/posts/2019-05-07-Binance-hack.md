@@ -1,7 +1,7 @@
 ---
 date: 2019-05-07
-custodians: Binance
-categories: Custodian
+attacks/posts/custodians: Binance
+attacks/posts/categories: Custodian
 title: Binance Hack - Millions of Dollars Stolen in 2019
 
 ---

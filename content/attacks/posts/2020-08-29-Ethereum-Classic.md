@@ -1,6 +1,6 @@
 ---
 date: 2020-08-31
-categories: 51%
+attacks/posts/categories: 51%
 title: Ethereum Classic suffers three consecutive 51% attacks
 ---
 
