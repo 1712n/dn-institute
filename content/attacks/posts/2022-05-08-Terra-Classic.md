@@ -1,7 +1,6 @@
 ---
 date: 2022-05-08
-custodians: Terra Classic
-categories: Stablecoin, DeFi
+attacks/posts/categories: Protocol exploit
 title: "The Collapse of Terra Classic Network Resulting in a $40 Billion Loss"
 ---
 
