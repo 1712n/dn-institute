@@ -1,7 +1,6 @@
 ---
 date: 2022-10-06
-custodians: Binance Smart Chain
-categories: Smart contract
+attacks/posts/categories: Bridge Hack
 title: "BSC Token Hub Hit By $586 Million Bridge Hack"
 ---
 

@@ -1,0 +1,23 @@
+  <script type="module">
+    import Collapsible from "/js/collapsible.js"
+
+    const sections = document.querySelectorAll(".collapsible")
+
+    sections.forEach((item) => {
+      const control = item.querySelector(".collapsible-control")
+      const target = item.querySelector(".collapsible-target")
+
+      new Collapsible({
+        control: control,
+        target: {
+          element: target,
+        },
+        aria: {
+          expanded: true,
+          controls: true
+        },
+        debug: false
+      })
+    })
+  </script>
+
