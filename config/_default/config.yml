@@ -24,8 +24,8 @@ menu:
         icon: ""
 
 taxonomies:
-  category: "categories"
-  custodian: "custodians"
+  attacks/posts/category: "attacks/posts/categories"
+  attacks/posts/custodian: "attacks/posts/custodians"
 
 cascade:
 - _target:

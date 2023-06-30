@@ -1,6 +1,6 @@
 ﻿---
 date: 2022-06-23
-categories: Bridge Hack
+attacks/posts/categories: Bridge Hack
 title: "Harmony's Horizon Bridge was the victim of a massive cyberattack from North Korea"
 ---
 
