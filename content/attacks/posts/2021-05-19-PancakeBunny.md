@@ -27,7 +27,7 @@ Attacker's wallet address:
 
 ## Losses
 
-The amount of stolen tokens [was estimated at about $200 million at prices at the time. BUNNY token lost around 96% of its value.](https://cointelegraph.com/news/pancakebunny-tanks-96-following-200m-flash-loan-exploit)
+The amount of stolen assets [was estimated at about $200 million at prices at the time. BUNNY token lost around 96% of its value.](https://cointelegraph.com/news/pancakebunny-tanks-96-following-200m-flash-loan-exploit)
 
 ## Timeline
 
