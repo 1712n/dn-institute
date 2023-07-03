@@ -49,6 +49,7 @@ The timeline of the incident with more details is provided on [the PancakeBunny 
 - **Smart contract vulnerability:** The BunnyMinterV2 contract was not prevented from minting an immense amount of BUNNY tokens in case of manipulating LP prices:
 > The key point is that the price calculation of WBNB-BUNNY LP is flawed, and the number of BUNNY minted by the BunnyMinterV2 contract depends on this flawed LP price calculation method
 > 
-> -- SlowMist, the abovementioned source
+> -- SlowMist
+[Source](https://slowmist.medium.com/slowmist-pancakebunny-hack-analysis-4a708e284693)
 > 
 to avoid which they recommend using a credible delayed price feed oracle.
