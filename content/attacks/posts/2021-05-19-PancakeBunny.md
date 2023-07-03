@@ -7,7 +7,7 @@ title: "PancakeBunny suffers a flash loan attack"
 ## Summary
 
 On May 19, 2021 PancakeBunny, a yield farming aggregator built on Binance Smart Chain decentralized finance (DeFi) protocol, suffered a flash loan attack. According to [the SlowMist report they shared after investigating the incident](https://slowmist.medium.com/slowmist-pancakebunny-hack-analysis-4a708e284693) 
-> The attacker first borrows a huge amount of WBNB tokens from the multiple liqudity pools of PancakeSwap and borrows a huge amount of WBNB tokens from the Fortube project.
+> The attacker first borrows a huge amount of WBNB tokens from the multiple liquidity pools of PancakeSwap and borrows a huge amount of WBNB tokens from the Fortube project.
 >
 These assets were used to manipulate the price of BUNNY/BNB and USDT/BNB.
 
