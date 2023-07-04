@@ -6,14 +6,24 @@
 }
 
 .post-meta {
-  .taxonomy-list {
-    font-size: .85em;
+  .taxonomies {
+    display: flex;
+    flex-flow: column nowrap;
 
-    .taxonomy-name {
+    .taxonomy {
       font-size: .85em;
-      font-weight: 600;
-      text-transform: uppercase;
-      color: hsl(0, 0%, 45%);
+      display: inline-flex;
+      align-items: baseline;
+
+      .name {
+        font-size: .85em;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: hsl(0, 0%, 45%);
+      }
+
+      .term {
+      }
     }
   }
 }
