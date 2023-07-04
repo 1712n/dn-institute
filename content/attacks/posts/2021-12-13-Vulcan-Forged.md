@@ -1,6 +1,11 @@
 ---
 date: 2021-12-13
-attacks/posts/categories: Protocol exploit
+attacks/posts/target-entities: Vulcan Forged
+attacks/posts/entity-types: 
+  - DeFi
+attacks/posts/attack-types: 
+ - Protocol Exploit
+ - Social Engineering
 title: "Vulcan Forged hacked for $140 million worth of PYR tokens"
 ---
 

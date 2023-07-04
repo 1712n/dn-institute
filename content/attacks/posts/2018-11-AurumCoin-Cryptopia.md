@@ -1,6 +1,8 @@
 ---
 date: 2018-11
-attacks/posts/categories: 51%
+attacks/posts/target-entities: AurumCoin
+attacks/posts/entity-types: Coin
+attacks/posts/attack-types: 51%
 title: "AurumCoin Users Face Losses in a 51% Attack"
 ---
 

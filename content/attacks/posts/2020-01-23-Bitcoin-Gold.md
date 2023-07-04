@@ -1,6 +1,8 @@
 ---
 date: 2020-01-23
-attacks/posts/categories: 51%
+attacks/posts/target-entities: Bitcoin Gold
+attacks/posts/entity-types: Coin
+attacks/posts/attack-types: 51%
 title: Bitcoin Gold suffers a 51% attack again
 ---
 
