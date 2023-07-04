@@ -81,12 +81,14 @@
 }
 
 .book-page >.taxonomy-list {
-  // display: grid;
-  // grid: auto / 1fr 1fr;
   display: flex;
   flex-flow: column wrap;
   gap: 2em;
   font-size: .9em;
+
+  &, ul {
+    padding: 0;
+  }
 
   .taxonomy-section {
     display: flex;
