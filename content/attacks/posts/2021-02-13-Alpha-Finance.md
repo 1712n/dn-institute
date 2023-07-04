@@ -1,15 +1,15 @@
 ---
 date: 2021-02-13
 categories:
-    - 51%
-    - Protocol Exploit
+    - DeFi
+    - Flash loan Attack
 title: "Alpha Finance DeFi Hack: $37.5 Million Exploited"
 ---
 
 
 ## Summary
 
-On February 13, 2021, Alpha Finance, a DeFi project, experienced a hack resulting in a loss of $37.5 million. Later, Iron Bank (IB) unilaterally modified the smart contract configuration, preventing lenders on Alpha Homora (AH) from withdrawing their liquidity due to an unresolved debt. Despite negotiations and proposed solutions, IB maintained the freeze on funds, leading depositors to cease negotiations, receive goodwill funds from AH, and pursue legal action against IB.
+On February 13, 2021, Alpha Finance, a DeFi project, suffered a hack that resulted in a $37.5 million loss. The attacker exploited a rounding error in the repayment process, accumulating a substantial amount of cySUSD. They used this to obtain loans in different assets and distributed the stolen Ether. Iron Bank responded by modifying the smart contract configuration, freezing funds and preventing lenders on Alpha Homora from withdrawing their liquidity. Despite negotiations, Iron Bank maintained the freeze, causing depositors to stop negotiations, receive goodwill funds from Alpha Homora, and pursue legal action against Iron Bank.
 
 ## Attackers
 
@@ -26,19 +26,22 @@ The Alpha Finance DeFi hack resulted in [financial losses](https://cryptobriefin
 
 ## Timeline
 
-- **February 13, 2021:** 
-In the initial stage, the attacker borrowed [1,000e^(18)](https://www.quadrigainitiative.com/casestudy/alphahomorahack.php) sUSD from HomoraBankv2, utilizing [UNI-WETH LP](https://www.halborn.com/blog/post/explained-the-alpha-homora-defi-hack-feb-2021) as collateral. During repayment, the attacker exploited a [rounding error](https://www.halborn.com/blog/post/explained-the-alpha-homora-defi-hack-feb-2021) in the protocol, paying slightly less than the owed amount. This manipulation resulted in a debt of 19709787742197 and a total borrow share of 1. Utilizing the accumulated debt, the attacker engaged in multiple transactions involving borrowing and lending sUSD between Alpha Homora and Iron Bank (Cream). This process enabled the attacker to amass a substantial hoard of cySUSD, which is a collateralized version of sUSD. Using the hoarded cySUSD, the attacker obtained loans of various assets, including 13.2k WETH, 3.6M USDC, 5.6M USDT, and 4.2M DAI. The USDC, USDT, and DAI were subsequently deposited into Aave to acquire aTokens, which were then added to Curve's a3Crv pool. The extracted Ether was distributed among different destinations, including Iron Bank, Alpha Homora, Tornado.cash, and the attacker's wallet.
+- **February 13, 2021 05:37 AM +UTC:** 
+In the initial stage, the [attacker](https://etherscan.io/tx/0x2b419173c1f116e94e43afed15a46e3b3a109e118aba166fcca0ba583f686d23) borrowed [1,000e^(18)](https://www.quadrigainitiative.com/casestudy/alphahomorahack.php) sUSD from HomoraBankv2, utilizing [UNI-WETH LP](https://www.halborn.com/blog/post/explained-the-alpha-homora-defi-hack-feb-2021) as collateral. During repayment, the attacker exploited a [rounding error](https://www.halborn.com/blog/post/explained-the-alpha-homora-defi-hack-feb-2021) in the protocol, paying slightly less than the owed amount.
+
+- **February 13, 2021, 09:51 AM +UTC:** Cream Finance made an announcement regarding the [hack](https://twitter.com/CreamdotFinance/status/1360537996995354625).
 
 - **Post-Hack:** 
-In response to the hack, the Alpha Finance team promptly responded to address the security issues exploited by the attacker. They fixed the rounding error in the borrow code and implemented restrictions on certain functions. Additionally, they limited the available options for buying and repayment to four tokens: ETH, DAI, USDC, and USDT. These actions were taken to prevent similar attacks in the future and strengthen the project's overall security.
-The team also [collaborated](https://twitter.com/stellaxyz_/status/1360535699368251394?s=20) with authorities and cybersecurity experts to [trace the stolen funds](https://www.quadrigainitiative.com/casestudy/alphahomorahack.php) and prevent the attacker from profiting. They made efforts to freeze the remaining assets held on cryptocurrency exchanges, aiming to safeguard the funds and minimize the impact of the attack.
+Alpha Finance promptly responded to the hack by fixing security issues, implementing restrictions, and [limiting token options](https://www.quadrigainitiative.com/casestudy/alphahomorahack.php).
 
-- **February 20, 2021:**
-An agreement is reached between Alpha Homora V2 (Alpha Finance Lab) and CREAM V2 (CREAM) regarding the amount of funds and repayment mechanics. The funds in discussion include 13,245 ETH, 4,263,139 DAI, 4,032,014 USDC, and 5,647,242 USDT, along with the accrued interest. The borrowing interest rate on the funds is halted through an upgrade to the CREAM V2 contract. Alpha Finance Lab will cover the cost of auditing the proposed change. Additionally, $50 million worth of ALPHA tokens will be put in an escrow contract with a 7-day timelock, and they will be released back to Alpha Finance Lab periodically and proportionally as the funds are repaid.
+- **February 21, 2021, 02:48:54 AM +UTC:**
+An [agreement](https://etherscan.io/address/0x141e0541d87c6cbdbf2a6a8104248b4b922f629e?ref=blog.alphaventuredao.io#code) is reached between Alpha Homora V2 (Alpha Finance Lab) and CREAM V2 (CREAM) regarding the amount of funds and repayment mechanics.
 
-- **March 1, 2023:** 
-Iron Bank (IB) unilaterally modified the smart contract configuration, freezing Alpha Homora (AH) lenders' funds. AH proposed solutions, but IB rejected them, leading depositors to seek legal action for fund release.
+- **March 1, 2023, 12:54:47 PM +UTC:** 
+Iron Bank (IB) unilaterally [modified](https://etherscan.io/tx/0xe5e0497f736c61521dda09b2230283f1ad6dafcf2f088ec9065a19b579fb4bc5) the smart contract configuration, freezing Alpha Homora (AH) lenders' funds. 
 
+- **May 23, 2023:** 
+Depositors plan to stop negotiating, accept goodwill funds, and take [legal action](https://blog.alphaventuredao.io/iron-bank-and-alpha-homora-conflict-summarized/) against IB.
 
 ## Security Failure Causes
 
