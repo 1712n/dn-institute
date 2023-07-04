@@ -2,6 +2,7 @@
 
 Before committing to the wikis, please ensure your submission meets the following criteria:
 
+- The attack is not already covered by existing posts and pending PRs
 - File name - YYYY-MM-DD-entity-that-was-hacked.md
 - Headers:
 
