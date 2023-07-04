@@ -10,7 +10,7 @@ permissions:
 jobs:
   permission-check-job:
     runs-on: ubuntu-latest
-    if: github.event.issue.pull_request && contains(github.event.comment.body, '/qualitycheck')
+    if: github.event.issue.pull_request && github.event.issue.pull_request.merged_at && contains(github.event.comment.body, '/payout')
     outputs:
       permission: ${{ steps.permissions-check.outputs.defined }}
     steps:
