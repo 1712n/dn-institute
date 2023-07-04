@@ -24,8 +24,9 @@ menu:
         icon: ""
 
 taxonomies:
-  attacks/posts/category: "attacks/posts/categories"
-  attacks/posts/custodian: "attacks/posts/custodians"
+  attacks/posts/target-entity: "attacks/posts/target-entities"
+  attacks/posts/entity-type: "attacks/posts/entity-types"
+  attacks/posts/attack-type: "attacks/posts/attack-types"
 
 cascade:
 - _target:
