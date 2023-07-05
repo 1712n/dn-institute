@@ -6,14 +6,15 @@ title: "Haven Protocol Hack"
 
 ## Summary
 
-Haven Protocol experienced a series of exploits that resulted in financial losses and raised concerns about the security of the platform. The exploits targeted various aspects of the protocol, including miner rewards, transaction validation, and conversion fees.
+Haven Protocol experienced a series of exploits that resulted in financial losses. The attacker [manipulated](https://havenprotocol.org/wp-content/uploads/2021/07/Technical-Overview-of-June-2021-Exploits.pdf) their transaction by modifying the proof-of-value and burnt/mint checks, setting the amount burnt/mint to 0. Since multiplying 0 by any value results in 0, the validation passed, allowing the attacker to proceed. By manipulating the output values, the attacker was able to mint an arbitrary amount.
 
 ## Attackers
 
-The identity of the attackers remains unknown.
+The identity of the attackers remains unknown. The attacker address involved in the Haven Protocol exploit is not publicly disclosed or known.
 
 ## Losses
 
+- The total losses amount to approximately $6,427,920
 - Approximately 125.66 xBTC with an estimated value of around $4,335,000 was obtained through the [exploits](https://cdn.havenprotocol.org/app/uploads/2021/07/Technical-Overview-of-June-2021-Exploits.pdf).
 - An amount of 202,920 xUSD, equivalent to approximately $202,920.
 - A total of 440,000 XHV with an approximate value of $1,540,000 was frozen in KuCoin.
@@ -21,15 +22,14 @@ The identity of the attackers remains unknown.
 
 ## Timeline
 
-- **June 22, 2021:** Miner exploited a vulnerability, minting higher rewards (6.73 xBTC, 101,460 xUSD).
-- **June 23, 2021:** Similar exploit, increased block rewards obtained (6.73 xBTC, 101,460 xUSD).
-- **June 24, 2021:** Attacker modified outputs, minted extra xAssets (2.2 xBTC). Invalid transaction led to loss of counterfeit funds.
-- **June 25, 2021:** Attacker manipulated transaction types, resulting in loss of 110 xBTC.
-- **June 29, 2021:** Exploitation of vulnerability, minting arbitrary amounts occurred 18 times.
+- **June 22, 2021:** 203,000 xUSD and 13.5 xBTC was minted in two [exploits](https://havenprotocol.medium.com/haven-protocol-exploits-mitigation-plan-and-next-steps-d7a2b1a65654). 
+- **June 24, 2021:** An exploit in the xAsset conversion validation.
+- **June 29, 2021:** an exploit was leveraged that allowed for minting of 9m xUSD.
 - **July 19, 2021:** Chain rollback through a [fork](https://havenprotocol.medium.com/haven-protocol-successfully-deploys-rollback-hard-fork-206e5ead190e), allowing exchange wallets to reopen and on-chain transactions to resume. xUSD and xAsset conversions in the Haven Vault remain paused.
 
 ## Security Failure Causes
 
-- Inadequate Development Processes: Insufficient attention to development practices and protocols, leading to vulnerabilities and exploits. Lack of open repository, limited unit testing, and incomplete code reviews contributed to the security breach.
-
-- Lack of Community Engagement: Insufficient community involvement and collaboration hindered the identification of potential vulnerabilities. The absence of bug bounty programs, infrequent technical calls, and a lack of transparent proposal discussions limited the collective effort to enhance security.
+- Insufficient attention to development practices.
+- Lack of open repository.
+- Lack of bug bounty programs.
+- Lack of Community Engagement.
