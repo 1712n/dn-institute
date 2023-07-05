@@ -1,4 +1,4 @@
 ---
 title: Custodians
-type: custodians
+type: taxonomy 
 ---
