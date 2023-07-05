@@ -8,11 +8,23 @@ permissions:
   pull-requests: write
 
 jobs:
+  permission-check-job:
+    runs-on: ubuntu-latest
+    if: github.event.issue.pull_request && github.event.issue.pull_request.merged_at && contains(github.event.comment.body, '/payout')
+    outputs:
+      permission: ${{ steps.permissions-check.outputs.defined }}
+    steps:
+      - name: Check for Secret availability
+        id: permissions-check
+        shell: bash
+        run: |
+          echo "defined=${{ contains(fromJSON(secrets.WIKI_REVIEWERS), github.actor) }}" >> $GITHUB_OUTPUT;
+
   payout-calc:
     runs-on: ubuntu-latest
     name: "Calculate author payout"
-    # TODO: Is it possible to use an environment variable to better manage the list of allowed actors?
-    if: github.event.issue.pull_request && github.event.issue.pull_request.merged_at && contains(github.event.comment.body, '/payout') && contains(fromJSON('["celestenoll", "NikoAnita", "LundbergPaul", "eric-oconnor", "alxarno", "evgenydmitriev", "jhirschkorn", "marina-chibizova"]'), github.actor)
+    needs: [permission-check-job]
+    if: needs.permission-check-job.outputs.permission == 'true'
     steps:
       - uses: actions/checkout@v3
 
