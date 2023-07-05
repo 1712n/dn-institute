@@ -1,4 +1,4 @@
 ---
 title: Categories
-type: categories
+type: taxonomy 
 ---
