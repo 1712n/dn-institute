@@ -10,14 +10,14 @@ On April 13, 2023, Yearn Finance, a prominent DeFi protocol on the Ethereum bloc
 
 ## Attackers
 
-The attackers remain unidentified, but their wallet addresses and associated contracts have been identified:
+The attackers are unidentified, but their wallet addresses and contracts are known:
 
-**Attacker EOA (Externally Owned Accounts):**
+**Attacker Addresses:**
 - [0x5bac20beef31d0eccb369a33514831ed8e9cdfe0](https://etherscan.io/address/0x5bac20beef31d0eccb369a33514831ed8e9cdfe0)
 - [0x16Af29b7eFbf019ef30aae9023A5140c012374A5](https://etherscan.io/address/0x16Af29b7eFbf019ef30aae9023A5140c012374A5)
 - [0x6f4A6262d06272c8B2E00Ce75e76d84b9D6F6aB8](https://etherscan.io/address/0x6f4A6262d06272c8B2E00Ce75e76d84b9D6F6aB8)
 
-**Attacker Contracts:**
+**Malicious Contracts:**
 - [0x8102ae88c617deb2a5471cac90418da4ccd0579e](https://etherscan.io/address/0x8102ae88c617deb2a5471cac90418da4ccd0579e)
 - [0x9fcc1409b56cf235d9cdbbb86b6ad5089fa0eb0f](https://etherscan.io/address/0x9fcc1409b56cf235d9cdbbb86b6ad5089fa0eb0f)
 
@@ -35,4 +35,4 @@ Yearn Finance lost approximately $11.54 million in the exploit. The funds were p
 ## Security Failure Causes
 
 - **Smart contract misconfiguration:** The root cause of the vulnerability was a [misconfiguration](https://twitter.com/yearnfi/status/1646436798086672385) in the yUSDT vault's smart contract. Specifically, the contract utilized the iUSDC token instead of the iUSDT token, leading to a mistaken dependency on the pool’s underlying token. This error was present at the time of deployment and went unnoticed for approximately 1000 days.
-- **Lack of proper validation:** The exploit could have been avoided had proper validation and confirmation of the Fulcrum address been performed before deployment. There should have been adequate procedures in place to ensure the correct addresses were being utilized.
+- **Lack of proper validation:** The exploit could have been avoided had proper validation and confirmation of the Fulcrum address been performed before deployment. 
