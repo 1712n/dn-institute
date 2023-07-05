@@ -1,6 +1,6 @@
 ---
 date: 2023-03-13
-attacks/posts/custodians: Euler Finance
+attacks/posts/target-entities: Euler Finance
 attacks/posts/entity-types: DeFi
 attacks/posts/attack-types: Flash Loan Attack
 title: "Euler Finance Exploited with Flash Loan Attack Resulting in Loss of $196 Million"
