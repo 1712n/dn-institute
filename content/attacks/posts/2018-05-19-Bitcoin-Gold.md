@@ -1,8 +1,8 @@
 ---
 date: 2018-05-19
-attacks/posts/target-entities: Bitcoin Gold
-attacks/posts/entity-types: Coin
-attacks/posts/attack-types: 51%
+target-entities: Bitcoin Gold
+entity-types: Coin
+attack-types: 51%
 title: BTG users lose millions in a 51% attack
 ---
 

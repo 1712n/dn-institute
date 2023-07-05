@@ -1,10 +1,10 @@
 ---
 date: 2015-01-26
-attacks/posts/target-entities: LocalBitcoins
-attacks/posts/entity-types: 
+target-entities: LocalBitcoins
+entity-types: 
   - Exchange
   - P2P
-attacks/posts/attack-types: Vulnerability Exploit
+attack-types: Vulnerability Exploit
 title: LocalBitcoins suffers a security breach, resulting in the loss of 17 BTC
 ---
 

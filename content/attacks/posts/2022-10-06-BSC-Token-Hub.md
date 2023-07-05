@@ -1,8 +1,8 @@
 ---
 date: 2022-10-06
-attacks/posts/target-entities: BSC Token Hub
-attacks/posts/entity-types: Blockchain
-attacks/posts/attack-types:: Bridge Hack
+target-entities: BSC Token Hub
+entity-types: Blockchain
+attack-types:: Bridge Hack
 title: "BSC Token Hub Hit By $586 Million Bridge Hack"
 ---
 
