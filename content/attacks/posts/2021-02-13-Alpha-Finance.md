@@ -9,7 +9,7 @@ title: "Alpha Finance DeFi Hack: $37.5 Million Exploited"
 
 ## Summary
 
-On February 13, 2021, Alpha Finance, a DeFi project, suffered a hack that resulted in a $37.5 million loss. The attacker exploited a rounding error in the repayment process, accumulating a substantial amount of cySUSD. They used this to obtain loans in different assets and distributed the stolen Ether. Iron Bank responded by modifying the smart contract configuration, freezing funds and preventing lenders on Alpha Homora from withdrawing their liquidity. Despite negotiations, Iron Bank maintained the freeze, causing depositors to stop negotiations, receive goodwill funds from Alpha Homora, and pursue legal action against Iron Bank.
+On February 13, 2021, Alpha Finance, a DeFi project, suffered a hack that resulted in a $37.5 million loss. The attacker exploited a rounding error in the repayment process, accumulating a substantial amount of cySUSD. They used this to obtain loans in different assets and distributed the stolen Ether. Iron Bank responded by modifying the smart contract configuration, freezing funds and preventing lenders on Alpha Homora from withdrawing their liquidity. Depositors ceased negotiations, received goodwill funds from Alpha Homora, and are pursuing legal action against Iron Bank.
 
 ## Attackers
 
@@ -27,12 +27,12 @@ The Alpha Finance DeFi hack resulted in [financial losses](https://cryptobriefin
 ## Timeline
 
 - **February 13, 2021 05:37 AM +UTC:** 
-In the initial stage, the [attacker](https://etherscan.io/tx/0x2b419173c1f116e94e43afed15a46e3b3a109e118aba166fcca0ba583f686d23) borrowed [1,000e^(18)](https://www.quadrigainitiative.com/casestudy/alphahomorahack.php) sUSD from HomoraBankv2, utilizing [UNI-WETH LP](https://www.halborn.com/blog/post/explained-the-alpha-homora-defi-hack-feb-2021) as collateral. During repayment, the attacker exploited a [rounding error](https://www.halborn.com/blog/post/explained-the-alpha-homora-defi-hack-feb-2021) in the protocol, paying slightly less than the owed amount.
+In the initial stage, the [attacker](https://etherscan.io/address/0x905315602ed9a854e325f692ff82f58799beab57) borrowed [1,000e^(18)](https://www.quadrigainitiative.com/casestudy/alphahomorahack.php) sUSD from HomoraBankv2, utilizing UNI-WETH LP as collateral. During repayment, the attacker exploited a [rounding error](https://www.halborn.com/blog/post/explained-the-alpha-homora-defi-hack-feb-2021) in the protocol, paying slightly less than the owed amount.
 
 - **February 13, 2021, 09:51 AM +UTC:** Cream Finance made an announcement regarding the [hack](https://twitter.com/CreamdotFinance/status/1360537996995354625).
 
-- **Post-Hack:** 
-Alpha Finance promptly responded to the hack by fixing security issues, implementing restrictions, and [limiting token options](https://www.quadrigainitiative.com/casestudy/alphahomorahack.php).
+- **February 13, 2021, 10:33 PM +UTC:** 
+Alpha Finance promptly [responded to the hack](https://twitter.com/stellaxyz_/status/1360673348590530562) by fixing security issues, implementing restrictions, and [limiting token options](https://www.quadrigainitiative.com/casestudy/alphahomorahack.php).
 
 - **February 21, 2021, 02:48:54 AM +UTC:**
 An [agreement](https://etherscan.io/address/0x141e0541d87c6cbdbf2a6a8104248b4b922f629e?ref=blog.alphaventuredao.io#code) is reached between Alpha Homora V2 (Alpha Finance Lab) and CREAM V2 (CREAM) regarding the amount of funds and repayment mechanics.
