@@ -1,8 +1,8 @@
 ---
 date: 2019-05-15
-attacks/posts/target-entities: Bitcoin Cash
-attacks/posts/entity-types: Coin
-attacks/posts/attack-types: 51%
+target-entities: Bitcoin Cash
+entity-types: Coin
+attack-types: 51%
 title: "Bitcoin Cash Users Survive 51% Attack"
 ---
 
