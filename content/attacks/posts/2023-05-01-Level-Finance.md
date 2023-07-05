@@ -13,7 +13,7 @@ On May 1, 2023, Level Finance, a decentralized finance (DeFi) protocol, was hack
 
 The identity of the attacker is unknown.
 
-bsc-20:
+BSC:
 - [0x70319d1c09e1373fc7b10403c852909e5b20a9d5](https://bscscan.com/address/0x70319d1c09e1373fc7b10403c852909e5b20a9d5)
 
 ## Losses
