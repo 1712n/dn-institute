@@ -1,6 +1,8 @@
 ---
 date: 2018-01-28
-categories: "Custodian"
+target-entities: Coincheck
+entity-types: Exchange
+attack-types: Custodian
 title: "Coincheck Hack: A $530 Million NEM Theft Unveiling Centralized Exchange Vulnerabilities"
 
 ---

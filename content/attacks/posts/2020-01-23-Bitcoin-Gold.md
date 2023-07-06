@@ -1,7 +1,8 @@
 ---
 date: 2020-01-23
-custodians: Bitcoin Gold
-categories: 51%
+target-entities: Bitcoin Gold
+entity-types: Coin
+attack-types: 51%
 title: Bitcoin Gold suffers a 51% attack again
 ---
 
