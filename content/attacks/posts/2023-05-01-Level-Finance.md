@@ -1,6 +1,6 @@
 ---
 date: 2023-05-01
-type of attack: "Protocol exploit", "DeFi"
+type of attack: Protocol exploit, DeFi
 target entity: "Level Finance"
 type of entity: "Blockchain"
 title: "Level Finance Hacked for $1.1 Million in LVL Tokens"
