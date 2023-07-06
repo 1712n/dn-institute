@@ -1,7 +1,8 @@
 ---
 date: 2021-04-13
-attacks/posts/custodians: Africrypt
-attacks/posts/categories: Custodian
+target-entities: Africrypt
+entity-types: Exchange
+attack-types: Custodian
 title: "Africrypt Founders Vanished with $3.6 Billion in Bitcoin"
 ---
 

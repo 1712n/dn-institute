@@ -3,16 +3,25 @@
     <h5>{{ partial "docs/date" (dict "Date" . "Format" $.Site.Params.BookDateFormat) }}</h5>
   {{ end }}
 
-  {{ range $taxonomy, $_ := .Site.Taxonomies }}
-    {{ with $terms := $.GetTerms $taxonomy }}
-    <div class="taxonomy-list">
-      <span class="taxonomy-name">{{ $taxonomy | humanize }}</span>:
-      {{ range $n, $term := $terms }}{{ if $n }}, {{ end }}
-        <a href="{{ $term.RelPermalink }}">{{ $term.Title }}</a>
-      {{- end }}
-    </div>
+  <div class="taxonomies">
+    {{ range $taxonomyPath, $_ := .Site.Taxonomies }}
+      {{ with $terms := $.GetTerms $taxonomyPath }}
+      <div class="taxonomy">
+        {{ $taxonomyPage := $.Site.GetPage $taxonomyPath }}
+
+        {{ with $taxonomyPage }}
+          <a class="name" href="{{ .RelPermalink }}">{{ .LinkTitle }}:&nbsp;</a>
+        {{ end }}
+
+        <div class="terms">
+          {{- range $n, $term := $terms }}
+            {{ if $n }}, {{ end }}<a class="term" href="{{ $term.RelPermalink }}">{{ $term.LinkTitle }}</a>
+          {{- end }}
+        </div>
+      </div>
+      {{ end }}
     {{ end }}
-  {{ end }}
+  </div>
 
   {{ if .Params.image }}
   <p>
