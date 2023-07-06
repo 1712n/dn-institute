@@ -1,6 +1,8 @@
 ---
 date: 2022-05-08
-attacks/posts/categories: Protocol exploit
+target-entities: Terra
+entity-types: Blockchain
+attack-types: Protocol Exploit
 title: "The Collapse of Terra Classic Network Resulting in a $40 Billion Loss"
 ---
 
