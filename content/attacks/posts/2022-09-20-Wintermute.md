@@ -1,7 +1,10 @@
 ---
 date: 2022-09-20
-attacks/posts/custodians: Wintermute
-attacks/posts/categories: Custodian
+target-entities: Wintermute
+entity-types: Trading Company
+attack-types: 
+ - Custodian
+ - Human Error
 title: "Wintermute Incurs $160 Million Loss from Brute Force Private Key Compromise Linked to Profanity's Vulnerability"
 ---
 
