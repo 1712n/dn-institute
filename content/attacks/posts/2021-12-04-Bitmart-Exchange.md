@@ -1,7 +1,8 @@
 ---
 date: 2021-12-04
-attacks/posts/custodians: BitMart Exchange
-attacks/posts/categories: Custodian
+target-entities: BitMart
+entity-types: Exchange
+attack-types: Custodian
 title: "BitMart Exchange Suffers $196 Million Security Breach"
 ---
 
