@@ -1,7 +1,8 @@
 ---
 date: 2019-05-07
-attacks/posts/custodians: Binance
-attacks/posts/categories: Custodian
+target-entities: Binance
+entity-types: Exchange
+attack-types: Custodian
 title: Binance Hack - Millions of Dollars Stolen in 2019
 
 ---
