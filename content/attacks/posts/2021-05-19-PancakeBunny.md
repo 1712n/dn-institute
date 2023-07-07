@@ -1,14 +1,14 @@
 ---
 date: 2021-05-19
 target-entities: PancakeBunny
-entity-types: DeFi
+entity-types: DeFi, Yield Aggregator
 attack-types: Flash Loan Attack
 title: "PancakeBunny suffers a flash loan attack"
 ---
 
 ## Summary
 
-On May 19, 2021 PancakeBunny, a yield farming aggregator built on Binance Smart Chain decentralized finance (DeFi) protocol, suffered a flash loan attack. According to [the SlowMist report they shared after investigating the incident](https://slowmist.medium.com/slowmist-pancakebunny-hack-analysis-4a708e284693) 
+On May 19, 2021 PancakeBunny, a yield farming aggregator built on Binance Smart Chain, suffered a flash loan attack. According to [the SlowMist report they shared after investigating the incident](https://slowmist.medium.com/slowmist-pancakebunny-hack-analysis-4a708e284693) 
 > The attacker first borrows a huge amount of WBNB tokens from the multiple liquidity pools of PancakeSwap and borrows a huge amount of WBNB tokens from the Fortube project.
 >
 These assets were used to manipulate the price of BUNNY/BNB and USDT/BNB.
@@ -33,18 +33,17 @@ The amount of stolen assets [was estimated at about $200 million at prices at th
 
 ## Timeline
 
-The timeline of the incident with more details is provided on [the PancakeBunny Medium blog](https://pancakebunny.medium.com/hello-bunny-fam-a7bf0c7a07ba)
-
 **May 19, 2021**
-- **10:31 PM UTC:** 1BNB deposited on the USDT/BNB Flip Vault to stage the attack
-- **10:34 PM UTC:** the time of the [exploit transaction](https://bscscan.com/tx/0x897c2de73dd55d7701e1b69ffb3a17b0f4801ced88b0c75fe1551c5fcce6a979)
-- **10:36 PM UTC:** the Bunny Team detected unusual increase of BUNNY's price
-- **10:45 PM UTC:** 114631BNB were sent to this address: [0x158c244b62058330f2c328c720b072d8db2c612f](https://bscscan.com/address/0x158c244b62058330f2c328c720b072d8db2c612f)
-- **11:18 PM UTC:** the Flash Loan attack is officially confirmed, the Bunny Team paused deposits/withdrawals to the Vault to prevent further attacks
-- **11:59 PM UTC:** 488071,8...BUNNY were swapped for 9161,3...BNB from the same address as on 10:45
+- **10:31 PM UTC:** 1 BNB deposited on the USDT/BNB Flip Vault to stage the attack
+- **10:34 PM UTC:** [Exploit transaction](https://bscscan.com/tx/0x897c2de73dd55d7701e1b69ffb3a17b0f4801ced88b0c75fe1551c5fcce6a979) was executed
+- **10:45 PM UTC:** 114,631 BNB were sent to this address: [0x158c244b62058330f2c328c720b072d8db2c612f](https://bscscan.com/address/0x158c244b62058330f2c328c720b072d8db2c612f)
+- **11:18 PM UTC:** The Flash Loan attack is officially confirmed, the Bunny Team paused deposits/withdrawals to the Vault to prevent further attacks
+- **11:59 PM UTC:** 488,071 BUNNY were swapped for 916,1 BNB from the same address as on 10:45
 
 **May 21, 2021**
-- **06:30 AM UTC:** the Team restored withdrawal/deposit function to the Vault
+- **06:30 AM UTC:** The Team restored withdrawal/deposit function to the Vault
+
+[Source](https://pancakebunny.medium.com/hello-bunny-fam-a7bf0c7a07ba)
 
 ## Security Failure Causes
 
@@ -53,5 +52,3 @@ The timeline of the incident with more details is provided on [the PancakeBunny 
 > 
 > -- SlowMist
 [Source](https://slowmist.medium.com/slowmist-pancakebunny-hack-analysis-4a708e284693)
-> 
-to avoid which they recommend using a credible delayed price feed oracle.
