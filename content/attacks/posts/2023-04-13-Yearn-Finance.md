@@ -1,8 +1,12 @@
 ---
 date: 2023-04-13
-type of attack: "Protocol exploit"
-target entity: "Yearn Finance"
-type of entity: "Blockchain"
+target-entities: 
+- Yearn Finance
+entity-types:
+- DeFi
+- Yield farming
+attack-types:
+- Smart Contract Exploit
 title: "Yearn Finance Suffers $11.54 Million Loss Due to Smart Contract Vulnerability"
 ---
 
