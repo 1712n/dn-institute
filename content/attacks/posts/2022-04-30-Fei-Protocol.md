@@ -1,8 +1,12 @@
 ---
 date: 2022-04-30
-type of attack: "Protocol exploit"
-target entity: "Fei Protocol"
-type of entity: "Blockchain"
+target-entities: 
+- Fei Protocol
+entity-types:
+- DeFi
+- Stablecoin
+attack-types:
+- Smart Contract Exploit
 title: "Fei Protocol Hack: $80 Million Stolen in Reentrancy Attack"
 ---
 
