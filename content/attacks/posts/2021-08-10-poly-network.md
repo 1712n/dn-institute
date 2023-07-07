@@ -1,6 +1,8 @@
 ---
 date: 2021-08-10
-attacks/posts/categories: Protocol exploit
+target-entities: Poly Network
+entity-types: Defi
+attack-types: Protocol Exploit
 title: "Poly Network Hack - $610 Million Stolen in 2021"
 ---
 
