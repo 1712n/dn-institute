@@ -8,18 +8,18 @@ title: "PancakeBunny suffers a flash loan attack"
 
 ## Summary
 
-On May 19, 2021 PancakeBunny, a yield farming aggregator built on Binance Smart Chain, suffered a flash loan attack. According to [the SlowMist report they shared after investigating the incident](https://slowmist.medium.com/slowmist-pancakebunny-hack-analysis-4a708e284693) 
+On May 19, 2021 PancakeBunny, a yield farming aggregator built on Binance Smart Chain, suffered a flash loan attack. 
+- According to [the SlowMist report, they shared after investigating the incident](https://slowmist.medium.com/slowmist-pancakebunny-hack-analysis-4a708e284693) 
 > The attacker first borrows a huge amount of WBNB tokens from the multiple liquidity pools of PancakeSwap and borrows a huge amount of WBNB tokens from the Fortube project.
 >
-These assets were used to manipulate the price of BUNNY/BNB and USDT/BNB.
-
-Cofounder of Halborn Rob Behnke describes the main steps of the manipulating as follows: minting LP tokens as a result of depositing a pair of tokens; swapping a large amount of one token of this pair for another to modify an exchange rate; finally, exchanging LP tokens for share of the invested pair, exploiting modified prices. This double price manipulation allowed the hacker to get profit 
-> when extracting value or exchanging BUNNY for BNB the attacker received more tokens than they "should" have. As a result, after paying off the flash loan, the attacker had 114,631 WBNB left over.
+- These assets were used to manipulate the price of BUNNY/BNB and USDT/BNB. [Cofounder of Halborn Rob Behnke describes the main steps of the manipulating](https://www.halborn.com/blog/post/explained-the-pancakebunny-protocol-hack-may-2021) as follows: minting LP tokens as a result of depositing a pair of tokens; swapping a large amount of one token of this pair for another to modify an exchange rate; finally, exchanging LP tokens for share of the invested pair, exploiting modified prices.
+- According to the BunnyMinterV2 contract, the attacker acquired 6,972,455 BUNNY tokens. 90% of these BUNNYs were swapped for BNB to pay off the flash loan and with the modified BUNNY/BNB pricing, it allowed the hacker to get profit
+> when extracting value or exchanging BUNNY for BNB, the attacker received more tokens than they “should” have.  As a result, after paying off the flash loan, the attacker had 114,631 WBNB left over
 >
 > -- Rob Behnke
 [Source](https://www.halborn.com/blog/post/explained-the-pancakebunny-protocol-hack-may-2021)
 >
-Another part of the hacker's profit was the remainder of BUNNY tokens he acquired according to the BunnyMinterV2 contract.
+- Dumping 90% of the received BUNNY tokens into the market eventually caused its price to plummet, but BUNNY's price was manipulated in a way that it increased within a short period of time after the exploit transaction. It was at that time when the hacker could profitably swap the remaining 10% of BUNNY tokens they had.
 
 ## Attackers
 
@@ -37,7 +37,7 @@ The amount of stolen assets [was estimated at about $200 million at prices at th
 - **10:34 PM UTC:** [Exploit transaction](https://bscscan.com/tx/0x897c2de73dd55d7701e1b69ffb3a17b0f4801ced88b0c75fe1551c5fcce6a979) was executed
 - **10:45 PM UTC:** 114,631 BNB were sent to this address: [0x158c244b62058330f2c328c720b072d8db2c612f](https://bscscan.com/address/0x158c244b62058330f2c328c720b072d8db2c612f)
 - **11:18 PM UTC:** The Flash Loan attack is officially confirmed, the Bunny Team paused deposits/withdrawals to the Vault to prevent further attacks
-- **11:59 PM UTC:** 488,071 BUNNY were swapped for 916,1 BNB from the same address as on 10:45
+- **11:59 PM UTC:** 488,071 BUNNY were swapped for 916,1 BNB
 
 **May 21, 2021**
 - **06:30 AM UTC:** The Team restored withdrawal/deposit function to the Vault
