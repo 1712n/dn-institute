@@ -19,7 +19,7 @@ On May 19, 2021 PancakeBunny, a yield farming aggregator built on Binance Smart 
 > -- Rob Behnke
 [Source](https://www.halborn.com/blog/post/explained-the-pancakebunny-protocol-hack-may-2021)
 >
-- Dumping 90% of the received BUNNY tokens into the market eventually caused its price to plummet, but BUNNY's price was manipulated in a way that it increased within a short period of time after the exploit transaction. It was at that time when the hacker could profitably swap the remaining 10% of BUNNY tokens they had.
+- Dumping 90% of the received BUNNY tokens into the market eventually caused its price to plummet, but BUNNY's price was manipulated in a way that it first increased for a short period of time after the exploit transaction. It was at that time when the hacker could profitably swap the remaining 10% of BUNNY tokens they had.
 
 ## Attackers
 
