@@ -1,7 +1,7 @@
 ---
 date: 2020-08-31
 target-entities: Ethereum Classic
-entity-types: Coin
+entity-types: Blockchain
 attack-types: 51%
 title: Ethereum Classic suffers three consecutive 51% attacks
 ---

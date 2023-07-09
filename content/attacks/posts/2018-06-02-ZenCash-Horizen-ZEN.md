@@ -1,9 +1,7 @@
 ---
 date: 2018-06-02
-target-entities: 
-  - ZenCash
-  - Horizen (ZEN)
-entity-types: Coin
+target-entities: Horizen
+entity-types: Blockchain
 attack-types: 51%
 title: "ZenCash (now Horizen) Suffers a 51% Attack Resulting in Significant Losses"
 ---
