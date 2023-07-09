@@ -1,7 +1,7 @@
 ---
 date: 2018-11
 target-entities: AurumCoin
-entity-types: Coin
+entity-types: Blockchain
 attack-types: 51%
 title: "AurumCoin Users Face Losses in a 51% Attack"
 ---
