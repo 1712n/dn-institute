@@ -4,7 +4,7 @@ target-entities:
 - Yearn Finance
 entity-types:
 - DeFi
-- Yield farming
+- Yield Aggregator
 attack-types:
 - Smart Contract Exploit
 title: "Yearn Finance Suffers $11.54 Million Loss Due to Smart Contract Vulnerability"
@@ -41,4 +41,3 @@ Yearn Finance lost approximately $11.54 million in the exploit. The funds were p
 ## Security Failure Causes
 
 - **Smart contract misconfiguration:** The root cause of the vulnerability was a [misconfiguration](https://twitter.com/yearnfi/status/1646436798086672385) in the yUSDT vault's smart contract. Specifically, the contract utilized the iUSDC token instead of the iUSDT token, leading to a mistaken dependency on the pool’s underlying token. This error was present at the time of deployment and went unnoticed for approximately 1000 days.
-- **Lack of proper validation:** The exploit could have been avoided had proper validation and confirmation of the Fulcrum address been performed before deployment. 
