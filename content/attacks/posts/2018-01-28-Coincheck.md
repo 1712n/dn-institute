@@ -1,10 +1,11 @@
 ---
 date: 2018-01-28
 target-entities: Coincheck
-entity-types: Exchange
-attack-types: Custodian
+entity-types:
+  - Custodian
+  - Exchange
+attack-types: Wallet Hack
 title: "Coincheck Hack: A $530 Million NEM Theft Unveiling Centralized Exchange Vulnerabilities"
-
 ---
 
 ## Summary
