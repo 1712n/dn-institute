@@ -35,4 +35,4 @@ The attacker stole 214,000 LVL tokens and swapped LVL to 3,345 BNB, which were w
 
 ## Security Failure Causes
 
-- **Protocol exploit:** The Level Finance hack was made possible by failed precondition checks. In theory, the protocol is designed to allow a user to claim a referral reward once per epoch. However, the protocol lacked checks to ensure that an epoch is not being reused by a claim. 
+- **Failed Precondition Checks:** The Level Finance hack was made possible by failed precondition checks. In theory, the protocol is designed to allow a user to claim a referral reward once per epoch. However, the protocol lacked checks to ensure that an epoch is not being reused by a claim. 
