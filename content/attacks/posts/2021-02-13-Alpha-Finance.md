@@ -1,9 +1,14 @@
 ---
 date: 2021-02-13
-categories:
-    - DeFi
-    - Flash loan Attack
-title: "Alpha Finance DeFi Hack: $37.5 Million Exploited"
+target-entities: 
+- Alpha Finance
+entity-types:
+- DeFi
+- Yield Aggregator
+attack-types:
+- Smart Contract Exploit
+- Flash Loan Attack
+title: "Alpha Finance DeFi HSmart Contract Exploitack: $37.5 Million Exploited"
 ---
 
 
@@ -35,7 +40,7 @@ The [attacker](https://etherscan.io/address/0x905315602ed9a854e325f692ff82f58799
 Alpha Finance promptly [responded to the hack](https://twitter.com/stellaxyz_/status/1360673348590530562) by fixing security issues, implementing restrictions, and [limiting token options](https://blog.alphaventuredao.io/alpha-homora-v2-post-mortem/).
 
 - **February 21, 2021, 02:48:54 AM +UTC:**
-An [agreement](https://etherscan.io/address/0x141e0541d87c6cbdbf2a6a8104248b4b922f629e?ref=blog.alphaventuredao.io#code) is reached between Alpha Homora V2 (Alpha Finance Lab) and CREAM V2 (CREAM) regarding the amount of funds and repayment mechanics.
+An [agreement](https://etherscan.io/address/0x141e0541d87c6cbdbf2a6a8104248b4b922f629e) is reached between Alpha Homora V2 (Alpha Finance Lab) and CREAM V2 (CREAM) regarding the amount of funds and repayment mechanics.
 
 - **March 1, 2023, 12:54:47 PM +UTC:** 
 Iron Bank (IB) unilaterally [modified](https://etherscan.io/tx/0xe5e0497f736c61521dda09b2230283f1ad6dafcf2f088ec9065a19b579fb4bc5) the smart contract configuration, freezing Alpha Homora (AH) lenders' funds. 
