@@ -1,6 +1,12 @@
 ﻿---
 date: 2022-06-23
-attacks/posts/categories: Bridge Hack
+target-entities: 
+  - Harmony 
+  - Horizon Bridge
+entity-types:
+  - Blockchain
+  - Bridge
+attack-types: Smart Contract Exploit
 title: "Harmony's Horizon Bridge was the victim of a massive cyberattack from North Korea"
 ---
 
