@@ -2,9 +2,11 @@
 date: 2015-01-26
 target-entities: LocalBitcoins
 entity-types: 
-  - Exchange
   - P2P
-attack-types: Vulnerability Exploit
+  - Exchange
+attack-types:
+  - Phishing
+  - Wallet Hack
 title: LocalBitcoins suffers a security breach, resulting in the loss of 17 BTC
 ---
 
