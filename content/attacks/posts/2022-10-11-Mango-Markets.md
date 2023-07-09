@@ -15,7 +15,7 @@ The Attacker revealed himself in a series of [tweets](https://twitter.com/avi_ei
 
 ## Losses
 
-About USD $116 Million worth of crypto assets in terms of USDC, stablecoins and SOL was borrowed and never returned to the platform.
+About USD $116 Million worth of crypto assets in terms of USDC, stablecoins and SOL was borrowed, with around USD 67 $Million [returned](https://twitter.com/mangomarkets/status/1581351549644591104?s=20&t=9Xyt2Cc97N9F0A3iOR0_MA).
 
 ## Timeline
 
