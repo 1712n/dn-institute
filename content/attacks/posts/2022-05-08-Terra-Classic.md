@@ -2,7 +2,7 @@
 date: 2022-05-08
 target-entities: Terra
 entity-types: Blockchain
-attack-types: Protocol Exploit
+attack-types: Bank Run
 title: "The Collapse of Terra Classic Network Resulting in a $40 Billion Loss"
 ---
 
