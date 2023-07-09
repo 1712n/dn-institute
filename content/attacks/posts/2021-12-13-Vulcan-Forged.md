@@ -1,6 +1,9 @@
 ---
 date: 2021-12-13
-attacks/posts/categories: Protocol exploit
+target-entities: Vulcan Forged
+entity-types: 
+  - GameFi
+attack-types: Phishing
 title: "Vulcan Forged hacked for $140 million worth of PYR tokens"
 ---
 
