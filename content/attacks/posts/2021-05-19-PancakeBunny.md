@@ -13,7 +13,7 @@ On May 19, 2021 PancakeBunny, a yield farming aggregator built on Binance Smart 
 > The attacker first borrows a huge amount of WBNB tokens from the multiple liquidity pools of PancakeSwap and borrows a huge amount of WBNB tokens from the Fortube project.
 >
 - These assets were used to modify prices of USDT/BNB and BUNNY/BNB. [Cofounder of Halborn Rob Behnke describes the main steps of manipulating exchange rates](https://www.halborn.com/blog/post/explained-the-pancakebunny-protocol-hack-may-2021) as follows: minting LP tokens as a result of depositing a pair of tokens; swapping a large amount of one token of this pair for another to modify an exchange rate; finally, exchanging LP tokens for share of the invested pair, exploiting modified prices.
-- According to the BunnyMinterV2 contract, the attacker acquired 6,972,455 BUNNY tokens, most of which were swapped for BNB and with the modified exchange pricing
+- According to the BunnyMinterV2 contract, [the attacker acquired 6,972,455 BUNNY tokens](https://pancakebunny.medium.com/hello-bunny-fam-a7bf0c7a07ba), most of which were swapped for BNB and with the modified exchange pricing
 > when extracting value or exchanging BUNNY for BNB, the attacker received more tokens than they “should” have.  As a result, after paying off the flash loan, the attacker had 114,631 WBNB left over
 >
 > -- Rob Behnke
@@ -41,8 +41,6 @@ The amount of stolen assets [was estimated at about $200 million at prices at th
 
 **May 21, 2021**
 - **06:30 AM UTC:** The Team restored withdrawal/deposit function to the Vault
-
-[Source](https://pancakebunny.medium.com/hello-bunny-fam-a7bf0c7a07ba)
 
 ## Security Failure Causes
 
