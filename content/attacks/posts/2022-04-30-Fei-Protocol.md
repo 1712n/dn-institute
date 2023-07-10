@@ -29,7 +29,6 @@ $80 Million
 ## Timeline
 
 - **April 30, 2022, 09:01:35 AM +UTC:** [The hacker exploited a reentrancy vulnerability in lending protocol](https://etherscan.io/tx/0xadbe5cf9269a001d50990d0c29075b402bcc3a0b0f3258821881621b787b35c6)
-- **April 30, 2022, 09:34 AM +UTC:** [Smart contract analysis firm Block Sec tweets about it](https://twitter.com/BlockSecTeam/status/1520350965274386433)
 - **April 30, 2022, 10:23:58 AM +UTC:** [Funds have started to be laundered through Tornado Cash.](https://etherscan.com/tx/0x61ee3d6fdf29f84c36ad828608af38b516869631f494326ed10f82ef36ddf3f9)
 
 ## Security Failure Causes
