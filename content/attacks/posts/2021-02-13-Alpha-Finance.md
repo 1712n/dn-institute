@@ -1,7 +1,8 @@
 ---
 date: 2021-02-13
 target-entities: 
-- Alpha Finance
+- Alpha Homora
+- Iron Bank
 entity-types:
 - DeFi
 - Yield Aggregator
