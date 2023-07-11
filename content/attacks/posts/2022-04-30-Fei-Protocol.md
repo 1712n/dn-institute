@@ -2,9 +2,11 @@
 date: 2022-04-30
 target-entities: 
 - Fei Protocol
+- Rari Capital
 entity-types:
 - DeFi
 - Stablecoin
+- Lending Platform
 attack-types:
 - Smart Contract Exploit
 - Reentrancy Attack
@@ -33,4 +35,4 @@ $80 Million
 
 ## Security Failure Causes
 
-- **Reentrancy vulnerabilities occur in a smart contract:** The attacker [exploited two functions within the contracts of Fei Protocol](https://www.halborn.com/blog/post/explained-the-fei-protocol-hack-april-2022): exitMarket and borrow. The exitMarket function is responsible for ensuring that a deposit is not being utilized as collateral for any loan, after which it permits the withdrawal of the deposit. Meanwhile, the borrow function permits a user to secure a loan by using a deposited asset as collateral. However, this function does not adhere to the check-effects-interaction pattern, rendering it susceptible to exploitation.
+- **Reentrancy Vulnerability:** The attacker [exploited two functions within the contracts of Fei Protocol](https://www.halborn.com/blog/post/explained-the-fei-protocol-hack-april-2022): exitMarket and borrow. The exitMarket function is responsible for ensuring that a deposit is not being utilized as collateral for any loan, after which it permits the withdrawal of the deposit. Meanwhile, the borrow function permits a user to secure a loan by using a deposited asset as collateral. However, this function does not adhere to the check-effects-interaction pattern, rendering it susceptible to exploitation.
