@@ -1,8 +1,8 @@
 ---
 date: 2022-10-11
 target-entities: Mango Markets
-entity-types: Protocol
-attack-types: Protocol Vulnerability, Oracle Exploit
+entity-types: DeFi, Exchange
+attack-types: Price Oracle Manipulation
 attacks/posts/categories: Protocol Exploit
 title: "Mango Markets Exploited for $116 Million"
 ---
@@ -26,8 +26,7 @@ About USD $116 million worth of crypto assets in terms of USDC, stablecoins, and
 - **October 11, 2022, 10:25 PM UTC:** [MNGO-SOL Perp Sell Order placed by Wallet 1](https://trade.mango.markets/account?pubkey=CQvKSNnYtPTZfQRQ5jkHq8q2swJyRsdQLcFcj3EmKFfX) for 483 million MNGO perpetual futures at 3.8 cents per future.
 - **October 11, 2022, 10:25 PM UTC:** [MNGO-SOL Sell Order bought by Wallet 2,](https://trade.mango.markets/account?pubkey=4ND8FVPjUGGjx9VuGFuJefDWpg3THb58c277hbVRnjNaa) which effectively opens up a MNGO long position for Wallet 2.
 - **October 11, 2022, 10:26 PM UTC:** Hacker buys a large amount of MNGO on Mango Markets and CEX's.
-- **October 11, 2022, 10:45 PM UTC:** The MNGO price on Mango Markets rises significantly.
-- **October 11, 2022, 10:45 PM UTC:** Hacker's Wallet 2 takes out a loan of $116 million against its unrealized profits from its MNGO position.
+- **October 11, 2022, 10:45 PM UTC:** The MNGO price on Mango Markets rises significantly and Wallet 2 takes out a loan of $116 million against its unrealized profits from its MNGO position.
 
 ## Security Failure Causes
 
