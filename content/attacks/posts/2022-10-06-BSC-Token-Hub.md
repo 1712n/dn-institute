@@ -1,6 +1,12 @@
 ---
 date: 2022-10-06
-attacks/posts/categories: Bridge Hack
+target-entities:
+    - Binance Smart Chain
+    - Token Hub Bridge
+entity-types:
+    - Blockchain
+    - Bridge
+attack-types: Signature Verification Issue
 title: "BSC Token Hub Hit By $586 Million Bridge Hack"
 ---
 

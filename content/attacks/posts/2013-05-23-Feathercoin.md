@@ -1,6 +1,8 @@
 ---
 date: 2013-05-23
-attacks/posts/categories: 51%
+target-entities: Feathercoin
+entity-types: Blockchain 
+attack-types: 51%
 title: FTC users lose millions after a 51% attack 
 ---
 
