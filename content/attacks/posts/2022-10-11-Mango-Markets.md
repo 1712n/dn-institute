@@ -1,8 +1,12 @@
 ---
 date: 2022-10-11
-target-entities: Mango Markets
-entity-types: DeFi, Exchange
-attack-types: Price Oracle Manipulation
+target-entities: 
+- Mango Markets
+entity-types: 
+- DeFi
+- Exchange
+attack-types: 
+- Price Oracle Manipulation
 attacks/posts/categories: Protocol Exploit
 title: "Mango Markets Exploited for $116 Million"
 ---
