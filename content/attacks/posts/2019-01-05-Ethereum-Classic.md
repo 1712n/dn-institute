@@ -1,7 +1,7 @@
 ---
 date: 2019-01-05
 target-entities: Ethereum Classic
-entity-types: Coin
+entity-types: Blockchain
 attack-types: 51%
 title: Ethereum Classic suffers a 51% attack
 ---
