@@ -1,7 +1,9 @@
 ---
 date: 2021-05-19
 target-entities: PancakeBunny
-entity-types: DeFi, Yield Aggregator
+entity-types:
+  - DeFi
+  - Yield Aggregator
 attack-types: Flash Loan Attack
 title: "PancakeBunny suffers a flash loan attack"
 ---
