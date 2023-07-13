@@ -13,7 +13,7 @@ title: "Allbridge suffered a flash loan attack for $573k"
 
 ## Summary
 
-On April 2, 2023, Allbridge, a cross-chain bridging protocol, experienced a flash loan exploit that drained the liquidity pools of stablecoins USDT and BUSD on the Binance Smart Chain. As a result of this exploit, hackers made off with an estimated $573K.
+On April 2, 2023, AllBridge, a multichain token bridge, was exploited in an attack that resulted in approximately $573,000 worth of assets drained from its BNB Chain pools. The attacker, acting as both a liquidity provider and a swapper, exploited a smart contract flaw that enabled the manipulation of swap prices, leading to the theft of $282,889 in Binance USD (BUSD) and $290,868 in Tether (USDT).
 
 ## Attackers
 
