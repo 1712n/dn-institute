@@ -8,12 +8,12 @@ entity-types:
 attack-types:
 - Smart Contract Exploit
 - Flash Loan Attack
-title: "A Close Look into the $573K Allbridge Exploit and Its Resolution"
+title: "Allbridge suffered a flash loan attack for $573k"
 ---
 
 ## Summary
 
-On April 2, 2023, Allbridge, a cross-chain bridging protocol, experienced a flash loan exploit that drained the liquidity pools of stablecoins USDT and BUSD on the Binance Smart Chain platform. As a result of this exploit, hackers made off with an estimated $573K.
+On April 2, 2023, Allbridge, a cross-chain bridging protocol, experienced a flash loan exploit that drained the liquidity pools of stablecoins USDT and BUSD on the Binance Smart Chain. As a result of this exploit, hackers made off with an estimated $573K.
 
 ## Attackers
 
@@ -22,6 +22,8 @@ The identity of the attacker is unknown.
 BSC:
 - [0xC578d755Cd56255d3fF6E92E1B6371bA945e3984](https://bscscan.com/address/0xc578d755cd56255d3ff6e92e1b6371ba945e3984)
 - [0x2b3cff12c02625518deb0af14684999fb6e3e360](https://bscscan.com/address/0x2b3cff12c02625518deb0af14684999fb6e3e360)
+
+[source](https://medium.com/coinmonks/decoding-allbridge-570k-flash-loan-exploit-quillaudits-8da8dccd729d)
 
 ## Losses
 
