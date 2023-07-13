@@ -9,7 +9,7 @@ entity-types:
 attack-types:
 - Smart Contract Exploit
 - Flash Loan Attack
-title: "Alpha Finance DeFi HSmart Contract Exploitack: $37.5 Million Exploited"
+title: "Alpha Finance DeFi Smart Contract Exploit Attack: $37.5 Million Exploited"
 ---
 
 
