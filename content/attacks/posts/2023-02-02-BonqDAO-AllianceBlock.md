@@ -49,5 +49,5 @@ The hack resulted in approximately $120 million in losses for the BonqDAO.
 
 ## Security Failure Causes
 
-- **Instantaneous Price Updates:** BonqDAO allowed [instantaneous](https://www.halborn.com/blog/post/explained-the-bonqdao-hack-february-2023) price updates, which left the protocol susceptible to exploitation. In this instance, the attacker was able to manipulate the price oracle to change the value of the $WALBT token.
-- **Single Source of Truth for Price Data:** Relying on a single source for price data left BonqDAO vulnerable to this kind of attack. Had the protocol used multiple price sources, the attacker's manipulation would have been much less likely to succeed.
+- **Instant Price Updates:** BonqDAO allowed [instantaneous](https://www.halborn.com/blog/post/explained-the-bonqdao-hack-february-2023) price updates, which left the protocol susceptible to exploitation. In this instance, the attacker was able to manipulate the price oracle to change the value of the $WALBT token.
+- **Lack of Oracle Information Sources Diversity and Resilience:** Relying on a single source for price data left BonqDAO vulnerable to this kind of attack. Had the protocol used multiple price sources, the attacker's manipulation would have been much less likely to succeed.
