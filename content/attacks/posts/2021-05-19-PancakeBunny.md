@@ -5,23 +5,18 @@ entity-types:
   - DeFi
   - Yield Aggregator
 attack-types: Flash Loan Attack
-title: "PancakeBunny suffers a flash loan attack"
+title: "PancakeBunny suffers a flash loan attack for $40M+"
 ---
 
 ## Summary
 
 On May 19, 2021 PancakeBunny, a yield farming aggregator built on Binance Smart Chain, suffered a flash loan attack. 
-- According to [the SlowMist report, they shared after investigating the incident](https://slowmist.medium.com/slowmist-pancakebunny-hack-analysis-4a708e284693) 
-> The attacker first borrows a huge amount of WBNB tokens from the multiple liquidity pools of PancakeSwap and borrows a huge amount of WBNB tokens from the Fortube project.
->
-- Next, these assets were used to modify prices of BUNNY/BNB and USDT/BNB. [Cofounder of Halborn Rob Behnke describes the main steps of manipulating exchange rates](https://www.halborn.com/blog/post/explained-the-pancakebunny-protocol-hack-may-2021) as follows: minting LP tokens as a result of depositing a pair of tokens; swapping a large amount of one token of this pair for another to modify an exchange rate; finally, exchanging LP tokens for share of the invested pair, exploiting modified prices.
-- According to the BunnyMinterV2 contract, [the attacker acquired 6,972,455 BUNNY tokens](https://pancakebunny.medium.com/hello-bunny-fam-a7bf0c7a07ba), most of which were swapped for BNB and with the modified exchange pricing
-> the attacker received more tokens than they “should” have.  As a result, after paying off the flash loan, the attacker had 114,631 WBNB left over
->
-> -- Rob Behnke
-[Source](https://www.halborn.com/blog/post/explained-the-pancakebunny-protocol-hack-may-2021)
->
-- Dumping most of the received BUNNY in the market caused the token's price to plummet, but it was manipulated in a way that first increased for a short time, which allowed to get more profit swapping the remaining BUNNY.
+> Exploit was possible because of how the protocol uses PancakeSwap AMM for its asset price calculation. In bugs like this, flashloans are the go-to way to manipulate the price of AMM pools which affects the price oracle
+> 
+>-- Adrian Hetman
+[Source](https://www.adrianhetman.com/pancakebunny-hacked-for-40m/)
+
+The hacker exploited a vulnerability related to reward minting to mint 6,972,455 BUNNY tokens, after which the flash loan was paid back, dumping the huge number of newly minted BUNNY in the market caused the token's price to plummet, the attacker ran off with 114k BNB and 697k BUNNY. 
 
 ## Attackers
 
@@ -31,7 +26,7 @@ Attacker's wallet address:
 
 ## Losses
 
-The amount of stolen assets [was estimated at about $200 million at prices at the time. BUNNY token lost around 96% of its value.](https://cointelegraph.com/news/pancakebunny-tanks-96-following-200m-flash-loan-exploit)
+The attacker stole assets [worth of $40M+](pic.twitter.com/BBVfWOHgZH)
 
 ## Timeline
 
@@ -39,15 +34,23 @@ The amount of stolen assets [was estimated at about $200 million at prices at th
 - **10:34 PM UTC:** [Exploit transaction](https://bscscan.com/tx/0x897c2de73dd55d7701e1b69ffb3a17b0f4801ced88b0c75fe1551c5fcce6a979) was executed
 - **10:45 PM UTC:** 114,631 BNB were sent to this address: [0x158c244b62058330f2c328c720b072d8db2c612f](https://bscscan.com/address/0x158c244b62058330f2c328c720b072d8db2c612f)
 - **11:18 PM UTC:** The Flash Loan attack is officially confirmed, the Bunny Team paused deposits/withdrawals to the Vault to prevent further attacks
-- **11:59 PM UTC:** 488,071 BUNNY were swapped for 9,161 BNB, a portion of which was further exchanged for ETH
+- **11:59 PM UTC:** 488,071 BUNNY were swapped for 9,161 BNB, a portion of which was further exchanged for 43 ETH
 
 **May 21, 2021**
 - **06:30 AM UTC:** The Team restored withdrawal/deposit function to the Vault
 
+[Source](https://pancakebunny.medium.com/hello-bunny-fam-a7bf0c7a07ba)
+
 ## Security Failure Causes
 
-- **Smart contract vulnerability:** The BunnyMinterV2 contract was not prevented from minting an immense amount of BUNNY tokens in case of manipulating LP prices:
+- **Smart contract vulnerability:** To mint reward, the BunnyMinterV2 contract used a [flawed PancakeSwap LP price calculation in Bunny’s PriceCalculatorBSCV1 contract](https://cmichel.io/bsc-pancake-bunny-exploit-post-mortem/)
 > The key point is that the price calculation of WBNB-BUNNY LP is flawed, and the number of BUNNY minted by the BunnyMinterV2 contract depends on this flawed LP price calculation method
 > 
 > -- SlowMist
 [Source](https://slowmist.medium.com/slowmist-pancakebunny-hack-analysis-4a708e284693)
+
+- **Lack of code review:**
+> Many people believe that composability is crucial to the success of DeFi. Token contracts (e.g., ERC20s) play an essential role on the bottom layer of DeFi legos. However, developers may overlook some uncontrollable and unpredictable conditions when integrating ERC20s into their DeFi projects. For example, you can’t predict when and how many tokens you will receive when you retrieve the current token balance.
+> 
+> -- Amber Group
+[Source](https://medium.com/amber-group/bsc-flash-loan-attack-pancakebunny-3361b6d814fd)
