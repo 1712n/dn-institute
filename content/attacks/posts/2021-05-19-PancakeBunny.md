@@ -26,7 +26,7 @@ Attacker's wallet address:
 
 ## Losses
 
-The attacker stole assets [worth of $40M+](pic.twitter.com/BBVfWOHgZH)
+The attacker stole assets [worth of $40M+](https://twitter.com/FrankResearcher/status/1395196961108774915)
 
 ## Timeline
 
