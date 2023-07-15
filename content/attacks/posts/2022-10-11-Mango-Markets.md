@@ -7,7 +7,6 @@ entity-types:
 - Exchange
 attack-types: 
 - Price Oracle Manipulation
-attacks/posts/categories: Protocol Exploit
 title: "Mango Markets Exploited for $116 Million"
 ---
 
@@ -22,7 +21,7 @@ The attacker revealed himself in a series of [tweets](https://twitter.com/avi_ei
 
 ## Losses
 
-About USD $116 million worth of crypto assets in terms of USDC, stablecoins, and SOL was borrowed, with around USD $67 million [returned](https://twitter.com/mangomarkets/status/1581351549644591104?s=20&t=9Xyt2Cc97N9F0A3iOR0_MA).
+About USD $116 million worth of crypto assets was originally lost, and around USD $67 million was [returned].(https://twitter.com/mangomarkets/status/1581351549644591104?s=20&t=9Xyt2Cc97N9F0A3iOR0_MA).
 
 ## Timeline
 
