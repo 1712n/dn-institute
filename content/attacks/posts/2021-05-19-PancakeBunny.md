@@ -34,7 +34,7 @@ The attacker stole assets [worth of $40M+](https://twitter.com/FrankResearcher/s
 - **10:34 PM UTC:** [Exploit transaction](https://bscscan.com/tx/0x897c2de73dd55d7701e1b69ffb3a17b0f4801ced88b0c75fe1551c5fcce6a979) was executed
 - **10:45 PM UTC:** 114,631 BNB were sent to this address: [0x158c244b62058330f2c328c720b072d8db2c612f](https://bscscan.com/address/0x158c244b62058330f2c328c720b072d8db2c612f)
 - **11:18 PM UTC:** The Flash Loan attack is officially confirmed, the Bunny Team paused deposits/withdrawals to the Vault to prevent further attacks
-- **11:59 PM UTC:** 488,071 BUNNY were swapped for 9,161 BNB, a portion of which was further exchanged for 43 ETH
+- **11:59 PM UTC:** 488,071 BUNNY were swapped for 9,161 BNB
 
 **May 21, 2021**
 - **06:30 AM UTC:** The Team restored withdrawal/deposit function to the Vault
