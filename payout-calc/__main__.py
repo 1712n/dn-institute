@@ -12,7 +12,7 @@ from github import Github, GithubException
 
 # Config
 # TODO: Move config to file
-payout_rate = 5  # cents per character
+payout_rate = 3  # cents per character
 payout_assignee = "albina-at-inca"
 
 # Arguments
