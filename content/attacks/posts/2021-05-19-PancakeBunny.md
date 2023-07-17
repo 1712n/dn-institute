@@ -20,7 +20,7 @@ The hacker exploited a vulnerability related to reward minting to mint 6,972,455
 
 ## Attackers
 
-The attacker remain unidentified. 
+The attacker remains unidentified. 
 Attacker's wallet address:
 [0xa0ACC61547f6bd066f7c9663C17A312b6Ad7E187](https://bscscan.com/address/0xa0acc61547f6bd066f7c9663c17a312b6ad7e187)
 
