@@ -24,23 +24,19 @@ menu:
         icon: ""
 
 taxonomies:
-  category: "attacks/posts/categories"
-  custodian: "attacks/posts/custodians"
+  target-entity: "target-entities"
+  entity-type: "entity-types"
+  attack-type: "attack-types"
+
+permalinks:
+  target-entities: "/attacks/posts/target-entities/:title"
+  entity-types: "/attacks/posts/entity-types/:title"
+  attack-types: "/attacks/posts/attack-types/:title"
 
 cascade:
 - _target:
     path: "**/posts/**"
   type: posts
-
-- _target:
-    path: "**/posts/categories"
-  title: Categories
-  type: categories
-
-- _target:
-    path: "**/posts/custodians"
-  title: Custodians
-  type: custodians
 
 - _target:
     path: "**/docs/**"
