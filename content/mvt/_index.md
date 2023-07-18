@@ -97,24 +97,24 @@ In order to promote transparency and accountability at crypto trading venues, we
 
 ### Table
 
-|field|description|field|description|
-|:----|:----|:----|:----|
-|source|Data provider anonymized ID| | |
-|marketId|Market unique identifier - combination of a market venue name and a pair identifier| | |
-|timestamp|Timestamp in milliseconds reported by exchange| | |
-|receiveTimestamp|Timestamp in milliseconds when event received from exchange| | |
+|field|description|
+|:----|:----|
+|source|Data provider anonymized ID| 
+|marketId|Market unique identifier - combination of a market venue name and a pair identifier|
+|timestamp|Timestamp in milliseconds reported by exchange|
+|receiveTimestamp|Timestamp in milliseconds when event received from exchange|
 |asks|Ask orders|price|Order price in the quote currency|
-| | |size|Order size in the base currency; absolute value|
-| | |accountId|Anonymized ID of the account initiating the order|
-| | |subaccountId|Anonymized ID of the subaccount initiating the order|
-| | |orderType|Order type|
-| | |orderId|Unique order ID|
+|size|Order size in the base currency; absolute value|
+|accountId|Anonymized ID of the account initiating the order|
+|subaccountId|Anonymized ID of the subaccount initiating the order|
+|orderType|Order type|
+|orderId|Unique order ID|
 |bids|Bid orders|price|Order price in the quote currency|
-| | |size|Order size in the base currency; absolute value|
-| | |accountId|Anonymized ID of the account initiating the order|
-| | |subaccountId|Anonymized ID of the subaccount initiating the order|
-| | |orderType|Order type|
-| | |orderId|Unique order ID|
+|size|Order size in the base currency; absolute value|
+|accountId|Anonymized ID of the account initiating the order|
+|subaccountId|Anonymized ID of the subaccount initiating the order|
+|orderType|Order type|
+|orderId|Unique order ID|
 
 ## Trade-level data enriched with Anonymized Trader ID
 
