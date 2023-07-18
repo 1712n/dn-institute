@@ -6,14 +6,24 @@
 }
 
 .post-meta {
-  .taxonomy-list {
-    font-size: .85em;
+  .taxonomies {
+    display: flex;
+    flex-flow: column nowrap;
 
-    .taxonomy-name {
+    .taxonomy {
       font-size: .85em;
-      font-weight: 600;
-      text-transform: uppercase;
-      color: hsl(0, 0%, 45%);
+      display: inline-flex;
+      align-items: baseline;
+
+      .name {
+        font-size: .85em;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: hsl(0, 0%, 45%);
+      }
+
+      .term {
+      }
     }
   }
 }
@@ -81,12 +91,14 @@
 }
 
 .book-page >.taxonomy-list {
-  // display: grid;
-  // grid: auto / 1fr 1fr;
   display: flex;
   flex-flow: column wrap;
   gap: 2em;
   font-size: .9em;
+
+  &, ul {
+    padding: 0;
+  }
 
   .taxonomy-section {
     display: flex;
