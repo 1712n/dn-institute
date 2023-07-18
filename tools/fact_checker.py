@@ -28,11 +28,24 @@ parser.add_argument(
 )
 
 parser.add_argument("--content-path", dest="content_path", help="Content path")
+parser.add_argument("--mode", dest="mode", help="Run mode")
 args = parser.parse_args()
 
 openai.api_key = args.openai_key
 
 token_usage = {"prompt": 0, "completion": 0}
+
+config = {
+    "model": "gpt-3.5-turbo",
+    "retry": 3,
+    "temperature": 0.5,
+    "max_tokens": 500,
+    "search_size": 10,
+}
+
+if args.mode == "development":
+    config["retry"] = 1
+    config["search_size"] = 1
 
 
 def count_tokens(text):
@@ -42,10 +55,10 @@ def count_tokens(text):
 
 def openai_call(
     prompt: str,
-    model: str = "gpt-3.5-turbo",
-    retry: int = 3,
-    temperature: float = 0.5,
-    max_tokens: int = 500,
+    model: str = config["model"],
+    retry: int = config["retry"],
+    temperature: float = config["temperature"],
+    max_tokens: int = config["max_tokens"],
 ):
     messages = [{"role": "user", "content": prompt}]
     try:
@@ -71,8 +84,9 @@ def openai_call(
     return ret
 
 
-def google_search(query):
-    return "\n\n----".join([x["title"] + "\n" + x["body"] for x in ddg(query)[:10]])
+def web_search(query):
+    size = config["search_size"]
+    return "\n\n----".join([x["title"] + "\n" + x["body"] for x in ddg(query)[:size]])
 
 
 EXTRACT_STATEMENTS = """```%s```
@@ -158,7 +172,7 @@ def split_content(diff: str) -> List[Tuple[List[str], str]]:
 @logging_decorator("Verify claim")
 def verify_claim(claim: Dict, meta: str) -> Tuple[bool, str]:
     print(f"\nQuery: {meta} {claim['query']}")
-    summary = google_search(f"{meta} {claim['query']}")
+    summary = web_search(f"{meta} {claim['query']}")
     print("Summary: " + summary)
 
     print("Verify Statement Prompt: " + VERIFY_STATEMENT % (claim["claim"], summary))
