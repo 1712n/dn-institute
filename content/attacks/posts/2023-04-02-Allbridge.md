@@ -34,8 +34,8 @@ BSC:
 - **April 2, 2023:** The Allbridge exploit [occurs](https://bscscan.com/tx/0x7ff1364c3b3b296b411965339ed956da5d17058f3164425ce800d64f1aef8210). The bridge is promptly [shut down](https://twitter.com/Allbridge_io/status/1642508296157290498) to prevent further attacks on other pools.
 - **April 3, 2023, 07:13:26 PM +UTC:** The team [send](https://bscscan.com/tx/0x1351ba22ca16b4fe076f7a8f73ab6dda052c63ba08a79b28b71badc6a6de3074) on-chain message to attackers, offering a white hat bounty for the return of the stolen assets and promising not to pursue legal action if the funds were returned.
 - **April 3, 2023, 04:07:52 PM +UTC** The attacker [has returned](https://bscscan.com/tx/0xb0323e5461e4cfc8e4c259f0b343ed17709c64474fd5615659164459dd76c15b) around 1500 BNB ($466,144) to the project
-- **April 5, 2023:** A significant amount of BNB, approximately 507.3 BNB worth about $159K, is transferred from an address labelled as Allbridge Exploiter to Tornado Cash.
+- **April 5, 2023:** A significant amount of BNB, approximately 507.3 BNB worth about $159K, is transferred from an address labeled as Allbridge Exploiter to Tornado Cash.
 
 ## Security Failure Causes
 
-- **Logic Error in the Withdraw Function:** The root cause of the exploit was a flaw in the withdraw function of the smart contract. This flaw allowed the attacker to manipulate the swap price in the liquidity pool.
+- **Smart Contract Vulnerability:** The root cause of the exploit was a flaw in the withdraw function of the smart contract. This flaw allowed the attacker to manipulate the swap price in the liquidity pool.
