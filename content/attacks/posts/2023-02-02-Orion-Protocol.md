@@ -4,10 +4,11 @@ target-entities:
 - Orion Protocol
 entity-types:
 - DeFi
+- Exchange
 attack-types:
 - Smart Contract Exploit
 - Reentrancy Attack
-title: "Reentrancy Vulnerability Exploit on Orion Protocol Leads to $3 Million Loss"
+title: "Reentrancy Attack on Orion Protocol Leads to $3 Million Loss"
 ---
 
 ## Summary
@@ -48,5 +49,3 @@ $3 million
 ## Security Failure Causes
 
 - **Reentrancy Vulnerability:** The vulnerability was within the Orion Protocol's smart contracts, particularly in the _doSwapTokens function. This reentrancy vulnerability led to a miscalculation of the user's USDT balance.
-
-[source](https://blog.solidityscan.com/orion-protocol-hack-analysis-missing-reentrancy-protection-f9af6995acb3)
