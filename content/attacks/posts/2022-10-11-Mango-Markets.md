@@ -12,7 +12,7 @@ title: "Mango Markets Exploited for $116 Million"
 
 ## Summary
 
-On October 11th, 2022, Mango Markets, a decentralized exchange on Solana, was exploited. The hacker manipulated the price oracle for the protocol's MNGO token by first took out a long MNGO position on Mango. Then the attacker artificially raised the price of the MNGO token by taking advantage of low liquidity on secondary markets. The exploiter then used the temporary high price of MNGO to take out loans of USDC, various other stable coins, and SOL against unrealized profit on the long MNGO position. 
+On October 11th, 2022, Mango Markets, a decentralized exchange on Solana, was exploited. The hacker manipulated the price oracle for the protocol's MNGO token by first taking out a long MNGO position on Mango. Then the attacker artificially raised the price of the MNGO token by taking advantage of low liquidity on secondary markets. The exploiter then used the temporary high price of MNGO to take out loans of USDC, various other stable coins, and SOL against unrealized profit on the long MNGO position. 
 
 ## Attacker
 
