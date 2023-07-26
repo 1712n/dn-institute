@@ -28,29 +28,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install poetry
-        run: pipx install poetry
-      
-      - uses: actions/setup-python@v4
+      - name: Cache Python
+        uses: actions/cache@v3
         with:
-          python-version: "3.11"
-          cache: "poetry"
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
 
-      - name: Install Python dependencies
-        run: poetry install
-      
-      - uses: xt0rted/pull-request-comment-branch@v2
-        id: comment-branch
+      - name: Install package
+        run: pipx install poetry && poetry install --no-interaction
 
-      - name: Run fact-checking script
+      - name: Run script 
         run: |
-          PR_URL="${{ github.event.issue.pull_request.url }}"
-          PR_NUM=${PR_URL##*/}
-          poetry run python fact-check.py \
-            --repo-url "${{ github.event.repository.full_name }}" \
-            --pull-request-head "${{ steps.comment-branch.outputs.head_ref }}" \
-            --pull-request-base "${{  steps.comment-branch.outputs.base_ref }}" \
-            --pull-request-number $PR_NUM \
+          poetry run fact-check \
+            --pull-url "${{ github.event.issue.pull_request.url }}" \
             --github-token "${{ secrets.GITHUB_TOKEN }}" \
             --openai-key "${{ secrets.OPENAI_KEY }}" \
             --content-path "content"
