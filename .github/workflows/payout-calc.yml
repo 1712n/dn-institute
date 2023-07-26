@@ -28,19 +28,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install poetry
-        run: pipx install poetry
-      
-      - uses: actions/setup-python@v4
+      - name: Cache Python
+        uses: actions/cache@v3
         with:
-          python-version: "3.11"
-          cache: "poetry"
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
 
-      - name: Install Python dependencies
-        run: poetry -C payout-calc/ install
-      
-      - name: Run payout calculation script
+      - name: Install package
+        run: pipx install poetry && poetry install --no-interaction
+
+      - name: Run script 
         run: |
-          poetry -C payout-calc/ run python payout-calc \
+          poetry run payout-calc \
             --pull-url "${{ github.event.issue.pull_request.url }}" \
-            --github-token "${{ secrets.GITHUB_TOKEN }}" \
+            --github-token "${{ secrets.GITHUB_TOKEN }}"
+
