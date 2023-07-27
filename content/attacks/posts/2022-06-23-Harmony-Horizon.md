@@ -7,6 +7,10 @@ entity-types:
   - Blockchain
   - Bridge
 attack-types: Smart Contract Exploit
+tags:
+    - North Korea
+    - Lazarus Group
+    - APT38
 title: "Harmony's Horizon Bridge was the victim of a massive cyberattack from North Korea"
 ---
 
