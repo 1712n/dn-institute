@@ -84,12 +84,6 @@
     {{ end }}
 
     <!-- list global taxonomies -->
-    <div class="submenu tags">
-      {{ with site.GetPage "tags" }}
-        {{ $ul2 = .LinkTitle | urlize | lower }}
-        <h2>{{ partial "docs/menu-anchor" (dict "page" $page "item" .) }}</h2>
-      {{ end }}
-    </div>
 
     <div class="submenu external-links">
       <h2>External</h2>
