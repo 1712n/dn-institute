@@ -8,6 +8,7 @@
   {{ partial "docs/inject/menu-before" . }}
 
   {{ $page := .Page }}
+  {{ $expandTerms := site.Params.expandTerms | default false }}
   
   <div class="book-tree">
     <!-- initialize sections ids -->
@@ -29,31 +30,28 @@
                 <li class="subsection collapsible">
                   <!-- special case: posts -->
                   {{ if eq .Type "posts" }}
+                    {{ $subsection := . }}
                     {{ $ul3 = .LinkTitle | urlize | lower }}
                     <h3>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "control" true) }}</h3>
                     <ul class="taxonomies collapsible-target" id="ul3-{{ $ul2 }}-{{ $ul3 }}">
                       <!-- NOTE: Taxonomies are site-wide and not section-specific. -->
                       {{ range $taxonomy, $terms := site.Taxonomies }}
-                        {{ if site.Params.expandTerms }}
-                          <li class="taxonomy collapsible">
-                            {{ with site.GetPage $taxonomy }}
-                              <h4>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "control" true) }}</h4>
-                            {{ end }}
+                        {{ with site.GetPage $taxonomy }}
+                          {{ if (hasPrefix .RelPermalink $subsection.RelPermalink) }}
+                            <li class="taxonomy {{ if $expandTerms }}collapsible{{ end }}">
+                              <h4>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "control" $expandTerms) }}</h4>
 
-                            {{ with $terms }}
-                              {{ $ul4 = .LinkTitle | urlize | lower }}
-                              <ul class="terms collapsible-target" id="ul4-{{ $ul2 }}-{{ $ul3 }}-{{ $ul4 }}">
-                                {{ range . }}
-                                  <li>{{ partial "docs/menu-anchor" (dict "page" $page "item" .Page) }}</li>
+                              {{ if $expandTerms }}
+                                {{ with $terms }}
+                                  {{ $ul4 = .LinkTitle | urlize | lower }}
+                                  <ul class="terms collapsible-target" id="ul4-{{ $ul2 }}-{{ $ul3 }}-{{ $ul4 }}">
+                                    {{ range . }}
+                                      <li>{{ partial "docs/menu-anchor" (dict "page" $page "item" .Page) }}</li>
+                                    {{ end }}
+                                  </ul>
                                 {{ end }}
-                              </ul>
-                            {{ end }}
-                          </li>
-                        {{ else }}
-                          {{ with site.GetPage $taxonomy }}
-                          <li class="taxonomy">
-                            <h4>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "control" false) }}</h4>
-                          </li>
+                              {{ end }}
+                            </li>
                           {{ end }}
                         {{ end }}
                       {{ end }}
@@ -84,6 +82,8 @@
         </div>
       {{ end }}
     {{ end }}
+
+    <!-- list global taxonomies -->
 
     <div class="submenu external-links">
       <h2>External</h2>
