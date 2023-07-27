@@ -24,11 +24,16 @@ menu:
         icon: ""
 
 taxonomies:
+  # global
+  tag: "tags"
+
+  # attacks/incidents
   target-entity: "target-entities"
   entity-type: "entity-types"
   attack-type: "attack-types"
 
 permalinks:
+  # attacks/incidents
   target-entities: "/attacks/posts/target-entities/:title"
   entity-types: "/attacks/posts/entity-types/:title"
   attack-types: "/attacks/posts/attack-types/:title"
