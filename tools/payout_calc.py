@@ -62,7 +62,7 @@ def create_comment(
 
     # only post comment if running on Github
     if os.environ.get("GITHUB_ACTIONS") == "true":
-        pr.create_issue_comment(comment)
+        pull_request.create_issue_comment(comment)
 
 
 def main():
