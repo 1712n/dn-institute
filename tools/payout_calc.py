@@ -25,7 +25,7 @@ args = parser.parse_args()
 github = Github(args.github_token)
 
 # TODO: Read config from file
-config = {"rate": 5, "payeer": "albina-at-inca"}  # cents per character
+config = {"rate": 3, "payeer": "albina-at-inca"}  # cents per character
 data = {}
 
 
