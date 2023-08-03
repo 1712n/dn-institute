@@ -28,7 +28,10 @@ def parse_cli_args():
         "--github-token", dest="github_token", help="GitHub token", required=True
     )
     parser.add_argument(
-        "--rate", dest="rate", help="Payout rate", type=int, required=False
+        "--rate", dest="rate", help="Payout rate value", type=int, required=False
+    )
+    parser.add_argument(
+        "--multiplier", dest="multiplier", help="Payout rate multiplier", type=int, required=False
     )
     return parser.parse_args()
 
@@ -45,6 +48,7 @@ def load_config() -> dict:
     # default values
     config = {
         "rate": 0,  # cents per character
+        "multiplier": 1,  # multiplier for rate
         "payeer": "",  # GitHub username of the person responsible for processing payments
     }
 
@@ -88,14 +92,19 @@ def count_chars(diff: list[dict]) -> int:
 
     return chars
 
+def calc_payout(chars, rate, multiplier):
+    effective_rate = config["rate"] * config["multiplier"]
+    return (chars * effective_rate) / 100
+
 
 @logging_decorator("Comment on PR")
 def create_comment(
     pull_request,
     payeer: str,
     rate: int,
+    multiplier: int,
     chars: int,
-    value: int,
+    value: int
 ) -> None:
     """
     Create a comment on a Github PR.
@@ -103,7 +112,7 @@ def create_comment(
 
     author = pull_request.user.login
     url = pull_request.diff_url
-    comment = f"Thanks, @{author}! {chars} characters were added/changed in this [PR]({url}). At a rate of {rate}¢/char your contribution is worth ${value}. @{payeer} will process your payment."
+    comment = f"Thanks, @{author}! {chars} characters were added/changed in this [PR]({url}). At a rate of {rate}¢/char multiplied by {multiplier}x your contribution is worth ${value}. @{payeer} will process your payment."
 
     print(comment)
 
@@ -120,7 +129,5 @@ def main():
     _diff = get_diff_by_url(pr)
     diff = parse_diff(_diff)
     data["chars"] = count_chars(diff)
-    _value = (data["chars"] * config["rate"]) / 100
-    data["value"] = str(_value)
-
+    data["value"] = calc_payout(chars=data["chars"], rate=config["rate"], multiplier=config["multiplier"])
     create_comment(pr, **config, **data)
