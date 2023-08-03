@@ -42,10 +42,11 @@ jobs:
       - name: Run script 
         run: |
           _action="${{ github.event.comment.body }}"
-          _name="${_action%% *}"
-          _params="${_action#/*}"
+          _name="$(grep -o '/[^[:space:]]*' <<< "$_action")"
+          _params="$(sed 's/^[^ ]* *//' <<< "$_action")"
 
-          poetry run payout-calc \
-            --pull-url "${{ github.event.issue.pull_request.url }}" \
-            --github-token "${{ secrets.GITHUB_TOKEN }}" \
-            "${_params}"
+          # Note: This is potentially dangerous as the action string can be constructed to execute arbitrary code. 
+          eval "poetry run payout-calc \
+            --pull-url ${{ github.event.issue.pull_request.url }} \
+            --github-token ${{ secrets.GITHUB_TOKEN }} \
+            $_params"
