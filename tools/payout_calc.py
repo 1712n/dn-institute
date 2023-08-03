@@ -31,7 +31,7 @@ def parse_cli_args():
         "--rate", dest="rate", help="Payout rate value", type=int, required=False
     )
     parser.add_argument(
-        "--multiplier", dest="multiplier", help="Payout rate multiplier", type=int, required=False
+        "--multiplier", dest="multiplier", help="Payout rate multiplier", type=float, required=False
     )
     return parser.parse_args()
 
@@ -94,17 +94,19 @@ def count_chars(diff: list[dict]) -> int:
 
 def calc_payout(chars, rate, multiplier):
     effective_rate = config["rate"] * config["multiplier"]
-    return (chars * effective_rate) / 100
-
+    payout = (chars * effective_rate) / 100
+    # Format to display in decimal notation rounded to 2 decimals
+    payout = "{:.2f}".format(round(payout, 2))
+    return payout
 
 @logging_decorator("Comment on PR")
 def create_comment(
     pull_request,
     payeer: str,
     rate: int,
-    multiplier: int,
+    multiplier: float,
     chars: int,
-    value: int
+    value: float
 ) -> None:
     """
     Create a comment on a Github PR.
