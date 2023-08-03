@@ -27,6 +27,9 @@ def parse_cli_args():
     parser.add_argument(
         "--github-token", dest="github_token", help="GitHub token", required=True
     )
+    parser.add_argument(
+        "--rate", dest="rate", help="Payout rate", type=int, required=False
+    )
     return parser.parse_args()
 
 
@@ -39,16 +42,24 @@ def load_config() -> dict:
     Returns config as a dictionary.
     """
 
+    # default values
     config = {
         "rate": 0,  # cents per character
         "payeer": "",  # GitHub username of the person responsible for processing payments
     }
 
+    # merge with values from config file
     config_file = "tools/payout_calc.yml"
     if os.path.isfile(config_file):
         with open(config_file) as file:
             config_from_file = yaml.load(file, Loader=yaml.FullLoader)
             config = {**config, **config_from_file}
+
+    # merge with values from arguments
+    for key, value in config.items():
+        # if args.__dict__[key]:
+        if key in args.__dict__ and args.__dict__[key] is not None:
+            config[key] = args.__dict__[key]
 
     return config
 
@@ -84,7 +95,7 @@ def create_comment(
     payeer: str,
     rate: int,
     chars: int,
-    value: str,
+    value: int,
 ) -> None:
     """
     Create a comment on a Github PR.
