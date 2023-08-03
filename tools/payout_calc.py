@@ -7,29 +7,61 @@ Count characters in a Github PR diff, calculate the contribution remuneration an
 __author__ = "Daniel Souza <me@posix.dev.br>"
 
 import os, argparse
+import yaml
 from github import Github, GithubException
 from tools.utils import logging_decorator
 from tools.git import get_pull_request, get_diff_by_url, parse_diff
 
-# Arguments
-parser = argparse.ArgumentParser()
-parser.add_argument(
-    "--pull-url", dest="pull_url", help="GitHub pull URL", required=True
-)
-parser.add_argument(
-    "--github-token", dest="github_token", help="GitHub token", required=True
-)
-args = parser.parse_args()
-
-# Initialize Github API
-github = Github(args.github_token)
-
-# TODO: Read config from file
-config = {"rate": 3, "payeer": "albina-at-inca"}  # cents per character
 data = {}
 
 
+def parse_cli_args():
+    """
+    Parse CLI arguments.
+    """
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--pull-url", dest="pull_url", help="GitHub pull URL", required=True
+    )
+    parser.add_argument(
+        "--github-token", dest="github_token", help="GitHub token", required=True
+    )
+    return parser.parse_args()
+
+
+args = parse_cli_args()
+
+
+def load_config() -> dict:
+    """
+    Read configuration from default values, config file and CLI arguments in this order of precedence.
+    Returns config as a dictionary.
+    """
+
+    config = {
+        "rate": 0,  # cents per character
+        "payeer": "",  # GitHub username of the person responsible for processing payments
+    }
+
+    config_file = "tools/payout_calc.yml"
+    if os.path.isfile(config_file):
+        with open(config_file) as file:
+            config_from_file = yaml.load(file, Loader=yaml.FullLoader)
+            config = {**config, **config_from_file}
+
+    return config
+
+
+config = load_config()
+
+
 def count_chars(diff: list[dict]) -> int:
+    """
+    Count characters in a Github PR diff.
+    Returns the number of characters.
+    """
+
     chars = 0
 
     for file in diff:
@@ -50,10 +82,14 @@ def count_chars(diff: list[dict]) -> int:
 def create_comment(
     pull_request,
     payeer: str,
-    rate: str,
+    rate: int,
     chars: int,
     value: str,
 ) -> None:
+    """
+    Create a comment on a Github PR.
+    """
+
     author = pull_request.user.login
     url = pull_request.diff_url
     comment = f"Thanks, @{author}! {chars} characters were added/changed in this [PR]({url}). At a rate of {rate}¢/char your contribution is worth ${value}. @{payeer} will process your payment."
@@ -66,6 +102,7 @@ def create_comment(
 
 
 def main():
+    github = Github(args.github_token)
     pr = get_pull_request(github, args.pull_url)
 
     # TODO: Improve Diff method. Get diff by words instead of lines.
