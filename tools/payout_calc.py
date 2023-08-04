@@ -25,7 +25,7 @@ args = parser.parse_args()
 github = Github(args.github_token)
 
 # TODO: Read config from file
-config = {"rate": 5, "payeer": "albina-at-inca"}  # cents per character
+config = {"rate": 3, "payeer": "albina-at-inca"}  # cents per character
 data = {}
 
 
@@ -62,7 +62,7 @@ def create_comment(
 
     # only post comment if running on Github
     if os.environ.get("GITHUB_ACTIONS") == "true":
-        pr.create_issue_comment(comment)
+        pull_request.create_issue_comment(comment)
 
 
 def main():
