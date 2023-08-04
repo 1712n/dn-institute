@@ -2,12 +2,10 @@
 date: 2023-02-02
 target-entities: 
 - BonqDAO
-- AllianceBlock
 entity-types:
 - DeFi
 - Lending Platform
 - Stablecoin
-- Token
 attack-types:
 - Smart Contract Exploit
 - Price Oracle Manipulation
@@ -16,7 +14,7 @@ title: "BonqDAO Suffers a $120 Million Loss Through Price Oracle Manipulation"
 
 ## Summary
 
-In February 2023, BonqDAO, a lending and stablecoin platform hosted on the Polygon network, faced a substantial security breach. A malicious actor exploited a flaw in a smart contract associated with price oracle, causing a loss of around $120 million. The attacker manipulated the value of $WALBT, a Wrapped AllianceBlock Token, and used the inflated value to borrow 100 million $BEUR, a stablecoin pegged to Euro, and liquidate other users' collateral.
+In February 2023, BonqDAO, a lending platform hosted on the Polygon network, faced a substantial security breach. A malicious actor exploited a flaw in a smart contract associated with price oracle, causing a loss of around $120 million. The attacker manipulated the value of $WALBT, a Wrapped AllianceBlock Token, and used the inflated value to borrow 100 million $BEUR, a stablecoin pegged to Euro, and liquidate other users' collateral.
 
 ## Attackers
 
