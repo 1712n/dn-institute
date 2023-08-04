@@ -36,7 +36,7 @@ The attackers are unidentified.
 
 ## Losses
 
-The hack resulted in approximately $120 million in losses for the BonqDAO. 
+~$120 million 
 
 ## Timeline
 
