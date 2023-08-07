@@ -10,7 +10,9 @@ permissions:
 jobs:
   permission-check-job:
     runs-on: ubuntu-latest
-    if: github.event.issue.pull_request && contains(github.event.comment.body, '/qualitycheck')
+    if: |
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '/qualitycheck')
     outputs:
       permission: ${{ steps.permissions-check.outputs.defined }}
     steps:
@@ -39,8 +41,13 @@ jobs:
 
       - name: Run script 
         run: |
+          _action="${{ github.event.comment.body }}"
+          _name="${_action%% *}"
+          _params="${_action#/*}"
+
           poetry run fact-check \
             --pull-url "${{ github.event.issue.pull_request.url }}" \
             --github-token "${{ secrets.GITHUB_TOKEN }}" \
             --openai-key "${{ secrets.OPENAI_KEY }}" \
             --content-path "content"
+            "${_params}"
