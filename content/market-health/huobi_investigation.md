@@ -93,6 +93,8 @@ An exchange's native token, like Huobi's HT, serves as an unofficial indicator o
 
 ![ht-usdt buy/sell volume ratio comparison](img/huobi-investigation/ht-usdt-buy-sell-volume-multiple-exchange-comparison.jpg)
 
+<p style="text-align: center;">Buy/sell ratio of Huobi Token on Huobi, Poloniex and Gate.io, May - July 2023  </p>
+
 The ratio of "buy" volume and "sell" volume determines price behavior and its furhther movements. In normal conditions this metric is very volatile and looks like a random process (see Gate.io). On the contrary, Huobi Token demonstrates abnormal buy-sell ratio stability that fluctuates within a narrow range.
 
 This suggests potential manipulation, as Huobi may seek to exert control over token price movements. Notably, Huobi's possession of user order data further raises concerns about market manipulation, impacting its users.
