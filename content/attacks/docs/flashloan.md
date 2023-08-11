@@ -11,7 +11,7 @@ A flash loan attack typically involves exploiting some weakness or loophole in a
 3. **Exploit Vulnerable Protocols**: With the manipulated prices, the attacker interacts with other DeFi protocols that rely on the altered price feed. They could exploit arbitrage opportunities, abuse token exchange functionalities, or manipulate collateralized loans.
 4. **Repay the Flash Loan**: Finally, the attacker repays the flash loan, along with any fees, and keeps the profits made from exploiting the vulnerable protocols.
 
-## Real-World Cases
+## Attack Examples
 
 ### [Euler Finance: $197m (March 2023)](https://dn.institute/attacks/posts/2023-03-13-Euler-Finance/)
 
@@ -25,10 +25,10 @@ A flash loan attack typically involves exploiting some weakness or loophole in a
 
 ## Countermeasures
 
-- **Use Reentrancy Guards and Access Control Mechanisms**: Prevent unexpected contract calls by implementing reentrancy guards. Utilize proper access control mechanisms, such as OpenZeppelin's Ownable, to restrict critical functions. Employ well-tested libraries and frameworks for contract development to ensure a robust design.
+- **Reentrancy Guards and Access Control Mechanisms**: Prevent unexpected contract calls by implementing reentrancy guards. Utilize proper access control mechanisms, such as OpenZeppelin's Ownable, to restrict critical functions. Employ well-tested libraries and frameworks for contract development to ensure a robust design.
 
-- **Validate External Smart Contracts**: Since flash loan attacks often originate from external smart contracts, it's prudent to validate the addresses allowed to utilize flash loan functionalities. Ensure that external contract calls are authentic and secure, limiting interactions exclusively to trusted contracts.
+- **External Smart Contracts Validation**: Since flash loan attacks often originate from external smart contracts, it's prudent to validate the addresses allowed to utilize flash loan functionalities. Ensure that external contract calls are authentic and secure, limiting interactions exclusively to trusted contracts.
 
-- **Thorough Auditing and Testing**: Regular, in-depth security audits of smart contracts can help identify vulnerabilities before they are exploited. Employing thorough third-party smart contract auditing and validation is always a valuable security measure. Conduct comprehensive testing to identify potential vulnerabilities and collaborate with reputable auditing firms to review your contracts.
+- **Contract Auditing and Testing**: Regular, in-depth security audits of smart contracts can help identify vulnerabilities before they are exploited. Employing thorough third-party smart contract auditing and validation is always a valuable security measure. Conduct comprehensive testing to identify potential vulnerabilities and collaborate with reputable auditing firms to review your contracts.
 
-- **Utilize Multiple Oracles and Implement TWAP Mechanisms**: To obtain the most precise and secure price information, consider using a variety of oracles, since some might be vulnerable to manipulation. Implement time-weighted average price (TWAP) mechanisms to minimize risks tied to price manipulation.
+- **Oracle Redundancy and TWAP Mechanisms**: To obtain the most precise and secure price information, consider connecting multiple oracles, accounting for potential attacks on oracles. Implement time-weighted average price (TWAP) mechanisms to minimize risks tied to price manipulation.
