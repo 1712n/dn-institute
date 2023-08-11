@@ -1,6 +1,10 @@
 ---
 date: 2023-06
-entities: Huobi, HT, TRX, DOGE
+entities: 
+- Huobi
+- HT
+- TRX
+- DOGE
 title: "Uncovering Wash Trading and Market Manipulation on Huobi"
 ---
 
