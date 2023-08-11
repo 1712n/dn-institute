@@ -17,7 +17,6 @@ title: "Uncovering Wash Trading and Market Manipulation on Huobi"
 
 ### Abnormal activity indicator - Average transaction size
 
-<gallery>
 ![doge-usdt volume metrics](img/huobi-investigation/tx-size-doge.png)
 ![ht-usdt volume metrics](img/huobi-investigation/tx-size-ht.png)
 ![sol-usdt volume metrics](img/huobi-investigation/tx-size-sol.png)
@@ -29,6 +28,7 @@ The main indicator, which signals about abnormal activity is huge jumps in avera
 Low std values and rare but significant changes in average value of this metric strongly indicates dominating artificial trading activity.
 
 ![doge-usdt avg tx size comparison across multiple exchanges](img/huobi-investigation/doge-avg-tx-huobi-coinbase-binance-okx.jpg)
+<p style="text-align: center;">Average transaction size for doge-usdt spot market across multiple exchanges, May - July 2023</p>
 
 ### Order printing bots – Volume distribution tail and skewness
 
@@ -38,11 +38,12 @@ It is expected to be less than 3 on traditional financial markets.
 
 
 ![ht-usdt exponent](img/huobi-investigation/exponent-ht.png)
+<p style="text-align: center;">Exponent for ht-usdt spot market on Huobi, July 2023</p>
+
 
 These metrics reveal the most obvious abnormalities in trade volume distribution. Despite the fact that it cannot be interpreted solely, 
 it highlights the presence of individual traders placing high-volume orders as well as the trading bots printing dozens of trades of the same size. 
 
-<gallery>
 ![comp-usdt exponent comparison between huobi and binance](img/huobi-investigation/exponent-comp-binance-huobi.png)
 ![doge-usdt exponent comparison between huobi and binance](img/huobi-investigation/exponent-doge-binance-huobi.png)
 ![sol-usdt exponent comparison between huobi and binance](img/huobi-investigation/exponent-sol-binance-huobi.png)
@@ -53,23 +54,31 @@ it highlights the presence of individual traders placing high-volume orders as w
 Given that volume distribution in traditional financial markets is asymmetrical (with a predominance of trades of a small size), 
 skewness of such distribution type should be greater than 1. This has nothing to do with the volume distribution built on Huobi’s market data. 
 
-![skewness parameter of different markets](img/huobi-investigation/skewness.jpg)
+![skewness parameter of different markets](img/huobi-investigation/skewness-huobi.jpg)
+<p style="text-align: center;">Skewness of trade volume distribution for different Huobi spot markets over time, June - July 2023 </p>
+
 ![trx-usdt skewness comparison between huobi and binance](img/huobi-investigation/skewness_binance_huobi.png)
+<p style="text-align: center;">Skewness comparison between Huobi and Binance for trx-usdt spot market over time, May - July 2023 </p>
 
 Below zero skewness values can be spotted visually. They indicate an artificially inflated volume.
 ![comp-usdt distribution comparison](img/huobi-investigation/comp-distribution-binance-huobi.png)
 ![comp-usdt distribution comparison](img/huobi-investigation/sol-distribution-binance-huobi.png)
+<p style="text-align: center;">Trade volume distribution samples comparison between Huobi and Binance for comp-usdt and sol-usdt spot markets</p>
 
 ### Real users presence – Spotting round-size trades
 Recently published [research](https://twitter.com/adamscochran/status/1687959096316542976) suggests Huobi's insufficient funds to cover user obligations, 
 prompting extreme actions like wash trading and manipulation to appear financially sound. There are several ways to match real retail users and reported volumes. 
 
 ![clustering student test with 100x rounding](img/huobi-investigation/sui-clustering-test-huobi-coinbase.png)
+<p style="text-align: center;">Student's clustering test for 100x rounding, sui-usdt spot market, comparison between Huobi and Coinbase, July 2023</p>
+
 Assuming that retail investors often use round values for trading, the retail clustering indicator compares frequency of round volumes (100, 200, etc.) 
 with the frequency of use of other trade sizes. Higher value of this metric represents higher probability of presence of real users. In the Huobi case 
 this metric shows extremely low values.
 
 ![KS test for Benford's law, different markets'](img/huobi-investigation/ks-benford-huobi.jpg)
+<p style="text-align: center;">KS test for first digit distribution across different markets on Huobi exchange, June - July 2023  </p>
+
 
 ![sui-usdt KS test for Benford's law comparison between huobi and binance](img/huobi-investigation/sui-ks-benford-huobi-binance.jpg)
 ![trx-usdt KS test for Benford's law comparison between huobi and binance](img/huobi-investigation/trx-ks-benford-huobi-binance.jpg)
