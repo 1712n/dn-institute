@@ -1,3 +1,8 @@
+---
+title: Flash Loan Attacks
+bookToc: true
+---
+
 ## What are Flash Loans?
 
 Flash loans are an innovative financial instrument in the decentralized finance (DeFi) sector. Flash loans exist on protocols like Aave, dYdX, and others. They enable users to borrow funds without collateral for a very brief period (within one transaction). The primary condition is that the borrowed funds, along with any applicable fees, must be repaid by the end of the transaction. If the repayment fails, the whole transaction reverts, meaning nothing changes from before the transaction began.
