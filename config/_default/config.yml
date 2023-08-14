@@ -32,11 +32,17 @@ taxonomies:
   entity-type: "entity-types"
   attack-type: "attack-types"
 
+  # market-health 
+  entity: "entities"
+
 permalinks:
   # attacks/incidents
   target-entities: "/attacks/posts/target-entities/:title"
   entity-types: "/attacks/posts/entity-types/:title"
   attack-types: "/attacks/posts/attack-types/:title"
+
+  # market-health 
+  entities: "/market-health/entities/:title"
 
 cascade:
 - _target:
