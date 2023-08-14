@@ -28,10 +28,10 @@ def parse_cli_args():
         "--github-token", dest="github_token", help="GitHub token", required=True
     )
     parser.add_argument(
-        "--rate", dest="rate", help="Payout rate value", type=int, required=False
+        "-r", "--rate", dest="rate", help="Payout rate value", type=int, required=False
     )
     parser.add_argument(
-        "--multiplier", dest="multiplier", help="Payout rate multiplier", type=float, required=False
+        "-x", "--multiplier", dest="multiplier", help="Payout rate multiplier", type=float, required=False
     )
     return parser.parse_args()
 
