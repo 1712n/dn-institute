@@ -2,7 +2,7 @@
 
 ## Cryptocurrency Ecosystem Threat Modeling
 
-We are looking for talent to join our efforts to model attacks on critical infrastructure in the crypto space. Multiple research grants and code bounties are available for the following tasks:
+We are looking for talent to join our efforts to model attacks on critical infrastructure in the crypto space. Multiple [research grants](https://github.com/1712n/challenge/issues/97) and [code bounties](https://github.com/1712n/challenge/issues/100) are available for the following tasks:
 
 1. Modeling current tactics, techniques and procedures (TTP) of crypto attacks
 1. Building a taxonomy of current harms, risks and vulnerabilities.
@@ -13,7 +13,7 @@ To participate and find out more, submit a pull request to this repository that 
 
 ## Attack Wiki PR Approval Criteria
 
-Submit a pull request that adds or modifies files in the [`attacks` directory](https://github.com/1712n/dn-institute/tree/main/content/attacks). All submissions will be reviewed by the wiki maintainers, and additional changes to your pull request may be asked of you to bring your submission to the quality level of the rest of the wiki.
+ Submit a pull request that adds or modifies files in the [`attacks` directory](https://github.com/1712n/dn-institute/tree/main/content/attacks). All submissions will be reviewed by the wiki maintainers, and additional changes to your pull request may be asked of you to bring your submission to the quality level of the rest of the wiki.
 
 ### Submission ideas
 
