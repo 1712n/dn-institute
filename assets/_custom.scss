@@ -22,8 +22,8 @@
         color: hsl(0, 0%, 45%);
       }
 
-      .term {
-      }
+      // .term {
+      // }
     }
   }
 }
@@ -40,7 +40,7 @@
     padding: 0 0 0 .5rem;
   }
 
-  .submenu {
+  .li-h2 {
     h2 {
       font-size: 1.1em;
       font-weight: 600;
@@ -56,11 +56,11 @@
     }
   }
 
-  .submenu ~ .submenu {
+  .li-h2 ~ .li-h2 {
     margin-top: 1.5em;
   }
 
-  .subsection {
+  .li-h3 {
     li {
       margin: 0;
     }

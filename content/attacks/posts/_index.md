@@ -1,3 +1,4 @@
 ---
 title: "Incidents"
+navShowTaxonomies: true
 ---
