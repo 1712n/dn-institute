@@ -1,6 +1,6 @@
 ---
 title: Posts 
-hide: false
+navShowTaxonomies: true
 ---
 
 ## Market Health: Anomalies & Integrity Studies
