@@ -1,11 +1,11 @@
 ---
-date: 2023-06
+title: "Uncovering Wash Trading and Market Manipulation on Huobi"
+date: 2023-08-14
 entities: 
 - Huobi
 - HT
 - TRX
 - DOGE
-title: "Uncovering Wash Trading and Market Manipulation on Huobi"
 ---
 
 ## Summary
