@@ -21,6 +21,7 @@ pylanguagetool = "^0.9.2"
 [tool.poetry.scripts]
 fact-check = "tools.fact_checker:main"
 payout-calc = "tools.payout_calc:main"
+grammar-check =  "tools.grammar_checker:main"
 
 [build-system]
 requires = ["poetry-core"]
