@@ -2,8 +2,8 @@
 date: 2021-04-13
 target-entities: Africrypt
 entity-types:
-    - Custodian
-    - Exchange
+  - Custodian
+  - Exchange
 attack-types: Wallet Hack
 title: "Africrypt Founders Vanished with $3.6 Billion in Bitcoin"
 ---
