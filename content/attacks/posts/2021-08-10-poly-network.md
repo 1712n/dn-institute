@@ -2,10 +2,9 @@
 date: 2021-08-10
 target-entities: Poly Network
 entity-types:
-    - DeFi
-    - Bridge
+  - DeFi
+  - Bridge
 attack-types: Smart Contract Exploit
-
 title: "Poly Network Hack - $610 Million Stolen in 2021"
 ---
 

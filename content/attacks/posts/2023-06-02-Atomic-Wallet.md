@@ -2,13 +2,13 @@
 date: 2023-06-02
 target-entities: Atomic Wallet
 entity-types:
-    - DeFi
-    - Wallet
+  - DeFi
+  - Wallet
 attack-types:
-    - Wallet Hack
+  - Wallet Hack
 tags:
-    - North Korea
-    - Lazarus Group
+  - North Korea
+  - Lazarus Group
 title: "Atomic Wallet Suffers Over $100 Million Security Breach"
 ---
 

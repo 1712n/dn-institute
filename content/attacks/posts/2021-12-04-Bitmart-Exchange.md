@@ -2,8 +2,8 @@
 date: 2021-12-04
 target-entities: BitMart
 entity-types:
-    - Custodian
-    - Exchange
+  - Custodian
+  - Exchange
 attack-types: Wallet Hack
 title: "BitMart Exchange Suffers $196 Million Security Breach"
 ---

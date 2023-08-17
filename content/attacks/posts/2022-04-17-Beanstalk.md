@@ -2,8 +2,8 @@
 date: 2022-04-17
 target-entities: Beanstalk Farms
 entity-types:
-    - DeFi
-    - Yield Aggregator
+  - DeFi
+  - Yield Aggregator
 attack-types: Flash Loan Attack
 title: "Beanstalk Farms Lost $182 Million Due To The Governance Mechanism"
 ---

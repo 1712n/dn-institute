@@ -2,8 +2,8 @@
 date: 2023-03-13
 target-entities: Euler Finance
 entity-types:
-    - DeFi
-    - Lending Platform
+  - DeFi
+  - Lending Platform
 attack-types: Flash Loan Attack
 title: "Euler Finance Exploited with Flash Loan Attack Resulting in Loss of $196 Million"
 ---
