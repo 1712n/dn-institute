@@ -10,7 +10,9 @@ permissions:
 jobs:
   permission-check-job:
     runs-on: ubuntu-latest
-    if: github.event.issue.pull_request && github.event.issue.pull_request.merged_at && contains(github.event.comment.body, '/payout')
+    if: |
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '/payout')
     outputs:
       permission: ${{ steps.permissions-check.outputs.defined }}
     steps:
@@ -39,7 +41,13 @@ jobs:
 
       - name: Run script 
         run: |
-          poetry run payout-calc \
-            --pull-url "${{ github.event.issue.pull_request.url }}" \
-            --github-token "${{ secrets.GITHUB_TOKEN }}"
+          # Parse command from issue comment
+          _action=$(grep "/payout" <<< "${{ github.event.comment.body }}" | sed 's|.*/|/|')
+          _name="$(grep -o '/[^[:space:]]*' <<< "$_action")"
+          _params="$(sed 's/^[^ ]* *//' <<< "$_action")"
 
+          # Note: This is potentially dangerous as the action string can be constructed to execute arbitrary code. 
+          eval "poetry run payout-calc \
+            --pull-url ${{ github.event.issue.pull_request.url }} \
+            --github-token ${{ secrets.GITHUB_TOKEN }} \
+            $_params"

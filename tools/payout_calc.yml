@@ -1,0 +1,6 @@
+---
+# Configuration file for the Payout Calculation script.
+
+rate: 3 # cents per character
+multiplier: 1 # multiplier for rate
+payeer: "albina-at-inca" # GitHub username of the person responsible for processing payments

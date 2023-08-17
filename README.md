@@ -2,7 +2,7 @@
 
 ## Cryptocurrency Ecosystem Threat Modeling
 
-We are looking for talent to join our efforts to model attacks on critical infrastructure in the crypto space. Multiple research grants and code bounties are available for the following tasks:
+We are looking for talent to join our efforts to model attacks on critical infrastructure in the crypto space. Multiple [research grants](https://github.com/1712n/challenge/issues/97) and [code bounties](https://github.com/1712n/challenge/issues/100) are available for the following tasks:
 
 1. Modeling current tactics, techniques and procedures (TTP) of crypto attacks
 1. Building a taxonomy of current harms, risks and vulnerabilities.
@@ -13,7 +13,7 @@ To participate and find out more, submit a pull request to this repository that 
 
 ## Attack Wiki PR Approval Criteria
 
-Submit a pull request that adds or modifies files in the [`attacks` directory](https://github.com/1712n/dn-institute/tree/main/content/attacks). All submissions will be reviewed by the wiki maintainers, and additional changes to your pull request may be asked of you to bring your submission to the quality level of the rest of the wiki.
+ Submit a pull request that adds or modifies files in the [`attacks` directory](https://github.com/1712n/dn-institute/tree/main/content/attacks). All submissions will be reviewed by the wiki maintainers, and additional changes to your pull request may be asked of you to bring your submission to the quality level of the rest of the wiki.
 
 ### Submission ideas
 
@@ -33,7 +33,7 @@ Before committing to the wikis, please ensure your submission meets the followin
 | `date` | yes | YYYY-MM-DD | 2012-07-16 |
 `target-entities` | yes  | Entities that were targeted by the attackers. Multiple values allowed | `Binance`, `Localbitcoins`, `Ethereum`|
 `entity-types`| yes | General category describing targeted entity. Check existing ones in the examples and suggest yours if not present. Multiple values allowed | `Custodian`, `DeFi`, `GameFi`, `Exchange`, `Wallet`, `Blockchain`, `Bridge`, `Yield Aggregator`, `Lending Platform`, `Stablecoin`, `Token`, `NFT` |
-`attack-types` | yes  | Common hacking technique, check existing ones in the examples and suggest yours if not present. Multiple values allowed | `51%`, `Wallet Hack`, `Web Infrastructure Attack`, `Smart Contract Exploit`, `Flash Loan Attack`, `Phishing`, `Signature Verification Issue`, `Brute Force`, `Race Condition Exploit`|
+`attack-types` | yes  | Common hacking technique, check existing ones in the examples and suggest yours if not present. Multiple values allowed | `51%`, `Wallet Hack`,`Private Key Leak`, `Infrastructure Attack`, `Smart Contract Exploit`, `Flash Loan Attack`, `Phishing`, `Signature Verification Issue`, `Brute Force`, `Race Condition Exploit`|
 `title` | yes | Article Title | `BitGrail Hack Results in $170 Million Loss` |
 
 - Focus on **facts and numbers** instead of vague phrases and value judgments (such as "huge losses", "important lesson"). Facts mostly include named entities (people, companies, places, addresses, etc.) Simply repeating what the attacked entity had to say is not enough. Try finding messages from those who spotted anomalies before any official announcements, 3rd party audits, statements from other entities, sources of structured data that show the impact of the attack on prices, volumes, hashrates, etc.

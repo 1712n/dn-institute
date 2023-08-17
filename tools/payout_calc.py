@@ -7,29 +7,76 @@ Count characters in a Github PR diff, calculate the contribution remuneration an
 __author__ = "Daniel Souza <me@posix.dev.br>"
 
 import os, argparse
+import yaml
 from github import Github, GithubException
 from tools.utils import logging_decorator
 from tools.git import get_pull_request, get_diff_by_url, parse_diff
 
-# Arguments
-parser = argparse.ArgumentParser()
-parser.add_argument(
-    "--pull-url", dest="pull_url", help="GitHub pull URL", required=True
-)
-parser.add_argument(
-    "--github-token", dest="github_token", help="GitHub token", required=True
-)
-args = parser.parse_args()
-
-# Initialize Github API
-github = Github(args.github_token)
-
-# TODO: Read config from file
-config = {"rate": 3, "payeer": "albina-at-inca"}  # cents per character
 data = {}
 
 
+def parse_cli_args():
+    """
+    Parse CLI arguments.
+    """
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--pull-url", dest="pull_url", help="GitHub pull URL", required=True
+    )
+    parser.add_argument(
+        "--github-token", dest="github_token", help="GitHub token", required=True
+    )
+    parser.add_argument(
+        "-r", "--rate", dest="rate", help="Payout rate value", type=int, required=False
+    )
+    parser.add_argument(
+        "-x", "--multiplier", dest="multiplier", help="Payout rate multiplier", type=float, required=False
+    )
+    return parser.parse_args()
+
+
+args = parse_cli_args()
+
+
+def load_config() -> dict:
+    """
+    Read configuration from default values, config file and CLI arguments in this order of precedence.
+    Returns config as a dictionary.
+    """
+
+    # default values
+    config = {
+        "rate": 0,  # cents per character
+        "multiplier": 1,  # multiplier for rate
+        "payeer": "",  # GitHub username of the person responsible for processing payments
+    }
+
+    # merge with values from config file
+    config_file = "tools/payout_calc.yml"
+    if os.path.isfile(config_file):
+        with open(config_file) as file:
+            config_from_file = yaml.load(file, Loader=yaml.FullLoader)
+            config = {**config, **config_from_file}
+
+    # merge with values from arguments
+    for key, value in config.items():
+        # if args.__dict__[key]:
+        if key in args.__dict__ and args.__dict__[key] is not None:
+            config[key] = args.__dict__[key]
+
+    return config
+
+
+config = load_config()
+
+
 def count_chars(diff: list[dict]) -> int:
+    """
+    Count characters in a Github PR diff.
+    Returns the number of characters.
+    """
+
     chars = 0
 
     for file in diff:
@@ -45,18 +92,29 @@ def count_chars(diff: list[dict]) -> int:
 
     return chars
 
+def calc_payout(chars, rate, multiplier):
+    effective_rate = config["rate"] * config["multiplier"]
+    payout = (chars * effective_rate) / 100
+    # Format to display in decimal notation rounded to 2 decimals
+    payout = "{:.2f}".format(round(payout, 2))
+    return payout
 
 @logging_decorator("Comment on PR")
 def create_comment(
     pull_request,
     payeer: str,
-    rate: str,
+    rate: int,
+    multiplier: float,
     chars: int,
-    value: str,
+    value: float
 ) -> None:
+    """
+    Create a comment on a Github PR.
+    """
+
     author = pull_request.user.login
     url = pull_request.diff_url
-    comment = f"Thanks, @{author}! {chars} characters were added/changed in this [PR]({url}). At a rate of {rate}¢/char your contribution is worth ${value}. @{payeer} will process your payment."
+    comment = f"Thanks, @{author}! {chars} characters were added/changed in this [PR]({url}). At a rate of {rate}¢/char multiplied by {multiplier}x your contribution is worth ${value}. @{payeer} will process your payment."
 
     print(comment)
 
@@ -66,13 +124,12 @@ def create_comment(
 
 
 def main():
+    github = Github(args.github_token)
     pr = get_pull_request(github, args.pull_url)
 
     # TODO: Improve Diff method. Get diff by words instead of lines.
     _diff = get_diff_by_url(pr)
     diff = parse_diff(_diff)
     data["chars"] = count_chars(diff)
-    _value = (data["chars"] * config["rate"]) / 100
-    data["value"] = str(_value)
-
+    data["value"] = calc_payout(chars=data["chars"], rate=config["rate"], multiplier=config["multiplier"])
     create_comment(pr, **config, **data)
