@@ -1,12 +1,12 @@
 ---
 date: 2021-04-28
 target-entities:
-    - Uranium Finance
+  - Uranium Finance
 entity-types:
-    - DeFi
-    - Exchange
+  - DeFi
+  - Exchange
 attack-types:
-    - Smart Contract Exploit
+  - Smart Contract Exploit
 title: "Uranium Finance Exploit Resulting in a $57.2 Million Loss"
 ---
 
