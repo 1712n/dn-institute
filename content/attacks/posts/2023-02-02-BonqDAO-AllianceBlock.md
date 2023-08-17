@@ -38,10 +38,7 @@ The attackers are unidentified.
 
 ## Timeline
 
-- **February 1, 2023, 06:29:18 PM +UTC:** - The attacker [stakes](https://polygonscan.com/tx/0x31957ecc43774d19f54d9968e95c69c882468b46860f921668f2c55fadd51b19) 10 TRB tokens with the TellorFlex
-- **February 1, 2023:** - The attacker manipulates the $WALBT token value using the submitValue function.
-- **February 1, 2023:** - The attacker uses the inflated token value to borrow 100M BEUR.
-- **February 1, 2023:** - The attacker deflates the $WALBT token value and liquidates other users' collateral.
+- **On February 1, 2023, 06:29:18 PM +UTC:**  The attacker [stakes](https://polygonscan.com/tx/0x31957ecc43774d19f54d9968e95c69c882468b46860f921668f2c55fadd51b19) 10 TRB tokens with the TellorFlex. On the same day, the attacker manipulates the $WALBT token value using the submitValue function, uses the inflated token value to borrow 100M BEUR, and then deflates the $WALBT token value to liquidate other users' collateral.
 
 [source](https://rekt.news/bonq-rekt/)
 
