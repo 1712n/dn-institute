@@ -31,6 +31,35 @@
   {{ end }}
 {{ end }}
 
+{{ define "menu" }}
+  {{ $page = .page }}
+  {{ $level = .level }}
+
+  {{ range .item.Pages }}
+    {{ $name = .LinkTitle | urlize | lower }}
+    {{ $path = printf "%s-%s" $path $name }}
+    {{ $id = printf "ul%d-%s" $level $path }} 
+
+    <li class="li-h{{ $level }} collapsible">
+      {{ $control = (or (.Param "navShowPages") (.Param "navShowTaxonomies")) }}
+      <h{{ $level }}>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "control" $control) }}</h{{ $level }}>
+
+      {{ if .Param "navShowTaxonomies" }}
+        <ul class="taxonomies collapsible-target" id="{{ $id }}">
+          {{ template "taxonomies" (dict "page" $page "item" . "level" $level "path" $path) }}
+        </ul>
+      {{ end }}
+
+      {{ if .Param "navShowPages" }}
+        <ul class="pages collapsible-target" id="{{ $id }}">
+          {{ range .Pages }}
+            <li>{{ partial "docs/menu-anchor" (dict "page" $page "item" .) }}</li>
+          {{ end }}
+        </ul>
+      {{ end }}
+    </li>
+  {{ end }}
+{{ end }}
 
 <nav>
   {{ partial "docs/brand" . }}
@@ -60,32 +89,7 @@
       <li class="li-h{{ $level }} {{ if $control }}collapsible{{ end }}">
         <h{{ $level }}>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "control" $control) }}</h{{ $level }}>
         <ul class="collapsible-target" id="{{ $id }}">
-          <!-- list sub sections -->
-          {{ range .Pages }}
-            {{ $level = 3 }}
-            {{ $name = .LinkTitle | urlize | lower }}
-            {{ $path = printf "%s-%s" $path $name }}
-            {{ $id = printf "ul%d-%s" $level $path }} 
-
-            <li class="li-h{{ $level }} collapsible">
-              {{ $control = (or (.Param "navShowPages") (.Param "navShowTaxonomies")) }}
-              <h{{ $level }}>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "control" $control) }}</h{{ $level }}>
-
-              {{ if .Param "navShowTaxonomies" }}
-                <ul class="taxonomies collapsible-target" id="{{ $id }}">
-                  {{ template "taxonomies" (dict "page" $page "item" . "level" $level "path" $path) }}
-                </ul>
-              {{ end }}
-
-              {{ if .Param "navShowPages" }}
-                <ul class="pages collapsible-target" id="{{ $id }}">
-                  {{ range .Pages }}
-                    <li>{{ partial "docs/menu-anchor" (dict "page" $page "item" .) }}</li>
-                  {{ end }}
-                </ul>
-              {{ end }}
-            </li>
-          {{ end }}
+          {{ template "menu" (dict "page" $page "item" . "level" $level "path" $path) }}
         </ul>
       </li>
     {{ end }}
@@ -94,7 +98,7 @@
       <h2>External</h2>
       {{ partial "docs/menu-hugo" .Site.Menus.external }}
     </li>
-  </ul>
+  </ulli-h{{ $level }}>
 
   {{ partial "docs/inject/menu-after" . }}
 </nav>
