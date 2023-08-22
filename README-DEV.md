@@ -12,7 +12,7 @@
 
 ## Navigation
 
-Use params `navShowTaxonomies` and `navShowTerms` to configure how sections should appear on the navigation menu.
+Use page params `navShowPages`, `navShowTaxonomies` and `navShowTerms` to configure how sections should appear on the navigation menu. Set `true` to show and `false` to hide.
 
 ## See also
 
