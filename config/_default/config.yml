@@ -42,7 +42,7 @@ permalinks:
   attack-types: "/attacks/posts/attack-types/:title"
 
   # market-health 
-  entities: "/market-health/posts/entities/:title"
+  entities: "/market-health/entities/:title"
 
 cascade:
 - _target:
@@ -50,7 +50,7 @@ cascade:
   type: posts
 
 - _target:
-    path: "/market-health/posts/**"
+    path: "/market-health/**"
   type: posts
 
 - _target:

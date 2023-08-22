@@ -2,6 +2,7 @@
 type: docs
 title: Distributed Networks Institute (DNI)
 bookFlatSection: true
+navShowPages: true
 ---
 
 ## DNI Mission
