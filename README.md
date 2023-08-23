@@ -1,5 +1,3 @@
-<p align="center"><img width="150" src="https://github.com/1712n/challenge/assets/56804873/fd6e17c6-14a0-4af4-9bfc-bf1cd0545b1c"></p>
-
 ## Cryptocurrency Ecosystem Threat Modeling
 
 We are looking for talent to join our efforts to model attacks on critical infrastructure in the crypto space. Multiple [research grants](https://github.com/1712n/challenge/issues/97) and [code bounties](https://github.com/1712n/challenge/issues/100) are available for the following tasks:
