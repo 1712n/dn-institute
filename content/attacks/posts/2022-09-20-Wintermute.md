@@ -2,11 +2,11 @@
 date: 2022-09-20
 target-entities: Wintermute
 entity-types:
-    - Custodian
-    - Exchange
+- Exchange
+- Custodian
 attack-types: 
- - Wallet Hack
- - Brute Force
+- Wallet Hack
+- Brute Force
 title: "Wintermute Incurs $160 Million Loss from Brute Force Private Key Compromise Linked to Profanity's Vulnerability"
 ---
 

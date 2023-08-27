@@ -9,8 +9,9 @@ enableGitInfo: true
 
 # Needed for mermaid/katex shortcodes
 markup:
-  goldmark.renderer:
-    unsafe: true
+  goldmark:
+    renderer:
+     unsafe: true
 
   tableOfContents:
     startLevel: 1
@@ -32,15 +33,25 @@ taxonomies:
   entity-type: "entity-types"
   attack-type: "attack-types"
 
+  # market-health 
+  entity: "entities"
+
 permalinks:
   # attacks/incidents
   target-entities: "/attacks/posts/target-entities/:title"
   entity-types: "/attacks/posts/entity-types/:title"
   attack-types: "/attacks/posts/attack-types/:title"
 
+  # market-health 
+  entities: "/market-health/entities/:title"
+
 cascade:
 - _target:
     path: "**/posts/**"
+  type: posts
+
+- _target:
+    path: "/market-health/**"
   type: posts
 
 - _target:
