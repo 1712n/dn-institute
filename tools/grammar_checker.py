@@ -49,11 +49,11 @@ def get_content(diff: list[dict]) -> int:
                 # only count line additions
                 if line.startswith("+"):
                     # sanitize line
-                    line = line[2:]  # rm addition indicator
+                    line = line[1:]  # rm addition indicator
                     line = line.strip()  # rm leading/trailing whitespace
 
                     # filling the content for further check
-                    content += line
+                    content += line + '\n'
 
     return content 
 
@@ -74,12 +74,15 @@ def grammar_check(content):
         word = '`' + context['text'][context['offset']:context['offset']+context['length']] + '`'
         replacements = ' | '.join([ '`' + i['value'] + '`' for i in item['replacements'] ])
         issue = item['shortMessage'] if item['shortMessage'] != '' else item['message'] 
+        fix = 'Fix: ' + word
+        if replacements == '':
+            fix += ' to ' + replacements
 
         matches.append(
             {
                 'context': '`' + context['text'] + '`',
                 'issue': 'Issue: '+ issue,
-                'fix': 'Fix: '+ word + ' to ' + replacements
+                'fix': fix
             }
         )
 
