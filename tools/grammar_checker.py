@@ -75,7 +75,7 @@ def grammar_check(content):
         replacements = ' | '.join([ '`' + i['value'] + '`' for i in item['replacements'] ])
         issue = item['shortMessage'] if item['shortMessage'] != '' else item['message'] 
         fix = 'Fix: ' + word
-        if replacements == '':
+        if replacements.strip() != '':
             fix += ' to ' + replacements
 
         matches.append(
