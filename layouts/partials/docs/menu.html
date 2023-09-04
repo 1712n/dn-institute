@@ -86,11 +86,11 @@
     {{ range site.Home.Pages }}
       {{ template "menu" (dict "page" . "item" . "level" 1 "path" "") }}
     {{ end }}
-
-    <li class="li-h2 external-links">
+    
+   <!-- <li class="li-h2 external-links">
       <h2>External</h2>
       {{ partial "docs/menu-hugo" site.Menus.external }}
-    </li>
+    </li> -->
   </ul>
 
   {{ partial "docs/inject/menu-after" . }}
