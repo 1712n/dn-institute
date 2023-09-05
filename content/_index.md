@@ -45,6 +45,6 @@ As part of our documentation efforts, we maintain a [crowdsourced knowledge base
 ### Improving Oracles
 Oracles are one of the pillars of modern distributed networks, allowing smart contracts to interact with the external world. We focus on [building models](https://github.com/1712n/yachay-public) capable of answering what, when, and where questions.
 
-### MVT API
+### Market Health
 
-[Market Venue Transparency API]({{% ref "mvt" %}}) is our effort to bring accountability and transparency to the crypto market venues.
+To improve the integrity and accountability of cryptocurrency trading venues, we are working on a set of standards designed to detect potential threats posed by market participants. Specifically, we are creating a set of health metrics aimed to identify fraudulent activity in market venues, including wash trading and front running. Additionally, we regularly release analytical articles that showcase real-world applications of these metrics. We also provide investigative tools for public use, enabling community to detect fraudulent activities within the crypto realm.
