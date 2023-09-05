@@ -1,0 +1,85 @@
+{{ define "taxonomies" }}
+  {{ $page := .page }}
+  {{ $section := .item }}
+  {{ $path := .path }}
+  {{ $level := add .level 1 }}
+
+  {{ range $taxonomy, $terms := site.Taxonomies }}
+    {{ with site.GetPage $taxonomy }}
+      {{ if (hasPrefix .RelPermalink $section.RelPermalink) }}
+        {{ $showTerms := .Params.navShowTerms | default false }}
+
+        <li class="taxonomy {{ if $showTerms }}collapsible{{ end }}">
+        <h{{ $level }}>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "showControls" $showTerms) }}</h{{ $level }}>
+
+          {{ if $showTerms }}
+            {{ with $terms }}
+              {{ $name := .LinkTitle | urlize | lower }}
+              {{ $path = printf "%s-%s" $path $name }}
+              {{ $id := printf "ul%d-%s" $level $path }} 
+
+              <ul class="terms collapsible-target" id="{{ $id }}">
+                {{ range . }}
+                  <li>{{ partial "docs/menu-anchor" (dict "page" $page "item" .Page) }}</li>
+                {{ end }}
+              </ul>
+            {{ end }}
+          {{ end }}
+        </li>
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+{{ define "menu" }}
+  {{ $page := .page }}
+  {{ $path := .path }}
+  {{ $level := add .level 1 }}
+
+  {{ $name := "" }}
+  {{ $id := "" }}
+  {{ $expand := "" }}
+
+  {{ $name = .LinkTitle | urlize | lower }}
+
+  {{ if $path }}
+    {{ $path = printf "%s-%s" $path $name }}
+  {{ else }}
+    {{ $path = $name }}
+  {{ end }}
+
+  {{ $id = printf "ul%d-%s" $level $path }} 
+
+  {{ $showPages := (and (.item.Param "navShowPages") (gt (.item.Pages | len) 0)) | default false }}
+  {{ $showTaxonomies := .item.Param "navShowTaxonomies" | default false }}
+  {{ $expand = (or $showPages $showTaxonomies) | default false }}
+
+  <li class="li-h{{ $level }} {{ if $expand }}collapsible{{ end }}">
+    <h{{ $level }}>{{ partial "docs/menu-anchor" (dict "page" $page "item" .item "showControls" $expand) }}</h{{ $level }}>
+
+    {{ if $showTaxonomies }}
+      <ul class="taxonomies collapsible-target" id="{{ $id }}">
+        {{ template "taxonomies" (dict "page" $page "item" .item "level" $level "path" $path) }}
+      </ul>
+    {{ end }}
+
+    {{ if $showPages }}
+      <ul class="pages collapsible-target" id="{{ $id }}">
+        {{ range .item.Pages }}
+          {{ template "menu" (dict "page" $page "item" . "level" $level "path" $path) }}
+        {{ end }}
+      </ul>
+    {{ end }}
+  </li>
+{{ end }}
+
+<ul class="book-tree">
+  {{ range site.Home.Pages }}
+    {{ template "menu" (dict "page" . "item" . "level" 1 "path" "") }}
+  {{ end }}
+  
+ <!-- <li class="li-h2 external-links">
+    <h2>External</h2>
+    {{ partial "docs/menu-hugo" site.Menus.external }}
+  </li> -->
+</ul>
