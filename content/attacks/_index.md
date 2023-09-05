@@ -1,6 +1,6 @@
 ---
 title: Infrastructure Resilience
-hide: true
+navHideLink: true
 navShowPages: true
 bookCollapseSection: true
 weight: 20
