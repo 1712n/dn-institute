@@ -1,8 +1,7 @@
 ---
 title: "MVT API"
 bookToc: true
-draft: true
-hide: true
+navHide: true
 ---
 
 In order to promote transparency and accountability at crypto trading venues, we are publishing a set of API specifications called Market Venue Transparency API (MVT API). Its goal is to facilitate the collection and analysis of the order-level data enriched with Anonymized Trader IDs.

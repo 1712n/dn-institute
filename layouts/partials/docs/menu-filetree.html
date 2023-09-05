@@ -75,7 +75,9 @@
 
 <ul class="book-tree">
   {{ range site.Home.Pages }}
-    {{ template "menu" (dict "page" . "item" . "level" 1 "path" "") }}
+    {{ if not (.Param "navHide") }}
+      {{ template "menu" (dict "page" . "item" . "level" 1 "path" "") }}
+    {{ end }}
   {{ end }}
   
   {{ with site.Menus.external }}
