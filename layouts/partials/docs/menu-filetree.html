@@ -78,8 +78,10 @@
     {{ template "menu" (dict "page" . "item" . "level" 1 "path" "") }}
   {{ end }}
   
- <!-- <li class="li-h2 external-links">
-    <h2>External</h2>
-    {{ partial "docs/menu-hugo" site.Menus.external }}
-  </li> -->
+  {{ with site.Menus.external }}
+    <li class="li-h2 external-links">
+      <h2>External</h2>
+      {{ partial "docs/menu-hugo" . }}
+    </li>
+  {{ end }}
 </ul>
