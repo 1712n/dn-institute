@@ -1,48 +1,29 @@
-## Cryptocurrency Ecosystem Threat Modeling
+Distributed Networks Institute (DNI) aims to help infrastructure resilience and financial health of distributed networks through scientific, engineering, and educational efforts. We are a part of a 501(c)3 non-profit incubator in Washington, DC called [BlockShop](https://blockshop.org/). Constantly on the lookout for talent, we encourage anyone to contribute code, market analysis, and engineering expertise to one of our [active projects](https://dn.institute/#projects). Multiple research grants and [code bounties](https://github.com/1712n/dn-institute/labels/%F0%9F%92%B0%20bounty) are available.
 
-We are looking for talent to join our efforts to model attacks on critical infrastructure in the crypto space. Multiple [research grants](https://github.com/1712n/challenge/issues/97) and [code bounties](https://github.com/1712n/challenge/issues/100) are available for the following tasks:
+## 🏆 Challenge Program
 
-1. Modeling current tactics, techniques and procedures (TTP) of crypto attacks
-1. Building a taxonomy of current harms, risks and vulnerabilities.
-1. Threat modeling of the technical, social, regulatory and political vectors of attack to the financial ecosystem.
-1. Identifying critical points of failure common to the cyberinfrastructure of cryptocurrency and traditional finance.
+[![Challenge Program Video](https://blockshopdc.com/static/assets/images/challenge.jpg)](https://link.hygge.work/MayaVick_Challenge)
 
-To participate and find out more, submit a pull request to this repository that meets the criteria outlined below.
+We maintain a list of real-world problems we work on to give interested individuals a chance to prove themselves, learn a bit about us, and boost their GitHub profiles in the process. The challenge program was so successful for some teams, that they made solving a challenge a hard requirement for joining them. Our challenges are extremely independent and will require you to manage your own time and work process. Check out the [success stories](https://www.instagram.com/explore/tags/challenge_successstory/) of the challenge winners.
 
-## Attack Wiki PR Approval Criteria
+### General rules
+* Anyone can participate in a challenge. You do not need anyone's approval to start working or to submit your results.
+* Some challenges are paid and have bounties attached to them. When you complete a bounty task, please message bounty-payout@dn.institute with a link to your merged pull request and a Bitcoin or an altcoin address to get paid. We pay all bounties at the end of each month and close tasks as soon as we get enough good quality submissions that fulfill all the requirements.
+* By participating in the Challenge Program, you agree to let challenge creators use any and all work submitted for any internal or external purposes.
 
- Submit a pull request that adds or modifies files in the [`attacks` directory](https://github.com/1712n/dn-institute/tree/main/content/attacks). All submissions will be reviewed by the wiki maintainers, and additional changes to your pull request may be asked of you to bring your submission to the quality level of the rest of the wiki.
+### Navigating and Working with the Tasks
 
-### Submission ideas
+* In the [issue list](https://github.com/1712n/dn-institute/issues), you'll find a list of tasks that are currently available.
+* You are free to start working on any open challenge issue whenever you want.
+* For highly complex tasks, we are willing to lock individual issues for qualified candidates to make sure no one else is working on it. For that, please comment in the issue and email challenge@blockshop.org with your CV/profile. We'll review your request and assign the issue exclusively to you.
+* To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
 
-- New pages
-- Page placeholders with metadata
-- Additions to existing pages
-- Meaningful edits to existing content that fix typos, grammar, factual and stylistic errors, etc.
+## 🌱 Giving Back
 
-Before committing to the wikis, please ensure your submission meets the following criteria:
+### 🧑‍🎓 Training
 
-- The attack is not already covered by existing posts and pending PRs
-- File name - YYYY-MM-DD-entity-that-was-hacked.md
-- Headers:
+We are happy to train anyone willing to learn our tools. Show initiative by contributing to one of the [open issues]() and mention in your pull request that you want to be considered for any training opportunities they might have available.
 
-| Header name | Required | Description | Example |
-|--|--|--|--|
-| `date` | yes | YYYY-MM-DD | 2012-07-16 |
-`target-entities` | yes  | Entities that were targeted by the attackers. Multiple values allowed | `Binance`, `Localbitcoins`, `Ethereum`|
-`entity-types`| yes | General category describing targeted entity. Check existing ones in the examples and suggest yours if not present. Multiple values allowed | `Custodian`, `DeFi`, `GameFi`, `Exchange`, `Wallet`, `Blockchain`, `Bridge`, `Yield Aggregator`, `Lending Platform`, `Stablecoin`, `Token`, `NFT` |
-`attack-types` | yes  | Common hacking technique, check existing ones in the examples and suggest yours if not present. Multiple values allowed | `51%`, `Wallet Hack`,`Private Key Leak`, `Infrastructure Attack`, `Smart Contract Exploit`, `Flash Loan Attack`, `Phishing`, `Signature Verification Issue`, `Brute Force`, `Race Condition Exploit`|
-`title` | yes | Article Title | `BitGrail Hack Results in $170 Million Loss` |
+### 🎖️ Veterans
 
-- Focus on **facts and numbers** instead of vague phrases and value judgments (such as "huge losses", "important lesson"). Facts mostly include named entities (people, companies, places, addresses, etc.) Simply repeating what the attacked entity had to say is not enough. Try finding messages from those who spotted anomalies before any official announcements, 3rd party audits, statements from other entities, sources of structured data that show the impact of the attack on prices, volumes, hashrates, etc.
-- Add [markdown links](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#links) directly to your text - they count towards the total bounty amount and help our fact-checking bot to verify claims found in your article.
-- The timeline should use bullet points with dates; no significant events should be missing
-- Default to **bullet point structure with titles** - this helps to keep the content concise and focused, and is essential for future attack modeling
-- Only **standard sections** are allowed. The attack wiki requires the following sections:
-  - Summary
-  - Attackers (focus on the attackers, not what they did)
-  - Losses
-  - Timeline
-  - Security Failure Causes
-
-If the changes requested by reviewers are not addressed within a week, the PR will be considered stale and will be closed.
+Our diverse community includes military veterans who know how hard it can be to adjust to civilian life. If you are in the process of quitting the U.S. military, check out the SkillBridge program we are a part of. Even if you don't qualify as eligible U.S. military personnel or served in the armed forces of another country, solve one of the challenges and reach out to [@jhirschkorn](https://github.com/jhirschkorn).
