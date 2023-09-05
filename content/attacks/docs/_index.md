@@ -1,5 +1,5 @@
 ---
 title: "Wiki"
-hide: true
+navHideLink: true
 navShowPages: true
 ---
