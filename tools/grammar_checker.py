@@ -92,7 +92,7 @@ def grammar_check(content):
         successive = issue == 'Three successive sentences begin with the same word.'
         uppercase = word == 'date' and issue == 'This sentence does not start with an uppercase letter.'
 
-        if not known or not successive or not uppercase:
+        if not known and not successive and not uppercase:
             matches.append(
                 {
                     'context': '`' + context['text'] + '`',
