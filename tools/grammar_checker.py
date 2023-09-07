@@ -7,7 +7,6 @@ Check Grammar mistakes in a Github PR and comment on the PR.
 __author__ = "Daniel Souza <me@posix.dev.br>"
 
 import os, argparse
-import yaml
 from github import Github, GithubException
 from tools.utils import logging_decorator
 from tools.git import get_pull_request, get_diff_by_url, parse_diff
@@ -67,9 +66,19 @@ def grammar_check(content):
         lang="en-US",
     )
 
+    # Getting entities from custom dictionary
+    entities = []
+    dictionary = "tools/dictionary.txt"
+    if os.path.isfile(dictionary):
+        with open(dictionary) as file:
+            entities = file.readlines()
+
     matches = []
 
     for item in result['matches']:
+        if len(item['replacements']) > 5: # Prevent infinity replacements
+            item['replacements'] = item['replacements'][:5]
+
         context = item['context']
         word = '`' + context['text'][context['offset']:context['offset']+context['length']] + '`'
         replacements = ' | '.join([ '`' + i['value'] + '`' for i in item['replacements'] ])
@@ -77,14 +86,20 @@ def grammar_check(content):
         fix = 'Fix: ' + word
         if replacements.strip() != '':
             fix += ' to ' + replacements
+        
+        # Filter word from custom dictionary
+        known = word in entities and issue == 'Spelling mistake'
+        successive = issue == 'Three successive sentences begin with the same word.'
+        uppercase = word == 'date' and issue == 'This sentence does not start with an uppercase letter.'
 
-        matches.append(
-            {
-                'context': '`' + context['text'] + '`',
-                'issue': 'Issue: '+ issue,
-                'fix': fix
-            }
-        )
+        if not known and not successive and not uppercase:
+            matches.append(
+                {
+                    'context': '`' + context['text'] + '`',
+                    'issue': 'Issue: '+ issue,
+                    'fix': fix
+                }
+            )
 
     return matches
 
