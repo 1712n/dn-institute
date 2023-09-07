@@ -1,7 +1,7 @@
 ---
 title: Market Health
 navShowTaxonomies: false 
-draft: true
+weight: 10
 ---
 
 ## Market Health: Anomalies & Integrity Studies
