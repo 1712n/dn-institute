@@ -17,12 +17,12 @@ markup:
     startLevel: 1
 
 menu:
-  external:
-    - name: "Github"
-      url: "https://github.com/1712n/dni-website"
-      weight: 10
-      params:
-        icon: ""
+#   external:
+#     - name: "Github"
+#       url: "https://github.com/1712n/dni-website"
+#       weight: 10
+#       params:
+#         icon: ""
 
 taxonomies:
   # global
