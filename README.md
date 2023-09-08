@@ -22,7 +22,7 @@ We maintain a list of real-world problems we work on to give interested individu
 
 ### 🧑‍🎓 Training
 
-We are happy to train anyone willing to learn our tools. Show initiative by contributing to one of the [open issues]() and mention in your pull request that you want to be considered for any training opportunities they might have available.
+We are happy to train anyone willing to learn our tools. Show initiative by contributing to one of the [open issues](https://github.com/1712n/dn-institute/issues) and mention in your pull request that you want to be considered for any training opportunities they might have available.
 
 ### 🎖️ Veterans
 
