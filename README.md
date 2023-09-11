@@ -26,4 +26,4 @@ We are happy to train anyone willing to learn our tools. Show initiative by cont
 
 ### 🎖️ Veterans
 
-Our diverse community includes military veterans who know how hard it can be to adjust to civilian life. If you are in the process of quitting the U.S. military, check out the SkillBridge program we are a part of. Even if you don't qualify as eligible U.S. military personnel or served in the armed forces of another country, solve one of the challenges and reach out to [@jhirschkorn](https://github.com/jhirschkorn).
+Our diverse community includes military veterans who know how hard it can be to adjust to civilian life. If you are in the process of getting out of the U.S. military, check out the SkillBridge program we are a part of. Even if you don't qualify as eligible U.S. military personnel or served in the armed forces of another country, solve one of the challenges and reach out to [@jhirschkorn](https://github.com/jhirschkorn).
