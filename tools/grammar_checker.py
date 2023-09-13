@@ -72,6 +72,7 @@ def grammar_check(content):
     if os.path.isfile(dictionary):
         with open(dictionary) as file:
             entities = file.readlines()
+            entities = [i[:-1] for i in entities]
 
     matches = []
 
