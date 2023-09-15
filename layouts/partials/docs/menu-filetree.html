@@ -38,7 +38,6 @@
 
   {{ $name := "" }}
   {{ $id := "" }}
-  {{ $expand := "" }}
 
   {{ $name = .LinkTitle | urlize | lower }}
 
@@ -52,10 +51,11 @@
 
   {{ $showPages := (and (.item.Param "navShowPages") (gt (.item.Pages | len) 0)) | default false }}
   {{ $showTaxonomies := .item.Param "navShowTaxonomies" | default false }}
-  {{ $expand = (or $showPages $showTaxonomies) | default false }}
+  {{ $isCollapsible := (or $showPages $showTaxonomies) | default false }}
+  {{ $isCollapsed := .item.Param "bookCollapseSection" | default false  }}
 
-  <li class="li-h{{ $level }} {{ if $expand }}collapsible{{ end }}">
-    <h{{ $level }}>{{ partial "docs/menu-anchor" (dict "page" $page "item" .item "showControls" $expand) }}</h{{ $level }}>
+  <li class="li-h{{ $level }} {{ if $isCollapsible }}collapsible{{ end }}">
+    <h{{ $level }}>{{ partial "docs/menu-anchor" (dict "page" $page "item" .item "showControls" $isCollapsible) }}</h{{ $level }}>
 
     {{ if $showTaxonomies }}
       <ul class="taxonomies collapsible-target" id="{{ $id }}">
@@ -64,7 +64,7 @@
     {{ end }}
 
     {{ if $showPages }}
-      <ul class="pages collapsible-target" id="{{ $id }}">
+      <ul class="pages collapsible-target" id="{{ $id }}" {{ if $isCollapsed }}hidden{{ end }}>
         {{ range .item.Pages }}
           {{ template "menu" (dict "page" $page "item" . "level" $level "path" $path) }}
         {{ end }}
@@ -103,7 +103,7 @@
         element: target,
       },
       aria: {
-        expanded: true,
+        expanded: (target.hidden == true) ? false : true,
         controls: true
       },
       debug: false
