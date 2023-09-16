@@ -53,9 +53,10 @@
   {{ $showTaxonomies := .item.Param "navShowTaxonomies" | default false }}
   {{ $isCollapsible := (or $showPages $showTaxonomies) | default false }}
   {{ $isCollapsed := .item.Param "bookCollapseSection" | default false  }}
+  {{ $hideLink := .item.Page.Params.navHideLink | default false }}
 
   <li class="li-h{{ $level }} {{ if $isCollapsible }}collapsible{{ end }}">
-    <h{{ $level }}>{{ partial "docs/menu-anchor" (dict "page" $page "item" .item "showControls" $isCollapsible) }}</h{{ $level }}>
+    <h{{ $level }}>{{ partial "docs/menu-anchor" (dict "page" $page "item" .item "showControls" $isCollapsible "hideLink" $hideLink) }}</h{{ $level }}>
 
     {{ if $showTaxonomies }}
       <ul class="taxonomies collapsible-target" id="{{ $id }}">
