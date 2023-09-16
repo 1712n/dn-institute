@@ -1,6 +1,6 @@
   {{ $isCurrent := hasPrefix .page.RelPermalink .item.RelPermalink | default false }}
 
-  {{ if .item.Page.Params.navHideLink }}
+  {{ if .hideLink }}
     <span
       class="anchor"
       {{ if $isCurrent }}aria-current="page"{{ end }}
