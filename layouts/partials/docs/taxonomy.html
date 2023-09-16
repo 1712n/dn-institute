@@ -5,16 +5,16 @@
   {{ range $term, $_ := .Site.Taxonomies }}
     {{ with $.Site.GetPage (printf "/%s" $term | urlize) }}
     <li class="book-section-flat collapsible">
-      {{ $ul2 := .Title | urlize | lower }}
-      <h2>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "control" true) }}</h2>
+      <h2>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "showControls" true) }}</h2>
       
-      <ul class="collapsible-target" id="ul2-{{ $ul2 }}">
-      {{ range .Pages.ByTitle }}
-        <li class="section-item">
-          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-          <span class="size">{{ len .Pages }}</span>
-        </li>
-      {{ end }}
+      {{ $name := .Title | urlize | lower }}
+      <ul class="collapsible-target" id="book-taxonomies-{{ $name }}">
+        {{ range .Pages.ByTitle }}
+          <li class="section-item">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            <span class="size">{{ len .Pages }}</span>
+          </li>
+        {{ end }}
       </ul>
     </li>
     {{ end }}
