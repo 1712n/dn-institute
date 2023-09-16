@@ -2,21 +2,24 @@
   {{ $page := .Page }}
 
   <ul>
-  {{ range $term, $_ := .Site.Taxonomies }}
-    {{ with $.Site.GetPage (printf "/%s" $term | urlize) }}
-    <li class="book-section-flat collapsible">
-      <h2>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "showControls" true) }}</h2>
-      
-      {{ $name := .Title | urlize | lower }}
-      <ul class="collapsible-target" id="book-taxonomies-{{ $name }}">
-        {{ range .Pages.ByTitle }}
-          <li class="section-item">
-            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-            <span class="size">{{ len .Pages }}</span>
-          </li>
-        {{ end }}
-      </ul>
-    </li>
+  {{ range $taxonomy, $terms := site.Taxonomies }}
+    {{ with site.GetPage $taxonomy }}
+      {{ $taxonomyParent := replaceRE "/[^/]+/?$" "/" .RelPermalink 1 }}
+      {{ if or (eq $taxonomyParent "/") (hasPrefix $.Page.RelPermalink $taxonomyParent) }}
+        <li class="book-section-flat collapsible">
+          <h2>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "showControls" true) }}</h2>
+
+          {{ $name := .Title | urlize | lower }}
+          <ul class="collapsible-target" id="book-taxonomies-{{ $name }}">
+            {{ range .Pages.ByTitle }}
+              <li class="section-item">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                <span class="size">{{ len .Pages }}</span>
+              </li>
+            {{ end }}
+          </ul>
+        </li>
+      {{ end }}
     {{ end }}
   {{ end }}
   </ul>
