@@ -14,7 +14,7 @@
 
           {{ if $showTerms }}
             {{ with $terms }}
-              {{ $name := .LinkTitle | urlize | lower }}
+              {{ $name := .item.LinkTitle | urlize | lower }}
               {{ $path = printf "%s-%s" $path $name }}
               {{ $id := printf "ul%d-%s" $level $path }} 
 
@@ -33,21 +33,17 @@
 
 {{ define "menu" }}
   {{ $page := .page }}
-  {{ $path := .path }}
+  {{ $path := "" }}
   {{ $level := add .level 1 }}
+  {{ $name := .item.LinkTitle | urlize | lower }}
 
-  {{ $name := "" }}
-  {{ $id := "" }}
-
-  {{ $name = .LinkTitle | urlize | lower }}
-
-  {{ if $path }}
-    {{ $path = printf "%s-%s" $path $name }}
+  {{ if .path }}
+    {{ $path = printf "%s-%s" .path $name }}
   {{ else }}
     {{ $path = $name }}
   {{ end }}
 
-  {{ $id = printf "ul%d-%s" $level $path }} 
+  {{ $id := printf "ul%d-%s" $level $path }}
 
   {{ $showPages := (and (.item.Param "navShowPages") (gt (.item.Pages | len) 0)) | default false }}
   {{ $showTaxonomies := .item.Param "navShowTaxonomies" | default false }}
@@ -77,7 +73,7 @@
 <ul class="book-tree">
   {{ range site.Home.Pages }}
     {{ if not (.Param "navHide") }}
-      {{ template "menu" (dict "page" . "item" . "level" 1 "path" "") }}
+      {{ template "menu" (dict "page" . "item" . "level" 1) }}
     {{ end }}
   {{ end }}
   
