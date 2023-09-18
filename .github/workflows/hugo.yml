@@ -4,8 +4,9 @@ name: Deploy Hugo site to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
-  paths:
+    branches:
+      - main
+    paths:
       - 'content/**'
       - 'static/**'
       - 'themes/**'
