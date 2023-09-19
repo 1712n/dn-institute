@@ -7,10 +7,12 @@ on:
     branches:
       - main
     paths:
+      - 'assets/**'
+      - 'config/**'
       - 'content/**'
+      - 'layouts/**'
       - 'static/**'
       - 'themes/**'
-      - 'config/**'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
