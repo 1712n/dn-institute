@@ -1,21 +1,28 @@
 <script type="module">
   import Collapsible from "/js/collapsible.js"
-  const sections = document.querySelectorAll(".collapsible")
 
-  sections.forEach((item) => {
-    const control = item.querySelector(".collapsible-control")
-    const target = item.querySelector(".collapsible-target")
+  function initCollapsibles() {
+    const sections = document.querySelectorAll(".collapsible")
 
-    new Collapsible({
-      control: control,
-      target: {
-        element: target,
-      },
-      aria: {
-        expanded: (target.hidden == true) ? false : true,
-        controls: true
-      },
-      debug: false 
+    sections.forEach((item) => {
+      const control = item.querySelector(".collapsible-control")
+      const target = item.querySelector(".collapsible-target")
+
+      new Collapsible({
+        control: control,
+        target: {
+          element: target,
+        },
+        aria: {
+          expanded: (target.hidden == true) ? false : true,
+          controls: true
+        },
+        debug: false 
+      })
     })
-  })
+  }
+
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", initCollapsibles, { passive: true })
+  else initCollapsibles()
 </script>
