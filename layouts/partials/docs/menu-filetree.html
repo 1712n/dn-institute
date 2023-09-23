@@ -10,7 +10,7 @@
         {{ $showTerms := .Params.navShowTerms | default false }}
 
         <li class="taxonomy {{ if $showTerms }}collapsible{{ end }}">
-        <h{{ $level }}>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "showControls" $showTerms) }}</h{{ $level }}>
+          {{ partial "docs/menu-heading" (dict "level" $level "params" (dict "page" $page "item" . "showControls" $showTerms)) }}
 
           {{ if $showTerms }}
             {{ with $terms }}
@@ -52,7 +52,7 @@
   {{ $hideLink := .item.Page.Params.navHideLink | default false }}
 
   <li class="li-h{{ $level }} {{ if $isCollapsible }}collapsible{{ end }}">
-    <h{{ $level }}>{{ partial "docs/menu-anchor" (dict "page" $page "item" .item "showControls" $isCollapsible "hideLink" $hideLink) }}</h{{ $level }}>
+    {{ partial "docs/menu-heading" (dict "level" $level "params" (dict "page" $page "item" .item "showControls" $isCollapsible "hideLink" $hideLink)) }}
 
     {{ if $showTaxonomies }}
       <ul class="taxonomies collapsible-target" id="{{ $id }}">
