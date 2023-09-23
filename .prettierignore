@@ -1,0 +1,20 @@
+# Hugo 
+public/
+resources/
+static/
+themes/
+**/*.json
+
+# Node
+node_modules
+package-lock.json
+
+# Workflows 
+.github/
+
+# Prettier
+.prettiercache
+
+# Edge Cases
+layouts/partials/docs/menu-heading.html
+layouts/taxonomy/terms.html

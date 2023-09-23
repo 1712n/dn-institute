@@ -1,7 +1,7 @@
 ---
 date: 2015-01-26
 target-entities: LocalBitcoins
-entity-types: 
+entity-types:
   - P2P
   - Exchange
 attack-types:

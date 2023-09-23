@@ -16,7 +16,7 @@ The attackers remain unidentified.
 
 ## Losses
 
-The attack led to the double-spending of 15,752.26 AurumCoins, which were withdrawn from the Cryptopia exchange. At the time, these AurumCoins were valued at approximately $500,000. 
+The attack led to the double-spending of 15,752.26 AurumCoins, which were withdrawn from the Cryptopia exchange. At the time, these AurumCoins were valued at approximately $500,000.
 
 ## Timeline
 

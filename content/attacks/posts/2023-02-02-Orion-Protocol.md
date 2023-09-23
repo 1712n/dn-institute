@@ -1,13 +1,13 @@
 ---
 date: 2023-02-02
-target-entities: 
-- Orion Protocol
+target-entities:
+  - Orion Protocol
 entity-types:
-- DeFi
-- Exchange
+  - DeFi
+  - Exchange
 attack-types:
-- Smart Contract Exploit
-- Reentrancy Attack
+  - Smart Contract Exploit
+  - Reentrancy Attack
 title: "Reentrancy Attack on Orion Protocol Leads to $3 Million Loss"
 ---
 
@@ -17,17 +17,20 @@ On February 2, 2023, Orion Protocol, a decentralized blockchain platform that ag
 
 ## Attackers
 
-The identity of the attacker is unknown. Two addresses were primarily involved in the attack: 
+The identity of the attacker is unknown. Two addresses were primarily involved in the attack:
 
 erc20:
+
 - [0x837962b686fd5a407fb4e5f92e8be86a230484bd](https://etherscan.io/address/0x837962b686fd5a407fb4e5f92e8be86a230484bd)
 - [0x3dabf5e36df28f6064a7c5638d0c4e01539e35f1](https://etherscan.io/address/0x3dabf5e36df28f6064a7c5638d0c4e01539e35f1)
 
 bep20:
+
 - [0x837962b686fd5a407fb4e5f92e8be86a230484bd](https://bscscan.com/address/0x837962b686fd5a407fb4e5f92e8be86a230484bd)
 - [0x3dabf5e36df28f6064a7c5638d0c4e01539e35f1](https://bscscan.com/address/0x3dabf5e36df28f6064a7c5638d0c4e01539e35f1)
 
 Fake Token addresses:
+
 - erc20: [0x64acd987a8603eeaf1ee8e87addd512908599aec](https://etherscan.io/token/0x64acd987a8603eeaf1ee8e87addd512908599aec)
 - bep20: [0xc4da120a4acf413f9af623a2b9e0a9878b6a0afe](https://bscscan.com/token/0xc4da120a4acf413f9af623a2b9e0a9878b6a0afe)
 
@@ -35,8 +38,8 @@ Fake Token addresses:
 
 $3 million
 
-  - erc20: [1,651 ETH (~$2,836,206)](https://etherscan.io/tx/0xa6f63fcb6bec8818864d96a5b1bb19e8bd85ee37b2cc916412e720988440b2aa)
-  - bep20: [$191,434](https://bscscan.com/tx/0xfb153c572e304093023b4f9694ef39135b6ed5b2515453173e81ec02df2e2104)
+- erc20: [1,651 ETH (~$2,836,206)](https://etherscan.io/tx/0xa6f63fcb6bec8818864d96a5b1bb19e8bd85ee37b2cc916412e720988440b2aa)
+- bep20: [$191,434](https://bscscan.com/tx/0xfb153c572e304093023b4f9694ef39135b6ed5b2515453173e81ec02df2e2104)
 
 ## Timeline
 
@@ -48,4 +51,4 @@ $3 million
 
 ## Security Failure Causes
 
-- **Reentrancy Vulnerability:** The vulnerability was within the Orion Protocol's smart contracts, particularly in the _doSwapTokens function. This reentrancy vulnerability led to a miscalculation of the user's USDT balance.
+- **Reentrancy Vulnerability:** The vulnerability was within the Orion Protocol's smart contracts, particularly in the \_doSwapTokens function. This reentrancy vulnerability led to a miscalculation of the user's USDT balance.

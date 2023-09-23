@@ -17,14 +17,15 @@ On December 4, 2021, BitMart Exchange, a global cryptocurrency platform operatin
 The identity of the attacker remains unknown. The hacker used the following addresses to transfer the funds:
 
 - Ethereum:
-    - [0x39fb0dcd13945b835d47410ae0de7181d3edf270](https://etherscan.io/address/0x39fb0dcd13945b835d47410ae0de7181d3edf270)
-    - [0x4bb7d80282f5e0616705d7f832acfc59f89f7091](https://etherscan.io/address/0x4bb7d80282f5e0616705d7f832acfc59f89f7091)
+  - [0x39fb0dcd13945b835d47410ae0de7181d3edf270](https://etherscan.io/address/0x39fb0dcd13945b835d47410ae0de7181d3edf270)
+  - [0x4bb7d80282f5e0616705d7f832acfc59f89f7091](https://etherscan.io/address/0x4bb7d80282f5e0616705d7f832acfc59f89f7091)
 - BSC:
-    - [0x25fb126b6c6b5c8ef732b86822fa0f0024e16c61](https://bscscan.com/address/0x25fb126b6c6b5c8ef732b86822fa0f0024e16c61)
+  - [0x25fb126b6c6b5c8ef732b86822fa0f0024e16c61](https://bscscan.com/address/0x25fb126b6c6b5c8ef732b86822fa0f0024e16c61)
 
 ## Losses
 
 BitMart Exchange lost around $196 million in total from its hot wallets across Ethereum and Binance Smart Chain:
+
 - [$100 Million on Ethereum](https://twitter.com/peckshield/status/1467302620000043013)
 - [$96 Million on BSC](https://twitter.com/peckshield/status/1467310381073047552)
 

@@ -20,12 +20,12 @@ A flash loan attack typically involves exploiting some weakness or loophole in a
 
 ### [Euler Finance: $197m (March 2023)](https://dn.institute/attacks/posts/2023-03-13-Euler-Finance/)
 
-- **Vulnerability**: A flaw in the conversion of borrowed assets to collateralized assets.  
+- **Vulnerability**: A flaw in the conversion of borrowed assets to collateralized assets.
 - **Attack**: The attacker borrowed $30 million and exploited the vulnerability to borrow 10 times the original amount, causing a loss of around $197 million.
 
 ### [Beanstalk Farms: $182m (April 2022)](https://dn.institute/attacks/posts/2022-04-17-Beanstalk/)
 
-- **Vulnerability**: A security flaw in the governance design of the protocol, specifically in the emergencyCommit() function.  
+- **Vulnerability**: A security flaw in the governance design of the protocol, specifically in the emergencyCommit() function.
 - **Attack**: The attacker utilized a flash loan to borrow nearly $1 billion in cryptocurrency assets, which allowed them to gain a 67% voting stake in Beanstalk. By exploiting this majority control, they authorized the execution of malicious code that transferred assets to their wallet.
 
 ## Countermeasures

@@ -2,7 +2,7 @@
 @import "collapsible";
 
 .center {
-    text-align: center;
+  text-align: center;
 }
 
 .post-meta {
@@ -11,12 +11,12 @@
     flex-flow: column nowrap;
 
     .taxonomy {
-      font-size: .85em;
+      font-size: 0.85em;
       display: inline-flex;
       align-items: baseline;
 
       .name {
-        font-size: .85em;
+        font-size: 0.85em;
         font-weight: 600;
         text-transform: uppercase;
         color: hsl(0, 0%, 45%);
@@ -32,12 +32,11 @@
   margin-left: -0.5rem;
 }
 
-
 .book-tree {
-  font-size: .9em;
+  font-size: 0.9em;
 
   ul {
-    padding: 0 0 0 .5rem;
+    padding: 0 0 0 0.5rem;
   }
 
   .li-h2 {
@@ -66,7 +65,7 @@
     }
 
     li ~ li {
-      margin-top: .5em;
+      margin-top: 0.5em;
     }
 
     li:last-child {
@@ -78,7 +77,7 @@
     ul {
       display: flex;
       flex-flow: row wrap;
-      
+
       li {
         margin: 0;
       }
@@ -90,13 +89,14 @@
   }
 }
 
-.book-page >.taxonomy-list {
+.book-page > .taxonomy-list {
   display: flex;
   flex-flow: column wrap;
   gap: 2em;
-  font-size: .9em;
+  font-size: 0.9em;
 
-  &, ul {
+  &,
+  ul {
     padding: 0;
   }
 
@@ -118,21 +118,20 @@
     }
   }
 
-  @media(max-width: 768px) {
+  @media (max-width: 768px) {
     max-height: 100%;
   }
 
-  @media(min-width: 769px) {
+  @media (min-width: 769px) {
     max-height: 50%;
   }
 }
 
-
 figure {
   figcaption {
-      font-size: .9em;
-      font-style: italic;
-      font-weight: 600;
-      text-align: center;
-    }
+    font-size: 0.9em;
+    font-style: italic;
+    font-weight: 600;
+    text-align: center;
+  }
 }

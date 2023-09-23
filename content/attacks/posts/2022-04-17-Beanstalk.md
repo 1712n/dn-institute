@@ -10,7 +10,7 @@ title: "Beanstalk Farms Lost $182 Million Due To The Governance Mechanism"
 
 ## Summary
 
-On April 17, 2022, Beanstalk Farms, an Ethereum-based DeFi protocol that enables users to earn yield on their cryptocurrency deposits, fell victim to a flash loan attack. This attack resulted in a staggering loss of $182 million, including around $77 million in assets taken from liquidity pools unrelated to Beanstalk. The attacker managed to profit from the exploit, [absconding with 24,840 ETH](https://medium.com/@nvy_0x/the-beanstalk-bean-exploit-b038f4d324ea), equivalent to roughly $80 million. The remaining [$106 million was returned via a flash loan to Aave](https://medium.com/coinmonks/beanstalk-exploit-a-simplified-post-mortem-analysis-92e6cdb17ace), the lending platform. The attacker leveraged the governance mechanism of the protocol, utilizing a flash loan to acquire voting rights and subsequently transferring the project's funds into their own wallet. To obfuscate their illicit activities, the stolen assets were converted to Ethereum and laundered through Tornado Cash, a privacy-focused tool. In a brazen move, the attacker even [made a donation of $250,000 to the Ukrainian relief fund Ukraine Crypto Donation](https://www.certik.com/resources/blog/6HaLMGIL5sI2fpfEZc0nzS-revisiting-beanstalk-farms-exploit), showcasing their audacious handling of the stolen funds. As a consequence of this attack, the value of the BEAN stablecoin plummeted by approximately 88%, reaching a meager $0.12 per token. 
+On April 17, 2022, Beanstalk Farms, an Ethereum-based DeFi protocol that enables users to earn yield on their cryptocurrency deposits, fell victim to a flash loan attack. This attack resulted in a staggering loss of $182 million, including around $77 million in assets taken from liquidity pools unrelated to Beanstalk. The attacker managed to profit from the exploit, [absconding with 24,840 ETH](https://medium.com/@nvy_0x/the-beanstalk-bean-exploit-b038f4d324ea), equivalent to roughly $80 million. The remaining [$106 million was returned via a flash loan to Aave](https://medium.com/coinmonks/beanstalk-exploit-a-simplified-post-mortem-analysis-92e6cdb17ace), the lending platform. The attacker leveraged the governance mechanism of the protocol, utilizing a flash loan to acquire voting rights and subsequently transferring the project's funds into their own wallet. To obfuscate their illicit activities, the stolen assets were converted to Ethereum and laundered through Tornado Cash, a privacy-focused tool. In a brazen move, the attacker even [made a donation of $250,000 to the Ukrainian relief fund Ukraine Crypto Donation](https://www.certik.com/resources/blog/6HaLMGIL5sI2fpfEZc0nzS-revisiting-beanstalk-farms-exploit), showcasing their audacious handling of the stolen funds. As a consequence of this attack, the value of the BEAN stablecoin plummeted by approximately 88%, reaching a meager $0.12 per token.
 
 ## Attackers
 
@@ -19,10 +19,11 @@ The identities of the attackers involved in the Beanstalk Farms attack remain un
 ## Losses
 
 Breakdown of the lost $182 million:
-* [36 million BEAN](https://twitter.com/peckshield/status/1515680335769456640) ($36 million).
-* $33 million in ETH and $32m in BEAN from ETH-BEAN UNI v2 LP tokens ($65 million).
-* [79.2 million BEAN3CRV-f Curve LP tokens](https://medium.com/coinmonks/beanstalk-exploit-a-simplified-post-mortem-analysis-92e6cdb17ace) ($79.2 million).
-* [1.6 million BEAN-LUSD Curve LP tokens](https://medium.com/coinmonks/beanstalk-exploit-a-simplified-post-mortem-analysis-92e6cdb17ace) ($1.6 million).
+
+- [36 million BEAN](https://twitter.com/peckshield/status/1515680335769456640) ($36 million).
+- $33 million in ETH and $32m in BEAN from ETH-BEAN UNI v2 LP tokens ($65 million).
+- [79.2 million BEAN3CRV-f Curve LP tokens](https://medium.com/coinmonks/beanstalk-exploit-a-simplified-post-mortem-analysis-92e6cdb17ace) ($79.2 million).
+- [1.6 million BEAN-LUSD Curve LP tokens](https://medium.com/coinmonks/beanstalk-exploit-a-simplified-post-mortem-analysis-92e6cdb17ace) ($1.6 million).
 
 ## Timeline:
 

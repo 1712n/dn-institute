@@ -2,11 +2,11 @@
 date: 2022-09-20
 target-entities: Wintermute
 entity-types:
-- Exchange
-- Custodian
-attack-types: 
-- Wallet Hack
-- Brute Force
+  - Exchange
+  - Custodian
+attack-types:
+  - Wallet Hack
+  - Brute Force
 title: "Wintermute Incurs $160 Million Loss from Brute Force Private Key Compromise Linked to Profanity's Vulnerability"
 ---
 
@@ -17,9 +17,11 @@ On September 20, 2022, Wintermute, a London-based algorithmic market maker offer
 ## Attackers
 
 The identity of the attackers remains unknown. As of June 22, 2023, the Ethereum address linked to the attacker and currently holding all stolen funds is:
+
 - [0xe74b28c2eAe8679e3cCc3a94d5d0dE83CCB84705](https://etherscan.io/address/0xe74b28c2eAe8679e3cCc3a94d5d0dE83CCB84705).
 
 A smart contract implicated in the attack:
+
 - [0x0248f752802b2cfb4373cc0c3bc3964429385c26](https://etherscan.io/address/0x0248f752802b2cfb4373cc0c3bc3964429385c26)
 
 ## Losses
@@ -39,8 +41,8 @@ The total losses amounted to roughly $160 million. This consisted of around $120
 **Profanity's Vulnerability:** An inherent weakness in Profanity's code allowed the attacker to generate all potential keys for a vanity address by bruteforcing the private keys, scan associated accounts, and then steal the funds.
 
 > More details on the hackers process, since the tool’s security bug enabled cracking private keys of addresses, specifically someone could brute-force private keys of every 7-character vanity address using roughly a thousand GPUs for 50 days.
-> 
+>
 > -- MetaSchool
-[Source](https://metaschool.so/articles/wintermute-hack-profanity/#:~:text=In%20June%202022%2C%20Wintermute%20also%20disclosed%20that%20it,and%20steal%20%24160%20million%20from%20Wintermute%E2%80%99s%20DeFi%20wallets.)
+> [Source](https://metaschool.so/articles/wintermute-hack-profanity/#:~:text=In%20June%202022%2C%20Wintermute%20also%20disclosed%20that%20it,and%20steal%20%24160%20million%20from%20Wintermute%E2%80%99s%20DeFi%20wallets.)
 
 **Human Error:** Despite Wintermute's efforts to blacklist their Profanity accounts upon learning of the vulnerability, a human error resulted in one account not being blacklisted, thus remaining exposed and likely leading to the significant theft. [Source](https://www.benzinga.com/markets/cryptocurrency/22/09/28943343/human-error-caused-160m-hack-wintermute-ceo)

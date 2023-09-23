@@ -7,24 +7,28 @@
 {{ end }}
 
 {{ define "book-menu-hugo" }}
-<ul>
-  {{ range . }}
-  <li>
-    <a href="{{ .URL }}" {{ with .Params.class }}class="{{ . }}"{{ end }} {{ if not .Page }}target="_blank" rel="noopener"{{ end }}>
-      {{- .Pre -}}
-      {{ if .Page }}
-        {{ partial "docs/title" .Page }}
-      {{ else if .Params.Icon }}
-        <span class="icon" title="{{ .Name }}">{{ .Params.Icon }}</span>
-      {{ else }}
-        {{ .Name }}
-      {{ end }}
-      {{- .Post -}}
-    </a>
-    {{- with .Children }}
-      {{ template "book-menu-hugo" . }}
-    {{- end }}
-  </li>
-  {{ end }}
-</ul>
+  <ul>
+    {{ range . }}
+      <li>
+        <a
+          href="{{ .URL }}"
+          {{ with .Params.class }}class="{{ . }}"{{ end }}
+          {{ if not .Page }}target="_blank" rel="noopener"{{ end }}
+        >
+          {{- .Pre -}}
+          {{ if .Page }}
+            {{ partial "docs/title" .Page }}
+          {{ else if .Params.Icon }}
+            <span class="icon" title="{{ .Name }}">{{ .Params.Icon }}</span>
+          {{ else }}
+            {{ .Name }}
+          {{ end }}
+          {{- .Post -}}
+        </a>
+        {{- with .Children }}
+          {{ template "book-menu-hugo" . }}
+        {{- end }}
+      </li>
+    {{ end }}
+  </ul>
 {{ end }}

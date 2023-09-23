@@ -12,7 +12,7 @@ title: "ZenCash (now Horizen) Suffers a 51% Attack Resulting in Significant Loss
 
 ## Attackers
 
-The identity of the attacker or attackers who conducted the 51% attack on the ZenCash network remains unknown. 
+The identity of the attacker or attackers who conducted the 51% attack on the ZenCash network remains unknown.
 The suspect pool address is [znkMXdwwxvPp9jNoSjukAbBHjCShQ8ZaLib](https://explorer.horizen.io/address/znkMXdwwxvPp9jNoSjukAbBHjCShQ8ZaLib).
 The suspect exchange deposit adress is [zneDDN3aNebJUnAJ9DoQFys7ZuCKBNRQ115](https://explorer.horizen.io/address/zneDDN3aNebJUnAJ9DoQFys7ZuCKBNRQ115)
 
@@ -29,5 +29,5 @@ The attackers managed to double-spend approximately 23,000 ZEN coins during the 
 ## Security Failure Causes
 
 - **Availability of Hashing Power for Rent:** The attacker likely used a hashpower marketplace to rent the mining power necessary for the attack. This practice lowers the cost and complexity of performing a 51% attack as attackers don’t need to purchase and set up mining hardware.
-- **Slow Response:** Though the ZenCash team responded to the attack, there was still a window of time during which the attacker could exploit the network. 
+- **Slow Response:** Though the ZenCash team responded to the attack, there was still a window of time during which the attacker could exploit the network.
 - **Exchange Vulnerabilities:** Exchanges did not require a sufficient number of confirmations for deposits, making them vulnerable to double-spend attacks. Following the attack, many exchanges increased the number of confirmations required for ZEN deposits.

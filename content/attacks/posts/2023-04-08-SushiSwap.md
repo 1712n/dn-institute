@@ -1,18 +1,18 @@
 ---
 date: 2023-04-08
-target-entities: 
-- SushiSwap
+target-entities:
+  - SushiSwap
 entity-types:
-- DeFi
-- Exchange
+  - DeFi
+  - Exchange
 attack-types:
-- Smart Contract Exploit
+  - Smart Contract Exploit
 title: "SushiSwap Drained of 1800 WETH Due to RouteProcessor2 Contract Vulnerability"
 ---
 
 ## Summary
 
-On April 8, 2023, SushiSwap, a renowned decentralized exchange, came under attack due to a vulnerability in its newly launched [RouteProcessor2](https://etherscan.io/address/0x044b75f554b886a065b9567891e45c79542d7357#code) contract. The contract was part of the SushiSwap's version 3 (V3) upgrades and was deployed on 14 different networks. Before SushiSwap could react, anonymous attackers exploited the vulnerability and managed to drain approximately 1800 Wrapped Ether (WETH) from user wallets. 
+On April 8, 2023, SushiSwap, a renowned decentralized exchange, came under attack due to a vulnerability in its newly launched [RouteProcessor2](https://etherscan.io/address/0x044b75f554b886a065b9567891e45c79542d7357#code) contract. The contract was part of the SushiSwap's version 3 (V3) upgrades and was deployed on 14 different networks. Before SushiSwap could react, anonymous attackers exploited the vulnerability and managed to drain approximately 1800 Wrapped Ether (WETH) from user wallets.
 
 ## Attackers
 
@@ -36,6 +36,7 @@ The identity of the attacker is unknown.
 ## Security Failure Causes
 
 Several reasons according to the SushiSwap [post-mortem](https://www.sushi.com/blog/routeprocessor2-post-mortem) report:
+
 - **Lack of Contract Pausability:** The contract did not include a pausability feature, which would have allowed for temporary halting in case of issues, mitigating risks.
 - **Use of Unlimited Approvals:** The contract allowed unlimited token approvals, which is outdated and risky. Adopting one-time approvals per transaction would have been safer.
 - **Hasty Auditing Process:** The contract was rushed through auditing, not giving auditors enough time for thorough analysis, leading to overlooked vulnerabilities.

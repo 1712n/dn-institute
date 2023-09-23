@@ -1,5 +1,5 @@
 ---
-title: Target Entities 
-type: taxonomy 
+title: Target Entities
+type: taxonomy
 url: attacks/posts/target-entities
 ---

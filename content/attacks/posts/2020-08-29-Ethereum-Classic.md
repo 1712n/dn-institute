@@ -8,7 +8,7 @@ title: Ethereum Classic suffers three consecutive 51% attacks
 
 ## Summary
 
-Ethereum Classic, a well-known cryptocurrency, experienced a series of three 51% attacks in August 2020. The attackers reorganized over 14,000 blocks and managed to double-spend ETC coins. 
+Ethereum Classic, a well-known cryptocurrency, experienced a series of three 51% attacks in August 2020. The attackers reorganized over 14,000 blocks and managed to double-spend ETC coins.
 
 ## Attackers
 

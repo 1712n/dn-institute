@@ -1,5 +1,5 @@
 ---
-baseURL: 'https://dn.institute/'
+baseURL: "https://dn.institute/"
 
 buildDrafts: false
 
