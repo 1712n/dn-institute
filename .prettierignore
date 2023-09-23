@@ -1,0 +1,16 @@
+# Hugo 
+public/
+resources/
+static/
+themes/
+**/*.json
+
+# Node
+node_modules
+package-lock.json
+
+# Workflows 
+.github/
+
+# Prettier
+.prettiercache
