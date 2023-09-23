@@ -1,19 +1,20 @@
-  {{ $isCurrent := hasPrefix .page.RelPermalink .item.RelPermalink | default false }}
+{{ $isCurrent := hasPrefix .page.RelPermalink .item.RelPermalink | default false }}
 
-  {{ if .hideLink }}
-    <span
-      class="anchor"
-      {{ if $isCurrent }}aria-current="page"{{ end }}
-    >{{ .item.Title }}</span>
+{{ if .hideLink }}
+  <span
+    class="anchor"
+    {{ if $isCurrent }}aria-current="page"{{ end }}
+    >{{ .item.Title }}</span
+  >
+{{ else }}
+  <a
+    class="anchor"
+    href="{{ .item.RelPermalink }}"
+    {{ if $isCurrent }}aria-current="page"{{ end }}
+    >{{ .item.LinkTitle }}</a
+  >
+{{ end }}
 
-  {{ else }}
-    <a
-      class="anchor"
-      href="{{ .item.RelPermalink }}"
-      {{ if $isCurrent }}aria-current="page"{{ end }}
-    >{{ .item.LinkTitle }}</a>
-  {{ end }}
-
-  {{ if .showControls }}
-    <button class="collapsible-control"></button>
-  {{ end }}
+{{ if .showControls }}
+  <button class="collapsible-control"></button>
+{{ end }}

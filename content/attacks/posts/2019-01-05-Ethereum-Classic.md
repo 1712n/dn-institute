@@ -8,7 +8,7 @@ title: Ethereum Classic suffers a 51% attack
 
 ## Summary
 
-Ethereum Classic, a well-known cryptocurrency, experienced a 51% attack in January 2019. The attackers managed to double-spend ETC coins and caused significant losses for users and exchanges. 
+Ethereum Classic, a well-known cryptocurrency, experienced a 51% attack in January 2019. The attackers managed to double-spend ETC coins and caused significant losses for users and exchanges.
 
 ## Attackers
 

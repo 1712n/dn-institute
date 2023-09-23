@@ -11,18 +11,20 @@
       new Collapsible({
         control: control,
         target: {
-          element: target,
+          element: target
         },
         aria: {
-          expanded: (target.hidden == true) ? false : true,
+          expanded: target.hidden == true ? false : true,
           controls: true
         },
-        debug: false 
+        debug: false
       })
     })
   }
 
   if (document.readyState === "loading")
-    document.addEventListener("DOMContentLoaded", initCollapsibles, { passive: true })
+    document.addEventListener("DOMContentLoaded", initCollapsibles, {
+      passive: true
+    })
   else initCollapsibles()
 </script>

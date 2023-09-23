@@ -1,6 +1,7 @@
 {{ define "main" }}
   {{ $paginator := .Paginate (.Pages.ByTitle) 50 }}
 
+
   <ul class="taxonomy-list">
     {{ $lastDropCap := "" }}
     {{ $currDropCap := "" }}
@@ -15,10 +16,13 @@
 
         <ul class="taxonomy-section">
           <h2>{{ $currDropCap }}</h2>
+        </ul>
       {{ end }}
 
       {{ $lastDropCap = $currDropCap }}
-        <a class="taxonomy-item" href="{{ .RelPermalink }}">{{ partial "docs/title.html" . }}</a>
+      <a class="taxonomy-item" href="{{ .RelPermalink }}"
+        >{{ partial "docs/title.html" . }}</a
+      >
 
       <!-- prettier-ignore -->
       {{ if (eq $index $lastElement) }}</ul>{{ end }}

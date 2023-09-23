@@ -1,5 +1,5 @@
 ---
-title: Oracles 
+title: Oracles
 draft: true
 navHide: true
 ---

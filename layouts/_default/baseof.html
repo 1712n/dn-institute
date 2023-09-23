@@ -1,58 +1,65 @@
 <!DOCTYPE html>
 
 <html
-  lang="{{ default .Site.Language.Lang .Site.LanguageCode  }}" dir="{{ default "ltr" .Site.Language.LanguageDirection }}"
+  lang="{{ default .Site.Language.Lang .Site.LanguageCode }}"
+  dir="{{ default "ltr" .Site.Language.LanguageDirection }}"
   data-type="{{ .Type }}"
   data-kind="{{ .Kind }}"
   {{ with .Layout }}data-layout="{{ . }}"{{ end }}
   {{ with .Params.id }}data-id="{{ . }}"{{ end }}
 >
+  <head>
+    {{ partial "docs/html-head" . }}
+    {{ partial "docs/inject/head" . }}
+  </head>
 
-<head>
-  {{ partial "docs/html-head" . }}
-  {{ partial "docs/inject/head" . }}
-</head>
+  <body dir="{{ default "ltr" .Site.Language.LanguageDirection }}">
+    <input type="checkbox" class="hidden toggle" id="menu-control" />
+    <input type="checkbox" class="hidden toggle" id="toc-control" />
+    <main class="container flex">
+      <aside class="book-menu">
+        <div class="book-menu-content">
+          {{ template "menu" . }}
+          <!-- Left menu Content -->
+        </div>
+      </aside>
 
-<body dir="{{ default "ltr" .Site.Language.LanguageDirection }}">
-  <input type="checkbox" class="hidden toggle" id="menu-control" />
-  <input type="checkbox" class="hidden toggle" id="toc-control" />
-  <main class="container flex">
-    <aside class="book-menu">
-      <div class="book-menu-content">
-        {{ template "menu" . }} <!-- Left menu Content -->
+      <div class="book-page">
+        <header class="book-header">
+          {{ template "header" . }}
+          <!-- Mobile layout header -->
+        </header>
+
+        {{ partial "docs/inject/content-before" . }}
+        {{ template "main" . }}
+        <!-- Page Content -->
+        {{ partial "docs/inject/content-after" . }}
+
+
+        <footer class="book-footer">
+          {{ template "footer" . }}
+          <!-- Footer under page content -->
+          {{ partial "docs/inject/footer" . }}
+        </footer>
+
+        {{ template "comments" . }}
+        <!-- Comments block -->
+
+        <label for="menu-control" class="hidden book-menu-overlay"></label>
       </div>
-    </aside>
 
-    <div class="book-page">
-      <header class="book-header">
-        {{ template "header" . }} <!-- Mobile layout header -->
-      </header>
+      {{ if default true (default .Site.Params.BookToC .Params.BookToC) }}
+        <aside class="book-toc">
+          <div class="book-toc-content">
+            {{ template "toc" . }}
+            <!-- Table of Contents -->
+          </div>
+        </aside>
+      {{ end }}
+    </main>
 
-      {{ partial "docs/inject/content-before" . }}
-      {{ template "main" . }} <!-- Page Content -->
-      {{ partial "docs/inject/content-after" . }}
-
-      <footer class="book-footer">
-        {{ template "footer" . }} <!-- Footer under page content -->
-        {{ partial "docs/inject/footer" . }}
-      </footer>
-
-      {{ template "comments" . }} <!-- Comments block -->
-
-      <label for="menu-control" class="hidden book-menu-overlay"></label>
-    </div>
-
-    {{ if default true (default .Site.Params.BookToC .Params.BookToC) }}
-    <aside class="book-toc">
-      <div class="book-toc-content">
-        {{ template "toc" . }} <!-- Table of Contents -->
-      </div>
-    </aside>
-    {{ end }}
-  </main>
-
-  {{ partial "docs/inject/body" . }}
-</body>
+    {{ partial "docs/inject/body" . }}
+  </body>
 </html>
 
 {{ define "menu" }}
@@ -63,9 +70,9 @@
   {{ partial "docs/header" . }}
 
   {{ if default true (default .Site.Params.BookToC .Params.BookToC) }}
-  <aside class="hidden clearfix">
-    {{ template "toc" . }}
-  </aside>
+    <aside class="hidden clearfix">
+      {{ template "toc" . }}
+    </aside>
   {{ end }}
 {{ end }}
 
@@ -75,9 +82,9 @@
 
 {{ define "comments" }}
   {{ if and .Content (default true (default .Site.Params.BookComments .Params.BookComments)) }}
-  <div class="book-comments">
-    {{- partial "docs/comments" . -}}
-  </div>
+    <div class="book-comments">
+      {{- partial "docs/comments" . -}}
+    </div>
   {{ end }}
 {{ end }}
 

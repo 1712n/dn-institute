@@ -1,11 +1,11 @@
 ---
 title: "Uncovering Wash Trading and Market Manipulation on Huobi"
 date: 2023-08-14
-entities: 
-    - Huobi
-    - HT
-    - TRX
-    - DOGE
+entities:
+  - Huobi
+  - HT
+  - TRX
+  - DOGE
 ---
 
 ## Summary
@@ -68,7 +68,7 @@ Assuming that retail investors often use round values for trading, the retail cl
 ### Huobi Token - Unveiling Huobi's controlled price dynamics
 
 An exchange's native token, like Huobi's HT, is often seen as an unofficial health indicator. Since exchanges aim to boost their affiliated tokens to attract customer attention, the token's price may be subject to manipulation.
- 
+
 {{< figure src="ht-usdt-buy-sell-volume-multiple-exchange-comparison.jpg" alt="ht-usdt buy/sell volume ratio comparison" caption="Buy/sell ratio of Huobi Token on Huobi, Poloniex and Gate.io, May - July 2023" loading="lazy" >}}
 
 The ratio of "buy" volume to "sell" volume determines price behavior and its future movements. In normal conditions, this metric is very volatile and appears random (see Gate.io). On the contrary, Huobi Token demonstrates abnormal buy-sell ratio stability that fluctuates within a narrow range.

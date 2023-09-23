@@ -57,7 +57,7 @@ In order to promote transparency and accountability at crypto trading venues, we
                 "type": "string"
               },
               {
-          
+
                 "description": "Anonymized ID of the subaccount initiating the order",
                 "name": "subaccountId",
                 "type": "string"
@@ -98,24 +98,24 @@ In order to promote transparency and accountability at crypto trading venues, we
 
 ### Table
 
-|field|description|
-|:----|:----|
-|source|Data provider anonymized ID| 
-|marketId|Market unique identifier - combination of a market venue name and a pair identifier|
-|timestamp|Timestamp in milliseconds reported by exchange|
-|receiveTimestamp|Timestamp in milliseconds when event received from exchange|
-|asks|Ask orders|price|Order price in the quote currency|
-|size|Order size in the base currency; absolute value|
-|accountId|Anonymized ID of the account initiating the order|
-|subaccountId|Anonymized ID of the subaccount initiating the order|
-|orderType|Order type|
-|orderId|Unique order ID|
-|bids|Bid orders|price|Order price in the quote currency|
-|size|Order size in the base currency; absolute value|
-|accountId|Anonymized ID of the account initiating the order|
-|subaccountId|Anonymized ID of the subaccount initiating the order|
-|orderType|Order type|
-|orderId|Unique order ID|
+| field            | description                                                                         |
+| :--------------- | :---------------------------------------------------------------------------------- | ----- | --------------------------------- |
+| source           | Data provider anonymized ID                                                         |
+| marketId         | Market unique identifier - combination of a market venue name and a pair identifier |
+| timestamp        | Timestamp in milliseconds reported by exchange                                      |
+| receiveTimestamp | Timestamp in milliseconds when event received from exchange                         |
+| asks             | Ask orders                                                                          | price | Order price in the quote currency |
+| size             | Order size in the base currency; absolute value                                     |
+| accountId        | Anonymized ID of the account initiating the order                                   |
+| subaccountId     | Anonymized ID of the subaccount initiating the order                                |
+| orderType        | Order type                                                                          |
+| orderId          | Unique order ID                                                                     |
+| bids             | Bid orders                                                                          | price | Order price in the quote currency |
+| size             | Order size in the base currency; absolute value                                     |
+| accountId        | Anonymized ID of the account initiating the order                                   |
+| subaccountId     | Anonymized ID of the subaccount initiating the order                                |
+| orderType        | Order type                                                                          |
+| orderId          | Unique order ID                                                                     |
 
 ## Trade-level data enriched with Anonymized Trader ID
 
@@ -187,17 +187,16 @@ In order to promote transparency and accountability at crypto trading venues, we
 
 ### Table
 
-|field|description|
-|:----|:----|
-|source|Data provider anonymized ID|
-|marketId|Market unique identifier - combination of a market venue name and a pair identifier|
-|timestamp|Timestamp in milliseconds reported by exchange|
-|receiveTimestamp|Timestamp in milliseconds when event received from exchange|
-|price|Execution price in the quote currency|
-|size|Order size in the base currency; absolute value|
-|side|The side of the market taker (aggressor side)|
-|accountId|A unique identifier of the market maker's account associated with the trade execution|
-|takerAccountId|A unique identifier of the market taker's account associated with the trade execution|
-|orderId|A unique identifier of the market maker's order associated with the trade execution|
-|takerOrderId|A unique identifier of the market taker's order associated with the trade execution|
-
+| field            | description                                                                           |
+| :--------------- | :------------------------------------------------------------------------------------ |
+| source           | Data provider anonymized ID                                                           |
+| marketId         | Market unique identifier - combination of a market venue name and a pair identifier   |
+| timestamp        | Timestamp in milliseconds reported by exchange                                        |
+| receiveTimestamp | Timestamp in milliseconds when event received from exchange                           |
+| price            | Execution price in the quote currency                                                 |
+| size             | Order size in the base currency; absolute value                                       |
+| side             | The side of the market taker (aggressor side)                                         |
+| accountId        | A unique identifier of the market maker's account associated with the trade execution |
+| takerAccountId   | A unique identifier of the market taker's account associated with the trade execution |
+| orderId          | A unique identifier of the market maker's order associated with the trade execution   |
+| takerOrderId     | A unique identifier of the market taker's order associated with the trade execution   |

@@ -1,15 +1,15 @@
 ---
 date: 2022-04-30
-target-entities: 
-- Fei Protocol
-- Rari Capital
+target-entities:
+  - Fei Protocol
+  - Rari Capital
 entity-types:
-- DeFi
-- Stablecoin
-- Lending Platform
+  - DeFi
+  - Stablecoin
+  - Lending Platform
 attack-types:
-- Smart Contract Exploit
-- Reentrancy Attack
+  - Smart Contract Exploit
+  - Reentrancy Attack
 title: "Fei Protocol Hack: $80 Million Stolen in Reentrancy Attack"
 ---
 
@@ -22,6 +22,7 @@ On April 30, 2022, Fei Protocol, a decentralized finance (DeFi) protocol that [m
 The identity of the attacker(s) is unknown.
 
 ERC-20
+
 - FeiProtocol-Fuse Exploiter: [0x6162759eDAd730152F0dF8115c698a42E666157F](https://etherscan.io/address/0x6162759edad730152f0df8115c698a42e666157f)
 
 ## Losses

@@ -1,25 +1,25 @@
 ---
 date: 2023-05-01
-target-entities: 
-- Level Finance
+target-entities:
+  - Level Finance
 entity-types:
-- DeFi
-- Exchange
+  - DeFi
+  - Exchange
 attack-types:
-- Smart Contract Exploit
+  - Smart Contract Exploit
 title: "Level Finance Hacked for $1.1 Million in LVL Tokens"
 ---
 
 ## Summary
 
-On May 1, 2023, Level Finance, a decentralized finance (DeFi) protocol, was hacked for $1.1 million in LVL tokens. The attacker [exploited a vulnerability in the protocol's Referral Controller Contract](https://www.halborn.com/blog/post/explained-the-level-finance-hack-may-2023). 
-
+On May 1, 2023, Level Finance, a decentralized finance (DeFi) protocol, was hacked for $1.1 million in LVL tokens. The attacker [exploited a vulnerability in the protocol's Referral Controller Contract](https://www.halborn.com/blog/post/explained-the-level-finance-hack-may-2023).
 
 ## Attackers
 
 The identity of the attacker is unknown.
 
 BSC:
+
 - [0x70319d1c09e1373fc7b10403c852909e5b20a9d5](https://bscscan.com/address/0x70319d1c09e1373fc7b10403c852909e5b20a9d5)
 
 ## Losses
@@ -35,4 +35,4 @@ The attacker stole 214,000 LVL tokens and swapped LVL to 3,345 BNB, which were w
 
 ## Security Failure Causes
 
-- **Failed Precondition Checks:** The Level Finance hack was made possible by failed precondition checks. In theory, the protocol is designed to allow a user to claim a referral reward once per epoch. However, the protocol lacked checks to ensure that an epoch is not being reused by a claim. 
+- **Failed Precondition Checks:** The Level Finance hack was made possible by failed precondition checks. In theory, the protocol is designed to allow a user to claim a referral reward once per epoch. However, the protocol lacked checks to ensure that an epoch is not being reused by a claim.

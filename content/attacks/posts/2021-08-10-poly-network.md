@@ -17,11 +17,11 @@ On August 10, 2021, Poly Network, a cross-chain decentralized finance (DeFi) pla
 Attackers' identities have not been publicly disclosed. The hacker used the following addresses to transfer the funds:
 
 - Ethereum:
-    - [0xC8a65Fadf0e0dDAf421F28FEAb69Bf6E2E589963](https://etherscan.io/address/0xC8a65Fadf0e0dDAf421F28FEAb69Bf6E2E589963)
+  - [0xC8a65Fadf0e0dDAf421F28FEAb69Bf6E2E589963](https://etherscan.io/address/0xC8a65Fadf0e0dDAf421F28FEAb69Bf6E2E589963)
 - BSC:
-    - [0x0D6e286A7cfD25E0c01fEe9756765D8033B32C71](https://bscscan.com/address/0x0D6e286A7cfD25E0c01fEe9756765D8033B32C71)
+  - [0x0D6e286A7cfD25E0c01fEe9756765D8033B32C71](https://bscscan.com/address/0x0D6e286A7cfD25E0c01fEe9756765D8033B32C71)
 - Polygon:
-    - [0x5dc3603C9D42Ff184153a8a9094a73d461663214](https://polygonscan.com/address/0x5dc3603c9d42ff184153a8a9094a73d461663214)
+  - [0x5dc3603C9D42Ff184153a8a9094a73d461663214](https://polygonscan.com/address/0x5dc3603c9d42ff184153a8a9094a73d461663214)
 
 ## Losses
 

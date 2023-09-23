@@ -5,29 +5,29 @@ $font-path: "/fonts";
  */
 
 @font-face {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local(''),
-       url('#{$font-path}/roboto-v27-latin-regular.woff2') format('woff2'),
+  src: local(""),
+    url("#{$font-path}/roboto-v27-latin-regular.woff2") format("woff2");
 }
 @font-face {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: local(''),
-       url('#{$font-path}/roboto-v27-latin-700.woff2') format('woff2'),
+  src: local(""),
+    url("#{$font-path}/roboto-v27-latin-700.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: 'Roboto Mono';
+  font-family: "Roboto Mono";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local(''),
-       url('#{$font-path}/roboto-mono-v13-latin-regular.woff2') format('woff2'),
+  src: local(""),
+    url("#{$font-path}/roboto-mono-v13-latin-regular.woff2") format("woff2");
 }
 
 /*!
@@ -45,19 +45,19 @@ $font-path: "/fonts";
 }
 
 @font-face {
-  font-family: 'Font Awesome 6 Sharp';
+  font-family: "Font Awesome 6 Sharp";
   font-style: normal;
   font-weight: 300;
   font-display: block;
-  src: url('#{$font-path}/fa-sharp-light-300.woff2') format('woff2');
+  src: url("#{$font-path}/fa-sharp-light-300.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: 'Font Awesome 6 Sharp';
+  font-family: "Font Awesome 6 Sharp";
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url('#{$font-path}/fa-sharp-regular-400.woff2') format('woff2');
+  src: url("#{$font-path}/fa-sharp-regular-400.woff2") format("woff2");
 }
 
 @font-face {
@@ -69,10 +69,10 @@ $font-path: "/fonts";
 }
 
 body {
-  font-family: "Roboto", sans-serif, "Font Awesome 6 Sharp", "Font Awesome 6 Brands";
+  font-family: "Roboto", sans-serif, "Font Awesome 6 Sharp",
+    "Font Awesome 6 Brands";
 }
 
 code {
-  font-family: 'Roboto Mono', monospace;
+  font-family: "Roboto Mono", monospace;
 }
-

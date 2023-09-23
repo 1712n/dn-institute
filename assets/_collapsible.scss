@@ -1,6 +1,11 @@
 .collapsible {
   // control containers
-  h2, h3, h4, h5, h6, .section-item {
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .section-item {
     display: grid;
     grid: auto / auto max-content;
     align-items: center;

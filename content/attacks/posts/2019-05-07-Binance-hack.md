@@ -1,12 +1,11 @@
 ---
 date: 2019-05-07
 target-entities: Binance
-entity-types: 
+entity-types:
   - Custodian
   - Exchange
 attack-types: Wallet Hack
 title: Binance Hack - Millions of Dollars Stolen in 2019
-
 ---
 
 ## Summary
@@ -41,4 +40,3 @@ The Binance hack can be attributed to several security failure causes:
 The Binance hack served as a reminder of the importance of robust security practices and user vigilance in the cryptocurrency industry.
 
 ---
-
