@@ -1,7 +1,7 @@
 ﻿---
 date: 2022-06-23
-target-entities: 
-  - Harmony 
+target-entities:
+  - Harmony
   - Horizon Bridge
 entity-types:
   - Blockchain
@@ -20,7 +20,7 @@ On June 23, 2022, the Harmony Protocol team discovered a malicious attack on the
 
 ## Attackers
 
-The FBI has officially announced that the Lazarus Group and APT38, North Korean organizations, were responsible for the breach. The FBI also shared that the hackers, identified as "cyber actors associated with the Democratic People's Republic of Korea," utilized a malware campaign called "TraderTraitor" in the Harmony attack. 
+The FBI has officially announced that the Lazarus Group and APT38, North Korean organizations, were responsible for the breach. The FBI also shared that the hackers, identified as "cyber actors associated with the Democratic People's Republic of Korea," utilized a malware campaign called "TraderTraitor" in the Harmony attack.
 
 ## Losses
 

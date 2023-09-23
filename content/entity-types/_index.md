@@ -1,5 +1,5 @@
 ---
-title: Entity Types 
-type: taxonomy 
+title: Entity Types
+type: taxonomy
 url: attacks/posts/entity-types
 ---

@@ -1,5 +1,5 @@
 ---
-title: Entities 
-type: taxonomy 
+title: Entities
+type: taxonomy
 url: market-health/entities
 ---

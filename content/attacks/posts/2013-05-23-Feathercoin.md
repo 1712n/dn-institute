@@ -1,9 +1,9 @@
 ---
 date: 2013-05-23
 target-entities: Feathercoin
-entity-types: Blockchain 
+entity-types: Blockchain
 attack-types: 51%
-title: FTC users lose millions after a 51% attack 
+title: FTC users lose millions after a 51% attack
 ---
 
 ## Summary
@@ -23,6 +23,7 @@ The total amount of losses that were incurred during the attack is unknown. Howe
 ## Timeline
 
 Context: FTC's hashrate had been steadily declining due to the increasing popularity of other altcoins, making it easier for an attacker to perform a 51% attack.
+
 - **May 23, 2013:** Feathercoin undergoes a hard fork to reduce the difficulty.
 - **May 24, 2013:** A mining pool solves a block, but then the block is orphaned by someone mining from a vanity address, "feathercoinsucks." This suggests it was a malicious attack to undermine the coin.
 - **May 25, 2013:** The attack begins. The hash rate on the Feathercoin network increases dramatically, from 0.2 Gigahashes/sec to 1.5 Gigahashes/sec.

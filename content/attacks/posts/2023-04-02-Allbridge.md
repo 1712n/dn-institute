@@ -1,13 +1,13 @@
 ---
 date: 2023-04-02
-target-entities: 
-- Allbridge
+target-entities:
+  - Allbridge
 entity-types:
-- DeFi
-- Bridge
+  - DeFi
+  - Bridge
 attack-types:
-- Smart Contract Exploit
-- Flash Loan Attack
+  - Smart Contract Exploit
+  - Flash Loan Attack
 title: "Allbridge suffered a flash loan attack for $573k"
 ---
 
@@ -20,6 +20,7 @@ On April 2, 2023, AllBridge, a multichain token bridge, fell victim to an exploi
 The identity of the attacker is unknown.
 
 BSC:
+
 - [0xC578d755Cd56255d3fF6E92E1B6371bA945e3984](https://bscscan.com/address/0xc578d755cd56255d3ff6e92e1b6371ba945e3984)
 - [0x2b3cff12c02625518deb0af14684999fb6e3e360](https://bscscan.com/address/0x2b3cff12c02625518deb0af14684999fb6e3e360)
 

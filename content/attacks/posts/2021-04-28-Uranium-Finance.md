@@ -13,8 +13,9 @@ title: "Uranium Finance Exploit Resulting in a $57.2 Million Loss"
 ## Summary
 
 On April 28, 2021, Uranium Finance, a BSC-based decentralized exchange, was exploited due to a calculation error bug in its v2 pair contracts, which had been forked from the Uniswap v2 code. The bug allowed an attacker to swap minimum amount of the input token for 98% of the total balance of the output token, leading to massive losses. Uranium Finance had discovered the potential vulnerability but failed to prevent the attack:
+
 > While doing a review of the various low level risks identified by BSC Gemz audit, the dev team became concerned that a potential critical exploit existed even though it hadn’t been caught before and the code had been running unattacked for the last ~10 days without incident, having accumulated over 80m in TVL.
-> 
+>
 > ~ Uranium Finance's Post Mortem
 
 [Source](https://bscscan.com/tx/0x5a504fe72ef7fc76dfeb4d979e533af4e23fe37e90b5516186d5787893c37991)
@@ -24,12 +25,13 @@ On April 28, 2021, Uranium Finance, a BSC-based decentralized exchange, was expl
 The attacker's identity remains unknown. The following addresses were involved in malicious actions:
 
 Attacker Address on BSC and Ethereum:
+
 - [0xc47bdd0a852a88a019385ea3ff57cf8de79f019d](https://bscscan.com/address/0xc47bdd0a852a88a019385ea3ff57cf8de79f019d)
 - [0xc47bdd0a852a88a019385ea3ff57cf8de79f019d](https://etherscan.io/address/0xc47bdd0a852a88a019385ea3ff57cf8de79f019d)
 
 Malicious Contract:
-- [0x2b528a28451e9853f51616f3b0f6d82af8bea6ae](https://bscscan.com/address/0x2b528a28451e9853f51616f3b0f6d82af8bea6ae). 
 
+- [0x2b528a28451e9853f51616f3b0f6d82af8bea6ae](https://bscscan.com/address/0x2b528a28451e9853f51616f3b0f6d82af8bea6ae).
 
 ## Losses
 

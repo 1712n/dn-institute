@@ -1,6 +1,6 @@
 # Developement Documentation
 
-## Content Organization 
+## Content Organization
 
 ### Sections
 
@@ -14,7 +14,7 @@
 
 Use the optional page parameters bellow to configure how pages and sections should appear on the navigation menu.
 
-- `navHide`: removes the page/section from navigation 
+- `navHide`: removes the page/section from navigation
 - `navHideLink`: display the item as `<span>` instead of `<a>`
 - `navShowPages`: show list of pages that are direct children of the section
 - `navShowTaxonomies`: show list of taxonomies that belongs to the section

@@ -1,7 +1,7 @@
 ---
-languageCode: 'en-us'
-title: 'Distributed Networks Institute'
-theme: 'hugo-book'
+languageCode: "en-us"
+title: "Distributed Networks Institute"
+theme: "hugo-book"
 
 # Book configuration
 disablePathToLower: true
@@ -11,7 +11,7 @@ enableGitInfo: true
 markup:
   goldmark:
     renderer:
-     unsafe: true
+      unsafe: true
 
   tableOfContents:
     startLevel: 1
@@ -33,7 +33,7 @@ taxonomies:
   entity-type: "entity-types"
   attack-type: "attack-types"
 
-  # market-health 
+  # market-health
   entity: "entities"
 
 permalinks:
@@ -42,25 +42,25 @@ permalinks:
   entity-types: "/attacks/posts/entity-types/:title"
   attack-types: "/attacks/posts/attack-types/:title"
 
-  # market-health 
+  # market-health
   entities: "/market-health/entities/:title"
 
 cascade:
-- _target:
-    path: "**/posts/**"
-  type: posts
+  - _target:
+      path: "**/posts/**"
+    type: posts
 
-- _target:
-    path: "/market-health/**"
-  type: posts
+  - _target:
+      path: "/market-health/**"
+    type: posts
 
-- _target:
-    path: "**/docs/**"
-  type: docs 
+  - _target:
+      path: "**/docs/**"
+    type: docs
 
-- _target:
-    path: "mvt/**"
-  type: docs 
+  - _target:
+      path: "mvt/**"
+    type: docs
 
 params:
   # Expand taxonomy terms in the sidebar menu
@@ -68,7 +68,7 @@ params:
 
   # (Optional, default light) Sets color theme: light, dark or auto.
   # Theme 'auto' switches between dark and light modes based on browser/os preferences
-  BookTheme: 'light'
+  BookTheme: "light"
 
   # (Optional, default true) Controls table of contents visibility on right side of pages.
   # Start and end levels can be controlled with markup.tableOfContents setting.
@@ -77,11 +77,11 @@ params:
 
   # (Optional, default none) Set the path to a logo for the book. If the logo is
   # /static/logo.png then the path would be logo.png
-  BookLogo: 'dni-circle.png'
+  BookLogo: "dni-circle.png"
 
   # Set source repository location.
   # Used for 'Last Modified' and 'Edit this page' links.
-  BookRepo: 'https://github.com/1712n/dni-website'
+  BookRepo: "https://github.com/1712n/dni-website"
 
   # (Optional, default 'commit') Specifies commit portion of the link to the page's last modified
   # commit hash for 'doc' page type.
@@ -93,12 +93,12 @@ params:
   # Enable "Edit this page" links for 'doc' page type.
   # Disabled by default. Uncomment to enable. Requires 'BookRepo' param.
   # Edit path must point to root directory of repo.
-  BookEditPath: 'edit/main/'
+  BookEditPath: "edit/main/"
 
   # Configure the date format used on the pages
   # - In git information
   # - In blog posts
-  BookDateFormat: 'January 2, 2006'
+  BookDateFormat: "January 2, 2006"
 
   # (Optional, default true) Enables search function with flexsearch,
   # Index is built on fly, therefore it might slowdown your website.

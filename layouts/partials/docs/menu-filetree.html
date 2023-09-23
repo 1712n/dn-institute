@@ -9,18 +9,22 @@
       {{ if (hasPrefix .RelPermalink $section.RelPermalink) }}
         {{ $showTerms := .Params.navShowTerms | default false }}
 
+
         <li class="taxonomy {{ if $showTerms }}collapsible{{ end }}">
-        <h{{ $level }}>{{ partial "docs/menu-anchor" (dict "page" $page "item" . "showControls" $showTerms) }}</h{{ $level }}>
+          {{ partial "docs/menu-heading" (dict "level" $level "params" (dict "page" $page "item" . "showControls" $showTerms)) }}
 
           {{ if $showTerms }}
             {{ with $terms }}
               {{ $name := .item.LinkTitle | urlize | lower }}
               {{ $path = printf "%s-%s" $path $name }}
-              {{ $id := printf "ul%d-%s" $level $path }} 
+              {{ $id := printf "ul%d-%s" $level $path }}
+
 
               <ul class="terms collapsible-target" id="{{ $id }}">
                 {{ range . }}
-                  <li>{{ partial "docs/menu-anchor" (dict "page" $page "item" .Page) }}</li>
+                  <li>
+                    {{ partial "docs/menu-anchor" (dict "page" $page "item" .Page) }}
+                  </li>
                 {{ end }}
               </ul>
             {{ end }}
@@ -48,11 +52,12 @@
   {{ $showPages := (and (.item.Param "navShowPages") (gt (.item.Pages | len) 0)) | default false }}
   {{ $showTaxonomies := .item.Param "navShowTaxonomies" | default false }}
   {{ $isCollapsible := (or $showPages $showTaxonomies) | default false }}
-  {{ $isCollapsed := .item.Param "bookCollapseSection" | default false  }}
+  {{ $isCollapsed := .item.Param "bookCollapseSection" | default false }}
   {{ $hideLink := .item.Page.Params.navHideLink | default false }}
 
+
   <li class="li-h{{ $level }} {{ if $isCollapsible }}collapsible{{ end }}">
-    <h{{ $level }}>{{ partial "docs/menu-anchor" (dict "page" $page "item" .item "showControls" $isCollapsible "hideLink" $hideLink) }}</h{{ $level }}>
+    {{ partial "docs/menu-heading" (dict "level" $level "params" (dict "page" $page "item" .item "showControls" $isCollapsible "hideLink" $hideLink)) }}
 
     {{ if $showTaxonomies }}
       <ul class="taxonomies collapsible-target" id="{{ $id }}">
@@ -61,7 +66,11 @@
     {{ end }}
 
     {{ if $showPages }}
-      <ul class="pages collapsible-target" id="{{ $id }}" {{ if $isCollapsed }}hidden{{ end }}>
+      <ul
+        class="pages collapsible-target"
+        id="{{ $id }}"
+        {{ if $isCollapsed }}hidden{{ end }}
+      >
         {{ range .item.Pages }}
           {{ template "menu" (dict "page" $page "item" . "level" $level "path" $path) }}
         {{ end }}
@@ -70,13 +79,14 @@
   </li>
 {{ end }}
 
+
 <ul class="book-tree">
   {{ range site.Home.Pages }}
     {{ if not (.Param "navHide") }}
       {{ template "menu" (dict "page" . "item" . "level" 1) }}
     {{ end }}
   {{ end }}
-  
+
   {{ with site.Menus.external }}
     <li class="li-h2 external-links">
       <h2>External</h2>

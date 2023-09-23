@@ -1,23 +1,22 @@
 ---
 date: 2022-10-11
-target-entities: 
-- Mango Markets
-entity-types: 
-- DeFi
-- Exchange
-attack-types: 
-- Price Oracle Manipulation
+target-entities:
+  - Mango Markets
+entity-types:
+  - DeFi
+  - Exchange
+attack-types:
+  - Price Oracle Manipulation
 title: "Mango Markets Exploited for $116 Million"
 ---
 
 ## Summary
 
-On October 11th, 2022, Mango Markets, a decentralized exchange on Solana, was exploited. The hacker manipulated the price oracle for the protocol's MNGO token by first taking out a long MNGO position on Mango. Then the attacker artificially raised the price of the MNGO token by taking advantage of low liquidity on secondary markets. The exploiter then used the temporary high price of MNGO to take out loans of USDC, various other stable coins, and SOL against unrealized profit on the long MNGO position. 
+On October 11th, 2022, Mango Markets, a decentralized exchange on Solana, was exploited. The hacker manipulated the price oracle for the protocol's MNGO token by first taking out a long MNGO position on Mango. Then the attacker artificially raised the price of the MNGO token by taking advantage of low liquidity on secondary markets. The exploiter then used the temporary high price of MNGO to take out loans of USDC, various other stable coins, and SOL against unrealized profit on the long MNGO position.
 
 ## Attacker
 
 The attacker revealed himself in a series of [tweets](https://twitter.com/avi_eisen/status/1581326197241180160) under the pseudonym of Avraham Eisenberg.
-
 
 ## Losses
 
@@ -33,6 +32,6 @@ Approximately $116 million worth of assets were lost, and $67 million was [retur
 
 ## Security Failure Causes
 
-**Oracle vulnerability:** Mango Markets relied heavily on external price feeds to determine the amount of assets it could lend out to a user. These price feeds were easy to manipulate because there was  insufficient liquidity for the MNGO token.
+**Oracle vulnerability:** Mango Markets relied heavily on external price feeds to determine the amount of assets it could lend out to a user. These price feeds were easy to manipulate because there was insufficient liquidity for the MNGO token.
 
 **Protocol vulnerability:** The hacker was able to take on an incredibly large MNGO position in a short amount of time. Trade surveillance systems would have detected unusual activity for a MNGO position of that size and could have alerted the protocol to watch for unusual activity.

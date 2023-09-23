@@ -12,7 +12,7 @@ title: "BSC Token Hub Hit By $586 Million Bridge Hack"
 
 ## Summary
 
-On October 6, 2022, BSC Token Hub, a bridge between BNB Beacon Chain (BEP2) and Binance Smart Chain (BEP20) was exploited. The native cross-chain bridge between BNB Beacon Chain (BEP2) and BNB Smart Chain (BEP20), also known as BNB Token Hub was exploited. The hacker used a low-level proof vulnerability and 2,000,000 $BNB were drained out of thin air. Consequently, the hacker began [bridging the funds to Fantom and Ethereum chains](https://www.coinbase.com/blog/bsc-token-hub-compromise-investigation-and-analysis-8). [The security experts in collaboration with validators were able to save the majority of the funds](https://www.bnbchain.org/en/blog/bnb-chain-ecosystem-update). The [hacker managed to bridge 127,000,000 $USD using AnySwap and Stargate bridges](https://rekt.news/bnb-bridge-rekt), with 53% of the stolen funds going to Ethereum, 33% to Fantom, and the rest to other chains. The remaining assets were left frozen in the attacker's address. 
+On October 6, 2022, BSC Token Hub, a bridge between BNB Beacon Chain (BEP2) and Binance Smart Chain (BEP20) was exploited. The native cross-chain bridge between BNB Beacon Chain (BEP2) and BNB Smart Chain (BEP20), also known as BNB Token Hub was exploited. The hacker used a low-level proof vulnerability and 2,000,000 $BNB were drained out of thin air. Consequently, the hacker began [bridging the funds to Fantom and Ethereum chains](https://www.coinbase.com/blog/bsc-token-hub-compromise-investigation-and-analysis-8). [The security experts in collaboration with validators were able to save the majority of the funds](https://www.bnbchain.org/en/blog/bnb-chain-ecosystem-update). The [hacker managed to bridge 127,000,000 $USD using AnySwap and Stargate bridges](https://rekt.news/bnb-bridge-rekt), with 53% of the stolen funds going to Ethereum, 33% to Fantom, and the rest to other chains. The remaining assets were left frozen in the attacker's address.
 
 ## Attacker
 
@@ -21,7 +21,7 @@ Attacker has several wallets with the same address in Ethereum, Fantom, Avalanch
 
 ## Losses
 
-2 million BNB was minted, it equals $586 million. Only $127 million worth of assets were bridged, and the rest is left frozen. 
+2 million BNB was minted, it equals $586 million. Only $127 million worth of assets were bridged, and the rest is left frozen.
 
 ## Timeline
 

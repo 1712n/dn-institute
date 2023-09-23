@@ -1,0 +1,55 @@
+name: Format Code
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    types: [ready_for_review, review_requested]
+    paths:
+      - 'assets/**'
+      - 'config/**'
+      - 'layouts/**'
+      - '!content/**'
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'latest'
+          cache: 'yarn'
+
+      - name: Install packages
+        run: yarn install --frozen-lockfile
+
+      - name: Prettier cache
+        uses: actions/cache@v3
+        with:
+          path: .prettiercache
+          key: ${{ runner.os }}-prettier
+
+      - name: Format code
+        run: yarn run format
+
+      - name: Push changes
+        run: |
+          if git diff-index --quiet HEAD; then
+            echo "No changes to commit"
+          else
+            echo "Commiting changes"
+            _author="${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
+            git config user.email "github-actions[bot]"
+            git config user.name "github-actions[bot]@users.noreply.github.com"
+            git commit --all --message "Format with Prettier" --author "$_author"
+            git push
+          fi

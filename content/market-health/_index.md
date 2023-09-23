@@ -1,6 +1,6 @@
 ---
 title: Market Health
-navShowTaxonomies: false 
+navShowTaxonomies: false
 weight: 10
 ---
 

@@ -48,7 +48,7 @@ This type of reentrancy occurs between different contracts. A function from one 
 
 ### **Read-Only Reentrancy**
 
-The classical examples of reentrancy typically reenter in a state-modifying function so that an inconsistent state is used to perform malicious writes on the contract’s storage. Typically, contracts guard themselves with reentrancy locks, protecting their state from such malicious actions. In contrast, read-only reentrancy is a reentrancy scenario where a `view` function is reentered, which in most cases is unguarded as it does not modify the contract’s state. However, if the state is inconsistent, wrong values could be reported. Other protocols, relying on a return value, can be tricked into reading the wrong state as an extremely low or high price of tokens to perform unwanted actions. 
+The classical examples of reentrancy typically reenter in a state-modifying function so that an inconsistent state is used to perform malicious writes on the contract’s storage. Typically, contracts guard themselves with reentrancy locks, protecting their state from such malicious actions. In contrast, read-only reentrancy is a reentrancy scenario where a `view` function is reentered, which in most cases is unguarded as it does not modify the contract’s state. However, if the state is inconsistent, wrong values could be reported. Other protocols, relying on a return value, can be tricked into reading the wrong state as an extremely low or high price of tokens to perform unwanted actions.
 
 ### Attack Example
 
@@ -57,10 +57,9 @@ The classical examples of reentrancy typically reenter in a state-modifying func
 - **Vulnerability**: LP token burning mechanism contained a read-only reentrancy vulnerability. The reserves were not updated at the correct point, which may have allowed the oracle to use an incorrect reserve value to calculate the price.
 - **Attack**: The attacker targeted the USDC pools. By burning and then using a callback before the `update_reserves` function was called, they manipulated the oracle price. Of the $3.4 million lost from EraLend, the attacker profited around $2.66 million.
 
-
 ## Countermeasures
 
-- **Reentrancy Guard**: By using a Reentrancy Guard, developers can ensure that a function cannot be re-entered while it is still executing. This can be implemented by using a [mutex](https://en.wikipedia.org/wiki/Lock_(computer_science)) or similar locking mechanism that prevents calling certain functions in an unintended order by utilizing a variable that shows if the function has already been called or not.
+- **Reentrancy Guard**: By using a Reentrancy Guard, developers can ensure that a function cannot be re-entered while it is still executing. This can be implemented by using a [mutex](<https://en.wikipedia.org/wiki/Lock_(computer_science)>) or similar locking mechanism that prevents calling certain functions in an unintended order by utilizing a variable that shows if the function has already been called or not.
 - **Update State First**: Updating all state variables before making an external call can prevent reentrancy. If all internal work is done first, a callback won't be able to interfere with the state of the contract.
 - **Avoid Low-Level Calls**: By avoiding low-level calls such as `call.value()()`, which expose the contract to reentrancy risks, and instead using higher-level constructs like `transfer`, the risk of reentrancy can be minimized.
 - **Check-Effects-Interaction Pattern**: Following this pattern ensures that the contract's state is checked, then effects are applied, and finally, interactions are done with other contracts. This sequence helps prevent reentrancy by enforcing a proper order of operations within a function.

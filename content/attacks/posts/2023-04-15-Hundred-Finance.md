@@ -1,24 +1,26 @@
 ---
 date: 2023-04-15
-target-entities: 
-- Hundred Finance
+target-entities:
+  - Hundred Finance
 entity-types:
-- DeFi
-- Lending Platform
+  - DeFi
+  - Lending Platform
 attack-types:
-- Smart Contract Exploit
-- Flash Loan Attack
+  - Smart Contract Exploit
+  - Flash Loan Attack
 title: "Hundred Finance Hacked for $6.8 Million"
 ---
 
 ## Summary
 
 On April 15, 2023, at 2:12 pm UTC, Hundred Finance's Optimism deployment fell victim to an exploit that drained the platform of all assets in hToken markets. The attacker utilized an integer rounding vulnerability within the hToken contract logic to redeem underlying tokens when a market was empty. The total loss amounted to roughly $6.8 million USD in various cryptocurrencies.
+
 ## Attackers
 
-The attackers remain unidentified. 
+The attackers remain unidentified.
 
 Exploiter addresses:
+
 - **Optimism::** [0x155da45d374a286d383839b1ef27567a15e67528](https://optimistic.etherscan.io/address/0x155da45d374a286d383839b1ef27567a15e67528)
 - **Ethereum:** [0x155da45d374a286d383839b1ef27567a15e67528](https://etherscan.io/address/0x155da45d374a286d383839b1ef27567a15e67528)
 
@@ -28,10 +30,10 @@ Totaling around $6.8 million USD. These funds were supplied by 180 individual wa
 
 - 1,030 ETH (~ $2,150,000)
 - 1,265,979 USDC
-- 1,113,431 USDT 
+- 1,113,431 USDT
 - 865,143 SUSD
-- 842,788 DAI 
-- 457,286 FRAX 
+- 842,788 DAI
+- 457,286 FRAX
 - 20,854 SNX (~ $56,000)
 
 ## Timeline
@@ -46,5 +48,5 @@ Totaling around $6.8 million USD. These funds were supplied by 180 individual wa
 
 ## Security Failure Causes
 
-- **Smart contract vulnerability:** 
-The exploit leveraged an integer rounding vulnerability that had existed since the launch of the Compound v2 code. The vulnerability manifested when a market was empty and allowed for the manipulation of collateral value within the hToken markets.
+- **Smart contract vulnerability:**
+  The exploit leveraged an integer rounding vulnerability that had existed since the launch of the Compound v2 code. The vulnerability manifested when a market was empty and allowed for the manipulation of collateral value within the hToken markets.

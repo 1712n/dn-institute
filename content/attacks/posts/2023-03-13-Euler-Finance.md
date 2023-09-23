@@ -20,17 +20,20 @@ The attacker began to return the stolen assets after Euler took these steps. Wit
 
 ## Attackers
 
-The attackers remain unidentified. The attackers utilized the following Ethereum addresses: 
+The attackers remain unidentified. The attackers utilized the following Ethereum addresses:
+
 - [0x5f259d0b76665c337c6104145894f4d1d2758b8c](https://etherscan.io/address/0x5f259d0b76665c337c6104145894f4d1d2758b8c)
 - [0xb2698c2d99ad2c302a95a8db26b08d17a77cedd4](https://etherscan.io/address/0xb2698c2d99ad2c302a95a8db26b08d17a77cedd4)
 
 The following contracts were used in the attack:
+
 - [0xebc29199c817dc47ba12e3f86102564d640cbf99](https://etherscan.io/address/0xebc29199c817dc47ba12e3f86102564d640cbf99)
 - [0x036cec1a199234fc02f72d29e596a09440825f1c](https://etherscan.io/address/0x036cec1a199234fc02f72d29e596a09440825f1c)
 
 ## Losses
 
 Breakdown of the lost $196 million:
+
 - $8.7 million in Dai
 - $18.5 million in Wrapped Bitcoin
 - $135.8 million in Staked Ethereum
