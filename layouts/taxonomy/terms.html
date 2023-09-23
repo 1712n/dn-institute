@@ -11,12 +11,10 @@
       {{ $currDropCap = .Title | upper | truncate 1 "" }}
 
       {{ if not (eq $currDropCap $lastDropCap) }}
-        <!-- prettier-ignore -->
         {{ if not (eq $index 0) }}</ul>{{ end }}
 
         <ul class="taxonomy-section">
           <h2>{{ $currDropCap }}</h2>
-        </ul>
       {{ end }}
 
       {{ $lastDropCap = $currDropCap }}
@@ -24,7 +22,6 @@
         >{{ partial "docs/title.html" . }}</a
       >
 
-      <!-- prettier-ignore -->
       {{ if (eq $index $lastElement) }}</ul>{{ end }}
     {{ end }}
   </ul>
