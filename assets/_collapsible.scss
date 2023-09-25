@@ -1,3 +1,4 @@
+// General
 .collapsible {
   // control containers
   h2,
@@ -21,8 +22,9 @@
     border: none;
     outline: none;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 300;
+    color: var(--body-font-color, black);
 
     &:hover {
       font-weight: 400;
@@ -44,13 +46,14 @@
   }
 }
 
+// Case Specific
 .book-toc .collapsible {
   h2 {
     font-size: 1em;
   }
 
   .anchor {
-    color: black;
+    color: var(--body-font-color, black);
     font-weight: bold;
   }
 }
