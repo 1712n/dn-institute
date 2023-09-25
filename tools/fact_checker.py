@@ -2,6 +2,8 @@
 
 """
 Extract and verify statements from text content in a pull request using a LLM model and related search results.
+Also, the bot checks if a text is written in an informational style.
+
 """
 
 import os, sys, argparse, time
@@ -108,6 +110,19 @@ Output should be machine-readable, for example:
     "explanation": ""
 }```"""
 
+STYLE_CHECKER_STATEMENT = """
+Determine what style the text is written in.
+
+The text is: ```%s```
+
+Is the text written in the informational style? If it is not true, return false in an informational field.
+
+Output should be machine-readable, for example:
+```{
+    "text": "",
+    "informational": true|false
+}```"""
+
 
 def fix_uncompleted_json(json_string: str) -> str:
     # if start not presented, just make it empty list
@@ -194,13 +209,35 @@ def verify_claim(claim: Dict, meta: str) -> Tuple[bool, str]:
     )
 
 
+@logging_decorator("Check text's style")
+def check_style(text: str) -> Tuple[bool, str]:
+    print("Statement Prompt: " + STYLE_CHECKER_STATEMENT % text)
+    ans = openai_call(STYLE_CHECKER_STATEMENT % text)
+    ans = ans.strip().strip("`").strip()
+    ans = ans[ans.find("{") :]
+    print("Answer: " + ans)
+
+    obj = json.loads(ans)
+    print("Parsed:", obj)
+
+    is_informational = False
+    if obj["informational"]:
+        is_informational = True
+    emoji = ":x:" if is_informational else ":white_check_mark:"
+    return (
+        is_informational,
+        (f"`" + obj["text"] + "` " + emoji + "\n\n"),
+    )
+
+
 @logging_decorator("Verify file")
-def verify_file(parts: List[str], meta: str) -> tuple[int, bool, str]:
+def verify_file(parts: List[str], meta: str) -> tuple[int, bool, bool, str]:
     print(f"\n\nProcessing: {meta} | {len(parts)} splits")
     # Filter out empty parts
     parts = list(filter(lambda x: (len(x.strip()) > 1), parts))
     exceptions = 0
     had_false_claim = False
+    had_no_informational = False
     file_comment = ""
 
     for p in parts:
@@ -244,26 +281,38 @@ def verify_file(parts: List[str], meta: str) -> tuple[int, bool, str]:
                 print(ex)
                 exceptions += 1
                 continue
+        try:
+            (is_informational, style_comment) = check_style(p)
+            file_comment += style_comment
+            if not is_informational:
+                had_no_informational = True
+        except Exception as ex:
+            print(ex)
+            exceptions += 1
+            continue
 
-    return exceptions, had_false_claim, file_comment
+    return exceptions, had_false_claim, had_no_informational, file_comment
 
 
 @logging_decorator("Verify statements")
-def verify_statements(diff: str) -> tuple[bool, bool, str]:
+def verify_statements(diff: str) -> tuple[str, int, bool, bool]:
     files = split_content(diff)
     comment = ""
     exceptions = 0
     had_false_claim = False
+    had_no_informational = False
     for parts, meta in files:
-        file_exceptions, false_claim, file_comment = verify_file(parts, meta)
+        file_exceptions, false_claim, style_check, file_comment = verify_file(parts, meta)
         if file_exceptions != 0:
             print(f"File processing contains {file_exceptions} exceptions")
         exceptions += file_exceptions
         if false_claim:
             had_false_claim = True
+        if style_check:
+            had_no_informational = True
         comment += file_comment
 
-    return comment, exceptions, had_false_claim
+    return comment, exceptions, had_false_claim, had_no_informational
 
 
 @logging_decorator("Compile Report")
@@ -289,9 +338,9 @@ def main():
         pass
 
     else:
-        _comment, exceptions, had_false_claim = verify_statements(diff)
+        _comment, exceptions, had_false_claim, had_no_informational = verify_statements(diff)
 
-        had_error = exceptions > 0 or had_false_claim
+        had_error = exceptions > 0 or had_false_claim or had_no_informational
 
         comment = compile_report(_comment, exceptions)
 
