@@ -2,6 +2,9 @@
 title: Market health metrics
 bookToc: true
 ---
+## Market Health Metrics Documentation
+
+This documentation provides a guide on how to use and interpret market surveillance statistical metrics from the DNI [free API](https://rapidapi.com/DNInstitute/api/crypto-market-health) to identify anomalies and manipulations on cryptocurrency exchanges. Feel free to sumbit your analytical articles based on the API data here!
 
 Indicator | Description | API metric
 -- | -- | --
@@ -11,10 +14,6 @@ Power law fitting | Power law appears to describe histograms of trading volume. 
 Time-of-trade | This indicator identifies abnormal accumulation of scheduled trades executed at the same time - minute/second. | `count_time_distribution`
 Buy/sell ratio | Depending on whether the order taker is a buyer or seller, each trade is associated with a specific side of the trade. A consistent and large number of trades on one side of the book is a pattern that may signal automated activity. | `buy_sell_count_ratio`
 VWAP | Volume weighted average price | `vwap`
-
-## Market Health Metrics Documentation
-
-This documentation provides a guide on how to use and interpret market surveillance statistical metrics from the API to identify anomalies and manipulations on cryptocurrency exchanges.
 
 ### 1. **Volume-Volatility Correlation**
 
