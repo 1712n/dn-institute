@@ -2,8 +2,7 @@
 
 """
 Extract and verify statements from text content in a pull request using a LLM model and related search results.
-Also, the bot checks if a text is written in an informational style.
-
+Also, this script can check a style of a pr text.
 """
 
 import os, sys, argparse, time
@@ -119,7 +118,6 @@ Is the text written in the informational style? If it is not true, return false 
 
 Output should be machine-readable, for example:
 ```{
-    "text": "",
     "informational": true|false
 }```"""
 
@@ -209,35 +207,13 @@ def verify_claim(claim: Dict, meta: str) -> Tuple[bool, str]:
     )
 
 
-@logging_decorator("Check text's style")
-def check_style(text: str) -> Tuple[bool, str]:
-    print("Statement Prompt: " + STYLE_CHECKER_STATEMENT % text)
-    ans = openai_call(STYLE_CHECKER_STATEMENT % text)
-    ans = ans.strip().strip("`").strip()
-    ans = ans[ans.find("{") :]
-    print("Answer: " + ans)
-
-    obj = json.loads(ans)
-    print("Parsed:", obj)
-
-    is_informational = False
-    if obj["informational"]:
-        is_informational = True
-    emoji = ":x:" if is_informational else ":white_check_mark:"
-    return (
-        is_informational,
-        (f"`" + obj["text"] + "` " + emoji + "\n\n"),
-    )
-
-
 @logging_decorator("Verify file")
-def verify_file(parts: List[str], meta: str) -> tuple[int, bool, bool, str]:
+def verify_file(parts: List[str], meta: str) -> tuple[int, bool, str]:
     print(f"\n\nProcessing: {meta} | {len(parts)} splits")
     # Filter out empty parts
     parts = list(filter(lambda x: (len(x.strip()) > 1), parts))
     exceptions = 0
     had_false_claim = False
-    had_no_informational = False
     file_comment = ""
 
     for p in parts:
@@ -281,38 +257,43 @@ def verify_file(parts: List[str], meta: str) -> tuple[int, bool, bool, str]:
                 print(ex)
                 exceptions += 1
                 continue
-        try:
-            (is_informational, style_comment) = check_style(p)
-            file_comment += style_comment
-            if not is_informational:
-                had_no_informational = True
-        except Exception as ex:
-            print(ex)
-            exceptions += 1
-            continue
 
-    return exceptions, had_false_claim, had_no_informational, file_comment
+    return exceptions, had_false_claim, file_comment
 
 
 @logging_decorator("Verify statements")
-def verify_statements(diff: str) -> tuple[str, int, bool, bool]:
+def verify_statements(diff: str) -> tuple[str, int, bool]:
     files = split_content(diff)
     comment = ""
     exceptions = 0
     had_false_claim = False
-    had_no_informational = False
     for parts, meta in files:
-        file_exceptions, false_claim, style_check, file_comment = verify_file(parts, meta)
+        file_exceptions, false_claim, file_comment = verify_file(parts, meta)
         if file_exceptions != 0:
             print(f"File processing contains {file_exceptions} exceptions")
         exceptions += file_exceptions
         if false_claim:
             had_false_claim = True
-        if style_check:
-            had_no_informational = True
         comment += file_comment
 
-    return comment, exceptions, had_false_claim, had_no_informational
+    return comment, exceptions, had_false_claim
+
+
+@logging_decorator("Check style")
+def check_style(diff: str) -> str:
+    file = split_content(diff)
+    file = file[0][0]
+    ans = openai_call(STYLE_CHECKER_STATEMENT % file)
+    ans = ans.strip().strip("`").strip()
+    ans = ans[ans.find("{") :]
+
+    obj = json.loads(ans)
+
+    is_false = False
+    if not obj["informational"]:
+        is_false = True
+    emoji = ":x:" if is_false else ":white_check_mark:"
+    return f"`" + "is it written in an informational style?" + "` " + emoji + "\n\n"
 
 
 @logging_decorator("Compile Report")
@@ -338,15 +319,21 @@ def main():
         pass
 
     else:
-        _comment, exceptions, had_false_claim, had_no_informational = verify_statements(diff)
+        _comment, exceptions, had_false_claim = verify_statements(diff)
 
-        had_error = exceptions > 0 or had_false_claim or had_no_informational
+        had_error = exceptions > 0 or had_false_claim
 
         comment = compile_report(_comment, exceptions)
 
         if len(comment) > 0 and is_github_env:
             pr.create_issue_comment(comment)
             print("comment", comment)
+
+        comment_style = check_style(diff)
+
+        if len(comment_style) > 0 and is_github_env:
+            pr.create_issue_comment(comment_style)
+            print("comment", comment_style)
 
         print("token_usage", token_usage)
 
