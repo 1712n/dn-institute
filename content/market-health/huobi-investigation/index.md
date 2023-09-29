@@ -74,20 +74,3 @@ An exchange's native token, like Huobi's HT, is often seen as an unofficial heal
 The ratio of "buy" volume to "sell" volume determines price behavior and its future movements. In normal conditions, this metric is very volatile and appears random (see Gate.io). On the contrary, Huobi Token demonstrates abnormal buy-sell ratio stability that fluctuates within a narrow range.
 
 This suggests potential manipulation, as Huobi may seek to exert control over token price movements. Notably, Huobi's possession of user order data further raises concerns about market manipulation, impacting its users.
-
-
-\[ P(d) = \log_{10}(d + 1) - \log_{10}(d) \]
-\[ P(d) = \log_{10}\left(\frac{d+1}{d}\right) \]
-
-Thus, \(P(1) \approx 0.301\) (or 30.1%).
-
-{{</* katex [display] [class="text-center"] */>}}
-P(d) = \log_{10}(d + 1) - \log_{10}(d)
-P(d) = \log_{10}\left(\frac{d+1}{d}\right)
-P(1) \approx 0.301 
-{{</* /katex */>}}
-
-
-{{</* katex [display] [class="text-center"] */>}}
-f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
-{{</* /katex */>}}
