@@ -1,6 +1,8 @@
 ---
 title: Market Health
-navShowTaxonomies: false
+# navHideLink: true
+navShowPages: true
+bookCollapseSection: true
 weight: 10
 ---
 

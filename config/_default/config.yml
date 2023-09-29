@@ -51,10 +51,6 @@ cascade:
     type: posts
 
   - _target:
-      path: "/market-health/**"
-    type: posts
-
-  - _target:
       path: "**/docs/**"
     type: docs
 
