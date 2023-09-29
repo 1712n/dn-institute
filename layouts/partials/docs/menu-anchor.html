@@ -4,14 +4,14 @@
   <span
     class="anchor"
     {{ if $isCurrent }}aria-current="page"{{ end }}
-    >{{ .item.Title }}</span
+    >{{ .item.Title | default .item }}</span
   >
 {{ else }}
   <a
     class="anchor"
     href="{{ .item.RelPermalink }}"
     {{ if $isCurrent }}aria-current="page"{{ end }}
-    >{{ .item.LinkTitle }}</a
+    >{{ .item.LinkTitle | default .item }}</a
   >
 {{ end }}
 
