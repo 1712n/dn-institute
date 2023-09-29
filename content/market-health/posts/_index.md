@@ -1,5 +1,5 @@
 ---
 title: "Posts"
-navShowTaxonomies: true
+navShowTaxonomies: false 
 navShowPages: false
 ---
