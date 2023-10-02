@@ -17,7 +17,7 @@ The Power Law is expressed mathematically as:
 
 {{< katex display >}}
 P(x) \propto x^{-\alpha}
-{{< katex >}}
+{{< /katex >}}
 
 Where _α_ is the exponent that often falls within the Pareto–Lévy range in the context of trade size distributions.
 
