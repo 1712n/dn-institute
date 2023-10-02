@@ -1,7 +1,5 @@
 ## VWAP (Volume Weighted Average Price) Documentation
 
----
-
 ### **General Description:**
 VWAP, or Volume Weighted Average Price, is a trading benchmark used by traders that gives the average price a security has traded at throughout the day, based on both volume and price. It is important because it provides traders with insight into both the trend and value of a security.
 

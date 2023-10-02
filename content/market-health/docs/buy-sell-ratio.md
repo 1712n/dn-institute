@@ -1,6 +1,10 @@
-## Buy/Sell Ratio Documentation
-
 ---
+title: "Buy/Sell Ratio"
+navShowPages: true
+weight: 60
+---
+
+## Buy/Sell Ratio Documentation
 
 ### **General Description:**
 The Buy/Sell Ratio is an important metric used in trading analysis for various markets, including cryptocurrencies. It calculates the proportion of buy to sell orders in a given time period to determine the market’s sentiment and to detect any possible automated or manipulated trading.
@@ -26,7 +30,6 @@ Using line or bar graphs to plot the Buy/Sell Ratio over time can provide visual
 
 ### **References and Further Reading:**
 - [Buy/Sell Ratio As a Predictor of Market Returns](https://www.aaii.com/journal/article/buy-sell-ratio-as-a-predictor-of-market-returns)
-- [How To Use Money Flow Index to Identify Buying & Selling Pressure](https://www.investopedia.com/articles/technical/031702.asp)
 - [Analyzing Market Sentiment with the Put/Call Ratio](https://www.investopedia.com/articles/active-trading/051215/analyzing-market-sentiment-putcall-ratio.asp)
 
 ---
