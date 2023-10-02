@@ -1,9 +1,13 @@
-## Power Law Fitting Documentation
-
+---
+title: "Power Law Fitting"
+navShowPages: true
+weight: 40
 ---
 
+## Power Law Fitting Documentation
+
 ### **General Description:**
-Power Law Fitting explores the distributions of observed trade sizes in cryptocurrency markets. This methodology seeks to ascertain whether the trade size distributions have fat tails, a characteristic exhibited by power law distributions often observed in traditional financial markets and other economic settings. By determining the values of the exponent α in the fitted results within the Pareto–Lévy range, analysts can glean insights into market behavior and potential manipulation.
+[Power Law](https://en.wikipedia.org/wiki/Power_law) Fitting explores the distributions of observed trade sizes in cryptocurrency markets. This methodology seeks to ascertain whether the trade size distributions have fat tails, a characteristic exhibited by power law distributions often observed in traditional financial markets and other economic settings. By determining the values of the exponent α in the fitted results within the Pareto–Lévy range, analysts can glean insights into market behavior and potential manipulation.
 
 ### **Theory:**
 In economic systems, a power law distribution indicates the presence of extreme events or values, such as massive trades in financial markets. Power law fitting helps in identifying these extreme events and understanding their frequency and impact.
@@ -11,9 +15,11 @@ In economic systems, a power law distribution indicates the presence of extreme 
 ### **Mathematical Background:**
 The Power Law is expressed mathematically as:
 
-\[ P(x) \propto x^{-\alpha} \]
+{{< katex display >}}
+P(x) \propto x^{-\alpha}
+{{< katex >}}
 
-Where \( \alpha \) is the exponent that often falls within the Pareto–Lévy range in the context of trade size distributions.
+Where _α_ is the exponent that often falls within the Pareto–Lévy range in the context of trade size distributions.
 
 ### **Crypto Context:**
 In cryptocurrency trading, Power Law Fitting assists in the identification and analysis of trade size distributions. The analysis of metrics such as kurtosis, mean, median, mode, skewness, and standard deviation aids in understanding the nature of the trade size distributions and detecting anomalies or manipulative activities.

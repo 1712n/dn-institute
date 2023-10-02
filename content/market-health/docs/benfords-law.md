@@ -1,6 +1,10 @@
-## Benford's Law Documentation
-
 ---
+title: "Benford's Law"
+navShowPages: true
+weight: 30
+---
+
+## Benford's Law Documentation
 
 ### **General Description:**
 Benford’s Law, or the First-Digit Law, is a principle used to evaluate the first digit distribution in sets of numerical data. In cryptocurrency markets, this law assists in detecting anomalies or potential market manipulation by analyzing the frequency distribution of leading digits in datasets, such as trading volumes or price values.
@@ -9,25 +13,16 @@ Benford’s Law, or the First-Digit Law, is a principle used to evaluate the fir
 Benford's Law asserts that in many naturally occurring datasets, the first digit is likely to be small. For example, the number 1 appears as the leading digit about 30% of the time, while 9 appears as the leading digit less than 5% of the time. A significant deviation from this distribution may signal fraudulent activities or manipulation in the market.
 
 ### **Mathematical Background:**
-The probability that the leading digit \(d\) (d in {1,...,9}) in a dataset is given by:
+The probability that the leading digit _d_ (d in {1,...,9}) in a dataset is given by:
 
-\[ P(d) = \log_{10}(d + 1) - \log_{10}(d) \]
-
-\[ P(d) = \log_{10}\left(\frac{d+1}{d}\right) \]
-
-Thus, \(P(1) \approx 0.301\) (or 30.1%).
-
-{{</* katex [display] [class="text-center"] */>}}
-
+{{< katex display >}}
 P(d) = \log_{10}(d + 1) - \log_{10}(d)
 P(d) = \log_{10}\left(\frac{d+1}{d}\right)
-{{</* /katex */>}}
+{{< /katex >}}
 
-P(1) \approx 0.301 
-
-{{</* katex [display] [class="text-center"] */>}}
-f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
-{{</* /katex */>}}
+{{< katex display >}}
+Thus, P(1) \approx 0.301 
+{{< /katex >}}
 
 ### **Crypto Context:**
 In the context of cryptocurrency trading, adherence to Benford's Law can be used to scrutinize trading data for inconsistencies or abnormalities. Non-conformity to the expected digit distribution could suggest manipulation, such as wash trading or pump and dump schemes, warranting further investigation.

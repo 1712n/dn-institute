@@ -1,12 +1,19 @@
-## Time-of-Trade Documentation
-
 ---
+title: "Time-of-Trade Analysis"
+navShowPages: true
+weight: 50
+---
+
+## Time-of-Trade Documentation
 
 ### **General Description:**
 Time-of-Trade is a critical tool used in the analysis of trading data, especially in the context of cryptocurrency markets. It works by identifying abnormal accumulations of scheduled trades executed simultaneously within the same minute or second. The presence of such accumulation can be indicative of bot activity, which may be associated with wash trading or other manipulative trading practices.
 
 ### **Theory:**
 High-frequency trading, algorithmic trading, and the use of trading bots have become common in various markets, including cryptocurrency trading. While these technologies have legitimate uses, they can also be employed for market manipulation. Detecting unusual patterns, such as a high volume of trades at the same time, can help in identifying such manipulative activities.
+
+### **Mathematical Background:**
+This method uses statistics to study trade distribution over set time periods. Unexpected high counts in a time slot, compared to what we think should normally happen, lead to more investigation. In simple terms, if the number of trades in a time slot is much different from what's expected, it's a sign that something unusual is happening.
 
 ### **Crypto Context:**
 In cryptocurrency markets, where regulations might be less stringent, identifying abnormal trading patterns is vital for maintaining market integrity. Time-of-Trade analysis assists in detecting possible manipulative activities by tracking trade timings.
@@ -25,7 +32,6 @@ Utilize graphs or heat maps to visualize the distribution of trades over time. A
 ### **References and Further Reading:**
 - [The impact of bot trading on stock markets](https://voxeu.org/article/impact-bot-trading-stock-markets)
 - [High-Frequency Trading and Its Impact on Markets](https://www.cfr.org/backgrounder/high-frequency-trading-and-its-impact-markets)
-- [Algorithmic and High-frequency trading: an overview](https://arxiv.org/abs/1904.06278)
 
 ---
 
