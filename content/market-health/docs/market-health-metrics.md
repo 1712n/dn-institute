@@ -1,12 +1,12 @@
 ---
-title: Market health metrics
+title: MH metrics API Documentation
 bookToc: true
 weight: 10
 ---
 
 ## Market Health Metrics Documentation
 
-This documentation provides a guide on how to use and interpret market surveillance statistical metrics from the DNI [free API](https://rapidapi.com/DNInstitute/api/crypto-market-health) to identify anomalies and manipulations on cryptocurrency exchanges. Feel free to sumbit your analytical articles based on the API data here!
+This documentation provides a guide on how to use and interpret market surveillance statistical metrics from the DNI [free API](https://rapidapi.com/DNInstitute/api/crypto-market-health) to identify anomalies and manipulations on cryptocurrency exchanges. Feel free to open a pull request with your analytical article based on the API data [here](https://github.com/1712n/dn-institute/tree/main/content/market-health/posts)!
 
 Indicator | Description | API metric
 -- | -- | --
