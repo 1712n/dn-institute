@@ -22,8 +22,9 @@ The mathematical computation for volume-volatility correlation can be conducted 
 {{< /katex >}}
 
 Where:
+
 - _ρ_(_X,Y_)is the Pearson correlation coefficient between X (Volume) and Y (Volatility)
-- _cov_(X,Y)  is the covariance between X and Y
+- _cov_(X,Y) is the covariance between X and Y
 - _σX_ and _σY_ are the standard deviations of X and Y respectively
 
 ## Crypto Context

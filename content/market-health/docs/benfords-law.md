@@ -17,12 +17,12 @@ Benford's Law asserts that in many naturally occurring datasets, the first digit
 The probability that the leading digit _d_ (d in {1,...,9}) in a dataset is given by:
 
 {{< katex display >}}
-P(d) = \log_{10}(d + 1) - \log_{10}(d)
-P(d) = \log_{10}\left(\frac{d+1}{d}\right)
+P(d) = \log*{10}(d + 1) - \log*{10}(d)
+P(d) = \log\_{10}\left(\frac{d+1}{d}\right)
 {{< /katex >}}
 
 {{< katex display >}}
-Thus, P(1) \approx 0.301 
+Thus, P(1) \approx 0.301
 {{< /katex >}}
 
 ## Crypto Context
