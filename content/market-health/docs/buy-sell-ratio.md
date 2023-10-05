@@ -7,15 +7,19 @@ weight: 60
 
 ## General Description
 
-The Buy/Sell Ratio is an important metric used in trading analysis for various markets, including cryptocurrencies. It calculates the proportion of buy to sell orders in a given time period to determine the market’s sentiment and to detect any possible automated or manipulated trading.
+The Buy/Sell Ratio is an important metric used in trading analysis for various markets, including cryptocurrencies. It calculates the proportion of buy to sell orders in a given time period to determine the market’s sentiment. A balanced market generally observes a buy/sell ratio around 0.5, representing equivalent buy and sell activity. Ratios significantly deviating from 0.5 time can hint at a market bias towards buying or selling, which may be caused by various factors, including automated trading systems that attempt to manipulate the market.
 
-## Theory
+## Formula
 
-A balanced market generally observes a buy/sell ratio around 0.5, representing equivalent buy and sell activity. Ratios significantly deviating from 0.5 can hint at a market bias towards buying or selling, which may be caused by various factors, including automated trading systems that attempt to manipulate the market.
+```math
+buy sell ratio = {n/m}, 
+```
+where $n$ is $count(trade_{id}$ if $side_{id}=buy)$, $m$ is $count(trade_{id})$
+
 
 ## Crypto Context
 
-In cryptocurrency markets, where large volumes of trades are executed continuously, monitoring the Buy/Sell Ratio is crucial. Rapid fluctuations in this ratio can be indicative of automated trading systems operating to influence the market.
+In cryptocurrency markets, where large volumes of trades are executed continuously, monitoring the Buy/Sell Ratio is crucial. Depending on the market context, both irregular and steady fluctuations in this ratio can be indicative of automated trading systems operating to influence the market.
 
 ## Usage Examples
 
@@ -28,6 +32,7 @@ Consider the API metric:
 - A Buy/Sell Ratio significantly higher than 0.5 suggests a market bias towards buying. Such a scenario could lead to a price increase.
 - A Buy/Sell Ratio significantly lower than 0.5 indicates a market bias towards selling, possibly leading to a price decrease.
 - The example value of `0.367` suggests a moderate bias towards selling. It is crucial to observe this over time to ascertain if this is a consistent pattern or a brief occurrence.
+- Use cross-exchange analysis to spot opposite Buy/Sell Ratio deviations of the same trading pair on different market venues.
 
 ## Visuals
 
