@@ -15,7 +15,7 @@ Trading volumes generally increase when market volatility rises, signaling healt
 
 ## Mathematical Background
 
-The mathematical computation for volume-volatility correlation can be conducted using Pearson's correlation coefficient formula. The result is a value between -1 and 1. A value near 1 indicates a strong positive correlation, whereas a value near -1 indicates a potential market manipulation.
+The mathematical computation for volume-volatility correlation can be conducted using Pearson's correlation coefficient formula. The result is a value between -1 and 1.
 
 {{< katex display >}}
 \rho(X,Y) = \frac{cov(X,Y)}{\sigma_X \sigma_Y}
@@ -29,13 +29,13 @@ Where:
 
 ## Crypto Context
 
-In the world of cryptocurrency trading, the Volume-Volatility Correlation metric is essential for monitoring market behavior. With the inherent volatility of cryptocurrency markets, observing and interpreting this metric helps traders and analysts identify abnormal trading patterns and potential manipulative activities.
+In the world of cryptocurrency trading, the Volume-Volatility Correlation metric is essential for monitoring market behavior. This indicator was integrated into various Crypto Exchnage Benchmarking [reports](https://cointelegraph.com/news/cryptocompare-launches-exchange-benchmark-in-response-to-concerns-over-false-volume-reporting). According to the industry background, those exchanges that steadily show Volume-Volatility correlation less than 0.4 are considered as market venues with potentialled inflated volume. 
 
 ## Usage Examples
 
 Consider the following data sample for the Volume-Volatility Correlation:
 
-**Example Value: `0.52781`**
+**Example Value: `0.72781`**
 
 This moderate positive correlation value suggests normal market behavior, as trading volumes are moderately correlated with market volatility. Anomalies or potential manipulations may be suspected if this value were significantly lower or even negative.
 
@@ -45,4 +45,5 @@ Incorporate graphs displaying the correlation between trading volume and volatil
 
 ## References and Further Reading
 
-- [Measuring Statistical Dependence with Hilbert-Schmidt Norms](https://arxiv.org/abs/0809.1003)
+- [Price-volume Correlation Analysis of Crypto Markets](https://hacken.io/discover/price-volume-correlation-analysis-of-the-crypto-market/)
+
