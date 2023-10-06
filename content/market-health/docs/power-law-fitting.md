@@ -1,5 +1,5 @@
 ---
-title: "Power Law Fitting"
+title: "Volume distribution analysis"
 navShowPages: true
 bookToc: true
 weight: 40
@@ -7,13 +7,9 @@ weight: 40
 
 ## General Description
 
-[Power Law](https://en.wikipedia.org/wiki/Power_law) Fitting explores the distributions of observed trade sizes in cryptocurrency markets. This methodology seeks to ascertain whether the trade size distributions have fat tails, a characteristic exhibited by power law distributions often observed in traditional financial markets and other economic settings. By determining the values of the exponent α in the fitted results within the Pareto–Lévy range, analysts can glean insights into market behavior and potential manipulation.
+The trade size distribution is a straightforward way to visually represent the sizes of executed transactions and the number of occurences in a histogram. To gain insights into these distributions and identify any unusual or manipulative activities, various statistical metrics like kurtosis, mean, median, mode, skewness, and standard deviation are analyzed.
 
-## Theory
-
-In economic systems, a power law distribution indicates the presence of extreme events or values, such as massive trades in financial markets. Power law fitting helps in identifying these extreme events and understanding their frequency and impact.
-
-## Mathematical Background
+Another approach involves using the [power law](https://en.wikipedia.org/wiki/Power_law) to describe a phenomenon where a small number of items are concentrated at the top of a distribution. In simpler terms, this suggests that medium to small retail transactions are frequent, while large "whale" orders are rare. 
 
 The Power Law is expressed mathematically as:
 
@@ -23,9 +19,11 @@ P(x) \propto x^{-\alpha}
 
 Where _α_ is the exponent that often falls within the Pareto–Lévy range in the context of trade size distributions.
 
+The power law fitting aims to determine whether trade size distributions exhibit fat tails, a characteristic often observed in traditional financial markets and described by power law distributions.
+
 ## Crypto Context
 
-In cryptocurrency trading, Power Law Fitting assists in the identification and analysis of trade size distributions. The analysis of metrics such as kurtosis, mean, median, mode, skewness, and standard deviation aids in understanding the nature of the trade size distributions and detecting anomalies or manipulative activities.
+In cases of potential wash trading, certain trading patterns, such as an unusually high volume of trades, may occur more frequently than expected according to the power law distribution. Analysts can identify possible manipulative trading practices by detecting deviations from the anticipated trading patterns outlined by the power law.
 
 ## Usage Examples
 
@@ -36,6 +34,7 @@ Consider the API metrics:
 - `volume_distribution_skewness`: A value of `1.02254` indicates a moderate positive skewness, meaning more small trades than large ones, but the large trades can be very large.
 - `volume_distribution_mode`: A value of `0.39749` highlights that the most frequent trade sizes are relatively small.
 - `volume_distribution_std`: A value of `0.31331` implies a moderate level of dispersion around the mean trade size, emphasizing the impact of the fat tails on the overall distribution.
+- `volume_distribution`: The provided data structure will help building the histogram and conducting the visual analysis. 
 
 ## Visuals
 

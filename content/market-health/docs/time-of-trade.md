@@ -29,11 +29,11 @@ Consider the API metric:
 
 ## How to Interpret
 
-Upon observing an unusually large count in a specific time slot, it is essential to carry out a more in-depth analysis on broader time windows. Determining whether this spike is an outlier or part of a consistent pattern can offer insights into potential bot activity and other market manipulation tactics.
+Upon observing an unusually large count in a specific time slot, it is essential to carry out a more in-depth analysis on broader time windows. Determining whether this spike is an outlier or part of a consistent pattern can offer insights into potential bot activity and other sell-off tactics.
 
 ## Visuals
 
-Utilize graphs or heat maps to visualize the distribution of trades over time. A clear and sudden spike at a specific time slot, shown graphically, can easily highlight potential areas of concern.
+Utilize graphs or heat maps to visualize the distribution of trades over time. A clear and consistent spikes at a specific time slot, shown graphically, can easily highlight potential areas of concern.
 
 ## References and Further Reading
 
