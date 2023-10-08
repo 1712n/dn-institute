@@ -4,7 +4,7 @@ import re
 import requests
 
 from client.login import login
-from client.schemas import HomeTimelineRequest, HomeTimelineResponse
+from client.schemas import HomeTimelineResponse
 
 PATH = {
     "HomeTimeline": '/i/api/graphql/{}/HomeTimeline',
@@ -33,10 +33,12 @@ def build_uri(name: str, ssl: bool = True, params=None):
 
 
 class TwitterSession:
+    _api_link: str
     _token: str
     _session: requests.Session
 
-    def __init__(self, token: str, session: requests.Session):
+    def __init__(self, api_link: str, token: str, session: requests.Session):
+        self._api_link = api_link
         self._token = token
         self._session = session
 
@@ -82,8 +84,13 @@ class TwitterSession:
                         '"responsive_web_media_download_video_enabled": false, '
                         '"responsive_web_enhance_cards_enabled": false} '
         }
+        resp = self._session.get(self._api_link)
+        search_results = re.search('''queryId:\"([0-9a-zA-Z-]+)\",operationName:\"HomeTimeline\",''', resp.text)
+        if not search_results:
+            raise Exception('Cant find HomeTimeline method')
+        home_timeline_method = search_results.group(1)
         resp = self._session.get(
-            build_uri("HomeTimeline", params=params).replace('{}', '-8TWbLqVU1ROq-eeErVc2w'),
+            build_uri("HomeTimeline", params=params).replace('{}', home_timeline_method),
             headers=headers
         )
         if resp.status_code != 200:
@@ -106,7 +113,16 @@ class TwitterCredentials:
         self._password = password
 
     def auth(self) -> TwitterSession:
-        resp = requests.get('https://abs.twimg.com/responsive-web/client-web/main.d71402aa.js')
+        resp = requests.get('https://twitter.com/home')
+        search_results = re.search('\"https://abs\.twimg\.com/responsive-web/client-web-legacy/main\.[a-z0-9]{8}\.js\"', resp.text)
+        if not search_results:
+            raise Exception('Cant find main.js')
+        main_js_link = search_results.group().replace('"', '')
+        search_results = re.search('api:\"([0-9a-z]{7})\"', resp.text)
+        if not search_results:
+            raise Exception('Cant find code of api.XXXXXXX.js')
+        api_js_link = f"https://abs.twimg.com/responsive-web/client-web-legacy/api.{search_results.group(1)}a.js"
+        resp = requests.get(main_js_link)
         search_results = re.search('\"Bearer ([a-zA-Z%0-9]+)\"', resp.text)
         if not search_results:
             raise Exception('Cant find Bearer token')
@@ -119,4 +135,4 @@ class TwitterCredentials:
             self._username,
             self._password,
             bearer_token)
-        return TwitterSession(bearer_token, session)
+        return TwitterSession(api_js_link, bearer_token, session)
