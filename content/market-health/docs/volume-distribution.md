@@ -29,12 +29,12 @@ In cases of potential wash trading, certain trading patterns, such as an unusual
 
 Consider the API metrics:
 
+- `volume_distribution`: The provided data structure will help building the histogram and conducting the visual analysis. 
 - `volume_distribution_kurtosis`: A value of `3.58703` signals a heavy-tailed distribution, indicating a higher likelihood of extreme values.
 - `volume_distribution_mean`: A value of `0.38137`, being less than the `volume_distribution_median` of `0.64753`, points to a right-skewed distribution.
 - `volume_distribution_skewness`: A value of `1.02254` indicates a moderate positive skewness, meaning more small trades than large ones, but the large trades can be very large.
 - `volume_distribution_mode`: A value of `0.39749` highlights that the most frequent trade sizes are relatively small.
 - `volume_distribution_std`: A value of `0.31331` implies a moderate level of dispersion around the mean trade size, emphasizing the impact of the fat tails on the overall distribution.
-- `volume_distribution`: The provided data structure will help building the histogram and conducting the visual analysis. 
 
 ## Visuals
 

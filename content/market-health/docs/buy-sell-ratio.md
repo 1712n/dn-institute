@@ -7,17 +7,20 @@ weight: 60
 
 ## General Description
 
-The Buy/Sell Ratio is an important metric used in trading analysis for various markets, including cryptocurrencies. It calculates the proportion of buy to sell orders in a given time period to determine the market’s sentiment. A balanced market generally observes a buy/sell ratio around 0.4-0.6, representing equivalent buy and sell activity. 
+The Buy/Sell Ratio is an important metric used in trading analysis for various markets, including cryptocurrencies. It calculates the proportion of buy to sell orders in a given time period to determine the market’s sentiment. A balanced market generally observes a buy/sell ratio around 0.4-0.6, representing equivalent buy and sell activity.
 
-Ratios significantly deviating from equilibrium time can hint at a market bias towards buying or selling, which may be caused by various factors, including automated trading systems that attempt to manipulate the market. However, an absence of any fluctuation of this metric and steady 0.5 value even for liquid market pairs is suspecious. 
+Ratios significantly deviating from equilibrium time can hint at a market bias towards buying or selling, which may be caused by various factors, including automated trading systems that attempt to manipulate the market. However, an absence of any fluctuation of this metric and steady 0.5 value even for liquid market pairs is suspecious.
 
 ## Formula
 
-```math
-buy sell ratio = {n/m}, 
-```
-where $n$ is $count(trade_{id}$ if $side_{id}=buy)$, $m$ is $count(trade_{id})$
+{{< katex display >}}
+{buy/sell~ratio} = \frac{n}{m},
+{{< /katex >}}
 
+where
+{{< katex display >}}
+n = \sum(volume_{id}) \text{ if } side_{id} = \text{buy}, m = \sum(volume_{id})
+{{< /katex >}}
 
 ## Crypto Context
 
