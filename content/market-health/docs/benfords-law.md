@@ -13,16 +13,32 @@ It is frequently employed in [accounting as a forensic tool](https://www.aabri.c
 
 ## Mathematical Background
 
-The probability that the leading digit _d_ (d in {1,...,9}) in a dataset is given by:
+The following formula can be used to calculate the expected frequency of a given leading digit d in a data set that follows Benford's law:
 
 {{< katex display >}}
-P(d) = \log*{10}(d + 1) - \log*{10}(d)
-P(d) = \log\_{10}\left(\frac{d+1}{d}\right)
+P(d) = \log_{10} \left( 1 + \frac{1}{d} \right)
 {{< /katex >}}
+where _P(d)_ is the probability that the leading digit of a number in the data set will be _d_.
+
+For example, to calculate the expected frequency of the leading digit 1, we would substitute _d=1_ into the formula:
 
 {{< katex display >}}
-Thus, P(1) \approx 0.301
+P(1) = \log_{10} \left( 1 + \frac{1}{1} \right) = \log_{10} (2) = 0.301
 {{< /katex >}}
+
+This means that we expect the leading digit 1 to appear in about 30% of the numbers in a data set that follows Benford's law. This formula can be used to generate a table of the expected frequencies of the leading digits in a data set that follows Benford's law:
+
+Leading digit | Expected frequency
+------- | --------
+1 | 0.301
+2 | 0.176
+3 | 0.125
+4 | 0.097
+5 | 0.079
+6 | 0.067
+7 | 0.058
+8 | 0.051
+9 | 0.046
 
 ## Crypto Context
 
@@ -42,4 +58,4 @@ Visual aids, such as a bar graph representing the expected and actual frequency 
 
 - [Testing Benford's Law](https://testingbenfordslaw.com/)
 - [Benford’s Law and The Detection of Election Fraud](https://www.cambridge.org/core/journals/political-analysis/article/abs/benfords-law-and-the-detection-of-election-fraud/3B1D64E822371C461AF3C61CE91AAF6D)
-- [Crypto Wash Trading by LW Cong et al. (2021)] (https://arxiv.org/pdf/2108.10984.pdf)
+- [Crypto Wash Trading by LW Cong et al. (2021)](https://arxiv.org/pdf/2108.10984.pdf)
