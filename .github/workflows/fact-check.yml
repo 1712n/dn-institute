@@ -24,7 +24,7 @@ jobs:
 
   fact-check:
     runs-on: ubuntu-latest
-    name: "Verify statements in content diff for truthness"
+    name: "Checks different aspects of the content diff and facts"
     needs: [permission-check-job]
     if: needs.permission-check-job.outputs.permission == 'true'
     steps:
