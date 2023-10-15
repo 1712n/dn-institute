@@ -113,3 +113,4 @@ class TweetModel(BaseModel):
         FeatureCollection
         ] = None  # not required
     source: SourceModel = Field()
+    schema_version: str = Field()

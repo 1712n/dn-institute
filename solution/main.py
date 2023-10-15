@@ -1,15 +1,18 @@
 import calendar
 import os
 from datetime import datetime
+from typing import Optional, Any, Set, Mapping
 from urllib.parse import urlparse
 from uuid import uuid4
 
 from bson import Binary, UuidRepresentation
 from dotenv import dotenv_values
 from pymongo import MongoClient
+from pymongo.database import Database
+from pymongo.errors import BulkWriteError, ConnectionFailure
 
 from client import TwitterCredentials
-from client.schemas import EntryContract, MediaItemContract
+from client.schemas import EntryContract, MediaItemContract, HomeTimelineResponse
 from models import TweetModel, MessageModel, MediaItemModel, UserModel, SourceModel, ChannelModel, ReferencedPostModel, \
     Polygon
 
@@ -121,17 +124,30 @@ def map_home_timeline_entry_to_tweet_model(entry: EntryContract):
         message=message,
         user=user,
         geo_coords=geo_coords,
-        source=source
+        source=source,
+        schema_version='1'
     ).model_dump()
 
 
-if __name__ == '__main__':
-    mongodb_client = MongoClient(config["ATLAS_URI"], uuidRepresentation='standard')
-    database = mongodb_client[config["DB_NAME"]]
-    print("Connected to the MongoDB database!")
-    response = TwitterCredentials(config["TWITTER_EMAIL"], config["TWITTER_USERNAME"], config["TWITTER_PASSWORD"]) \
-        .auth().get_home_timeline()
-    tweets = list(
+def connect_to_database() -> Optional[Database[Mapping[str, Any]]]:
+    try:
+        mongodb_client = MongoClient(config["ATLAS_URI"], uuidRepresentation='standard')
+    except ConnectionFailure as error:
+        print(f"Could not connect to server: {error}")
+        return None
+    return mongodb_client[config["DB_NAME"]]
+
+def get_response() -> Optional[HomeTimelineResponse]:
+    try:
+        return TwitterCredentials(config["TWITTER_EMAIL"], config["TWITTER_USERNAME"], config["TWITTER_PASSWORD"]) \
+            .auth().get_home_timeline()
+    except Exception as exception:
+        print(exception)
+        return None
+
+
+def home_timeline_to_database_tweets(home_timeline_response: HomeTimelineResponse) -> list[dict[str, Any]]:
+    return list(
         map(
             map_home_timeline_entry_to_tweet_model,
             filter(
@@ -141,9 +157,54 @@ if __name__ == '__main__':
                           x.content.item_content.tweet_results is not None and
                           x.content.item_content.tweet_results.result is not None and
                           x.content.item_content.tweet_results.result.legacy is not None,
-                response.data.home.home_timeline_urt.instructions[0].entries
+                home_timeline_response.data.home.home_timeline_urt.instructions[0].entries
             )
         )
     )
-    database["twitter_test"].insert_many(tweets)
-    print('Scraped')
+
+
+def get_existing_message_ids(tweets_list: list[dict[str, Any]]) -> Set[str]:
+    try:
+        cursor = database["twitter_test"].find(
+            {
+                'message.id': {
+                    "$in": list(map(lambda x: x['message']['id'], tweets_list))
+                }
+            },
+            {
+                "_id": 0,
+                "message.id": 1
+            }
+        )
+        return set(map(lambda x: x['message']['id'], list(cursor)))
+    except TypeError as error:
+        print(f'Error on fetching existing tweets: {error}')
+
+
+if __name__ == '__main__':
+    database = connect_to_database()
+    if database is not None:
+        print("Connected to the MongoDB database!")
+
+        response = get_response()
+        if response is not None:
+            tweets = home_timeline_to_database_tweets(response)
+            existing_ids = get_existing_message_ids(tweets)
+            print(f'{len(existing_ids)} tweets is already exists')
+            tweets = list(
+                filter(
+                    lambda x: x['message']['id'] not in existing_ids,
+                    tweets
+                )
+            )
+            print(f'Skipping tweets with ids: {existing_ids}')
+            try:
+                database["twitter_test"].insert_many(tweets, ordered=False)
+            except BulkWriteError as err:
+                print(f'Error on inserting tweets: {err}')
+            print('Scraped')
+        else:
+            print('Response is None')
+            print('NOT Scraped')
+    else:
+        print('NOT Scraped')
