@@ -10,6 +10,7 @@ attack-types:
   - Smart Contract Exploit
   - Flash Loan Attack
 title: "Alpha Finance suffered a Flash Loan Attack: $37.5 Million Exploited"
+loss: 37500000
 ---
 
 ## Summary

@@ -4,6 +4,7 @@ target-entities: Bitcoin Gold
 entity-types: Blockchain
 attack-types: 51%
 title: BTG users lose millions in a 51% attack
+loss: 18000000
 ---
 
 ## Summary
