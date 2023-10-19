@@ -9,6 +9,7 @@ attack-types:
   - Smart Contract Exploit
   - Reentrancy Attack
 title: "Reentrancy Attack on Orion Protocol Leads to $3 Million Loss"
+loss: 3000000
 ---
 
 ## Summary

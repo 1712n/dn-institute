@@ -6,6 +6,7 @@ entity-types:
   - Yield Aggregator
 attack-types: Flash Loan Attack
 title: "Beanstalk Farms Lost $182 Million Due To The Governance Mechanism"
+loss: 182000000
 ---
 
 ## Summary

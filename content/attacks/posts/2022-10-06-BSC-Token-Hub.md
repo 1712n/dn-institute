@@ -8,6 +8,7 @@ entity-types:
   - Bridge
 attack-types: Signature Verification Issue
 title: "BSC Token Hub Hit By $586 Million Bridge Hack"
+loss: 127000000
 ---
 
 ## Summary

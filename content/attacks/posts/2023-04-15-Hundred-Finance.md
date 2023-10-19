@@ -9,6 +9,7 @@ attack-types:
   - Smart Contract Exploit
   - Flash Loan Attack
 title: "Hundred Finance Hacked for $6.8 Million"
+loss: 6800000
 ---
 
 ## Summary
