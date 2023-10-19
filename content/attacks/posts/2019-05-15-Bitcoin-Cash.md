@@ -4,6 +4,7 @@ target-entities: Bitcoin Cash
 entity-types: Blockchain
 attack-types: 51%
 title: "Bitcoin Cash Users Survive 51% Attack"
+loss: unknown
 ---
 
 ## Summary

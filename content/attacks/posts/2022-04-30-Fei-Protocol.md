@@ -11,6 +11,7 @@ attack-types:
   - Smart Contract Exploit
   - Reentrancy Attack
 title: "Fei Protocol Hack: $80 Million Stolen in Reentrancy Attack"
+loss: 80000000
 ---
 
 ## Summary

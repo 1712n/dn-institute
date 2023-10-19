@@ -8,6 +8,7 @@ entity-types:
 attack-types:
   - Price Oracle Manipulation
 title: "Mango Markets Exploited for $116 Million"
+loss: 116000000
 ---
 
 ## Summary

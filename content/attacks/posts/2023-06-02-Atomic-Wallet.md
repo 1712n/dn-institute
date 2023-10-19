@@ -10,6 +10,7 @@ tags:
   - North Korea
   - Lazarus Group
 title: "Atomic Wallet Suffers Over $100 Million Security Breach"
+loss: 100000000
 ---
 
 ## Summary

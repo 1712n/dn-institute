@@ -9,6 +9,7 @@ attack-types:
   - Smart Contract Exploit
   - Flash Loan Attack
 title: "Allbridge suffered a flash loan attack for $573k"
+loss: 573000
 ---
 
 ## Summary

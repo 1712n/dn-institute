@@ -8,6 +8,7 @@ attack-types:
   - Phishing
   - Wallet Hack
 title: LocalBitcoins suffers a security breach, resulting in the loss of 17 BTC
+loss: 3850
 ---
 
 ## Summary

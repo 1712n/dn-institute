@@ -4,6 +4,7 @@ target-entities: Ethereum Classic
 entity-types: Blockchain
 attack-types: 51%
 title: Ethereum Classic suffers three consecutive 51% attacks
+loss: 9000000
 ---
 
 ## Summary
