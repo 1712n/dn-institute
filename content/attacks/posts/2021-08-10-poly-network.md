@@ -6,6 +6,7 @@ entity-types:
   - Bridge
 attack-types: Smart Contract Exploit
 title: "Poly Network Hack - $610 Million Stolen in 2021"
+loss: 610000000
 ---
 
 ## Summary

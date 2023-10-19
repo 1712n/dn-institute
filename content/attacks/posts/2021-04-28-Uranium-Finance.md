@@ -8,6 +8,7 @@ entity-types:
 attack-types:
   - Smart Contract Exploit
 title: "Uranium Finance Exploit Resulting in a $57.2 Million Loss"
+loss: 57200000
 ---
 
 ## Summary

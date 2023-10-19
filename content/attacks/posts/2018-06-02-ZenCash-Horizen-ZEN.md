@@ -4,6 +4,7 @@ target-entities: Horizen
 entity-types: Blockchain
 attack-types: 51%
 title: "ZenCash (now Horizen) Suffers a 51% Attack Resulting in Significant Losses"
+loss: 550000
 ---
 
 ## Summary

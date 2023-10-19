@@ -12,6 +12,7 @@ tags:
   - Lazarus Group
   - APT38
 title: "Harmony's Horizon Bridge was the victim of a massive cyberattack from North Korea"
+loss: 100000000
 ---
 
 ## Summary

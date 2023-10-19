@@ -6,6 +6,7 @@ entity-types:
   - Exchange
 attack-types: Wallet Hack
 title: "Coincheck Hack: A $530 Million NEM Theft Unveiling Centralized Exchange Vulnerabilities"
+loss: 530000000
 ---
 
 ## Summary

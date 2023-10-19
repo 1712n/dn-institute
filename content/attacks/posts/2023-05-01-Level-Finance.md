@@ -8,6 +8,7 @@ entity-types:
 attack-types:
   - Smart Contract Exploit
 title: "Level Finance Hacked for $1.1 Million in LVL Tokens"
+loss: 1100000
 ---
 
 ## Summary
