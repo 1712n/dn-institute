@@ -8,6 +8,7 @@ entity-types:
 attack-types:
   - Smart Contract Exploit
 title: "SushiSwap Drained of 1800 WETH Due to RouteProcessor2 Contract Vulnerability"
+loss: 3300000
 ---
 
 ## Summary

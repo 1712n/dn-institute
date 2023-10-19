@@ -6,6 +6,7 @@ entity-types:
   - Exchange
 attack-types: Wallet Hack
 title: "BitMart Exchange Suffers $196 Million Security Breach"
+loss: 196000000
 ---
 
 ## Summary

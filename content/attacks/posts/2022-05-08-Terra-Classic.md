@@ -4,6 +4,7 @@ target-entities: Terra
 entity-types: Blockchain
 attack-types: Bank Run
 title: "The Collapse of Terra Classic Network Resulting in a $40 Billion Loss"
+loss: 40000000000
 ---
 
 ## Summary

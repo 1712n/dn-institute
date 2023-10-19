@@ -6,6 +6,7 @@ entity-types:
   - Yield Aggregator
 attack-types: Flash Loan Attack
 title: "PancakeBunny suffers a flash loan attack for $40M+"
+loss: 40000000
 ---
 
 ## Summary

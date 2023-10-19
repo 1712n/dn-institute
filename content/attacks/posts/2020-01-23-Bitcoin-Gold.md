@@ -4,6 +4,7 @@ target-entities: Bitcoin Gold
 entity-types: Blockchain
 attack-types: 51%
 title: Bitcoin Gold suffers a 51% attack again
+loss: 70000
 ---
 
 ## Summary
