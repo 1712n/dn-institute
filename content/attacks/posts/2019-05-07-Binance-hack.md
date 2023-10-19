@@ -6,6 +6,7 @@ entity-types:
   - Exchange
 attack-types: Wallet Hack
 title: Binance Hack - Millions of Dollars Stolen in 2019
+loss: 40460000
 ---
 
 ## Summary
@@ -38,5 +39,3 @@ The Binance hack can be attributed to several security failure causes:
 - Lack of user awareness: Users falling victim to phishing attacks and not implementing proper security measures, such as enabling 2FA, contributed to the success of the hack.
 
 The Binance hack served as a reminder of the importance of robust security practices and user vigilance in the cryptocurrency industry.
-
----

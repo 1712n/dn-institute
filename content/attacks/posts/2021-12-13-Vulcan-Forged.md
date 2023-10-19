@@ -5,6 +5,7 @@ entity-types:
   - GameFi
 attack-types: Phishing
 title: "Vulcan Forged hacked for $140 million worth of PYR tokens"
+loss: 140000000
 ---
 
 ## Summary
@@ -24,7 +25,7 @@ This adresses [play main role](https://twitter.com/VulcanForged/status/147020609
 
 ## Timeline:
 
-Decrmber 13, 2021
+December 13, 2021
 
 - **Early in the day:** Vulcan Forged [announces](https://twitter.com/VulcanForged/status/1470201106626224140) on Twitter that 148 wallets holding PYR tokens have been compromised and over 4.5 million PYR has been stolen. The company assures they are taking steps to understand what happened.
 - **During the day:** Vulcan Forged announces that they have identified the wallet responsible for the theft, and shares the address. They also mention they have contacted all exchanges to blacklist this address, and there are indications that the wallet owner may have undergone KYC on an exchange they are now in contact with.

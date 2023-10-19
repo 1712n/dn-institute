@@ -6,6 +6,7 @@ entity-types:
   - Exchange
 attack-types: Wallet Hack
 title: "Africrypt Founders Vanished with $3.6 Billion in Bitcoin"
+loss: 3600000000
 ---
 
 ## Summary
@@ -18,7 +19,7 @@ The attackers remain unidentified. Ameer and Raees Cajee, the exchange's founder
 
 ## Losses
 
-[69,000 in Bitcoin](https://cryptobriefing.com/africrypt-founders-disappear-3-6-billion-btc/#:~:text=In%20one%20of%20the%20biggest%20crypto%20heists%20ever%2C,of%20the%20largest%20BTC%20thefts%20in%20crypto%20history.) which valued roughly $3.6 billion. The funds were reportedly moved through tumblers and mixers, making them hard to track. As of this report, no funds have been returned.
+[69,000 in Bitcoin](https://cryptobriefing.com/africrypt-founders-disappear-3-6-billion-btc) which valued roughly $3.6 billion. The funds were reportedly moved through tumblers and mixers, making them hard to track. As of this report, no funds have been returned.
 
 ## Timeline
 
