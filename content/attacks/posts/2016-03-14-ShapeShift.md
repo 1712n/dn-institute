@@ -12,7 +12,7 @@ loss: 230000
 
 ## Summary
 
-From March 14 to April 9, 2016, there were 3 hacks of the Swiss ShiftShape cryptoexchange.
+From March 14 to April 9, 2016, there were 3 hacks of the Swiss ShiftShape crypto exchange.
 The first hack was made by an employee of the exchange. Then he left a backdoor in the system and sold access to a hacker, who committed two more hacks.
 
 ## Attackers
@@ -20,7 +20,7 @@ The first hack was made by an employee of the exchange. Then he left a backdoor 
 Behind the attack was an exchange employee, his name has not been disclosed, and a hacker under the pseudonym Rovion
 
 Exchange employee wallet:
-- **BTC:** [1LchKFYxkugq3EPMoJJp5cvUyTyPMu1qBR](https://www.blockchain.com/ru/explorer/addresses/btc/1LchKFYxkugq3EPMoJJp5cvUyTyPMu1qBR)
+- **BTC:** [1LchKFYxkugq3EPMoJJp5cvUyTyPMu1qBR](https://www.blockchain.com/en/explorer/addresses/btc/1LchKFYxkugq3EPMoJJp5cvUyTyPMu1qBR)
 
 Hacker wallets:
 - **BTC:** [14Kt9i5MdQCKvjX6HS2hEevVgbPhK13SKD](https://www.blockchain.com/explorer/addresses/btc/14Kt9i5MdQCKvjX6HS2hEevVgbPhK13SKD)
