@@ -7,6 +7,7 @@ entity-types:
 attack-types:
   - Smart Contract Exploit
   - Flash Loan Attack
+  - Price Oracle Manipulation
 title: "Cream Finance Hack: $130 Million Stolen in Exploit"
 loss: 130000000
 ---
