@@ -12,6 +12,8 @@ from tools.utils import logging_decorator
 from tools.git import get_pull_request, get_diff_by_url, parse_diff
 from pylanguagetool import api
 from pylanguagetool import converters
+import openai
+import tiktoken
 
 data = {}
 
@@ -29,10 +31,26 @@ def parse_cli_args():
         "--github-token", dest="github_token", help="GitHub token", required=True
     )
 
+    parser.add_argument(
+    "--openai-key", dest="openai_key", help="OpenAI API key", required=True
+    )
+
     return parser.parse_args()
 
 
 args = parse_cli_args()
+
+openai.api_key = args.openai_key
+
+token_usage = {"prompt": 0, "completion": 0}
+
+config = {
+    "model": "gpt-4-0613",
+    "retry": 3,
+    "temperature": 0,
+    "max_tokens": 4000,
+    "search_size": 10,
+}
 
 def get_content(diff: list[dict]) -> int:
     """
@@ -107,8 +125,7 @@ def grammar_check(content):
 @logging_decorator("Comment on PR")
 def create_comment(
     pull_request,
-    matches: list,
-    count: int 
+    issues
 ) -> None:
     """
     Create a comment on a Github PR.
@@ -116,9 +133,8 @@ def create_comment(
 
     url = pull_request.diff_url
 
-    comment = f"{count} grammar issues were found in this [PR]({url}).\n\n"
-    for i in matches:
-        comment += i['context'] + "\n" + i['issue'] + "\n" + i['fix'] + "\n\n"
+    comment = f"Grammar issues found in this [PR]({url}):\n\n"
+    comment += issues
 
     print(comment)
 
@@ -135,8 +151,7 @@ def main():
     diff = parse_diff(_diff)
     content = get_content(diff)
 
-    data["matches"] = grammar_check(content)
-    data["count"] = len(data["matches"])
+    issues = grammar_check(content)
 
     # Creating actual comment with Grammar mistakes
-    create_comment(pr, **data)
+    create_comment(pr, issues)
