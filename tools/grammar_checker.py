@@ -6,7 +6,7 @@ Check Grammar mistakes in a Github PR and comment on the PR.
 
 __author__ = "Daniel Souza <me@posix.dev.br>"
 
-import os, argparse
+import os, argparse, time
 from github import Github, GithubException
 from tools.utils import logging_decorator
 from tools.git import get_pull_request, get_diff_by_url, parse_diff
@@ -32,7 +32,7 @@ def parse_cli_args():
     )
 
     parser.add_argument(
-    "--openai-key", dest="openai_key", help="OpenAI API key", required=True
+        "--openai-key", dest="openai_key", help="OpenAI API key", required=True
     )
 
     return parser.parse_args()
@@ -74,53 +74,47 @@ def get_content(diff: list[dict]) -> int:
 
     return content 
 
+def count_tokens(text):
+    encoding = tiktoken.encoding_for_model("gpt-4-0613")
+    return len(encoding.encode(text))
+
+
+def openai_call(
+    prompt: str,
+    model: str = config["model"],
+    retry: int = config["retry"],
+    temperature: float = config["temperature"],
+    max_tokens: int = config["max_tokens"],
+):
+    messages = [{"role": "user", "content": prompt}]
+    try:
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=messages,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            n=1,
+            stop=None,
+        )
+    except Exception as ex:
+        if retry == 0:
+            raise (ex)
+        print(ex)
+        print(f"Retry - {retry}, waiting 15 seconds")
+        time.sleep(15)
+        return openai_call(prompt, model, retry - 1)
+
+    ret = response.choices[0].message.content.strip()
+    token_usage["prompt"] += count_tokens(prompt)
+    token_usage["completion"] += count_tokens(ret)
+    return ret
+
 def grammar_check(content):
-    html_content = converters.markdown2html(content)
-    text = converters.html2text(html_content)
+    # call OpenAI
 
-    result = api.check(
-        text,
-        api_url="https://languagetool.org/api/v2/",
-        lang="en-US",
-    )
+    issues = ""
 
-    # Getting entities from custom dictionary
-    entities = []
-    dictionary = "tools/dictionary.txt"
-    if os.path.isfile(dictionary):
-        with open(dictionary) as file:
-            entities = file.readlines()
-            entities = [i[:-1] for i in entities]
-
-    matches = []
-
-    for item in result['matches']:
-        if len(item['replacements']) > 5: # Prevent infinity replacements
-            item['replacements'] = item['replacements'][:5]
-
-        context = item['context']
-        word = '`' + context['text'][context['offset']:context['offset']+context['length']] + '`'
-        replacements = ' | '.join([ '`' + i['value'] + '`' for i in item['replacements'] ])
-        issue = item['shortMessage'] if item['shortMessage'] != '' else item['message'] 
-        fix = 'Fix: ' + word
-        if replacements.strip() != '':
-            fix += ' to ' + replacements
-        
-        # Filter word from custom dictionary
-        known = word in entities and issue == 'Spelling mistake'
-        successive = issue == 'Three successive sentences begin with the same word.'
-        uppercase = word == 'date' and issue == 'This sentence does not start with an uppercase letter.'
-
-        if not known and not successive and not uppercase:
-            matches.append(
-                {
-                    'context': '`' + context['text'] + '`',
-                    'issue': 'Issue: '+ issue,
-                    'fix': fix
-                }
-            )
-
-    return matches
+    return issues
 
 @logging_decorator("Comment on PR")
 def create_comment(
@@ -141,6 +135,11 @@ def create_comment(
     # only post comment if running on Github
     if os.environ.get("GITHUB_ACTIONS") == "true":
         pull_request.create_issue_comment(comment)
+
+
+GRAMMAR_CHECKER = """
+
+"""
 
 
 def main():
