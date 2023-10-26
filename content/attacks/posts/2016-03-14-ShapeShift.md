@@ -14,8 +14,8 @@ loss: 230000
 
 ## Summary
 
-From March 14 to April 9, 2016, there were three hacks of the Swiss ShiftShape crypto exchange.
-The first hack was made by an employee of the exchange. Then he left a backdoor in the system and sold access to a hacker, who committed two more hacks.
+From March 14 to April 9, 2016, there were 3 hacks of the Swiss ShiftShape cryptocurrency exchange.
+The first theft of funds was committed by an employee of the exchange, who was responsible for security and infrastructure. Then he sold the hacker the source code of ShapeShift core, the IP address of the main server, an SSH key and installed a remote access program on another employee's computer. The hacker entered the main server with the provided SSH key and took the coins, since the main server had SSH access to the coins server. After creating a new infrastructure, the exchange was hacked again, the hacker used remote access to the computer and received new SSH keys.
 
 ## Attackers
 
