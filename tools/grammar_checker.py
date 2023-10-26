@@ -86,7 +86,10 @@ def openai_call(
     temperature: float = config["temperature"],
     max_tokens: int = config["max_tokens"],
 ):
-    messages = [{"role": "user", "content": prompt}]
+    messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+    messages.append({"role": "user", "content": USER_PROMPT})
+    messages.append({"role": "user", "content": prompt})
+
     try:
         response = openai.ChatCompletion.create(
             model=model,
@@ -105,14 +108,17 @@ def openai_call(
         return openai_call(prompt, model, retry - 1)
 
     ret = response.choices[0].message.content.strip()
-    token_usage["prompt"] += count_tokens(prompt)
+    token_usage["prompt"] += count_tokens(SYSTEM_PROMPT) + count_tokens(USER_PROMPT) + count_tokens(prompt)
     token_usage["completion"] += count_tokens(ret)
+
     return ret
 
 def grammar_check(content):
     # call OpenAI
 
-    issues = ""
+    issues = openai_call(content)
+
+    print("token_usage", token_usage)
 
     return issues
 
@@ -137,10 +143,19 @@ def create_comment(
         pull_request.create_issue_comment(comment)
 
 
-GRAMMAR_CHECKER = """
-
+SYSTEM_PROMPT = """
+Role: You are assistant that identifies grammar issues on provided articles
+Format: Format should be a list of grammar mistakes with markdown formatting
+Rules:
+- Double space should be considered as a Double Space Issue
+- Headers of the article should contain the following parameters: date,target-entities,entity-types,attack-types,title,loss;If any parameter is not presented, it should be considered as a Missing Header Issue
+Example: 
+- Spelling Mistake: Fix `sould` to `should` in *Summary* section
 """
 
+USER_PROMPT = """
+Task: Suggest grammar issues on provided MD formatted article:
+"""
 
 def main():
     github = Github(args.github_token)
