@@ -1,7 +1,9 @@
 ---
 date: 2016-03-14
 target-entities: ShapeShift
-entity-types: Exchange
+entity-types:
+  - Custodian
+  - Exchange
 attack-types:
   - Insider Attack
   - Infrastructure Attack
@@ -12,12 +14,12 @@ loss: 230000
 
 ## Summary
 
-From March 14 to April 9, 2016, there were 3 hacks of the Swiss ShiftShape crypto exchange.
+From March 14 to April 9, 2016, there were three hacks of the Swiss ShiftShape crypto exchange.
 The first hack was made by an employee of the exchange. Then he left a backdoor in the system and sold access to a hacker, who committed two more hacks.
 
 ## Attackers
 
-Behind the attack was an exchange employee, his name has not been disclosed, and a hacker under the pseudonym Rovion
+Behind the attack were an exchange employee, his name has not been disclosed, and a hacker under the pseudonym Rovion
 
 Exchange employee wallet:
 - **BTC:** [1LchKFYxkugq3EPMoJJp5cvUyTyPMu1qBR](https://www.blockchain.com/en/explorer/addresses/btc/1LchKFYxkugq3EPMoJJp5cvUyTyPMu1qBR)
@@ -45,5 +47,5 @@ ShapeShift lost approximately $230000:
 
 ## Security Failure Causes
 
-- **Insider fraud:** An exchange employee stole cryptocurrency and left a backdoor in the system.
+- **Insider fraud:** An exchange employee stole a cryptocurrency and left a backdoor in the system.
 - **Weak security practices:** The backdoor was not detected in time, which allowed 2 more hacks.
