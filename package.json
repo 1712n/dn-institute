@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/1712n/dn-institute/issues"
   },
-  "homepage": "https://github.com/1712n/dn-institute#readme"
+  "homepage": "https://github.com/1712n/dn-institute#readme",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "chart.js": "^4.4.0"
+  }
 }
