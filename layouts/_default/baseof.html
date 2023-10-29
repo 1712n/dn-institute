@@ -59,6 +59,9 @@
     </main>
 
     {{ partial "docs/inject/body" . }}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3/dist/chart.min.js"></script>
+    <script src="/js/crypto-market-health.js"></script>
   </body>
 </html>
 
@@ -97,3 +100,4 @@
 {{ define "toc" }}
   {{ partial "docs/toc" . }}
 {{ end }}
+
