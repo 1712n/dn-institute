@@ -15,7 +15,30 @@ from pylanguagetool import converters
 import openai
 import tiktoken
 
-data = {}
+TOKEN_LIMIT = 8191
+TOKEN_PENALTY = 500
+
+CONFIG = {
+    "model": "gpt-4-0613",
+    "retry": 3,
+    "temperature": 0,
+    "max_tokens": 4000,
+    "search_size": 10,
+}
+
+SYSTEM_PROMPT = """
+Role: You are assistant that identifies grammar issues on provided articles
+Format: Format should be a list of grammar mistakes with markdown formatting
+Rules:
+- Double space should be considered as a Double Space Issue
+- Headers of the article should contain the following parameters: date,target-entities,entity-types,attack-types,title,loss;If any parameter is not presented, it should be considered as a Missing Header Issue
+Example: 
+- Spelling Mistake: Fix `sould` to `should` in *Summary* section
+"""
+
+USER_PROMPT = """
+Task: Suggest grammar issues on provided MD formatted article:
+"""
 
 
 def parse_cli_args():
@@ -37,20 +60,6 @@ def parse_cli_args():
 
     return parser.parse_args()
 
-
-args = parse_cli_args()
-
-openai.api_key = args.openai_key
-
-token_usage = {"prompt": 0, "completion": 0}
-
-config = {
-    "model": "gpt-4-0613",
-    "retry": 3,
-    "temperature": 0,
-    "max_tokens": 4000,
-    "search_size": 10,
-}
 
 def get_content(diff: list[dict]) -> int:
     """
@@ -81,10 +90,10 @@ def count_tokens(text):
 
 def openai_call(
     prompt: str,
-    model: str = config["model"],
-    retry: int = config["retry"],
-    temperature: float = config["temperature"],
-    max_tokens: int = config["max_tokens"],
+    model: str = CONFIG["model"],
+    retry: int = CONFIG["retry"],
+    temperature: float = CONFIG["temperature"],
+    max_tokens: int = CONFIG["max_tokens"],
 ):
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
     messages.append({"role": "user", "content": USER_PROMPT})
@@ -108,15 +117,20 @@ def openai_call(
         return openai_call(prompt, model, retry - 1)
 
     ret = response.choices[0].message.content.strip()
-    token_usage["prompt"] += count_tokens(SYSTEM_PROMPT) + count_tokens(USER_PROMPT) + count_tokens(prompt)
-    token_usage["completion"] += count_tokens(ret)
 
     return ret
 
 def grammar_check(content):
-    # call OpenAI
+    token_usage = count_tokens(SYSTEM_PROMPT) + count_tokens(USER_PROMPT) + count_tokens(content)
 
-    issues = openai_call(content)
+    # If requested tokens exceeds token penalty, raise an error
+    if(TOKEN_LIMIT - token_usage > TOKEN_PENALTY):
+        issues = openai_call(content, max_tokens=TOKEN_LIMIT-token_usage)
+        token_usage += count_tokens(issues)
+    else:
+        print("Token Limit exceeded!")
+        print(f"Token Limit exceeded! {token_usage} tokens were requested while the token limit is {TOKEN_LIMIT}")
+        return ""
 
     print("token_usage", token_usage)
 
@@ -143,23 +157,15 @@ def create_comment(
         pull_request.create_issue_comment(comment)
 
 
-SYSTEM_PROMPT = """
-Role: You are assistant that identifies grammar issues on provided articles
-Format: Format should be a list of grammar mistakes with markdown formatting
-Rules:
-- Double space should be considered as a Double Space Issue
-- Headers of the article should contain the following parameters: date,target-entities,entity-types,attack-types,title,loss;If any parameter is not presented, it should be considered as a Missing Header Issue
-Example: 
-- Spelling Mistake: Fix `sould` to `should` in *Summary* section
-"""
 
-USER_PROMPT = """
-Task: Suggest grammar issues on provided MD formatted article:
-"""
 
 def main():
+    args = parse_cli_args()
+
     github = Github(args.github_token)
     pr = get_pull_request(github, args.pull_url)
+
+    openai.api_key = args.openai_key
 
     _diff = get_diff_by_url(pr)
     diff = parse_diff(_diff)
