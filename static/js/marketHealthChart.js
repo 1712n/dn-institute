@@ -1,59 +1,45 @@
 const chartConfig = {
-  type: "line",
+  type: 'line',
   data: {
-    labels: [], 
-    datasets: [
-      {
-        label: "Wash Trading",
-        data: [],
-        borderColor: "rgba(75, 192, 192, 1)",
-        fill: false,
-        pointBackgroundColor: "rgba(75, 192, 192, 1)",
-        pointBorderColor: "rgba(75, 192, 192, 1)"
+      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      datasets: [{
+          label: 'Wash Trading',
+          data: [], 
+          borderColor: 'rgba(75, 192, 192, 1)',
+          fill: false,
+          pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+          pointBorderColor: 'rgba(75, 192, 192, 1)'
       },
       {
-        label: "Front Running",
-        data: [],
-        borderColor: "rgba(153, 102, 255, 1)",
-        fill: false,
-        pointBackgroundColor: "rgba(153, 102, 255, 1)",
-        pointBorderColor: "rgba(153, 102, 255, 1)"
-      }
-    ]
+          label: 'Front Running',
+          data: [],
+          borderColor: 'rgba(153, 102, 255, 1)',
+          fill: false,
+          pointBackgroundColor: 'rgba(153, 102, 255, 1)',
+          pointBorderColor: 'rgba(153, 102, 255, 1)'
+      }]
   },
   options: {
-    responsive: false,
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [
-        {
-          type: "category",
-          distribution: "linear",
-          gridLines: {
-            display: false
-          },
-          ticks: {
-            callback: function (value) {
-              const date = new Date(value)
-              return `${date.getDate()}/${
-                date.getMonth() + 1
-              }/${date.getFullYear()}`
-            }
-          }
-        }
-      ],
-      yAxes: [
-        {
-          ticks: {
-            min: -10,
-            max: 50,
-            stepSize: 10
-          }
-        }
-      ]
-    }
+      responsive: false,
+      maintainAspectRatio: false,
+      scales: {
+          xAxes: [{
+              type: 'category',
+              distribution: 'linear',
+              gridLines: {
+                  display: false
+              }
+          }],
+          yAxes: [{
+              ticks: {
+                  min: -10,
+                  max: 50,
+                  stepSize: 10
+              }
+          }]
+      }
   }
-}
+};
 
 const ctx = document.getElementById("chartContainer").getContext("2d")
 const chart = new Chart(ctx, chartConfig) 
@@ -74,26 +60,19 @@ async function fetchData() {
   }
 
   try {
-    const response = await axios.request(apiOptions)
-    const dataArray = response.data.data
-    
-    const formattedDates = dataArray.map((item) => {
-      const date = new Date(item.timestamp)
-      return date.toLocaleDateString("pt-BR", {
-        day: "2-digit",
-        month: "2-digit"
-      })
-    })
+    const response = await axios.request(apiOptions);
+    const data = response.data.data;
 
-    chartConfig.data.labels = formattedDates
-    chartConfig.data.datasets[0].data = dataArray.map((item) =>
-      item.first_digit_distribution.reduce((a, b) => a + b, 0)
-    )
+    const washTradingData = data.map(item => parseFloat(item.volume_volatility_correlation));
+    const frontRunningData = data.map(item => parseFloat(item.buy_sell_count_ratio));
 
-    chart.update() 
-  } catch (error) {
-    console.error(error)
-  }
+    chartConfig.data.datasets[0].data = washTradingData;
+    chartConfig.data.datasets[1].data = frontRunningData;
+
+    chart.update(); // Atualiza o gráfico com os novos dados
+} catch (error) {
+    console.error(error);
+}
 }
 
 fetchData()
