@@ -1,16 +1,12 @@
 const fetchMetricsWithAxios = async () => {
-    //One week ago date
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-    const startDate = `${oneWeekAgo.toISOString().split('.')[0]}`;    
-
     const options = {
         method: 'GET',
         url: 'https://crypto-market-health.p.rapidapi.com/wash_trading_metrics',
         params: {
             market_id: 'COINBASE-BTC-USDT',
-            start: startDate
-          },
+            start: '2023-10-26T10:00:00',
+            end: '2023-10-29T10:00:00'
+        },
         headers: {
             'X-RapidAPI-Key': '71b34313e5msh56f2aef6d2d2fdap11c943jsn6079f407a0d9',
             'X-RapidAPI-Host': 'crypto-market-health.p.rapidapi.com'
@@ -26,17 +22,31 @@ const fetchMetricsWithAxios = async () => {
 }
 
 const updateChart = (data) => {
-    const labels = data.map(item => new Date(item.timestamp).toLocaleDateString());
-    const washTradingData = data.map(item => parseFloat(item.count_time_distribution));
-    const frontRunningData = data.map(item => parseFloat(item.vwap));
+    //Here if we want, we can bring the timestamp as labels (feat)
+    //const labels = data.map(item => new Date(item.timestamp).toLocaleDateString());
 
+    //washtrading and frontrunning data
+    const weight = 10;
+    const washTradingData = data.map(item => parseFloat(item.volume_volatility_correlation) * weight);
+    const frontRunningData = data.map(item => parseFloat(item.buy_sell_count_ratio) * weight);
 
-    // Assuming you're using Chart.js, update the chart like so:
     const ctx = document.getElementById('myChart').getContext('2d');
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: labels,
+            labels: [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"],
             datasets: [{
                 label: 'Wash Trading',
                 data: washTradingData,
@@ -55,11 +65,14 @@ const updateChart = (data) => {
             }]
         },
         options: {
-            maintainAspectRatio: false,
+            responsive: true,
+            maintainAspectRatio: true,
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        min: 0,
+                        max: 10
                     }
                 }]
             }
