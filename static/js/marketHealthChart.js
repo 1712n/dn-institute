@@ -18,16 +18,13 @@ const options = {
 async function fetchData() {
   try {
     const response = await axios.request(options);
-    const data = response.data; // Assumindo que os dados estão neste formato
-    
-    // Parsear os dados para o formato aceito pelo Chart.js
+    const data = response.data;   
+
     const labels = data.map(item => item.timestamp);
     const washTradingData = data.map(item => item.wash_trading_metric);
-
-    // Obter o contexto do canvas onde o gráfico será renderizado
-    const ctx = document.getElementById('chartContainer').getContext('2d');
     
-    // Criar o gráfico
+    const ctx = document.getElementById('chartContainer').getContext('2d');  
+
     new Chart(ctx, {
       type: 'line', // Tipo de gráfico
       data: {
