@@ -69,7 +69,7 @@ async function fetchData() {
     chartConfig.data.datasets[0].data = washTradingData;
     chartConfig.data.datasets[1].data = frontRunningData;
 
-    chart.update(); // Atualiza o gráfico com os novos dados
+    chart.update(); 
 } catch (error) {
     console.error(error);
 }
