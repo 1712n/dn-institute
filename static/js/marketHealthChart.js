@@ -1,7 +1,7 @@
 const chartConfig = {
   type: "line",
   data: {
-    labels: [], // Vamos começar com um array vazio e preenchê-lo dinamicamente
+    labels: [], 
     datasets: [
       {
         label: "Wash Trading",
@@ -56,7 +56,7 @@ const chartConfig = {
 }
 
 const ctx = document.getElementById("chartContainer").getContext("2d")
-const chart = new Chart(ctx, chartConfig) // Cria o gráfico uma vez
+const chart = new Chart(ctx, chartConfig) 
 
 async function fetchData() {
   const apiOptions = {
@@ -73,25 +73,10 @@ async function fetchData() {
     }
   }
 
-  //   try {
-  //     const response = await axios.request(apiOptions)
-  //     const dataArray = response.data.data
-
-  //     chartConfig.data.labels = dataArray.map((item) => new Date(item.timestamp))
-  //     chartConfig.data.datasets[0].data = dataArray.map((item) =>
-  //       item.first_digit_distribution.reduce((a, b) => a + b, 0)
-  //     )
-
-  //     chart.update() // Atualiza o gráfico com os novos dados
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-
   try {
     const response = await axios.request(apiOptions)
     const dataArray = response.data.data
-
-    // Formatando as datas para mostrar somente dia e mês
+    
     const formattedDates = dataArray.map((item) => {
       const date = new Date(item.timestamp)
       return date.toLocaleDateString("pt-BR", {
@@ -105,7 +90,7 @@ async function fetchData() {
       item.first_digit_distribution.reduce((a, b) => a + b, 0)
     )
 
-    chart.update() // Atualiza o gráfico com os novos dados
+    chart.update() 
   } catch (error) {
     console.error(error)
   }
