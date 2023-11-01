@@ -8,8 +8,8 @@ const fetchMetricsWithAxios = async () => {
             end: '2023-10-29T10:00:00'
         },
         headers: {
-            'X-RapidAPI-Key': '71b34313e5msh56f2aef6d2d2fdap11c943jsn6079f407a0d9',
-            'X-RapidAPI-Host': 'crypto-market-health.p.rapidapi.com'
+            'X-RapidAPI-Key': process.env.RAPID_API_KEY,
+            'X-RapidAPI-Host': process.env.RAPID_API_HOST
         }
     };
 
