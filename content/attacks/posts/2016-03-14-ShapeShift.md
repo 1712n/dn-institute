@@ -14,12 +14,11 @@ loss: 230000
 
 ## Summary
 
-From March 14 to April 9, 2016, there were 3 hacks of the Swiss ShiftShape cryptocurrency exchange.
-The first theft of funds was committed by an employee of the exchange, who was responsible for security and infrastructure. Then he sold the hacker the source code of ShapeShift core, the IP address of the main server, an SSH key and installed a remote access program on another employee's computer. The hacker entered the main server with the provided SSH key and took the coins, since the main server had SSH access to the coins server. After creating a new infrastructure, the exchange was hacked again, the hacker used remote access to the computer and received new SSH keys.
+Between March 14 and April 9, 2016, the Swiss-based cryptocurrency exchange, ShapeShift, experienced three security breaches. The initial compromise was an insider threat, where an employee responsible for the platform's security and infrastructure misappropriated funds. Subsequently, this individual provided an external threat actor with critical assets: the source code of ShapeShift's core system, the IP address of the primary server, an SSH private key, and deployed a Remote Access Trojan (RAT) on a colleague's workstation. Utilizing the acquired SSH credentials, the external attacker gained access to the primary server which, due to its permissions, had subsequent access to the server storing the cryptocurrency. Despite efforts to re-establish a secure environment, the exchange faced another intrusion. This time, the threat actor leveraged the previously installed RAT, obtaining new SSH credentials, leading to further unauthorized access.
 
 ## Attackers
 
-Behind the attack were an exchange employee, his name has not been disclosed, and a hacker under the pseudonym Rovion
+The security incident at ShapeShift was attributed to an internal exchange employee, whose identity remains undisclosed, in collaboration with an external threat actor operating under the pseudonym "Rovion."
 
 Exchange employee wallet:
 - **BTC:** [1LchKFYxkugq3EPMoJJp5cvUyTyPMu1qBR](https://www.blockchain.com/en/explorer/addresses/btc/1LchKFYxkugq3EPMoJJp5cvUyTyPMu1qBR)
@@ -47,5 +46,5 @@ ShapeShift lost approximately $230000:
 
 ## Security Failure Causes
 
-- **Insider fraud:** An exchange employee stole a cryptocurrency and left a backdoor in the system.
-- **Weak security practices:** The backdoor was not detected in time, which allowed 2 more hacks.
+- **Insider threat:** An exchange employee stole a cryptocurrency and left a backdoor in the system.
+- **Weak operational security practices:** The backdoor was not detected in time, which allowed 2 more hacks.
