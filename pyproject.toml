@@ -24,6 +24,7 @@ bs4 = "^0.0.1"
 fact-check = "tools.fact_checker:main"
 payout-calc = "tools.payout_calc:main"
 grammar-check =  "tools.grammar_checker:main"
+article-check = "tools.article_checker:main"
 
 [build-system]
 requires = ["poetry-core"]
