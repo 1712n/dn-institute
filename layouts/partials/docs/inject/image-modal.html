@@ -1,27 +1,9 @@
 <script>
-  // Open the Modal
-  function openModal(clicked_id) {
-    var src = document.getElementById(clicked_id).src;
-    if (src.includes("#")) {
-      src = src.substring(0, src.indexOf( "#" ));
-    };
-    document.getElementById("modalPic").src = src;
-    document.getElementById("imageModal").style.display = "block";
-    // Ensures the site footer is not shown if front of the modal. Remove if this is not an issue or
-    // there is no footer. "site-footer" id can also be changed appropriately.
-    // document.getElementById("site-footer").style.display = "hidden";
-  }
-    
-    // Close the Modal
   function closeModal() { 
-    // prevents flashing last modal image while new id is loading on open
     document.getElementById("modalPic").src = "";
     document.getElementById("imageModal").style.display = "none";
-    // See note above regarding the footer 
-    // document.getElementById("site-footer").style.display = "block";
   }
 </script>
-
 <script type="module">
   function initModalImages() {
     const figures = Array.from(document.getElementsByTagName('figure'))
@@ -30,34 +12,10 @@
       .forEach((v) => {
         v.style.cursor = "pointer"
         v.onclick= () => {
-          // console.log(document.getElementById("modalPic"),  document.getElementById("imageModal"))
           document.getElementById("modalPic").src = v.children[0].src;
           document.getElementById("imageModal").style.display = "block";
         }
       })
-      // .map(v => v.children[0])
-      // .forEach((v, i) => {
-      //   // v.id = `image-${i}`
-        
-      // })
-    // const sections = document.querySelectorAll(".collapsible")
-
-    // sections.forEach((item) => {
-    //   const control = item.querySelector(".collapsible-control")
-    //   const target = item.querySelector(".collapsible-target")
-
-    //   new Collapsible({
-    //     control: control,
-    //     target: {
-    //       element: target
-    //     },
-    //     aria: {
-    //       expanded: target.hidden == true ? false : true,
-    //       controls: true
-    //     },
-    //     debug: false
-    //   })
-    // })
   }
 
   if (document.readyState === "loading")
