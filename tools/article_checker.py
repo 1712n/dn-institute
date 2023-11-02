@@ -7,6 +7,7 @@ from tools.git import get_pull_request, get_diff_by_url, parse_diff
 from tools.utils import logging_decorator
 import requests
 import json
+import tiktoken
 
 
 # parse arguments
@@ -29,6 +30,25 @@ headers = {
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {wp_key}'
     }
+
+
+def count_tokens(text):
+    encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
+    return len(encoding.encode(text))
+
+
+def trimming_prompt(trimmed_prompt):
+    token_count = count_tokens(trimmed_prompt)
+    while token_count > 4096:
+        sentences = trimmed_prompt.rsplit('.', maxsplit=1)
+        if len(sentences) == 2 and sentences[0]:
+            trimmed_prompt = sentences[0].strip() + '.'
+        else:
+            trimmed_prompt = trimmed_prompt.rsplit(' ', maxsplit=1)[0]
+
+        token_count = count_tokens(trimmed_prompt)
+
+    return trimmed_prompt
 
 
 def is_json(myjson):
@@ -85,12 +105,28 @@ def wp_call(PROMPT, headers=headers, endpoint=endpoint):
 
 
 PROMPT = """
-Task: Identify and verify factual claims from the given text. Use credible web sources to check the accuracy of each claim. Present your findings only in a structured JSON format with each claim, the verification source, and the outcome of the verification.
+Task: Conduct a thorough fact-check of the provided text by identifying each factual claim and verifying its accuracy against reliable web sources. For each claim, cross-reference the specific details such as numbers, dates, monetary values, and named entities with information available from credible websites.
+
+Present your findings only in a structured JSON format with each claim, the verification source, and the outcome of the verification.
 Output Format: 
-[{"claim": "The factual statement extracted from the text", "source": "URL or name of the source used for verification", "result": "The outcome of the fact-check (True, False, or Unverifiable)"}]
+[
+  {
+    "claim": "[Exact factual statement from the text]",
+    "source": "[Direct URL or the name of the credible source where the verification information was found]",
+    "result": [true or false]
+  }
+]
+
 Example:
-Input Text: "In July 2011, BTC-e, a cryptocurrency exchange, experienced a security breach that resulted in the loss of around 4,500 BTC."
-Output: [{"claim": "In July 2011, BTC-e experienced a security breach.", "source": "https://bitcoinmagazine.com/business/btc-e-attacked-1343738085", "result": "False. The breach occurred in July 2012."}]
+Given Input Text: "In July 2011, BTC-e, a cryptocurrency exchange, experienced a security breach that resulted in the loss of around 4,500 BTC."
+Desired Output:
+[
+  {
+    "claim": "In July 2011, BTC-e experienced a security breach.",
+    "source": "https://bitcoinmagazine.com/business/btc-e-attacked-1343738085",
+    "result": false
+  }
+]
 
 Text for Verification: ```%s```
 """
@@ -122,7 +158,14 @@ def main():
     diff = parse_diff(_diff)
     content = get_content(diff)
 
-    claims = wp_call(PROMPT % content)
+    whole_prompt = PROMPT % content
+    print(count_tokens(whole_prompt))
+
+    if count_tokens(whole_prompt) > 4096:
+        print("The token limit has been exceeded. Prompt will be trimmed")
+        whole_prompt = trimming_prompt(whole_prompt)
+
+    claims = wp_call(whole_prompt)
     claims = json.loads(claims)
     print(claims)
     try:
