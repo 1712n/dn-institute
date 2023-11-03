@@ -1,0 +1,38 @@
+---
+date: 2023-10-30
+target-entities: LastPass
+entity-types: Custodian
+attack-types: Credental Stealing, seed phrase leak
+title: LastPass Hack Victims Lose $4.4M in a Single Day
+loss: 4400000 
+---
+
+## Summary
+
+LastPass Hack Victims Lose $4.4M in a Single Day
+More than $35 million has been stolen in total, according to recent reports.
+Hackers siphoned a total of $4.4 million worth of crypto from at least 25 LastPass users on Oct. 25, according to blockchain analyst ZachXBT.
+LastPass is a platform that stores and encrypts password information for users. Its cloud-based storage service was breached in an attack last year that involved targeting an employee and stealing their credentials.
+ZachXBT and MetaMask developer Taylor Monahan have tracked at least 80 crypto wallets that have been compromised in relation to the hack.
+Funds have been stolen from the Bitcoin, Ethereum, BNB, Arbitrum, Solana and Polygon blockchains, according to a list published by Monahan.
+"Cannot stress this enough, if you believe you may have ever stored your seed phrase or keys in LastPass migrate your crypto assets immediately," ZachXBT wrote on X, formerly Twitter.
+Cryptocurrency wallets are often targeted by hackers because a common attack vector is obtaining a private key, which gives the hacker complete access to funds. In July more than $300 million was stolen from crypto users in a string of hacks and exploits.
+Cybersecurity journalist Brian Krebs reported that more than $35 million worth of crypto had been stolen in relation to the LastPass breach.
+
+## Attackers
+
+The attacker has never been identified.
+
+## Losses
+
+4400000 USD in a single day.
+More than 35000000 has been stolen in total.
+
+## Timeline
+  
+October 25, 2023 - Hackers siphoned a total of $4.4 million worth of crypto from at least 25 LastPass users
+
+## Security Failure Causes
+
+Its cloud-based storage service was breached in an attack last year that involved targeting an employee and stealing their credentials.
+
