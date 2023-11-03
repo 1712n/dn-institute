@@ -39,6 +39,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.108.0
+      RAPIDAPIHOST: ${{ secrets.RAPIDAPIHOST }}
+      SECRETRAPIDAPI: ${{ secrets.SECRETRAPIDAPI }}
     steps:
       - name: Install Hugo CLI
         run: |
