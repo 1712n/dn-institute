@@ -1,0 +1,59 @@
+---
+date: 2023-11-01
+target-entities: Blockchain engineers of an unnamed crypto exchange platform.
+entity-types:  
+- Blockchain
+- Engineers
+- Chat Channel
+- Exchange
+attack-types:
+- Social engineering   
+- Execution flow hijacking
+- defensive evasion techniques
+- KANDYKORN
+- Swift-based self-signed binary
+- APT-43
+title: "North Korean Hackers Targeting Crypto Experts with KANDYKORN macOS Malware."
+loss: No monetary loss
+---
+
+## Summary
+
+State-sponsored threat actors from the Democratic People's Republic of Korea (DPRK) have been found targeting blockchain engineers of an unnamed crypto exchange platform via Discord with a novel macOS malware dubbed KANDYKORN.
+Elastic Security Labs said the activity, traced back to April 2023, exhibits overlaps with the infamous adversarial collective Lazarus Group, citing an analysis of the network infrastructure and techniques used.
+"Threat actors lured blockchain engineers with a Python application to gain initial access to the environment," security researchers Ricardo Ungureanu, Seth Goodwin, and Andrew Pease said in a report published today.
+"This intrusion involved multiple complex stages that each employed deliberate defense evasion techniques."
+This is not the first time the Lazarus Group has leveraged macOS malware in its attacks. Earlier this year, the threat actor was observed distributing a backdoored PDF application that culminated in the deployment of RustBucket, an AppleScript-based backdoor capable of retrieving a second-stage payload from a remote server.
+What makes the new campaign stand out is the attacker's impersonation of blockchain engineers on a public Discord server, employing social engineering lures to trick victims into downloading and executing a ZIP archive containing malicious code.
+"The victim believed they were installing an arbitrage bot, a software tool capable of profiting from cryptocurrency rate differences between platforms," the researchers said. But in reality, the attack chain paved the way for the delivery of KANDYKORN following a five-stage process.
+"KANDYKORN is an advanced implant with a variety of capabilities to monitor, interact with, and avoid detection," the researchers said. "It utilizes reflective loading, a direct-memory form of execution that may bypass detections."
+The starting point is a Python script (watcher.py), which retrieves another Python script (testSpeed.py) hosted on Google Drive. This dropper, for its part, fetches one more Python file from a Google Drive URL, named FinderTools.
+FinderTools also functions as a dropper, downloading and executing a hidden second stage payload referred to as SUGARLOADER (/Users/shared/.sld and .log) that ultimately connects to a remote server in order to retrieve KANDYKORN and execute it directly in memory.
+SUGARLOADER is also responsible for launching a Swift-based self-signed binary known as HLOADER that attempts to pass off as the legitimate Discord application and executes .log (i.e., SUGARLOADER) to achieve persistence using a method called execution flow hijacking.
+KANDYKORN, which is the final-stage payload, is a full-featured memory resident RAT with built-in capabilities to enumerate files, run additional malware, exfiltrate data, terminate processes, and run arbitrary commands.
+"The DPRK, via units like the Lazarus Group, continues to target crypto-industry businesses with the goal of stealing cryptocurrency in order to circumvent international sanctions that hinder the growth of their economy and ambitions," the researchers said.
+The disclosure comes as the S2W Threat Analysis team uncovered an updated variant of an Android spyware called FastViewer that's used by a North Korean threat cluster dubbed Kimsuky (aka APT43), a sister hacking outfit of the Lazarus Group.
+FastViewer, first documented by the South Korean cybersecurity firm in October 2022, abuses Android's accessibility services to covertly harvest sensitive data from compromised devices by masquerading itself as seemingly harmless security or e-commerce apps that are propagated via phishing or smishing.
+It's also designed to download a second-stage malware named FastSpy, which is based on the open-source project AndroSpy, to execute data gathering and exfiltration commands.
+"The variant has been in production since at least July 2023 and, like the initial version, is found to induce installation by distributing repackaged APKs that include malicious code in legitimate apps," S2W said.
+One notable aspect of the new version is the integration of FastSpy's functionality into the FastViewer, thus obviating the need to download additional malware. That said, S2W said "there are no known cases of this variant being distributed in the wild."
+
+## Attackers
+
+- North Korean Lazarus Group is suspected to be behind the theft.
+- State-sponsored threat actors from the Democratic People's Republic of Korea.
+
+## Losses
+
+- No monetary loss
+
+## Timeline
+
+The hacks can be traced back to April 2023.
+
+## Security Failure Causes
+
+Threat actors lured blockchain engineers with a Python application to gain initial access to the environment.
+This intrusion involved multiple complex stages that each employed deliberate defense evasion techniques.
+The victim believed they were installing an arbitrage bot
+It utilizes reflective loading, a direct-memory form of execution that may bypass detections.
