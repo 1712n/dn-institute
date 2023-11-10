@@ -8,7 +8,7 @@
   function initModalImages() {
     const figures = Array.from(document.getElementsByTagName('figure'))
     const imgs = figures
-      .filter(v => v.children.length)
+      .filter(v => v.children.length && v.children[0].tagName == "IMG")
       .forEach((v) => {
         v.style.cursor = "pointer"
         v.onclick= () => {
