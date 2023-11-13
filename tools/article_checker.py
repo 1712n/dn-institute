@@ -21,7 +21,7 @@ def parse_cli_args():
         "--github-token", dest="github_token", help="GitHub token", required=True
     )
     parser.add_argument(
-        "--api-key", dest="API_key", help="API key", required=True
+        "--llm-api-key", dest="LLM_API_key", help="LLM API key", required=True
     )
     parser.add_argument(
         "--pull-url", dest="pull_url", help="GitHub pull URL", required=True
@@ -151,7 +151,7 @@ def create_ugly_comment(pull_request, answer):
 
 def main():
     """
-    The bot parses command-line arguments, such as the GitHub key, API key, and pull request url,
+    The bot parses command-line arguments, such as the GitHub key, LLM API key, and pull request url,
     then retrieves the endpoint and max_tokens from the config file.
     It creates the github-object and extracts a diff.
     Then it obtains clean content from the diff and adds this content to the prompt.
@@ -169,7 +169,7 @@ def main():
 
     headers = {
         'Content-Type': 'application/json',
-        'Authorization': f'Bearer {args.API_key}'
+        'Authorization': f'Bearer {args.LLM_API_key}'
     }
 
     github = Github(args.github_token)
