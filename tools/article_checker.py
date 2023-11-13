@@ -10,7 +10,6 @@ from tools.git import get_pull_request, get_diff_by_url, parse_diff
 from tools.utils import logging_decorator
 import requests
 import tiktoken
-import tools.config as config
 
 
 def parse_cli_args():
@@ -151,13 +150,27 @@ def create_ugly_comment(pull_request, answer):
 
 
 def main():
+    """
+    The bot parses command-line arguments, such as the GitHub key, API key, and pull request url,
+    then retrieves the endpoint and max_tokens from the config file.
+    It creates the github-object and extracts a diff.
+    Then it obtains clean content from the diff and adds this content to the prompt.
+    If the combined prompt and content do not exceed the max_tokens limit, the bot sends the prompt to an AI-service.
+    This service provides the answer. The bot then checks if it can extract a JSON segment from the answer.
+    If it can, it creates a beautiful comment to the pull request, if it can't, it creates an ugly comment.
+    """
     args = parse_cli_args()
-    endpoint = config.endpoint
+
+    with open('config.json', 'r') as config_file:
+        config = json.load(config_file)
+
+    endpoint = config['endpoint']
+    max_tokens = config['max_tokens']
+
     headers = {
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {args.API_key}'
     }
-    max_tokens = config.max_tokens
 
     github = Github(args.github_token)
     pr = get_pull_request(github, args.pull_url)
@@ -179,6 +192,6 @@ def main():
             print("Created beautiful comment")
         else:
             create_ugly_comment(pr, claims)
-            print("Created beautiful comment")
+            print("Created ugly comment")
     else:
         sys.exit(1)
