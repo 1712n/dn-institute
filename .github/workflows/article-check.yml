@@ -44,4 +44,4 @@ jobs:
           poetry run article-check \
             --pull-url "${{ github.event.issue.pull_request.url }}" \
             --github-token "${{ secrets.GITHUB_TOKEN }}" \
-            --webpilot-api-key "${{ secrets.WEBPILOT_API_KEY }}"
+            --llm-api-key "${{ secrets.LLM_API_KEY }}"
