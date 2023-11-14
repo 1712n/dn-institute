@@ -1,0 +1,34 @@
+---
+date: 2022-01-28
+target-entities: Qubit Finance
+entity-types:
+  - DeFi
+  - Lending Platform
+attack-types: Smart Contract Exploit
+title: "Hackers Breach Qubit Finance Platform, Stealing $30 Million"
+loss: 30000000
+---
+
+## Summary
+
+On January 28, 2022, Qubit Finance, a project built on the BNB Chain (formerly known as Binance Smart Chain), announced a breach of its QBridge credit protocol on their Twitter page. The platform was hacked due to a specific vulnerability in the bridge. Hackers were able to mint an unlimited amount of xETH as collateral for loans on the Binance Smart Chain network. The platform's native token, QBT, plummeted by 26% overnight. CertiK Security reported that the attacker called the deposit function in the QBridge contract, but did not deposit funds. Ethereum QBridge recorded the deposit event and released $qXETH to the hacker on the BSC blockchain. The hacker repeated the procedure several times, increasing production to nearly $30 million.
+
+## Attackers
+
+The perpetrators remain unidentified. The Qubit Finance team posted a tweet with the address used in the attack: 0xd01ae1a708614948b2b5e0b7ab5be6afa01325c7.
+
+## Losses
+
+An unlimited amount of xETH was released and employed as loan collateral on the Binance Smart Chain. This exploit led to the misappropriation of cryptocurrencies amounting to roughly $30 million.
+
+## Timeline
+
+- **January 28, 2022 6:19 AM:** PeckShield, a blockchain security and smart contract audit company, confirmed the exploit.
+- **January 28, 2022 8:14 AM:** Project representatives confirmed the hacking incident and stated that they were tracking the stolen funds.
+- **January 28, 2022 9:30 AM:** The project team reported that they had contacted the perpetrators and offered a "maximum reward", which is 250,000$.
+
+## Security Failure Causes
+
+**Smart contract vilnerability:** The Qubit hack was made possible by the fact that a legacy function (deposit) remained in the contract after it was replaced by a newer function (depositETH). Their overlapping functionality and vulnerabilities that allowed fake deposits made this hack possible.
+
+**Lack of code review:** The existence of legacy code in the contract indicates issues with code review and change management. Similarly, the vulnerabilities that allowed the fake deposit could have been detected during a smart contract audit.
