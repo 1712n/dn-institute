@@ -161,7 +161,7 @@ def main():
     """
     args = parse_cli_args()
 
-    with open('config.json', 'r') as config_file:
+    with open('tools/config.json', 'r') as config_file:
         config = json.load(config_file)
 
     endpoint = config['endpoint']
