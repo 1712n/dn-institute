@@ -1,0 +1,2939 @@
+{
+  "message": "Success",
+  "data": [
+    {
+      "timestamp": "2023-11-11T11:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        28,
+        10,
+        2,
+        3,
+        3,
+        2,
+        11,
+        5,
+        2
+      ],
+      "volume_volatility_correlation": "0.98340",
+      "volume_distribution": [
+        {
+          "volume": "7.1942",
+          "count": 2
+        },
+        {
+          "volume": "14.3884",
+          "count": 0
+        },
+        {
+          "volume": "21.5826",
+          "count": 1
+        },
+        {
+          "volume": "28.7768",
+          "count": 1
+        },
+        {
+          "volume": "35.9710",
+          "count": 0
+        },
+        {
+          "volume": "43.1652",
+          "count": 1
+        },
+        {
+          "volume": "50.3594",
+          "count": 0
+        },
+        {
+          "volume": "57.5536",
+          "count": 3
+        },
+        {
+          "volume": "64.7478",
+          "count": 0
+        },
+        {
+          "volume": "71.9420",
+          "count": 2
+        },
+        {
+          "volume": "79.1362",
+          "count": 6
+        },
+        {
+          "volume": "86.3304",
+          "count": 3
+        },
+        {
+          "volume": "93.5246",
+          "count": 3
+        },
+        {
+          "volume": "100.7188",
+          "count": 2
+        },
+        {
+          "volume": "107.9130",
+          "count": 4
+        },
+        {
+          "volume": "115.1072",
+          "count": 10
+        },
+        {
+          "volume": "122.3014",
+          "count": 2
+        },
+        {
+          "volume": "129.4956",
+          "count": 4
+        },
+        {
+          "volume": "136.6898",
+          "count": 0
+        },
+        {
+          "volume": "143.8840",
+          "count": 2
+        },
+        {
+          "volume": "151.0782",
+          "count": 1
+        },
+        {
+          "volume": "158.2724",
+          "count": 0
+        },
+        {
+          "volume": "165.4666",
+          "count": 0
+        },
+        {
+          "volume": "172.6608",
+          "count": 0
+        },
+        {
+          "volume": "179.8550",
+          "count": 2
+        },
+        {
+          "volume": "187.0492",
+          "count": 1
+        },
+        {
+          "volume": "194.2434",
+          "count": 0
+        },
+        {
+          "volume": "201.4376",
+          "count": 1
+        },
+        {
+          "volume": "208.6318",
+          "count": 0
+        },
+        {
+          "volume": "215.8260",
+          "count": 0
+        },
+        {
+          "volume": "223.0202",
+          "count": 1
+        },
+        {
+          "volume": "230.2144",
+          "count": 0
+        },
+        {
+          "volume": "237.4086",
+          "count": 0
+        },
+        {
+          "volume": "244.6028",
+          "count": 1
+        },
+        {
+          "volume": "251.7970",
+          "count": 5
+        },
+        {
+          "volume": "258.9912",
+          "count": 0
+        },
+        {
+          "volume": "266.1854",
+          "count": 0
+        },
+        {
+          "volume": "273.3796",
+          "count": 1
+        },
+        {
+          "volume": "280.5738",
+          "count": 1
+        },
+        {
+          "volume": "287.7680",
+          "count": 0
+        },
+        {
+          "volume": "294.9622",
+          "count": 0
+        },
+        {
+          "volume": "302.1564",
+          "count": 0
+        },
+        {
+          "volume": "309.3506",
+          "count": 0
+        },
+        {
+          "volume": "316.5448",
+          "count": 0
+        },
+        {
+          "volume": "323.7390",
+          "count": 0
+        },
+        {
+          "volume": "330.9332",
+          "count": 0
+        },
+        {
+          "volume": "338.1274",
+          "count": 0
+        },
+        {
+          "volume": "345.3216",
+          "count": 1
+        },
+        {
+          "volume": "352.5158",
+          "count": 0
+        },
+        {
+          "volume": "359.7100",
+          "count": 0
+        },
+        {
+          "volume": "366.9042",
+          "count": 0
+        },
+        {
+          "volume": "374.0984",
+          "count": 0
+        },
+        {
+          "volume": "381.2926",
+          "count": 0
+        },
+        {
+          "volume": "388.4868",
+          "count": 0
+        },
+        {
+          "volume": "395.6810",
+          "count": 0
+        },
+        {
+          "volume": "402.8752",
+          "count": 0
+        },
+        {
+          "volume": "410.0694",
+          "count": 0
+        },
+        {
+          "volume": "417.2636",
+          "count": 0
+        },
+        {
+          "volume": "424.4578",
+          "count": 0
+        },
+        {
+          "volume": "431.6520",
+          "count": 0
+        },
+        {
+          "volume": "438.8462",
+          "count": 0
+        },
+        {
+          "volume": "446.0404",
+          "count": 0
+        },
+        {
+          "volume": "453.2346",
+          "count": 0
+        },
+        {
+          "volume": "460.4288",
+          "count": 0
+        },
+        {
+          "volume": "467.6230",
+          "count": 0
+        },
+        {
+          "volume": "474.8172",
+          "count": 1
+        },
+        {
+          "volume": "482.0114",
+          "count": 0
+        },
+        {
+          "volume": "489.2056",
+          "count": 0
+        },
+        {
+          "volume": "496.3998",
+          "count": 0
+        },
+        {
+          "volume": "503.5940",
+          "count": 1
+        },
+        {
+          "volume": "510.7882",
+          "count": 0
+        },
+        {
+          "volume": "517.9824",
+          "count": 0
+        },
+        {
+          "volume": "525.1766",
+          "count": 0
+        },
+        {
+          "volume": "532.3708",
+          "count": 0
+        },
+        {
+          "volume": "539.5650",
+          "count": 0
+        },
+        {
+          "volume": "546.7592",
+          "count": 0
+        },
+        {
+          "volume": "553.9534",
+          "count": 0
+        },
+        {
+          "volume": "561.1476",
+          "count": 0
+        },
+        {
+          "volume": "568.3418",
+          "count": 0
+        },
+        {
+          "volume": "575.5360",
+          "count": 0
+        },
+        {
+          "volume": "582.7302",
+          "count": 0
+        },
+        {
+          "volume": "589.9244",
+          "count": 0
+        },
+        {
+          "volume": "597.1186",
+          "count": 0
+        },
+        {
+          "volume": "604.3128",
+          "count": 0
+        },
+        {
+          "volume": "611.5070",
+          "count": 0
+        },
+        {
+          "volume": "618.7012",
+          "count": 0
+        },
+        {
+          "volume": "625.8954",
+          "count": 0
+        },
+        {
+          "volume": "633.0896",
+          "count": 0
+        },
+        {
+          "volume": "640.2838",
+          "count": 0
+        },
+        {
+          "volume": "647.4780",
+          "count": 0
+        },
+        {
+          "volume": "654.6722",
+          "count": 0
+        },
+        {
+          "volume": "661.8664",
+          "count": 0
+        },
+        {
+          "volume": "669.0606",
+          "count": 0
+        },
+        {
+          "volume": "676.2548",
+          "count": 0
+        },
+        {
+          "volume": "683.4490",
+          "count": 0
+        },
+        {
+          "volume": "690.6432",
+          "count": 0
+        },
+        {
+          "volume": "697.8374",
+          "count": 0
+        },
+        {
+          "volume": "705.0316",
+          "count": 0
+        },
+        {
+          "volume": "712.2258",
+          "count": 0
+        },
+        {
+          "volume": "719.4200",
+          "count": 3
+        }
+      ],
+      "volume_distribution_kurtosis": "8.72628",
+      "volume_distribution_mean": "165.68461",
+      "volume_distribution_median": "363.30710",
+      "volume_distribution_mode": "115.10720",
+      "volume_distribution_skewness": "2.40299",
+      "volume_distribution_std": "152.24660",
+      "count_time_distribution": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        34,
+        28
+      ],
+      "buy_sell_count_ratio": "0.924",
+      "vwap": "0.566210710449636404",
+      "market_id": "bybit-ava-usdt"
+    },
+    {
+      "timestamp": "2023-11-11T12:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        71,
+        52,
+        41,
+        28,
+        17,
+        7,
+        18,
+        9,
+        21
+      ],
+      "volume_volatility_correlation": "0.68015",
+      "volume_distribution": [
+        {
+          "volume": "7.0939",
+          "count": 3
+        },
+        {
+          "volume": "14.1878",
+          "count": 6
+        },
+        {
+          "volume": "21.2817",
+          "count": 10
+        },
+        {
+          "volume": "28.3756",
+          "count": 2
+        },
+        {
+          "volume": "35.4695",
+          "count": 21
+        },
+        {
+          "volume": "42.5634",
+          "count": 11
+        },
+        {
+          "volume": "49.6573",
+          "count": 9
+        },
+        {
+          "volume": "56.7512",
+          "count": 5
+        },
+        {
+          "volume": "63.8451",
+          "count": 3
+        },
+        {
+          "volume": "70.9390",
+          "count": 2
+        },
+        {
+          "volume": "78.0329",
+          "count": 3
+        },
+        {
+          "volume": "85.1268",
+          "count": 2
+        },
+        {
+          "volume": "92.2207",
+          "count": 7
+        },
+        {
+          "volume": "99.3146",
+          "count": 6
+        },
+        {
+          "volume": "106.4085",
+          "count": 7
+        },
+        {
+          "volume": "113.5024",
+          "count": 12
+        },
+        {
+          "volume": "120.5963",
+          "count": 5
+        },
+        {
+          "volume": "127.6902",
+          "count": 7
+        },
+        {
+          "volume": "134.7841",
+          "count": 3
+        },
+        {
+          "volume": "141.8780",
+          "count": 0
+        },
+        {
+          "volume": "148.9719",
+          "count": 1
+        },
+        {
+          "volume": "156.0658",
+          "count": 1
+        },
+        {
+          "volume": "163.1597",
+          "count": 0
+        },
+        {
+          "volume": "170.2536",
+          "count": 2
+        },
+        {
+          "volume": "177.3475",
+          "count": 2
+        },
+        {
+          "volume": "184.4414",
+          "count": 13
+        },
+        {
+          "volume": "191.5353",
+          "count": 0
+        },
+        {
+          "volume": "198.6292",
+          "count": 3
+        },
+        {
+          "volume": "205.7231",
+          "count": 1
+        },
+        {
+          "volume": "212.8170",
+          "count": 1
+        },
+        {
+          "volume": "219.9109",
+          "count": 2
+        },
+        {
+          "volume": "227.0048",
+          "count": 2
+        },
+        {
+          "volume": "234.0987",
+          "count": 1
+        },
+        {
+          "volume": "241.1926",
+          "count": 0
+        },
+        {
+          "volume": "248.2865",
+          "count": 2
+        },
+        {
+          "volume": "255.3804",
+          "count": 21
+        },
+        {
+          "volume": "262.4743",
+          "count": 2
+        },
+        {
+          "volume": "269.5682",
+          "count": 3
+        },
+        {
+          "volume": "276.6621",
+          "count": 6
+        },
+        {
+          "volume": "283.7560",
+          "count": 0
+        },
+        {
+          "volume": "290.8499",
+          "count": 3
+        },
+        {
+          "volume": "297.9438",
+          "count": 1
+        },
+        {
+          "volume": "305.0377",
+          "count": 1
+        },
+        {
+          "volume": "312.1316",
+          "count": 0
+        },
+        {
+          "volume": "319.2255",
+          "count": 0
+        },
+        {
+          "volume": "326.3194",
+          "count": 0
+        },
+        {
+          "volume": "333.4133",
+          "count": 1
+        },
+        {
+          "volume": "340.5072",
+          "count": 0
+        },
+        {
+          "volume": "347.6011",
+          "count": 2
+        },
+        {
+          "volume": "354.6950",
+          "count": 0
+        },
+        {
+          "volume": "361.7889",
+          "count": 0
+        },
+        {
+          "volume": "368.8828",
+          "count": 0
+        },
+        {
+          "volume": "375.9767",
+          "count": 11
+        },
+        {
+          "volume": "383.0706",
+          "count": 0
+        },
+        {
+          "volume": "390.1645",
+          "count": 0
+        },
+        {
+          "volume": "397.2584",
+          "count": 0
+        },
+        {
+          "volume": "404.3523",
+          "count": 0
+        },
+        {
+          "volume": "411.4462",
+          "count": 0
+        },
+        {
+          "volume": "418.5401",
+          "count": 0
+        },
+        {
+          "volume": "425.6340",
+          "count": 0
+        },
+        {
+          "volume": "432.7279",
+          "count": 0
+        },
+        {
+          "volume": "439.8218",
+          "count": 1
+        },
+        {
+          "volume": "446.9157",
+          "count": 1
+        },
+        {
+          "volume": "454.0096",
+          "count": 8
+        },
+        {
+          "volume": "461.1035",
+          "count": 0
+        },
+        {
+          "volume": "468.1974",
+          "count": 0
+        },
+        {
+          "volume": "475.2913",
+          "count": 1
+        },
+        {
+          "volume": "482.3852",
+          "count": 3
+        },
+        {
+          "volume": "489.4791",
+          "count": 0
+        },
+        {
+          "volume": "496.5730",
+          "count": 1
+        },
+        {
+          "volume": "503.6669",
+          "count": 1
+        },
+        {
+          "volume": "510.7608",
+          "count": 0
+        },
+        {
+          "volume": "517.8547",
+          "count": 0
+        },
+        {
+          "volume": "524.9486",
+          "count": 0
+        },
+        {
+          "volume": "532.0425",
+          "count": 3
+        },
+        {
+          "volume": "539.1364",
+          "count": 0
+        },
+        {
+          "volume": "546.2303",
+          "count": 0
+        },
+        {
+          "volume": "553.3242",
+          "count": 1
+        },
+        {
+          "volume": "560.4181",
+          "count": 2
+        },
+        {
+          "volume": "567.5120",
+          "count": 0
+        },
+        {
+          "volume": "574.6059",
+          "count": 0
+        },
+        {
+          "volume": "581.6998",
+          "count": 0
+        },
+        {
+          "volume": "588.7937",
+          "count": 0
+        },
+        {
+          "volume": "595.8876",
+          "count": 1
+        },
+        {
+          "volume": "602.9815",
+          "count": 0
+        },
+        {
+          "volume": "610.0754",
+          "count": 0
+        },
+        {
+          "volume": "617.1693",
+          "count": 0
+        },
+        {
+          "volume": "624.2632",
+          "count": 0
+        },
+        {
+          "volume": "631.3571",
+          "count": 1
+        },
+        {
+          "volume": "638.4510",
+          "count": 0
+        },
+        {
+          "volume": "645.5449",
+          "count": 0
+        },
+        {
+          "volume": "652.6388",
+          "count": 0
+        },
+        {
+          "volume": "659.7327",
+          "count": 0
+        },
+        {
+          "volume": "666.8266",
+          "count": 1
+        },
+        {
+          "volume": "673.9205",
+          "count": 0
+        },
+        {
+          "volume": "681.0144",
+          "count": 1
+        },
+        {
+          "volume": "688.1083",
+          "count": 2
+        },
+        {
+          "volume": "695.2022",
+          "count": 0
+        },
+        {
+          "volume": "702.2961",
+          "count": 0
+        },
+        {
+          "volume": "709.3900",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "3.65625",
+      "volume_distribution_mean": "190.26745",
+      "volume_distribution_median": "358.24195",
+      "volume_distribution_mode": "35.46950",
+      "volume_distribution_skewness": "1.13144",
+      "volume_distribution_std": "163.96063",
+      "count_time_distribution": [
+        27,
+        15,
+        57,
+        52,
+        54,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        11,
+        43,
+        2,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "buy_sell_count_ratio": "0.515",
+      "vwap": "0.557798302039780440",
+      "market_id": "bybit-ava-usdt"
+    },
+    {
+      "timestamp": "2023-11-12T00:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        7,
+        2,
+        4,
+        3,
+        2,
+        2,
+        2,
+        0,
+        2
+      ],
+      "volume_volatility_correlation": "0.99974",
+      "volume_distribution": [
+        {
+          "volume": "1.0443",
+          "count": 1
+        },
+        {
+          "volume": "2.0886",
+          "count": 0
+        },
+        {
+          "volume": "3.1329",
+          "count": 0
+        },
+        {
+          "volume": "4.1772",
+          "count": 0
+        },
+        {
+          "volume": "5.2215",
+          "count": 0
+        },
+        {
+          "volume": "6.2658",
+          "count": 1
+        },
+        {
+          "volume": "7.3101",
+          "count": 0
+        },
+        {
+          "volume": "8.3544",
+          "count": 0
+        },
+        {
+          "volume": "9.3987",
+          "count": 0
+        },
+        {
+          "volume": "10.4430",
+          "count": 0
+        },
+        {
+          "volume": "11.4873",
+          "count": 0
+        },
+        {
+          "volume": "12.5316",
+          "count": 0
+        },
+        {
+          "volume": "13.5759",
+          "count": 0
+        },
+        {
+          "volume": "14.6202",
+          "count": 0
+        },
+        {
+          "volume": "15.6645",
+          "count": 0
+        },
+        {
+          "volume": "16.7088",
+          "count": 0
+        },
+        {
+          "volume": "17.7531",
+          "count": 0
+        },
+        {
+          "volume": "18.7974",
+          "count": 2
+        },
+        {
+          "volume": "19.8417",
+          "count": 1
+        },
+        {
+          "volume": "20.8860",
+          "count": 0
+        },
+        {
+          "volume": "21.9303",
+          "count": 0
+        },
+        {
+          "volume": "22.9746",
+          "count": 0
+        },
+        {
+          "volume": "24.0189",
+          "count": 0
+        },
+        {
+          "volume": "25.0632",
+          "count": 0
+        },
+        {
+          "volume": "26.1075",
+          "count": 0
+        },
+        {
+          "volume": "27.1518",
+          "count": 1
+        },
+        {
+          "volume": "28.1961",
+          "count": 1
+        },
+        {
+          "volume": "29.2404",
+          "count": 0
+        },
+        {
+          "volume": "30.2847",
+          "count": 0
+        },
+        {
+          "volume": "31.3290",
+          "count": 0
+        },
+        {
+          "volume": "32.3733",
+          "count": 1
+        },
+        {
+          "volume": "33.4176",
+          "count": 0
+        },
+        {
+          "volume": "34.4619",
+          "count": 0
+        },
+        {
+          "volume": "35.5062",
+          "count": 0
+        },
+        {
+          "volume": "36.5505",
+          "count": 2
+        },
+        {
+          "volume": "37.5948",
+          "count": 0
+        },
+        {
+          "volume": "38.6391",
+          "count": 0
+        },
+        {
+          "volume": "39.6834",
+          "count": 1
+        },
+        {
+          "volume": "40.7277",
+          "count": 1
+        },
+        {
+          "volume": "41.7720",
+          "count": 0
+        },
+        {
+          "volume": "42.8163",
+          "count": 1
+        },
+        {
+          "volume": "43.8606",
+          "count": 0
+        },
+        {
+          "volume": "44.9049",
+          "count": 0
+        },
+        {
+          "volume": "45.9492",
+          "count": 0
+        },
+        {
+          "volume": "46.9935",
+          "count": 1
+        },
+        {
+          "volume": "48.0378",
+          "count": 0
+        },
+        {
+          "volume": "49.0821",
+          "count": 0
+        },
+        {
+          "volume": "50.1264",
+          "count": 0
+        },
+        {
+          "volume": "51.1707",
+          "count": 0
+        },
+        {
+          "volume": "52.2150",
+          "count": 0
+        },
+        {
+          "volume": "53.2593",
+          "count": 0
+        },
+        {
+          "volume": "54.3036",
+          "count": 0
+        },
+        {
+          "volume": "55.3479",
+          "count": 0
+        },
+        {
+          "volume": "56.3922",
+          "count": 1
+        },
+        {
+          "volume": "57.4365",
+          "count": 0
+        },
+        {
+          "volume": "58.4808",
+          "count": 0
+        },
+        {
+          "volume": "59.5251",
+          "count": 0
+        },
+        {
+          "volume": "60.5694",
+          "count": 0
+        },
+        {
+          "volume": "61.6137",
+          "count": 0
+        },
+        {
+          "volume": "62.6580",
+          "count": 0
+        },
+        {
+          "volume": "63.7023",
+          "count": 0
+        },
+        {
+          "volume": "64.7466",
+          "count": 0
+        },
+        {
+          "volume": "65.7909",
+          "count": 0
+        },
+        {
+          "volume": "66.8352",
+          "count": 1
+        },
+        {
+          "volume": "67.8795",
+          "count": 0
+        },
+        {
+          "volume": "68.9238",
+          "count": 0
+        },
+        {
+          "volume": "69.9681",
+          "count": 1
+        },
+        {
+          "volume": "71.0124",
+          "count": 0
+        },
+        {
+          "volume": "72.0567",
+          "count": 0
+        },
+        {
+          "volume": "73.1010",
+          "count": 0
+        },
+        {
+          "volume": "74.1453",
+          "count": 0
+        },
+        {
+          "volume": "75.1896",
+          "count": 1
+        },
+        {
+          "volume": "76.2339",
+          "count": 0
+        },
+        {
+          "volume": "77.2782",
+          "count": 0
+        },
+        {
+          "volume": "78.3225",
+          "count": 0
+        },
+        {
+          "volume": "79.3668",
+          "count": 0
+        },
+        {
+          "volume": "80.4111",
+          "count": 0
+        },
+        {
+          "volume": "81.4554",
+          "count": 0
+        },
+        {
+          "volume": "82.4997",
+          "count": 0
+        },
+        {
+          "volume": "83.5440",
+          "count": 0
+        },
+        {
+          "volume": "84.5883",
+          "count": 0
+        },
+        {
+          "volume": "85.6326",
+          "count": 0
+        },
+        {
+          "volume": "86.6769",
+          "count": 0
+        },
+        {
+          "volume": "87.7212",
+          "count": 0
+        },
+        {
+          "volume": "88.7655",
+          "count": 0
+        },
+        {
+          "volume": "89.8098",
+          "count": 0
+        },
+        {
+          "volume": "90.8541",
+          "count": 0
+        },
+        {
+          "volume": "91.8984",
+          "count": 0
+        },
+        {
+          "volume": "92.9427",
+          "count": 0
+        },
+        {
+          "volume": "93.9870",
+          "count": 1
+        },
+        {
+          "volume": "95.0313",
+          "count": 1
+        },
+        {
+          "volume": "96.0756",
+          "count": 0
+        },
+        {
+          "volume": "97.1199",
+          "count": 0
+        },
+        {
+          "volume": "98.1642",
+          "count": 0
+        },
+        {
+          "volume": "99.2085",
+          "count": 0
+        },
+        {
+          "volume": "100.2528",
+          "count": 0
+        },
+        {
+          "volume": "101.2971",
+          "count": 0
+        },
+        {
+          "volume": "102.3414",
+          "count": 1
+        },
+        {
+          "volume": "103.3857",
+          "count": 0
+        },
+        {
+          "volume": "104.4300",
+          "count": 3
+        }
+      ],
+      "volume_distribution_kurtosis": "1.81853",
+      "volume_distribution_mean": "52.86769",
+      "volume_distribution_median": "52.73715",
+      "volume_distribution_mode": "104.43000",
+      "volume_distribution_skewness": "0.33686",
+      "volume_distribution_std": "32.81220",
+      "count_time_distribution": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        17,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "buy_sell_count_ratio": "0.000",
+      "vwap": "0.552135721912350598",
+      "market_id": "bybit-ava-usdt"
+    },
+    {
+      "timestamp": "2023-11-14T13:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        6,
+        6,
+        2,
+        3,
+        3,
+        3,
+        2,
+        1,
+        1
+      ],
+      "volume_volatility_correlation": "0.99939",
+      "volume_distribution": [
+        {
+          "volume": "1.3029",
+          "count": 0
+        },
+        {
+          "volume": "2.6058",
+          "count": 2
+        },
+        {
+          "volume": "3.9087",
+          "count": 0
+        },
+        {
+          "volume": "5.2116",
+          "count": 0
+        },
+        {
+          "volume": "6.5145",
+          "count": 0
+        },
+        {
+          "volume": "7.8174",
+          "count": 1
+        },
+        {
+          "volume": "9.1203",
+          "count": 0
+        },
+        {
+          "volume": "10.4232",
+          "count": 2
+        },
+        {
+          "volume": "11.7261",
+          "count": 0
+        },
+        {
+          "volume": "13.0290",
+          "count": 0
+        },
+        {
+          "volume": "14.3319",
+          "count": 0
+        },
+        {
+          "volume": "15.6348",
+          "count": 0
+        },
+        {
+          "volume": "16.9377",
+          "count": 0
+        },
+        {
+          "volume": "18.2406",
+          "count": 0
+        },
+        {
+          "volume": "19.5435",
+          "count": 0
+        },
+        {
+          "volume": "20.8464",
+          "count": 0
+        },
+        {
+          "volume": "22.1493",
+          "count": 0
+        },
+        {
+          "volume": "23.4522",
+          "count": 1
+        },
+        {
+          "volume": "24.7551",
+          "count": 1
+        },
+        {
+          "volume": "26.0580",
+          "count": 0
+        },
+        {
+          "volume": "27.3609",
+          "count": 0
+        },
+        {
+          "volume": "28.6638",
+          "count": 2
+        },
+        {
+          "volume": "29.9667",
+          "count": 1
+        },
+        {
+          "volume": "31.2696",
+          "count": 1
+        },
+        {
+          "volume": "32.5725",
+          "count": 1
+        },
+        {
+          "volume": "33.8754",
+          "count": 0
+        },
+        {
+          "volume": "35.1783",
+          "count": 0
+        },
+        {
+          "volume": "36.4812",
+          "count": 0
+        },
+        {
+          "volume": "37.7841",
+          "count": 0
+        },
+        {
+          "volume": "39.0870",
+          "count": 0
+        },
+        {
+          "volume": "40.3899",
+          "count": 1
+        },
+        {
+          "volume": "41.6928",
+          "count": 0
+        },
+        {
+          "volume": "42.9957",
+          "count": 0
+        },
+        {
+          "volume": "44.2986",
+          "count": 1
+        },
+        {
+          "volume": "45.6015",
+          "count": 0
+        },
+        {
+          "volume": "46.9044",
+          "count": 0
+        },
+        {
+          "volume": "48.2073",
+          "count": 0
+        },
+        {
+          "volume": "49.5102",
+          "count": 1
+        },
+        {
+          "volume": "50.8131",
+          "count": 1
+        },
+        {
+          "volume": "52.1160",
+          "count": 0
+        },
+        {
+          "volume": "53.4189",
+          "count": 1
+        },
+        {
+          "volume": "54.7218",
+          "count": 0
+        },
+        {
+          "volume": "56.0247",
+          "count": 0
+        },
+        {
+          "volume": "57.3276",
+          "count": 0
+        },
+        {
+          "volume": "58.6305",
+          "count": 1
+        },
+        {
+          "volume": "59.9334",
+          "count": 0
+        },
+        {
+          "volume": "61.2363",
+          "count": 0
+        },
+        {
+          "volume": "62.5392",
+          "count": 0
+        },
+        {
+          "volume": "63.8421",
+          "count": 0
+        },
+        {
+          "volume": "65.1450",
+          "count": 2
+        },
+        {
+          "volume": "66.4479",
+          "count": 0
+        },
+        {
+          "volume": "67.7508",
+          "count": 0
+        },
+        {
+          "volume": "69.0537",
+          "count": 0
+        },
+        {
+          "volume": "70.3566",
+          "count": 0
+        },
+        {
+          "volume": "71.6595",
+          "count": 0
+        },
+        {
+          "volume": "72.9624",
+          "count": 0
+        },
+        {
+          "volume": "74.2653",
+          "count": 0
+        },
+        {
+          "volume": "75.5682",
+          "count": 1
+        },
+        {
+          "volume": "76.8711",
+          "count": 0
+        },
+        {
+          "volume": "78.1740",
+          "count": 1
+        },
+        {
+          "volume": "79.4769",
+          "count": 0
+        },
+        {
+          "volume": "80.7798",
+          "count": 0
+        },
+        {
+          "volume": "82.0827",
+          "count": 1
+        },
+        {
+          "volume": "83.3856",
+          "count": 0
+        },
+        {
+          "volume": "84.6885",
+          "count": 0
+        },
+        {
+          "volume": "85.9914",
+          "count": 0
+        },
+        {
+          "volume": "87.2943",
+          "count": 0
+        },
+        {
+          "volume": "88.5972",
+          "count": 0
+        },
+        {
+          "volume": "89.9001",
+          "count": 0
+        },
+        {
+          "volume": "91.2030",
+          "count": 0
+        },
+        {
+          "volume": "92.5059",
+          "count": 0
+        },
+        {
+          "volume": "93.8088",
+          "count": 0
+        },
+        {
+          "volume": "95.1117",
+          "count": 0
+        },
+        {
+          "volume": "96.4146",
+          "count": 0
+        },
+        {
+          "volume": "97.7175",
+          "count": 0
+        },
+        {
+          "volume": "99.0204",
+          "count": 0
+        },
+        {
+          "volume": "100.3233",
+          "count": 0
+        },
+        {
+          "volume": "101.6262",
+          "count": 0
+        },
+        {
+          "volume": "102.9291",
+          "count": 0
+        },
+        {
+          "volume": "104.2320",
+          "count": 1
+        },
+        {
+          "volume": "105.5349",
+          "count": 0
+        },
+        {
+          "volume": "106.8378",
+          "count": 0
+        },
+        {
+          "volume": "108.1407",
+          "count": 0
+        },
+        {
+          "volume": "109.4436",
+          "count": 0
+        },
+        {
+          "volume": "110.7465",
+          "count": 0
+        },
+        {
+          "volume": "112.0494",
+          "count": 0
+        },
+        {
+          "volume": "113.3523",
+          "count": 0
+        },
+        {
+          "volume": "114.6552",
+          "count": 0
+        },
+        {
+          "volume": "115.9581",
+          "count": 1
+        },
+        {
+          "volume": "117.2610",
+          "count": 0
+        },
+        {
+          "volume": "118.5639",
+          "count": 0
+        },
+        {
+          "volume": "119.8668",
+          "count": 0
+        },
+        {
+          "volume": "121.1697",
+          "count": 0
+        },
+        {
+          "volume": "122.4726",
+          "count": 0
+        },
+        {
+          "volume": "123.7755",
+          "count": 1
+        },
+        {
+          "volume": "125.0784",
+          "count": 0
+        },
+        {
+          "volume": "126.3813",
+          "count": 0
+        },
+        {
+          "volume": "127.6842",
+          "count": 0
+        },
+        {
+          "volume": "128.9871",
+          "count": 0
+        },
+        {
+          "volume": "130.2900",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "2.59802",
+      "volume_distribution_mean": "50.76484",
+      "volume_distribution_median": "65.79645",
+      "volume_distribution_mode": "2.60580",
+      "volume_distribution_skewness": "0.69582",
+      "volume_distribution_std": "36.01720",
+      "count_time_distribution": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        25,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "buy_sell_count_ratio": "0.963",
+      "vwap": "0.527520989430048756",
+      "market_id": "bybit-ava-usdt"
+    },
+    {
+      "timestamp": "2023-11-14T18:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        5,
+        4,
+        4,
+        3,
+        6,
+        1,
+        6,
+        1,
+        2
+      ],
+      "volume_volatility_correlation": "0.50283",
+      "volume_distribution": [
+        {
+          "volume": "1.152",
+          "count": 8
+        },
+        {
+          "volume": "2.304",
+          "count": 1
+        },
+        {
+          "volume": "3.456",
+          "count": 0
+        },
+        {
+          "volume": "4.608",
+          "count": 0
+        },
+        {
+          "volume": "5.760",
+          "count": 0
+        },
+        {
+          "volume": "6.912",
+          "count": 0
+        },
+        {
+          "volume": "8.064",
+          "count": 0
+        },
+        {
+          "volume": "9.216",
+          "count": 0
+        },
+        {
+          "volume": "10.368",
+          "count": 0
+        },
+        {
+          "volume": "11.520",
+          "count": 0
+        },
+        {
+          "volume": "12.672",
+          "count": 1
+        },
+        {
+          "volume": "13.824",
+          "count": 0
+        },
+        {
+          "volume": "14.976",
+          "count": 0
+        },
+        {
+          "volume": "16.128",
+          "count": 0
+        },
+        {
+          "volume": "17.280",
+          "count": 0
+        },
+        {
+          "volume": "18.432",
+          "count": 0
+        },
+        {
+          "volume": "19.584",
+          "count": 0
+        },
+        {
+          "volume": "20.736",
+          "count": 0
+        },
+        {
+          "volume": "21.888",
+          "count": 0
+        },
+        {
+          "volume": "23.040",
+          "count": 0
+        },
+        {
+          "volume": "24.192",
+          "count": 1
+        },
+        {
+          "volume": "25.344",
+          "count": 0
+        },
+        {
+          "volume": "26.496",
+          "count": 1
+        },
+        {
+          "volume": "27.648",
+          "count": 0
+        },
+        {
+          "volume": "28.800",
+          "count": 0
+        },
+        {
+          "volume": "29.952",
+          "count": 1
+        },
+        {
+          "volume": "31.104",
+          "count": 1
+        },
+        {
+          "volume": "32.256",
+          "count": 0
+        },
+        {
+          "volume": "33.408",
+          "count": 0
+        },
+        {
+          "volume": "34.560",
+          "count": 0
+        },
+        {
+          "volume": "35.712",
+          "count": 0
+        },
+        {
+          "volume": "36.864",
+          "count": 0
+        },
+        {
+          "volume": "38.016",
+          "count": 1
+        },
+        {
+          "volume": "39.168",
+          "count": 1
+        },
+        {
+          "volume": "40.320",
+          "count": 0
+        },
+        {
+          "volume": "41.472",
+          "count": 1
+        },
+        {
+          "volume": "42.624",
+          "count": 0
+        },
+        {
+          "volume": "43.776",
+          "count": 0
+        },
+        {
+          "volume": "44.928",
+          "count": 1
+        },
+        {
+          "volume": "46.080",
+          "count": 0
+        },
+        {
+          "volume": "47.232",
+          "count": 0
+        },
+        {
+          "volume": "48.384",
+          "count": 1
+        },
+        {
+          "volume": "49.536",
+          "count": 0
+        },
+        {
+          "volume": "50.688",
+          "count": 0
+        },
+        {
+          "volume": "51.840",
+          "count": 2
+        },
+        {
+          "volume": "52.992",
+          "count": 0
+        },
+        {
+          "volume": "54.144",
+          "count": 0
+        },
+        {
+          "volume": "55.296",
+          "count": 2
+        },
+        {
+          "volume": "56.448",
+          "count": 1
+        },
+        {
+          "volume": "57.600",
+          "count": 0
+        },
+        {
+          "volume": "58.752",
+          "count": 0
+        },
+        {
+          "volume": "59.904",
+          "count": 0
+        },
+        {
+          "volume": "61.056",
+          "count": 0
+        },
+        {
+          "volume": "62.208",
+          "count": 0
+        },
+        {
+          "volume": "63.360",
+          "count": 0
+        },
+        {
+          "volume": "64.512",
+          "count": 0
+        },
+        {
+          "volume": "65.664",
+          "count": 0
+        },
+        {
+          "volume": "66.816",
+          "count": 0
+        },
+        {
+          "volume": "67.968",
+          "count": 0
+        },
+        {
+          "volume": "69.120",
+          "count": 0
+        },
+        {
+          "volume": "70.272",
+          "count": 0
+        },
+        {
+          "volume": "71.424",
+          "count": 0
+        },
+        {
+          "volume": "72.576",
+          "count": 0
+        },
+        {
+          "volume": "73.728",
+          "count": 0
+        },
+        {
+          "volume": "74.880",
+          "count": 0
+        },
+        {
+          "volume": "76.032",
+          "count": 2
+        },
+        {
+          "volume": "77.184",
+          "count": 2
+        },
+        {
+          "volume": "78.336",
+          "count": 0
+        },
+        {
+          "volume": "79.488",
+          "count": 0
+        },
+        {
+          "volume": "80.640",
+          "count": 1
+        },
+        {
+          "volume": "81.792",
+          "count": 0
+        },
+        {
+          "volume": "82.944",
+          "count": 0
+        },
+        {
+          "volume": "84.096",
+          "count": 0
+        },
+        {
+          "volume": "85.248",
+          "count": 0
+        },
+        {
+          "volume": "86.400",
+          "count": 0
+        },
+        {
+          "volume": "87.552",
+          "count": 0
+        },
+        {
+          "volume": "88.704",
+          "count": 0
+        },
+        {
+          "volume": "89.856",
+          "count": 0
+        },
+        {
+          "volume": "91.008",
+          "count": 1
+        },
+        {
+          "volume": "92.160",
+          "count": 0
+        },
+        {
+          "volume": "93.312",
+          "count": 0
+        },
+        {
+          "volume": "94.464",
+          "count": 1
+        },
+        {
+          "volume": "95.616",
+          "count": 0
+        },
+        {
+          "volume": "96.768",
+          "count": 0
+        },
+        {
+          "volume": "97.920",
+          "count": 0
+        },
+        {
+          "volume": "99.072",
+          "count": 0
+        },
+        {
+          "volume": "100.224",
+          "count": 0
+        },
+        {
+          "volume": "101.376",
+          "count": 0
+        },
+        {
+          "volume": "102.528",
+          "count": 0
+        },
+        {
+          "volume": "103.680",
+          "count": 0
+        },
+        {
+          "volume": "104.832",
+          "count": 0
+        },
+        {
+          "volume": "105.984",
+          "count": 0
+        },
+        {
+          "volume": "107.136",
+          "count": 0
+        },
+        {
+          "volume": "108.288",
+          "count": 0
+        },
+        {
+          "volume": "109.440",
+          "count": 0
+        },
+        {
+          "volume": "110.592",
+          "count": 0
+        },
+        {
+          "volume": "111.744",
+          "count": 0
+        },
+        {
+          "volume": "112.896",
+          "count": 0
+        },
+        {
+          "volume": "114.048",
+          "count": 0
+        },
+        {
+          "volume": "115.200",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "2.11547",
+      "volume_distribution_mean": "40.82400",
+      "volume_distribution_median": "58.17600",
+      "volume_distribution_mode": "1.15200",
+      "volume_distribution_skewness": "0.32484",
+      "volume_distribution_std": "32.68633",
+      "count_time_distribution": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        14,
+        1,
+        3,
+        9,
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      "buy_sell_count_ratio": "0.031",
+      "vwap": "0.522565858395941295",
+      "market_id": "bybit-ava-usdt"
+    },
+    {
+      "timestamp": "2023-11-15T00:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        5,
+        5,
+        3,
+        3,
+        0,
+        1,
+        3,
+        0,
+        3
+      ],
+      "volume_volatility_correlation": "1.00000",
+      "volume_distribution": [
+        {
+          "volume": "1.1861",
+          "count": 0
+        },
+        {
+          "volume": "2.3722",
+          "count": 0
+        },
+        {
+          "volume": "3.5583",
+          "count": 0
+        },
+        {
+          "volume": "4.7444",
+          "count": 1
+        },
+        {
+          "volume": "5.9305",
+          "count": 0
+        },
+        {
+          "volume": "7.1166",
+          "count": 0
+        },
+        {
+          "volume": "8.3027",
+          "count": 1
+        },
+        {
+          "volume": "9.4888",
+          "count": 0
+        },
+        {
+          "volume": "10.6749",
+          "count": 0
+        },
+        {
+          "volume": "11.8610",
+          "count": 0
+        },
+        {
+          "volume": "13.0471",
+          "count": 0
+        },
+        {
+          "volume": "14.2332",
+          "count": 0
+        },
+        {
+          "volume": "15.4193",
+          "count": 0
+        },
+        {
+          "volume": "16.6054",
+          "count": 1
+        },
+        {
+          "volume": "17.7915",
+          "count": 0
+        },
+        {
+          "volume": "18.9776",
+          "count": 0
+        },
+        {
+          "volume": "20.1637",
+          "count": 2
+        },
+        {
+          "volume": "21.3498",
+          "count": 1
+        },
+        {
+          "volume": "22.5359",
+          "count": 0
+        },
+        {
+          "volume": "23.7220",
+          "count": 0
+        },
+        {
+          "volume": "24.9081",
+          "count": 1
+        },
+        {
+          "volume": "26.0942",
+          "count": 0
+        },
+        {
+          "volume": "27.2803",
+          "count": 0
+        },
+        {
+          "volume": "28.4664",
+          "count": 1
+        },
+        {
+          "volume": "29.6525",
+          "count": 1
+        },
+        {
+          "volume": "30.8386",
+          "count": 1
+        },
+        {
+          "volume": "32.0247",
+          "count": 1
+        },
+        {
+          "volume": "33.2108",
+          "count": 1
+        },
+        {
+          "volume": "34.3969",
+          "count": 0
+        },
+        {
+          "volume": "35.5830",
+          "count": 0
+        },
+        {
+          "volume": "36.7691",
+          "count": 0
+        },
+        {
+          "volume": "37.9552",
+          "count": 0
+        },
+        {
+          "volume": "39.1413",
+          "count": 1
+        },
+        {
+          "volume": "40.3274",
+          "count": 0
+        },
+        {
+          "volume": "41.5135",
+          "count": 1
+        },
+        {
+          "volume": "42.6996",
+          "count": 0
+        },
+        {
+          "volume": "43.8857",
+          "count": 0
+        },
+        {
+          "volume": "45.0718",
+          "count": 0
+        },
+        {
+          "volume": "46.2579",
+          "count": 0
+        },
+        {
+          "volume": "47.4440",
+          "count": 0
+        },
+        {
+          "volume": "48.6301",
+          "count": 1
+        },
+        {
+          "volume": "49.8162",
+          "count": 0
+        },
+        {
+          "volume": "51.0023",
+          "count": 0
+        },
+        {
+          "volume": "52.1884",
+          "count": 0
+        },
+        {
+          "volume": "53.3745",
+          "count": 0
+        },
+        {
+          "volume": "54.5606",
+          "count": 0
+        },
+        {
+          "volume": "55.7467",
+          "count": 0
+        },
+        {
+          "volume": "56.9328",
+          "count": 0
+        },
+        {
+          "volume": "58.1189",
+          "count": 0
+        },
+        {
+          "volume": "59.3050",
+          "count": 0
+        },
+        {
+          "volume": "60.4911",
+          "count": 0
+        },
+        {
+          "volume": "61.6772",
+          "count": 0
+        },
+        {
+          "volume": "62.8633",
+          "count": 1
+        },
+        {
+          "volume": "64.0494",
+          "count": 0
+        },
+        {
+          "volume": "65.2355",
+          "count": 0
+        },
+        {
+          "volume": "66.4216",
+          "count": 0
+        },
+        {
+          "volume": "67.6077",
+          "count": 0
+        },
+        {
+          "volume": "68.7938",
+          "count": 0
+        },
+        {
+          "volume": "69.9799",
+          "count": 0
+        },
+        {
+          "volume": "71.1660",
+          "count": 0
+        },
+        {
+          "volume": "72.3521",
+          "count": 0
+        },
+        {
+          "volume": "73.5382",
+          "count": 1
+        },
+        {
+          "volume": "74.7243",
+          "count": 0
+        },
+        {
+          "volume": "75.9104",
+          "count": 0
+        },
+        {
+          "volume": "77.0965",
+          "count": 0
+        },
+        {
+          "volume": "78.2826",
+          "count": 0
+        },
+        {
+          "volume": "79.4687",
+          "count": 1
+        },
+        {
+          "volume": "80.6548",
+          "count": 0
+        },
+        {
+          "volume": "81.8409",
+          "count": 0
+        },
+        {
+          "volume": "83.0270",
+          "count": 0
+        },
+        {
+          "volume": "84.2131",
+          "count": 0
+        },
+        {
+          "volume": "85.3992",
+          "count": 0
+        },
+        {
+          "volume": "86.5853",
+          "count": 0
+        },
+        {
+          "volume": "87.7714",
+          "count": 0
+        },
+        {
+          "volume": "88.9575",
+          "count": 0
+        },
+        {
+          "volume": "90.1436",
+          "count": 0
+        },
+        {
+          "volume": "91.3297",
+          "count": 0
+        },
+        {
+          "volume": "92.5158",
+          "count": 0
+        },
+        {
+          "volume": "93.7019",
+          "count": 2
+        },
+        {
+          "volume": "94.8880",
+          "count": 0
+        },
+        {
+          "volume": "96.0741",
+          "count": 1
+        },
+        {
+          "volume": "97.2602",
+          "count": 0
+        },
+        {
+          "volume": "98.4463",
+          "count": 0
+        },
+        {
+          "volume": "99.6324",
+          "count": 0
+        },
+        {
+          "volume": "100.8185",
+          "count": 0
+        },
+        {
+          "volume": "102.0046",
+          "count": 0
+        },
+        {
+          "volume": "103.1907",
+          "count": 0
+        },
+        {
+          "volume": "104.3768",
+          "count": 0
+        },
+        {
+          "volume": "105.5629",
+          "count": 0
+        },
+        {
+          "volume": "106.7490",
+          "count": 0
+        },
+        {
+          "volume": "107.9351",
+          "count": 0
+        },
+        {
+          "volume": "109.1212",
+          "count": 0
+        },
+        {
+          "volume": "110.3073",
+          "count": 0
+        },
+        {
+          "volume": "111.4934",
+          "count": 1
+        },
+        {
+          "volume": "112.6795",
+          "count": 0
+        },
+        {
+          "volume": "113.8656",
+          "count": 0
+        },
+        {
+          "volume": "115.0517",
+          "count": 0
+        },
+        {
+          "volume": "116.2378",
+          "count": 0
+        },
+        {
+          "volume": "117.4239",
+          "count": 0
+        },
+        {
+          "volume": "118.6100",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "2.12273",
+      "volume_distribution_mean": "49.09423",
+      "volume_distribution_median": "59.89805",
+      "volume_distribution_mode": "20.16370",
+      "volume_distribution_skewness": "0.67882",
+      "volume_distribution_std": "33.73477",
+      "count_time_distribution": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        21,
+        1,
+        0,
+        0,
+        0
+      ],
+      "buy_sell_count_ratio": "1.000",
+      "vwap": "0.528348318441021957",
+      "market_id": "bybit-ava-usdt"
+    }
+  ]
+}
