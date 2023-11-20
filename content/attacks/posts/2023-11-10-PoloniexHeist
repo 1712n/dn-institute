@@ -1,0 +1,36 @@
+---
+date: 2023-11-10
+target-entities: Poloniex
+entity-types: Exchange 
+attack-types: Private Key Leak
+title: "Poloniex Loses $125,000,000"
+loss: 125000000
+---
+
+## Summary
+
+Tron founder Justin Sun is offering a 5% white hat bounty to the hacker who exploited Poloniex for $125 [million.](https://dailyhodl.com/2023/11/10/tron-founder-justin-sun-offers-5-cut-to-hacker-after-poloniex-crypto-exchange-loses-125000000-in-cyber-heist/#:~:text=The%20Daily%20Hodl-,Tron%20Founder%20Justin%20Sun%20Offers%205%25%20Cut%20to%20Hacker%20After,Loses%20%24125%2C000%2C000%20in%20Cyber%20Heist&text=Tron%20(TRX)%20founder%20Justin%20Sun,for%20%24125%20million%20in%20crypto.) Sun gave the hacker a week to return the [funds](https://twitter.com/peckshield/status/1722991018272759816) to the affected wallets. If not, law enforcement will be involved. The hacker stole $56 million in Ethereum, $48 million in TRX, $18 million in Bitcoin, and other assets, including Tether, USD Coin, and Shiba Inu. The hacker made a mistake and burned $2 million worth of [Golem.](https://twitter.com/0xSisyphus/status/1722945133983748432?s=20) Sun promises full reimbursement for the stolen funds and collaboration with other exchanges to recover the assets. Poloniex is now listed as one of the Top 10 [Largest](https://finance.yahoo.com/news/poloniex-now-among-top-10-160516233.html#:~:text=Poloniex%20Now%20Among%20Top%2010%20Largest%20Cex%20Hacks%20With%20%24125%20Million%20Loss,-Camila%20Russo&text=Poloniex%2C%20the%20centralized%20crypto%20exchange,loss%20of%20about%20%24125M.) hacks with this $125 Million Loss. 
+
+
+## Attackers
+
+The identity of the attacker is currently unknown.
+
+## Losses
+
+-Poloniex [lost](https://twitter.com/lookonchain/status/1722969227915661531) 56,000,000 worth of ETH, 48,000,000 worth of [TRX,](https://platform.arkhamintelligence.com/explorer/address/TXs71PNcHmxgptA3wQ4g398qbToMPhnEoG) and 18,000,000 worth of BTC. 
+
+-The attacker was also able to obtain a number of other crypto assets, including stablecoins Tether (USDT), USD Coin (USDC), as well as [memecoin](https://cryptopotato.com/heres-what-tokens-were-stolen-in-the-125-million-poloniex-hack/) Shiba Inu (SHIB).
+
+## Timeline
+
+**November 10, 2023, 11:07 AM UTC:** Poloniex announces their wallet had been closed for [maintenance](https://twitter.com/PoloSupport/status/1722934043543752968?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1722934043543752968%7Ctwgr%5E58cb76ede3fa88c84e8020c747d8943bf3d02bdc%7Ctwcon%5Es1_&ref_url=https%3A%2F%2Fwww.fxstreet.com%2Fcryptocurrencies%2Fnews%2Fcrypto-exchange-poloniex-hack-leads-to-60-million-in-assets-stolen-peckshield-says-202311101206) 
+**November 10, 2023, 12:06 PM:** Poloniex announces the hack and the extent of the [losses.](https://www.fxstreet.com/cryptocurrencies/news/crypto-exchange-poloniex-hack-leads-to-60-million-in-assets-stolen-peckshield-says-202311101206)
+**November 15, 2023, 12:30 PM:** Poloniex puts out a statement that the platform is now running smoothly and the [restoration](https://support.poloniex.com/hc/en-us/articles/19080588734743) efforts have almost been completed.
+
+## Security Failure Causes
+
+A private key [compromise](https://cointelegraph.com/news/poloniex-exchange-hack-60-million-drained-5-percent-bounty) is suspected to be the cause. 
+
+
+
