@@ -18,6 +18,8 @@ loss: No monetary loss
 State-sponsored [threat](https://thehackernews.com/2023/11/north-korean-hackers-tageting-crypto.html#:~:text=State%2Dsponsored%20threat%20actors%20from%20the%20Democratic%20People%27s%20Republic%20of%20Korea%20(DPRK)) actors from North Korea, specifically the Lazarus Group, have been identified targeting blockchain engineers on a crypto exchange platform through Discord using a new macOS malware called KANDYKORN. The attackers employed social engineering on a public [Discord](https://www.bitdegree.org/crypto/news/lazarus-group-targets-crypto-engineers-with-stealthy-macos-malware#:~:text=the%20attacks%20began%20on%20the%20popular%20Discord%20platform) server, impersonating blockchain engineers to trick victims into downloading and executing a ZIP archive containing malicious code. The malware, KANDYKORN, is a sophisticated implant with capabilities such as monitoring, interacting, and evading [detection.](https://thehackernews.com/2023/11/north-korean-hackers-tageting-crypto.html#:~:text=%22KANDYKORN%20is%20an%20advanced%20implant%20with%20a%20variety%20of%20capabilities%20to%20monitor%2C%20interact%20with%2C%20and%20avoid%20detection%2C%22) The attack involves multiple [stages,](https://www.elastic.co/security-labs/elastic-catches-dprk-passing-out-kandykorn#:~:text=culminating%20in%20KANDYKORN%3A-,Stage,-0%20(Initial%20Compromise) utilizing Python scripts and reflective loading for execution. Additionally, an Android spyware variant called FastViewer, linked to a North Korean threat group called [Kimsuky,](https://izoologic.com/2022/11/08/north-korean-kimsuky-group-used-three-malware-strains-in-attacks/#:~:text=The%20Kimsuky%20North%20Korean%20APT%20group%20was%20observed%20propagating%20three%20Android%20malware%20strains%20against%20South%20Korean%20targets%2C%20which%20include%20FastFire) has been discovered with updated functionality. The spyware abuses Android's accessibility services to gather sensitive data and download a second-stage malware, FastSpy. The new version integrates [FastSpy's](https://izoologic.com/2022/11/08/north-korean-kimsuky-group-used-three-malware-strains-in-attacks/#:~:text=Security%20experts%20explained%20that%20FastFire%20is%20masquerading%20as%20a%20Google%20security%20plugin%2C%20the%20FastViewer%20malware%20is%20disguised%20as%20the%20Hancom%20Office%20Viewer%20app%2C%20and%20the%20FastSpy%20malware%20is%20utilised%20as%20an%20AndroSpy%2Dbased%20remote%20access%20tool.)  functionality into FastViewer, eliminating the need for additional downloads. The hack was [discovered](https://www.elastic.co/security-labs/elastic-catches-dprk-passing-out-kandykorn#:~:text=We%20discovered%20this%20intrusion%20when%20analyzing%20attempts%20to%20reflectively%20load%20a%20binary%20into%20memory%20on%20a%20macOS%20endpoint.) when Elastic Security Labs was analyzing attempts to load binary into memory of a macOS endpoint. 
 
 
+
+
 ## Attackers
 
 
@@ -35,8 +37,6 @@ State-sponsored [threat](https://thehackernews.com/2023/11/north-korean-hackers-
 
 
 **April 2023:" Elastic Security Labs [traced](https://www.elastic.co/security-labs/elastic-catches-dprk-passing-out-kandykorn#:~:text=Elastic%20traced%20this%20campaign%20to%20April%202023%20through%20the%20RC4%20key%20used%20to%20encrypt%20the%20SUGARLOADER%20and%20KANDYKORN%20C2.%20This%20threat%20is%20still%20active%20and%20the%20tools%20and%20techniques%20are%20being%20continuously%20developed.) the Lazarus APT group's campaign using the KandyKorn malware through the RC4 key used for encryption in the SUGARLOADER and KandyKorn C2. The threat is ongoing, and there is ongoing development of tools and techniques by the attackers.
-
-
 **Late July 2023:** There a subReditts user reports being contacted to solve a Python coding [challenge](https://www.elastic.co/security-labs/elastic-catches-dprk-passing-out-kandykorn#:~:text=Finally%2C%20in%20late,internet%20speed%20test.) appearing to be for a speedtest.  	 	
 **October 31, 2023:** Elastic Security Lab releases article discovering KandyKorn hack and explains the five phases KandyKorn uses.
 
@@ -45,3 +45,9 @@ State-sponsored [threat](https://thehackernews.com/2023/11/north-korean-hackers-
 
 
 The intrusion utilized both custom and open source tools for gaining initial access and carrying out post-exploitation activities.
+
+
+
+
+
+
