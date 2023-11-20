@@ -37,7 +37,7 @@ State-sponsored [threat](https://thehackernews.com/2023/11/north-korean-hackers-
 **April 2023:" Elastic Security Labs [traced](https://www.elastic.co/security-labs/elastic-catches-dprk-passing-out-kandykorn#:~:text=Elastic%20traced%20this%20campaign%20to%20April%202023%20through%20the%20RC4%20key%20used%20to%20encrypt%20the%20SUGARLOADER%20and%20KANDYKORN%20C2.%20This%20threat%20is%20still%20active%20and%20the%20tools%20and%20techniques%20are%20being%20continuously%20developed.) the Lazarus APT group's campaign using the KandyKorn malware through the RC4 key used for encryption in the SUGARLOADER and KandyKorn C2. The threat is ongoing, and there is ongoing development of tools and techniques by the attackers.
 
 
-**Late July 2023:** There a subReditts user reports being contacted to solve a Python coding [challenge](https://www.elastic.co/security-labs/elastic-catches-dprk-passing-out-kandykorn#:~:text=The%20user%20on%20Reddit%20reported%20that%20a%20recruiter%20contacted%20them%20to%20solve%20a%20Python%20coding%20challenge%20as%20part%20of%20a%20job%20offer.%20The%20code%20challenge%20was%20to%20analyze%20Python%20code%20purported%20to%20be%20for%20an%20internet%20speed%20test)appearing to be for a speedtest.  	 	
+**Late July 2023:** There a subReditts user reports being contacted to solve a Python coding [challenge](https://www.elastic.co/security-labs/elastic-catches-dprk-passing-out-kandykorn#:~:text=Finally%2C%20in%20late,internet%20speed%20test.) appearing to be for a speedtest.  	 	
 **October 31, 2023:** Elastic Security Lab releases article discovering KandyKorn hack and explains the five phases KandyKorn uses.
 
 
