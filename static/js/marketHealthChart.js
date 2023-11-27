@@ -45,8 +45,9 @@ const chartConfig = {
   const chart = new Chart(ctx, chartConfig) 
   
   async function fetchData() {
-      const RAPIDAPIHOST = process.env.RAPIDAPIHOST 
-      const  SECRETRAPIDAPI= process.env.SECRETRAPIDAPI
+    const RAPIDAPIHOST = process.env.RAPIDAPIHOST
+    const  SECRETRAPIDAPI= process.env.SECRETRAPIDAPI
+
       const apiOptions = {
           method: "GET",
           url: "https://crypto-market-health.p.rapidapi.com/wash_trading_metrics",
@@ -84,28 +85,40 @@ const chartConfig = {
       };
   }
   
-  async function loadAltcoins() {
-      try {
-          const response = await axios.get("https://api.pro.coinbase.com/products");
-          const altcoins = response.data.filter(coin => coin.base_currency).map(coin => coin.base_currency);
-          
-          populateDropdown(altcoins);
-      } catch (error) {
-          console.error("Error retrieving altcoins:", error);
-      }
-  }
-  
-  function populateDropdown(altcoins) {
-      const selectElement = document.getElementById("cryptoSelect");
-      selectElement.innerHTML = ""; 
-  
-      altcoins.forEach(coin => {
-          const optionElement = document.createElement("option");
-          optionElement.value = `COINBASE-${coin}-USDT`;
-          optionElement.textContent = coin;
-          selectElement.appendChild(optionElement);
-      });
-  }
+async function loadAltcoins() {
+    const RAPIDAPIHOST = process.env.RAPIDAPIHOST
+    const  SECRETRAPIDAPI= process.env.SECRETRAPIDAPI
+
+    const options = {
+        method: 'GET',
+        url: 'https://crypto-market-health.p.rapidapi.com/dictionary',
+        headers: {
+            'X-RapidAPI-Key': SECRETRAPIDAPI,
+            'X-RapidAPI-Host': RAPIDAPIHOST
+        }
+    };
+
+    try {
+        const response = await axios.request(options);
+        const altcoins = response.data.data; 
+
+        populateDropdown(altcoins);
+    } catch (error) {
+        console.error("Error retrieving altcoins:", error);
+    }
+}
+
+function populateDropdown(altcoins) {
+    const selectElement = document.getElementById("cryptoSelect");
+    selectElement.innerHTML = ""; 
+    
+    altcoins.forEach(coin => {
+        const optionElement = document.createElement("option");
+        optionElement.value = coin.market_id; 
+        optionElement.textContent = coin.symbol.toUpperCase(); 
+        selectElement.appendChild(optionElement);
+    });
+}  
   
   fetchData();
   loadAltcoins();
