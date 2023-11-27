@@ -1,3 +1,6 @@
+const RAPIDAPIHOST = process.env.RAPIDAPIHOST
+const  SECRETRAPIDAPI= process.env.SECRETRAPIDAPI
+
 const chartConfig = {
     type: 'line',
     data: {
@@ -45,9 +48,6 @@ const chartConfig = {
   const chart = new Chart(ctx, chartConfig) 
   
   async function fetchData() {
-    const RAPIDAPIHOST = process.env.RAPIDAPIHOST
-    const  SECRETRAPIDAPI= process.env.SECRETRAPIDAPI
-
       const apiOptions = {
           method: "GET",
           url: "https://crypto-market-health.p.rapidapi.com/wash_trading_metrics",
@@ -86,9 +86,6 @@ const chartConfig = {
   }
   
 async function loadAltcoins() {
-    const RAPIDAPIHOST = process.env.RAPIDAPIHOST
-    const  SECRETRAPIDAPI= process.env.SECRETRAPIDAPI
-
     const options = {
         method: 'GET',
         url: 'https://crypto-market-health.p.rapidapi.com/dictionary',
