@@ -21,7 +21,7 @@ Normally, trading volume and market volatility are correlated with each other, v
 
 The similar pattern was detected for ZEC - USDT.
 
-{{< figure src="wbtc-usdt_mode.png" caption="Hourly volume distribution mode, 2023/10/26 10:00 - 2023/10/27 10:00, Poloniex, ZEC - USDT" >}}
+{{< figure src="zec-usdt_mode.png" caption="Hourly volume distribution mode, 2023/10/26 10:00 - 2023/10/27 10:00, Poloniex, ZEC - USDT" >}}
 {{< figure src="zec-usdt_volume_distr.png" caption="Hourly volume distribution, 2023/10/26 10:00 – 2023/10/27 10:00, Poloniex, ZEC - USDT" >}}
 
 Buy/sell ratio here is relatively stable around 0.5. This metric is usually volatile, whereas the consistency around 0.5 can indicate wash trading when buying and selling are executed by the same entity.
