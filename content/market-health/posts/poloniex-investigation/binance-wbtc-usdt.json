@@ -1,0 +1,10274 @@
+{
+  "message": "Success",
+  "data": [
+    {
+      "timestamp": "2023-10-26T10:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        45,
+        69,
+        38,
+        12,
+        13,
+        5,
+        1,
+        7,
+        3
+      ],
+      "volume_volatility_correlation": "0.59437",
+      "volume_distribution": [
+        {
+          "volume": "0.0006421",
+          "count": 54
+        },
+        {
+          "volume": "0.0012842",
+          "count": 13
+        },
+        {
+          "volume": "0.0019263",
+          "count": 13
+        },
+        {
+          "volume": "0.0025684",
+          "count": 11
+        },
+        {
+          "volume": "0.0032105",
+          "count": 57
+        },
+        {
+          "volume": "0.0038526",
+          "count": 6
+        },
+        {
+          "volume": "0.0044947",
+          "count": 8
+        },
+        {
+          "volume": "0.0051368",
+          "count": 3
+        },
+        {
+          "volume": "0.0057789",
+          "count": 2
+        },
+        {
+          "volume": "0.0064210",
+          "count": 2
+        },
+        {
+          "volume": "0.0070631",
+          "count": 1
+        },
+        {
+          "volume": "0.0077052",
+          "count": 0
+        },
+        {
+          "volume": "0.0083473",
+          "count": 1
+        },
+        {
+          "volume": "0.0089894",
+          "count": 1
+        },
+        {
+          "volume": "0.0096315",
+          "count": 1
+        },
+        {
+          "volume": "0.0102736",
+          "count": 1
+        },
+        {
+          "volume": "0.0109157",
+          "count": 1
+        },
+        {
+          "volume": "0.0115578",
+          "count": 5
+        },
+        {
+          "volume": "0.0121999",
+          "count": 1
+        },
+        {
+          "volume": "0.0128420",
+          "count": 0
+        },
+        {
+          "volume": "0.0134841",
+          "count": 0
+        },
+        {
+          "volume": "0.0141262",
+          "count": 1
+        },
+        {
+          "volume": "0.0147683",
+          "count": 0
+        },
+        {
+          "volume": "0.0154104",
+          "count": 1
+        },
+        {
+          "volume": "0.0160525",
+          "count": 0
+        },
+        {
+          "volume": "0.0166946",
+          "count": 0
+        },
+        {
+          "volume": "0.0173367",
+          "count": 0
+        },
+        {
+          "volume": "0.0179788",
+          "count": 0
+        },
+        {
+          "volume": "0.0186209",
+          "count": 0
+        },
+        {
+          "volume": "0.0192630",
+          "count": 1
+        },
+        {
+          "volume": "0.0199051",
+          "count": 1
+        },
+        {
+          "volume": "0.0205472",
+          "count": 0
+        },
+        {
+          "volume": "0.0211893",
+          "count": 0
+        },
+        {
+          "volume": "0.0218314",
+          "count": 0
+        },
+        {
+          "volume": "0.0224735",
+          "count": 1
+        },
+        {
+          "volume": "0.0231156",
+          "count": 0
+        },
+        {
+          "volume": "0.0237577",
+          "count": 1
+        },
+        {
+          "volume": "0.0243998",
+          "count": 0
+        },
+        {
+          "volume": "0.0250419",
+          "count": 1
+        },
+        {
+          "volume": "0.0256840",
+          "count": 0
+        },
+        {
+          "volume": "0.0263261",
+          "count": 0
+        },
+        {
+          "volume": "0.0269682",
+          "count": 0
+        },
+        {
+          "volume": "0.0276103",
+          "count": 0
+        },
+        {
+          "volume": "0.0282524",
+          "count": 0
+        },
+        {
+          "volume": "0.0288945",
+          "count": 0
+        },
+        {
+          "volume": "0.0295366",
+          "count": 0
+        },
+        {
+          "volume": "0.0301787",
+          "count": 0
+        },
+        {
+          "volume": "0.0308208",
+          "count": 0
+        },
+        {
+          "volume": "0.0314629",
+          "count": 0
+        },
+        {
+          "volume": "0.0321050",
+          "count": 0
+        },
+        {
+          "volume": "0.0327471",
+          "count": 0
+        },
+        {
+          "volume": "0.0333892",
+          "count": 0
+        },
+        {
+          "volume": "0.0340313",
+          "count": 0
+        },
+        {
+          "volume": "0.0346734",
+          "count": 1
+        },
+        {
+          "volume": "0.0353155",
+          "count": 0
+        },
+        {
+          "volume": "0.0359576",
+          "count": 0
+        },
+        {
+          "volume": "0.0365997",
+          "count": 0
+        },
+        {
+          "volume": "0.0372418",
+          "count": 0
+        },
+        {
+          "volume": "0.0378839",
+          "count": 0
+        },
+        {
+          "volume": "0.0385260",
+          "count": 1
+        },
+        {
+          "volume": "0.0391681",
+          "count": 0
+        },
+        {
+          "volume": "0.0398102",
+          "count": 0
+        },
+        {
+          "volume": "0.0404523",
+          "count": 0
+        },
+        {
+          "volume": "0.0410944",
+          "count": 0
+        },
+        {
+          "volume": "0.0417365",
+          "count": 0
+        },
+        {
+          "volume": "0.0423786",
+          "count": 0
+        },
+        {
+          "volume": "0.0430207",
+          "count": 0
+        },
+        {
+          "volume": "0.0436628",
+          "count": 0
+        },
+        {
+          "volume": "0.0443049",
+          "count": 0
+        },
+        {
+          "volume": "0.0449470",
+          "count": 1
+        },
+        {
+          "volume": "0.0455891",
+          "count": 0
+        },
+        {
+          "volume": "0.0462312",
+          "count": 0
+        },
+        {
+          "volume": "0.0468733",
+          "count": 0
+        },
+        {
+          "volume": "0.0475154",
+          "count": 0
+        },
+        {
+          "volume": "0.0481575",
+          "count": 0
+        },
+        {
+          "volume": "0.0487996",
+          "count": 0
+        },
+        {
+          "volume": "0.0494417",
+          "count": 0
+        },
+        {
+          "volume": "0.0500838",
+          "count": 0
+        },
+        {
+          "volume": "0.0507259",
+          "count": 0
+        },
+        {
+          "volume": "0.0513680",
+          "count": 0
+        },
+        {
+          "volume": "0.0520101",
+          "count": 0
+        },
+        {
+          "volume": "0.0526522",
+          "count": 0
+        },
+        {
+          "volume": "0.0532943",
+          "count": 0
+        },
+        {
+          "volume": "0.0539364",
+          "count": 0
+        },
+        {
+          "volume": "0.0545785",
+          "count": 0
+        },
+        {
+          "volume": "0.0552206",
+          "count": 0
+        },
+        {
+          "volume": "0.0558627",
+          "count": 0
+        },
+        {
+          "volume": "0.0565048",
+          "count": 0
+        },
+        {
+          "volume": "0.0571469",
+          "count": 0
+        },
+        {
+          "volume": "0.0577890",
+          "count": 0
+        },
+        {
+          "volume": "0.0584311",
+          "count": 0
+        },
+        {
+          "volume": "0.0590732",
+          "count": 0
+        },
+        {
+          "volume": "0.0597153",
+          "count": 0
+        },
+        {
+          "volume": "0.0603574",
+          "count": 0
+        },
+        {
+          "volume": "0.0609995",
+          "count": 0
+        },
+        {
+          "volume": "0.0616416",
+          "count": 0
+        },
+        {
+          "volume": "0.0622837",
+          "count": 0
+        },
+        {
+          "volume": "0.0629258",
+          "count": 0
+        },
+        {
+          "volume": "0.0635679",
+          "count": 1
+        },
+        {
+          "volume": "0.0642100",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "28.78182",
+      "volume_distribution_mean": "0.00465",
+      "volume_distribution_median": "0.03243",
+      "volume_distribution_mode": "0.00321",
+      "volume_distribution_skewness": "4.73619",
+      "volume_distribution_std": "0.00857",
+      "count_time_distribution": [
+        4,
+        0,
+        17,
+        5,
+        2,
+        8,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        5,
+        0,
+        0,
+        0,
+        19,
+        1,
+        0,
+        0,
+        1,
+        22,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        15,
+        0,
+        0,
+        0,
+        1,
+        0,
+        51,
+        14,
+        12,
+        0,
+        3,
+        1,
+        0,
+        0,
+        2,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "buy_sell_count_ratio": "0.311",
+      "vwap": "34287.771400922319700000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-26T11:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        25,
+        40,
+        20,
+        14,
+        33,
+        4,
+        4,
+        11,
+        14
+      ],
+      "volume_volatility_correlation": "0.34596",
+      "volume_distribution": [
+        {
+          "volume": "0.0002931",
+          "count": 12
+        },
+        {
+          "volume": "0.0005862",
+          "count": 21
+        },
+        {
+          "volume": "0.0008793",
+          "count": 24
+        },
+        {
+          "volume": "0.0011724",
+          "count": 10
+        },
+        {
+          "volume": "0.0014655",
+          "count": 4
+        },
+        {
+          "volume": "0.0017586",
+          "count": 6
+        },
+        {
+          "volume": "0.0020517",
+          "count": 2
+        },
+        {
+          "volume": "0.0023448",
+          "count": 4
+        },
+        {
+          "volume": "0.0026379",
+          "count": 5
+        },
+        {
+          "volume": "0.0029310",
+          "count": 16
+        },
+        {
+          "volume": "0.0032241",
+          "count": 2
+        },
+        {
+          "volume": "0.0035172",
+          "count": 3
+        },
+        {
+          "volume": "0.0038103",
+          "count": 0
+        },
+        {
+          "volume": "0.0041034",
+          "count": 1
+        },
+        {
+          "volume": "0.0043965",
+          "count": 2
+        },
+        {
+          "volume": "0.0046896",
+          "count": 1
+        },
+        {
+          "volume": "0.0049827",
+          "count": 1
+        },
+        {
+          "volume": "0.0052758",
+          "count": 3
+        },
+        {
+          "volume": "0.0055689",
+          "count": 3
+        },
+        {
+          "volume": "0.0058620",
+          "count": 4
+        },
+        {
+          "volume": "0.0061551",
+          "count": 0
+        },
+        {
+          "volume": "0.0064482",
+          "count": 2
+        },
+        {
+          "volume": "0.0067413",
+          "count": 0
+        },
+        {
+          "volume": "0.0070344",
+          "count": 0
+        },
+        {
+          "volume": "0.0073275",
+          "count": 1
+        },
+        {
+          "volume": "0.0076206",
+          "count": 0
+        },
+        {
+          "volume": "0.0079137",
+          "count": 0
+        },
+        {
+          "volume": "0.0082068",
+          "count": 0
+        },
+        {
+          "volume": "0.0084999",
+          "count": 2
+        },
+        {
+          "volume": "0.0087930",
+          "count": 0
+        },
+        {
+          "volume": "0.0090861",
+          "count": 2
+        },
+        {
+          "volume": "0.0093792",
+          "count": 3
+        },
+        {
+          "volume": "0.0096723",
+          "count": 0
+        },
+        {
+          "volume": "0.0099654",
+          "count": 0
+        },
+        {
+          "volume": "0.0102585",
+          "count": 0
+        },
+        {
+          "volume": "0.0105516",
+          "count": 1
+        },
+        {
+          "volume": "0.0108447",
+          "count": 0
+        },
+        {
+          "volume": "0.0111378",
+          "count": 1
+        },
+        {
+          "volume": "0.0114309",
+          "count": 1
+        },
+        {
+          "volume": "0.0117240",
+          "count": 1
+        },
+        {
+          "volume": "0.0120171",
+          "count": 0
+        },
+        {
+          "volume": "0.0123102",
+          "count": 0
+        },
+        {
+          "volume": "0.0126033",
+          "count": 0
+        },
+        {
+          "volume": "0.0128964",
+          "count": 0
+        },
+        {
+          "volume": "0.0131895",
+          "count": 0
+        },
+        {
+          "volume": "0.0134826",
+          "count": 2
+        },
+        {
+          "volume": "0.0137757",
+          "count": 0
+        },
+        {
+          "volume": "0.0140688",
+          "count": 0
+        },
+        {
+          "volume": "0.0143619",
+          "count": 0
+        },
+        {
+          "volume": "0.0146550",
+          "count": 0
+        },
+        {
+          "volume": "0.0149481",
+          "count": 0
+        },
+        {
+          "volume": "0.0152412",
+          "count": 1
+        },
+        {
+          "volume": "0.0155343",
+          "count": 0
+        },
+        {
+          "volume": "0.0158274",
+          "count": 0
+        },
+        {
+          "volume": "0.0161205",
+          "count": 0
+        },
+        {
+          "volume": "0.0164136",
+          "count": 0
+        },
+        {
+          "volume": "0.0167067",
+          "count": 0
+        },
+        {
+          "volume": "0.0169998",
+          "count": 0
+        },
+        {
+          "volume": "0.0172929",
+          "count": 0
+        },
+        {
+          "volume": "0.0175860",
+          "count": 0
+        },
+        {
+          "volume": "0.0178791",
+          "count": 0
+        },
+        {
+          "volume": "0.0181722",
+          "count": 0
+        },
+        {
+          "volume": "0.0184653",
+          "count": 0
+        },
+        {
+          "volume": "0.0187584",
+          "count": 0
+        },
+        {
+          "volume": "0.0190515",
+          "count": 0
+        },
+        {
+          "volume": "0.0193446",
+          "count": 0
+        },
+        {
+          "volume": "0.0196377",
+          "count": 0
+        },
+        {
+          "volume": "0.0199308",
+          "count": 0
+        },
+        {
+          "volume": "0.0202239",
+          "count": 0
+        },
+        {
+          "volume": "0.0205170",
+          "count": 0
+        },
+        {
+          "volume": "0.0208101",
+          "count": 1
+        },
+        {
+          "volume": "0.0211032",
+          "count": 0
+        },
+        {
+          "volume": "0.0213963",
+          "count": 0
+        },
+        {
+          "volume": "0.0216894",
+          "count": 0
+        },
+        {
+          "volume": "0.0219825",
+          "count": 0
+        },
+        {
+          "volume": "0.0222756",
+          "count": 0
+        },
+        {
+          "volume": "0.0225687",
+          "count": 0
+        },
+        {
+          "volume": "0.0228618",
+          "count": 0
+        },
+        {
+          "volume": "0.0231549",
+          "count": 0
+        },
+        {
+          "volume": "0.0234480",
+          "count": 0
+        },
+        {
+          "volume": "0.0237411",
+          "count": 0
+        },
+        {
+          "volume": "0.0240342",
+          "count": 0
+        },
+        {
+          "volume": "0.0243273",
+          "count": 0
+        },
+        {
+          "volume": "0.0246204",
+          "count": 1
+        },
+        {
+          "volume": "0.0249135",
+          "count": 0
+        },
+        {
+          "volume": "0.0252066",
+          "count": 0
+        },
+        {
+          "volume": "0.0254997",
+          "count": 0
+        },
+        {
+          "volume": "0.0257928",
+          "count": 1
+        },
+        {
+          "volume": "0.0260859",
+          "count": 0
+        },
+        {
+          "volume": "0.0263790",
+          "count": 1
+        },
+        {
+          "volume": "0.0266721",
+          "count": 0
+        },
+        {
+          "volume": "0.0269652",
+          "count": 0
+        },
+        {
+          "volume": "0.0272583",
+          "count": 0
+        },
+        {
+          "volume": "0.0275514",
+          "count": 0
+        },
+        {
+          "volume": "0.0278445",
+          "count": 1
+        },
+        {
+          "volume": "0.0281376",
+          "count": 1
+        },
+        {
+          "volume": "0.0284307",
+          "count": 0
+        },
+        {
+          "volume": "0.0287238",
+          "count": 0
+        },
+        {
+          "volume": "0.0290169",
+          "count": 0
+        },
+        {
+          "volume": "0.0293100",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "10.90042",
+      "volume_distribution_mean": "0.00397",
+      "volume_distribution_median": "0.01480",
+      "volume_distribution_mode": "0.00088",
+      "volume_distribution_skewness": "2.79624",
+      "volume_distribution_std": "0.00584",
+      "count_time_distribution": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        10,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        1,
+        0,
+        5,
+        0,
+        3,
+        7,
+        0,
+        3,
+        1,
+        1,
+        0,
+        2,
+        0,
+        1,
+        0,
+        1,
+        5,
+        1,
+        0,
+        1,
+        3,
+        1,
+        2,
+        0,
+        0,
+        5,
+        0,
+        25,
+        3,
+        0,
+        1,
+        10,
+        2,
+        5,
+        18,
+        4,
+        1,
+        0,
+        13,
+        14,
+        0,
+        1,
+        0,
+        1,
+        0,
+        4,
+        0,
+        6
+      ],
+      "buy_sell_count_ratio": "0.648",
+      "vwap": "34136.061799618242000000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-26T12:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        28,
+        31,
+        14,
+        15,
+        14,
+        7,
+        15,
+        11,
+        6
+      ],
+      "volume_volatility_correlation": "0.87365",
+      "volume_distribution": [
+        {
+          "volume": "0.0007424",
+          "count": 33
+        },
+        {
+          "volume": "0.0014848",
+          "count": 24
+        },
+        {
+          "volume": "0.0022272",
+          "count": 7
+        },
+        {
+          "volume": "0.0029696",
+          "count": 24
+        },
+        {
+          "volume": "0.0037120",
+          "count": 8
+        },
+        {
+          "volume": "0.0044544",
+          "count": 10
+        },
+        {
+          "volume": "0.0051968",
+          "count": 4
+        },
+        {
+          "volume": "0.0059392",
+          "count": 3
+        },
+        {
+          "volume": "0.0066816",
+          "count": 2
+        },
+        {
+          "volume": "0.0074240",
+          "count": 8
+        },
+        {
+          "volume": "0.0081664",
+          "count": 2
+        },
+        {
+          "volume": "0.0089088",
+          "count": 2
+        },
+        {
+          "volume": "0.0096512",
+          "count": 0
+        },
+        {
+          "volume": "0.0103936",
+          "count": 2
+        },
+        {
+          "volume": "0.0111360",
+          "count": 0
+        },
+        {
+          "volume": "0.0118784",
+          "count": 0
+        },
+        {
+          "volume": "0.0126208",
+          "count": 0
+        },
+        {
+          "volume": "0.0133632",
+          "count": 0
+        },
+        {
+          "volume": "0.0141056",
+          "count": 0
+        },
+        {
+          "volume": "0.0148480",
+          "count": 1
+        },
+        {
+          "volume": "0.0155904",
+          "count": 0
+        },
+        {
+          "volume": "0.0163328",
+          "count": 0
+        },
+        {
+          "volume": "0.0170752",
+          "count": 0
+        },
+        {
+          "volume": "0.0178176",
+          "count": 1
+        },
+        {
+          "volume": "0.0185600",
+          "count": 0
+        },
+        {
+          "volume": "0.0193024",
+          "count": 0
+        },
+        {
+          "volume": "0.0200448",
+          "count": 1
+        },
+        {
+          "volume": "0.0207872",
+          "count": 1
+        },
+        {
+          "volume": "0.0215296",
+          "count": 0
+        },
+        {
+          "volume": "0.0222720",
+          "count": 0
+        },
+        {
+          "volume": "0.0230144",
+          "count": 0
+        },
+        {
+          "volume": "0.0237568",
+          "count": 0
+        },
+        {
+          "volume": "0.0244992",
+          "count": 0
+        },
+        {
+          "volume": "0.0252416",
+          "count": 0
+        },
+        {
+          "volume": "0.0259840",
+          "count": 0
+        },
+        {
+          "volume": "0.0267264",
+          "count": 0
+        },
+        {
+          "volume": "0.0274688",
+          "count": 1
+        },
+        {
+          "volume": "0.0282112",
+          "count": 0
+        },
+        {
+          "volume": "0.0289536",
+          "count": 0
+        },
+        {
+          "volume": "0.0296960",
+          "count": 1
+        },
+        {
+          "volume": "0.0304384",
+          "count": 0
+        },
+        {
+          "volume": "0.0311808",
+          "count": 1
+        },
+        {
+          "volume": "0.0319232",
+          "count": 0
+        },
+        {
+          "volume": "0.0326656",
+          "count": 0
+        },
+        {
+          "volume": "0.0334080",
+          "count": 0
+        },
+        {
+          "volume": "0.0341504",
+          "count": 0
+        },
+        {
+          "volume": "0.0348928",
+          "count": 0
+        },
+        {
+          "volume": "0.0356352",
+          "count": 0
+        },
+        {
+          "volume": "0.0363776",
+          "count": 0
+        },
+        {
+          "volume": "0.0371200",
+          "count": 1
+        },
+        {
+          "volume": "0.0378624",
+          "count": 0
+        },
+        {
+          "volume": "0.0386048",
+          "count": 0
+        },
+        {
+          "volume": "0.0393472",
+          "count": 0
+        },
+        {
+          "volume": "0.0400896",
+          "count": 0
+        },
+        {
+          "volume": "0.0408320",
+          "count": 0
+        },
+        {
+          "volume": "0.0415744",
+          "count": 0
+        },
+        {
+          "volume": "0.0423168",
+          "count": 0
+        },
+        {
+          "volume": "0.0430592",
+          "count": 0
+        },
+        {
+          "volume": "0.0438016",
+          "count": 1
+        },
+        {
+          "volume": "0.0445440",
+          "count": 0
+        },
+        {
+          "volume": "0.0452864",
+          "count": 0
+        },
+        {
+          "volume": "0.0460288",
+          "count": 0
+        },
+        {
+          "volume": "0.0467712",
+          "count": 0
+        },
+        {
+          "volume": "0.0475136",
+          "count": 0
+        },
+        {
+          "volume": "0.0482560",
+          "count": 0
+        },
+        {
+          "volume": "0.0489984",
+          "count": 0
+        },
+        {
+          "volume": "0.0497408",
+          "count": 0
+        },
+        {
+          "volume": "0.0504832",
+          "count": 0
+        },
+        {
+          "volume": "0.0512256",
+          "count": 0
+        },
+        {
+          "volume": "0.0519680",
+          "count": 1
+        },
+        {
+          "volume": "0.0527104",
+          "count": 0
+        },
+        {
+          "volume": "0.0534528",
+          "count": 0
+        },
+        {
+          "volume": "0.0541952",
+          "count": 1
+        },
+        {
+          "volume": "0.0549376",
+          "count": 0
+        },
+        {
+          "volume": "0.0556800",
+          "count": 0
+        },
+        {
+          "volume": "0.0564224",
+          "count": 0
+        },
+        {
+          "volume": "0.0571648",
+          "count": 0
+        },
+        {
+          "volume": "0.0579072",
+          "count": 0
+        },
+        {
+          "volume": "0.0586496",
+          "count": 0
+        },
+        {
+          "volume": "0.0593920",
+          "count": 0
+        },
+        {
+          "volume": "0.0601344",
+          "count": 0
+        },
+        {
+          "volume": "0.0608768",
+          "count": 0
+        },
+        {
+          "volume": "0.0616192",
+          "count": 0
+        },
+        {
+          "volume": "0.0623616",
+          "count": 0
+        },
+        {
+          "volume": "0.0631040",
+          "count": 0
+        },
+        {
+          "volume": "0.0638464",
+          "count": 0
+        },
+        {
+          "volume": "0.0645888",
+          "count": 0
+        },
+        {
+          "volume": "0.0653312",
+          "count": 0
+        },
+        {
+          "volume": "0.0660736",
+          "count": 0
+        },
+        {
+          "volume": "0.0668160",
+          "count": 0
+        },
+        {
+          "volume": "0.0675584",
+          "count": 0
+        },
+        {
+          "volume": "0.0683008",
+          "count": 0
+        },
+        {
+          "volume": "0.0690432",
+          "count": 0
+        },
+        {
+          "volume": "0.0697856",
+          "count": 0
+        },
+        {
+          "volume": "0.0705280",
+          "count": 0
+        },
+        {
+          "volume": "0.0712704",
+          "count": 0
+        },
+        {
+          "volume": "0.0720128",
+          "count": 0
+        },
+        {
+          "volume": "0.0727552",
+          "count": 0
+        },
+        {
+          "volume": "0.0734976",
+          "count": 0
+        },
+        {
+          "volume": "0.0742400",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "20.91878",
+      "volume_distribution_mean": "0.00575",
+      "volume_distribution_median": "0.03749",
+      "volume_distribution_mode": "0.00074",
+      "volume_distribution_skewness": "4.02322",
+      "volume_distribution_std": "0.01053",
+      "count_time_distribution": [
+        14,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        1,
+        1,
+        0,
+        6,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        16,
+        0,
+        50,
+        11,
+        10,
+        1,
+        1,
+        8,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        5,
+        0,
+        1,
+        1,
+        0,
+        2,
+        0,
+        1,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "buy_sell_count_ratio": "0.270",
+      "vwap": "34231.721636748859400000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-26T13:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        22,
+        31,
+        46,
+        5,
+        9,
+        5,
+        2,
+        1,
+        2
+      ],
+      "volume_volatility_correlation": "0.51132",
+      "volume_distribution": [
+        {
+          "volume": "0.0009702",
+          "count": 56
+        },
+        {
+          "volume": "0.0019404",
+          "count": 9
+        },
+        {
+          "volume": "0.0029106",
+          "count": 6
+        },
+        {
+          "volume": "0.0038808",
+          "count": 23
+        },
+        {
+          "volume": "0.0048510",
+          "count": 3
+        },
+        {
+          "volume": "0.0058212",
+          "count": 2
+        },
+        {
+          "volume": "0.0067914",
+          "count": 1
+        },
+        {
+          "volume": "0.0077616",
+          "count": 1
+        },
+        {
+          "volume": "0.0087318",
+          "count": 0
+        },
+        {
+          "volume": "0.0097020",
+          "count": 0
+        },
+        {
+          "volume": "0.0106722",
+          "count": 1
+        },
+        {
+          "volume": "0.0116424",
+          "count": 1
+        },
+        {
+          "volume": "0.0126126",
+          "count": 0
+        },
+        {
+          "volume": "0.0135828",
+          "count": 0
+        },
+        {
+          "volume": "0.0145530",
+          "count": 0
+        },
+        {
+          "volume": "0.0155232",
+          "count": 0
+        },
+        {
+          "volume": "0.0164934",
+          "count": 0
+        },
+        {
+          "volume": "0.0174636",
+          "count": 0
+        },
+        {
+          "volume": "0.0184338",
+          "count": 1
+        },
+        {
+          "volume": "0.0194040",
+          "count": 0
+        },
+        {
+          "volume": "0.0203742",
+          "count": 0
+        },
+        {
+          "volume": "0.0213444",
+          "count": 0
+        },
+        {
+          "volume": "0.0223146",
+          "count": 1
+        },
+        {
+          "volume": "0.0232848",
+          "count": 1
+        },
+        {
+          "volume": "0.0242550",
+          "count": 1
+        },
+        {
+          "volume": "0.0252252",
+          "count": 0
+        },
+        {
+          "volume": "0.0261954",
+          "count": 0
+        },
+        {
+          "volume": "0.0271656",
+          "count": 2
+        },
+        {
+          "volume": "0.0281358",
+          "count": 0
+        },
+        {
+          "volume": "0.0291060",
+          "count": 0
+        },
+        {
+          "volume": "0.0300762",
+          "count": 3
+        },
+        {
+          "volume": "0.0310464",
+          "count": 0
+        },
+        {
+          "volume": "0.0320166",
+          "count": 1
+        },
+        {
+          "volume": "0.0329868",
+          "count": 1
+        },
+        {
+          "volume": "0.0339570",
+          "count": 0
+        },
+        {
+          "volume": "0.0349272",
+          "count": 0
+        },
+        {
+          "volume": "0.0358974",
+          "count": 0
+        },
+        {
+          "volume": "0.0368676",
+          "count": 0
+        },
+        {
+          "volume": "0.0378378",
+          "count": 0
+        },
+        {
+          "volume": "0.0388080",
+          "count": 0
+        },
+        {
+          "volume": "0.0397782",
+          "count": 1
+        },
+        {
+          "volume": "0.0407484",
+          "count": 0
+        },
+        {
+          "volume": "0.0417186",
+          "count": 0
+        },
+        {
+          "volume": "0.0426888",
+          "count": 0
+        },
+        {
+          "volume": "0.0436590",
+          "count": 0
+        },
+        {
+          "volume": "0.0446292",
+          "count": 1
+        },
+        {
+          "volume": "0.0455994",
+          "count": 0
+        },
+        {
+          "volume": "0.0465696",
+          "count": 0
+        },
+        {
+          "volume": "0.0475398",
+          "count": 0
+        },
+        {
+          "volume": "0.0485100",
+          "count": 0
+        },
+        {
+          "volume": "0.0494802",
+          "count": 0
+        },
+        {
+          "volume": "0.0504504",
+          "count": 0
+        },
+        {
+          "volume": "0.0514206",
+          "count": 2
+        },
+        {
+          "volume": "0.0523908",
+          "count": 0
+        },
+        {
+          "volume": "0.0533610",
+          "count": 0
+        },
+        {
+          "volume": "0.0543312",
+          "count": 1
+        },
+        {
+          "volume": "0.0553014",
+          "count": 0
+        },
+        {
+          "volume": "0.0562716",
+          "count": 0
+        },
+        {
+          "volume": "0.0572418",
+          "count": 0
+        },
+        {
+          "volume": "0.0582120",
+          "count": 0
+        },
+        {
+          "volume": "0.0591822",
+          "count": 0
+        },
+        {
+          "volume": "0.0601524",
+          "count": 1
+        },
+        {
+          "volume": "0.0611226",
+          "count": 1
+        },
+        {
+          "volume": "0.0620928",
+          "count": 0
+        },
+        {
+          "volume": "0.0630630",
+          "count": 1
+        },
+        {
+          "volume": "0.0640332",
+          "count": 0
+        },
+        {
+          "volume": "0.0650034",
+          "count": 0
+        },
+        {
+          "volume": "0.0659736",
+          "count": 0
+        },
+        {
+          "volume": "0.0669438",
+          "count": 0
+        },
+        {
+          "volume": "0.0679140",
+          "count": 0
+        },
+        {
+          "volume": "0.0688842",
+          "count": 0
+        },
+        {
+          "volume": "0.0698544",
+          "count": 0
+        },
+        {
+          "volume": "0.0708246",
+          "count": 0
+        },
+        {
+          "volume": "0.0717948",
+          "count": 0
+        },
+        {
+          "volume": "0.0727650",
+          "count": 0
+        },
+        {
+          "volume": "0.0737352",
+          "count": 0
+        },
+        {
+          "volume": "0.0747054",
+          "count": 0
+        },
+        {
+          "volume": "0.0756756",
+          "count": 0
+        },
+        {
+          "volume": "0.0766458",
+          "count": 0
+        },
+        {
+          "volume": "0.0776160",
+          "count": 0
+        },
+        {
+          "volume": "0.0785862",
+          "count": 0
+        },
+        {
+          "volume": "0.0795564",
+          "count": 0
+        },
+        {
+          "volume": "0.0805266",
+          "count": 0
+        },
+        {
+          "volume": "0.0814968",
+          "count": 0
+        },
+        {
+          "volume": "0.0824670",
+          "count": 0
+        },
+        {
+          "volume": "0.0834372",
+          "count": 0
+        },
+        {
+          "volume": "0.0844074",
+          "count": 0
+        },
+        {
+          "volume": "0.0853776",
+          "count": 0
+        },
+        {
+          "volume": "0.0863478",
+          "count": 0
+        },
+        {
+          "volume": "0.0873180",
+          "count": 0
+        },
+        {
+          "volume": "0.0882882",
+          "count": 0
+        },
+        {
+          "volume": "0.0892584",
+          "count": 0
+        },
+        {
+          "volume": "0.0902286",
+          "count": 0
+        },
+        {
+          "volume": "0.0911988",
+          "count": 0
+        },
+        {
+          "volume": "0.0921690",
+          "count": 0
+        },
+        {
+          "volume": "0.0931392",
+          "count": 0
+        },
+        {
+          "volume": "0.0941094",
+          "count": 0
+        },
+        {
+          "volume": "0.0950796",
+          "count": 0
+        },
+        {
+          "volume": "0.0960498",
+          "count": 0
+        },
+        {
+          "volume": "0.0970200",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "11.54402",
+      "volume_distribution_mean": "0.00864",
+      "volume_distribution_median": "0.04900",
+      "volume_distribution_mode": "0.00097",
+      "volume_distribution_skewness": "2.83942",
+      "volume_distribution_std": "0.01629",
+      "count_time_distribution": [
+        0,
+        6,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        5,
+        4,
+        3,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        50,
+        1,
+        6,
+        0,
+        2,
+        0,
+        11,
+        2,
+        4,
+        2,
+        3,
+        0,
+        1,
+        0,
+        0,
+        2,
+        3,
+        1,
+        1,
+        1,
+        2
+      ],
+      "buy_sell_count_ratio": "0.220",
+      "vwap": "34267.383855223110900000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-26T14:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        80,
+        60,
+        37,
+        15,
+        32,
+        22,
+        5,
+        5,
+        10
+      ],
+      "volume_volatility_correlation": "0.62301",
+      "volume_distribution": [
+        {
+          "volume": "0.000377",
+          "count": 35
+        },
+        {
+          "volume": "0.000754",
+          "count": 31
+        },
+        {
+          "volume": "0.001131",
+          "count": 12
+        },
+        {
+          "volume": "0.001508",
+          "count": 21
+        },
+        {
+          "volume": "0.001885",
+          "count": 11
+        },
+        {
+          "volume": "0.002262",
+          "count": 12
+        },
+        {
+          "volume": "0.002639",
+          "count": 5
+        },
+        {
+          "volume": "0.003016",
+          "count": 30
+        },
+        {
+          "volume": "0.003393",
+          "count": 3
+        },
+        {
+          "volume": "0.003770",
+          "count": 5
+        },
+        {
+          "volume": "0.004147",
+          "count": 5
+        },
+        {
+          "volume": "0.004524",
+          "count": 2
+        },
+        {
+          "volume": "0.004901",
+          "count": 1
+        },
+        {
+          "volume": "0.005278",
+          "count": 3
+        },
+        {
+          "volume": "0.005655",
+          "count": 5
+        },
+        {
+          "volume": "0.006032",
+          "count": 2
+        },
+        {
+          "volume": "0.006409",
+          "count": 3
+        },
+        {
+          "volume": "0.006786",
+          "count": 2
+        },
+        {
+          "volume": "0.007163",
+          "count": 0
+        },
+        {
+          "volume": "0.007540",
+          "count": 0
+        },
+        {
+          "volume": "0.007917",
+          "count": 2
+        },
+        {
+          "volume": "0.008294",
+          "count": 1
+        },
+        {
+          "volume": "0.008671",
+          "count": 1
+        },
+        {
+          "volume": "0.009048",
+          "count": 0
+        },
+        {
+          "volume": "0.009425",
+          "count": 2
+        },
+        {
+          "volume": "0.009802",
+          "count": 2
+        },
+        {
+          "volume": "0.010179",
+          "count": 3
+        },
+        {
+          "volume": "0.010556",
+          "count": 1
+        },
+        {
+          "volume": "0.010933",
+          "count": 1
+        },
+        {
+          "volume": "0.011310",
+          "count": 1
+        },
+        {
+          "volume": "0.011687",
+          "count": 1
+        },
+        {
+          "volume": "0.012064",
+          "count": 1
+        },
+        {
+          "volume": "0.012441",
+          "count": 1
+        },
+        {
+          "volume": "0.012818",
+          "count": 2
+        },
+        {
+          "volume": "0.013195",
+          "count": 1
+        },
+        {
+          "volume": "0.013572",
+          "count": 1
+        },
+        {
+          "volume": "0.013949",
+          "count": 0
+        },
+        {
+          "volume": "0.014326",
+          "count": 0
+        },
+        {
+          "volume": "0.014703",
+          "count": 0
+        },
+        {
+          "volume": "0.015080",
+          "count": 3
+        },
+        {
+          "volume": "0.015457",
+          "count": 1
+        },
+        {
+          "volume": "0.015834",
+          "count": 0
+        },
+        {
+          "volume": "0.016211",
+          "count": 0
+        },
+        {
+          "volume": "0.016588",
+          "count": 2
+        },
+        {
+          "volume": "0.016965",
+          "count": 0
+        },
+        {
+          "volume": "0.017342",
+          "count": 1
+        },
+        {
+          "volume": "0.017719",
+          "count": 0
+        },
+        {
+          "volume": "0.018096",
+          "count": 1
+        },
+        {
+          "volume": "0.018473",
+          "count": 0
+        },
+        {
+          "volume": "0.018850",
+          "count": 0
+        },
+        {
+          "volume": "0.019227",
+          "count": 0
+        },
+        {
+          "volume": "0.019604",
+          "count": 0
+        },
+        {
+          "volume": "0.019981",
+          "count": 0
+        },
+        {
+          "volume": "0.020358",
+          "count": 1
+        },
+        {
+          "volume": "0.020735",
+          "count": 1
+        },
+        {
+          "volume": "0.021112",
+          "count": 0
+        },
+        {
+          "volume": "0.021489",
+          "count": 1
+        },
+        {
+          "volume": "0.021866",
+          "count": 1
+        },
+        {
+          "volume": "0.022243",
+          "count": 0
+        },
+        {
+          "volume": "0.022620",
+          "count": 0
+        },
+        {
+          "volume": "0.022997",
+          "count": 1
+        },
+        {
+          "volume": "0.023374",
+          "count": 1
+        },
+        {
+          "volume": "0.023751",
+          "count": 0
+        },
+        {
+          "volume": "0.024128",
+          "count": 0
+        },
+        {
+          "volume": "0.024505",
+          "count": 1
+        },
+        {
+          "volume": "0.024882",
+          "count": 0
+        },
+        {
+          "volume": "0.025259",
+          "count": 1
+        },
+        {
+          "volume": "0.025636",
+          "count": 1
+        },
+        {
+          "volume": "0.026013",
+          "count": 0
+        },
+        {
+          "volume": "0.026390",
+          "count": 0
+        },
+        {
+          "volume": "0.026767",
+          "count": 0
+        },
+        {
+          "volume": "0.027144",
+          "count": 0
+        },
+        {
+          "volume": "0.027521",
+          "count": 0
+        },
+        {
+          "volume": "0.027898",
+          "count": 0
+        },
+        {
+          "volume": "0.028275",
+          "count": 0
+        },
+        {
+          "volume": "0.028652",
+          "count": 1
+        },
+        {
+          "volume": "0.029029",
+          "count": 1
+        },
+        {
+          "volume": "0.029406",
+          "count": 3
+        },
+        {
+          "volume": "0.029783",
+          "count": 0
+        },
+        {
+          "volume": "0.030160",
+          "count": 1
+        },
+        {
+          "volume": "0.030537",
+          "count": 0
+        },
+        {
+          "volume": "0.030914",
+          "count": 1
+        },
+        {
+          "volume": "0.031291",
+          "count": 1
+        },
+        {
+          "volume": "0.031668",
+          "count": 0
+        },
+        {
+          "volume": "0.032045",
+          "count": 0
+        },
+        {
+          "volume": "0.032422",
+          "count": 0
+        },
+        {
+          "volume": "0.032799",
+          "count": 0
+        },
+        {
+          "volume": "0.033176",
+          "count": 1
+        },
+        {
+          "volume": "0.033553",
+          "count": 0
+        },
+        {
+          "volume": "0.033930",
+          "count": 0
+        },
+        {
+          "volume": "0.034307",
+          "count": 0
+        },
+        {
+          "volume": "0.034684",
+          "count": 1
+        },
+        {
+          "volume": "0.035061",
+          "count": 0
+        },
+        {
+          "volume": "0.035438",
+          "count": 0
+        },
+        {
+          "volume": "0.035815",
+          "count": 0
+        },
+        {
+          "volume": "0.036192",
+          "count": 2
+        },
+        {
+          "volume": "0.036569",
+          "count": 0
+        },
+        {
+          "volume": "0.036946",
+          "count": 0
+        },
+        {
+          "volume": "0.037323",
+          "count": 0
+        },
+        {
+          "volume": "0.037700",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "7.05394",
+      "volume_distribution_mean": "0.00569",
+      "volume_distribution_median": "0.01904",
+      "volume_distribution_mode": "0.00038",
+      "volume_distribution_skewness": "2.19027",
+      "volume_distribution_std": "0.00825",
+      "count_time_distribution": [
+        4,
+        1,
+        2,
+        3,
+        0,
+        0,
+        1,
+        0,
+        6,
+        0,
+        0,
+        0,
+        0,
+        8,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        10,
+        0,
+        0,
+        0,
+        0,
+        12,
+        30,
+        14,
+        9,
+        31,
+        21,
+        1,
+        1,
+        30,
+        10,
+        3,
+        3,
+        0,
+        3,
+        0,
+        1,
+        0,
+        2,
+        11,
+        16,
+        3,
+        0,
+        0,
+        0,
+        13,
+        10,
+        0,
+        2,
+        3,
+        0
+      ],
+      "buy_sell_count_ratio": "0.459",
+      "vwap": "34121.809685924777000000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-26T15:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        28,
+        28,
+        18,
+        15,
+        9,
+        7,
+        20,
+        9,
+        4
+      ],
+      "volume_volatility_correlation": "0.29169",
+      "volume_distribution": [
+        {
+          "volume": "0.0008707",
+          "count": 33
+        },
+        {
+          "volume": "0.0017414",
+          "count": 11
+        },
+        {
+          "volume": "0.0026121",
+          "count": 6
+        },
+        {
+          "volume": "0.0034828",
+          "count": 15
+        },
+        {
+          "volume": "0.0043535",
+          "count": 5
+        },
+        {
+          "volume": "0.0052242",
+          "count": 3
+        },
+        {
+          "volume": "0.0060949",
+          "count": 3
+        },
+        {
+          "volume": "0.0069656",
+          "count": 3
+        },
+        {
+          "volume": "0.0078363",
+          "count": 15
+        },
+        {
+          "volume": "0.0087070",
+          "count": 1
+        },
+        {
+          "volume": "0.0095777",
+          "count": 2
+        },
+        {
+          "volume": "0.0104484",
+          "count": 1
+        },
+        {
+          "volume": "0.0113191",
+          "count": 2
+        },
+        {
+          "volume": "0.0121898",
+          "count": 2
+        },
+        {
+          "volume": "0.0130605",
+          "count": 1
+        },
+        {
+          "volume": "0.0139312",
+          "count": 1
+        },
+        {
+          "volume": "0.0148019",
+          "count": 2
+        },
+        {
+          "volume": "0.0156726",
+          "count": 0
+        },
+        {
+          "volume": "0.0165433",
+          "count": 0
+        },
+        {
+          "volume": "0.0174140",
+          "count": 1
+        },
+        {
+          "volume": "0.0182847",
+          "count": 0
+        },
+        {
+          "volume": "0.0191554",
+          "count": 0
+        },
+        {
+          "volume": "0.0200261",
+          "count": 0
+        },
+        {
+          "volume": "0.0208968",
+          "count": 0
+        },
+        {
+          "volume": "0.0217675",
+          "count": 0
+        },
+        {
+          "volume": "0.0226382",
+          "count": 0
+        },
+        {
+          "volume": "0.0235089",
+          "count": 0
+        },
+        {
+          "volume": "0.0243796",
+          "count": 3
+        },
+        {
+          "volume": "0.0252503",
+          "count": 1
+        },
+        {
+          "volume": "0.0261210",
+          "count": 0
+        },
+        {
+          "volume": "0.0269917",
+          "count": 2
+        },
+        {
+          "volume": "0.0278624",
+          "count": 1
+        },
+        {
+          "volume": "0.0287331",
+          "count": 3
+        },
+        {
+          "volume": "0.0296038",
+          "count": 0
+        },
+        {
+          "volume": "0.0304745",
+          "count": 0
+        },
+        {
+          "volume": "0.0313452",
+          "count": 1
+        },
+        {
+          "volume": "0.0322159",
+          "count": 0
+        },
+        {
+          "volume": "0.0330866",
+          "count": 0
+        },
+        {
+          "volume": "0.0339573",
+          "count": 1
+        },
+        {
+          "volume": "0.0348280",
+          "count": 0
+        },
+        {
+          "volume": "0.0356987",
+          "count": 0
+        },
+        {
+          "volume": "0.0365694",
+          "count": 0
+        },
+        {
+          "volume": "0.0374401",
+          "count": 0
+        },
+        {
+          "volume": "0.0383108",
+          "count": 1
+        },
+        {
+          "volume": "0.0391815",
+          "count": 1
+        },
+        {
+          "volume": "0.0400522",
+          "count": 0
+        },
+        {
+          "volume": "0.0409229",
+          "count": 0
+        },
+        {
+          "volume": "0.0417936",
+          "count": 0
+        },
+        {
+          "volume": "0.0426643",
+          "count": 1
+        },
+        {
+          "volume": "0.0435350",
+          "count": 0
+        },
+        {
+          "volume": "0.0444057",
+          "count": 0
+        },
+        {
+          "volume": "0.0452764",
+          "count": 4
+        },
+        {
+          "volume": "0.0461471",
+          "count": 0
+        },
+        {
+          "volume": "0.0470178",
+          "count": 0
+        },
+        {
+          "volume": "0.0478885",
+          "count": 1
+        },
+        {
+          "volume": "0.0487592",
+          "count": 0
+        },
+        {
+          "volume": "0.0496299",
+          "count": 0
+        },
+        {
+          "volume": "0.0505006",
+          "count": 0
+        },
+        {
+          "volume": "0.0513713",
+          "count": 0
+        },
+        {
+          "volume": "0.0522420",
+          "count": 0
+        },
+        {
+          "volume": "0.0531127",
+          "count": 1
+        },
+        {
+          "volume": "0.0539834",
+          "count": 2
+        },
+        {
+          "volume": "0.0548541",
+          "count": 0
+        },
+        {
+          "volume": "0.0557248",
+          "count": 0
+        },
+        {
+          "volume": "0.0565955",
+          "count": 0
+        },
+        {
+          "volume": "0.0574662",
+          "count": 0
+        },
+        {
+          "volume": "0.0583369",
+          "count": 0
+        },
+        {
+          "volume": "0.0592076",
+          "count": 0
+        },
+        {
+          "volume": "0.0600783",
+          "count": 0
+        },
+        {
+          "volume": "0.0609490",
+          "count": 0
+        },
+        {
+          "volume": "0.0618197",
+          "count": 0
+        },
+        {
+          "volume": "0.0626904",
+          "count": 0
+        },
+        {
+          "volume": "0.0635611",
+          "count": 0
+        },
+        {
+          "volume": "0.0644318",
+          "count": 1
+        },
+        {
+          "volume": "0.0653025",
+          "count": 0
+        },
+        {
+          "volume": "0.0661732",
+          "count": 0
+        },
+        {
+          "volume": "0.0670439",
+          "count": 0
+        },
+        {
+          "volume": "0.0679146",
+          "count": 0
+        },
+        {
+          "volume": "0.0687853",
+          "count": 0
+        },
+        {
+          "volume": "0.0696560",
+          "count": 0
+        },
+        {
+          "volume": "0.0705267",
+          "count": 0
+        },
+        {
+          "volume": "0.0713974",
+          "count": 1
+        },
+        {
+          "volume": "0.0722681",
+          "count": 0
+        },
+        {
+          "volume": "0.0731388",
+          "count": 0
+        },
+        {
+          "volume": "0.0740095",
+          "count": 0
+        },
+        {
+          "volume": "0.0748802",
+          "count": 0
+        },
+        {
+          "volume": "0.0757509",
+          "count": 0
+        },
+        {
+          "volume": "0.0766216",
+          "count": 0
+        },
+        {
+          "volume": "0.0774923",
+          "count": 1
+        },
+        {
+          "volume": "0.0783630",
+          "count": 1
+        },
+        {
+          "volume": "0.0792337",
+          "count": 0
+        },
+        {
+          "volume": "0.0801044",
+          "count": 1
+        },
+        {
+          "volume": "0.0809751",
+          "count": 0
+        },
+        {
+          "volume": "0.0818458",
+          "count": 0
+        },
+        {
+          "volume": "0.0827165",
+          "count": 1
+        },
+        {
+          "volume": "0.0835872",
+          "count": 1
+        },
+        {
+          "volume": "0.0844579",
+          "count": 0
+        },
+        {
+          "volume": "0.0853286",
+          "count": 0
+        },
+        {
+          "volume": "0.0861993",
+          "count": 0
+        },
+        {
+          "volume": "0.0870700",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "6.35002",
+      "volume_distribution_mean": "0.01403",
+      "volume_distribution_median": "0.04397",
+      "volume_distribution_mode": "0.00087",
+      "volume_distribution_skewness": "2.03358",
+      "volume_distribution_std": "0.02067",
+      "count_time_distribution": [
+        6,
+        6,
+        13,
+        1,
+        6,
+        3,
+        0,
+        6,
+        0,
+        0,
+        1,
+        2,
+        1,
+        0,
+        0,
+        1,
+        2,
+        0,
+        1,
+        39,
+        5,
+        1,
+        6,
+        1,
+        0,
+        6,
+        0,
+        5,
+        0,
+        0,
+        8,
+        3,
+        2,
+        3,
+        2,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        1,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "buy_sell_count_ratio": "0.297",
+      "vwap": "34001.924957874133000000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-26T16:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        9,
+        7,
+        6,
+        7,
+        0,
+        1,
+        1,
+        3,
+        2
+      ],
+      "volume_volatility_correlation": "-0.09442",
+      "volume_distribution": [
+        {
+          "volume": "0.0008258",
+          "count": 28
+        },
+        {
+          "volume": "0.0016516",
+          "count": 0
+        },
+        {
+          "volume": "0.0024774",
+          "count": 2
+        },
+        {
+          "volume": "0.0033032",
+          "count": 2
+        },
+        {
+          "volume": "0.0041290",
+          "count": 0
+        },
+        {
+          "volume": "0.0049548",
+          "count": 1
+        },
+        {
+          "volume": "0.0057806",
+          "count": 0
+        },
+        {
+          "volume": "0.0066064",
+          "count": 0
+        },
+        {
+          "volume": "0.0074322",
+          "count": 0
+        },
+        {
+          "volume": "0.0082580",
+          "count": 0
+        },
+        {
+          "volume": "0.0090838",
+          "count": 1
+        },
+        {
+          "volume": "0.0099096",
+          "count": 0
+        },
+        {
+          "volume": "0.0107354",
+          "count": 0
+        },
+        {
+          "volume": "0.0115612",
+          "count": 0
+        },
+        {
+          "volume": "0.0123870",
+          "count": 0
+        },
+        {
+          "volume": "0.0132128",
+          "count": 1
+        },
+        {
+          "volume": "0.0140386",
+          "count": 0
+        },
+        {
+          "volume": "0.0148644",
+          "count": 0
+        },
+        {
+          "volume": "0.0156902",
+          "count": 0
+        },
+        {
+          "volume": "0.0165160",
+          "count": 0
+        },
+        {
+          "volume": "0.0173418",
+          "count": 0
+        },
+        {
+          "volume": "0.0181676",
+          "count": 0
+        },
+        {
+          "volume": "0.0189934",
+          "count": 0
+        },
+        {
+          "volume": "0.0198192",
+          "count": 0
+        },
+        {
+          "volume": "0.0206450",
+          "count": 0
+        },
+        {
+          "volume": "0.0214708",
+          "count": 0
+        },
+        {
+          "volume": "0.0222966",
+          "count": 0
+        },
+        {
+          "volume": "0.0231224",
+          "count": 0
+        },
+        {
+          "volume": "0.0239482",
+          "count": 0
+        },
+        {
+          "volume": "0.0247740",
+          "count": 0
+        },
+        {
+          "volume": "0.0255998",
+          "count": 0
+        },
+        {
+          "volume": "0.0264256",
+          "count": 0
+        },
+        {
+          "volume": "0.0272514",
+          "count": 0
+        },
+        {
+          "volume": "0.0280772",
+          "count": 0
+        },
+        {
+          "volume": "0.0289030",
+          "count": 0
+        },
+        {
+          "volume": "0.0297288",
+          "count": 0
+        },
+        {
+          "volume": "0.0305546",
+          "count": 0
+        },
+        {
+          "volume": "0.0313804",
+          "count": 0
+        },
+        {
+          "volume": "0.0322062",
+          "count": 0
+        },
+        {
+          "volume": "0.0330320",
+          "count": 0
+        },
+        {
+          "volume": "0.0338578",
+          "count": 0
+        },
+        {
+          "volume": "0.0346836",
+          "count": 0
+        },
+        {
+          "volume": "0.0355094",
+          "count": 0
+        },
+        {
+          "volume": "0.0363352",
+          "count": 0
+        },
+        {
+          "volume": "0.0371610",
+          "count": 0
+        },
+        {
+          "volume": "0.0379868",
+          "count": 0
+        },
+        {
+          "volume": "0.0388126",
+          "count": 0
+        },
+        {
+          "volume": "0.0396384",
+          "count": 0
+        },
+        {
+          "volume": "0.0404642",
+          "count": 0
+        },
+        {
+          "volume": "0.0412900",
+          "count": 0
+        },
+        {
+          "volume": "0.0421158",
+          "count": 0
+        },
+        {
+          "volume": "0.0429416",
+          "count": 0
+        },
+        {
+          "volume": "0.0437674",
+          "count": 0
+        },
+        {
+          "volume": "0.0445932",
+          "count": 0
+        },
+        {
+          "volume": "0.0454190",
+          "count": 0
+        },
+        {
+          "volume": "0.0462448",
+          "count": 0
+        },
+        {
+          "volume": "0.0470706",
+          "count": 0
+        },
+        {
+          "volume": "0.0478964",
+          "count": 0
+        },
+        {
+          "volume": "0.0487222",
+          "count": 0
+        },
+        {
+          "volume": "0.0495480",
+          "count": 0
+        },
+        {
+          "volume": "0.0503738",
+          "count": 0
+        },
+        {
+          "volume": "0.0511996",
+          "count": 0
+        },
+        {
+          "volume": "0.0520254",
+          "count": 0
+        },
+        {
+          "volume": "0.0528512",
+          "count": 0
+        },
+        {
+          "volume": "0.0536770",
+          "count": 0
+        },
+        {
+          "volume": "0.0545028",
+          "count": 0
+        },
+        {
+          "volume": "0.0553286",
+          "count": 0
+        },
+        {
+          "volume": "0.0561544",
+          "count": 0
+        },
+        {
+          "volume": "0.0569802",
+          "count": 0
+        },
+        {
+          "volume": "0.0578060",
+          "count": 0
+        },
+        {
+          "volume": "0.0586318",
+          "count": 0
+        },
+        {
+          "volume": "0.0594576",
+          "count": 0
+        },
+        {
+          "volume": "0.0602834",
+          "count": 0
+        },
+        {
+          "volume": "0.0611092",
+          "count": 0
+        },
+        {
+          "volume": "0.0619350",
+          "count": 0
+        },
+        {
+          "volume": "0.0627608",
+          "count": 0
+        },
+        {
+          "volume": "0.0635866",
+          "count": 0
+        },
+        {
+          "volume": "0.0644124",
+          "count": 0
+        },
+        {
+          "volume": "0.0652382",
+          "count": 0
+        },
+        {
+          "volume": "0.0660640",
+          "count": 0
+        },
+        {
+          "volume": "0.0668898",
+          "count": 0
+        },
+        {
+          "volume": "0.0677156",
+          "count": 0
+        },
+        {
+          "volume": "0.0685414",
+          "count": 0
+        },
+        {
+          "volume": "0.0693672",
+          "count": 0
+        },
+        {
+          "volume": "0.0701930",
+          "count": 0
+        },
+        {
+          "volume": "0.0710188",
+          "count": 0
+        },
+        {
+          "volume": "0.0718446",
+          "count": 0
+        },
+        {
+          "volume": "0.0726704",
+          "count": 0
+        },
+        {
+          "volume": "0.0734962",
+          "count": 0
+        },
+        {
+          "volume": "0.0743220",
+          "count": 0
+        },
+        {
+          "volume": "0.0751478",
+          "count": 0
+        },
+        {
+          "volume": "0.0759736",
+          "count": 0
+        },
+        {
+          "volume": "0.0767994",
+          "count": 0
+        },
+        {
+          "volume": "0.0776252",
+          "count": 0
+        },
+        {
+          "volume": "0.0784510",
+          "count": 0
+        },
+        {
+          "volume": "0.0792768",
+          "count": 0
+        },
+        {
+          "volume": "0.0801026",
+          "count": 0
+        },
+        {
+          "volume": "0.0809284",
+          "count": 0
+        },
+        {
+          "volume": "0.0817542",
+          "count": 0
+        },
+        {
+          "volume": "0.0825800",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "31.78523",
+      "volume_distribution_mean": "0.00401",
+      "volume_distribution_median": "0.04170",
+      "volume_distribution_mode": "0.00083",
+      "volume_distribution_skewness": "5.46388",
+      "volume_distribution_std": "0.01351",
+      "count_time_distribution": [
+        2,
+        0,
+        1,
+        3,
+        0,
+        2,
+        4,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        4,
+        1,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "buy_sell_count_ratio": "0.139",
+      "vwap": "33898.182315641146100000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-26T17:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        9,
+        13,
+        3,
+        2,
+        0,
+        0,
+        2,
+        0,
+        1
+      ],
+      "volume_volatility_correlation": "0.86974",
+      "volume_distribution": [
+        {
+          "volume": "0.000773",
+          "count": 4
+        },
+        {
+          "volume": "0.001546",
+          "count": 2
+        },
+        {
+          "volume": "0.002319",
+          "count": 2
+        },
+        {
+          "volume": "0.003092",
+          "count": 12
+        },
+        {
+          "volume": "0.003865",
+          "count": 1
+        },
+        {
+          "volume": "0.004638",
+          "count": 2
+        },
+        {
+          "volume": "0.005411",
+          "count": 0
+        },
+        {
+          "volume": "0.006184",
+          "count": 0
+        },
+        {
+          "volume": "0.006957",
+          "count": 0
+        },
+        {
+          "volume": "0.007730",
+          "count": 1
+        },
+        {
+          "volume": "0.008503",
+          "count": 0
+        },
+        {
+          "volume": "0.009276",
+          "count": 0
+        },
+        {
+          "volume": "0.010049",
+          "count": 1
+        },
+        {
+          "volume": "0.010822",
+          "count": 0
+        },
+        {
+          "volume": "0.011595",
+          "count": 3
+        },
+        {
+          "volume": "0.012368",
+          "count": 0
+        },
+        {
+          "volume": "0.013141",
+          "count": 0
+        },
+        {
+          "volume": "0.013914",
+          "count": 0
+        },
+        {
+          "volume": "0.014687",
+          "count": 0
+        },
+        {
+          "volume": "0.015460",
+          "count": 0
+        },
+        {
+          "volume": "0.016233",
+          "count": 0
+        },
+        {
+          "volume": "0.017006",
+          "count": 0
+        },
+        {
+          "volume": "0.017779",
+          "count": 0
+        },
+        {
+          "volume": "0.018552",
+          "count": 0
+        },
+        {
+          "volume": "0.019325",
+          "count": 0
+        },
+        {
+          "volume": "0.020098",
+          "count": 0
+        },
+        {
+          "volume": "0.020871",
+          "count": 0
+        },
+        {
+          "volume": "0.021644",
+          "count": 0
+        },
+        {
+          "volume": "0.022417",
+          "count": 0
+        },
+        {
+          "volume": "0.023190",
+          "count": 0
+        },
+        {
+          "volume": "0.023963",
+          "count": 0
+        },
+        {
+          "volume": "0.024736",
+          "count": 1
+        },
+        {
+          "volume": "0.025509",
+          "count": 0
+        },
+        {
+          "volume": "0.026282",
+          "count": 0
+        },
+        {
+          "volume": "0.027055",
+          "count": 0
+        },
+        {
+          "volume": "0.027828",
+          "count": 0
+        },
+        {
+          "volume": "0.028601",
+          "count": 0
+        },
+        {
+          "volume": "0.029374",
+          "count": 0
+        },
+        {
+          "volume": "0.030147",
+          "count": 0
+        },
+        {
+          "volume": "0.030920",
+          "count": 0
+        },
+        {
+          "volume": "0.031693",
+          "count": 0
+        },
+        {
+          "volume": "0.032466",
+          "count": 0
+        },
+        {
+          "volume": "0.033239",
+          "count": 0
+        },
+        {
+          "volume": "0.034012",
+          "count": 0
+        },
+        {
+          "volume": "0.034785",
+          "count": 0
+        },
+        {
+          "volume": "0.035558",
+          "count": 0
+        },
+        {
+          "volume": "0.036331",
+          "count": 0
+        },
+        {
+          "volume": "0.037104",
+          "count": 0
+        },
+        {
+          "volume": "0.037877",
+          "count": 0
+        },
+        {
+          "volume": "0.038650",
+          "count": 0
+        },
+        {
+          "volume": "0.039423",
+          "count": 0
+        },
+        {
+          "volume": "0.040196",
+          "count": 0
+        },
+        {
+          "volume": "0.040969",
+          "count": 0
+        },
+        {
+          "volume": "0.041742",
+          "count": 0
+        },
+        {
+          "volume": "0.042515",
+          "count": 0
+        },
+        {
+          "volume": "0.043288",
+          "count": 0
+        },
+        {
+          "volume": "0.044061",
+          "count": 0
+        },
+        {
+          "volume": "0.044834",
+          "count": 0
+        },
+        {
+          "volume": "0.045607",
+          "count": 0
+        },
+        {
+          "volume": "0.046380",
+          "count": 0
+        },
+        {
+          "volume": "0.047153",
+          "count": 0
+        },
+        {
+          "volume": "0.047926",
+          "count": 0
+        },
+        {
+          "volume": "0.048699",
+          "count": 0
+        },
+        {
+          "volume": "0.049472",
+          "count": 0
+        },
+        {
+          "volume": "0.050245",
+          "count": 0
+        },
+        {
+          "volume": "0.051018",
+          "count": 0
+        },
+        {
+          "volume": "0.051791",
+          "count": 0
+        },
+        {
+          "volume": "0.052564",
+          "count": 0
+        },
+        {
+          "volume": "0.053337",
+          "count": 0
+        },
+        {
+          "volume": "0.054110",
+          "count": 0
+        },
+        {
+          "volume": "0.054883",
+          "count": 0
+        },
+        {
+          "volume": "0.055656",
+          "count": 0
+        },
+        {
+          "volume": "0.056429",
+          "count": 0
+        },
+        {
+          "volume": "0.057202",
+          "count": 0
+        },
+        {
+          "volume": "0.057975",
+          "count": 0
+        },
+        {
+          "volume": "0.058748",
+          "count": 0
+        },
+        {
+          "volume": "0.059521",
+          "count": 0
+        },
+        {
+          "volume": "0.060294",
+          "count": 0
+        },
+        {
+          "volume": "0.061067",
+          "count": 0
+        },
+        {
+          "volume": "0.061840",
+          "count": 0
+        },
+        {
+          "volume": "0.062613",
+          "count": 0
+        },
+        {
+          "volume": "0.063386",
+          "count": 0
+        },
+        {
+          "volume": "0.064159",
+          "count": 0
+        },
+        {
+          "volume": "0.064932",
+          "count": 0
+        },
+        {
+          "volume": "0.065705",
+          "count": 0
+        },
+        {
+          "volume": "0.066478",
+          "count": 0
+        },
+        {
+          "volume": "0.067251",
+          "count": 0
+        },
+        {
+          "volume": "0.068024",
+          "count": 0
+        },
+        {
+          "volume": "0.068797",
+          "count": 0
+        },
+        {
+          "volume": "0.069570",
+          "count": 0
+        },
+        {
+          "volume": "0.070343",
+          "count": 0
+        },
+        {
+          "volume": "0.071116",
+          "count": 0
+        },
+        {
+          "volume": "0.071889",
+          "count": 0
+        },
+        {
+          "volume": "0.072662",
+          "count": 0
+        },
+        {
+          "volume": "0.073435",
+          "count": 0
+        },
+        {
+          "volume": "0.074208",
+          "count": 0
+        },
+        {
+          "volume": "0.074981",
+          "count": 0
+        },
+        {
+          "volume": "0.075754",
+          "count": 0
+        },
+        {
+          "volume": "0.076527",
+          "count": 0
+        },
+        {
+          "volume": "0.077300",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "21.73469",
+      "volume_distribution_mean": "0.00719",
+      "volume_distribution_median": "0.03904",
+      "volume_distribution_mode": "0.00309",
+      "volume_distribution_skewness": "4.32562",
+      "volume_distribution_std": "0.01389",
+      "count_time_distribution": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        6,
+        1,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        8,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        7,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "buy_sell_count_ratio": "0.233",
+      "vwap": "33832.406498741773100000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-26T18:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        6,
+        8,
+        14,
+        2,
+        0,
+        5,
+        0,
+        1,
+        1
+      ],
+      "volume_volatility_correlation": "0.31723",
+      "volume_distribution": [
+        {
+          "volume": "0.0000625",
+          "count": 2
+        },
+        {
+          "volume": "0.0001250",
+          "count": 0
+        },
+        {
+          "volume": "0.0001875",
+          "count": 3
+        },
+        {
+          "volume": "0.0002500",
+          "count": 0
+        },
+        {
+          "volume": "0.0003125",
+          "count": 0
+        },
+        {
+          "volume": "0.0003750",
+          "count": 14
+        },
+        {
+          "volume": "0.0004375",
+          "count": 0
+        },
+        {
+          "volume": "0.0005000",
+          "count": 0
+        },
+        {
+          "volume": "0.0005625",
+          "count": 0
+        },
+        {
+          "volume": "0.0006250",
+          "count": 0
+        },
+        {
+          "volume": "0.0006875",
+          "count": 4
+        },
+        {
+          "volume": "0.0007500",
+          "count": 0
+        },
+        {
+          "volume": "0.0008125",
+          "count": 0
+        },
+        {
+          "volume": "0.0008750",
+          "count": 0
+        },
+        {
+          "volume": "0.0009375",
+          "count": 2
+        },
+        {
+          "volume": "0.0010000",
+          "count": 0
+        },
+        {
+          "volume": "0.0010625",
+          "count": 0
+        },
+        {
+          "volume": "0.0011250",
+          "count": 0
+        },
+        {
+          "volume": "0.0011875",
+          "count": 0
+        },
+        {
+          "volume": "0.0012500",
+          "count": 0
+        },
+        {
+          "volume": "0.0013125",
+          "count": 1
+        },
+        {
+          "volume": "0.0013750",
+          "count": 0
+        },
+        {
+          "volume": "0.0014375",
+          "count": 0
+        },
+        {
+          "volume": "0.0015000",
+          "count": 0
+        },
+        {
+          "volume": "0.0015625",
+          "count": 0
+        },
+        {
+          "volume": "0.0016250",
+          "count": 0
+        },
+        {
+          "volume": "0.0016875",
+          "count": 0
+        },
+        {
+          "volume": "0.0017500",
+          "count": 0
+        },
+        {
+          "volume": "0.0018125",
+          "count": 0
+        },
+        {
+          "volume": "0.0018750",
+          "count": 0
+        },
+        {
+          "volume": "0.0019375",
+          "count": 0
+        },
+        {
+          "volume": "0.0020000",
+          "count": 0
+        },
+        {
+          "volume": "0.0020625",
+          "count": 1
+        },
+        {
+          "volume": "0.0021250",
+          "count": 0
+        },
+        {
+          "volume": "0.0021875",
+          "count": 0
+        },
+        {
+          "volume": "0.0022500",
+          "count": 1
+        },
+        {
+          "volume": "0.0023125",
+          "count": 0
+        },
+        {
+          "volume": "0.0023750",
+          "count": 1
+        },
+        {
+          "volume": "0.0024375",
+          "count": 1
+        },
+        {
+          "volume": "0.0025000",
+          "count": 0
+        },
+        {
+          "volume": "0.0025625",
+          "count": 0
+        },
+        {
+          "volume": "0.0026250",
+          "count": 0
+        },
+        {
+          "volume": "0.0026875",
+          "count": 0
+        },
+        {
+          "volume": "0.0027500",
+          "count": 0
+        },
+        {
+          "volume": "0.0028125",
+          "count": 1
+        },
+        {
+          "volume": "0.0028750",
+          "count": 0
+        },
+        {
+          "volume": "0.0029375",
+          "count": 1
+        },
+        {
+          "volume": "0.0030000",
+          "count": 2
+        },
+        {
+          "volume": "0.0030625",
+          "count": 0
+        },
+        {
+          "volume": "0.0031250",
+          "count": 0
+        },
+        {
+          "volume": "0.0031875",
+          "count": 0
+        },
+        {
+          "volume": "0.0032500",
+          "count": 0
+        },
+        {
+          "volume": "0.0033125",
+          "count": 0
+        },
+        {
+          "volume": "0.0033750",
+          "count": 0
+        },
+        {
+          "volume": "0.0034375",
+          "count": 0
+        },
+        {
+          "volume": "0.0035000",
+          "count": 0
+        },
+        {
+          "volume": "0.0035625",
+          "count": 0
+        },
+        {
+          "volume": "0.0036250",
+          "count": 0
+        },
+        {
+          "volume": "0.0036875",
+          "count": 0
+        },
+        {
+          "volume": "0.0037500",
+          "count": 0
+        },
+        {
+          "volume": "0.0038125",
+          "count": 0
+        },
+        {
+          "volume": "0.0038750",
+          "count": 0
+        },
+        {
+          "volume": "0.0039375",
+          "count": 0
+        },
+        {
+          "volume": "0.0040000",
+          "count": 0
+        },
+        {
+          "volume": "0.0040625",
+          "count": 1
+        },
+        {
+          "volume": "0.0041250",
+          "count": 0
+        },
+        {
+          "volume": "0.0041875",
+          "count": 0
+        },
+        {
+          "volume": "0.0042500",
+          "count": 0
+        },
+        {
+          "volume": "0.0043125",
+          "count": 1
+        },
+        {
+          "volume": "0.0043750",
+          "count": 0
+        },
+        {
+          "volume": "0.0044375",
+          "count": 0
+        },
+        {
+          "volume": "0.0045000",
+          "count": 0
+        },
+        {
+          "volume": "0.0045625",
+          "count": 0
+        },
+        {
+          "volume": "0.0046250",
+          "count": 0
+        },
+        {
+          "volume": "0.0046875",
+          "count": 0
+        },
+        {
+          "volume": "0.0047500",
+          "count": 0
+        },
+        {
+          "volume": "0.0048125",
+          "count": 0
+        },
+        {
+          "volume": "0.0048750",
+          "count": 0
+        },
+        {
+          "volume": "0.0049375",
+          "count": 0
+        },
+        {
+          "volume": "0.0050000",
+          "count": 0
+        },
+        {
+          "volume": "0.0050625",
+          "count": 0
+        },
+        {
+          "volume": "0.0051250",
+          "count": 0
+        },
+        {
+          "volume": "0.0051875",
+          "count": 0
+        },
+        {
+          "volume": "0.0052500",
+          "count": 0
+        },
+        {
+          "volume": "0.0053125",
+          "count": 0
+        },
+        {
+          "volume": "0.0053750",
+          "count": 0
+        },
+        {
+          "volume": "0.0054375",
+          "count": 0
+        },
+        {
+          "volume": "0.0055000",
+          "count": 0
+        },
+        {
+          "volume": "0.0055625",
+          "count": 0
+        },
+        {
+          "volume": "0.0056250",
+          "count": 0
+        },
+        {
+          "volume": "0.0056875",
+          "count": 0
+        },
+        {
+          "volume": "0.0057500",
+          "count": 0
+        },
+        {
+          "volume": "0.0058125",
+          "count": 0
+        },
+        {
+          "volume": "0.0058750",
+          "count": 0
+        },
+        {
+          "volume": "0.0059375",
+          "count": 0
+        },
+        {
+          "volume": "0.0060000",
+          "count": 0
+        },
+        {
+          "volume": "0.0060625",
+          "count": 0
+        },
+        {
+          "volume": "0.0061250",
+          "count": 0
+        },
+        {
+          "volume": "0.0061875",
+          "count": 0
+        },
+        {
+          "volume": "0.0062500",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "5.08058",
+      "volume_distribution_mean": "0.00128",
+      "volume_distribution_median": "0.00316",
+      "volume_distribution_mode": "0.00038",
+      "volume_distribution_skewness": "1.59274",
+      "volume_distribution_std": "0.00144",
+      "count_time_distribution": [
+        0,
+        0,
+        6,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        4,
+        2,
+        0,
+        1,
+        0,
+        0,
+        0,
+        2,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        1,
+        0,
+        1,
+        2,
+        0,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        2,
+        1,
+        0,
+        0,
+        0,
+        2,
+        1,
+        0,
+        0
+      ],
+      "buy_sell_count_ratio": "0.297",
+      "vwap": "33973.627216045345500000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-26T19:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        11,
+        4,
+        16,
+        2,
+        7,
+        4,
+        3,
+        6,
+        5
+      ],
+      "volume_volatility_correlation": "-0.08911",
+      "volume_distribution": [
+        {
+          "volume": "0.0009156",
+          "count": 31
+        },
+        {
+          "volume": "0.0018312",
+          "count": 6
+        },
+        {
+          "volume": "0.0027468",
+          "count": 2
+        },
+        {
+          "volume": "0.0036624",
+          "count": 3
+        },
+        {
+          "volume": "0.0045780",
+          "count": 0
+        },
+        {
+          "volume": "0.0054936",
+          "count": 1
+        },
+        {
+          "volume": "0.0064092",
+          "count": 0
+        },
+        {
+          "volume": "0.0073248",
+          "count": 2
+        },
+        {
+          "volume": "0.0082404",
+          "count": 0
+        },
+        {
+          "volume": "0.0091560",
+          "count": 0
+        },
+        {
+          "volume": "0.0100716",
+          "count": 1
+        },
+        {
+          "volume": "0.0109872",
+          "count": 0
+        },
+        {
+          "volume": "0.0119028",
+          "count": 0
+        },
+        {
+          "volume": "0.0128184",
+          "count": 0
+        },
+        {
+          "volume": "0.0137340",
+          "count": 0
+        },
+        {
+          "volume": "0.0146496",
+          "count": 0
+        },
+        {
+          "volume": "0.0155652",
+          "count": 0
+        },
+        {
+          "volume": "0.0164808",
+          "count": 0
+        },
+        {
+          "volume": "0.0173964",
+          "count": 0
+        },
+        {
+          "volume": "0.0183120",
+          "count": 0
+        },
+        {
+          "volume": "0.0192276",
+          "count": 0
+        },
+        {
+          "volume": "0.0201432",
+          "count": 0
+        },
+        {
+          "volume": "0.0210588",
+          "count": 0
+        },
+        {
+          "volume": "0.0219744",
+          "count": 0
+        },
+        {
+          "volume": "0.0228900",
+          "count": 0
+        },
+        {
+          "volume": "0.0238056",
+          "count": 0
+        },
+        {
+          "volume": "0.0247212",
+          "count": 0
+        },
+        {
+          "volume": "0.0256368",
+          "count": 0
+        },
+        {
+          "volume": "0.0265524",
+          "count": 0
+        },
+        {
+          "volume": "0.0274680",
+          "count": 0
+        },
+        {
+          "volume": "0.0283836",
+          "count": 0
+        },
+        {
+          "volume": "0.0292992",
+          "count": 0
+        },
+        {
+          "volume": "0.0302148",
+          "count": 0
+        },
+        {
+          "volume": "0.0311304",
+          "count": 0
+        },
+        {
+          "volume": "0.0320460",
+          "count": 0
+        },
+        {
+          "volume": "0.0329616",
+          "count": 0
+        },
+        {
+          "volume": "0.0338772",
+          "count": 0
+        },
+        {
+          "volume": "0.0347928",
+          "count": 0
+        },
+        {
+          "volume": "0.0357084",
+          "count": 0
+        },
+        {
+          "volume": "0.0366240",
+          "count": 0
+        },
+        {
+          "volume": "0.0375396",
+          "count": 0
+        },
+        {
+          "volume": "0.0384552",
+          "count": 0
+        },
+        {
+          "volume": "0.0393708",
+          "count": 0
+        },
+        {
+          "volume": "0.0402864",
+          "count": 0
+        },
+        {
+          "volume": "0.0412020",
+          "count": 0
+        },
+        {
+          "volume": "0.0421176",
+          "count": 0
+        },
+        {
+          "volume": "0.0430332",
+          "count": 0
+        },
+        {
+          "volume": "0.0439488",
+          "count": 0
+        },
+        {
+          "volume": "0.0448644",
+          "count": 0
+        },
+        {
+          "volume": "0.0457800",
+          "count": 0
+        },
+        {
+          "volume": "0.0466956",
+          "count": 0
+        },
+        {
+          "volume": "0.0476112",
+          "count": 0
+        },
+        {
+          "volume": "0.0485268",
+          "count": 0
+        },
+        {
+          "volume": "0.0494424",
+          "count": 0
+        },
+        {
+          "volume": "0.0503580",
+          "count": 0
+        },
+        {
+          "volume": "0.0512736",
+          "count": 0
+        },
+        {
+          "volume": "0.0521892",
+          "count": 0
+        },
+        {
+          "volume": "0.0531048",
+          "count": 0
+        },
+        {
+          "volume": "0.0540204",
+          "count": 0
+        },
+        {
+          "volume": "0.0549360",
+          "count": 0
+        },
+        {
+          "volume": "0.0558516",
+          "count": 4
+        },
+        {
+          "volume": "0.0567672",
+          "count": 0
+        },
+        {
+          "volume": "0.0576828",
+          "count": 0
+        },
+        {
+          "volume": "0.0585984",
+          "count": 0
+        },
+        {
+          "volume": "0.0595140",
+          "count": 0
+        },
+        {
+          "volume": "0.0604296",
+          "count": 0
+        },
+        {
+          "volume": "0.0613452",
+          "count": 0
+        },
+        {
+          "volume": "0.0622608",
+          "count": 0
+        },
+        {
+          "volume": "0.0631764",
+          "count": 0
+        },
+        {
+          "volume": "0.0640920",
+          "count": 0
+        },
+        {
+          "volume": "0.0650076",
+          "count": 0
+        },
+        {
+          "volume": "0.0659232",
+          "count": 0
+        },
+        {
+          "volume": "0.0668388",
+          "count": 0
+        },
+        {
+          "volume": "0.0677544",
+          "count": 0
+        },
+        {
+          "volume": "0.0686700",
+          "count": 0
+        },
+        {
+          "volume": "0.0695856",
+          "count": 0
+        },
+        {
+          "volume": "0.0705012",
+          "count": 0
+        },
+        {
+          "volume": "0.0714168",
+          "count": 0
+        },
+        {
+          "volume": "0.0723324",
+          "count": 0
+        },
+        {
+          "volume": "0.0732480",
+          "count": 0
+        },
+        {
+          "volume": "0.0741636",
+          "count": 0
+        },
+        {
+          "volume": "0.0750792",
+          "count": 0
+        },
+        {
+          "volume": "0.0759948",
+          "count": 0
+        },
+        {
+          "volume": "0.0769104",
+          "count": 1
+        },
+        {
+          "volume": "0.0778260",
+          "count": 0
+        },
+        {
+          "volume": "0.0787416",
+          "count": 0
+        },
+        {
+          "volume": "0.0796572",
+          "count": 0
+        },
+        {
+          "volume": "0.0805728",
+          "count": 0
+        },
+        {
+          "volume": "0.0814884",
+          "count": 0
+        },
+        {
+          "volume": "0.0824040",
+          "count": 0
+        },
+        {
+          "volume": "0.0833196",
+          "count": 3
+        },
+        {
+          "volume": "0.0842352",
+          "count": 0
+        },
+        {
+          "volume": "0.0851508",
+          "count": 0
+        },
+        {
+          "volume": "0.0860664",
+          "count": 0
+        },
+        {
+          "volume": "0.0869820",
+          "count": 0
+        },
+        {
+          "volume": "0.0878976",
+          "count": 0
+        },
+        {
+          "volume": "0.0888132",
+          "count": 0
+        },
+        {
+          "volume": "0.0897288",
+          "count": 0
+        },
+        {
+          "volume": "0.0906444",
+          "count": 0
+        },
+        {
+          "volume": "0.0915600",
+          "count": 4
+        }
+      ],
+      "volume_distribution_kurtosis": "3.78530",
+      "volume_distribution_mean": "0.01729",
+      "volume_distribution_median": "0.04624",
+      "volume_distribution_mode": "0.00092",
+      "volume_distribution_skewness": "1.60020",
+      "volume_distribution_std": "0.03101",
+      "count_time_distribution": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        2,
+        3,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        1,
+        1,
+        1,
+        20,
+        12
+      ],
+      "buy_sell_count_ratio": "0.655",
+      "vwap": "34001.981839623123500000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-26T20:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        13,
+        18,
+        4,
+        5,
+        3,
+        3,
+        5,
+        4,
+        0
+      ],
+      "volume_volatility_correlation": "0.44840",
+      "volume_distribution": [
+        {
+          "volume": "0.0007826",
+          "count": 15
+        },
+        {
+          "volume": "0.0015652",
+          "count": 6
+        },
+        {
+          "volume": "0.0023478",
+          "count": 3
+        },
+        {
+          "volume": "0.0031304",
+          "count": 14
+        },
+        {
+          "volume": "0.0039130",
+          "count": 0
+        },
+        {
+          "volume": "0.0046956",
+          "count": 3
+        },
+        {
+          "volume": "0.0054782",
+          "count": 0
+        },
+        {
+          "volume": "0.0062608",
+          "count": 1
+        },
+        {
+          "volume": "0.0070434",
+          "count": 0
+        },
+        {
+          "volume": "0.0078260",
+          "count": 0
+        },
+        {
+          "volume": "0.0086086",
+          "count": 0
+        },
+        {
+          "volume": "0.0093912",
+          "count": 2
+        },
+        {
+          "volume": "0.0101738",
+          "count": 0
+        },
+        {
+          "volume": "0.0109564",
+          "count": 0
+        },
+        {
+          "volume": "0.0117390",
+          "count": 3
+        },
+        {
+          "volume": "0.0125216",
+          "count": 0
+        },
+        {
+          "volume": "0.0133042",
+          "count": 0
+        },
+        {
+          "volume": "0.0140868",
+          "count": 1
+        },
+        {
+          "volume": "0.0148694",
+          "count": 1
+        },
+        {
+          "volume": "0.0156520",
+          "count": 0
+        },
+        {
+          "volume": "0.0164346",
+          "count": 0
+        },
+        {
+          "volume": "0.0172172",
+          "count": 0
+        },
+        {
+          "volume": "0.0179998",
+          "count": 0
+        },
+        {
+          "volume": "0.0187824",
+          "count": 0
+        },
+        {
+          "volume": "0.0195650",
+          "count": 0
+        },
+        {
+          "volume": "0.0203476",
+          "count": 0
+        },
+        {
+          "volume": "0.0211302",
+          "count": 0
+        },
+        {
+          "volume": "0.0219128",
+          "count": 0
+        },
+        {
+          "volume": "0.0226954",
+          "count": 0
+        },
+        {
+          "volume": "0.0234780",
+          "count": 0
+        },
+        {
+          "volume": "0.0242606",
+          "count": 0
+        },
+        {
+          "volume": "0.0250432",
+          "count": 0
+        },
+        {
+          "volume": "0.0258258",
+          "count": 0
+        },
+        {
+          "volume": "0.0266084",
+          "count": 0
+        },
+        {
+          "volume": "0.0273910",
+          "count": 0
+        },
+        {
+          "volume": "0.0281736",
+          "count": 0
+        },
+        {
+          "volume": "0.0289562",
+          "count": 0
+        },
+        {
+          "volume": "0.0297388",
+          "count": 0
+        },
+        {
+          "volume": "0.0305214",
+          "count": 0
+        },
+        {
+          "volume": "0.0313040",
+          "count": 1
+        },
+        {
+          "volume": "0.0320866",
+          "count": 0
+        },
+        {
+          "volume": "0.0328692",
+          "count": 0
+        },
+        {
+          "volume": "0.0336518",
+          "count": 0
+        },
+        {
+          "volume": "0.0344344",
+          "count": 0
+        },
+        {
+          "volume": "0.0352170",
+          "count": 0
+        },
+        {
+          "volume": "0.0359996",
+          "count": 0
+        },
+        {
+          "volume": "0.0367822",
+          "count": 0
+        },
+        {
+          "volume": "0.0375648",
+          "count": 0
+        },
+        {
+          "volume": "0.0383474",
+          "count": 0
+        },
+        {
+          "volume": "0.0391300",
+          "count": 0
+        },
+        {
+          "volume": "0.0399126",
+          "count": 0
+        },
+        {
+          "volume": "0.0406952",
+          "count": 0
+        },
+        {
+          "volume": "0.0414778",
+          "count": 0
+        },
+        {
+          "volume": "0.0422604",
+          "count": 0
+        },
+        {
+          "volume": "0.0430430",
+          "count": 0
+        },
+        {
+          "volume": "0.0438256",
+          "count": 0
+        },
+        {
+          "volume": "0.0446082",
+          "count": 0
+        },
+        {
+          "volume": "0.0453908",
+          "count": 0
+        },
+        {
+          "volume": "0.0461734",
+          "count": 0
+        },
+        {
+          "volume": "0.0469560",
+          "count": 0
+        },
+        {
+          "volume": "0.0477386",
+          "count": 0
+        },
+        {
+          "volume": "0.0485212",
+          "count": 0
+        },
+        {
+          "volume": "0.0493038",
+          "count": 0
+        },
+        {
+          "volume": "0.0500864",
+          "count": 0
+        },
+        {
+          "volume": "0.0508690",
+          "count": 0
+        },
+        {
+          "volume": "0.0516516",
+          "count": 0
+        },
+        {
+          "volume": "0.0524342",
+          "count": 0
+        },
+        {
+          "volume": "0.0532168",
+          "count": 0
+        },
+        {
+          "volume": "0.0539994",
+          "count": 0
+        },
+        {
+          "volume": "0.0547820",
+          "count": 0
+        },
+        {
+          "volume": "0.0555646",
+          "count": 0
+        },
+        {
+          "volume": "0.0563472",
+          "count": 1
+        },
+        {
+          "volume": "0.0571298",
+          "count": 0
+        },
+        {
+          "volume": "0.0579124",
+          "count": 0
+        },
+        {
+          "volume": "0.0586950",
+          "count": 0
+        },
+        {
+          "volume": "0.0594776",
+          "count": 0
+        },
+        {
+          "volume": "0.0602602",
+          "count": 0
+        },
+        {
+          "volume": "0.0610428",
+          "count": 0
+        },
+        {
+          "volume": "0.0618254",
+          "count": 0
+        },
+        {
+          "volume": "0.0626080",
+          "count": 0
+        },
+        {
+          "volume": "0.0633906",
+          "count": 0
+        },
+        {
+          "volume": "0.0641732",
+          "count": 0
+        },
+        {
+          "volume": "0.0649558",
+          "count": 0
+        },
+        {
+          "volume": "0.0657384",
+          "count": 0
+        },
+        {
+          "volume": "0.0665210",
+          "count": 0
+        },
+        {
+          "volume": "0.0673036",
+          "count": 0
+        },
+        {
+          "volume": "0.0680862",
+          "count": 0
+        },
+        {
+          "volume": "0.0688688",
+          "count": 1
+        },
+        {
+          "volume": "0.0696514",
+          "count": 1
+        },
+        {
+          "volume": "0.0704340",
+          "count": 0
+        },
+        {
+          "volume": "0.0712166",
+          "count": 0
+        },
+        {
+          "volume": "0.0719992",
+          "count": 0
+        },
+        {
+          "volume": "0.0727818",
+          "count": 0
+        },
+        {
+          "volume": "0.0735644",
+          "count": 1
+        },
+        {
+          "volume": "0.0743470",
+          "count": 0
+        },
+        {
+          "volume": "0.0751296",
+          "count": 0
+        },
+        {
+          "volume": "0.0759122",
+          "count": 0
+        },
+        {
+          "volume": "0.0766948",
+          "count": 0
+        },
+        {
+          "volume": "0.0774774",
+          "count": 0
+        },
+        {
+          "volume": "0.0782600",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "8.39547",
+      "volume_distribution_mean": "0.01006",
+      "volume_distribution_median": "0.03952",
+      "volume_distribution_mode": "0.00078",
+      "volume_distribution_skewness": "2.61596",
+      "volume_distribution_std": "0.01955",
+      "count_time_distribution": [
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        6,
+        0,
+        0,
+        0,
+        3,
+        2,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        23,
+        0,
+        11,
+        1,
+        0,
+        0,
+        0
+      ],
+      "buy_sell_count_ratio": "0.491",
+      "vwap": "34111.175772190290800000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-26T22:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        12,
+        10,
+        5,
+        1,
+        3,
+        4,
+        2,
+        1,
+        2
+      ],
+      "volume_volatility_correlation": "0.98443",
+      "volume_distribution": [
+        {
+          "volume": "0.000662",
+          "count": 8
+        },
+        {
+          "volume": "0.001324",
+          "count": 8
+        },
+        {
+          "volume": "0.001986",
+          "count": 4
+        },
+        {
+          "volume": "0.002648",
+          "count": 2
+        },
+        {
+          "volume": "0.003310",
+          "count": 6
+        },
+        {
+          "volume": "0.003972",
+          "count": 0
+        },
+        {
+          "volume": "0.004634",
+          "count": 0
+        },
+        {
+          "volume": "0.005296",
+          "count": 1
+        },
+        {
+          "volume": "0.005958",
+          "count": 0
+        },
+        {
+          "volume": "0.006620",
+          "count": 0
+        },
+        {
+          "volume": "0.007282",
+          "count": 0
+        },
+        {
+          "volume": "0.007944",
+          "count": 1
+        },
+        {
+          "volume": "0.008606",
+          "count": 0
+        },
+        {
+          "volume": "0.009268",
+          "count": 0
+        },
+        {
+          "volume": "0.009930",
+          "count": 1
+        },
+        {
+          "volume": "0.010592",
+          "count": 0
+        },
+        {
+          "volume": "0.011254",
+          "count": 0
+        },
+        {
+          "volume": "0.011916",
+          "count": 1
+        },
+        {
+          "volume": "0.012578",
+          "count": 0
+        },
+        {
+          "volume": "0.013240",
+          "count": 0
+        },
+        {
+          "volume": "0.013902",
+          "count": 0
+        },
+        {
+          "volume": "0.014564",
+          "count": 1
+        },
+        {
+          "volume": "0.015226",
+          "count": 0
+        },
+        {
+          "volume": "0.015888",
+          "count": 0
+        },
+        {
+          "volume": "0.016550",
+          "count": 0
+        },
+        {
+          "volume": "0.017212",
+          "count": 0
+        },
+        {
+          "volume": "0.017874",
+          "count": 0
+        },
+        {
+          "volume": "0.018536",
+          "count": 0
+        },
+        {
+          "volume": "0.019198",
+          "count": 0
+        },
+        {
+          "volume": "0.019860",
+          "count": 0
+        },
+        {
+          "volume": "0.020522",
+          "count": 0
+        },
+        {
+          "volume": "0.021184",
+          "count": 0
+        },
+        {
+          "volume": "0.021846",
+          "count": 0
+        },
+        {
+          "volume": "0.022508",
+          "count": 0
+        },
+        {
+          "volume": "0.023170",
+          "count": 0
+        },
+        {
+          "volume": "0.023832",
+          "count": 0
+        },
+        {
+          "volume": "0.024494",
+          "count": 0
+        },
+        {
+          "volume": "0.025156",
+          "count": 0
+        },
+        {
+          "volume": "0.025818",
+          "count": 0
+        },
+        {
+          "volume": "0.026480",
+          "count": 0
+        },
+        {
+          "volume": "0.027142",
+          "count": 1
+        },
+        {
+          "volume": "0.027804",
+          "count": 0
+        },
+        {
+          "volume": "0.028466",
+          "count": 0
+        },
+        {
+          "volume": "0.029128",
+          "count": 0
+        },
+        {
+          "volume": "0.029790",
+          "count": 0
+        },
+        {
+          "volume": "0.030452",
+          "count": 0
+        },
+        {
+          "volume": "0.031114",
+          "count": 1
+        },
+        {
+          "volume": "0.031776",
+          "count": 0
+        },
+        {
+          "volume": "0.032438",
+          "count": 0
+        },
+        {
+          "volume": "0.033100",
+          "count": 1
+        },
+        {
+          "volume": "0.033762",
+          "count": 0
+        },
+        {
+          "volume": "0.034424",
+          "count": 0
+        },
+        {
+          "volume": "0.035086",
+          "count": 0
+        },
+        {
+          "volume": "0.035748",
+          "count": 0
+        },
+        {
+          "volume": "0.036410",
+          "count": 1
+        },
+        {
+          "volume": "0.037072",
+          "count": 0
+        },
+        {
+          "volume": "0.037734",
+          "count": 0
+        },
+        {
+          "volume": "0.038396",
+          "count": 0
+        },
+        {
+          "volume": "0.039058",
+          "count": 0
+        },
+        {
+          "volume": "0.039720",
+          "count": 0
+        },
+        {
+          "volume": "0.040382",
+          "count": 0
+        },
+        {
+          "volume": "0.041044",
+          "count": 0
+        },
+        {
+          "volume": "0.041706",
+          "count": 0
+        },
+        {
+          "volume": "0.042368",
+          "count": 0
+        },
+        {
+          "volume": "0.043030",
+          "count": 0
+        },
+        {
+          "volume": "0.043692",
+          "count": 0
+        },
+        {
+          "volume": "0.044354",
+          "count": 1
+        },
+        {
+          "volume": "0.045016",
+          "count": 0
+        },
+        {
+          "volume": "0.045678",
+          "count": 0
+        },
+        {
+          "volume": "0.046340",
+          "count": 0
+        },
+        {
+          "volume": "0.047002",
+          "count": 0
+        },
+        {
+          "volume": "0.047664",
+          "count": 0
+        },
+        {
+          "volume": "0.048326",
+          "count": 0
+        },
+        {
+          "volume": "0.048988",
+          "count": 0
+        },
+        {
+          "volume": "0.049650",
+          "count": 0
+        },
+        {
+          "volume": "0.050312",
+          "count": 0
+        },
+        {
+          "volume": "0.050974",
+          "count": 0
+        },
+        {
+          "volume": "0.051636",
+          "count": 0
+        },
+        {
+          "volume": "0.052298",
+          "count": 0
+        },
+        {
+          "volume": "0.052960",
+          "count": 0
+        },
+        {
+          "volume": "0.053622",
+          "count": 0
+        },
+        {
+          "volume": "0.054284",
+          "count": 0
+        },
+        {
+          "volume": "0.054946",
+          "count": 1
+        },
+        {
+          "volume": "0.055608",
+          "count": 0
+        },
+        {
+          "volume": "0.056270",
+          "count": 0
+        },
+        {
+          "volume": "0.056932",
+          "count": 0
+        },
+        {
+          "volume": "0.057594",
+          "count": 0
+        },
+        {
+          "volume": "0.058256",
+          "count": 0
+        },
+        {
+          "volume": "0.058918",
+          "count": 0
+        },
+        {
+          "volume": "0.059580",
+          "count": 0
+        },
+        {
+          "volume": "0.060242",
+          "count": 0
+        },
+        {
+          "volume": "0.060904",
+          "count": 0
+        },
+        {
+          "volume": "0.061566",
+          "count": 0
+        },
+        {
+          "volume": "0.062228",
+          "count": 0
+        },
+        {
+          "volume": "0.062890",
+          "count": 0
+        },
+        {
+          "volume": "0.063552",
+          "count": 0
+        },
+        {
+          "volume": "0.064214",
+          "count": 0
+        },
+        {
+          "volume": "0.064876",
+          "count": 0
+        },
+        {
+          "volume": "0.065538",
+          "count": 0
+        },
+        {
+          "volume": "0.066200",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "6.35854",
+      "volume_distribution_mean": "0.00980",
+      "volume_distribution_median": "0.03343",
+      "volume_distribution_mode": "0.00066",
+      "volume_distribution_skewness": "2.07515",
+      "volume_distribution_std": "0.01606",
+      "count_time_distribution": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        2,
+        0,
+        0,
+        0,
+        2,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        1,
+        0,
+        1,
+        0,
+        19,
+        0
+      ],
+      "buy_sell_count_ratio": "0.350",
+      "vwap": "34256.589648030933000000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-26T23:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        8,
+        13,
+        3,
+        2,
+        6,
+        3,
+        1,
+        0,
+        1
+      ],
+      "volume_volatility_correlation": "0.77067",
+      "volume_distribution": [
+        {
+          "volume": "0.0005171",
+          "count": 2
+        },
+        {
+          "volume": "0.0010342",
+          "count": 7
+        },
+        {
+          "volume": "0.0015513",
+          "count": 2
+        },
+        {
+          "volume": "0.0020684",
+          "count": 1
+        },
+        {
+          "volume": "0.0025855",
+          "count": 3
+        },
+        {
+          "volume": "0.0031026",
+          "count": 7
+        },
+        {
+          "volume": "0.0036197",
+          "count": 0
+        },
+        {
+          "volume": "0.0041368",
+          "count": 0
+        },
+        {
+          "volume": "0.0046539",
+          "count": 1
+        },
+        {
+          "volume": "0.0051710",
+          "count": 1
+        },
+        {
+          "volume": "0.0056881",
+          "count": 2
+        },
+        {
+          "volume": "0.0062052",
+          "count": 0
+        },
+        {
+          "volume": "0.0067223",
+          "count": 0
+        },
+        {
+          "volume": "0.0072394",
+          "count": 2
+        },
+        {
+          "volume": "0.0077565",
+          "count": 0
+        },
+        {
+          "volume": "0.0082736",
+          "count": 0
+        },
+        {
+          "volume": "0.0087907",
+          "count": 0
+        },
+        {
+          "volume": "0.0093078",
+          "count": 0
+        },
+        {
+          "volume": "0.0098249",
+          "count": 0
+        },
+        {
+          "volume": "0.0103420",
+          "count": 0
+        },
+        {
+          "volume": "0.0108591",
+          "count": 0
+        },
+        {
+          "volume": "0.0113762",
+          "count": 2
+        },
+        {
+          "volume": "0.0118933",
+          "count": 0
+        },
+        {
+          "volume": "0.0124104",
+          "count": 0
+        },
+        {
+          "volume": "0.0129275",
+          "count": 0
+        },
+        {
+          "volume": "0.0134446",
+          "count": 1
+        },
+        {
+          "volume": "0.0139617",
+          "count": 0
+        },
+        {
+          "volume": "0.0144788",
+          "count": 0
+        },
+        {
+          "volume": "0.0149959",
+          "count": 0
+        },
+        {
+          "volume": "0.0155130",
+          "count": 0
+        },
+        {
+          "volume": "0.0160301",
+          "count": 0
+        },
+        {
+          "volume": "0.0165472",
+          "count": 0
+        },
+        {
+          "volume": "0.0170643",
+          "count": 0
+        },
+        {
+          "volume": "0.0175814",
+          "count": 0
+        },
+        {
+          "volume": "0.0180985",
+          "count": 0
+        },
+        {
+          "volume": "0.0186156",
+          "count": 0
+        },
+        {
+          "volume": "0.0191327",
+          "count": 0
+        },
+        {
+          "volume": "0.0196498",
+          "count": 0
+        },
+        {
+          "volume": "0.0201669",
+          "count": 1
+        },
+        {
+          "volume": "0.0206840",
+          "count": 0
+        },
+        {
+          "volume": "0.0212011",
+          "count": 0
+        },
+        {
+          "volume": "0.0217182",
+          "count": 1
+        },
+        {
+          "volume": "0.0222353",
+          "count": 0
+        },
+        {
+          "volume": "0.0227524",
+          "count": 0
+        },
+        {
+          "volume": "0.0232695",
+          "count": 0
+        },
+        {
+          "volume": "0.0237866",
+          "count": 0
+        },
+        {
+          "volume": "0.0243037",
+          "count": 0
+        },
+        {
+          "volume": "0.0248208",
+          "count": 0
+        },
+        {
+          "volume": "0.0253379",
+          "count": 0
+        },
+        {
+          "volume": "0.0258550",
+          "count": 0
+        },
+        {
+          "volume": "0.0263721",
+          "count": 0
+        },
+        {
+          "volume": "0.0268892",
+          "count": 0
+        },
+        {
+          "volume": "0.0274063",
+          "count": 0
+        },
+        {
+          "volume": "0.0279234",
+          "count": 0
+        },
+        {
+          "volume": "0.0284405",
+          "count": 1
+        },
+        {
+          "volume": "0.0289576",
+          "count": 0
+        },
+        {
+          "volume": "0.0294747",
+          "count": 0
+        },
+        {
+          "volume": "0.0299918",
+          "count": 0
+        },
+        {
+          "volume": "0.0305089",
+          "count": 0
+        },
+        {
+          "volume": "0.0310260",
+          "count": 0
+        },
+        {
+          "volume": "0.0315431",
+          "count": 0
+        },
+        {
+          "volume": "0.0320602",
+          "count": 0
+        },
+        {
+          "volume": "0.0325773",
+          "count": 1
+        },
+        {
+          "volume": "0.0330944",
+          "count": 0
+        },
+        {
+          "volume": "0.0336115",
+          "count": 0
+        },
+        {
+          "volume": "0.0341286",
+          "count": 0
+        },
+        {
+          "volume": "0.0346457",
+          "count": 0
+        },
+        {
+          "volume": "0.0351628",
+          "count": 0
+        },
+        {
+          "volume": "0.0356799",
+          "count": 0
+        },
+        {
+          "volume": "0.0361970",
+          "count": 0
+        },
+        {
+          "volume": "0.0367141",
+          "count": 0
+        },
+        {
+          "volume": "0.0372312",
+          "count": 0
+        },
+        {
+          "volume": "0.0377483",
+          "count": 0
+        },
+        {
+          "volume": "0.0382654",
+          "count": 0
+        },
+        {
+          "volume": "0.0387825",
+          "count": 1
+        },
+        {
+          "volume": "0.0392996",
+          "count": 0
+        },
+        {
+          "volume": "0.0398167",
+          "count": 0
+        },
+        {
+          "volume": "0.0403338",
+          "count": 0
+        },
+        {
+          "volume": "0.0408509",
+          "count": 0
+        },
+        {
+          "volume": "0.0413680",
+          "count": 0
+        },
+        {
+          "volume": "0.0418851",
+          "count": 0
+        },
+        {
+          "volume": "0.0424022",
+          "count": 0
+        },
+        {
+          "volume": "0.0429193",
+          "count": 0
+        },
+        {
+          "volume": "0.0434364",
+          "count": 0
+        },
+        {
+          "volume": "0.0439535",
+          "count": 0
+        },
+        {
+          "volume": "0.0444706",
+          "count": 0
+        },
+        {
+          "volume": "0.0449877",
+          "count": 0
+        },
+        {
+          "volume": "0.0455048",
+          "count": 0
+        },
+        {
+          "volume": "0.0460219",
+          "count": 0
+        },
+        {
+          "volume": "0.0465390",
+          "count": 0
+        },
+        {
+          "volume": "0.0470561",
+          "count": 0
+        },
+        {
+          "volume": "0.0475732",
+          "count": 0
+        },
+        {
+          "volume": "0.0480903",
+          "count": 0
+        },
+        {
+          "volume": "0.0486074",
+          "count": 0
+        },
+        {
+          "volume": "0.0491245",
+          "count": 0
+        },
+        {
+          "volume": "0.0496416",
+          "count": 0
+        },
+        {
+          "volume": "0.0501587",
+          "count": 0
+        },
+        {
+          "volume": "0.0506758",
+          "count": 0
+        },
+        {
+          "volume": "0.0511929",
+          "count": 0
+        },
+        {
+          "volume": "0.0517100",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "7.04852",
+      "volume_distribution_mean": "0.00833",
+      "volume_distribution_median": "0.02611",
+      "volume_distribution_mode": "0.00103",
+      "volume_distribution_skewness": "2.15949",
+      "volume_distribution_std": "0.01177",
+      "count_time_distribution": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        11,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        9,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        7,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "buy_sell_count_ratio": "0.568",
+      "vwap": "34152.821648727492200000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-27T00:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        23,
+        16,
+        7,
+        13,
+        9,
+        1,
+        5,
+        0,
+        4
+      ],
+      "volume_volatility_correlation": "0.34366",
+      "volume_distribution": [
+        {
+          "volume": "0.0007057",
+          "count": 23
+        },
+        {
+          "volume": "0.0014114",
+          "count": 15
+        },
+        {
+          "volume": "0.0021171",
+          "count": 6
+        },
+        {
+          "volume": "0.0028228",
+          "count": 3
+        },
+        {
+          "volume": "0.0035285",
+          "count": 12
+        },
+        {
+          "volume": "0.0042342",
+          "count": 2
+        },
+        {
+          "volume": "0.0049399",
+          "count": 6
+        },
+        {
+          "volume": "0.0056456",
+          "count": 1
+        },
+        {
+          "volume": "0.0063513",
+          "count": 1
+        },
+        {
+          "volume": "0.0070570",
+          "count": 0
+        },
+        {
+          "volume": "0.0077627",
+          "count": 1
+        },
+        {
+          "volume": "0.0084684",
+          "count": 0
+        },
+        {
+          "volume": "0.0091741",
+          "count": 0
+        },
+        {
+          "volume": "0.0098798",
+          "count": 0
+        },
+        {
+          "volume": "0.0105855",
+          "count": 0
+        },
+        {
+          "volume": "0.0112912",
+          "count": 1
+        },
+        {
+          "volume": "0.0119969",
+          "count": 0
+        },
+        {
+          "volume": "0.0127026",
+          "count": 0
+        },
+        {
+          "volume": "0.0134083",
+          "count": 1
+        },
+        {
+          "volume": "0.0141140",
+          "count": 1
+        },
+        {
+          "volume": "0.0148197",
+          "count": 0
+        },
+        {
+          "volume": "0.0155254",
+          "count": 0
+        },
+        {
+          "volume": "0.0162311",
+          "count": 0
+        },
+        {
+          "volume": "0.0169368",
+          "count": 1
+        },
+        {
+          "volume": "0.0176425",
+          "count": 0
+        },
+        {
+          "volume": "0.0183482",
+          "count": 0
+        },
+        {
+          "volume": "0.0190539",
+          "count": 0
+        },
+        {
+          "volume": "0.0197596",
+          "count": 0
+        },
+        {
+          "volume": "0.0204653",
+          "count": 0
+        },
+        {
+          "volume": "0.0211710",
+          "count": 0
+        },
+        {
+          "volume": "0.0218767",
+          "count": 1
+        },
+        {
+          "volume": "0.0225824",
+          "count": 0
+        },
+        {
+          "volume": "0.0232881",
+          "count": 0
+        },
+        {
+          "volume": "0.0239938",
+          "count": 0
+        },
+        {
+          "volume": "0.0246995",
+          "count": 0
+        },
+        {
+          "volume": "0.0254052",
+          "count": 0
+        },
+        {
+          "volume": "0.0261109",
+          "count": 0
+        },
+        {
+          "volume": "0.0268166",
+          "count": 0
+        },
+        {
+          "volume": "0.0275223",
+          "count": 0
+        },
+        {
+          "volume": "0.0282280",
+          "count": 0
+        },
+        {
+          "volume": "0.0289337",
+          "count": 0
+        },
+        {
+          "volume": "0.0296394",
+          "count": 0
+        },
+        {
+          "volume": "0.0303451",
+          "count": 0
+        },
+        {
+          "volume": "0.0310508",
+          "count": 0
+        },
+        {
+          "volume": "0.0317565",
+          "count": 0
+        },
+        {
+          "volume": "0.0324622",
+          "count": 0
+        },
+        {
+          "volume": "0.0331679",
+          "count": 0
+        },
+        {
+          "volume": "0.0338736",
+          "count": 0
+        },
+        {
+          "volume": "0.0345793",
+          "count": 0
+        },
+        {
+          "volume": "0.0352850",
+          "count": 0
+        },
+        {
+          "volume": "0.0359907",
+          "count": 0
+        },
+        {
+          "volume": "0.0366964",
+          "count": 0
+        },
+        {
+          "volume": "0.0374021",
+          "count": 0
+        },
+        {
+          "volume": "0.0381078",
+          "count": 0
+        },
+        {
+          "volume": "0.0388135",
+          "count": 0
+        },
+        {
+          "volume": "0.0395192",
+          "count": 1
+        },
+        {
+          "volume": "0.0402249",
+          "count": 0
+        },
+        {
+          "volume": "0.0409306",
+          "count": 0
+        },
+        {
+          "volume": "0.0416363",
+          "count": 0
+        },
+        {
+          "volume": "0.0423420",
+          "count": 0
+        },
+        {
+          "volume": "0.0430477",
+          "count": 0
+        },
+        {
+          "volume": "0.0437534",
+          "count": 0
+        },
+        {
+          "volume": "0.0444591",
+          "count": 0
+        },
+        {
+          "volume": "0.0451648",
+          "count": 0
+        },
+        {
+          "volume": "0.0458705",
+          "count": 0
+        },
+        {
+          "volume": "0.0465762",
+          "count": 0
+        },
+        {
+          "volume": "0.0472819",
+          "count": 0
+        },
+        {
+          "volume": "0.0479876",
+          "count": 0
+        },
+        {
+          "volume": "0.0486933",
+          "count": 0
+        },
+        {
+          "volume": "0.0493990",
+          "count": 0
+        },
+        {
+          "volume": "0.0501047",
+          "count": 0
+        },
+        {
+          "volume": "0.0508104",
+          "count": 0
+        },
+        {
+          "volume": "0.0515161",
+          "count": 0
+        },
+        {
+          "volume": "0.0522218",
+          "count": 0
+        },
+        {
+          "volume": "0.0529275",
+          "count": 0
+        },
+        {
+          "volume": "0.0536332",
+          "count": 0
+        },
+        {
+          "volume": "0.0543389",
+          "count": 0
+        },
+        {
+          "volume": "0.0550446",
+          "count": 0
+        },
+        {
+          "volume": "0.0557503",
+          "count": 0
+        },
+        {
+          "volume": "0.0564560",
+          "count": 0
+        },
+        {
+          "volume": "0.0571617",
+          "count": 0
+        },
+        {
+          "volume": "0.0578674",
+          "count": 0
+        },
+        {
+          "volume": "0.0585731",
+          "count": 0
+        },
+        {
+          "volume": "0.0592788",
+          "count": 0
+        },
+        {
+          "volume": "0.0599845",
+          "count": 0
+        },
+        {
+          "volume": "0.0606902",
+          "count": 0
+        },
+        {
+          "volume": "0.0613959",
+          "count": 0
+        },
+        {
+          "volume": "0.0621016",
+          "count": 0
+        },
+        {
+          "volume": "0.0628073",
+          "count": 0
+        },
+        {
+          "volume": "0.0635130",
+          "count": 0
+        },
+        {
+          "volume": "0.0642187",
+          "count": 0
+        },
+        {
+          "volume": "0.0649244",
+          "count": 0
+        },
+        {
+          "volume": "0.0656301",
+          "count": 0
+        },
+        {
+          "volume": "0.0663358",
+          "count": 0
+        },
+        {
+          "volume": "0.0670415",
+          "count": 0
+        },
+        {
+          "volume": "0.0677472",
+          "count": 0
+        },
+        {
+          "volume": "0.0684529",
+          "count": 0
+        },
+        {
+          "volume": "0.0691586",
+          "count": 1
+        },
+        {
+          "volume": "0.0698643",
+          "count": 0
+        },
+        {
+          "volume": "0.0705700",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "23.61594",
+      "volume_distribution_mean": "0.00533",
+      "volume_distribution_median": "0.03564",
+      "volume_distribution_mode": "0.00071",
+      "volume_distribution_skewness": "4.49325",
+      "volume_distribution_std": "0.01184",
+      "count_time_distribution": [
+        5,
+        0,
+        2,
+        13,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        5,
+        0,
+        0,
+        20,
+        0,
+        2,
+        2,
+        9,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        2,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0
+      ],
+      "buy_sell_count_ratio": "0.269",
+      "vwap": "34116.176249739420500000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-27T01:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        13,
+        14,
+        20,
+        1,
+        2,
+        4,
+        2,
+        1,
+        0
+      ],
+      "volume_volatility_correlation": "0.51259",
+      "volume_distribution": [
+        {
+          "volume": "0.0001219",
+          "count": 6
+        },
+        {
+          "volume": "0.0002438",
+          "count": 6
+        },
+        {
+          "volume": "0.0003657",
+          "count": 21
+        },
+        {
+          "volume": "0.0004876",
+          "count": 1
+        },
+        {
+          "volume": "0.0006095",
+          "count": 3
+        },
+        {
+          "volume": "0.0007314",
+          "count": 3
+        },
+        {
+          "volume": "0.0008533",
+          "count": 0
+        },
+        {
+          "volume": "0.0009752",
+          "count": 0
+        },
+        {
+          "volume": "0.0010971",
+          "count": 1
+        },
+        {
+          "volume": "0.0012190",
+          "count": 4
+        },
+        {
+          "volume": "0.0013409",
+          "count": 0
+        },
+        {
+          "volume": "0.0014628",
+          "count": 0
+        },
+        {
+          "volume": "0.0015847",
+          "count": 0
+        },
+        {
+          "volume": "0.0017066",
+          "count": 0
+        },
+        {
+          "volume": "0.0018285",
+          "count": 0
+        },
+        {
+          "volume": "0.0019504",
+          "count": 0
+        },
+        {
+          "volume": "0.0020723",
+          "count": 0
+        },
+        {
+          "volume": "0.0021942",
+          "count": 0
+        },
+        {
+          "volume": "0.0023161",
+          "count": 1
+        },
+        {
+          "volume": "0.0024380",
+          "count": 1
+        },
+        {
+          "volume": "0.0025599",
+          "count": 1
+        },
+        {
+          "volume": "0.0026818",
+          "count": 1
+        },
+        {
+          "volume": "0.0028037",
+          "count": 0
+        },
+        {
+          "volume": "0.0029256",
+          "count": 2
+        },
+        {
+          "volume": "0.0030475",
+          "count": 2
+        },
+        {
+          "volume": "0.0031694",
+          "count": 0
+        },
+        {
+          "volume": "0.0032913",
+          "count": 0
+        },
+        {
+          "volume": "0.0034132",
+          "count": 0
+        },
+        {
+          "volume": "0.0035351",
+          "count": 0
+        },
+        {
+          "volume": "0.0036570",
+          "count": 0
+        },
+        {
+          "volume": "0.0037789",
+          "count": 0
+        },
+        {
+          "volume": "0.0039008",
+          "count": 0
+        },
+        {
+          "volume": "0.0040227",
+          "count": 0
+        },
+        {
+          "volume": "0.0041446",
+          "count": 1
+        },
+        {
+          "volume": "0.0042665",
+          "count": 0
+        },
+        {
+          "volume": "0.0043884",
+          "count": 0
+        },
+        {
+          "volume": "0.0045103",
+          "count": 0
+        },
+        {
+          "volume": "0.0046322",
+          "count": 0
+        },
+        {
+          "volume": "0.0047541",
+          "count": 0
+        },
+        {
+          "volume": "0.0048760",
+          "count": 0
+        },
+        {
+          "volume": "0.0049979",
+          "count": 0
+        },
+        {
+          "volume": "0.0051198",
+          "count": 0
+        },
+        {
+          "volume": "0.0052417",
+          "count": 0
+        },
+        {
+          "volume": "0.0053636",
+          "count": 0
+        },
+        {
+          "volume": "0.0054855",
+          "count": 0
+        },
+        {
+          "volume": "0.0056074",
+          "count": 0
+        },
+        {
+          "volume": "0.0057293",
+          "count": 0
+        },
+        {
+          "volume": "0.0058512",
+          "count": 0
+        },
+        {
+          "volume": "0.0059731",
+          "count": 0
+        },
+        {
+          "volume": "0.0060950",
+          "count": 1
+        },
+        {
+          "volume": "0.0062169",
+          "count": 0
+        },
+        {
+          "volume": "0.0063388",
+          "count": 0
+        },
+        {
+          "volume": "0.0064607",
+          "count": 0
+        },
+        {
+          "volume": "0.0065826",
+          "count": 0
+        },
+        {
+          "volume": "0.0067045",
+          "count": 0
+        },
+        {
+          "volume": "0.0068264",
+          "count": 0
+        },
+        {
+          "volume": "0.0069483",
+          "count": 0
+        },
+        {
+          "volume": "0.0070702",
+          "count": 0
+        },
+        {
+          "volume": "0.0071921",
+          "count": 0
+        },
+        {
+          "volume": "0.0073140",
+          "count": 0
+        },
+        {
+          "volume": "0.0074359",
+          "count": 0
+        },
+        {
+          "volume": "0.0075578",
+          "count": 0
+        },
+        {
+          "volume": "0.0076797",
+          "count": 0
+        },
+        {
+          "volume": "0.0078016",
+          "count": 0
+        },
+        {
+          "volume": "0.0079235",
+          "count": 0
+        },
+        {
+          "volume": "0.0080454",
+          "count": 0
+        },
+        {
+          "volume": "0.0081673",
+          "count": 0
+        },
+        {
+          "volume": "0.0082892",
+          "count": 0
+        },
+        {
+          "volume": "0.0084111",
+          "count": 0
+        },
+        {
+          "volume": "0.0085330",
+          "count": 0
+        },
+        {
+          "volume": "0.0086549",
+          "count": 0
+        },
+        {
+          "volume": "0.0087768",
+          "count": 0
+        },
+        {
+          "volume": "0.0088987",
+          "count": 0
+        },
+        {
+          "volume": "0.0090206",
+          "count": 1
+        },
+        {
+          "volume": "0.0091425",
+          "count": 0
+        },
+        {
+          "volume": "0.0092644",
+          "count": 0
+        },
+        {
+          "volume": "0.0093863",
+          "count": 0
+        },
+        {
+          "volume": "0.0095082",
+          "count": 0
+        },
+        {
+          "volume": "0.0096301",
+          "count": 0
+        },
+        {
+          "volume": "0.0097520",
+          "count": 0
+        },
+        {
+          "volume": "0.0098739",
+          "count": 0
+        },
+        {
+          "volume": "0.0099958",
+          "count": 0
+        },
+        {
+          "volume": "0.0101177",
+          "count": 0
+        },
+        {
+          "volume": "0.0102396",
+          "count": 0
+        },
+        {
+          "volume": "0.0103615",
+          "count": 0
+        },
+        {
+          "volume": "0.0104834",
+          "count": 0
+        },
+        {
+          "volume": "0.0106053",
+          "count": 0
+        },
+        {
+          "volume": "0.0107272",
+          "count": 0
+        },
+        {
+          "volume": "0.0108491",
+          "count": 0
+        },
+        {
+          "volume": "0.0109710",
+          "count": 0
+        },
+        {
+          "volume": "0.0110929",
+          "count": 0
+        },
+        {
+          "volume": "0.0112148",
+          "count": 0
+        },
+        {
+          "volume": "0.0113367",
+          "count": 0
+        },
+        {
+          "volume": "0.0114586",
+          "count": 0
+        },
+        {
+          "volume": "0.0115805",
+          "count": 0
+        },
+        {
+          "volume": "0.0117024",
+          "count": 0
+        },
+        {
+          "volume": "0.0118243",
+          "count": 0
+        },
+        {
+          "volume": "0.0119462",
+          "count": 0
+        },
+        {
+          "volume": "0.0120681",
+          "count": 0
+        },
+        {
+          "volume": "0.0121900",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "15.07817",
+      "volume_distribution_mean": "0.00129",
+      "volume_distribution_median": "0.00616",
+      "volume_distribution_mode": "0.00037",
+      "volume_distribution_skewness": "3.32428",
+      "volume_distribution_std": "0.00215",
+      "count_time_distribution": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        12,
+        4,
+        0,
+        2,
+        0,
+        13,
+        1,
+        4,
+        3,
+        4,
+        2,
+        1,
+        0,
+        0
+      ],
+      "buy_sell_count_ratio": "0.123",
+      "vwap": "33898.441913834778900000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-27T04:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        10,
+        8,
+        32,
+        1,
+        1,
+        5,
+        1,
+        0,
+        0
+      ],
+      "volume_volatility_correlation": "0.88221",
+      "volume_distribution": [
+        {
+          "volume": "0.0000675",
+          "count": 3
+        },
+        {
+          "volume": "0.0001350",
+          "count": 1
+        },
+        {
+          "volume": "0.0002025",
+          "count": 0
+        },
+        {
+          "volume": "0.0002700",
+          "count": 0
+        },
+        {
+          "volume": "0.0003375",
+          "count": 32
+        },
+        {
+          "volume": "0.0004050",
+          "count": 1
+        },
+        {
+          "volume": "0.0004725",
+          "count": 0
+        },
+        {
+          "volume": "0.0005400",
+          "count": 0
+        },
+        {
+          "volume": "0.0006075",
+          "count": 1
+        },
+        {
+          "volume": "0.0006750",
+          "count": 3
+        },
+        {
+          "volume": "0.0007425",
+          "count": 1
+        },
+        {
+          "volume": "0.0008100",
+          "count": 0
+        },
+        {
+          "volume": "0.0008775",
+          "count": 0
+        },
+        {
+          "volume": "0.0009450",
+          "count": 0
+        },
+        {
+          "volume": "0.0010125",
+          "count": 0
+        },
+        {
+          "volume": "0.0010800",
+          "count": 0
+        },
+        {
+          "volume": "0.0011475",
+          "count": 1
+        },
+        {
+          "volume": "0.0012150",
+          "count": 0
+        },
+        {
+          "volume": "0.0012825",
+          "count": 2
+        },
+        {
+          "volume": "0.0013500",
+          "count": 1
+        },
+        {
+          "volume": "0.0014175",
+          "count": 0
+        },
+        {
+          "volume": "0.0014850",
+          "count": 1
+        },
+        {
+          "volume": "0.0015525",
+          "count": 1
+        },
+        {
+          "volume": "0.0016200",
+          "count": 0
+        },
+        {
+          "volume": "0.0016875",
+          "count": 0
+        },
+        {
+          "volume": "0.0017550",
+          "count": 0
+        },
+        {
+          "volume": "0.0018225",
+          "count": 0
+        },
+        {
+          "volume": "0.0018900",
+          "count": 0
+        },
+        {
+          "volume": "0.0019575",
+          "count": 0
+        },
+        {
+          "volume": "0.0020250",
+          "count": 0
+        },
+        {
+          "volume": "0.0020925",
+          "count": 0
+        },
+        {
+          "volume": "0.0021600",
+          "count": 0
+        },
+        {
+          "volume": "0.0022275",
+          "count": 0
+        },
+        {
+          "volume": "0.0022950",
+          "count": 0
+        },
+        {
+          "volume": "0.0023625",
+          "count": 0
+        },
+        {
+          "volume": "0.0024300",
+          "count": 0
+        },
+        {
+          "volume": "0.0024975",
+          "count": 1
+        },
+        {
+          "volume": "0.0025650",
+          "count": 0
+        },
+        {
+          "volume": "0.0026325",
+          "count": 1
+        },
+        {
+          "volume": "0.0027000",
+          "count": 0
+        },
+        {
+          "volume": "0.0027675",
+          "count": 0
+        },
+        {
+          "volume": "0.0028350",
+          "count": 0
+        },
+        {
+          "volume": "0.0029025",
+          "count": 0
+        },
+        {
+          "volume": "0.0029700",
+          "count": 5
+        },
+        {
+          "volume": "0.0030375",
+          "count": 0
+        },
+        {
+          "volume": "0.0031050",
+          "count": 0
+        },
+        {
+          "volume": "0.0031725",
+          "count": 0
+        },
+        {
+          "volume": "0.0032400",
+          "count": 0
+        },
+        {
+          "volume": "0.0033075",
+          "count": 0
+        },
+        {
+          "volume": "0.0033750",
+          "count": 0
+        },
+        {
+          "volume": "0.0034425",
+          "count": 0
+        },
+        {
+          "volume": "0.0035100",
+          "count": 0
+        },
+        {
+          "volume": "0.0035775",
+          "count": 0
+        },
+        {
+          "volume": "0.0036450",
+          "count": 0
+        },
+        {
+          "volume": "0.0037125",
+          "count": 0
+        },
+        {
+          "volume": "0.0037800",
+          "count": 0
+        },
+        {
+          "volume": "0.0038475",
+          "count": 0
+        },
+        {
+          "volume": "0.0039150",
+          "count": 0
+        },
+        {
+          "volume": "0.0039825",
+          "count": 0
+        },
+        {
+          "volume": "0.0040500",
+          "count": 0
+        },
+        {
+          "volume": "0.0041175",
+          "count": 0
+        },
+        {
+          "volume": "0.0041850",
+          "count": 0
+        },
+        {
+          "volume": "0.0042525",
+          "count": 0
+        },
+        {
+          "volume": "0.0043200",
+          "count": 0
+        },
+        {
+          "volume": "0.0043875",
+          "count": 0
+        },
+        {
+          "volume": "0.0044550",
+          "count": 1
+        },
+        {
+          "volume": "0.0045225",
+          "count": 0
+        },
+        {
+          "volume": "0.0045900",
+          "count": 0
+        },
+        {
+          "volume": "0.0046575",
+          "count": 0
+        },
+        {
+          "volume": "0.0047250",
+          "count": 0
+        },
+        {
+          "volume": "0.0047925",
+          "count": 0
+        },
+        {
+          "volume": "0.0048600",
+          "count": 0
+        },
+        {
+          "volume": "0.0049275",
+          "count": 0
+        },
+        {
+          "volume": "0.0049950",
+          "count": 0
+        },
+        {
+          "volume": "0.0050625",
+          "count": 0
+        },
+        {
+          "volume": "0.0051300",
+          "count": 0
+        },
+        {
+          "volume": "0.0051975",
+          "count": 0
+        },
+        {
+          "volume": "0.0052650",
+          "count": 0
+        },
+        {
+          "volume": "0.0053325",
+          "count": 0
+        },
+        {
+          "volume": "0.0054000",
+          "count": 0
+        },
+        {
+          "volume": "0.0054675",
+          "count": 0
+        },
+        {
+          "volume": "0.0055350",
+          "count": 0
+        },
+        {
+          "volume": "0.0056025",
+          "count": 0
+        },
+        {
+          "volume": "0.0056700",
+          "count": 0
+        },
+        {
+          "volume": "0.0057375",
+          "count": 0
+        },
+        {
+          "volume": "0.0058050",
+          "count": 0
+        },
+        {
+          "volume": "0.0058725",
+          "count": 0
+        },
+        {
+          "volume": "0.0059400",
+          "count": 0
+        },
+        {
+          "volume": "0.0060075",
+          "count": 0
+        },
+        {
+          "volume": "0.0060750",
+          "count": 0
+        },
+        {
+          "volume": "0.0061425",
+          "count": 0
+        },
+        {
+          "volume": "0.0062100",
+          "count": 0
+        },
+        {
+          "volume": "0.0062775",
+          "count": 0
+        },
+        {
+          "volume": "0.0063450",
+          "count": 0
+        },
+        {
+          "volume": "0.0064125",
+          "count": 0
+        },
+        {
+          "volume": "0.0064800",
+          "count": 0
+        },
+        {
+          "volume": "0.0065475",
+          "count": 0
+        },
+        {
+          "volume": "0.0066150",
+          "count": 0
+        },
+        {
+          "volume": "0.0066825",
+          "count": 0
+        },
+        {
+          "volume": "0.0067500",
+          "count": 2
+        }
+      ],
+      "volume_distribution_kurtosis": "9.11258",
+      "volume_distribution_mean": "0.00105",
+      "volume_distribution_median": "0.00341",
+      "volume_distribution_mode": "0.00034",
+      "volume_distribution_skewness": "2.47021",
+      "volume_distribution_std": "0.00145",
+      "count_time_distribution": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        4,
+        2,
+        0,
+        0,
+        0,
+        6,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        2,
+        0,
+        2,
+        15,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        2,
+        2,
+        0,
+        1,
+        2,
+        2,
+        1,
+        2,
+        3,
+        0,
+        3,
+        1
+      ],
+      "buy_sell_count_ratio": "0.138",
+      "vwap": "34056.844515207528100000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-27T05:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        33,
+        38,
+        60,
+        16,
+        6,
+        3,
+        2,
+        2,
+        0
+      ],
+      "volume_volatility_correlation": "0.95988",
+      "volume_distribution": [
+        {
+          "volume": "0.0013796",
+          "count": 71
+        },
+        {
+          "volume": "0.0027592",
+          "count": 17
+        },
+        {
+          "volume": "0.0041388",
+          "count": 42
+        },
+        {
+          "volume": "0.0055184",
+          "count": 12
+        },
+        {
+          "volume": "0.0068980",
+          "count": 4
+        },
+        {
+          "volume": "0.0082776",
+          "count": 0
+        },
+        {
+          "volume": "0.0096572",
+          "count": 1
+        },
+        {
+          "volume": "0.0110368",
+          "count": 0
+        },
+        {
+          "volume": "0.0124164",
+          "count": 4
+        },
+        {
+          "volume": "0.0137960",
+          "count": 0
+        },
+        {
+          "volume": "0.0151756",
+          "count": 0
+        },
+        {
+          "volume": "0.0165552",
+          "count": 0
+        },
+        {
+          "volume": "0.0179348",
+          "count": 0
+        },
+        {
+          "volume": "0.0193144",
+          "count": 0
+        },
+        {
+          "volume": "0.0206940",
+          "count": 1
+        },
+        {
+          "volume": "0.0220736",
+          "count": 0
+        },
+        {
+          "volume": "0.0234532",
+          "count": 0
+        },
+        {
+          "volume": "0.0248328",
+          "count": 1
+        },
+        {
+          "volume": "0.0262124",
+          "count": 0
+        },
+        {
+          "volume": "0.0275920",
+          "count": 0
+        },
+        {
+          "volume": "0.0289716",
+          "count": 1
+        },
+        {
+          "volume": "0.0303512",
+          "count": 0
+        },
+        {
+          "volume": "0.0317308",
+          "count": 0
+        },
+        {
+          "volume": "0.0331104",
+          "count": 0
+        },
+        {
+          "volume": "0.0344900",
+          "count": 1
+        },
+        {
+          "volume": "0.0358696",
+          "count": 0
+        },
+        {
+          "volume": "0.0372492",
+          "count": 0
+        },
+        {
+          "volume": "0.0386288",
+          "count": 0
+        },
+        {
+          "volume": "0.0400084",
+          "count": 0
+        },
+        {
+          "volume": "0.0413880",
+          "count": 0
+        },
+        {
+          "volume": "0.0427676",
+          "count": 0
+        },
+        {
+          "volume": "0.0441472",
+          "count": 0
+        },
+        {
+          "volume": "0.0455268",
+          "count": 0
+        },
+        {
+          "volume": "0.0469064",
+          "count": 1
+        },
+        {
+          "volume": "0.0482860",
+          "count": 0
+        },
+        {
+          "volume": "0.0496656",
+          "count": 0
+        },
+        {
+          "volume": "0.0510452",
+          "count": 0
+        },
+        {
+          "volume": "0.0524248",
+          "count": 0
+        },
+        {
+          "volume": "0.0538044",
+          "count": 0
+        },
+        {
+          "volume": "0.0551840",
+          "count": 0
+        },
+        {
+          "volume": "0.0565636",
+          "count": 0
+        },
+        {
+          "volume": "0.0579432",
+          "count": 0
+        },
+        {
+          "volume": "0.0593228",
+          "count": 0
+        },
+        {
+          "volume": "0.0607024",
+          "count": 0
+        },
+        {
+          "volume": "0.0620820",
+          "count": 0
+        },
+        {
+          "volume": "0.0634616",
+          "count": 0
+        },
+        {
+          "volume": "0.0648412",
+          "count": 0
+        },
+        {
+          "volume": "0.0662208",
+          "count": 0
+        },
+        {
+          "volume": "0.0676004",
+          "count": 0
+        },
+        {
+          "volume": "0.0689800",
+          "count": 0
+        },
+        {
+          "volume": "0.0703596",
+          "count": 0
+        },
+        {
+          "volume": "0.0717392",
+          "count": 0
+        },
+        {
+          "volume": "0.0731188",
+          "count": 0
+        },
+        {
+          "volume": "0.0744984",
+          "count": 0
+        },
+        {
+          "volume": "0.0758780",
+          "count": 0
+        },
+        {
+          "volume": "0.0772576",
+          "count": 0
+        },
+        {
+          "volume": "0.0786372",
+          "count": 0
+        },
+        {
+          "volume": "0.0800168",
+          "count": 0
+        },
+        {
+          "volume": "0.0813964",
+          "count": 0
+        },
+        {
+          "volume": "0.0827760",
+          "count": 0
+        },
+        {
+          "volume": "0.0841556",
+          "count": 0
+        },
+        {
+          "volume": "0.0855352",
+          "count": 0
+        },
+        {
+          "volume": "0.0869148",
+          "count": 0
+        },
+        {
+          "volume": "0.0882944",
+          "count": 0
+        },
+        {
+          "volume": "0.0896740",
+          "count": 1
+        },
+        {
+          "volume": "0.0910536",
+          "count": 0
+        },
+        {
+          "volume": "0.0924332",
+          "count": 0
+        },
+        {
+          "volume": "0.0938128",
+          "count": 0
+        },
+        {
+          "volume": "0.0951924",
+          "count": 0
+        },
+        {
+          "volume": "0.0965720",
+          "count": 0
+        },
+        {
+          "volume": "0.0979516",
+          "count": 0
+        },
+        {
+          "volume": "0.0993312",
+          "count": 0
+        },
+        {
+          "volume": "0.1007108",
+          "count": 0
+        },
+        {
+          "volume": "0.1020904",
+          "count": 0
+        },
+        {
+          "volume": "0.1034700",
+          "count": 0
+        },
+        {
+          "volume": "0.1048496",
+          "count": 0
+        },
+        {
+          "volume": "0.1062292",
+          "count": 0
+        },
+        {
+          "volume": "0.1076088",
+          "count": 0
+        },
+        {
+          "volume": "0.1089884",
+          "count": 0
+        },
+        {
+          "volume": "0.1103680",
+          "count": 0
+        },
+        {
+          "volume": "0.1117476",
+          "count": 0
+        },
+        {
+          "volume": "0.1131272",
+          "count": 0
+        },
+        {
+          "volume": "0.1145068",
+          "count": 1
+        },
+        {
+          "volume": "0.1158864",
+          "count": 0
+        },
+        {
+          "volume": "0.1172660",
+          "count": 0
+        },
+        {
+          "volume": "0.1186456",
+          "count": 0
+        },
+        {
+          "volume": "0.1200252",
+          "count": 0
+        },
+        {
+          "volume": "0.1214048",
+          "count": 0
+        },
+        {
+          "volume": "0.1227844",
+          "count": 0
+        },
+        {
+          "volume": "0.1241640",
+          "count": 0
+        },
+        {
+          "volume": "0.1255436",
+          "count": 0
+        },
+        {
+          "volume": "0.1269232",
+          "count": 0
+        },
+        {
+          "volume": "0.1283028",
+          "count": 1
+        },
+        {
+          "volume": "0.1296824",
+          "count": 0
+        },
+        {
+          "volume": "0.1310620",
+          "count": 0
+        },
+        {
+          "volume": "0.1324416",
+          "count": 0
+        },
+        {
+          "volume": "0.1338212",
+          "count": 0
+        },
+        {
+          "volume": "0.1352008",
+          "count": 0
+        },
+        {
+          "volume": "0.1365804",
+          "count": 0
+        },
+        {
+          "volume": "0.1379600",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "34.84001",
+      "volume_distribution_mean": "0.00686",
+      "volume_distribution_median": "0.06967",
+      "volume_distribution_mode": "0.00138",
+      "volume_distribution_skewness": "5.58882",
+      "volume_distribution_std": "0.01881",
+      "count_time_distribution": [
+        10,
+        1,
+        0,
+        2,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        4,
+        7,
+        0,
+        0,
+        1,
+        6,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        2,
+        2,
+        87,
+        0,
+        10,
+        1,
+        4,
+        1,
+        1,
+        0,
+        1,
+        2,
+        1,
+        2,
+        0,
+        0
+      ],
+      "buy_sell_count_ratio": "0.388",
+      "vwap": "33916.107001831810300000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-27T06:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        12,
+        20,
+        19,
+        3,
+        2,
+        6,
+        0,
+        0,
+        0
+      ],
+      "volume_volatility_correlation": "0.36126",
+      "volume_distribution": [
+        {
+          "volume": "0.0006013",
+          "count": 26
+        },
+        {
+          "volume": "0.0012026",
+          "count": 5
+        },
+        {
+          "volume": "0.0018039",
+          "count": 2
+        },
+        {
+          "volume": "0.0024052",
+          "count": 4
+        },
+        {
+          "volume": "0.0030065",
+          "count": 15
+        },
+        {
+          "volume": "0.0036078",
+          "count": 0
+        },
+        {
+          "volume": "0.0042091",
+          "count": 0
+        },
+        {
+          "volume": "0.0048104",
+          "count": 2
+        },
+        {
+          "volume": "0.0054117",
+          "count": 0
+        },
+        {
+          "volume": "0.0060130",
+          "count": 1
+        },
+        {
+          "volume": "0.0066143",
+          "count": 0
+        },
+        {
+          "volume": "0.0072156",
+          "count": 0
+        },
+        {
+          "volume": "0.0078169",
+          "count": 0
+        },
+        {
+          "volume": "0.0084182",
+          "count": 0
+        },
+        {
+          "volume": "0.0090195",
+          "count": 0
+        },
+        {
+          "volume": "0.0096208",
+          "count": 0
+        },
+        {
+          "volume": "0.0102221",
+          "count": 0
+        },
+        {
+          "volume": "0.0108234",
+          "count": 0
+        },
+        {
+          "volume": "0.0114247",
+          "count": 2
+        },
+        {
+          "volume": "0.0120260",
+          "count": 0
+        },
+        {
+          "volume": "0.0126273",
+          "count": 2
+        },
+        {
+          "volume": "0.0132286",
+          "count": 0
+        },
+        {
+          "volume": "0.0138299",
+          "count": 0
+        },
+        {
+          "volume": "0.0144312",
+          "count": 0
+        },
+        {
+          "volume": "0.0150325",
+          "count": 0
+        },
+        {
+          "volume": "0.0156338",
+          "count": 0
+        },
+        {
+          "volume": "0.0162351",
+          "count": 0
+        },
+        {
+          "volume": "0.0168364",
+          "count": 0
+        },
+        {
+          "volume": "0.0174377",
+          "count": 0
+        },
+        {
+          "volume": "0.0180390",
+          "count": 0
+        },
+        {
+          "volume": "0.0186403",
+          "count": 0
+        },
+        {
+          "volume": "0.0192416",
+          "count": 0
+        },
+        {
+          "volume": "0.0198429",
+          "count": 0
+        },
+        {
+          "volume": "0.0204442",
+          "count": 1
+        },
+        {
+          "volume": "0.0210455",
+          "count": 0
+        },
+        {
+          "volume": "0.0216468",
+          "count": 0
+        },
+        {
+          "volume": "0.0222481",
+          "count": 0
+        },
+        {
+          "volume": "0.0228494",
+          "count": 0
+        },
+        {
+          "volume": "0.0234507",
+          "count": 0
+        },
+        {
+          "volume": "0.0240520",
+          "count": 0
+        },
+        {
+          "volume": "0.0246533",
+          "count": 0
+        },
+        {
+          "volume": "0.0252546",
+          "count": 0
+        },
+        {
+          "volume": "0.0258559",
+          "count": 0
+        },
+        {
+          "volume": "0.0264572",
+          "count": 0
+        },
+        {
+          "volume": "0.0270585",
+          "count": 0
+        },
+        {
+          "volume": "0.0276598",
+          "count": 0
+        },
+        {
+          "volume": "0.0282611",
+          "count": 0
+        },
+        {
+          "volume": "0.0288624",
+          "count": 0
+        },
+        {
+          "volume": "0.0294637",
+          "count": 0
+        },
+        {
+          "volume": "0.0300650",
+          "count": 0
+        },
+        {
+          "volume": "0.0306663",
+          "count": 0
+        },
+        {
+          "volume": "0.0312676",
+          "count": 0
+        },
+        {
+          "volume": "0.0318689",
+          "count": 1
+        },
+        {
+          "volume": "0.0324702",
+          "count": 0
+        },
+        {
+          "volume": "0.0330715",
+          "count": 0
+        },
+        {
+          "volume": "0.0336728",
+          "count": 0
+        },
+        {
+          "volume": "0.0342741",
+          "count": 0
+        },
+        {
+          "volume": "0.0348754",
+          "count": 0
+        },
+        {
+          "volume": "0.0354767",
+          "count": 0
+        },
+        {
+          "volume": "0.0360780",
+          "count": 0
+        },
+        {
+          "volume": "0.0366793",
+          "count": 0
+        },
+        {
+          "volume": "0.0372806",
+          "count": 0
+        },
+        {
+          "volume": "0.0378819",
+          "count": 0
+        },
+        {
+          "volume": "0.0384832",
+          "count": 0
+        },
+        {
+          "volume": "0.0390845",
+          "count": 0
+        },
+        {
+          "volume": "0.0396858",
+          "count": 0
+        },
+        {
+          "volume": "0.0402871",
+          "count": 0
+        },
+        {
+          "volume": "0.0408884",
+          "count": 0
+        },
+        {
+          "volume": "0.0414897",
+          "count": 0
+        },
+        {
+          "volume": "0.0420910",
+          "count": 0
+        },
+        {
+          "volume": "0.0426923",
+          "count": 0
+        },
+        {
+          "volume": "0.0432936",
+          "count": 0
+        },
+        {
+          "volume": "0.0438949",
+          "count": 0
+        },
+        {
+          "volume": "0.0444962",
+          "count": 0
+        },
+        {
+          "volume": "0.0450975",
+          "count": 0
+        },
+        {
+          "volume": "0.0456988",
+          "count": 0
+        },
+        {
+          "volume": "0.0463001",
+          "count": 0
+        },
+        {
+          "volume": "0.0469014",
+          "count": 0
+        },
+        {
+          "volume": "0.0475027",
+          "count": 0
+        },
+        {
+          "volume": "0.0481040",
+          "count": 0
+        },
+        {
+          "volume": "0.0487053",
+          "count": 0
+        },
+        {
+          "volume": "0.0493066",
+          "count": 0
+        },
+        {
+          "volume": "0.0499079",
+          "count": 0
+        },
+        {
+          "volume": "0.0505092",
+          "count": 0
+        },
+        {
+          "volume": "0.0511105",
+          "count": 0
+        },
+        {
+          "volume": "0.0517118",
+          "count": 0
+        },
+        {
+          "volume": "0.0523131",
+          "count": 0
+        },
+        {
+          "volume": "0.0529144",
+          "count": 0
+        },
+        {
+          "volume": "0.0535157",
+          "count": 0
+        },
+        {
+          "volume": "0.0541170",
+          "count": 0
+        },
+        {
+          "volume": "0.0547183",
+          "count": 0
+        },
+        {
+          "volume": "0.0553196",
+          "count": 0
+        },
+        {
+          "volume": "0.0559209",
+          "count": 0
+        },
+        {
+          "volume": "0.0565222",
+          "count": 0
+        },
+        {
+          "volume": "0.0571235",
+          "count": 0
+        },
+        {
+          "volume": "0.0577248",
+          "count": 0
+        },
+        {
+          "volume": "0.0583261",
+          "count": 0
+        },
+        {
+          "volume": "0.0589274",
+          "count": 0
+        },
+        {
+          "volume": "0.0595287",
+          "count": 0
+        },
+        {
+          "volume": "0.0601300",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "27.90607",
+      "volume_distribution_mean": "0.00413",
+      "volume_distribution_median": "0.03037",
+      "volume_distribution_mode": "0.00060",
+      "volume_distribution_skewness": "4.73183",
+      "volume_distribution_std": "0.00883",
+      "count_time_distribution": [
+        0,
+        1,
+        2,
+        8,
+        0,
+        0,
+        0,
+        2,
+        0,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        4,
+        1,
+        0,
+        0,
+        0,
+        0,
+        2,
+        4,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        2,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        3,
+        16
+      ],
+      "buy_sell_count_ratio": "0.371",
+      "vwap": "34161.440128637442200000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-27T07:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        52,
+        79,
+        32,
+        8,
+        2,
+        15,
+        6,
+        5,
+        4
+      ],
+      "volume_volatility_correlation": "0.86352",
+      "volume_distribution": [
+        {
+          "volume": "0.0002146",
+          "count": 4
+        },
+        {
+          "volume": "0.0004292",
+          "count": 15
+        },
+        {
+          "volume": "0.0006438",
+          "count": 2
+        },
+        {
+          "volume": "0.0008584",
+          "count": 11
+        },
+        {
+          "volume": "0.0010730",
+          "count": 5
+        },
+        {
+          "volume": "0.0012876",
+          "count": 15
+        },
+        {
+          "volume": "0.0015022",
+          "count": 5
+        },
+        {
+          "volume": "0.0017168",
+          "count": 5
+        },
+        {
+          "volume": "0.0019314",
+          "count": 3
+        },
+        {
+          "volume": "0.0021460",
+          "count": 4
+        },
+        {
+          "volume": "0.0023606",
+          "count": 5
+        },
+        {
+          "volume": "0.0025752",
+          "count": 4
+        },
+        {
+          "volume": "0.0027898",
+          "count": 5
+        },
+        {
+          "volume": "0.0030044",
+          "count": 47
+        },
+        {
+          "volume": "0.0032190",
+          "count": 4
+        },
+        {
+          "volume": "0.0034336",
+          "count": 3
+        },
+        {
+          "volume": "0.0036482",
+          "count": 4
+        },
+        {
+          "volume": "0.0038628",
+          "count": 3
+        },
+        {
+          "volume": "0.0040774",
+          "count": 2
+        },
+        {
+          "volume": "0.0042920",
+          "count": 2
+        },
+        {
+          "volume": "0.0045066",
+          "count": 0
+        },
+        {
+          "volume": "0.0047212",
+          "count": 1
+        },
+        {
+          "volume": "0.0049358",
+          "count": 0
+        },
+        {
+          "volume": "0.0051504",
+          "count": 1
+        },
+        {
+          "volume": "0.0053650",
+          "count": 0
+        },
+        {
+          "volume": "0.0055796",
+          "count": 0
+        },
+        {
+          "volume": "0.0057942",
+          "count": 0
+        },
+        {
+          "volume": "0.0060088",
+          "count": 0
+        },
+        {
+          "volume": "0.0062234",
+          "count": 1
+        },
+        {
+          "volume": "0.0064380",
+          "count": 4
+        },
+        {
+          "volume": "0.0066526",
+          "count": 2
+        },
+        {
+          "volume": "0.0068672",
+          "count": 0
+        },
+        {
+          "volume": "0.0070818",
+          "count": 0
+        },
+        {
+          "volume": "0.0072964",
+          "count": 0
+        },
+        {
+          "volume": "0.0075110",
+          "count": 1
+        },
+        {
+          "volume": "0.0077256",
+          "count": 1
+        },
+        {
+          "volume": "0.0079402",
+          "count": 1
+        },
+        {
+          "volume": "0.0081548",
+          "count": 0
+        },
+        {
+          "volume": "0.0083694",
+          "count": 1
+        },
+        {
+          "volume": "0.0085840",
+          "count": 0
+        },
+        {
+          "volume": "0.0087986",
+          "count": 0
+        },
+        {
+          "volume": "0.0090132",
+          "count": 0
+        },
+        {
+          "volume": "0.0092278",
+          "count": 0
+        },
+        {
+          "volume": "0.0094424",
+          "count": 1
+        },
+        {
+          "volume": "0.0096570",
+          "count": 1
+        },
+        {
+          "volume": "0.0098716",
+          "count": 0
+        },
+        {
+          "volume": "0.0100862",
+          "count": 1
+        },
+        {
+          "volume": "0.0103008",
+          "count": 0
+        },
+        {
+          "volume": "0.0105154",
+          "count": 1
+        },
+        {
+          "volume": "0.0107300",
+          "count": 0
+        },
+        {
+          "volume": "0.0109446",
+          "count": 2
+        },
+        {
+          "volume": "0.0111592",
+          "count": 0
+        },
+        {
+          "volume": "0.0113738",
+          "count": 0
+        },
+        {
+          "volume": "0.0115884",
+          "count": 1
+        },
+        {
+          "volume": "0.0118030",
+          "count": 0
+        },
+        {
+          "volume": "0.0120176",
+          "count": 0
+        },
+        {
+          "volume": "0.0122322",
+          "count": 1
+        },
+        {
+          "volume": "0.0124468",
+          "count": 0
+        },
+        {
+          "volume": "0.0126614",
+          "count": 0
+        },
+        {
+          "volume": "0.0128760",
+          "count": 1
+        },
+        {
+          "volume": "0.0130906",
+          "count": 0
+        },
+        {
+          "volume": "0.0133052",
+          "count": 0
+        },
+        {
+          "volume": "0.0135198",
+          "count": 0
+        },
+        {
+          "volume": "0.0137344",
+          "count": 0
+        },
+        {
+          "volume": "0.0139490",
+          "count": 0
+        },
+        {
+          "volume": "0.0141636",
+          "count": 0
+        },
+        {
+          "volume": "0.0143782",
+          "count": 0
+        },
+        {
+          "volume": "0.0145928",
+          "count": 0
+        },
+        {
+          "volume": "0.0148074",
+          "count": 1
+        },
+        {
+          "volume": "0.0150220",
+          "count": 0
+        },
+        {
+          "volume": "0.0152366",
+          "count": 0
+        },
+        {
+          "volume": "0.0154512",
+          "count": 0
+        },
+        {
+          "volume": "0.0156658",
+          "count": 1
+        },
+        {
+          "volume": "0.0158804",
+          "count": 3
+        },
+        {
+          "volume": "0.0160950",
+          "count": 0
+        },
+        {
+          "volume": "0.0163096",
+          "count": 1
+        },
+        {
+          "volume": "0.0165242",
+          "count": 0
+        },
+        {
+          "volume": "0.0167388",
+          "count": 3
+        },
+        {
+          "volume": "0.0169534",
+          "count": 0
+        },
+        {
+          "volume": "0.0171680",
+          "count": 0
+        },
+        {
+          "volume": "0.0173826",
+          "count": 0
+        },
+        {
+          "volume": "0.0175972",
+          "count": 0
+        },
+        {
+          "volume": "0.0178118",
+          "count": 0
+        },
+        {
+          "volume": "0.0180264",
+          "count": 0
+        },
+        {
+          "volume": "0.0182410",
+          "count": 0
+        },
+        {
+          "volume": "0.0184556",
+          "count": 0
+        },
+        {
+          "volume": "0.0186702",
+          "count": 1
+        },
+        {
+          "volume": "0.0188848",
+          "count": 0
+        },
+        {
+          "volume": "0.0190994",
+          "count": 0
+        },
+        {
+          "volume": "0.0193140",
+          "count": 1
+        },
+        {
+          "volume": "0.0195286",
+          "count": 0
+        },
+        {
+          "volume": "0.0197432",
+          "count": 0
+        },
+        {
+          "volume": "0.0199578",
+          "count": 0
+        },
+        {
+          "volume": "0.0201724",
+          "count": 0
+        },
+        {
+          "volume": "0.0203870",
+          "count": 0
+        },
+        {
+          "volume": "0.0206016",
+          "count": 0
+        },
+        {
+          "volume": "0.0208162",
+          "count": 0
+        },
+        {
+          "volume": "0.0210308",
+          "count": 0
+        },
+        {
+          "volume": "0.0212454",
+          "count": 0
+        },
+        {
+          "volume": "0.0214600",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "7.24035",
+      "volume_distribution_mean": "0.00388",
+      "volume_distribution_median": "0.01084",
+      "volume_distribution_mode": "0.00300",
+      "volume_distribution_skewness": "2.18507",
+      "volume_distribution_std": "0.00426",
+      "count_time_distribution": [
+        15,
+        13,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        1,
+        0,
+        12,
+        1,
+        0,
+        0,
+        0,
+        1,
+        8,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        2,
+        0,
+        1,
+        12,
+        0,
+        2,
+        1,
+        0,
+        9,
+        1,
+        12,
+        0,
+        24,
+        5,
+        13,
+        5,
+        7,
+        8,
+        20,
+        23
+      ],
+      "buy_sell_count_ratio": "0.414",
+      "vwap": "34004.366918535025100000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-27T08:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        36,
+        88,
+        17,
+        20,
+        5,
+        5,
+        6,
+        6,
+        12
+      ],
+      "volume_volatility_correlation": "0.61641",
+      "volume_distribution": [
+        {
+          "volume": "0.0003036",
+          "count": 5
+        },
+        {
+          "volume": "0.0006072",
+          "count": 9
+        },
+        {
+          "volume": "0.0009108",
+          "count": 2
+        },
+        {
+          "volume": "0.0012144",
+          "count": 12
+        },
+        {
+          "volume": "0.0015180",
+          "count": 5
+        },
+        {
+          "volume": "0.0018216",
+          "count": 7
+        },
+        {
+          "volume": "0.0021252",
+          "count": 9
+        },
+        {
+          "volume": "0.0024288",
+          "count": 6
+        },
+        {
+          "volume": "0.0027324",
+          "count": 3
+        },
+        {
+          "volume": "0.0030360",
+          "count": 55
+        },
+        {
+          "volume": "0.0033396",
+          "count": 3
+        },
+        {
+          "volume": "0.0036432",
+          "count": 0
+        },
+        {
+          "volume": "0.0039468",
+          "count": 2
+        },
+        {
+          "volume": "0.0042504",
+          "count": 2
+        },
+        {
+          "volume": "0.0045540",
+          "count": 1
+        },
+        {
+          "volume": "0.0048576",
+          "count": 2
+        },
+        {
+          "volume": "0.0051612",
+          "count": 1
+        },
+        {
+          "volume": "0.0054648",
+          "count": 1
+        },
+        {
+          "volume": "0.0057684",
+          "count": 0
+        },
+        {
+          "volume": "0.0060720",
+          "count": 1
+        },
+        {
+          "volume": "0.0063756",
+          "count": 1
+        },
+        {
+          "volume": "0.0066792",
+          "count": 1
+        },
+        {
+          "volume": "0.0069828",
+          "count": 1
+        },
+        {
+          "volume": "0.0072864",
+          "count": 3
+        },
+        {
+          "volume": "0.0075900",
+          "count": 0
+        },
+        {
+          "volume": "0.0078936",
+          "count": 2
+        },
+        {
+          "volume": "0.0081972",
+          "count": 3
+        },
+        {
+          "volume": "0.0085008",
+          "count": 0
+        },
+        {
+          "volume": "0.0088044",
+          "count": 1
+        },
+        {
+          "volume": "0.0091080",
+          "count": 1
+        },
+        {
+          "volume": "0.0094116",
+          "count": 3
+        },
+        {
+          "volume": "0.0097152",
+          "count": 2
+        },
+        {
+          "volume": "0.0100188",
+          "count": 0
+        },
+        {
+          "volume": "0.0103224",
+          "count": 1
+        },
+        {
+          "volume": "0.0106260",
+          "count": 2
+        },
+        {
+          "volume": "0.0109296",
+          "count": 0
+        },
+        {
+          "volume": "0.0112332",
+          "count": 2
+        },
+        {
+          "volume": "0.0115368",
+          "count": 1
+        },
+        {
+          "volume": "0.0118404",
+          "count": 0
+        },
+        {
+          "volume": "0.0121440",
+          "count": 0
+        },
+        {
+          "volume": "0.0124476",
+          "count": 0
+        },
+        {
+          "volume": "0.0127512",
+          "count": 0
+        },
+        {
+          "volume": "0.0130548",
+          "count": 0
+        },
+        {
+          "volume": "0.0133584",
+          "count": 0
+        },
+        {
+          "volume": "0.0136620",
+          "count": 0
+        },
+        {
+          "volume": "0.0139656",
+          "count": 0
+        },
+        {
+          "volume": "0.0142692",
+          "count": 0
+        },
+        {
+          "volume": "0.0145728",
+          "count": 0
+        },
+        {
+          "volume": "0.0148764",
+          "count": 1
+        },
+        {
+          "volume": "0.0151800",
+          "count": 0
+        },
+        {
+          "volume": "0.0154836",
+          "count": 0
+        },
+        {
+          "volume": "0.0157872",
+          "count": 0
+        },
+        {
+          "volume": "0.0160908",
+          "count": 1
+        },
+        {
+          "volume": "0.0163944",
+          "count": 0
+        },
+        {
+          "volume": "0.0166980",
+          "count": 0
+        },
+        {
+          "volume": "0.0170016",
+          "count": 1
+        },
+        {
+          "volume": "0.0173052",
+          "count": 0
+        },
+        {
+          "volume": "0.0176088",
+          "count": 0
+        },
+        {
+          "volume": "0.0179124",
+          "count": 0
+        },
+        {
+          "volume": "0.0182160",
+          "count": 0
+        },
+        {
+          "volume": "0.0185196",
+          "count": 0
+        },
+        {
+          "volume": "0.0188232",
+          "count": 0
+        },
+        {
+          "volume": "0.0191268",
+          "count": 0
+        },
+        {
+          "volume": "0.0194304",
+          "count": 1
+        },
+        {
+          "volume": "0.0197340",
+          "count": 2
+        },
+        {
+          "volume": "0.0200376",
+          "count": 0
+        },
+        {
+          "volume": "0.0203412",
+          "count": 0
+        },
+        {
+          "volume": "0.0206448",
+          "count": 0
+        },
+        {
+          "volume": "0.0209484",
+          "count": 0
+        },
+        {
+          "volume": "0.0212520",
+          "count": 0
+        },
+        {
+          "volume": "0.0215556",
+          "count": 0
+        },
+        {
+          "volume": "0.0218592",
+          "count": 1
+        },
+        {
+          "volume": "0.0221628",
+          "count": 0
+        },
+        {
+          "volume": "0.0224664",
+          "count": 0
+        },
+        {
+          "volume": "0.0227700",
+          "count": 2
+        },
+        {
+          "volume": "0.0230736",
+          "count": 0
+        },
+        {
+          "volume": "0.0233772",
+          "count": 2
+        },
+        {
+          "volume": "0.0236808",
+          "count": 1
+        },
+        {
+          "volume": "0.0239844",
+          "count": 0
+        },
+        {
+          "volume": "0.0242880",
+          "count": 1
+        },
+        {
+          "volume": "0.0245916",
+          "count": 0
+        },
+        {
+          "volume": "0.0248952",
+          "count": 0
+        },
+        {
+          "volume": "0.0251988",
+          "count": 2
+        },
+        {
+          "volume": "0.0255024",
+          "count": 0
+        },
+        {
+          "volume": "0.0258060",
+          "count": 1
+        },
+        {
+          "volume": "0.0261096",
+          "count": 0
+        },
+        {
+          "volume": "0.0264132",
+          "count": 1
+        },
+        {
+          "volume": "0.0267168",
+          "count": 1
+        },
+        {
+          "volume": "0.0270204",
+          "count": 0
+        },
+        {
+          "volume": "0.0273240",
+          "count": 0
+        },
+        {
+          "volume": "0.0276276",
+          "count": 0
+        },
+        {
+          "volume": "0.0279312",
+          "count": 4
+        },
+        {
+          "volume": "0.0282348",
+          "count": 0
+        },
+        {
+          "volume": "0.0285384",
+          "count": 0
+        },
+        {
+          "volume": "0.0288420",
+          "count": 0
+        },
+        {
+          "volume": "0.0291456",
+          "count": 0
+        },
+        {
+          "volume": "0.0294492",
+          "count": 1
+        },
+        {
+          "volume": "0.0297528",
+          "count": 0
+        },
+        {
+          "volume": "0.0300564",
+          "count": 1
+        },
+        {
+          "volume": "0.0303600",
+          "count": 1
+        }
+      ],
+      "volume_distribution_kurtosis": "5.10272",
+      "volume_distribution_mean": "0.00642",
+      "volume_distribution_median": "0.01533",
+      "volume_distribution_mode": "0.00304",
+      "volume_distribution_skewness": "1.83539",
+      "volume_distribution_std": "0.00775",
+      "count_time_distribution": [
+        52,
+        10,
+        0,
+        0,
+        0,
+        8,
+        0,
+        0,
+        0,
+        8,
+        0,
+        5,
+        0,
+        0,
+        6,
+        2,
+        4,
+        3,
+        6,
+        3,
+        0,
+        0,
+        2,
+        4,
+        2,
+        0,
+        0,
+        0,
+        0,
+        5,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        1,
+        1,
+        4,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        9,
+        0,
+        0,
+        5,
+        4,
+        1,
+        19,
+        17,
+        0,
+        8
+      ],
+      "buy_sell_count_ratio": "0.359",
+      "vwap": "34003.729114804585100000",
+      "market_id": "binance-wbtc-usdt"
+    },
+    {
+      "timestamp": "2023-10-27T09:00:00.000Z",
+      "first_digit_distribution": [
+        0,
+        92,
+        248,
+        600,
+        321,
+        99,
+        10,
+        5,
+        4,
+        11
+      ],
+      "volume_volatility_correlation": "0.05906",
+      "volume_distribution": [
+        {
+          "volume": "0.0000498",
+          "count": 1
+        },
+        {
+          "volume": "0.0000996",
+          "count": 0
+        },
+        {
+          "volume": "0.0001494",
+          "count": 0
+        },
+        {
+          "volume": "0.0001992",
+          "count": 0
+        },
+        {
+          "volume": "0.0002490",
+          "count": 1
+        },
+        {
+          "volume": "0.0002988",
+          "count": 1
+        },
+        {
+          "volume": "0.0003486",
+          "count": 2
+        },
+        {
+          "volume": "0.0003984",
+          "count": 0
+        },
+        {
+          "volume": "0.0004482",
+          "count": 1
+        },
+        {
+          "volume": "0.0004980",
+          "count": 3
+        },
+        {
+          "volume": "0.0005478",
+          "count": 1
+        },
+        {
+          "volume": "0.0005976",
+          "count": 5
+        },
+        {
+          "volume": "0.0006474",
+          "count": 4
+        },
+        {
+          "volume": "0.0006972",
+          "count": 3
+        },
+        {
+          "volume": "0.0007470",
+          "count": 2
+        },
+        {
+          "volume": "0.0007968",
+          "count": 0
+        },
+        {
+          "volume": "0.0008466",
+          "count": 0
+        },
+        {
+          "volume": "0.0008964",
+          "count": 2
+        },
+        {
+          "volume": "0.0009462",
+          "count": 1
+        },
+        {
+          "volume": "0.0009960",
+          "count": 1
+        },
+        {
+          "volume": "0.0010458",
+          "count": 4
+        },
+        {
+          "volume": "0.0010956",
+          "count": 0
+        },
+        {
+          "volume": "0.0011454",
+          "count": 3
+        },
+        {
+          "volume": "0.0011952",
+          "count": 0
+        },
+        {
+          "volume": "0.0012450",
+          "count": 0
+        },
+        {
+          "volume": "0.0012948",
+          "count": 1
+        },
+        {
+          "volume": "0.0013446",
+          "count": 0
+        },
+        {
+          "volume": "0.0013944",
+          "count": 1
+        },
+        {
+          "volume": "0.0014442",
+          "count": 1
+        },
+        {
+          "volume": "0.0014940",
+          "count": 45
+        },
+        {
+          "volume": "0.0015438",
+          "count": 0
+        },
+        {
+          "volume": "0.0015936",
+          "count": 0
+        },
+        {
+          "volume": "0.0016434",
+          "count": 11
+        },
+        {
+          "volume": "0.0016932",
+          "count": 1
+        },
+        {
+          "volume": "0.0017430",
+          "count": 2
+        },
+        {
+          "volume": "0.0017928",
+          "count": 1
+        },
+        {
+          "volume": "0.0018426",
+          "count": 3
+        },
+        {
+          "volume": "0.0018924",
+          "count": 0
+        },
+        {
+          "volume": "0.0019422",
+          "count": 1
+        },
+        {
+          "volume": "0.0019920",
+          "count": 0
+        },
+        {
+          "volume": "0.0020418",
+          "count": 1
+        },
+        {
+          "volume": "0.0020916",
+          "count": 0
+        },
+        {
+          "volume": "0.0021414",
+          "count": 1
+        },
+        {
+          "volume": "0.0021912",
+          "count": 0
+        },
+        {
+          "volume": "0.0022410",
+          "count": 1
+        },
+        {
+          "volume": "0.0022908",
+          "count": 2
+        },
+        {
+          "volume": "0.0023406",
+          "count": 0
+        },
+        {
+          "volume": "0.0023904",
+          "count": 2
+        },
+        {
+          "volume": "0.0024402",
+          "count": 0
+        },
+        {
+          "volume": "0.0024900",
+          "count": 1
+        },
+        {
+          "volume": "0.0025398",
+          "count": 0
+        },
+        {
+          "volume": "0.0025896",
+          "count": 2
+        },
+        {
+          "volume": "0.0026394",
+          "count": 14
+        },
+        {
+          "volume": "0.0026892",
+          "count": 0
+        },
+        {
+          "volume": "0.0027390",
+          "count": 0
+        },
+        {
+          "volume": "0.0027888",
+          "count": 1
+        },
+        {
+          "volume": "0.0028386",
+          "count": 0
+        },
+        {
+          "volume": "0.0028884",
+          "count": 0
+        },
+        {
+          "volume": "0.0029382",
+          "count": 204
+        },
+        {
+          "volume": "0.0029880",
+          "count": 0
+        },
+        {
+          "volume": "0.0030378",
+          "count": 0
+        },
+        {
+          "volume": "0.0030876",
+          "count": 1
+        },
+        {
+          "volume": "0.0031374",
+          "count": 3
+        },
+        {
+          "volume": "0.0031872",
+          "count": 1
+        },
+        {
+          "volume": "0.0032370",
+          "count": 23
+        },
+        {
+          "volume": "0.0032868",
+          "count": 41
+        },
+        {
+          "volume": "0.0033366",
+          "count": 0
+        },
+        {
+          "volume": "0.0033864",
+          "count": 66
+        },
+        {
+          "volume": "0.0034362",
+          "count": 61
+        },
+        {
+          "volume": "0.0034860",
+          "count": 5
+        },
+        {
+          "volume": "0.0035358",
+          "count": 6
+        },
+        {
+          "volume": "0.0035856",
+          "count": 21
+        },
+        {
+          "volume": "0.0036354",
+          "count": 67
+        },
+        {
+          "volume": "0.0036852",
+          "count": 19
+        },
+        {
+          "volume": "0.0037350",
+          "count": 6
+        },
+        {
+          "volume": "0.0037848",
+          "count": 80
+        },
+        {
+          "volume": "0.0038346",
+          "count": 44
+        },
+        {
+          "volume": "0.0038844",
+          "count": 22
+        },
+        {
+          "volume": "0.0039342",
+          "count": 83
+        },
+        {
+          "volume": "0.0039840",
+          "count": 42
+        },
+        {
+          "volume": "0.0040338",
+          "count": 69
+        },
+        {
+          "volume": "0.0040836",
+          "count": 103
+        },
+        {
+          "volume": "0.0041334",
+          "count": 45
+        },
+        {
+          "volume": "0.0041832",
+          "count": 3
+        },
+        {
+          "volume": "0.0042330",
+          "count": 0
+        },
+        {
+          "volume": "0.0042828",
+          "count": 62
+        },
+        {
+          "volume": "0.0043326",
+          "count": 0
+        },
+        {
+          "volume": "0.0043824",
+          "count": 22
+        },
+        {
+          "volume": "0.0044322",
+          "count": 0
+        },
+        {
+          "volume": "0.0044820",
+          "count": 0
+        },
+        {
+          "volume": "0.0045318",
+          "count": 0
+        },
+        {
+          "volume": "0.0045816",
+          "count": 0
+        },
+        {
+          "volume": "0.0046314",
+          "count": 0
+        },
+        {
+          "volume": "0.0046812",
+          "count": 1
+        },
+        {
+          "volume": "0.0047310",
+          "count": 1
+        },
+        {
+          "volume": "0.0047808",
+          "count": 0
+        },
+        {
+          "volume": "0.0048306",
+          "count": 0
+        },
+        {
+          "volume": "0.0048804",
+          "count": 0
+        },
+        {
+          "volume": "0.0049302",
+          "count": 1
+        },
+        {
+          "volume": "0.0049800",
+          "count": 5
+        }
+      ],
+      "volume_distribution_kurtosis": "5.93385",
+      "volume_distribution_mean": "0.00344",
+      "volume_distribution_median": "0.00251",
+      "volume_distribution_mode": "0.00294",
+      "volume_distribution_skewness": "-1.65558",
+      "volume_distribution_std": "0.00081",
+      "count_time_distribution": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0,
+        8,
+        4,
+        0,
+        0,
+        1,
+        0,
+        2,
+        1233,
+        23,
+        9,
+        6,
+        4,
+        7,
+        0,
+        0,
+        1,
+        4,
+        1,
+        7,
+        18,
+        1,
+        1,
+        2,
+        0,
+        1,
+        6,
+        7,
+        5,
+        0,
+        4,
+        13,
+        6,
+        2,
+        8,
+        0,
+        1
+      ],
+      "buy_sell_count_ratio": "0.053",
+      "vwap": "34154.248271451718600000",
+      "market_id": "binance-wbtc-usdt"
+    }
+  ]
+}
