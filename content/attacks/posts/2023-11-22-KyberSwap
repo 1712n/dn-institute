@@ -1,0 +1,44 @@
+date: 2023/11/22
+Target-entities: KyberSwap Elastics
+entity-types: DeFi
+Attack-types: Smart Contract Exploit 
+title: “KyberSwap says $54.7 million of user cryptocurrency stolen during attack”
+loss: 54700000
+
+## Summary
+
+Cryptocurrency platform KyberSwap reported a cyberattack resulting in the theft of around $54.7 million worth of users' cryptocurrency. The attack occurred on Wednesday evening, involving complex actions to conduct exploitative swaps, enabling the withdrawal of funds into the attackers' [wallets.](https://etherscan.io/address/0x50275e0b7261559ce1644014d4b78d4aa63be836) In response, KyberSwap [paused](https://therecord.media/kyberswap-crypto-platform-54-million-hack) deposits, initiated an investigation, and began negotiations with the attackers to aid users in recovering their funds, offering a 10% bounty as an incentive. The platform emphasized the sophistication of the hack, requiring a precise on-chain sequence of actions. The company advised users to promptly withdraw their funds on Wednesday and acknowledged the challenge posed by the incident. The hacker posted a message on the [blockchain,](https://etherscan.io/idm?addresses=0x8180a5ca4e3b94045e05a9313777955f7518d757,0x50275e0b7261559ce1644014d4b78d4aa63be836&type=1) indicating negotiations would begin soon. This post connected to [wallet.](https://etherscan.io/address/0x50275e0b7261559ce1644014d4b78d4aa63be836) The attacker initiated an "infinite money glitch" on KyberSwap by [borrowing](https://cointelegraph.com/news/kyberswap-attacker-used-infinite-money-glitch-drain-funds-defi-expert) 10,000 wstETH ($23 million) through a flash loan from Aave. The attacker manipulated the token's price in the pool by dumping $6.7 million worth of tokens, causing a collapse in price. Exploiting a numerical peculiarity, the attacker strategically deposited and withdrew tokens, conducting multiple swaps. Despite the expectation that these swaps should cancel each other out, a protocol error allowed the attacker to double-count liquidity, ultimately yielding a profit of 2,859 wstETH ($6.7 million). The attacker replicated this exploit across various KyberSwap pools on different networks, accumulating a total of $46 million in crypto. KyberSwap had a failsafe mechanism in the computeSwapStep function designed to prevent the mentioned exploit. Despite this, the attacker successfully manipulated the numerical values involved in the swap, strategically keeping them just outside the range that would activate the failsafe mechanism.
+
+## Attackers
+
+The attacker has yet to be identified by law enforcement but has the public tag “KyberSwap Exploiter 1” on Etherscan. 
+
+## Losses
+
+KyberSwap has lost $54.7 million worth of USD.
+
+## Timeline
+
+- “November 22, 2023/23:52 UTC:” KyberSwap Network announces hack and encourages customers to [withdraw](https://twitter.com/KyberNetwork/status/1727475235342217682?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1727475235342217682%7Ctwgr%5E891f1ede5b3d44f0c205990c14c43d94660982ed%7Ctwcon%5Es1_&ref_url=https%3A%2F%2Ftherecord.media%2Fkyberswap-crypto-platform-54-million-hack) their funds from the company via an X (formally known as Twitter) post.
+- “November 22, 2023/4:57 UTC:” The attacker posts on the Blockchain regarding future negotiations. 
+- “November 23, 2023/9:02 UTC:” Doug Colkitt posts an update via X in a series of 30 [posts](https://twitter.com/0xdoug/status/1727613541115429314) updating customers on the indigestion.  
+- “November 24, 2023/20:18 UTC:” KyberSwap releases a series of nine [posts](https://twitter.com/KyberNetwork/status/1728115858889929021) on X summarizing the attack and what the company is doing about it.
+   - KyberSwap, a decentralized finance platform, faced a significant security breach on November 22 when attackers exploited KyberSwap Elastic smart contracts. The attackers executed a series of complex actions, resulting in the exploitation of approximately $54.7 million of users' funds. In response, KyberSwap halted deposits, initiated an investigation, and engaged in negotiations with the attackers to facilitate the recovery of users' funds. The platform offered a 10% bounty as an incentive for the return of the exploited funds. The hack required precise on-chain actions by the attacker. Despite implementing various security measures, including internal smart contract checks, audits by security firms, and community developer reviews, KyberSwap faced this setback. The platform reassured users that its Aggregator API is functioning normally for partners, and the website is operational for trading activities and insights. The team expressed gratitude for the support received during the investigation and pledged to provide updates as the situation unfolds. KyberSwap is encouraging 
+- “November 24, 2023/4:32 UTC:” KyperSwap reposts an X post created by Sasha Mai stating the information they released is incorrect, and encourages customers not to click on refund links on X as they are phishing [scams.](https://twitter.com/Mai_DeFi/status/1728270370405511202) - “November 24, 2023/4:44 UTC:” KyberSwap releases a post warming customers about reimbursement scams, and gives customers their X [handle](https://twitter.com/KyberNetwork/status/1728273457832661167) to ensure they are receiving official company updates. 
+- “November 26, 2023/15:38 UTC:” KyberSwap announces via X they have been in [contact](https://twitter.com/KyberNetwork/status/1728800315955437743) with the owners of the frontrun bots that extracted the funds on KyberSwap pools on Polygon and Avalanche during the hack and have negotiated a return of 90% of the exploited $5.7 million connected to the two companies in return of a 10% bounty. KyberSwap connects [address](https://polygonscan.com/tx/0x8a0880f1662e39fa838e89fa751669e4a1eee5c15586dc447453274f7b8ce746) for the return of the funds. 
+   - KyberSwap has regained approximately $4.67 million in the following transactions.
+      - “November 26, 2023/17:00 UTC:” 813,198.63 dBSGG (~$813.2k) is transferred into [wallet.](https://polygonscan.com/tx/0x4e74cb6c73422f015bef62de2ad58ee59978da452b7c908ab7b70a16474316fe) 
+      - “November 26, 2023/17:06 UTC:” 361.92 axl-wstETH (~$870.5k)  is transferred into [wallet.](https://polygonscan.com/tx/0xed42e9b9f44b080c0b4a8b895a08fca3be3e47866d97b263cbdf85c46dfa5e8a) 
+      - “November 26, 2023/17:18 PM UTC:” 441.8 WETH (~$919k) is transferred into [wallet.](https://polygonscan.com/tx/0xe113177dc8a9943c2c920d042b024eea18589da9c710e795d26a811d1c2a29a5) 
+      - “November 26, 2023/17:25 UTC:” 261.5 wstETH (~$624k) is transferred into [wallet.](https://polygonscan.com/tx/0xb17e03e2467167b020f4fbe2b6f4c0f1dada09e82105f283ad3c4003a9d43469) 
+      - “November 26, 2023/18:42 UTC:” 711,430.9 WMATIC (~$547.8k) is transferred into [wallet.](https://polygonscan.com/tx/0xd574e71b963e6d120651597944aa7dc4019b22d4e99f73834069f11f02cfcddb) 
+      - “November 26, 2023/18:42 UTC:” 443,011.6 USDT (~$443k) is transferred into [wallet.](https://polygonscan.com/tx/0xed618e7fb13c1b7a0741600768a76db17bb43439b3b791d2903404bf5f8787bf) 
+      - “November 26, 2023/18:48 UTC:” 385,630.7 USDC (~$385.6k) is transferred into [wallet.](https://polygonscan.com/tx/0x6de3ce4b505d046e99e10fb77fb7d3dec35a76caf8346526973259177631735b) 
+      - “November 26, 2023/18:48 UTC:” 65,130 USDT (~$65.1k) is transferred into [wallet.](https://polygonscan.com/tx/0xb245cdc3630d8a1725519e44841d2e4f1d84086344705789ed619d51e20cfa20) 
+- “November 27, 2023/17:47 UTC:” KyberSwap posts on X a reminder for providers to [withdraw](https://twitter.com/KyberNetwork/status/1729195207219093816) any liquidity they still have in Elastic. 
+- “November 27, 2023/17:47 PM UTC: Arkham posts via X they have created and [funded](https://twitter.com/ArkhamIntel/status/1729194797850665018) a bounty in attempt to regain the funds and/or identify the culprit. 
+- “November 28, 2023/5:51 UTC:” KypetSwap posts on X letting customers know Slip Limit Orders are [unaffected](https://twitter.com/KyberNetwork/status/1729377377342587258) and gives the link for the nine [chains](https://kyberswap.com/limit/ethereum) used.
+
+## Security Failure Causes
+
+The attacker manipulated the system to deceive the contract into perceiving a higher liquidity level than it actually possessed. 
