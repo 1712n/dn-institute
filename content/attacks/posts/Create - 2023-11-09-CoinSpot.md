@@ -29,21 +29,22 @@ CoinSpot lost 1,262 ETH during the hack, worth 2,400,000 USD at the time of the 
 
 ## Security Failure Causes
 
-CertiK stated in email correspondence the alleged attack was the result of a “probable private key compromise” on at least one CoinSpot hot wallet. 
-
-If an attacker manages to compromise a hot wallet through a private key leak, it typically involves exploiting vulnerabilities in the system or gaining unauthorized access to the infrastructure hosting the hot wallet. Here's a general outline of the process:
-
-   - Identifying Vulnerabilities:
-      - The attacker might conduct a thorough analysis of the wallet system to identify potential weaknesses, such as software vulnerabilities, misconfigurations, or security loopholes.
-   - Exploiting Vulnerabilities:
-      - Exploiting the identified vulnerabilities, the attacker could use various techniques, including malware injection, code exploits, or other attack vectors, to compromise the security of the hot wallet.
-   - Private Key Leak:
-      - Once inside the system, the attacker aims to obtain the private keys associated with the hot wallet. This could involve exploiting flaws in key management, intercepting communication, or gaining unauthorized access to the server's storage where private keys are stored.
-   - Unauthorized Transactions:
-      - With the compromised private keys in hand, the attacker can initiate unauthorized transactions and transfers from the hot wallet. They effectively gain control over the funds stored in that wallet, allowing them to steal or redirect the assets.
-   - Covering Tracks:
-      - To avoid detection, the attacker may attempt to cover their tracks by manipulating logs, erasing evidence of their activities, or employing other tactics to conceal the unauthorized access and transactions.
-
-To prevent such attacks, it's crucial to implement robust security measures, regularly update and patch software, conduct security audits, and employ best practices in key management. Additionally, monitoring for unusual or unauthorized activities can help detect and respond to potential compromises promptly.
+CertiK stated in email correspondence the alleged attack was the result of a “probable private key compromise” on at least one CoinSpot hot wallet. The compromise in security may have arisen due to the presence of the following vulnerabilities or shortcomings.
+   - Vulnerability in Web Application Security:
+      - The successful attack on Coinspot Exchange may be attributed to a vulnerability in its web application security. This could involve inadequate input validation, improper session management, or flaws in the implementation of security mechanisms, providing attackers with the opportunity to exploit weaknesses in the website's code.
+   - Failure in Multi-Factor Authentication (MFA):
+      - The compromise of the hot wallet could have been facilitated by a failure in the implementation or enforcement of multi-factor authentication. MFA adds an additional layer of security, and its absence or improper configuration may have allowed unauthorized access to the wallet, leading to the reported security breach.
+   - Inadequate Security Patch Management:
+      - The attack may have exploited known vulnerabilities in the web server or underlying software components due to the absence of a rigorous security patch management process. Regularly updating and patching software is crucial to addressing known vulnerabilities and preventing attackers from exploiting outdated system elements.
+   - Insufficient Network Intrusion Detection Systems (NIDS):
+      - The absence or inefficiency of Network Intrusion Detection Systems might have contributed to the success of the attack. NIDS are essential for real-time monitoring and detection of malicious activities within the network infrastructure. Inadequate deployment or configuration of NIDS could have allowed the attackers to operate undetected.
+   - Compromised API Security:
+      - A breach in the security of application programming interfaces (APIs) can be a fundamental cause of an attack. If the exchange relies on APIs for transactions or interactions with the hot wallet, a lack of proper authentication, authorization, or encryption in the API layer may expose vulnerabilities that attackers can exploit to compromise the wallet.
+   - Ineffective Security Information and Event Management (SIEM):
+      - A deficient SIEM system may have played a role in the attack's success by failing to correlate and analyze security events in real-time. An effective SIEM solution is crucial for identifying anomalous patterns, detecting security incidents, and facilitating a timely response to potential threats.
+   - Misconfiguration of Cloud Security Controls:
+      - If the exchange leverages cloud services, misconfigurations in cloud security controls could be a contributing factor. Inadequate configuration of access controls, encryption settings, or other cloud security parameters may have exposed critical infrastructure to unauthorized access, enabling the reported hot wallet hack.
+   - Social Engineering Exploitation:
+      - Human factors, such as social engineering attacks, can be a fundamental security failure cause. If employees or stakeholders were manipulated into divulging sensitive information or performing actions that facilitated the attack, the organization may need to reinforce its security awareness training and implement measures to mitigate social engineering risks.
 
 It is currently unknown if any additional wallets have been affected. 
