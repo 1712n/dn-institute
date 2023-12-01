@@ -1,9 +1,13 @@
+---
+
 date: 2023/11/22
-Target-entities: KyberSwap Elastics
+target-entities: KyberSwap Elastics
 entity-types: DeFi
-Attack-types: Smart Contract Exploit 
+attack-types: Smart Contract Exploit 
 title: “KyberSwap says $54.7 million of user cryptocurrency stolen during attack”
 loss: 54700000
+
+---
 
 ## Summary
 
@@ -41,4 +45,20 @@ KyberSwap has lost $54.7 million worth of USD.
 
 ## Security Failure Causes
 
-The attacker manipulated the system to deceive the contract into perceiving a higher liquidity level than it actually possessed. 
+Smart contract security is crucial, and developers should focus on building robust and secure contracts. It’s essential for users and developers to be aware of potential vulnerabilities so they can protect themselves and their projects. Here are some common ways hackers might attempt to exploit smart contracts:
+   - Reentrancy Attacks:
+      - In a reentrancy attack, a malicious contract repeatedly calls back into the target contract before the original function completes, potentially causing unexpected behavior and manipulation of data.
+   - Overflow and Underflow:
+      - Integer overflow and underflow can occur when the result of an arithmetic operation exceeds the maximum or goes below the minimum representable value for a data type. This can lead to unintended consequences.
+   - Front Running:
+      - Front running involves a hacker observing pending transactions and placing their own transaction to exploit the information before the original transaction is executed. This is more common in decentralized finance (DeFi) applications.
+   - Unprotected Private Data:
+      - If sensitive information is stored on-chain without proper encryption or access controls, it may be exposed to unauthorized parties.
+   - Unchecked External Calls:
+      - Smart contracts interacting with external contracts or oracles need to validate inputs and outputs to prevent malicious behavior or manipulation.
+   - Unpredictable Randomness:
+      - If a smart contract relies on random numbers for security or functionality, using insecure or predictable sources of randomness can be exploited by attackers.
+   - Unaudited Code:
+      - Smart contracts should undergo thorough code audits to identify and address potential vulnerabilities. Deploying unaudited code increases the risk of exploitation.
+
+To mitigate these risks, developers should follow best practices, conduct thorough security audits, and stay informed about emerging security issues in the blockchain and smart contract space. Additionally, using established security tools and frameworks, as well as involving experienced security professionals, can contribute to building more secure smart contracts.
