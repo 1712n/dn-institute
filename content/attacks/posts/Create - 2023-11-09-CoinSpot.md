@@ -29,7 +29,7 @@ CoinSpot lost 1,262 ETH during the hack, worth 2,400,000 USD at the time of the 
 
 ## Security Failure Causes
 
-CertiK stated in email correspondence the alleged attack was the result of a “probable private key compromise” on at least one CoinSpot hot wallet. The compromise in security may have arisen due to the presence of the following vulnerabilities or shortcomings.
+CertiK stated in email correspondence the alleged attack was the result of a “probable private key compromise” on at least one CoinSpot hot wallet. The compromise in security may have arisen due to the presence of the following vulnerabilities or shortcomings:
    - Vulnerability in Web Application Security:
       - The successful attack on Coinspot Exchange may be attributed to a vulnerability in its web application security. This could involve inadequate input validation, improper session management, or flaws in the implementation of security mechanisms, providing attackers with the opportunity to exploit weaknesses in the website's code.
    - Failure in Multi-Factor Authentication (MFA):
