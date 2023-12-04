@@ -1,4 +1,5 @@
 ---
+
 date: 2023-10-31
 target-entities: macOS
 entity-types:
@@ -9,6 +10,7 @@ attack-types:
    - Exploit
 title: "North Korean Hackers Targeting Crypto Experts with KANDYKORN macOS Malware."
 loss: No monetary loss
+
 ---
 
 ## Summary
