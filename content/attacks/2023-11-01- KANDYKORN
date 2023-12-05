@@ -1,5 +1,4 @@
 ---
-
 date: 2023-10-31
 target-entities: macOS
 entity-types:
@@ -10,7 +9,6 @@ attack-types:
    - Exploit
 title: "North Korean Hackers Targeting Crypto Experts with KANDYKORN macOS Malware."
 loss: No monetary loss
-
 ---
 
 ## Summary
@@ -33,7 +31,7 @@ There is No monetary loss reported.
 
 ## Security Failure Causes
 
-The intrusion utilized both custom and open source tools for gaining initial access and carrying out post-exploitation activities. Some of the security failures in this hack are connected to the following:
+By using social engineering the intrusion utilized both custom and open source tools for gaining initial access and carrying out post-exploitation activities. Some of the security failures in this hack are connected to the following:
 
    - **Inadequate File and Process Monitoring:**
 The successful attack can be attributed to the inadequate monitoring of file activities and process execution within the system.
@@ -43,6 +41,3 @@ The absence of robust memory protection mechanisms allowed the malware to operat
 The attack's success can be traced to the failure to detect and block suspicious outbound communications with remote servers.
    - **Daisy-Chaining Payloads Without Interruption:**
 The attackers successfully progressed through multiple stages of the attack due to the failure to detect and interrupt the daisy-chaining of payloads.
-
-Each of these security lapses underscores the importance of comprehensive security practices, including continuous monitoring, threat detection, and proactive measures to safeguard against sophisticated cyber threats.
-
