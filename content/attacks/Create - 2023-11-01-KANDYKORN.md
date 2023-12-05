@@ -30,7 +30,7 @@ There is No monetary loss reported.
 
 ## Security Failure Causes
 
-By using social engineering the intrusion utilized both custom and open source tools for gaining initial access and carrying out post-exploitation activities. Some of the security failures in this hack are connected to the following:
+By using social engineering the intrusion was able to utilize both custom and open source tools for gaining initial access and carrying out post-exploitation activities. Some of the security failures in this hack are connected to the following:
 
    - **Inadequate File and Process Monitoring:**
 The successful attack can be attributed to the inadequate monitoring of file activities and process execution within the system.
