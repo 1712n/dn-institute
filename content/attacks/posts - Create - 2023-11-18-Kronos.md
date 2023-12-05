@@ -1,17 +1,17 @@
 ---
-
-date: 2023/11/20
+date: 2023-11-20
 target-entities: Kronos Research 
-entity-types: Trading Firm
-attack-types: Private Key Leak
+entity-types: 
+   - Trading Firm
+attack-types:
+   - Private Key Leak
 title: “Kronos Research halts trading amid $25M API key hack investigation”
 loss: 26000000
-
 ---
 
 ## Summary
 
-Kronos Research, a Taiwan-based quantitative trading firm, has indefinitely halted trading services after a hacker stole $25 [million](https://cointelegraph.com/news/kronos-research-halts-trading-25-m-hack-investigation) in crypto assets using compromised API keys. Once the culprit has been identified trading will resume. The unauthorized entity made six transactions totaling 12,800 ETH to various wallet addresses. Despite the substantial loss, Kronos Research is in good standing and plans to cover all losses internally, assuring that no partners will be affected. The firm is actively conducting internal investigations to identify the perpetrator. Additionally, Kronos Research is engaging with the hacker, offering a 10% bounty on the stolen funds, and remains optimistic about a positive resolution. [Woo X,](https://crypto.news/kronos-trading-firm-suffers-security-breach-losses-25m/) a local centralized exchange linked to Kronos, temporarily halted specific trading pairs to address liquidity loss. However, the exchange has now resumed spot and perpetual trading, as well as withdrawals. Woo X assures its users that their funds remain secure despite the temporary suspension of certain trading pairs. Kronos Research has offered a [whitehat](https://cryptopotato.com/kronos-research-offers-10-bounty-following-26-million-hack/) bounty through an Ethereum translation [message](https://etherscan.io/tx/0xfa5f39e439f057f36faa5874934146d07815b32fa231200ff0096dee7f4bc83f) of 10% and the promise of no legal consequences if the stolen funds are returned. 
+Kronos Research, a Taiwan-based quantitative trading firm, has indefinitely halted trading services after a hacker stole $25 [million](https://cointelegraph.com/news/kronos-research-halts-trading-25-m-hack-investigation) in crypto assets using compromised API keys. The unauthorized entity made six transactions totaling 12,800 ETH to various wallet addresses. Despite the substantial loss, Kronos Research is in good standing and plans to cover all losses internally. The firm is actively conducting internal investigations to identify the perpetrator. Additionally, Kronos Research is engaging with the hacker directly through an Ethereum translation [message](https://etherscan.io/tx/0xfa5f39e439f057f36faa5874934146d07815b32fa231200ff0096dee7f4bc83f) offering a 10% [white hat bounty.](https://cryptopotato.com/kronos-research-offers-10-bounty-following-26-million-hack/) 
 
 ## Attackers
 
@@ -37,16 +37,13 @@ Kronos Research lost around 13,007 ETH, valued at $25 million at the time.
 
 The attackers were able to gain access to the stolen funds by unauthorized access of Kronos Research private keys due to the following security failure causes:
 
-   - Unauthorized Access through API Key Compromise:
+   - **Unauthorized Access through API Key Compromise:**
 The sucessful attack resulted from the compromise of Kronos Research API keys, allowing unauthorized access to critical systems and resources.
-   - Weak API Key Security Practices:
+   - **Weak API Key Security Practices:**
 Weaknesses in the security practices surrounding Kronos Research's API keys, such as inadequate encryption or lack of proper access controls, provided an entry point for attackers.
-   - Insufficient Access Controls on API Endpoints:
+   - **Insufficient Access Controls on API Endpoints:**
 Inadequate access controls on API endpoints allowed the attackers to gain unauthorized access to the stolen funds.
-   - Lack of API Security Monitoring:
+   - **Lack of API Security Monitoring:**
 The absence of effective monitoring on API activities and access attempts contributed to the success of the unauthorized access.
-   - Insufficient User Authentication for API Access:
+   - **Insufficient User Authentication for API Access:**
 Weaknesses in user authentication mechanisms for API access may have allowed unauthorized entities to gain control of the stolen funds.
-
-Each of these security failure causes emphasizes the importance of a holistic approach to API security, encompassing robust key management, access controls, monitoring, and authentication practices to safeguard against unauthorized access and potential misuse of sensitive information.
-
