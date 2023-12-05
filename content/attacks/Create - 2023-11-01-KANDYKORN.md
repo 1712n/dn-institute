@@ -5,8 +5,7 @@ entity-types:
    - Blockchain
    - Exchange
 attack-types:
-   - Race Condition
-   - Exploit
+   - Race Condition Exploit
 title: "North Korean Hackers Targeting Crypto Experts with KANDYKORN macOS Malware."
 loss: No monetary loss
 ---
