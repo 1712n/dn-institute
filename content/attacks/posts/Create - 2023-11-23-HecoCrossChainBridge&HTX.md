@@ -1,7 +1,7 @@
 ---
 date: 2023-11-23
 target-entities: 
-   - HecoCrossChainBridge&HTX
+   - Heco Cross Chain Bridge and HTX
 entity-types:  
    - Exchange
    - Bridge
