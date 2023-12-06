@@ -1,8 +1,10 @@
 ---
 date: 2023-11-10  
 target-entities: Raft 
-entity-types: DeFi
-Attack-types: Exploit
+entity-types: 
+   - DeFi
+Attack-types: 
+   - Exploit
 title: “Raft’s exploited by $3.3M”
 ---
 
@@ -20,12 +22,12 @@ Raft R lost 1,577 [ETH](https://blockchain.news/news/defi-platform-raft-compromi
 
 ## Timeline
 
-**November 10, 2023, 19:18 UTC:** Raft posts a [tweet](https://twitter.com/raft_fi/status/1723057566664548623) stating they are investigating a prospective safety issue. 
-**November 10, 2023, 19:49 UTC:** Raft co-funder David Garai confirmed in a post on X (formerly Twitter) that the platform was targeted by an [attack.](https://twitter.com/davgarai/status/1723065357445775507) 
-**November 10, 2023, 20:20 UTC:** 0xngmi discusses the hacker's [losses](https://twitter.com/0xngmi/status/1723073285263380924)  
-**November 10, 2023, 21:27 UTC:** Coindesk reports the [incident.](https://www.coindesk.com/tech/2023/11/10/defi-platform-raft-suffers-33m-exploit-but-hacker-likely-takes-a-loss-on-the-attack/)  
-**November 11, 2023, 12:31 UTC:** Raft releases an X (formerly Twitter) statement [requesting](https://twitter.com/raft_fi/status/1723317259693940851) clients to wait for further updates on recovery plan. 
-**November 13, 2023:** Raft posts their [Post](https://mirror.xyz/0xa486d3a7679D56D545dd5d357469Dd5ed4259340/_Nk6_1_VvInyC0pdvHiZuAXiqm6tYSsGYGHSfOhcO1I) Mortem report including the exploited [transactions,](https://etherscan.io/tx/0xfeedbf51b4e2338e38171f6e19501327294ab1907ab44cfd2d7e7336c975ace7) the exploiter [address,](https://etherscan.io/address/0xc1f2b71a502b551a65eee9c96318afdd5fd439fa) and the exploited [contract.](https://etherscan.io/address/0x9ab6b21cdf116f611110b048987e58894786c244)
+   - **November 10, 2023, 19:18 UTC:** Raft posts a [tweet](https://twitter.com/raft_fi/status/1723057566664548623) stating they are investigating a prospective safety issue. 
+   - **November 10, 2023, 19:49 UTC:** Raft co-funder David Garai confirmed in a post on X (formerly Twitter) that the platform was targeted by an [attack.](https://twitter.com/davgarai/status/1723065357445775507) 
+   - **November 10, 2023, 20:20 UTC:** 0xngmi discusses the hacker's [losses](https://twitter.com/0xngmi/status/1723073285263380924)  
+   - **November 10, 2023, 21:27 UTC:** Coindesk reports the [incident.](https://www.coindesk.com/tech/2023/11/10/defi-platform-raft-suffers-33m-exploit-but-hacker-likely-takes-a-loss-on-the-attack/)  
+   - **November 11, 2023, 12:31 UTC:** Raft releases an X (formerly Twitter) statement [requesting](https://twitter.com/raft_fi/status/1723317259693940851) clients to wait for further updates on recovery plan. 
+   - **November 13, 2023:** Raft posts their [Post](https://mirror.xyz/0xa486d3a7679D56D545dd5d357469Dd5ed4259340/_Nk6_1_VvInyC0pdvHiZuAXiqm6tYSsGYGHSfOhcO1I) Mortem report including the exploited [transactions,](https://etherscan.io/tx/0xfeedbf51b4e2338e38171f6e19501327294ab1907ab44cfd2d7e7336c975ace7) the exploiter [address,](https://etherscan.io/address/0xc1f2b71a502b551a65eee9c96318afdd5fd439fa) and the exploited [contract.](https://etherscan.io/address/0x9ab6b21cdf116f611110b048987e58894786c244)
 
 ## Security Failure Causes
 
