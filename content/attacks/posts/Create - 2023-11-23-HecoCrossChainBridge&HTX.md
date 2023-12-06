@@ -24,7 +24,7 @@ Between Heco Cross Chain Bridge and HTX the losses total approximately $87,000,0
 
 ## Timeline
 
-**”November 22, 2023,  09:59 UTC:** 1,262 ETH is transferred into [wallet.](https://etherscan.io/tx/0xbb6fe88427c2f3bc179075109d47a805dcfedab0e475eaca0d979311873e131b)  
+**”November 22, 2023, 09:59 UTC:** 1,262 ETH is transferred into [wallet.](https://etherscan.io/tx/0xbb6fe88427c2f3bc179075109d47a805dcfedab0e475eaca0d979311873e131b)  
 **”November 22, 2023, 11:23 UTC:”** PeckShield announces a suspicious withdrawal of 10,145 ETH. 
 **”November 22, 2023”** Hacken posts holding wallet addresses on their [website.](https://hacken.io/insights/heco-bridge-hack-explained/)
 **”November 22, 2023, 12:34 UTC:”** Justin Sun announces via X (formally known as Twitter) deposits and withdrawals are [temporarily suspended.](https://twitter.com/justinsuntron/status/1727304656622326180) 
