@@ -33,5 +33,5 @@ Between Heco Cross Chain Bridge and HTX the losses total approximately $87,000,0
 
 ## Security Failure Causes
 
-**Vulnerability in Bridge Protocol:** The successful attack on the HECO bridge can be attributed to a fundamental security failure in the bridge protocol itself. 
-**Lack of Real-time Monitoring and Alerts:** The absence of an effective real-time monitoring system and alert mechanism would have assisted with detection of the ongoing exploit.
+   - **Vulnerability in Bridge Protocol:** The successful attack on the HECO bridge can be attributed to a fundamental security failure in the bridge protocol itself. 
+   - **Lack of Real-time Monitoring and Alerts:** The absence of an effective real-time monitoring system and alert mechanism would have assisted with detection of the ongoing exploit.
