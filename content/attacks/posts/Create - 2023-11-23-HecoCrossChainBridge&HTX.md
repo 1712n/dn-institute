@@ -24,12 +24,12 @@ Between Heco Cross Chain Bridge and HTX the losses total approximately $87,000,0
 
 ## Timeline
 
-**”November 22, 2023, 09:59 UTC:** 1,262 ETH is transferred into [wallet.](https://etherscan.io/tx/0xbb6fe88427c2f3bc179075109d47a805dcfedab0e475eaca0d979311873e131b)  
-**”November 22, 2023, 11:23 UTC:”** PeckShield announces a suspicious withdrawal of 10,145 ETH. 
-**”November 22, 2023”** Hacken posts holding wallet addresses on their [website.](https://hacken.io/insights/heco-bridge-hack-explained/)
-**”November 22, 2023, 12:34 UTC:”** Justin Sun announces via X (formally known as Twitter) deposits and withdrawals are [temporarily suspended.](https://twitter.com/justinsuntron/status/1727304656622326180) 
-**”November 22, 2023, 1:13 UTC:”** Coindesk releases an article stating HTX will fully compensate for any losses originating from the [exchange.](https://www.coindesk.com/tech/2023/11/22/justin-sun-confirms-htx-heco-chain-exploited-after-100m-in-suspicious-transfers/)
-**”November 22, 2023, 2:39 UTC:”** Arkham posts via X they have created and funded a [white hat bounty}(https://twitter.com/ArkhamIntel/status/1727335953583190229?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1727335953583190229%7Ctwgr%5E762b9e6c852b5ee31866b716515fa3f6e5bd7f37%7Ctwcon%5Es1_&ref_url=https%3A%2F%2Fwww.fxstreet.com%2Fcryptocurrencies%2Fnews%2Fjustin-suns-htx-exchange-and-heco-suffer-85m-exploit-202311230005) to recover the stollen funds.  
+   - **”November 22, 2023, 09:59 UTC:** 1,262 ETH is transferred into [wallet.](https://etherscan.io/tx/0xbb6fe88427c2f3bc179075109d47a805dcfedab0e475eaca0d979311873e131b)  
+   - **”November 22, 2023, 11:23 UTC:”** PeckShield announces a suspicious withdrawal of 10,145 ETH. 
+   - **”November 22, 2023”** Hacken posts holding wallet addresses on their [website.](https://hacken.io/insights/heco-bridge-hack-explained/)
+   - **”November 22, 2023, 12:34 UTC:”** Justin Sun announces via X (formally known as Twitter) deposits and withdrawals are [temporarily suspended.](https://twitter.com/justinsuntron/status/1727304656622326180) 
+   - **”November 22, 2023, 1:13 UTC:”** Coindesk releases an article stating HTX will fully compensate for any losses originating from the [exchange.](https://www.coindesk.com/tech/2023/11/22/justin-sun-confirms-htx-heco-chain-exploited-after-100m-in-suspicious-transfers/)
+   - **”November 22, 2023, 2:39 UTC:”** Arkham posts via X they have created and funded a [white hat bounty}(https://twitter.com/ArkhamIntel/status/1727335953583190229?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1727335953583190229%7Ctwgr%5E762b9e6c852b5ee31866b716515fa3f6e5bd7f37%7Ctwcon%5Es1_&ref_url=https%3A%2F%2Fwww.fxstreet.com%2Fcryptocurrencies%2Fnews%2Fjustin-suns-htx-exchange-and-heco-suffer-85m-exploit-202311230005) to recover the stollen funds.  
 
 ## Security Failure Causes
 
