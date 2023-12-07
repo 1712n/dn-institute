@@ -26,6 +26,7 @@ tenacity = "^8.2.3"
 fact-check = "tools.fact_checker:main"
 payout-calc = "tools.payout_calc:main"
 grammar-check =  "tools.grammar_checker:main"
+article-check = "tools.article_checker:main"
 article-check-claude = "tools.article_checker_claude:main"
 duplication-check = "tools.duplication_checker:main"
 
