@@ -6,6 +6,7 @@ entity-types:
 attack-types: 
    - Exploit
 title: “Raft’s exploited by $3.3M”
+loss: 3000000
 ---
 
 ## Summary
