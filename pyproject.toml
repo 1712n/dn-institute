@@ -19,12 +19,15 @@ pyyaml = "^6.0.1"
 pylanguagetool = "^0.9.2"
 markdown2 = "^2.4.10"
 bs4 = "^0.0.1"
+anthropic = "^0.7.7"
+tenacity = "^8.2.3"
 
 [tool.poetry.scripts]
 fact-check = "tools.fact_checker:main"
 payout-calc = "tools.payout_calc:main"
 grammar-check =  "tools.grammar_checker:main"
-article-check = "tools.article_checker:main"
+article-check-claude = "tools.article_checker_claude:main"
+duplication-check = "tools.duplication_checker:main"
 
 [build-system]
 requires = ["poetry-core"]
