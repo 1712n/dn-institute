@@ -3,7 +3,7 @@ date: 2023-11-10
 target-entities: Raft 
 entity-types: 
    - DeFi
-Attack-types: 
+attack-types: 
    - Exploit
 title: “Raft’s exploited by $3.3M”
 ---
@@ -35,5 +35,14 @@ Raft R lost 1,577 [ETH](https://blockchain.news/news/defi-platform-raft-compromi
 
 ## Security Failure Causes
 
-The cause of the exploration was due to a smart contract [vulnerability.](https://neptunemutual.com/blog/how-was-raft-protocol-exploited/)    
+The cause of the exploration was due to a smart contract [vulnerability.](https://neptunemutual.com/blog/how-was-raft-protocol-exploited/)   
+
+   - **Inadequate Input Validation:** Failure to thoroughly validate and sanitize user inputs allowed the attacker to manipulate transactional data, leading to unauthorized operations and financial gains.
+   - **Weak Access Controls::** The absence of proper authorization checks enabled the attacker to interact with critical functions, execute manipulative transactions, and gain unauthorized access to profit-generating functionalities.
+   - **Flawed Authorization Mechanisms:** Insecure authorization practices allowed the attacker to execute actions beyond their intended scope, leading to the unauthorized extraction of profits.
+   - **Insufficient Transaction Validation:** Insufficient validation of transactional integrity and parameters allowed the attacker to manipulate critical aspects of the smart contracts.
+   - **Lack of Anti-Manipulation Safeguards:** The absence of anti-manipulation safeguards within the smart contracts contributed to the exploit. Effective security measures, such as tamper-resistant algorithms and integrity checks, were lacking, allowing the attacker to manipulate contract variables and exploit vulnerabilities for financial gain.
+   - **Insecure Transaction Sequencing:** The attacker strategically manipulated the order of interactions to exploit vulnerabilities, underscoring the importance of secure transaction sequencing to prevent unauthorized financial gains.
+   - **Insufficient Auditing and Monitoring:** Inadequate oversight and real-time monitoring allowed the attacker to go undetected during manipulative interactions, emphasizing the need for robust auditing practices in smart contract security.
+
 
