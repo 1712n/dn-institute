@@ -1,11 +1,11 @@
 ---
 date: 2023-11-23
-target-entities: 
-   - Heco Cross Chain Bridge and HTX
+target-entities: Heco Cross Chain Bridge and HTX
 entity-types:  
    - Exchange
    - Bridge
-attack-types: Private Key Leak
+attack-types:
+   - Private Key Leak
 title: “HECO Chain bridge compromised over $86.6M sent to suspicious addresses”
 loss: 87000000
 ---
