@@ -35,8 +35,6 @@ Raft R lost 1,577 [ETH](https://blockchain.news/news/defi-platform-raft-compromi
 
 ## Security Failure Causes
 
-The cause of the exploration was due to a smart contract [vulnerability.](https://neptunemutual.com/blog/how-was-raft-protocol-exploited/)   
-
    - **Inadequate Input Validation:** Failure to thoroughly validate and sanitize user inputs allowed the attacker to manipulate transactional data, leading to unauthorized operations and financial gains.
    - **Weak Access Controls::** The absence of proper authorization checks enabled the attacker to interact with critical functions, execute manipulative transactions, and gain unauthorized access to profit-generating functionalities.
    - **Flawed Authorization Mechanisms:** Insecure authorization practices allowed the attacker to execute actions beyond their intended scope, leading to the unauthorized extraction of profits.
