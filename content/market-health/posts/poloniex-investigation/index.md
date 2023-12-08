@@ -11,7 +11,7 @@ The consistent peaks at around 0.0027 can be visually noticed in the volume dist
 
 {{< figure src="wbtc-usdt_volume_distr.png" caption="Hourly volume distribution, 2023/10/26 10:00 – 2023/10/27 10:00, Poloniex, WBTC - USDT" >}}
 
-Here an hourly interval (0, maximum trade size] is divided into 100 equal segments, so that hourly volume distribution diagrams have 100 bars, and an hourly volume distribution mode characterises a segment that contains the largest number of trades.
+Here an hourly interval (0, maximum trade size] is divided into 100 equal segments, so that hourly volume distribution diagrams have 100 bars, and an hourly volume distribution mode highlights a segment that contains the largest number of trades.
 Hourly volume distribution mode for Poloniex, WBTC - USDT is consistently concentrated around 0.0027, which rises suspicion because the variety of trade sizes on cryptocurrency exchanges is huge. For example, the value of the same metric on the equivalent hourly diagrams for Binance and Gateio sometimes appears repeatedly at around certain marks, since segments containing small values or round values (like $100) are more frequent, but it is never steady.
 
 {{< figure src="wbtc-usdt_mode.png" caption="Hourly volume distribution mode, 2023/10/26 10:00 – 2023/10/27 10:00, WBTC - USDT; Poloniex, Binance, Gateio" >}}
