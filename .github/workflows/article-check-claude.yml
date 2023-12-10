@@ -1,0 +1,48 @@
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: write
+
+jobs:
+  permission-check-job:
+    runs-on: ubuntu-latest
+    if: |
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '/articlecheck')
+    outputs:
+      permission: ${{ steps.permissions-check.outputs.defined }}
+    steps:
+      - name: Check for Secret availability
+        id: permissions-check
+        shell: bash
+        run: |
+          echo "defined=${{ contains(fromJSON(secrets.WIKI_REVIEWERS), github.actor) }}" >> $GITHUB_OUTPUT;
+
+  fact-check:
+    runs-on: ubuntu-latest
+    name: "Checks a new article from a PR, conducting fact-checking, spell-checking, and ensuring compliance with the submission guidelines"
+    needs: [ permission-check-job ]
+    if: needs.permission-check-job.outputs.permission == 'true'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Python
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install package
+        run: pipx install poetry && poetry install --no-interaction
+
+      - name: Run script
+        run: |
+          poetry run article-check-claude \
+            --pull-url "${{ github.event.issue.pull_request.url }}" \
+            --github-token "${{ secrets.GITHUB_TOKEN }}" \
+            --llm-api-key "${{ secrets.LLM_API_KEY }}" \
+            --search-api-key "${{ secrets.SEARCH_API_KEY }}"
