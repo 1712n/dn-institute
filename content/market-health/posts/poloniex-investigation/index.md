@@ -16,12 +16,6 @@ Hourly volume distribution mode for Poloniex, WBTC - USDT is consistently concen
 
 {{< figure src="wbtc-usdt_mode.png" caption="Hourly volume distribution mode, 2023/10/26 10:00 – 2023/10/27 10:00, WBTC - USDT; Poloniex, Binance, Gateio" >}}
 
-[A recent research of the volume-volatility correlation in Bitcoin futures and spot markets for the period January 2017 – March 2021](https://www.sciencedirect.com/science/article/pii/S105752192300529X) shows significant relationship between volume and volatility. It is generally true for cryptocurrency spot exchanges, and the metric is crucial for monitoring market activity. However, weak positive, sometimes weak negative correlation in the graph below shows the relationship between the two variables on Poloniex, WBTC - USDT is negligible.
-
-{{< figure src="wbtc-usdt_volume_volatility.png" caption="Hourly volume-volatility correlation, 2023/10/26 10:00 – 2023/10/27 10:00, Poloniex, WBTC - USDT" >}}
-
-There is no denying that factors besides volume may impact on volatility, but it is highly probable that a low correlation coefficient indicates the volume was inflated.
-
 The anomaly in trade sizes was also detected for ZEC - USDT.
 
 {{< figure src="zec-usdt_volume_distr.png" caption="Hourly volume distribution, 2023/10/26 10:00 – 2023/10/27 10:00, Poloniex, ZEC - USDT" >}}
