@@ -12,6 +12,7 @@ loss: 46000000
 ## Summary
 
 In November 2023, KyberSwap, a decentralized finance (DeFi) platform, experienced a sophisticated exploit resulting in a loss of approximately [$54 million.](https://therecord.media/kyberswap-crypto-platform-54-million-hack) The attack involved manipulating the platform's smart contract through complex transactions. The attacker used flash loans to manipulate token prices, which enabled them to exploit a numerical anomaly in the smart contract. This allowed the attacker to double-count liquidity and withdraw substantial funds. Despite KyberSwap having failsafe mechanisms, the attacker skillfully avoided triggering these protections. 
+
 ## Attackers
 
 The perpetrator has yet to be identified by law enforcement, but has the public tag “KyberSwap Exploiter 1” on Etherscan. 
