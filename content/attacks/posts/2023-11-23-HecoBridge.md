@@ -15,7 +15,7 @@ loss: 113300000
 
 ## Summary
 
-On November 22, 2023, Heco Bridge and HTX Exchange were victims of cyberattacks, resulting in over $113.3 [million](https://www.certik.com/resources/blog/39YOzflgCCbfI9evJliCeQ-heco-bridge-exploit) in losses. The attacks appear coordinated and carried out by the same attacker based on similar exploitative techniques and the connection between the two targets. Blockchain [security firm’s](https://blockworks.co/news/htx-hack-ethereum-crypto-assets) CertiK, Peckshield, and Cyvers have reported over $86.6 million in digital assets [losses](https://debank.com/profile/0xfc146d1caf6ba1d1ce6dcb5b35dcbf895f50b0c4/history) for Heco Bridge and $13.6 million in losses for HTX. All of which were distributed over eight wallets. Additionally, CertiK noted several transactions taking place simultaneously on TRON, totaling $12.6 million, putting their reported total over $113.3 million.
+On November 22, 2023, Heco Bridge and HTX Exchange were victims of cyberattacks, resulting in over $113.3 million in losses. The attacks appear coordinated and carried out by the same attacker based on similar exploitative techniques and the connection between the two targets. Blockchain [security firm’s](https://blockworks.co/news/htx-hack-ethereum-crypto-assets) CertiK, Peckshield, and Cyvers have reported over $86.6 million in digital assets [losses](https://debank.com/profile/0xfc146d1caf6ba1d1ce6dcb5b35dcbf895f50b0c4/history) for Heco Bridge and $13.6 million in losses for HTX. All of which were distributed over eight wallets. Additionally, CertiK noted several transactions taking place simultaneously on TRON, totaling $12.6 million, putting their reported total over $113.3 million.
 
 ## Attackers
 
