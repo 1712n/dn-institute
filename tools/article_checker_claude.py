@@ -47,8 +47,8 @@ def api_call(query, client, model):
             query=query,
             model=model,
             n_search_results_to_use=1,
-            max_searches_to_try=3,
-            max_tokens_to_sample=2000
+            max_searches_to_try=5,
+            max_tokens_to_sample=4000
         )
     except Exception as e:
         print(f"Error in API call: {e}")
@@ -80,7 +80,8 @@ def generate_comment(answer):
         comment += f"- **Claim**: {claim['claim']} {emoji}\n"
         comment += f"  - **Source**: [{claim['source']}]({claim['source']})\n"
         if claim["result"].lower() == "false":
-            comment += f"  - **Explanation**: {claim['explanation']}\n"
+            if 'explanation' in claim:
+                comment += f"  - **Explanation**: {claim['explanation']}\n"
         comment += "\n"
 
     comment += "## Spell-Checking Results\n\n"
@@ -108,52 +109,6 @@ def generate_comment(answer):
     return comment
 
 
-PROMPT = """Please review and verify the provided text. This involves two main tasks: fact-checking and spell-checking.
-
-Fact-Checking: Examine each factual statement in the text. Verify these against reliable online sources. Specifically, check the accuracy of numbers, dates, monetary values, and names of people or entities. Report your findings in a structured format, stating whether each claim is true or false, with a source for verification and an explanation if a claim is false.
-
-Spell-Checking: Scan the text for any spelling, grammatical, and punctuation mistakes. List each mistake you find, providing the incorrect and corrected versions.
-
-Additionally, since the text is a Markdown document for Hugo SSG, ensure it adheres to specific formatting requirements:
-
-Check if the document follows the Markdown format, including appropriate headers.
-Confirm if it meets submission guidelines, particularly the file naming convention ("YYYY-MM-DD-entity-that-was-hacked.md"). Extract the name of the file from the text and compare it to the correct name.
-Verify that the document includes only the allowed headers: "## Summary", "## Attackers", "## Losses", "## Timeline", "## Security Failure Causes".
-Check for the presence of specific metadata headers between "---" lines, such as "date", "target-entities", "entity-types", "attack-types", "title", "loss". The document must contain all and only allowed metadata headers.
-Example:
-Input Text: "bla-bla.md: In July 2011, BTC-e, a cryptocurrency exchange, experienced a security breach that resulted in the loss of around 4,500 BTC."
-Present your findings only in a structured JSON format.
-Output: {"fact_checking": 
-    [
-    {"claim": "In July 2011, BTC-e experienced a security breach.",
-    "source": "https://bitcoinmagazine.com/business/btc-e-attacked-1343738085",
-    "result": "False",
-    "explanation": "BTC-e experienced a security breach in July 2012, not 2011"}
-    ],
-    "spell_checking": [
-    {"context": "a cryptocurrency exchange",
-    "mistake": "exchange",     
-    "correction": "exchange"    
-    }  
-    ],
-    "hugo_checking": "False",
-    "submission_guidelines": {
-        "article_filename": "bla-bla.md", 
-        "correct_filename": "2012-07-16-BTC-e.md",
-        "is_filename_correct": "False",
-        "allowed_headers": ["## Summary", "## Attackers", "## Losses", "## Timeline", "## Security Failure Causes"],    
-        "headers_from_text": "None",    
-        "has_allowed_headers": "False",
-        "allowed_metadata_headers": ["date", "target-entities", "entity-types", "attack-types", "title", "loss"],
-        "metadata_headers_from_text": "None",
-        "has_allowed_metadata_headers": "False" 
-        }
-}
-
-Text for Verification: ```%s```
-"""
-
-
 def main():
     args = parse_cli_args()
     with open('tools/config.json', 'r') as config_file:
@@ -173,7 +128,6 @@ def main():
     print(diff)
     print('-' * 50)
 
-
     text = remove_plus(diff[0]['header'] + diff[0]['body'][0]['body'])
 
     print('-' * 50)
@@ -187,7 +141,7 @@ def main():
     print(answer)
     print('-' * 50)
 
-    extracted_answer = extract_json(answer)
+    extracted_answer = json.loads(answer)
     print('-' * 50)
     print(extracted_answer)
     print('-' * 50)

@@ -109,10 +109,8 @@ News Article Source: {news_item.get("meta_url", {}).get('hostname', "Unknown")}"
         """
         url = web_item.get("url", "")
         title = web_item.get("title", "")
-        description = self.remove_strong(web_item.get("description", ""))
         snippet = f"""Web Page Title: {title}
-Web Page URL: {url}
-Web Page Description: {description}"""
+Web Page URL: {url}"""
 
         try:
             # Currently there is no retry logic here, so if the scrape fails, we just skip it and return the snippet.
