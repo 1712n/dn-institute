@@ -55,11 +55,10 @@ Tron:
 
 ## Timeline
 
-   - **"November 22, 2023, 10:06 UTC:"** Initial [funds transfer] (https://etherscan.io/address/0xfc146d1caf6ba1d1ce6dcb5b35dcbf895f50b0c4) begins.
-   - **”November 22, 2023, 10:56 UTC:”** Heco Bridge begins the process of moving recovery funds into [wallet.](https://etherscan.io/txs)
-   - **”November 22, 2023, 11:13 UTC:”** Cyvers Alerts [announces](https://twitter.com/CyversAlerts/status/1727284118763757661) via X several transactions totaling around $12.4 million. 
-   - **”November 22, 2023, 12:34 UTC:”** Justin Sun announces the attack via X and states all withdrawals and deposits have been temporarily [suspended](https://twitter.com/justinsuntron/status/1727304656622326180) and HTX will compensate for the losses from its hot wallet.
-   - **”December 4, 2023:”** [Postmortem Analysis](https://olympixai.medium.com/heco-bridge-hack-analysis-64cffda76684) is posted on Medium.
+   - **November 22, 2023, 10:06 UTC:** Initial [funds transfer] (https://etherscan.io/address/0xfc146d1caf6ba1d1ce6dcb5b35dcbf895f50b0c4) begins.
+   - **November 22, 2023, 10:56 UTC:** Heco Bridge begins the process of moving recovery funds into [wallet.](https://etherscan.io/txs)
+   - **November 22, 2023, 12:34 UTC:** Justin Sun announces the attack via X and states all withdrawals and deposits have been temporarily [suspended](https://twitter.com/justinsuntron/status/1727304656622326180) and HTX will compensate for the losses from its hot wallet.
+   - **December 4, 2023:** [Postmortem Analysis](https://olympixai.medium.com/heco-bridge-hack-analysis-64cffda76684) is posted on Medium.
      
 ## Security Failure Causes
 
