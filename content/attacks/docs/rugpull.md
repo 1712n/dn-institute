@@ -20,9 +20,9 @@ Rugpulls can be categorized based on the methods used to misappropriate user fun
 		- **Fintoch: May 22, 2023 - $31m**
 			- Fintoch was a Peer-to-Peer financial platform that focuses on innovating blockchain financial market, according to Fintoch's [deleted website](https://archive.ph/9kewL). Also, they claimed to be backed by investment banking firm Morgan Stanley. In fact, it was a simple ERC20 token. The token's smart contract also contained liquidity pool functionality, and all user funds were stored in it during fundraising. 100,000 FTH tokens [were minted initially](https://bscscan.com/tx/0x3ef479ba75e07ad04f02b5a5f4df476bbbc83bb5d15fdcd2acd1955a4e87fce6), and the scammer [had received 34,341 FTH](https://bscscan.com/tx/0xee053bf3c429603319d352979e09b207103a08ebf5f42aa0ddd22a9d67f004d6) a minute before [selling 20,001 FTH and completely draining the pool](https://bscscan.com/tx/0xa5e64161928ee40f6af02a32fc5c1fb9efa05cca6b91d88326279329b71c7ea2) for 31,666,317 USDT.
 
-# Avoiding Tips
+# Indicators
 
 - **Unrealistic Return Promises**: Offers of high gains over short periods are red flags.
 - **Anonymity of Developers**: A lack of verifiable identity for project creators is concerning.
 - **Lack of Contract Transparency**: Unverified smart contracts that are neither publicly viewable nor audited by trusted companies may be risky.
-- **Tokenomics Scrutiny**: Evaluating a project's token distribution, minting rights, and liquidity provisions can reveal potential risks.
+- **Questionable Tokenomics**: Evaluating a project's token distribution, minting rights, and liquidity provisions can reveal potential risks.
