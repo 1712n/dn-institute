@@ -1,19 +1,19 @@
-# What is Rugpull?
+# What is Rug Pull?
 
-A rugpull refers to a fraudulent scheme in which a cryptocurrency developer promotes a project with the intention of luring investors and then abruptly ceases operations or vanishes, thereby absconding with the investors' assets. The term "rugpull" is derived from the expression "to pull the rug out from under someone," leaving the victim disoriented and in disarray.
+A rug pull refers to a fraudulent scheme in which a cryptocurrency developer promotes a project with the intention of luring investors and then abruptly ceases operations or vanishes, thereby absconding with the investors' assets. The term "rug pull" is derived from the expression "to pull the rug out from under someone," leaving the victim disoriented and in disarray.
 
-To understand the technical side of rugpulls, it's essential to dig into the nature of decentralized exchanges (DEX). To allow users to buy a desired asset, the initial token owner should add liquidity into a DEX, creating the liquidity pool. The token owner receives newly minted liquidity pool tokens (LP tokens), which grants him access to withdraw his liquidity back at anytime. The way LP tokens stored is crucial. In trusted projects, LP tokens is locked in dedicated smart contract for a long period of time, which guarantees safety of user funds.
+To understand the technical side of rug pulls, it's essential to dig into the nature of decentralized exchanges (DEX). To allow users to buy a desired asset, the initial token owner should add liquidity into a DEX, creating the liquidity pool. The token owner receives newly minted liquidity pool tokens (LP tokens), which grants him access to withdraw his liquidity back at anytime. The way LP tokens stored is crucial. In trusted projects, LP tokens is locked in dedicated smart contract for a long period of time, which guarantees safety of user funds.
 
-The occurrence of rugpulls has risen alongside the growing popularity of decentralized finance (DeFi). According to a [scam database](https://www.comparitech.com/crypto/cryptocurrency-scams/), there have been at least 765 documented cases of rugpulls and exit scams, resulting in a total stolen amount exceeding $26 billion.
+The occurrence of rug pulls has risen alongside the growing popularity of decentralized finance (DeFi). According to a [scam database](https://www.comparitech.com/crypto/cryptocurrency-scams/), there have been at least 765 documented cases of rug pulls and exit scams, resulting in a total stolen amount exceeding $26 billion.
 
-# Types of Rugpull
+# Types of Rug Pull
 
-Rugpulls can be categorized based on the methods used to misappropriate user funds:
+Rug pulls can be categorized based on the methods used to misappropriate user funds:
 
 - **Liquidity Withdrawal**: Liquidity Withdrawal constitutes a form of rug pull, where the owner of the project directly removes whole liquidity from the liquidity pool via LP tokens. This leads to the asset value to plummet.
 	- *Real World Example*
 		- **AnubisDAO: October 29, 2021 - $60m**
-			- The project claimed to be a fork of OlympusDAO was rugpulled hours before sale round of the Anubis token ends. The liquidity was withdrawn from the Balancer Pool via `exitPool()` function in a [single transaction](https://etherscan.io/tx/0x551890a877c57cf19ddcb312c0a9962029225373daf2815f3720b723bd79b7b0) by [the pool deployer](https://etherscan.io/address/0x872254d530ae8983628cb1eaafc51f78d78c86d9). As a result 13,556.36 ETH was stolen from investors, which was worth roughly $60 million.
+			- The project claimed to be a fork of OlympusDAO was rug pulled hours before sale round of the Anubis token ends. The liquidity was withdrawn from the Balancer Pool via `exitPool()` function in a [single transaction](https://etherscan.io/tx/0x551890a877c57cf19ddcb312c0a9962029225373daf2815f3720b723bd79b7b0) by [the pool deployer](https://etherscan.io/address/0x872254d530ae8983628cb1eaafc51f78d78c86d9). As a result 13,556.36 ETH was stolen from investors, which was worth roughly $60 million.
 
 - **Massive Token Sale**: A drastic drop in value can also come from massive token sales by the initial creators or large holders. The smart contract might even allow privileged addresses to mint new tokens at will, exacerbating the situation. In this case, LP tokens either locked or not accessible by the owners. However, privileged functions may allow to mint new tokens or initially 'hiding' some huge amount of tokens, and not adding them as initial liquidity. By selling a massive token amount, the scammer drains valuable asset from the pool, usually stablecoins, and leaves the pool with a valueless token, which loses its initial price by almost 100%.
 	- *Real World Example*
