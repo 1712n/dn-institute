@@ -84,12 +84,8 @@ def generate_comment(answer):
                 comment += f"  - **Explanation**: {claim['explanation']}\n"
         comment += "\n"
 
-    comment += "## Spell-Checking Results\n\n"
-    for mistake in answer["spell_checking"]:
-        comment += f"- **Mistake**: `{mistake['mistake']}`\n"
-        comment += f"  - **Correction**: `{mistake['correction']}`\n"
-        comment += f"  - **Context**: `{mistake['context']}`\n"
-        comment += "\n"
+    comment += "## Some Editor's Note\n\n"
+    comment += f'{answer["corrections"]} \n\n'
 
     emoji_hugo = ":white_check_mark:" if answer['hugo_checking'].lower() == "true" else ":x:"
     comment += f"## Hugo SSG Formatting Check\n- Does it match Hugo SSG formatting? {emoji_hugo}\n\n"

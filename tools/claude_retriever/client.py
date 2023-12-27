@@ -25,18 +25,18 @@ Include the Web Page URL in <source></source> tags (use 'None' if no URL is avai
 If a statement is false, include an explanation in <explanation></explanation> tags.
 Focus particularly on verifying numbers, dates, monetary values, and names of people or organizations.
 Avoid verifying statements already enclosed in <search_query>query</search_query> tags.
-Do not try to answer the query. Your only job is to gather relevant search results that will help to check the accuracy of statements.
+Determine the accuracy of each statement using only information that is contained in the search_result. 
 
 Statements to be verified: 
 """
 
 ANSWER_PROMPT = """
-Please review the provided tex between <text></text> tags:
+
 <fact_checking_results>%s</fact_checking_results>
 
 <text>%s</text>
 
-Perform the following tasks:
+You are an editor. Perform the following tasks:
 1. Using the information provided within the <fact_checking_results></fact_checking_results> tags, 
 please form the desired output with results of fact-checking. There should be required fields "statement", "source", "result". If the result is False, provide an explanation why. If there is no source, put "None" in the "source" field.
 Output example:
@@ -48,19 +48,11 @@ Output example:
    "explanation": "BTC-e experienced a security breach in July 2012, not 2011"
    }
    ]}
-2. Find all possible spelling mistakes in the text between tags <text></text>. 
-For each misspelled word:
+2. Make detailed editor's notes on the text in <text></text> tags. 
+Suggest stylistic and grammatical improvements for the text, and point out any error. 
+Put your detailed notes and the list of errors in the field "corrections". 
+The value of this field should be a string.
 
-- Provide the sentence containing the error
-- Provide the incorrect word
-- Suggest the correct spelling
-
-Only make corrections for actual spelling errors. Be helpful and point out every spelling error you can find.
-Try to look for mistakes only in the text between <text></text> tags. Do not try to correct the preamble.
-Output example: 
-{"spell_checking": [
-   {"context": "The attakers stole my cryptocurrency.", "error": "attakers", "correction": "attackers"}
-   ]}
 3. Additionally, since the text between <text></text> is a Markdown document for Hugo SSG, ensure it adheres to specific formatting requirements.
 Output example:
 {"hugo_checking": "False"}
@@ -69,7 +61,7 @@ Output example:
 Confirm if it meets submission guidelines, particularly the file naming convention ("YYYY-MM-DD-entity-that-was-hacked.md"). Extract the name of the file from the text between <text></text> tags and compare it to the correct name.
 Verify that the text between <text></text> includes only the allowed headers: "## Summary", "## Attackers", "## Losses", "## Timeline", "## Security Failure Causes".
 Check for the presence of specific metadata headers between "---" lines, such as "date", "target-entities", "entity-types", "attack-types", "title", "loss". The text between <text></text> must contain all and only allowed metadata headers.
-Present your findings only in a structured JSON format. 
+Present your findings in a structured JSON format. 
 Output example:
 {"submission_guidelines": {
        "article_filename": "bla-bla.md",
@@ -84,7 +76,7 @@ Output example:
        }
     }
 
-Combine the results of all steps into a single JSON and return it to me in <answer></answer> tags. 
+Combine the results of all steps into a single JSON and return it to me in <json></json> tags. 
 All quotes in string values must be properly escaped for use with the json.load function in Python. Strictly adhere to the key names.
 """
 
@@ -118,7 +110,7 @@ class ClientWithRetrieval(Anthropic):
                        stop_sequences: list[str] = [HUMAN_PROMPT],
                        max_tokens_to_sample: int = 1000,
                        max_searches_to_try: int = 5,
-                       temperature: float = 1.0) -> str:
+                       temperature: float = 0.0) -> str:
         """
         Main method to retrieve relevant search results for a query with a provided search tool.
         
@@ -199,7 +191,7 @@ class ClientWithRetrieval(Anthropic):
                                         stop_sequences: list[str] = [HUMAN_PROMPT],
                                         max_tokens_to_sample: int = 1000,
                                         max_searches_to_try: int = 5,
-                                        temperature: float = 1.0) -> str:
+                                        temperature: float = 0.0) -> str:
         """
         Gets a final completion from retrieval results        
         
