@@ -13,6 +13,7 @@ attack-types:
 title: “Coordinated Attacks Result in $113.3 Million in Losses for Heco Bridge and HTX Exchange” 
 loss: 113300000
 ---
+
 ## Summary
 
 On November 22, 2023, Heco Bridge and HTX Exchange were victims of cyberattacks, resulting in over $113.3 million in losses. The attacks appear coordinated and carried out by the same attacker based on similar exploitative techniques and the connection between the two targets. Blockchain security firms CertiK, Peckshield, and Cyvers have reported over $86.6 million in digital assets losses for Heco Bridge and $13.6 million in losses for HTX. All of which were distributed over eight wallets. Additionally, CertiK noted several transactions taking place simultaneously on TRON, totaling $12.6 million, putting their reported total over $113.3 million.
