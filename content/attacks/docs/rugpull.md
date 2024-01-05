@@ -1,3 +1,8 @@
+---
+title: Reentrancy Attacks
+bookToc: true
+---
+
 # What is Rug Pull?
 
 A rug pull refers to a fraudulent scheme in which a cryptocurrency developer promotes a project with the intention of luring investors and then abruptly ceases operations or vanishes, thereby absconding with the investors' assets. The term "rug pull" is derived from the expression "to pull the rug out from under someone," leaving the victim disoriented and in disarray.
