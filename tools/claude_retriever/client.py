@@ -209,7 +209,7 @@ class ClientWithRetrieval(Anthropic):
         print("Search results:", search_results)
         answer = self.answer_with_results(search_results, query, model, temperature)
         print("Answer:", answer)
-        json_answer = self.extract_between_tags("answer", answer)
+        json_answer = self.extract_between_tags("json", answer)
         return json_answer
     
 
