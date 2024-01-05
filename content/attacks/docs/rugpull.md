@@ -7,7 +7,7 @@ bookToc: true
 
 A rug pull refers to a fraudulent scheme in which a cryptocurrency developer promotes a project with the intention of luring investors and then abruptly ceases operations or vanishes, thereby absconding with the investors' assets. The term "rug pull" is derived from the expression "to pull the rug out from under someone," leaving the victim disoriented and in disarray.
 
-To understand the technical side of rug pulls, it's essential to dig into the nature of decentralized exchanges (DEX). To allow users to buy a desired asset, the initial token owner should add liquidity into a DEX, creating the liquidity pool. The token owner receives newly minted liquidity pool tokens (LP tokens), which grants him access to withdraw his liquidity back at anytime. The way LP tokens stored is crucial. In trusted projects, LP tokens is locked in dedicated smart contract for a long period of time, which guarantees safety of user funds.
+To allow users to buy a desired asset, the initial token owners should add liquidity into a Decentralized Exchange (DEX), creating the liquidity pool. The token owners receive newly minted liquidity pool tokens (LP tokens), which grants them access to withdraw their liquidity back at anytime. In trusted projects, LP tokens is locked in dedicated smart contract for a long period of time, which guarantees safety of user funds.
 
 The occurrence of rug pulls has risen alongside the growing popularity of decentralized finance (DeFi). According to a [scam database](https://www.comparitech.com/crypto/cryptocurrency-scams/), there have been at least 765 documented cases of rug pulls and exit scams, resulting in a total stolen amount exceeding $26 billion.
 
