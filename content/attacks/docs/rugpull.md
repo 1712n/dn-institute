@@ -1,5 +1,5 @@
 ---
-title: Reentrancy Attacks
+title: Rug Pull Scam
 bookToc: true
 ---
 
