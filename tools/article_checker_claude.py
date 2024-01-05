@@ -76,10 +76,10 @@ def generate_comment(answer):
     """
     comment = "## Fact-Checking Results\n\n"
     for claim in answer["fact_checking"]:
-        emoji = ":white_check_mark:" if claim["result"].lower() == "true" else ":x:"
-        comment += f"- **Claim**: {claim['claim']} {emoji}\n"
+        emoji = ":white_check_mark:" if str(claim["result"]).lower() == "true" else ":x:"
+        comment += f"- **Claim**: {claim['statement']} {emoji}\n"
         comment += f"  - **Source**: [{claim['source']}]({claim['source']})\n"
-        if claim["result"].lower() == "false":
+        if str(claim["result"]).lower() == "false":
             if 'explanation' in claim:
                 comment += f"  - **Explanation**: {claim['explanation']}\n"
         comment += "\n"
@@ -87,18 +87,18 @@ def generate_comment(answer):
     comment += "## Some Editor's Note\n\n"
     comment += f'{answer["corrections"]} \n\n'
 
-    emoji_hugo = ":white_check_mark:" if answer['hugo_checking'].lower() == "true" else ":x:"
+    emoji_hugo = ":white_check_mark:" if str(answer['hugo_checking']).lower() == "true" else ":x:"
     comment += f"## Hugo SSG Formatting Check\n- Does it match Hugo SSG formatting? {emoji_hugo}\n\n"
 
-    emoji_filename = ":white_check_mark:" if answer['submission_guidelines']['is_filename_correct'].lower() == "true" else ":x:"
+    emoji_filename = ":white_check_mark:" if str(answer['submission_guidelines']['is_filename_correct']).lower() == "true" else ":x:"
     comment += f"## Filename Check\n- Correct Filename: `{answer['submission_guidelines']['correct_filename']}`\n"
     comment += f"- Your Filename: `{answer['submission_guidelines']['article_filename']}` {emoji_filename}\n\n"
 
-    emoji_sections = ":white_check_mark:" if answer['submission_guidelines']['has_allowed_headers'].lower() == "true" else ":x:"
+    emoji_sections = ":white_check_mark:" if str(answer['submission_guidelines']['has_allowed_headers']).lower() == "true" else ":x:"
     comment += f"## Section Headers Check\n- Allowed Headers: `{', '.join(answer['submission_guidelines']['allowed_headers'])}`\n"
     comment += f"- Your Headers: `{', '.join(answer['submission_guidelines']['headers_from_text'])}` {emoji_sections}\n\n"
 
-    emoji_headers = ":white_check_mark:" if answer['submission_guidelines']['has_allowed_metadata_headers'].lower() == "true" else ":x:"
+    emoji_headers = ":white_check_mark:" if str(answer['submission_guidelines']['has_allowed_metadata_headers']).lower() == "true" else ":x:"
     comment += f"## Metadata Headers Check\n- Allowed Metadata Headers: `{', '.join(answer['submission_guidelines']['allowed_metadata_headers'])}`\n"
     comment += f"- Your Metadata Headers: `{', '.join(answer['submission_guidelines']['metadata_headers_from_text'])}` {emoji_headers}\n"
 
@@ -130,9 +130,7 @@ def main():
     print(text)
     print('-' * 50)
 
-    query = PROMPT % text
-
-    answer = api_call(query, client, model)
+    answer = api_call(text, client, model)
     print('-' * 50)
     print(answer)
     print('-' * 50)
