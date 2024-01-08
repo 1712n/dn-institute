@@ -75,32 +75,49 @@ def generate_comment(answer):
     Generate a formatted comment based on the provided answer.
     """
     comment = "## Fact-Checking Results\n\n"
-    for claim in answer["fact_checking"]:
-        emoji = ":white_check_mark:" if str(claim["result"]).lower() == "true" else ":x:"
-        comment += f"- **Claim**: {claim['statement']} {emoji}\n"
-        comment += f"  - **Source**: [{claim['source']}]({claim['source']})\n"
-        if str(claim["result"]).lower() == "false":
-            if 'explanation' in claim:
-                comment += f"  - **Explanation**: {claim['explanation']}\n"
+    for claim in answer.get("fact_checking", []):
+        result = str(claim.get("result", "")).lower()
+        emoji = ":white_check_mark:" if result == "true" else ":x:"
+        comment += f"- **Claim**: {claim.get('statement', 'N/A')} {emoji}\n"
+        comment += f"  - **Source**: [{claim.get('source', 'N/A')}]({claim.get('source', '#')})\n"
+        if result == "false":
+            explanation = claim.get('explanation', 'No explanation provided')
+            comment += f"  - **Explanation**: {explanation}\n"
         comment += "\n"
 
     comment += "## Some Editor's Note\n\n"
-    comment += f'{answer["corrections"]} \n\n'
+    comment += f'{answer.get("corrections", "No corrections provided")} \n\n'
 
-    emoji_hugo = ":white_check_mark:" if str(answer['hugo_checking']).lower() == "true" else ":x:"
-    comment += f"## Hugo SSG Formatting Check\n- Does it match Hugo SSG formatting? {emoji_hugo}\n\n"
+    hugo_checking = answer.get('hugo_checking', {})
+    hugo_verdict = str(hugo_checking.get('verdict', '')).lower()
+    hugo_explanation = hugo_checking.get('explanation', 'No explanation provided.')
+    emoji_hugo = ":white_check_mark:" if hugo_verdict == "true" else ":x:"
+    comment += f"## Hugo SSG Formatting Check\n- Does it match Hugo SSG formatting? {emoji_hugo}\n"
+    if hugo_verdict == "false":
+        comment += f"  - **Explanation**: {hugo_explanation if hugo_explanation else 'No specific explanation provided.'}\n\n"
 
-    emoji_filename = ":white_check_mark:" if str(answer['submission_guidelines']['is_filename_correct']).lower() == "true" else ":x:"
-    comment += f"## Filename Check\n- Correct Filename: `{answer['submission_guidelines']['correct_filename']}`\n"
-    comment += f"- Your Filename: `{answer['submission_guidelines']['article_filename']}` {emoji_filename}\n\n"
 
-    emoji_sections = ":white_check_mark:" if str(answer['submission_guidelines']['has_allowed_headers']).lower() == "true" else ":x:"
-    comment += f"## Section Headers Check\n- Allowed Headers: `{', '.join(answer['submission_guidelines']['allowed_headers'])}`\n"
-    comment += f"- Your Headers: `{', '.join(answer['submission_guidelines']['headers_from_text'])}` {emoji_sections}\n\n"
+    submission_guidelines = answer.get('submission_guidelines', {})
+    filename_correct = str(submission_guidelines.get('is_filename_correct', '')).lower()
+    emoji_filename = ":white_check_mark:" if filename_correct == "true" else ":x:"
+    correct_filename = submission_guidelines.get('correct_filename', 'N/A')
+    article_filename = submission_guidelines.get('article_filename', 'N/A')
+    comment += f"## Filename Check\n- Correct Filename: `{correct_filename}`\n"
+    comment += f"- Your Filename: `{article_filename}` {emoji_filename}\n\n"
 
-    emoji_headers = ":white_check_mark:" if str(answer['submission_guidelines']['has_allowed_metadata_headers']).lower() == "true" else ":x:"
-    comment += f"## Metadata Headers Check\n- Allowed Metadata Headers: `{', '.join(answer['submission_guidelines']['allowed_metadata_headers'])}`\n"
-    comment += f"- Your Metadata Headers: `{', '.join(answer['submission_guidelines']['metadata_headers_from_text'])}` {emoji_headers}\n"
+    has_allowed_headers = str(submission_guidelines.get('has_allowed_headers', '')).lower()
+    emoji_sections = ":white_check_mark:" if has_allowed_headers == "true" else ":x:"
+    allowed_headers = ', '.join(submission_guidelines.get('allowed_headers', ['N/A']))
+    headers_from_text = ', '.join(submission_guidelines.get('headers_from_text', ['N/A']))
+    comment += f"## Section Headers Check\n- Allowed Headers: `{allowed_headers}`\n"
+    comment += f"- Your Headers: `{headers_from_text}` {emoji_sections}\n\n"
+
+    has_allowed_metadata_headers = str(submission_guidelines.get('has_allowed_metadata_headers', '')).lower()
+    emoji_headers = ":white_check_mark:" if has_allowed_metadata_headers == "true" else ":x:"
+    allowed_metadata_headers = ', '.join(submission_guidelines.get('allowed_metadata_headers', ['N/A']))
+    metadata_headers_from_text = ', '.join(submission_guidelines.get('metadata_headers_from_text', ['N/A']))
+    comment += f"## Metadata Headers Check\n- Allowed Metadata Headers: `{allowed_metadata_headers}`\n"
+    comment += f"- Your Metadata Headers: `{metadata_headers_from_text}` {emoji_headers}\n"
 
     return comment
 
