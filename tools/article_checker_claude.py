@@ -91,7 +91,12 @@ def generate_comment(answer):
     hugo_checking = answer.get('hugo_checking', {})
     hugo_verdict = str(hugo_checking.get('verdict', '')).lower()
     hugo_explanation = hugo_checking.get('explanation', 'No explanation provided.')
-    emoji_hugo = ":white_check_mark:" if hugo_verdict == "true" else ":x:"
+    if hugo_verdict == "true":
+        emoji_hugo = ":white_check_mark:"
+    elif hugo_verdict == "false":
+        emoji_hugo = ":x:"
+    else:
+        emoji_hugo = ":question:"
     comment += f"## Hugo SSG Formatting Check\n- Does it match Hugo SSG formatting? {emoji_hugo}\n"
     if hugo_verdict == "false":
         comment += f"  - **Explanation**: {hugo_explanation if hugo_explanation else 'No specific explanation provided.'}\n\n"
