@@ -10,7 +10,7 @@ entity-types:
    - Bridge
 attack-types:
    - Private Key Leak
-title: “Coordinated Attacks Result in $113.3 Million in Losses for Heco Bridge and HTX Exchange” 
+title: Coordinated Attacks Result in $113.3 Million in Losses for Heco Bridge and HTX Exchange
 loss: 113300000
 ---
 
