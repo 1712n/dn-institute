@@ -54,8 +54,13 @@ Put your detailed notes and the list of errors in the field "corrections".
 The value of this field should be a string.
 
 3. Additionally, since the text between <text></text> is a Markdown document for Hugo SSG, ensure it adheres to specific formatting requirements.
+If it doesn't, give en explanation why in an additional field "explanation".
 Output example:
-{"hugo_checking": "False"}
+{"hugo_checking": {
+    "verdict": "False",
+    "explanation": ""
+    }
+}
 
 4. Check if the text between <text></text> follows the Markdown format, including appropriate headers.
 Confirm if it meets submission guidelines, particularly the file naming convention ("YYYY-MM-DD-entity-that-was-hacked.md"). Extract the name of the file from the text between <text></text> tags and compare it to the correct name.
