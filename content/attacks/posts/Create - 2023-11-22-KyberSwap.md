@@ -6,7 +6,7 @@ entity-types:
    - Exchange
 attack-types: 
    - Smart Contract Exploit 
-title: “KyberSwap loses $49,000,000 during cyberattack”
+title: KyberSwap loses $49,000,000 during cyberattack
 loss: 49000000
 ---
 
@@ -22,13 +22,12 @@ The following address was used in the attack: 0xc9b826bad20872eb29f9b1d8af4befe8
 
 ## Timeline
 
-- **November 22, 2023, 12:21 UTC:** Initial transactions [occur.](https://etherscan.io/txs)  
-- **November 22, 2023, 23:52 UTC:** KyberSwap Network announces the hack and encourages customers to [withdraw](https://twitter.com/KyberNetwork/status/1727475235342217682) their funds in a post on X.
-- **November 22, 2023, 23:57 UTC:** Communication between KyperSwap and the attacker begin on [Blockchain](https://etherscan.io/idm) regarding future negotiations. 
-- **November 26, 2023, 15:38 UTC:** KyberSwap announces on X they have been in [contact](https://twitter.com/KyberNetwork/status/1728800315955437743) with the owners of the front-run bots that extracted the funds on Polygon and Avalanche during the attack and have negotiated a return of 90% of the exploited $5.7 million connected to the two companies in return of a 10% bounty. KyberSwap connects [address](https://polygonscan.com/tx/0x8a0880f1662e39fa838e89fa751669e4a1eee5c15586dc447453274f7b8ce746) for the return of the stolen funds. 
-- **“November 30, 
-2023:”** The attacker exerts pressure to gain comprehensive dominion over Kyber Network's [entire asset portfolio](https://cointelegraph.com/news/kyberswap-hacker-demands-complete-control-over-kyber-company) with a December 10, 2023, deadline.
-- **December 27, 2023, 16:06 UTC:** KyperSwap announces reimbursement plan and the termination of [half](https://blockchain.news/news/kyberswaps-response-to-488-million-hack-workforce-halved-and-victim-reimbursement-plans) of their workforce.
+- **November 22, 2023 at 12:21 Coordinated Universal Time:** Initial transactions [occur.](https://etherscan.io/txs)  
+- **November 22, 2023 at 23:52 Coordinated Universal Time:** KyberSwap Network announces the hack and encourages customers to [withdraw](https://twitter.com/KyberNetwork/status/1727475235342217682) their funds in a post on X.
+- **November 22, 2023 at 23:57 Coordinated Universal Time:** Communication between KyperSwap and the attacker begin on [Blockchain](https://etherscan.io/idm) regarding future negotiations. 
+- **November 26, 2023 at 15:38 Coordinated Universal Time:** KyberSwap announces on X they have been in [contact](https://twitter.com/KyberNetwork/status/1728800315955437743) with the owners of the front-run bots that extracted the funds on Polygon and Avalanche during the attack and have negotiated a return of 90% of the exploited $5.7 million connected to the two companies in return of a 10% bounty. KyberSwap connects [address](https://polygonscan.com/tx/0x8a0880f1662e39fa838e89fa751669e4a1eee5c15586dc447453274f7b8ce746) for the return of the stolen funds. 
+- **“November 30, 2023:”** The attacker exerts pressure to gain comprehensive dominion over Kyber Network's [entire asset portfolio](https://cointelegraph.com/news/kyberswap-hacker-demands-complete-control-over-kyber-company) with a December 10, 2023, deadline.
+- **December 27, 2023 at 16:06 Coordinated Universal Time:** KyperSwap announces reimbursement plan and the termination of [half](https://blockchain.news/news/kyberswaps-response-to-488-million-hack-workforce-halved-and-victim-reimbursement-plans) of their workforce.
 
 ## Losses
 
