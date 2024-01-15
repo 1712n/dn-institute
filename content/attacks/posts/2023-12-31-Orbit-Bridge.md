@@ -2,11 +2,11 @@
 date: 2023-12-31
 target-entities: Orbit Bridge
 tags:
-	- Lazarus Group
-	- North Korea
+  - Lazarus Group
+  - North Korea
 entity-types:
-	- DeFi
-	- Bridge
+  - DeFi
+  - Bridge
 attack-types: Wallet Hack
 title: "Orbit Bridge Suffers $81.54 Million Security Breach"
 loss: 81540000
