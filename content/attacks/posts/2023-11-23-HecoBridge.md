@@ -20,11 +20,10 @@ On November 22, 2023, Heco Bridge and HTX Exchange were victims of cyberattacks,
 
 ## Attackers
 
-The attacker has yet to be identified but used the following wallets to transfer some of the hijacked funds:
+The attacker has yet to be identified but used the [following wallet](https://etherscan.io/address/0xe47e6dA16Bb83EB0FD26b3F29b15CE8Fab089B9e) to transfer some of the drained funds:
 
         - 0xe47e6dA16Bb83EB0FD26b3F29b15CE8Fab089B9e
-        - 0xbb6fe88427c2f3bc179075109d47a805dcfedab0e475eaca0d979311873e131b
-          
+        
 ## Losses
 
 According to CertiK, the following [withdraws](https://www.certik.com/resources/blog/39YOzflgCCbfI9evJliCeQ-heco-bridge-exploit) took place: 
@@ -49,9 +48,11 @@ HTX:
 
 ## Timeline
 
-   - **November 22, 2023 at 10:06 Coordinated Universal Time:** Initial [funds transfer](https://etherscan.io/block/18626577) begins.
-   - **November 22, 2023 at 10:56 Coordinated Universal Time:** Heco Bridge begins the process of moving recovery funds into [wallet.](https://etherscan.io/address/0x18709e89bd403f470088abdacebe86cc60dda12e)
-   - **November 22, 2023 at 12:34 Coordinated Universal Time:** Justin Sun announces the attack in an X post. He states all withdrawals and deposits have been temporarily [suspended](https://twitter.com/justinsuntron/status/1727304656622326180) and HTX will compensate for the losses from its hot wallet.
+   - **November 22, 2023 at 10:06 UTC:** Initial [funds transfer](https://etherscan.io/block/18626577) begins.
+   - **November 22, 2023 at 10:56 UTC** Heco Bridge begins the process of moving recovery funds into [wallet.](https://etherscan.io/address/0x18709e89bd403f470088abdacebe86cc60dda12e)
+   - **November 22, 2023 at 11:23 UTC:** In an X post, PeakShield announces a Heco Bridge [withdrawal](https://twitter.com/PeckShieldAlert/status/1727286692489679360) of 10,145 ETH.
+   - **November 22, 2023 at 12:34 UTC:** Justin Sun announces the attack in an X post. He states all withdrawals and deposits have been temporarily [suspended,](https://twitter.com/justinsuntron/status/1727304656622326180) and HTX will compensate for the losses from its hot wallet.
+   - **November 24, 2023 at 14:55 UTC:** Justin Sun announces in an X post an [airdrop](https://twitter.com/justinsuntron/status/1728064872632795480) will be initiated for user assets. 
    - **December 4, 2023:** [Postmortem Analysis](https://olympixai.medium.com/heco-bridge-hack-analysis-64cffda76684) is posted on Medium by Olympix.
      
 ## Security Failure Causes
