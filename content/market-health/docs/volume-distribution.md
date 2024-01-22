@@ -5,40 +5,127 @@ bookToc: true
 weight: 40
 ---
 
-## General Description
+## Volume Distribution
 
-The trade size distribution is a straightforward way to visually represent the sizes of executed transactions and the number of occurences in a histogram. To gain insights into these distributions and identify any unusual or manipulative activities, various statistical metrics like kurtosis, mean, median, mode, skewness, and standard deviation are analyzed.
+### Overview
 
-Another approach involves using the [power law](https://en.wikipedia.org/wiki/Power_law) to describe a phenomenon where a small number of items are concentrated at the top of a distribution. In simpler terms, this suggests that medium to small retail transactions are frequent, while large "whale" orders are rare. 
+The Volume Distribution Metric is a statistical measure used to analyze the distribution of trading volumes in financial datasets. The trade size distribution is a straightforward way to visually represent the sizes of executed transactions and the number of occurences in a histogram. This metric is particularly useful in cryptocurrency trading, where it can reveal insights about market behavior and investor sentiment. In the context of trading, understanding volume distribution can help in identifying trends, trading volumes at different price levels, and the potential impact of large trades.
 
-The Power Law is expressed mathematically as:
+### Mathematical Background
 
-{{< katex display >}}
-P(x) \propto x^{-\alpha}
-{{< /katex >}}
+To calculate volume distribution, we generally create a histogram representing the frequency of various volume ranges. The histogram bins the volume data into dinamic ranges and counts the occurrences in each bin. This can reveal, for example, if most trades are occurring at low, medium, or high volume levels.
 
-Where _α_ is the exponent that often falls within the Pareto–Lévy range in the context of trade size distributions.
+### Metric in the API Response
 
-The power law fitting aims to determine whether trade size distributions exhibit fat tails, a characteristic often observed in traditional financial markets and described by power law distributions.
+`volumedist`: This metric provides a histogram of trading volumes. Each of 100 bins in the histogram represents a range of trading volumes, and the value represents the count of trades within that volume range.
 
-## Crypto Context
+```json
+ {
+    "timestamp": "2024-01-15T18:11:00.000Z",
+    "marketvenue": "binance",
+    "pairid": "btc-usdt",
+    "volumedist": [
+      [
+        0,
+        2586
+      ],
+      [
+        1,
+        31
+      ],
+      [
+        2,
+        8
+      ],
+      [
+        3,
+        16
+      ],
+      [
+        4,
+        11
+      ],
+      [
+        5,
+        7
+      ],
+      [
+        6,
+        8
+      ],
+      [
+        7,
+        3
+      ],
+      [
+        8,
+        1
+      ],
+      [
+        9,
+        4
+      ],
+      [
+        10,
+        2
+      ],
+      [
+        11,
+        4
+      ]  
+        ...
+    ]   
+ }
+``` 
+### Usage Example
 
-In cases of potential wash trading, certain trading patterns, such as an unusually high volume of trades, may occur more frequently than expected according to the power law distribution. Analysts can identify possible manipulative trading practices by detecting deviations from the anticipated trading patterns outlined by the power law.
+Consider trading data from the Binance market for the BTC-USDT pair. The `volumedist` metric in the API response provides a distribution of trading volumes.
 
-## Usage Examples
+For instance, consider the following simplified data excerpt from the `volumedist` metric:
+- Bin 0-1: 1000 trades
+- Bin 1-2: 100 trades
+- Bin 2-3: 50 trades
 
-Consider the API metrics:
+Steps to analyze:
+1. Build a histogram visualization. 
+2. Analyze the histogram to understand the distribution of trading volumes.
 
-- `volume_distribution`: The provided data structure will help building the histogram and conducting the visual analysis. 
-- `volume_distribution_kurtosis`: A value of `3.58703` signals a heavy-tailed distribution, indicating a higher likelihood of extreme values.
-- `volume_distribution_mean`: A value of `0.38137`, being less than the `volume_distribution_median` of `0.64753`, points to a right-skewed distribution.
-- `volume_distribution_skewness`: A value of `1.02254` indicates a moderate positive skewness, meaning more small trades than large ones, but the large trades can be very large.
-- `volume_distribution_mode`: A value of `0.39749` highlights that the most frequent trade sizes are relatively small.
-- `volume_distribution_std`: A value of `0.31331` implies a moderate level of dispersion around the mean trade size, emphasizing the impact of the fat tails on the overall distribution.
+The histogram will visually represent how many trades occurred at different volume levels, helping to identify if most trades are small, medium, or large in volume.
 
-## Visuals
+#### Visuals
 
-Using visual aids, such as a histogram or a log-log plot, can better illustrate the trade size distribution and its adherence or deviation from the expected power law distribution.
+![chart](/img/volumedist.png)
+
+Here is the histogram representing the trading volumes based on the provided sample data. Each bar in the histogram corresponds to a volume bin, and the height of the bar indicates the number of trades within that volume range. This visual representation helps in understanding the distribution of trading volumes, which can be crucial for market analysis and decision-making in cryptocurrency trading.
+
+#### Interpretation:
+- Ideally, trading volume should follow a [power law](https://en.wikipedia.org/wiki/Power_law) heavy tail distribution, where small trades are common, and large trades are rare.
+- A more uniform distribution might suggest a healthy mix of small and large volume trades.
+
+### Applications in Market Surveillance
+
+- **Detecting Wash Trading**: Unnatural uniformity in trade sizes across many bins could indicate potential wash trading.
+
+- **Identifying Participant Changes**: Shifts in high volume bins may reveal changing behaviors of large traders.
+
+- **Uncovering Coordinated Tactics**: Similar volume distribution patterns concurrently emerging across exchanges may suggest coordinated behaviors.
+
+- **Establishing Expected Profiles**: Calculate historical volume distributions to detect anomalies outside anticipated patterns. 
+
+- **Impact Analysis**: Analyze volume ranges with highest frequency to assess potential market impact.
+
+### Considerations for Cryptocurrencies
+
+- Emergence of institutional traders alongside retail participants
+- Prevalence of high frequency trading with small, repetitive order sizes
+- Fragmented liquidity across exchanges 
+
+### Key Takeaways
+
+- Volume Distribution analyzes trade size frequencies across bins.
+- Changes can reveal shifting market participant behaviors.  
+- Conforming distributions may indicate wash trading risks.
+- Integration with other metrics provides robust surveillance.
 
 ## References and Further Reading
 

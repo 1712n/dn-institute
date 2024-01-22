@@ -5,43 +5,111 @@ bookToc: true
 weight: 60
 ---
 
-## General Description
+## Buy/Sell Ratio
 
-The Buy/Sell Ratio is an important metric used in trading analysis for various markets, including cryptocurrencies. It calculates the proportion of buy to sell orders in a given time period to determine the market’s sentiment. A balanced market generally observes a buy/sell ratio around 0.4-0.6, representing equivalent buy and sell activity.
+### Overview
 
-Ratios significantly deviating from equilibrium time can hint at a market bias towards buying or selling, which may be caused by various factors, including automated trading systems that attempt to manipulate the market. However, an absence of any fluctuation of this metric and steady 0.5 value even for liquid market pairs is suspecious.
+The buy/sell ratio calculates the proportion of buy orders to sell orders in a market over a period. It gauges whether buying or selling prevails. A balanced market tends towards 0.4-0.6.
 
-## Formula
+### Mathematical Background
+
+**Buy/Sell Ratio**
 
 {{< katex display >}}
-{buy/sell~ratio} = \frac{n}{m},
+\text{buy sell ratio} = \frac{n}{m}
 {{< /katex >}}
 
-where
+- Where n is the count of trades identified as 'buy'.
+- m is the total count of all trades (both 'buy' and 'sell').
+
+The formula calculates the ratio of buy trades to the total number of trades. This ratio helps in understanding the frequency of buying relative to selling. 
+
+**Buy/Sell Ratio Absolute**
+
 {{< katex display >}}
-n = \sum(volume_{id}) \text{ if } side_{id} = \text{buy}, m = \sum(volume_{id})
+\text{buy sell ratio absolute} = \frac{n}{m}
 {{< /katex >}}
 
-## Crypto Context
+- Where n is the sum of volumes of trades that are 'buy'.
+- m is the sum of volumes of all trades.
 
-In cryptocurrency markets, where large volumes of trades are executed continuously, monitoring the Buy/Sell Ratio is crucial. Depending on the market context, both irregular and steady fluctuations in this ratio can be indicative of automated trading systems operating to influence the market.
+This formula measures the total volume of buy trades against the total volume of all trades. Unlike the Buy/Sell Ratio, which counts the number of trades, this ratio considers the size of trades, giving a sense of the market's weight in terms of buying versus selling. A higher value signifies a greater volume of buying, while a lower value indicates more selling volume. 
 
-## Usage Examples
+### Metrics in the API Response
 
-Consider the API metric:
+`buysellratio`: This metric reflects the frequency of buying versus selling in the market. A higher value indicates more buy trades compared to sell trades, suggesting a buying trend. Such a scenario could lead to a price increase. Conversely, a lower value points to a prevalence of selling, possibly leading to a price decrease.
 
-- `buy_sell_count_ratio`: An example value of `0.367` is provided. This number is lower than 0.5, showing a tilt towards sell orders. While not extremely far from the balanced point, continuous monitoring is necessary to ascertain if this is a trend or a one-time observation.
+`buysellratioabs`: This metric, while similar in purpose to the `buysellratio`, focuses on the volume of trades instead of their count. It is calculated by dividing the total volume of buy trades by the total volume of all trades. A higher value here means that the volume of buying is greater, indicating a strong buying pressure, while a lower value suggests a higher volume of selling.
 
-### How to Interpret
+The main difference between these two metrics is that the first one (Buy/Sell Ratio) considers the number of trades, while the second one (Buy/Sell Ratio Absolute) takes into account the volume of these trades, offering a more weight-based perspective of the market's activity.
 
-- A Buy/Sell Ratio significantly higher than 0.5 suggests a market bias towards buying. Such a scenario could lead to a price increase.
-- A Buy/Sell Ratio significantly lower than 0.5 indicates a market bias towards selling, possibly leading to a price decrease.
-- The example value of `0.367` suggests a moderate bias towards selling. It is crucial to observe this over time to ascertain if this is a consistent pattern or a brief occurrence.
-- Use cross-exchange analysis to spot opposite Buy/Sell Ratio deviations of the same trading pair on different market venues.
+#### Example 
 
-## Visuals
+```json
+ {
+        "timestamp": "2023-12-25T23:58:00.000Z",
+        "marketvenueid": "okx",
+        "pairid": "btc-usdt",
+        "buysellratio": 0.4211,
+        "buysellratioabs": 0.4197,
+    }
+```
+### Usage Example
 
-Using line or bar graphs to plot the Buy/Sell Ratio over time can provide visual insights into market trends and potential manipulation. Sudden and unexplained spikes or drops in the ratio should be investigated further.
+An analysis was conducted on the `binance-eth-usdt` market over a specific period of 1 hour. 
+
+#### Steps Taken:
+1. Compiled the buy-sell ratios and absolute buy-sell ratios from the dataset.
+2. Calculated basic statistical details like mean, standard deviation, minimum, and maximum values.
+
+#### Analysis Results:
+The dataset comprised 60 data points with the following statistical insights:
+- **Buy-Sell Ratio**: 
+  - Mean: 0.488
+  - Standard Deviation: 0.135
+  - Minimum: 0.197
+  - Maximum: 0.710
+- **Buy-Sell Ratio Absolute**:
+  - Mean: 0.519
+  - Standard Deviation: 0.181
+  - Minimum: 0.177
+  - Maximum: 0.846
+
+#### Interpretation:
+- The mean Buy-Sell Ratio being less than 1 indicates a slight tendency towards sell orders over this period.
+- The Absolute Buy-Sell Ratio provides additional context, suggesting that while sell orders might be more frequent, the discrepancy is not extremely significant.
+- Variations in the Buy-Sell Ratio could indicate shifts in market sentiment or reaction to external events.
+
+#### Visuals
+Visual representations, such as line graphs or histograms, can be used to illustrate the distribution and trends of the Buy-Sell Ratio and Buy-Sell Ratio Absolute over time, providing a more intuitive understanding of market dynamics.
+
+{{< /img/buy-sell.png >}}
+
+### Applications in Market Surveillance
+
+- **Detecting Order Imbalances**: Sustained buy/sell imbalance may indicate manipulative efforts to drive prices up or down.
+
+- **Identifying Emerging Trends**: Shifts in typical ratio levels can signal changing market biases useful for strategy adaptation. 
+
+- **Uncovering Coordinated Behaviors**: If sudden order imbalances appear concurrently across exchanges, it may suggest coordinated manipulation.
+
+- **Establishing Expected Ranges**: Calculate historical ratio ranges to detect anomalies outside normal thresholds.
+
+- **Combining With Other Metrics**: Inspecting aligned ratio spikes with volume or volatility changes can help uncover tactics like wash trading and artificial transactions.
+
+### Considerations for Cryptocurrencies
+
+- High volatility causing frequent order fluctuations
+- Prevalence of algorithmic trading executing large volumes of small orders
+- Lower liquidity amplifying ratio impact
+
+### Key Takeaways
+
+- Buy/sell ratio indicates market order dominance.
+- Significant deviations may signal manipulation. 
+- Changes can identify emerging trends.
+- Ratios should be analyzed with other metrics.
+- Cryptocurrency markets have unique order flow dynamics.
 
 ## References and Further Reading
 
