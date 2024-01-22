@@ -112,7 +112,8 @@ In conclusion, while Benford's Law provides an insightful tool for analyzing mar
 #### Visuals
 
 Visual aids, such as a bar graph representing the expected and actual frequency distribution of leading digits, can help in better visualizing the adherence or deviation from Benford’s Law.
-{{< figure src="/content/market-health/img/benford.png" >}}
+
+{{< figure src="benford.png" >}}
 
 ### Applications in Market Surveillance
 

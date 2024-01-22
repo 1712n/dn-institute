@@ -13,7 +13,7 @@ Your insight is essential. We encourage submissions of analytical articles that 
 | Indicator | API metric | Description |
 | ----------------------------- | --------------------------- | ------ |  
 | [VWAP](vwap.md)                            | `vwap` | The volume weighted average price, representing the average price of an asset as weighted by its trading volume over a specific time period. |
-| [Trade Count](tradecount.md)                     | `tradecount` | Represents the total number of trades that have occurred within a specified timeframe, indicating market activity and liquidity. |   
+| [Trade Count](vwap.md)                     | `tradecount` | Represents the total number of trades that have occurred within a specified timeframe, indicating market activity and liquidity. |   
 | [Buy/Sell Ratio](buy-sell-ratio.md)                  | `buysellratio`, `buysellratioabs` | Compares the volume of buy side trades to sell side trades, providing insights into market sentiment and potential price movements. | 
 | [Time-of-trade Distribution](time-of-trade.md)      | `timeoftrade` | This indicator identifies abnormal accumulation of scheduled trades executed at the same time - minute/second. |
 | [First Digit Distribution](benfords-law.md)        | `firstdigitdist`, `benfordlawtest` | Measures how the first digits of trade values distribute, often used to detect anomalies or irregularities in data. The first significant digit distribution tends to fit Benford’s law for traditional financial markets and regulated exchanges. High deviation from this law may indicate potential anomalies, manipulation, or fraudulent activities in the market. |     

@@ -4,31 +4,78 @@ navShowPages: true
 bookToc: true
 weight: 60
 ---
+## VWAP (Volume-Weighted Average Price)
 
-## General Description
+VWAP is a trading benchmark that calculates the average price of a security, factoring in both its price and volume. It gives a weighted average price where the weights are the volumes traded at each price point. VWAP is significant as it provides insight into both the trend and value of the cryptocurrency.
 
-VWAP, or Volume Weighted Average Price, is a trading benchmark used by traders that gives the average price of a trading instrument based on both volume and price. The idea is simple: more weight is given to the price levels where a lot of trading activity has occurred, giving a more realistic average price that is less susceptible to manipulation.
+### Mathematical Background
 
-## Crypto Context
+VWAP is calculated using the formula:
 
-In cryptocurrency markets, the VWAP can be used to understand the true average price of a coin, adjusted for volume. This is especially useful in these markets, which can be more volatile and less liquid compared to traditional financial markets.
+{{< katex display >}}
+{VWAP} = \frac{\sum ({Price} \times{Volume})}{\sum {Volume}}
+{{< /katex >}}
 
-## Usage Examples
+where Price is the price at which the trades occur and Volume is the sum of the executed trades within the defined time period.
 
-Consider the API metric:
+### Metric in the API Response
 
-- `vwap`: An example value of `1624.164` is provided. This value represents the average price, adjusted for volume, at which trades have been executed over a defined period.
+`vwap`: This metric returns the VWAP of a specific trading pair over a defined period (selected in gran parameter).
 
-## How to Interpret
+## Trade Count
 
-- A significant difference between the VWAP and the current execution price may indicate manipulation or that the price is moving in a particular direction. For instance, if the current price is much higher than the VWAP, it may be considered overvalued, as it has been trading at a price higher than the average volume-weighted price.
-- Observing the Volume Weighted Average Price for a particular trading pair across various exchanges may assist in identifying notable price discrepancies and potentially capitalizing on arbitrage opportunities.
+Trade count is a metric that measures the total number of trades executed for a particular trading pair within a specific timeframe (granularity). This metric is useful for assessing market activity and liquidity.
 
-## Visuals
+### Metric in the API Response
 
-A line chart plotting the VWAP and the current price over time can provide a clear visual representation of price trends and potential anomalies. A consistent gap between the VWAP and the current price should be a red flag for traders and analysts.
+`tradecount`: This metric provides the total number of trades that have occurred for a specific trading pair in a given period.
 
-## References and Further Reading
+### Example
+
+```json
+{
+    "timestamp": "2023-12-27T00:00:00.000Z",
+    "marketvenueid": "okx",
+    "pairid": "btc-usdt",
+    "vwap": 42519.5964,
+    "tradecount": 606
+}
+```
+
+### Usage Example and Visuals
+
+Analyzing the market data for `okx-btc-usdt` on December 25-27, 2023:
+
+1. Retrieve the VWAP and the trade count to understand the average price, and trading volume and gauge market activity and liquidity.
+2. Vizualise the data to enhance the understanding of market trends and behavior
+
+{{< figure src="vwap.png" caption="Minutely VWAP and Trade Count on OKX BTC-USDT pair, December 25-27, 2023." >}}
+
+- VWAP (Volume Weighted Average Price): The VWAP line appears to be above the closing prices initially, indicating that earlier trades were happening at prices above the average. However, as time progresses, the VWAP gets closer to the closing price line, suggesting that the trading prices are aligning more closely with the average. This could mean the market is stabilizing or that volume is decreasing.
+
+- Trade Count: The bar chart at the bottom represents the trade count during each time interval. There's a significant peak in the middle of the period, indicating a period of high trading activity. This spike could be due to a news event, market announcement, or other stimuli causing a sudden increase in trading interest.
+
+Based on this visual information, we can infer that during the observed time period, the Bitcoin market experienced a phase of relatively stable prices with a period of increased trading activity in the middle. The VWAP trend suggests that the price movement was near the average traded prices over time, showing no significant divergence from typical trading patterns.
+
+### Applications in Market Surveillance
+
+- **Establishing Baselines:** VWAP and Trade Count provide baseline understanding of market activity. Significant deviations in these metrics can indicate anomalies.
+
+- **Wash Trading Detection:** Analyzing VWAP and trades count can identify potential wash trading, such as prices not impacting VWAP.
+
+### Considerations for Cryptocurrencies
+
+- Lower liquidity exaggerating individual trade impact on VWAP
+- Changing participant profiles influencing trading volumes
+
+### Key Takeaways
+
+- VWAP and trades provide pricing, volume, and activity baseline.
+- Significant deviations may signal anomalies.
+- Contextualizes other metrics like volatility and trade sizes.
+- Helps identify order imbalances and changing behaviors.
+
+### References and Further Reading
 
 - [Volume Weighted Average Price (VWAP)](https://www.investopedia.com/terms/v/vwap.asp)
 - [Using VWAP to Understand Volume and Control Your Execution](https://www.traderhq.com/using-vwap-understand-volume-control-execution/)

@@ -94,7 +94,7 @@ The histogram will visually represent how many trades occurred at different volu
 
 #### Visuals
 
-![chart](/img/volumedist.png)
+{{< figure src="volumedist.png" >}}
 
 Here is the histogram representing the trading volumes based on the provided sample data. Each bar in the histogram corresponds to a volume bin, and the height of the bar indicates the number of trades within that volume range. This visual representation helps in understanding the distribution of trading volumes, which can be crucial for market analysis and decision-making in cryptocurrency trading.
 

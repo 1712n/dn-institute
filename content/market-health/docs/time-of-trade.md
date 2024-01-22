@@ -45,7 +45,7 @@ Steps taken:
 
 The aggregated data for the Time-of-Trade metric shows the frequency of trades for each second within a minute, across all records in the dataset. To properly interpret this information, let's proceed with a more detailed analysis and visual representation of the distribution of trades over the entire minute. This will help us identify any notable patterns or anomalies in the trading activity.
 
-{{< /img/time-of-trade.png >}}
+{{< figure src="time-of-trade.png" >}}
 
 The bar chart illustrates the distribution of trade frequencies over each second within a minute. This visualization helps in identifying patterns or anomalies in trading activity. Here are some observations:
 
