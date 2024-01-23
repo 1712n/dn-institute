@@ -84,7 +84,7 @@ The dataset comprised 60 data points with the following statistical insights:
 
 #### Visuals
 
-{{< figure src="buy-sell-ratio.png" >}}
+{{< figure src="buy-sell.png" >}}
 
 Visual representations, such as line graphs or histograms, can be used to illustrate the distribution and trends of the Buy-Sell Ratio and Buy-Sell Ratio Absolute over time, providing a more intuitive understanding of market dynamics.
 
