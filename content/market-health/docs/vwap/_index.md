@@ -49,7 +49,7 @@ Analyzing the market data for `okx-btc-usdt` on December 25-27, 2023:
 1. Retrieve the VWAP and the trade count to understand the average price, and trading volume and gauge market activity and liquidity.
 2. Vizualise the data to enhance the understanding of market trends and behavior
 
-{{< figure src="vwap.png" caption="Minutely VWAP and Trade Count on OKX BTC-USDT pair, December 25-27, 2023." >}}
+{{< figure src="vwap.png" caption="VWAP and Trade Count on OKX BTC-USDT pair, December 25-27, 2023." >}}
 
 - VWAP (Volume Weighted Average Price): The VWAP line appears to be above the closing prices initially, indicating that earlier trades were happening at prices above the average. However, as time progresses, the VWAP gets closer to the closing price line, suggesting that the trading prices are aligning more closely with the average. This could mean the market is stabilizing or that volume is decreasing.
 
