@@ -7,8 +7,6 @@ weight: 60
 
 ## Buy/Sell Ratio
 
-### Overview
-
 The buy/sell ratio calculates the proportion of buy orders to sell orders in a market over a period. It gauges whether buying or selling prevails. A balanced market tends towards 0.4-0.6.
 
 ### Mathematical Background
@@ -54,15 +52,18 @@ The main difference between these two metrics is that the first one (Buy/Sell Ra
         "buysellratioabs": 0.4197,
     }
 ```
+
 ### Usage Example
 
 An analysis was conducted on the `binance-eth-usdt` market over a specific period of 1 hour. 
 
-#### Steps Taken:
+#### Steps Taken
+
 1. Compiled the buy-sell ratios and absolute buy-sell ratios from the dataset.
 2. Calculated basic statistical details like mean, standard deviation, minimum, and maximum values.
 
-#### Analysis Results:
+#### Analysis Results
+
 The dataset comprised 60 data points with the following statistical insights:
 - **Buy-Sell Ratio**: 
   - Mean: 0.488
@@ -75,7 +76,8 @@ The dataset comprised 60 data points with the following statistical insights:
   - Minimum: 0.177
   - Maximum: 0.846
 
-#### Interpretation:
+#### Interpretation
+
 - The mean Buy-Sell Ratio being less than 1 indicates a slight tendency towards sell orders over this period.
 - The Absolute Buy-Sell Ratio provides additional context, suggesting that while sell orders might be more frequent, the discrepancy is not extremely significant.
 - Variations in the Buy-Sell Ratio could indicate shifts in market sentiment or reaction to external events.

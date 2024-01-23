@@ -6,8 +6,6 @@ weight: 50
 ---
 ## Time-of-Trade
 
-### Overview
-
 Time-of-Trade is a key tool for analyzing trade data, particularly in cryptocurrency markets. It detects unusual patterns of trades happening at the same time, which might suggest automated bot activity or manipulative practices like wash trading.
 
 ### Mathematical Background
@@ -19,6 +17,7 @@ For the second-of-trade distribution, a 60-element array is created, each elemen
 The `timeoftrade` key provides an array of numbers, each representing the count of trades that occurred in each second of the specified timestamp.
 
 #### Example
+
 ```json
 {
   "timestamp": "2024-01-15T18:10:00.000Z",
@@ -59,7 +58,7 @@ The bar chart illustrates the distribution of trade frequencies over each second
 
 Understanding the context of the market and the time frame represented by the data would be necessary to provide a more detailed interpretation of these patterns.
 
-### Key Takeaways 
+### Key Takeaways
 
 - The metric uses a per-second trade count within a minute.
 - It highlights potential automated trading or manipulative activities.

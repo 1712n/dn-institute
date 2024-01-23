@@ -7,8 +7,6 @@ weight: 40
 
 ## Volume Distribution
 
-### Overview
-
 The Volume Distribution Metric is a statistical measure used to analyze the distribution of trading volumes in financial datasets. The trade size distribution is a straightforward way to visually represent the sizes of executed transactions and the number of occurences in a histogram. This metric is particularly useful in cryptocurrency trading, where it can reveal insights about market behavior and investor sentiment. In the context of trading, understanding volume distribution can help in identifying trends, trading volumes at different price levels, and the potential impact of large trades.
 
 ### Mathematical Background
@@ -98,7 +96,8 @@ The histogram will visually represent how many trades occurred at different volu
 
 Here is the histogram representing the trading volumes based on the provided sample data. Each bar in the histogram corresponds to a volume bin, and the height of the bar indicates the number of trades within that volume range. This visual representation helps in understanding the distribution of trading volumes, which can be crucial for market analysis and decision-making in cryptocurrency trading.
 
-#### Interpretation:
+#### Interpretation
+
 - Ideally, trading volume should follow a [power law](https://en.wikipedia.org/wiki/Power_law) heavy tail distribution, where small trades are common, and large trades are rare.
 - A more uniform distribution might suggest a healthy mix of small and large volume trades.
 

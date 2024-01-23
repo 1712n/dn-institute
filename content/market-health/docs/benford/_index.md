@@ -6,8 +6,6 @@ weight: 30
 
 ## Benford's Law
 
-### Overview
-
 [Benford's Law](https://en.wikipedia.org/wiki/Benford%27s_law), or the First-Digit Law, is a principle used to evaluate the first digit distribution in sets of numerical data. Benford's Law asserts that in many naturally occurring datasets, the first digit is likely to be small. For example, the number 1 appears as the leading digit about 30% of the time, while 9 appears as the leading digit less than 5% of the time. In the context of cryptocurrency trading, adherence to Benford's Law can be used to scrutinize trading data for inconsistencies or abnormalities. 
 
 ### Mathematical Background
@@ -44,6 +42,7 @@ Leading digit | Expected frequency
 - **High Concern (Potential Manipulation)**:  $p ≤ 0.005$ 
 
 #### Example
+
 ```json
  {
         "timestamp": "2023-12-25T18:59:00.000Z",
@@ -92,7 +91,7 @@ Initial aggregation of first digit frequencies provided a foundational understan
 
 The average 'benfordlawtest' value across the data is approximately 0.208.
 
-#### Interpretation:
+#### Interpretation
 
 1. **First Digit Distribution:**
    - The digit '1' appears less frequently than expected, while '2' and '9' appear more frequently than expected according to Benford's Law.
@@ -102,7 +101,7 @@ The average 'benfordlawtest' value across the data is approximately 0.208.
 2. **Benford's Law Test:**
    - The average test value of approximately 0.208 suggests a deviation from Benford's Law. Typically, a lower test value (closer to 0) indicates closer conformity to Benford's Law. While this isn't a definitive measure on its own, it suggests that the first digit distribution in this data set doesn't closely follow the expected pattern from Benford's Law.
 
-#### Possible Reasons and Implications:
+#### Possible Reasons and Implications
 - **Natural Variability:** Not all datasets strictly follow Benford's Law, especially if they are not large enough or don't cover a wide enough range of magnitudes.
 - **Specific Domain Characteristics:** The nature of the data (financial market data in this case) might have inherent characteristics that cause deviations. For example, certain price ranges might be more common due to psychological pricing or market regulations.
 - **Data Manipulation:** Significant deviations from Benford's Law are sometimes indicators of fabricated or manipulated data. However, this would require further investigation and domain-specific analysis to substantiate.
