@@ -57,5 +57,5 @@ HTX:
      
 ## Security Failure Causes
 
-   - **Compromised Private Keys:** The compromised private keys allowed attackers to illicitly transfer funds from Heco Bridge.
+   - **Compromised Private Keys:** The compromised private keys allowed attackers to illicitly transfer funds from Heco Bridge and HTX.
    - **Lack of Real-time Monitoring and Alerts:** The absence of an effective real-time monitoring system and alert mechanism would have assisted with detecting the ongoing exploit.
