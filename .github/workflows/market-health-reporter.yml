@@ -34,5 +34,5 @@ jobs:
           poetry run market-health-reporter \
             --issue "${{ github.event.issue.number }}" \
             --comment-body "${{ github.event.comment.body }}" \
-            --github-token "${{ secrets.TOKEN_GH }}" \
+            --github-token "${{ secrets.GITHUB_TOKEN }}" \
             --llm-api-key "${{ env.LLM_API_KEY }}"
