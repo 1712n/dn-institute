@@ -4,7 +4,7 @@ import argparse
 import json
 import os
 from github import Github
-from tools.claude_retriever.client.py import extract_between_tags
+from tools.claude_retriever.client import extract_between_tags
 
 
 def parse_cli_args():
