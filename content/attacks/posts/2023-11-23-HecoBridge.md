@@ -49,7 +49,6 @@ HTX:
 ## Timeline
 
    - **November 22, 2023, 10:06 AM UTC:** Initial [funds transfer](https://etherscan.io/tx/0xe021e1d8fd38a874de4713b7ce1aaffd646a135265826f6eb3232e05313b2d87) begins.
-   - **November 22, 2023 at 10:56 AM UTC** Heco Bridge begins the process of moving recovery funds into [wallet.](https://etherscan.io/address/0x18709e89bd403f470088abdacebe86cc60dda12e)
    - **November 22, 2023 at 11:23 AM UTC:** In an X post, PeakShield announces a Heco Bridge [withdrawal](https://twitter.com/PeckShieldAlert/status/1727286692489679360) of 10,145 ETH.
    - **November 22, 2023 at 12:34 PM UTC:** Justin Sun announces the attack in an X post. He states all withdrawals and deposits have been temporarily [suspended,](https://twitter.com/justinsuntron/status/1727304656622326180) and HTX will compensate for the losses from its hot wallet.
    - **November 24, 2023 at 02:55 PM UTC:** Justin Sun announces in an X post an [airdrop](https://twitter.com/justinsuntron/status/1728064872632795480) will be initiated for user assets. 
