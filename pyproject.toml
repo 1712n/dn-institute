@@ -29,6 +29,7 @@ grammar-check =  "tools.grammar_checker:main"
 article-check = "tools.article_checker:main"
 article-check-claude = "tools.article_checker_claude:main"
 duplication-check = "tools.duplication_checker:main"
+market-health-reporter = "tools.market_health_reporter:main"
 
 [build-system]
 requires = ["poetry-core"]
