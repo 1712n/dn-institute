@@ -38,6 +38,37 @@ def parse_cli_args():
 
 args = parse_cli_args()
 
+def find_fixed_payout_command(pr) -> float:
+    """
+    Search for a fixed payout command in PR comments.
+    Returns the specified payout amount, or None if not found.
+    """
+    comments = pr.get_issue_comments()
+    for comment in comments:
+        if comment.body.startswith("/payout $"):
+            parts = comment.body.split()
+            if len(parts) == 3:
+                try:
+                    return float(parts[2].replace('$', ''))
+                except ValueError:
+                    pass
+    return None
+
+def find_multiplier_command(pr) -> float:
+    """
+    Search for a multiplier command in PR comments.
+    Returns the specified multiplier, or None if not found.
+    """
+    comments = pr.get_issue_comments()
+    for comment in comments:
+        if comment.body.startswith("/payout -x"):
+            parts = comment.body.split()
+            if len(parts) == 3:
+                try:
+                    return float(parts[2])
+                except ValueError:
+                    pass
+    return None
 
 def load_config() -> dict:
     """
@@ -127,9 +158,23 @@ def main():
     github = Github(args.github_token)
     pr = get_pull_request(github, args.pull_url)
 
-    # TODO: Improve Diff method. Get diff by words instead of lines.
+    # Process the diff only once
     _diff = get_diff_by_url(pr)
     diff = parse_diff(_diff)
-    data["chars"] = count_chars(diff)
-    data["value"] = calc_payout(chars=data["chars"], rate=config["rate"], multiplier=config["multiplier"])
+
+    # Check for fixed payout or multiplier commands
+    fixed_payout = find_fixed_payout_command(pr)
+    multiplier_command = find_multiplier_command(pr)
+
+    if fixed_payout is not None:
+        print(f"Fixed payout of ${fixed_payout} detected.")
+        data["value"] = "{:.2f}".format(fixed_payout)
+    elif multiplier_command is not None:
+        print(f"Multiplier of {multiplier_command}x detected.")
+        data["chars"] = count_chars(diff)
+        data["value"] = calc_payout(chars=data["chars"], rate=config["rate"], multiplier=multiplier_command)
+    else:
+        data["chars"] = count_chars(diff)
+        data["value"] = calc_payout(chars=data["chars"], rate=config["rate"], multiplier=config["multiplier"])
+
     create_comment(pr, **config, **data)
