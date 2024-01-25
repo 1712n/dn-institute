@@ -4,8 +4,6 @@
 Count characters in a Github PR diff, calculate the contribution remuneration and comment on the PR.
 """
 
-__author__ = "Daniel Souza <me@posix.dev.br>"
-
 import os, argparse
 import yaml
 from github import Github, GithubException
@@ -13,7 +11,6 @@ from tools.utils import logging_decorator
 from tools.git import get_pull_request, get_diff_by_url, parse_diff
 
 data = {}
-
 
 def parse_cli_args():
     """
@@ -33,11 +30,12 @@ def parse_cli_args():
     parser.add_argument(
         "-x", "--multiplier", dest="multiplier", help="Payout rate multiplier", type=float, required=False
     )
+    parser.add_argument(
+        "-f", "--fixed", dest="fixed", help="Fixed payout value", type=float, required=False
+    )
     return parser.parse_args()
 
-
 args = parse_cli_args()
-
 
 def load_config() -> dict:
     """
@@ -92,9 +90,12 @@ def count_chars(diff: list[dict]) -> int:
 
     return chars
 
-def calc_payout(chars, rate, multiplier):
-    effective_rate = config["rate"] * config["multiplier"]
-    payout = (chars * effective_rate) / 100
+def calc_payout(chars, rate, multiplier, fixed=None):
+    if fixed is not None:
+        payout = fixed
+    else:
+        effective_rate = rate * multiplier
+        payout = (chars * effective_rate) / 100
     # Format to display in decimal notation rounded to 2 decimals
     payout = "{:.2f}".format(round(payout, 2))
     return payout
@@ -131,5 +132,5 @@ def main():
     _diff = get_diff_by_url(pr)
     diff = parse_diff(_diff)
     data["chars"] = count_chars(diff)
-    data["value"] = calc_payout(chars=data["chars"], rate=config["rate"], multiplier=config["multiplier"])
+    data["value"] = calc_payout(chars=data["chars"], rate=config["rate"], multiplier=config["multiplier"], fixed=args.fixed)
     create_comment(pr, **config, **data)
