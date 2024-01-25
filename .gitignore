@@ -2,6 +2,7 @@
 /resources/
 /assets/jsconfig.json
 /public/
+/themes/
 .hugo_build.lock
 
 # Misc
