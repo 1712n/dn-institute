@@ -4,8 +4,6 @@
 Count characters in a Github PR diff, calculate the contribution remuneration and comment on the PR.
 """
 
-__author__ = "Daniel Souza <me@posix.dev.br>"
-
 import os, argparse
 import yaml
 from github import Github, GithubException
@@ -13,7 +11,6 @@ from tools.utils import logging_decorator
 from tools.git import get_pull_request, get_diff_by_url, parse_diff
 
 data = {}
-
 
 def parse_cli_args():
     """
@@ -33,42 +30,12 @@ def parse_cli_args():
     parser.add_argument(
         "-x", "--multiplier", dest="multiplier", help="Payout rate multiplier", type=float, required=False
     )
+    parser.add_argument(
+        "-f", "--fixed", dest="fixed", help="Fixed payout value", type=float, required=False
+    )
     return parser.parse_args()
 
-
 args = parse_cli_args()
-
-def find_fixed_payout_command(pr) -> float:
-    """
-    Search for a fixed payout command in PR comments.
-    Returns the specified payout amount, or None if not found.
-    """
-    comments = pr.get_issue_comments()
-    for comment in comments:
-        if comment.body.startswith("/payout $"):
-            parts = comment.body.split()
-            if len(parts) == 3:
-                try:
-                    return float(parts[2].replace('$', ''))
-                except ValueError:
-                    pass
-    return None
-
-def find_multiplier_command(pr) -> float:
-    """
-    Search for a multiplier command in PR comments.
-    Returns the specified multiplier, or None if not found.
-    """
-    comments = pr.get_issue_comments()
-    for comment in comments:
-        if comment.body.startswith("/payout -x"):
-            parts = comment.body.split()
-            if len(parts) == 3:
-                try:
-                    return float(parts[2])
-                except ValueError:
-                    pass
-    return None
 
 def load_config() -> dict:
     """
@@ -123,9 +90,12 @@ def count_chars(diff: list[dict]) -> int:
 
     return chars
 
-def calc_payout(chars, rate, multiplier):
-    effective_rate = config["rate"] * config["multiplier"]
-    payout = (chars * effective_rate) / 100
+def calc_payout(chars, rate, multiplier, fixed=None):
+    if fixed is not None:
+        payout = fixed
+    else:
+        effective_rate = rate * multiplier
+        payout = (chars * effective_rate) / 100
     # Format to display in decimal notation rounded to 2 decimals
     payout = "{:.2f}".format(round(payout, 2))
     return payout
@@ -158,23 +128,9 @@ def main():
     github = Github(args.github_token)
     pr = get_pull_request(github, args.pull_url)
 
-    # Process the diff only once
+    # TODO: Improve Diff method. Get diff by words instead of lines.
     _diff = get_diff_by_url(pr)
     diff = parse_diff(_diff)
-
-    # Check for fixed payout or multiplier commands
-    fixed_payout = find_fixed_payout_command(pr)
-    multiplier_command = find_multiplier_command(pr)
-
-    if fixed_payout is not None:
-        print(f"Fixed payout of ${fixed_payout} detected.")
-        data["value"] = "{:.2f}".format(fixed_payout)
-    elif multiplier_command is not None:
-        print(f"Multiplier of {multiplier_command}x detected.")
-        data["chars"] = count_chars(diff)
-        data["value"] = calc_payout(chars=data["chars"], rate=config["rate"], multiplier=multiplier_command)
-    else:
-        data["chars"] = count_chars(diff)
-        data["value"] = calc_payout(chars=data["chars"], rate=config["rate"], multiplier=config["multiplier"])
-
+    data["chars"] = count_chars(diff)
+    data["value"] = calc_payout(chars=data["chars"], rate=config["rate"], multiplier=config["multiplier"], fixed=args.fixed)
     create_comment(pr, **config, **data)
