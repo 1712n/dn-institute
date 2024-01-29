@@ -37,10 +37,7 @@ KyberSwap losses are approximately $49,000,000.
 
 ## Security Failure Causes
 
-   - **Specific Targeting of KyberSwap's Implementation:** The exploit was specifically designed to target KyberSwap's concentrated liquidity implementation, making it unique to KyberSwap and any of its forks.
-   - **Manipulation of the ETH/wstETH Pool:** The attacker focused on the pool containing Ethereum and Lido Wrapped Staked Ether (wstETH). This was the initial target of the exploit.
-   - **Use of Flash Loans for Price Manipulation:** The attacker started by taking a large flash loan in wstETH and then dumped a portion into the pool, drastically reducing its price. This allowed the attacker to manipulate the pool price to a point where there were no existing liquidity positions, effectively creating a "clean slate" for further exploitation.
-   - **Liquidity Minting and Burning:** The attacker then minted a small amount of liquidity in a very specific price range and subsequently burned some of it. This step was crucial in setting up the conditions for the exploit.
-   - **Executing Swaps Around Manipulated Price Points:** Two swaps were performed around the manipulated price point. These swaps would normally not result in net gain due to the lack of external liquidity, but the exploit bypassed this limitation.
-   - **Exploiting a Numerical Bug:** The exploit's core relied on a numerical bug in KyberSwap's smart contract. It involved preventing the triggering of a crucial function ('updateLiquidityAndCrossTick') during the first swap, which was necessary for correctly adjusting liquidity values when crossing price boundaries.
-   - **The 'Infinite Money Glitch':** In the final phase of the exploit, the attacker ensured the triggering of the 'updateLiquidityAndCrossTick' function, adding liquidity back into the system. However, since the liquidity was never correctly removed in the first place, this resulted in double-counting the original liquidity, effectively creating an "infinite money glitch."
+   - **Reentrancy Vulnerability:** This is a common smart contract issue where a function can be repeatedly called before the first execution is completed, leading to unexpected behaviors or manipulation.
+   - **Inadequate Auditing:** The lack of thorough and continuous auditing of smart contracts, especially during updates or new implementations, can leave undetected vulnerabilities.
+   - **Insufficient Real-Time Monitoring:** Not having systems in place to monitor and quickly respond to suspicious activities can exacerbate the impact of an attack.
+   - **Non-Adherence to Secure Coding Practices:** Failure to follow established secure coding standards and best practices in smart contract development can increase the risk of exploitable flaws.
