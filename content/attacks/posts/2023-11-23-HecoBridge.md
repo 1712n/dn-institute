@@ -56,5 +56,7 @@ HTX:
      
 ## Security Failure Causes
 
-   - **Compromised Private Keys:** The compromised private keys allowed attackers to illicitly transfer funds from Heco Bridge and HTX.
-   - **Lack of Real-time Monitoring and Alerts:** The absence of an effective real-time monitoring system and alert mechanism would have assisted with detecting the ongoing exploit.
+   - **Insecure Management of Private Keys:** Lapses in safeguarding private keys allowed attackers to gain control over critical wallets.
+   - **Insufficient Anomaly Detection:** A lack of mechanisms to detect unusual transaction patterns early.
+   - **Failure in Multi-Signature Security:** If not implemented, could have prevented unauthorized transactions even if a key was compromised.
+     
