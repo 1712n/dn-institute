@@ -1,5 +1,5 @@
 ---
-date: 2023-06-106
+date: 2023-06-06
 target-entities: Multichain
 entity-types:
   - DeFi
