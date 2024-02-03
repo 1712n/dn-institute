@@ -1,0 +1,119 @@
+<script type="module">
+  import '/js/splide.js';
+
+  function setImageModal(item, src) {
+    item.style.cursor = "pointer"
+    item.onclick= () => {
+      document.getElementById("modalPic").src = src;
+      document.getElementById("imageModal").style.display = "block";
+    }
+  }
+
+  function getSlider(items) {
+    const section = document.createElement("section"),
+      track = document.createElement("div"),
+      list = document.createElement("ul");
+    
+    section.classList.add("splide");
+    track.classList.add("splide__track");
+    list.classList.add("splide__list");
+    items.forEach(v => list.appendChild(v))
+    track.appendChild(list)
+    section.appendChild(track)
+    return section
+  }
+
+  function addGalleryToGroup(group, index){
+    const wrapper =  document.createElement("div");
+    const mainSliders = group.map((v) => {
+      const item = document.createElement("li");
+      item.classList.add("splide__slide")
+     
+      const container = document.createElement("div");
+      container.classList.add("splide__slide__container")
+      const img = document.createElement("img")
+      img.src = v.children[0].src;
+      container.appendChild(img)
+      setImageModal(container,  img.src)
+      item.appendChild(container)
+      if (v.children.length == 2) {
+        const fig = document.createElement("figure")
+        fig.appendChild(v.children[1])
+        item.appendChild(fig)
+      }
+      return item
+    })
+    const mainSlider = getSlider(mainSliders)
+    const thumbnailSliders = group.map((v, i) => {
+      const item = document.createElement("li");
+      item.classList.add("splide__slide")
+      const img = document.createElement("img")
+      img.src = v.children[0].src;
+      item.appendChild(img)
+      return item
+    })
+    group.map((v) => v.style.display = "none")
+    const thumnailSlider = getSlider(thumbnailSliders)
+
+    mainSlider.id = `splide-${index}`
+    thumnailSlider.id = `splide-thumbnail-${index}`
+    wrapper.appendChild(mainSlider)
+    wrapper.appendChild(thumnailSlider)
+    document.getElementsByClassName("markdown")[0].insertBefore(wrapper, group[0]);
+
+    const main = new Splide( `#${mainSlider.id}`, {
+      type       : 'fade',
+      pagination : false,
+      arrows     : false,
+    } );
+
+    const thumbnails = new Splide( `#${thumnailSlider.id}`, {
+      rewind          : true,
+      fixedWidth      : 104,
+      fixedHeight     : 58,
+      isNavigation    : true,
+      gap             : 10,
+      focus           : 'center',
+      pagination      : false,
+      cover           : true,
+      dragMinThreshold: {
+        mouse: 4,
+        touch: 10,
+      },
+      breakpoints : {
+        640: {
+          fixedWidth  : 66,
+          fixedHeight : 38,
+        },
+      },
+    } );
+
+    main.sync( thumbnails );
+    main.mount();
+    thumbnails.mount();
+    return;
+  }
+
+  function initGallerys() {
+    const figuresGroups = []
+    const articleItems = Array.from(document.getElementsByClassName("markdown")[0].children || [])
+    let currenFiguresGroup = []
+    articleItems.forEach((v) => {
+      if (v.tagName == "FIGURE" && v.children[0].tagName == "IMG") currenFiguresGroup.push(v)
+      else {
+        if (currenFiguresGroup.length == 0 || currenFiguresGroup.length == 1 ) currenFiguresGroup = []
+        else {
+          figuresGroups.push(currenFiguresGroup);
+          currenFiguresGroup = []
+        }
+      }
+    })
+    figuresGroups.forEach(addGalleryToGroup)
+  }
+
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", initCollapsibles, {
+      passive: true
+    })
+  else initGallerys()
+</script>

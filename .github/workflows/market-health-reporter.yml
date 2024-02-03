@@ -1,0 +1,38 @@
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  market-analysis:
+    runs-on: ubuntu-latest
+    name: "Perform market analysis"
+    if: |
+      !github.event.issue.pull_request &&
+      (contains(github.event.comment.body, 'openai:') || contains(github.event.comment.body, 'claude:'))
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Python
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install package
+        run: pipx install poetry && poetry install --no-interaction
+
+      - name: Set API key
+        run: |
+          if [[ "${{ github.event.comment.body }}" == *"openai:"* ]]; then
+            echo "LLM_API_KEY=${{ secrets.OPENAI_KEY }}" >> $GITHUB_ENV
+          elif [[ "${{ github.event.comment.body }}" == *"claude:"* ]]; then
+            echo "LLM_API_KEY=${{ secrets.LLM_API_KEY }}" >> $GITHUB_ENV
+
+      - name: Run script
+        run: |
+          poetry run market-health-reporter \
+            --issue "${{ github.event.issue.number }}" \
+            --comment-body "${{ github.event.comment.body }}" \
+            --github-token "${{ secrets.GITHUB_TOKEN }}" \
+            --llm-api-key "${{ env.LLM_API_KEY }}"

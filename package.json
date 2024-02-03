@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/1712n/dn-institute/issues"
   },
-  "homepage": "https://github.com/1712n/dn-institute#readme"
+  "homepage": "https://github.com/1712n/dn-institute#readme",
+  "dependencies": {
+    "@splidejs/splide": "^4.1.4"
+  }
 }

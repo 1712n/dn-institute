@@ -6,14 +6,39 @@ Check Grammar mistakes in a Github PR and comment on the PR.
 
 __author__ = "Daniel Souza <me@posix.dev.br>"
 
-import os, argparse
+import os, argparse, time
 from github import Github, GithubException
 from tools.utils import logging_decorator
 from tools.git import get_pull_request, get_diff_by_url, parse_diff
 from pylanguagetool import api
 from pylanguagetool import converters
+import openai
+import tiktoken
 
-data = {}
+TOKEN_LIMIT = 8191
+TOKEN_PENALTY = 500
+
+CONFIG = {
+    "model": "gpt-4-0613",
+    "retry": 3,
+    "temperature": 0,
+    "max_tokens": 4000,
+    "search_size": 10,
+}
+
+SYSTEM_PROMPT = """
+Role: You are assistant that identifies grammar issues on provided articles
+Format: Format should be a list of grammar mistakes with markdown formatting
+Rules:
+- Double space should be considered as a Double Space Issue
+- Headers of the article should contain the following parameters: date,target-entities,entity-types,attack-types,title,loss;If any parameter is not presented, it should be considered as a Missing Header Issue
+Example: 
+- Spelling Mistake: Fix `sould` to `should` in *Summary* section
+"""
+
+USER_PROMPT = """
+Task: Suggest grammar issues on provided MD formatted article:
+"""
 
 
 def parse_cli_args():
@@ -29,10 +54,12 @@ def parse_cli_args():
         "--github-token", dest="github_token", help="GitHub token", required=True
     )
 
+    parser.add_argument(
+        "--openai-key", dest="openai_key", help="OpenAI API key", required=True
+    )
+
     return parser.parse_args()
 
-
-args = parse_cli_args()
 
 def get_content(diff: list[dict]) -> int:
     """
@@ -56,59 +83,63 @@ def get_content(diff: list[dict]) -> int:
 
     return content 
 
+def count_tokens(text):
+    encoding = tiktoken.encoding_for_model("gpt-4-0613")
+    return len(encoding.encode(text))
+
+
+def openai_call(
+    prompt: str,
+    model: str = CONFIG["model"],
+    retry: int = CONFIG["retry"],
+    temperature: float = CONFIG["temperature"],
+    max_tokens: int = CONFIG["max_tokens"],
+):
+    messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+    messages.append({"role": "user", "content": USER_PROMPT})
+    messages.append({"role": "user", "content": prompt})
+
+    try:
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=messages,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            n=1,
+            stop=None,
+        )
+    except Exception as ex:
+        if retry == 0:
+            raise (ex)
+        print(ex)
+        print(f"Retry - {retry}, waiting 15 seconds")
+        time.sleep(15)
+        return openai_call(prompt, model, retry - 1)
+
+    ret = response.choices[0].message.content.strip()
+
+    return ret
+
 def grammar_check(content):
-    html_content = converters.markdown2html(content)
-    text = converters.html2text(html_content)
+    token_usage = count_tokens(SYSTEM_PROMPT) + count_tokens(USER_PROMPT) + count_tokens(content)
 
-    result = api.check(
-        text,
-        api_url="https://languagetool.org/api/v2/",
-        lang="en-US",
-    )
+    # If requested tokens exceeds token penalty, raise an error
+    if(TOKEN_LIMIT - token_usage > TOKEN_PENALTY):
+        issues = openai_call(content, max_tokens=TOKEN_LIMIT-token_usage)
+        token_usage += count_tokens(issues)
+    else:
+        print("Token Limit exceeded!")
+        print(f"Token Limit exceeded! {token_usage} tokens were requested while the token limit is {TOKEN_LIMIT}")
+        return ""
 
-    # Getting entities from custom dictionary
-    entities = []
-    dictionary = "tools/dictionary.txt"
-    if os.path.isfile(dictionary):
-        with open(dictionary) as file:
-            entities = file.readlines()
-            entities = [i[:-1] for i in entities]
+    print("token_usage", token_usage)
 
-    matches = []
-
-    for item in result['matches']:
-        if len(item['replacements']) > 5: # Prevent infinity replacements
-            item['replacements'] = item['replacements'][:5]
-
-        context = item['context']
-        word = '`' + context['text'][context['offset']:context['offset']+context['length']] + '`'
-        replacements = ' | '.join([ '`' + i['value'] + '`' for i in item['replacements'] ])
-        issue = item['shortMessage'] if item['shortMessage'] != '' else item['message'] 
-        fix = 'Fix: ' + word
-        if replacements.strip() != '':
-            fix += ' to ' + replacements
-        
-        # Filter word from custom dictionary
-        known = word in entities and issue == 'Spelling mistake'
-        successive = issue == 'Three successive sentences begin with the same word.'
-        uppercase = word == 'date' and issue == 'This sentence does not start with an uppercase letter.'
-
-        if not known and not successive and not uppercase:
-            matches.append(
-                {
-                    'context': '`' + context['text'] + '`',
-                    'issue': 'Issue: '+ issue,
-                    'fix': fix
-                }
-            )
-
-    return matches
+    return issues
 
 @logging_decorator("Comment on PR")
 def create_comment(
     pull_request,
-    matches: list,
-    count: int 
+    issues
 ) -> None:
     """
     Create a comment on a Github PR.
@@ -116,9 +147,8 @@ def create_comment(
 
     url = pull_request.diff_url
 
-    comment = f"{count} grammar issues were found in this [PR]({url}).\n\n"
-    for i in matches:
-        comment += i['context'] + "\n" + i['issue'] + "\n" + i['fix'] + "\n\n"
+    comment = f"Grammar issues found in this [PR]({url}):\n\n"
+    comment += issues
 
     print(comment)
 
@@ -127,16 +157,21 @@ def create_comment(
         pull_request.create_issue_comment(comment)
 
 
+
+
 def main():
+    args = parse_cli_args()
+
     github = Github(args.github_token)
     pr = get_pull_request(github, args.pull_url)
+
+    openai.api_key = args.openai_key
 
     _diff = get_diff_by_url(pr)
     diff = parse_diff(_diff)
     content = get_content(diff)
 
-    data["matches"] = grammar_check(content)
-    data["count"] = len(data["matches"])
+    issues = grammar_check(content)
 
     # Creating actual comment with Grammar mistakes
-    create_comment(pr, **data)
+    create_comment(pr, issues)

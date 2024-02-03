@@ -4,6 +4,7 @@ target-entities: Feathercoin
 entity-types: Blockchain
 attack-types: 51%
 title: FTC users lose millions after a 51% attack
+loss: unknown
 ---
 
 ## Summary

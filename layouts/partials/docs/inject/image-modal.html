@@ -1,0 +1,26 @@
+<script>
+  function closeModal() { 
+    document.getElementById("modalPic").src = "";
+    document.getElementById("imageModal").style.display = "none";
+  }
+</script>
+<script type="module">
+  function initModalImages() {
+    const figures = Array.from(document.getElementsByTagName('figure'))
+    const imgs = figures
+      .filter(v => v.children.length && v.children[0].tagName == "IMG")
+      .forEach((v) => {
+        v.style.cursor = "pointer"
+        v.onclick= () => {
+          document.getElementById("modalPic").src = v.children[0].src;
+          document.getElementById("imageModal").style.display = "block";
+        }
+      })
+  }
+
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", initCollapsibles, {
+      passive: true
+    })
+  else initModalImages()
+</script>

@@ -6,6 +6,7 @@ entity-types:
 attack-types:
 - Infrastructure Attack
 title: "Mixin Network lost at least $141 million due to a database attack"
+loss: 141000000
 ---
 
 ## Summary

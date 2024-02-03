@@ -8,6 +8,7 @@ entity-types:
 attack-types:
   - Smart Contract Exploit
 title: "Yearn Finance Suffers $11.54 Million Loss Due to Smart Contract Vulnerability"
+loss: 11540000
 ---
 
 ## Summary
