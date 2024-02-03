@@ -58,7 +58,7 @@ Output example:
 Suggest stylistic and grammatical improvements and point out any error in the text between <text></text> tags. 
 Put your detailed notes and the list of errors below the header. 
 Output example:
-'''## Some Editor's Note
+'''## Editor's Notes
 ...'''
 
 3. Additionally, since the text between <text></text> is a Markdown document for Hugo SSG, ensure it adheres to specific Markdown formatting requirements.
