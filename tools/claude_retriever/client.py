@@ -72,12 +72,16 @@ Output example:
 
 4. Check if the text between <text></text> follows the Markdown format, including appropriate headers.
 Confirm if it meets submission guidelines, particularly the file naming convention ("YYYY-MM-DD-entity-that-was-hacked.md"). Extract the name of the file from the text between <text></text> tags and compare it to the correct name.
+Pay special attention to matching the dates and names in the file name with the dates and names from the text.
+If you notice any discrepancies, write about them in the Notes field.
+
 Verify that the text between <text></text> includes only the allowed headers: "## Summary", "## Attackers", "## Losses", "## Timeline", "## Security Failure Causes".
 Check for the presence of specific metadata headers between "---" lines, such as "date", "target-entities", "entity-types", "attack-types", "title", "loss" in the text within <text></text> tags. It must contain all and only allowed metadata headers.
 Output example:
 '''## Filename Check
-- Correct Filename: `2022-02-14-ValentineFloki.md`
+- Correct Filename: `2022-02-15-ValentineFloki.md`
 - Your Filename: `scam.md` :x:
+— Notes: `The filename uses the wrong date. The text states that the incident occurred 2022-02-14, not 2022-02-15`
 
 ## Section Headers Check
 - Allowed Headers: `## Summary, ## Attackers, ## Losses, ## Timeline, ## Security Failure Causes`
