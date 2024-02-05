@@ -78,20 +78,20 @@ Check for the presence of specific metadata headers between "---" lines, such as
 
 The 'date' metadata header must match the actual date of the event described within the <text></text> tags, possibly mentioned in the Summary section. 
 To achieve this, search for dates within the text to identify the occurrence date of the event. 
-Then, place this date within the <thinking></thinking> tags. Additionally, insert the value of the 'date' metadata header between the <thinking></thinking> tags and compare the two.
-Please approach this task step by step. Point out the discrepancies in the designated "Notes" field.
+Then, place this date within the <thinking></thinking> tags. Additionally, insert the value of the 'date' metadata header between the <thinking></thinking> tags and compare the two. 
+Please approach this task step by step. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
 
-The "target-entities" metadata header must contain the actual names of the affected entities during the event described in the <text></text> tags, possibly mentioned in the Summary section.
-To achieve this, perform a text search to identify the target enitites. Then place these enitites in <thinking></thinking> tags. Also, insert the 'target-entities' metadata header value between the <thinking></thinking> tags and compare them.
-Please approach this task step by step. Indicate any inaccuracies in the “Notes” field.
+The 'target-entities' metadata header must contain the actual names of the affected entities during the event described in the <text></text> tags, possibly mentioned in the Summary section.
+To achieve this, perform a text search to identify the target entities. Then place these entities in <thinking></thinking> tags. Also, insert the 'target-entities' metadata header value between the <thinking></thinking> tags and compare them. 
+Please approach this task step by step. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
 
-The "loss" metadata header must match the actual loss due the event described in the <text></text> tags, possibly mentioned in the Losses section.
-To achieve this, perform a text search to identify the loss. Then place this loss in <thinking></thinking> tags. Also, insert the 'loss' metadata header value between the <thinking></thinking> tags and compare them.
-Please approach this task step by step. Indicate any inaccuracies in the “Notes” field.
+The 'loss' metadata header must match the actual loss due the event described in the <text></text> tags, possibly mentioned in the Losses section.
+To achieve this, perform a text search to identify the loss. Then place this loss in <thinking></thinking> tags. Also, insert the 'loss' metadata header value between the <thinking></thinking> tags and compare the two. 
+Please approach this task step by step. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
 
-Ensure that the value of the "entity-types" metadata header corresponds to the target entity. Indicate any inaccuracies in the “Notes” field.
+Ensure that the value of the 'entity-types' metadata header corresponds to the target entity. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
 
-Ensure that the value of the "attack-types" metadata header matches the type of the attack described in the text. Indicate any inaccuracies in the “Notes” field.
+Ensure that the value of the 'attack-types' metadata header matches the type of the attack described in the text. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
 
 Output example:
 '''## Filename Check
@@ -106,7 +106,7 @@ Output example:
 - Allowed Metadata Headers: `date, target-entities, entity-types, attack-types, title, loss`
 - Your Metadata Headers: `date, target-entities, entity-types` :x:
 - Notes: 
-    - The `date` header contains the wrong date. It states 2022-03-15, but it should be 2022-02-15 ":warning:"
+    - The `date` header has an incorrect date. It lists 2022-03-15, whereas it should be 2022-02-15 ":warning:"
     - The `loss` header displays an incorrect value. It shows $100, whereas it should indicate $1000. ":warning:"
 '''
 
