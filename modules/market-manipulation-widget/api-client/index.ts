@@ -1,14 +1,14 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { DictionaryRequest, DictionaryResponse, MetricsRequest, MetricsResponse, ApiError } from "./models";
 
-const TOKEN = 'XXX';
-const HOST = 'XXX';
+declare var RAPID_KEY: string | undefined;
+declare var RAPID_HOST: string | undefined;
 
-axios.defaults.baseURL = `https://${HOST}`;
+axios.defaults.baseURL = `https://${RAPID_HOST}`;
 
 axios.interceptors.request.use((config) => {
-    config.headers.set('X-RapidAPI-Key', TOKEN)
-    config.headers.set('X-RapidAPI-Host', HOST)
+    config.headers.set('X-RapidAPI-Key', RAPID_KEY)
+    config.headers.set('X-RapidAPI-Host', RAPID_HOST)
     return config;
 });
 
