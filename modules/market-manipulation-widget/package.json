@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "webpack --mode=development --watch",
-    "build": "webpack --mode=development",
+    "build": "webpack --mode=production",
     "format": "prettier *** --write --cache --cache-location .prettiercache --ignore-unknown --no-error-on-unmatched-pattern",
     "dev:format": "prettier *** --write --ignore-unknown --no-error-on-unmatched-pattern"
   },
