@@ -62,7 +62,7 @@ jobs:
           HUGO_ENV: production
           RAPID_HOST: ${{ secrets.RAPID_HOST }}
           RAPID_KEY: ${{ secrets.RAPID_KEY }}
-        run: yarn build && hugo --baseURL "${{ steps.pages.outputs.base_url }}/"
+        run: yarn && yarn build && hugo --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
