@@ -45,4 +45,4 @@ The total loss from the Acradia Finance hack amounted to approximately $455,00, 
 
 ## Security Failure Causes
 
-**Smart contract vulnerability:** The ArcadiaFi hack was caused by vulnerabilities in its smart contracts, particularly in functions related to vault management and liquidation. These issues were exacerbated by inadequate reentrancy protection and poor validation of external inputs. The attacker bypassed security checks to redirect assets and execute unauthorized transactions, resulting in significant fund loss.
+**Smart contract vulnerability:** The Arcadia Finance hack was caused by vulnerabilities in its smart contracts, particularly in functions related to vault management and liquidation. These issues were exacerbated by inadequate reentrancy protection and poor validation of external inputs. The attacker bypassed security checks to redirect assets and execute unauthorized transactions, resulting in significant fund loss.
