@@ -36,13 +36,13 @@ The total loss from the Acradia Finance hack amounted to approximately $455,00, 
 
 ## Timeline
 
-- **2023-07-10, 01:16:07 AM UTC:** The [first malicious transaction occurred](https://optimistic.etherscan.io/tx/0xca7c1a0fde444e1a68a8c2b8ae3fb76ec384d1f7ae9a50d26f8bfdd37c7a0afe).
-- **2023-07-10, 01:21:59 AM UTC:** A [second malicious transaction occurred](https://etherscan.io/tx/0xefc4ac015069fdf9946997be0459db44c0491221159220be782454c32ec2d651).
-- **2023-07-10, 10:42 AM UTC:** Suspicious transactions were detected by [PeckShield](https://twitter.com/PeckShieldAlert/status/1678248292327763968)   
-- **2023-07-10, 01:10 PM UTC:** The Arcadia Finance team [announced](https://twitter.com/ArcadiaFi/status/1678285634727706625) the hack on Twitter.
-- **2023-07-10:** Immunebytes [published](https://www.immunebytes.com/blog/arcadia-finance-exploit-detailed-hack-analysis/) a detailed analysis of the incident.
-- **2023-07-10:** Arcadia Finance [published exploit Post-Mortem](https://arcadiafinance.medium.com/post-mortem-72e9d24a79b0)
+- **July 10, 2023, 01:16:07 AM UTC:** The [first malicious transaction occurred](https://optimistic.etherscan.io/tx/0xca7c1a0fde444e1a68a8c2b8ae3fb76ec384d1f7ae9a50d26f8bfdd37c7a0afe).
+- **July 10, 2023, 01:21:59 AM UTC:** A [second malicious transaction occurred](https://etherscan.io/tx/0xefc4ac015069fdf9946997be0459db44c0491221159220be782454c32ec2d651).
+- **July 10, 2023, 10:42 AM UTC:** Suspicious transactions were detected by [PeckShield](https://twitter.com/PeckShieldAlert/status/1678248292327763968)   
+- **July 10, 2023, 01:10 PM UTC:** The Arcadia Finance team [announced](https://twitter.com/ArcadiaFi/status/1678285634727706625) the hack on Twitter.
+- **July 10, 2023:** Immunebytes [published](https://www.immunebytes.com/blog/arcadia-finance-exploit-detailed-hack-analysis/) a detailed analysis of the incident.
+- **July 10, 2023:** Arcadia Finance [published exploit Post-Mortem](https://arcadiafinance.medium.com/post-mortem-72e9d24a79b0)
 
 ## Security Failure Causes
 
-**Smart contract vulnerability:** Smart contract vulnerability: The security breach at ArcadiaFi was primarily due to vulnerabilities in the "vaultManagementAction" and "liquidateVault" functions of its smart contracts, compounded by insufficient reentrancy protection and flawed validation of untrusted inputs. The attacker exploited the lack of access control in the "vaultManagementAction" function to divert assets to a controlled contract and manipulated the "liquidateVault" function by bypassing collateral health checks through the manipulation of global variables. This was further aggravated by the abuse of the "executeAction" function, which lacked input validation and reentrancy guards, allowing unauthorized transactions and the draining of funds from the vaults.
+**Smart contract vulnerability:** The ArcadiaFi hack was caused by vulnerabilities in its smart contracts, particularly in functions related to vault management and liquidation. These issues were exacerbated by inadequate reentrancy protection and poor validation of external inputs. The attacker bypassed security checks to redirect assets and execute unauthorized transactions, resulting in significant fund loss.
