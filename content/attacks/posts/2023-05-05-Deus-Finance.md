@@ -37,11 +37,11 @@ The total loss from the Deus Finance hack amounted to approximately $6.5 million
 
 ## Timeline
 
-- **2023-05-05, 05:52:45 PM UTC:** The [first malicious transaction occurred](https://arbiscan.io/tx/0xb1141785b7b94eb37c39c37f0272744c6e79ca1517529fec3f4af59d4c3c37ef).
-- **2023-05-06, 06:21 PM UTC:** Deus Finance [reported](https://twitter.com/DeusDao/status/1654808611263246336) a hack.
-- **2023-05-06, 06:21 PM UTC:** Immunebytes [published](https://www.immunebytes.com/blog/deus-finance-hack-incident-may-5-2023-detailed-analysis) a detailed analysis of the incident.
-- **2023-05-09, 09:02 AM UTC:** Deus Finance [confirmed](https://twitter.com/DeusDao/status/1655030202978779137) that a portion of those stolen funds had been successfully returned to the team.
+- **May 05, 2023, 05:52 PM UTC:** The [first malicious transaction occurred](https://arbiscan.io/tx/0xb1141785b7b94eb37c39c37f0272744c6e79ca1517529fec3f4af59d4c3c37ef).
+- **May 06, 2023, 06:21 PM UTC:** Deus Finance [reported](https://twitter.com/DeusDao/status/1654808611263246336) a hack.
+- **May 06, 2023, 06:21 PM UTC:** Immunebytes [published](https://www.immunebytes.com/blog/deus-finance-hack-incident-may-5-2023-detailed-analysis) a detailed analysis of the incident.
+- **May 09, 2023, 09:02 AM UTC:** Deus Finance [confirmed](https://twitter.com/DeusDao/status/1655030202978779137) that a portion of those stolen funds had been successfully returned to the team.
 
 ## Security Failure Causes
 
-**Smart contract vulnerability:** The vulnerability in Deus Finance that led to the significant security breach, was rooted in an implementation error within the $DEI token contract, specifically in the handling of the token's allowance mechanism. This flaw allowed for the unauthorized burning and transfer of tokens. The breach's core was a coding mistake in the $DEI token contract’s "burnFrom" function, where the allowances mapping order was incorrectly implemented. This error allowed an attacker to manipulate their allowance to burn tokens from another user’s account without needing approval. By calling the burnFrom function with the victim's address and setting the burn amount to zero, the attacker leveraged the contract's flawed logic to gain full control over the victim's tokens. Subsequently, the attacker used the transferFrom function to move tokens to their address.
+**Smart contract vulnerability:** The significant security breach in Deus Finance originated from a flaw within the token contract, specifically in how token allowances were handled. This error permitted unauthorized burning and transferring of tokens. By exploiting this vulnerability, attackers could gain control over another user's tokens without permission and transfer them to their accounts.
