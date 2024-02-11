@@ -39,9 +39,9 @@ The total loss from the Deus Finance hack amounted to approximately $6.5 million
 
 - **May 05, 2023, 05:52 PM UTC:** The [first malicious transaction occurred](https://arbiscan.io/tx/0xb1141785b7b94eb37c39c37f0272744c6e79ca1517529fec3f4af59d4c3c37ef).
 - **May 06, 2023, 06:21 PM UTC:** Deus Finance [reported](https://twitter.com/DeusDao/status/1654808611263246336) a hack.
-- **May 06, 2023, 06:21 PM UTC:** Immunebytes [published](https://www.immunebytes.com/blog/deus-finance-hack-incident-may-5-2023-detailed-analysis) a detailed analysis of the incident.
-- **May 09, 2023, 09:02 AM UTC:** Deus Finance [confirmed](https://twitter.com/DeusDao/status/1655030202978779137) that a portion of those stolen funds had been successfully returned to the team.
+- **May 07, 2023, 09:02 AM UTC:** Deus Finance [confirmed](https://twitter.com/DeusDao/status/1655030202978779137) that a portion of those stolen funds had been successfully returned to the team.
+- **May 09, 2023** Immunebytes [published](https://www.immunebytes.com/blog/deus-finance-hack-incident-may-5-2023-detailed-analysis) a detailed analysis of the incident.
 
 ## Security Failure Causes
 
-**Smart contract vulnerability:** The significant security breach in Deus Finance originated from a flaw within the token contract, specifically in how token allowances were handled. This error permitted unauthorized burning and transferring of tokens. By exploiting this vulnerability, attackers could gain control over another user's tokens without permission and transfer them to their accounts.
+**Smart Contract Vulnerability:** The significant security breach in Deus Finance originated from a flaw within the token contract, specifically in how token allowances were handled. This error permitted unauthorized burning and transferring of tokens. By exploiting this vulnerability, attackers could gain control over another user's tokens without permission and transfer them to their accounts.
