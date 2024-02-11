@@ -3,8 +3,8 @@ date: 2023-07-10
 target-entities: Arcadia Finance
 entity-types:
   - DeFi
-attack-types:
-  - Smart Contract Exploit
+  - Lending Platform
+attack-types: Smart Contract Exploit
 title: "Arcadia Finance Suffers $455,000 Security Breach"
 loss: 455000
 ---
@@ -40,9 +40,8 @@ The total loss from the Acradia Finance hack amounted to approximately $455,00, 
 - **July 10, 2023, 01:21:59 AM UTC:** A [second malicious transaction occurred](https://etherscan.io/tx/0xefc4ac015069fdf9946997be0459db44c0491221159220be782454c32ec2d651).
 - **July 10, 2023, 10:42 AM UTC:** Suspicious transactions were detected by [PeckShield](https://twitter.com/PeckShieldAlert/status/1678248292327763968)   
 - **July 10, 2023, 01:10 PM UTC:** The Arcadia Finance team [announced](https://twitter.com/ArcadiaFi/status/1678285634727706625) the hack on Twitter.
-- **July 10, 2023:** Immunebytes [published](https://www.immunebytes.com/blog/arcadia-finance-exploit-detailed-hack-analysis/) a detailed analysis of the incident.
-- **July 10, 2023:** Arcadia Finance [published exploit Post-Mortem](https://arcadiafinance.medium.com/post-mortem-72e9d24a79b0)
+- **July 10, 2023:** Immunebytes [published](https://www.immunebytes.com/blog/arcadia-finance-exploit-detailed-hack-analysis/) a detailed analysis of the incident. Arcadia Finance [published exploit Post-Mortem](https://arcadiafinance.medium.com/post-mortem-72e9d24a79b0).
 
 ## Security Failure Causes
 
-**Smart contract vulnerability:** The Arcadia Finance hack was caused by vulnerabilities in its smart contracts, particularly in functions related to vault management and liquidation. These issues were exacerbated by inadequate reentrancy protection and poor validation of external inputs. The attacker bypassed security checks to redirect assets and execute unauthorized transactions, resulting in significant fund loss.
+- **Smart Contract Vulnerability:** The Arcadia Finance hack was caused by vulnerabilities in its smart contracts, particularly in functions related to vault management and liquidation. These issues were exacerbated by inadequate reentrancy protection and poor validation of external inputs. The attacker bypassed security checks to redirect assets and execute unauthorized transactions, resulting in significant fund loss.
