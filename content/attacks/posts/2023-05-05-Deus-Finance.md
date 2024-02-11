@@ -44,4 +44,4 @@ The total loss from the Deus Finance hack amounted to approximately $6.5 million
 
 ## Security Failure Causes
 
-**Smart Contract Vulnerability:** The significant security breach in Deus Finance originated from a flaw within the token contract, specifically in how token allowances were handled. This error permitted unauthorized burning and transferring of tokens. By exploiting this vulnerability, attackers could gain control over another user's tokens without permission and transfer them to their accounts.
+- **Smart Contract Vulnerability:** The significant security breach in Deus Finance originated from a flaw within the token contract, specifically in how token allowances were handled. This error permitted unauthorized burning and transferring of tokens. By exploiting this vulnerability, attackers could gain control over another user's tokens without permission and transfer them to their accounts.
