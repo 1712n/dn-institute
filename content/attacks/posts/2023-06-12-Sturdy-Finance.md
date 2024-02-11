@@ -29,7 +29,7 @@ Hacker Ethereum Wallet:
 
 ## Timeline
 
-- **June 12, 2023, 01:06:35 AM UTC:** The malicious transaction [occurred]((https://etherscan.io/tx/0xeb87ebc0a18aca7d2a9ffcabf61aa69c9e8d3c6efade9e2303f8857717fb9eb7).
+- **June 12, 2023, 01:06:35 AM UTC:** The malicious transaction [occurred](https://etherscan.io/tx/0xeb87ebc0a18aca7d2a9ffcabf61aa69c9e8d3c6efade9e2303f8857717fb9eb7).
 - **June 12, 2023, 01:08:23 AM UTC:** The attacker began [sending](https://etherscan.io/tx/0x1702e647da897a35b59304bde5e62b4e6ad8d5148905b4627398bd30c42ee1a7) stolen funds to Tornado Cash.
 - **June 12, 2023, 09:19 AM UTC:** Sturdy Finance team [announced](https://twitter.com/SturdyFinance/status/1668080627030315009) about the hack.
 - **June 12, 2023, 08:25:35 PM UTC:** Sturdy Finance [communicated with the hacker](https://etherscan.io/tx/0xda7fda2146ec0cc6f22920451978b41f9a9ae7f01ce6e4878b454eb2efdc9fec), proposing a deal to recover the stolen assets in exchange for a $100,000 reward, alongside a promise of no legal action.
