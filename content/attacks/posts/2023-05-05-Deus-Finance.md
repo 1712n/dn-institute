@@ -4,8 +4,7 @@ target-entities: Deus Finance
 entity-types:
   - DeFi
   - Lending Platform
-attack-types:
-  - Smart Contract Exploit
+attack-types: Smart Contract Exploit
 title: "Deus Finance Suffers $6.5 Million Hack Across Multiple Networks"
 loss: 6500000
 ---
