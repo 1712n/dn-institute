@@ -56,6 +56,8 @@ Output example:
 
 2. Make detailed editor's notes on the text in <text></text> tags. 
 Suggest stylistic and grammatical improvements and point out any error in the text between <text></text> tags. 
+Please make sure that in the '## Timeline' section, dates are written in the correct format 'Month day, year, time PM UTC:'. 
+Example: 'May 05, 2023, 05:52 PM UTC:'.
 Put your detailed notes and the list of errors below the header. 
 Output example:
 '''## Editor's Notes
