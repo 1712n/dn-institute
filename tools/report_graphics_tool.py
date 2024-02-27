@@ -4,9 +4,11 @@ import numpy as np
 import matplotlib.dates as mdates
 import os
 
+
 class Visualization:
     def __init__(self):
         pass
+
 
     def _make_volume_hist(self, data, directory):
         plt.figure(figsize=(10, 6))
@@ -17,6 +19,7 @@ class Visualization:
         plt.grid(True, which='both', linestyle='--', linewidth=0.5)
         plt.savefig(os.path.join(directory, 'volume_hist.png'))
         plt.close()
+
 
     def _make_crypto_metrics(self, data, directory):
         fig, axs = plt.subplots(4, 1, figsize=(15, 10), sharex=True)
@@ -61,6 +64,7 @@ class Visualization:
         ax1.legend(lines, labels, loc='upper left')
         plt.savefig(os.path.join(directory, 'benford_law.png'))
         plt.close()
+
 
     def _make_vvcorrelation(self, data, directory):
         fig, ax = plt.subplots(figsize=(15, 10), layout='constrained')
