@@ -1,4 +1,5 @@
 from openai import OpenAI
+from tiktoken import encoding_for_model
 import argparse
 import json
 import os
@@ -137,34 +138,47 @@ def main():
     human_prompt_content = read_file(HUMAN_PROMPT_FILE)
     article_example = read_file(ARTICLE_EXAMPLE_FILE)
 
-    HUMAN_PROMPT_CONTENT = f"""
-    <example> %s </example>
-    {HUMAN_PROMPT_CONTENT}
-    <data> %s </data>
-    """
-    
-    prompt = f"{HUMAN_PROMPT_CONTENT%(article_example, data)}"
-    print('This is a prompt: ', prompt)
+    marketvenueid, pairid, start, end = extract_data_from_comment(args.comment_body)
+    querystring = {
+        "marketvenueid": marketvenueid,
+        "pairid": pairid,
+        "start": f"{start}T00:00:00",
+        "end": f"{end}T00:00:00",
+        "gran": "1h",
+        "sort": "asc",
+        "limit": "1000"
+    }
+    headers = {"X-RapidAPI-Key": args.rapid_api, "X-RapidAPI-Host": "cross-market-surveillance.p.rapidapi.com"}
+    url = "https://cross-market-surveillance.p.rapidapi.com/metrics/wt/market"
 
-    client = OpenAI(api_key=args.API_key)
+    try:
+        data = fetch_or_load_market_data(querystring, headers, url, DATA_DIR, marketvenueid, pairid, start, end)
 
-    completion = client.chat.completions.create(
-    model="gpt-4",
-    messages=[
-        {"role": "system", "content": f"{SYSTEM_PROMPT}"},
-        {"role": "user", "content": f"{prompt}"}
-    ]
-    )
+        encoding = encoding_for_model("gpt-4")     
+        print('num of data tokens: ', len(encoding.encode(str(data))))
 
-    output = completion.choices[0].message.content
-    
-    output = extract_between_tags("article", output)
+        prompt = create_prompt(article_example, data, human_prompt_content)
 
-    print("This is an answer: ", output)
+        print('This is a prompt: ', prompt)
+        print('num of all prompt tokens: ', len(encoding.encode(prompt)))
 
-    #with open('tools/market_health_reporter_doc/openai/outputs/output1.md', 'w', encoding='utf-8') as file:
-        #file.write(output)   
+        client = OpenAI(api_key=args.API_key)
+        completion = client.chat.completions.create(
+            model="gpt-4-0125-preview",
+            temperature=0.0,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt}
+            ]
+        )
+        output = completion.choices[0].message.content
+        output = extract_between_tags("article", output)
 
-    post_comment_to_issue(args.github_token, int(args.issue), repo_name, output)
+        print("This is an answer: ", output)
+        save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
+        post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
+
+    except Exception as e:
+        print(f"Error occurred: {e}")
     
     
