@@ -45,10 +45,10 @@ def main():
     with open('tools/market_health_reporter_doc/data/data1.json', 'r') as data_file:
         data = json.load(data_file)
 
-    with open('tools/market_health_reporter_doc/openai/prompts/system_prompt.txt', 'r') as file:
+    with open('tools/market_health_reporter_doc/prompts/system_prompt.txt', 'r') as file:
         SYSTEM_PROMPT = file.read()
 
-    with open('tools/market_health_reporter_doc/openai/prompts/prompt1.txt', 'r') as file:
+    with open('tools/market_health_reporter_doc/prompts/prompt1.txt', 'r') as file:
         HUMAN_PROMPT_CONTENT = file.read()
 
     with open('content/market-health/posts/2023-08-14-huobi/index.md', 'r') as file:
