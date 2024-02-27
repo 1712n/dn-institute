@@ -16,6 +16,7 @@ HUMAN_PROMPT_FILE = 'tools/market_health_reporter_doc/prompts/prompt1.txt'
 ARTICLE_EXAMPLE_FILE = 'content/market-health/posts/2023-08-14-huobi/index.md'
 OUTPUT_DIR = 'content/market-health/posts'
 DATA_DIR = 'tools/market_health_reporter_doc/data'
+MAX_TOKENS = 125000
 
 
 def parse_cli_args():
@@ -54,13 +55,14 @@ def extract_data_from_comment(comment: str) -> tuple:
 
 def save_output(output: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> None:
     """
-    Saves the output to a markdown file in the specified directory.
-    If a file with the same base name already exists, appends a sequential number to the file name.
+    Saves the output to a markdown file in the specified directory, creating a subdirectory for it.
     """
+    output_subdir = os.path.join(directory, marketvenueid, pairid)  
+    os.makedirs(output_subdir, exist_ok=True)  
     safe_start = start.replace(":", "-")
     safe_end = end.replace(":", "-")
     base_file_name = f"{marketvenueid}_{pairid}_{safe_start}_{safe_end}"
-    file_path = os.path.join(directory, base_file_name)
+    file_path = os.path.join(output_subdir, base_file_name)  
     
     existing_files = glob.glob(f"{file_path}*.md")
     if existing_files:
@@ -158,27 +160,28 @@ def main():
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
         prompt = create_prompt(article_example, data, human_prompt_content)
+        prompt_token_count = len(encoding.encode(prompt))
 
-        print('This is a prompt: ', prompt)
-        print('num of all prompt tokens: ', len(encoding.encode(prompt)))
+        if prompt_token_count > MAX_TOKENS:
+            error_message = "Your request is too long. It's possible that the period for the data is too broad. Please narrow it down."
+            print(error_message)
+            post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, error_message)
+        else:
+            client = OpenAI(api_key=args.API_key)
+            completion = client.chat.completions.create(
+                model="gpt-4-0125-preview",
+                temperature=0.0,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": prompt}
+                ]
+            )
+            output = completion.choices[0].message.content
+            output = extract_between_tags("article", output)
 
-        client = OpenAI(api_key=args.API_key)
-        completion = client.chat.completions.create(
-            model="gpt-4-0125-preview",
-            temperature=0.0,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": prompt}
-            ]
-        )
-        output = completion.choices[0].message.content
-        output = extract_between_tags("article", output)
-
-        print("This is an answer: ", output)
-        save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
-        post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
+            print("This is an answer: ", output)
+            save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
+            post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
 
     except Exception as e:
         print(f"Error occurred: {e}")
-    
-    
