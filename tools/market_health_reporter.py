@@ -10,7 +10,7 @@ from tools.utils import read_file, extract_between_tags
 from tools.report_graphics_tool import Visualization
 
 
-REPO_NAME = "1712n/dni-llm-experiments" #"1712n/dn-institute"
+REPO_NAME = "1712n/dn-institute"
 SYSTEM_PROMPT_FILE = 'tools/market_health_reporter_doc/prompts/system_prompt.txt'
 HUMAN_PROMPT_FILE = 'tools/market_health_reporter_doc/prompts/prompt1.txt'
 ARTICLE_EXAMPLE_FILE = 'content/market-health/posts/2023-08-14-huobi/index.md'
@@ -122,8 +122,8 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
     repo = g.get_repo(repo_name)
     issue = repo.get_issue(number=issue_number)
     # only post comment if running on Github Actions
-    #if os.environ.get("GITHUB_ACTIONS") == "true":
-    issue.create_comment(comment)
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        issue.create_comment(comment)
 
 
 def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
@@ -190,6 +190,3 @@ def main():
 
     except Exception as e:
         print(f"Error occurred: {e}")
-
-if __name__ == "__main__":
-    main()
