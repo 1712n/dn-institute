@@ -36,3 +36,11 @@ def logging_decorator(group_name):
         return wrapper_func
 
     return decorator_wrapper
+
+
+def read_file(file_path: str) -> str:
+    """
+    Reads content from a file.
+    """
+    with open(file_path, 'r', encoding='utf-8') as file:
+        return file.read()
