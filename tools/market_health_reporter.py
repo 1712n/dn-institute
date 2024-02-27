@@ -129,22 +129,13 @@ def create_prompt(article_example: str, data: dict, human_prompt_content: str) -
     """
     return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
 
-    
+
 def main():
     args = parse_cli_args()
 
-    with open('tools/market_health_reporter_doc/data/data1.json', 'r') as data_file:
-        data = json.load(data_file)
-
-    with open('tools/market_health_reporter_doc/prompts/system_prompt.txt', 'r') as file:
-        SYSTEM_PROMPT = file.read()
-
-    with open('tools/market_health_reporter_doc/prompts/prompt1.txt', 'r') as file:
-        HUMAN_PROMPT_CONTENT = file.read()
-
-    with open('content/market-health/posts/2023-08-14-huobi/index.md', 'r') as file:
-        article_example = file.read()
-
+    system_prompt = read_file(SYSTEM_PROMPT_FILE)
+    human_prompt_content = read_file(HUMAN_PROMPT_FILE)
+    article_example = read_file(ARTICLE_EXAMPLE_FILE)
 
     HUMAN_PROMPT_CONTENT = f"""
     <example> %s </example>
