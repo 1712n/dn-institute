@@ -73,5 +73,10 @@ Create an article with the results of your analysis. The article should include:
         The content of this field should include the title of the article. Example: 'Uncovering Wash Trading and Market Manipulation on Huobi'
 
 Also, follow the example in the <example> </example> tags. Please, put into the article only the information from the data provided. 
-You can create placeholders for illustrations in the article, as in this example: `{{< figure src="exponent-ht.png" alt="ht-usdt exponent" caption="Volume distribution fitting indicator, HT/USDT spot market on Huobi, July 2023" loading="lazy" >}}`.
+You can create placeholders for illustrations in the article, as in this example: `{{< figure src="volume_hist.png" alt="ht-usdt volume dist" caption="Volume distribution" loading="lazy" >}}`.
+Allowed names for illustrations:
+- volume_hist.png
+- crypto_metrics.png
+- benford_law.png
+- vv_correlation.png
 Place the article into the <article> </article> tags.
