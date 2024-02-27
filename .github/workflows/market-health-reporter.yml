@@ -8,7 +8,7 @@ jobs:
     name: "Perform market analysis"
     if: |
       !github.event.issue.pull_request &&
-      (contains(github.event.comment.body, 'analyze:') 
+      contains(github.event.comment.body, 'analyze:') 
     
     steps:
       - uses: actions/checkout@v3

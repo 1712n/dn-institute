@@ -26,3 +26,9 @@ It is a python script that takes command-line arguments with API keys and a link
 `/duplecheck`
 
 Checks if the article from the pull request is new to Crypto Wiki. Uses GPT-3 for comparing two texts. 
+
+## Market Health Reporter
+
+`analyze:`
+
+For a correct request, use the following template: `analyze: pair, market, start_of_the_period, end_of_the_period`. Example: "analyze: bnb-btc, binance, 2024-02-02, 2024-02-07"
