@@ -40,6 +40,17 @@ def parse_cli_args():
     return parser.parse_args()
 
 
+def extract_data_from_comment(comment: str) -> tuple:
+    """
+    Extract data from the comment.
+    """
+    parts = comment.split(',')
+    marketvenueid = parts[1].strip().lower()
+    pairid = parts[0].strip().lower()  
+    start, end = parts[2].strip(), parts[3].strip()
+    return marketvenueid, pairid, start, end
+
+
 def post_comment_to_issue(github_token, issue_number, repo_name, comment):
     """
     Post a comment to a GitHub issue.
