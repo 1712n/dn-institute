@@ -7,6 +7,7 @@ import requests
 import glob
 from github import Github
 from tools.utils import read_file, extract_between_tags
+from tools.report_graphics_tool import Visualization
 
 
 REPO_NAME = "1712n/dni-llm-experiments" #"1712n/dn-institute"
@@ -181,6 +182,10 @@ def main():
 
             print("This is an answer: ", output)
             save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
+            vis = Visualization()
+            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
+            vis.generate_report(data, output_subdir)  
+
             post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
 
     except Exception as e:

@@ -20,19 +20,30 @@ class Visualization:
 
     def _make_crypto_metrics(self, data, directory):
         fig, axs = plt.subplots(4, 1, figsize=(15, 10), sharex=True)
-        metrics = ['volume', 'tradecount', 'avgtransactionsize', 'buysellratio']
-        colors = ['blue', 'green', 'orange', 'red']
-        for ax, metric, color in zip(axs, metrics, colors):
-            ax.plot(data.index, data[metric], label=metric.capitalize(), color=color)
-            ax.set_ylabel(metric.capitalize())
+
+        axs[0].plot(data.index, data['volume'], label='Volume', color='blue')
+        axs[0].set_ylabel('Volume')
+
+        axs[1].plot(data.index, data['tradecount'], label='Trade Count', color='green')
+        axs[1].set_ylabel('Trade Count')
+
+        axs[2].plot(data.index, data['avgtransactionsize'], label='Avg Transaction Size', color='orange')
+        axs[2].set_ylabel('Avg Transaction Size')
+
+        axs[3].plot(data.index, data['buysellratio'], label='Buy/Sell Ratio', color='red')
+        axs[3].set_ylabel('Buy/Sell Ratio')
+
         axs[3].set_xlabel('Timestamp')
+
         fig.suptitle('Cryptocurrency Metrics Over Time')
-        plt.setp(axs, xticks=np.arange(0, len(data.index), step=len(data.index)//4))
+
         for ax in axs:
             plt.setp(ax.get_xticklabels(), rotation=45, ha='right')
+
         plt.tight_layout()
         plt.savefig(os.path.join(directory, 'crypto_metrics.png'))
         plt.close()
+        
 
     def _make_benfordlaw(self, data, directory):
         fig, ax1 = plt.subplots(figsize=(15, 10), layout='constrained')
@@ -64,7 +75,7 @@ class Visualization:
         plt.savefig(os.path.join(directory, 'vv_correlation.png'))
         plt.close()
 
-    def generate_report(self, data, directory, marketvenueid, pairid, start, end):
+    def generate_report(self, data, directory):
         if not os.path.exists(directory):
             os.makedirs(directory)
         data = pd.DataFrame(data)
