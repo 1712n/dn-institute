@@ -92,7 +92,25 @@ def file_exists(directory: str, marketvenueid: str, pairid: str, start: str, end
     matching_files = glob.glob(pattern)
     return matching_files[0] if matching_files else None
 
-    
+
+def fetch_or_load_market_data(querystring: dict, headers: dict, url: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> dict:
+    """
+    Tries to load market data from a file if it is already saved.
+    Otherwise, makes an API request and saves the data.
+    """
+    existing_file = file_exists(directory, marketvenueid, pairid, start, end)
+    if existing_file:
+        print(f"Loading data from existing file: {existing_file}")
+        with open(existing_file, 'r', encoding='utf-8') as file:
+            return json.load(file)
+    else:
+        response = requests.get(url, headers=headers, params=querystring)
+        response.raise_for_status()
+        data = response.json()
+        save_data(json.dumps(data), directory, marketvenueid, pairid, start, end)
+        return data
+
+
 def post_comment_to_issue(github_token, issue_number, repo_name, comment):
     """
     Post a comment to a GitHub issue.
