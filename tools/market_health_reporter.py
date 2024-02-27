@@ -46,7 +46,7 @@ def extract_data_from_comment(comment: str) -> tuple:
     """
     parts = comment.split(',')
     marketvenueid = parts[1].strip().lower()
-    pairid = parts[0].strip().lower()  
+    pairid = parts[0].split(':')[1].strip().lower()  
     start, end = parts[2].strip(), parts[3].strip()
     return marketvenueid, pairid, start, end
 
