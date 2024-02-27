@@ -51,6 +51,48 @@ def extract_data_from_comment(comment: str) -> tuple:
     return marketvenueid, pairid, start, end
 
 
+def save_output(output: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> None:
+    """
+    Saves the output to a markdown file in the specified directory.
+    If a file with the same base name already exists, appends a sequential number to the file name.
+    """
+    safe_start = start.replace(":", "-")
+    safe_end = end.replace(":", "-")
+    base_file_name = f"{marketvenueid}_{pairid}_{safe_start}_{safe_end}"
+    file_path = os.path.join(directory, base_file_name)
+    
+    existing_files = glob.glob(f"{file_path}*.md")
+    if existing_files:
+        numbers = [int(file_name.split('-')[-1].split('.md')[0]) for file_name in existing_files if file_name.split('-')[-1].split('.md')[0].isdigit()]
+        file_number = max(numbers, default=0) + 1
+        full_path = f"{file_path}-{file_number}.md"
+    else:
+        full_path = f"{file_path}.md"
+    
+    with open(full_path, 'w', encoding='utf-8') as file:
+        file.write(output)
+    print(f"Output saved to: {full_path}")
+
+
+def save_data(data: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> None:
+    """
+    Saves data to a JSON file in the specified directory.
+    """
+    new_file_name = f'{directory}{marketvenueid}_{pairid}_{start.replace(":", "-")}_{end.replace(":", "-")}.json'
+    with open(new_file_name, 'w', encoding='utf-8') as file:
+        file.write(data)
+
+
+def file_exists(directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> str:
+    """
+    Checks if a file with the specified parameters exists.
+    Returns the path to the file if found, otherwise returns None.
+    """
+    pattern = f"{directory}/{marketvenueid}_{pairid}_{start.replace(':', '-')}_{end.replace(':', '-')}.json"
+    matching_files = glob.glob(pattern)
+    return matching_files[0] if matching_files else None
+
+    
 def post_comment_to_issue(github_token, issue_number, repo_name, comment):
     """
     Post a comment to a GitHub issue.
