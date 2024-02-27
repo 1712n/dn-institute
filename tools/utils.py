@@ -1,5 +1,7 @@
 import os
 import subprocess
+import re
+
 
 default_subprocess_config = {
     # FIXME: Is this required?
@@ -44,3 +46,17 @@ def read_file(file_path: str) -> str:
     """
     with open(file_path, 'r', encoding='utf-8') as file:
         return file.read()
+
+
+def extract_between_tags(tag, string, strip=True):
+    """
+    Helper to extract text between XML tags.
+    """
+    ext_list = re.findall(f"<{tag}\\s?>(.+?)</{tag}\\s?>", string, re.DOTALL)
+    if strip:
+        ext_list = [e.strip() for e in ext_list]
+
+    if ext_list:
+        return ext_list[-1]
+    else:
+        return None
