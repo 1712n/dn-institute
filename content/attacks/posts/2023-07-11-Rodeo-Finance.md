@@ -32,7 +32,7 @@ The loss amounted to 472 ETH worth $880,000.
 
 - **July 11, 2023, 07:54:08 AM +UTC:** The [first malicious](https://arbiscan.io/tx/0x98f1e234faac8b7f7ceaffe4e8e0581038678d95710b646db45ec3de47e6c3af) transaction occurred.
 - **July 11, 2023, 05:26:23 PM +UTC:** Rodeo Finance sent an [on-chain message](https://etherscan.io/tx/0x3045cd1d7314400ba5eac173a1f7348cebe5bdc6145a212524a85df6d6fd59ed) to the attacker to negotiate the return of the stolen funds.
-- **July 11, 2023, 06:05 PM +UTC:** Rodeo Finance [reported](https://twitter.com/Rodeo_Finance/status/1678782465421213697) about the exploit.
+- **July 11, 2023, 04:05 PM +UTC:** Rodeo Finance [reported](https://twitter.com/Rodeo_Finance/status/1678782465421213697) about the exploit.
 - **July 12, 2023:** Rodeo Finance [published](https://medium.com/@Rodeo_Finance/rodeo-post-mortem-overview-f35635c14101) an exploit Post-Mortem.
 
 ## Security Failure Causes
