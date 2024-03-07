@@ -26,7 +26,7 @@ Hacker Wallets:
 
 ## Losses
 
-The total loss from the Acradia Finance hack amounted to approximately $455,00, distributed across the following networks:
+The total loss from the Arcadia Finance hack amounted to approximately $455,000, distributed across the following networks:
 
 - Ethereum:
    - 148 ETH (275,843 USD)
