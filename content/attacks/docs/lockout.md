@@ -1,5 +1,5 @@
 ---
-title: Lockout Attacks
+title: Lockout Scams
 bookToc: true
 ---
 
@@ -52,7 +52,7 @@ These scams can take various forms, such as Transfer Prevention, High Fees, and 
 			        }
 			    }
 			```
-			The token creator [repeatedly called this function to blacklist](https://bscscan.com/tx/0x7cb7095dd5e6ee4917a85f7f2358eefbcbd6d39069e9a54fb2cf132ad9637f36) most of the token holders. Since the transfer function contained requirement to sender or receiver not be blacklisted as shown below, they were unable to sell their tokens.
+			The token creator [repeatedly called this function to blacklist](https://bscscan.com/tx/0x7cb7095dd5e6ee4917a85f7f2358eefbcbd6d39069e9a54fb2cf132ad9637f36) most of the token holders. Since the transfer function contained the requirement to sender or receiver not be blacklisted as shown below, they were unable to sell their tokens.
 			```solidity:
 		    function _transfer(
 		        address sender,
