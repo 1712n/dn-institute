@@ -24,9 +24,9 @@ Rocketswap lost approximately $868,000 in total. The stolen assets were swapped 
 
 ## Timeline
 
-- **August 14, 2023, 10:53:35 PM +UTC:** The [first malicious](https://basescan.org/tx/0x25c11d664f89ef9237ecf2e8ff1f067821cb829694b184c7ee74e6d0a3f9bfba) transaction occurred.
-- **August 14, 2023, 12:25 AM +UTC:** Rocketswap [reported](https://twitter.com/RocketSwap_Labs/status/1691229656593371136) about the exploit.
-- **August 15, 2023, 02:19 AM +UTC:** Rocketswap [announced](https://twitter.com/RocketSwap_Labs/status/1691258298409029632) a new open-sourced farm contract.
+- **August 14, 2023, 10:53:35 PM UTC:** The [first malicious](https://basescan.org/tx/0x25c11d664f89ef9237ecf2e8ff1f067821cb829694b184c7ee74e6d0a3f9bfba) transaction occurred.
+- **August 15, 2023, 12:25 AM UTC:** Rocketswap [reported](https://twitter.com/RocketSwap_Labs/status/1691229656593371136) about the exploit.
+- **August 15, 2023, 02:19 AM UTC:** Rocketswap [announced](https://twitter.com/RocketSwap_Labs/status/1691258298409029632) a new open-sourced farm contract.
 - **August 16, 2023:** Rocketswap [announced](https://mirror.xyz/0x4198bADb0c3ea2efF397F3015a81A1c577ECA247/aYhXdB8FadnWPg40V7_VQEUPWaeUK4t32JYenq7IHM8) the Airdrop Сompensation Programme.
 - **August 17, 2023:** Neptune Mutual [published](https://neptunemutual.com/blog/taking-a-closer-look-at-rocketswap-exploit) an analysis of the incident.
 
