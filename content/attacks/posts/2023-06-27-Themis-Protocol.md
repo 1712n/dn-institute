@@ -30,11 +30,11 @@ Themis Protocol lost approximately $370,000 in total.
 
 ## Timeline
 
-- **June 27, 2023, 06:33:09 PM +UTC:** The [first malicious](https://arbiscan.io/tx/0xff368294ccb3cd6e7e263526b5c820b22dea2b2fd8617119ba5c3ab8417403d8) transaction occurred.
-- **June 27, 2023, 08:30 PM +UTC:** Themis Protocol [suspension of borrowing functions](https://twitter.com/ThemisProtocol/status/1673775788661800969).
-- **June 27, 2023, 08:39 PM +UTC:** PeckShield [published](https://twitter.com/peckshield/status/1673778002373509121?s=20) a report on the incident.
-- **June 28, 2023, 10:32 AM +UTC:** Themis Protocol [confirmed the hack](https://twitter.com/ThemisProtocol/status/1673806487540609024) and offered the hacker to return the funds.
-- **July 27, 2023:** Themis Protocol [announced](https://blog.themis.exchange/themis-2-0-official-launch-and-compensation-plan-23209983ef16) Themis 2.0 and compensation details
+- **June 27, 2023, 06:33:09 PM UTC:** The [first malicious](https://arbiscan.io/tx/0xff368294ccb3cd6e7e263526b5c820b22dea2b2fd8617119ba5c3ab8417403d8) transaction occurred.
+- **June 27, 2023, 08:30 PM UTC:** Themis Protocol [suspension of borrowing functions](https://twitter.com/ThemisProtocol/status/1673775788661800969).
+- **June 27, 2023, 08:39 PM UTC:** PeckShield [published](https://twitter.com/peckshield/status/1673778002373509121?s=20) a report on the incident.
+- **June 27, 2023, 10:32 AM UTC:** Themis Protocol [confirmed the hack](https://twitter.com/ThemisProtocol/status/1673806487540609024) and offered the hacker to return the funds.
+- **July 27, 2023:** Themis Protocol [announced](https://blog.themis.exchange/themis-2-0-official-launch-and-compensation-plan-23209983ef16) Themis 2.0 and compensation details.
 
 ## Security Failure Causes
 
