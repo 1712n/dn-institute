@@ -36,5 +36,4 @@ The loss amounted to 1902 ETH worth $4.6 million.
 ## Security Failure Causes
 
 - **Flash Loans Exploitation:** The exploit leveraged flash loans, which allow borrowing large sums, for price manipulation and creating strain on the system.
-  
 - **Smart Contract Vulnerability:** There was a rounding error in the smart contract, which allowed the attacker to artificially increase the profit margin.
