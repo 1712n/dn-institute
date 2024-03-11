@@ -30,13 +30,11 @@ The loss amounted to 472 ETH worth $880,000.
 
 ## Timeline
 
-- **July 11, 2023, 07:54:08 AM UTC:** The [first malicious](https://arbiscan.io/tx/0x98f1e234faac8b7f7ceaffe4e8e0581038678d95710b646db45ec3de47e6c3af) transaction occurred.
+- **July 11, 2023, 07:54 AM UTC:** The [first malicious](https://arbiscan.io/tx/0x98f1e234faac8b7f7ceaffe4e8e0581038678d95710b646db45ec3de47e6c3af) transaction occurred.
 - **July 11, 2023, 04:05 PM UTC:** Rodeo Finance [reported](https://twitter.com/Rodeo_Finance/status/1678782465421213697) about the exploit.
-- **July 11, 2023, 05:26:23 PM UTC:** Rodeo Finance sent an [on-chain message](https://etherscan.io/tx/0x3045cd1d7314400ba5eac173a1f7348cebe5bdc6145a212524a85df6d6fd59ed) to the attacker to negotiate the return of the stolen funds.
+- **July 11, 2023, 05:26 PM UTC:** Rodeo Finance sent an [on-chain message](https://etherscan.io/tx/0x3045cd1d7314400ba5eac173a1f7348cebe5bdc6145a212524a85df6d6fd59ed) to the attacker to negotiate the return of the stolen funds.
 - **July 12, 2023:** Rodeo Finance [published](https://medium.com/@Rodeo_Finance/rodeo-post-mortem-overview-f35635c14101) an exploit Post-Mortem.
 
 ## Security Failure Causes
 
-- **Smart Contract Vulnerability:** The breach was primarily enabled by the exploitation of TWAP Oracle's pricing mechanism, which led to manipulated asset prices.
-- **Flash Loans Exploitation:** The exploit leveraged flash loans, which allow borrowing large sums without collateral, for price manipulation and creating strain on the system.
-- **Price Oracle Manipulation:** The attackers manipulated price oracles, leading the protocol to make decisions based on incorrect asset prices.
+- **Price Oracle Manipulation:** The exploit combined a smart contract vulnerability, exploiting TWAP Oracle's pricing mechanism, and using flash loans to manipulate asset prices significantly. This led to the protocol making decisions based on incorrect asset prices, ultimately compromising the system's integrity.
