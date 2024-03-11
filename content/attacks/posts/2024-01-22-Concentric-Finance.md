@@ -29,7 +29,7 @@ Losses amounted to 715 ETH worth $1.72 million.
 
 ## Timeline
 
-- **January 22, 2024, 07:51:24 AM UTC:** The [first malicious](https://arbiscan.io/tx/0xd9036566a2614045219e9bead34e490fc24c9d6ca695d5348b694c3280558e3b) transaction occurred.
+- **January 22, 2024, 07:51 AM UTC:** The [first malicious](https://arbiscan.io/tx/0xd9036566a2614045219e9bead34e490fc24c9d6ca695d5348b694c3280558e3b) transaction occurred.
 - **January 22, 2024, 11:48 AM UTC:** Concentric Finance [reported](https://twitter.com/ConcentricFi/status/1749398619071938682) about the exploit.
 - **January 22, 2024:** Concentric Finance [published](https://mirror.xyz/concentrictreasury.eth/duXXwBErblGw4CjbsA2JPoRAJqVNsDtiUsK4R6_vhD0) an exploit Post-Mortem.
 
