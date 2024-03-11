@@ -27,7 +27,7 @@ The loss amounted to 1902 ETH worth $4.6 million.
 
 ## Timeline
 
-- **January 2, 2024, 06:53:38 PM UTC:** The [first malicious](https://arbiscan.io/tx/0x1ce7e9a9e3b6dd3293c9067221ac3260858ce119ecb7ca860eac28b2474c7c9b) transaction occurred.
+- **January 2, 2024, 06:53 PM UTC:** The [first malicious](https://arbiscan.io/tx/0x1ce7e9a9e3b6dd3293c9067221ac3260858ce119ecb7ca860eac28b2474c7c9b) transaction occurred.
 - **January 3, 2024, 12:14 AM UTC:** Radiant Protocol [reported](https://twitter.com/RDNTCapital/status/1742338729925112272) the exploit and suspended work on Arbitrum.
 - **January 5, 2024, 02:50 AM UTC:** Radiant Protocol [announced](https://twitter.com/RDNTCapital/status/1743102629411184841) a reward for assistance in investigating the incident.
 - **January 5, 2024, 12:07 AM UTC:** Lending and loan markets on Arbitrum have been [resumed](https://twitter.com/RDNTCapital/status/1743061583692181965).
@@ -35,5 +35,4 @@ The loss amounted to 1902 ETH worth $4.6 million.
 
 ## Security Failure Causes
 
-- **Flash Loans Exploitation:** The exploit leveraged flash loans, which allow borrowing large sums, for price manipulation and creating strain on the system.
-- **Smart Contract Vulnerability:** There was a rounding error in the smart contract, which allowed the attacker to artificially increase the profit margin.
+- **Smart Contract Vulnerability:** The exploit was enabled by leveraging flash loans for price manipulation and exploiting a rounding error in the smart contract, which artificially allowed the attacker to increase the profit margin.
