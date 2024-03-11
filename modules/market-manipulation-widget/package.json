@@ -1,11 +1,18 @@
 {
-  "name": "dn-institute",
+  "name": "dn-institute-chart-widget",
   "version": "1.0.0",
   "devDependencies": {
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "@types/webpack": "^5.28.5",
-    "prettier": "^2.7.1",
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-webpack-plugin": "^4.0.1",
+    "prettier": "^3.2.5",
     "prettier-plugin-go-template": "^0.0.13",
     "ts-loader": "^9.5.1",
     "typescript": "^5.3.3",
@@ -18,24 +25,13 @@
     "format": "prettier *** --write --cache --cache-location .prettiercache --ignore-unknown --no-error-on-unmatched-pattern",
     "dev:format": "prettier *** --write --ignore-unknown --no-error-on-unmatched-pattern"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/1712n/dn-institute.git"
-  },
-  "license": "UNLICENSED",
-  "bugs": {
-    "url": "https://github.com/1712n/dn-institute/issues"
-  },
-  "homepage": "https://github.com/1712n/dn-institute#readme",
   "dependencies": {
-    "@splidejs/splide": "^4.1.4",
+    "apexcharts": "^3.46.0",
     "axios": "^1.6.5",
-    "chart.js": "^4.0.0",
-    "chartjs-adapter-moment": "^1.0.1",
-    "chartjs-plugin-zoom": "^2.0.1",
     "moment": "^2.30.1",
     "react": "^18.2.0",
-    "react-chartjs-2": "^5.2.0",
-    "react-dom": "^18.2.0"
+    "react-apexcharts": "^1.4.1",
+    "react-dom": "^18.2.0",
+    "react-select": "^5.8.0"
   }
 }

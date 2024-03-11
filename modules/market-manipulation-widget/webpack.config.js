@@ -1,32 +1,36 @@
-const path = require('path');
-const webpack = require('webpack');
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-undef */
+const path = require("path")
+const webpack = require("webpack")
+const ESLintPlugin = require("eslint-webpack-plugin")
 
 module.exports = {
-  mode: 'none',
+  mode: "none",
   entry: {
-    marketManipulationWidget: path.resolve(__dirname, 'index.tsx')
+    marketManipulationWidget: path.resolve(__dirname, "./src/index.tsx")
   },
-  target: 'web',
+  target: "web",
   resolve: {
-      extensions: ['.ts', '.tsx', '.js']
+    extensions: [".ts", ".tsx", ".js"]
   },
   output: {
-    path: path.resolve('..', '..', 'static', 'assets'),
-    filename: '[name].js',
+    path: path.resolve("..", "..", "static", "assets"),
+    filename: "[name].js"
   },
   plugins: [
     new webpack.DefinePlugin({
       RAPID_HOST: JSON.stringify(process.env.RAPID_HOST),
-      RAPID_KEY: JSON.stringify(process.env.RAPID_KEY),
-    })
+      RAPID_KEY: JSON.stringify(process.env.RAPID_KEY)
+    }),
+    new ESLintPlugin()
   ],
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: ['ts-loader'],
-      },
-    ],
-  },
-};
+        use: ["ts-loader"]
+      }
+    ]
+  }
+}
