@@ -6,6 +6,7 @@
     "prettier-plugin-go-template": "^0.0.13"
   },
   "scripts": {
+    "build": "cd modules/ && for i in *; do cd $i && yarn build; done",
     "format": "prettier *** --write --cache --cache-location .prettiercache --ignore-unknown --no-error-on-unmatched-pattern",
     "dev:format": "prettier *** --write --ignore-unknown --no-error-on-unmatched-pattern"
   },
