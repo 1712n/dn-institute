@@ -13,7 +13,8 @@ loss: 3500000
 
 ## Summary
 
-Nirvana Finance suffered a $3.5 million loss due to a flash loan attack perpetrated by Shakeeb Ahmed, a senior security engineer at an international technology company. Leveraging a $10 million flash loan from Solend, Ahmed exploited a smart contract vulnerability to manipulate the $ANA token's price from approximately $8 to $24. He exploited this vulnerability to purchase tokens at an undervalued price, subsequently exchanging the inflated tokens for $USDT from Nirvana's treasury. The stolen funds were then moved to an Ethereum address through the Wormhole bridge. Following the event, Ahmed was apprehended and pled guilty to computer fraud, agreeing to forfeit over $12.3 million in assets, including the proceeds from this attack.
+On July 28, 2022, Nirvana Finance suffered a $3.5 million loss due to a flash loan attack perpetrated by Shakeeb Ahmed, a senior security engineer at an international technology company. Leveraging a $10 million flash loan from Solend, Ahmed exploited a smart contract vulnerability to manipulate the $ANA token's price from approximately $8 to $24. He exploited this vulnerability to purchase tokens at an undervalued price, subsequently exchanging the inflated tokens for $USDT from Nirvana's treasury. The stolen funds were then moved to an Ethereum address through the Wormhole bridge. Following the event, Ahmed was apprehended and pled guilty to computer fraud, agreeing to forfeit over $12.3 million in assets, including the proceeds from this attack.
+
 ## Attackers
 
 The hacker was identified as Shakeeb Ahmed, a former security engineer for an international tech company.
