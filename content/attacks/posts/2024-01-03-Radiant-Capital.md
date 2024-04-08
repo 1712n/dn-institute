@@ -6,8 +6,8 @@ entity-types:
   - Lending Platform
 attack-types:
   - Smart Contract Exploit
-  - Flash Loan Attack
-title: "Radiant Capitale Suffers $4.6 Million Loss in Exploit"
+  - Flash Loan
+title: "Radiant Capitale Suffers $4.6 Million Loss"
 loss: 4600000
 ---
 
@@ -35,4 +35,4 @@ The loss amounted to 1902 ETH worth $4.6 million.
 
 ## Security Failure Causes
 
-- **Smart Contract Vulnerability:** The exploit was enabled by leveraging flash loans for price manipulation and exploiting a rounding error in the smart contract, which artificially allowed the attacker to increase the profit margin.
+- **Smart Contract Vulnerability:** The exploit was enabled by leveraging flash loans for price manipulation and exploiting a rounding error in the smart contract, which allowed the attacker to increase the profit margin.
