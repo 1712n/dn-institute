@@ -118,7 +118,7 @@ Here is a search query a user made which resulted in this page:
         prompt=prompt,
         max_tokens_to_sample=512,
         temperature=0.0,
-        model="claude-instant-v1",
+        model="claude-3-opus",
         stop_sequences=["</summary>", anthropic.HUMAN_PROMPT]
     )
 
