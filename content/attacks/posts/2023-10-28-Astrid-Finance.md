@@ -21,7 +21,7 @@ Hacker Ethereum Wallet:
 
 ## Losses
 
-Astrid Finance lost approximately $228,000 in total:
+Astrid Finance lost approximately $228,000:
 
 - 64.17 stETH (114,757 USD)
 - 39.16 rETH (76,328 USD)
@@ -30,7 +30,7 @@ Astrid Finance lost approximately $228,000 in total:
 ## Timeline
 
 - **October 28, 2023, 10:41 AM UTC:** The [first malicious](https://etherscan.io/tx/0x8af9b5fb3e2e3df8659ffb2e0f0c1f4c90d5a80f4f6fccef143b823ce673fb60) transaction occurred.
-- **October 28, 2023, 02:13 PM UTC:** Astrid Finane team [reported](https://twitter.com/AstridFinance/status/1718254655288066501) about the exploit.
+- **October 28, 2023, 02:13 PM UTC:** Astrid Finance team [reported](https://twitter.com/AstridFinance/status/1718254655288066501) about the exploit.
 - **October 28, 2023, 02:51 PM UTC:** Astrid Finance team sent an [on-chain message](https://etherscan.io/tx/0xa56fdb1fc7c192b23cda44901d2871289cf28831cb94ccc731d089d4fb593793) to the hacker offering a bounty of 20% of the stolen funds.
 - **October 28, 2023, 07:22 PM UTC:** The team confirmed that they have [returned funds](https://twitter.com/AstridFinance/status/1718332313380303195) to affected users. 
 - **October 29, 2023, 09:08 AM UTC:** Hacker [returned](https://etherscan.io/tx/0x27cbd5f2f12067bcc9be3bafa9140b849ee1ee68ae5329c2a4ba789685111ad7) 80% of the stolen assets.
