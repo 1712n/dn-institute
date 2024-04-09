@@ -1,7 +1,7 @@
 {
     "endpoint": "https://preview.webpilotai.com/api/v1/watt",
     "max_tokens": 3596,
-    "ANTHROPIC_SEARCH_MODEL": "claude-2.1",
+    "ANTHROPIC_SEARCH_MODEL": "claude-3-opus-20240229",
     "GPT_MODEL": "gpt-3.5-turbo",
     "GPT_retry": 3,
     "GPT_temperature": 0,
