@@ -37,11 +37,6 @@ Statements to be verified:
 """
 
 ANSWER_PROMPT = """
-
-<fact_checking_results>%s</fact_checking_results>
-
-<text>%s</text>
-
 You are an editor. Perform the following tasks:
 1. Using the information provided within the <fact_checking_results></fact_checking_results> tags, 
 please form the desired output with results of fact-checking. 
@@ -209,27 +204,32 @@ class ClientWithRetrieval:
 
 
     def answer_with_results(self, search_results: str, query: str, model: str, temperature: float):
-        """Generates an RAG response based on search results and a query. If format_results is True,
-           formats the raw search results first. Set format_results to True if you are using this method standalone without retrieve().
+        prompt = f'<fact_checking_results>{search_results}</fact_checking_results> <text>{query}</text>'
+        messages = [
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": prompt
+                    }
+                ]
+            }
+        ]
 
-        Returns:
-            str: Claude's answer to the query
-        """
-        
         try:
-            prompt = f"{HUMAN_PROMPT} {ANSWER_PROMPT%(search_results, query)} {AI_PROMPT}"
-        except Exception as e:
-            print(str(e))        
-        try:
-            answer = self.completions.create(
-                prompt=prompt, 
-                model=model, 
-                temperature=temperature, 
-                max_tokens=4000
-            ).completion
+            message = self.client.messages.create(
+                model=model,
+                max_tokens=4000,
+                temperature=temperature,
+                system=ANSWER_PROMPT,
+                messages=messages
+            )
+            answer = message.content[0].text
         except Exception as e:
             answer = str(e)
-        
+            print(f"An error occurred: {answer}")
+
         return answer
     
 
