@@ -1,5 +1,5 @@
 from typing import Optional, Tuple
-from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
+import anthropic
 from .searcher.types import SearchTool, SearchResult, Tool
 import logging
 import re
@@ -10,7 +10,8 @@ from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
-
+HUMAN_PROMPT = "HUMAN_PROMPT"
+AI_PROMPT = "AI_PROMPT"
 EXTRACTING_PROMPT = """
 Please extract important statements that appear to be factual from the text provided between <text></text> tags.
 Return the extracted statements. Place each statement within <statement></statement> tags.
@@ -116,9 +117,9 @@ Combine the results of all steps into a single output that complies with Markdow
 """
 
 
-class ClientWithRetrieval(Anthropic):
+class ClientWithRetrieval:
 
-    def __init__(self, search_tool: Optional[SearchTool] = None, verbose: bool = True, *args, **kwargs):
+    def __init__(self, api_key: str, search_tool: Optional[SearchTool] = None, verbose: bool = True):
         """
         Initializes the ClientWithRetrieval class.
         
@@ -127,15 +128,30 @@ class ClientWithRetrieval(Anthropic):
             verbose (bool): Whether to print verbose logging
             *args, **kwargs: Passed to superclass init
         """
-        super().__init__(*args, **kwargs)
         self.search_tool = search_tool
         self.verbose = verbose
+        self.client = anthropic.Anthropic(api_key=api_key)
     
 
-    def extract_statements(self, text: str, model: str, temperature: float = 0.0, max_tokens_to_sample: int = 1000):
-        prompt = f"{EXTRACTING_PROMPT} {HUMAN_PROMPT} <text>{text}</text>{AI_PROMPT}"
-        completion = self.completions.create(prompt=prompt, model=model, temperature=temperature, max_tokens_to_sample=max_tokens_to_sample).completion
-        return completion
+    def extract_statements(self, text: str, model: str, temperature: float = 0.0, max_tokens: int = 1000):
+        message = self.client.messages.create(
+            model=model,
+            max_tokens=max_tokens,
+            temperature=temperature,
+            system=EXTRACTING_PROMPT,
+            messages=[
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": f"<text>{text}</text>"
+                    }
+                ]
+            }
+        ]
+        )
+        return message.content[0].text
     
 
     def retrieve(self,
@@ -157,7 +173,8 @@ class ClientWithRetrieval(Anthropic):
         assert self.search_tool is not None, "SearchTool must be provided to use .retrieve()"
 
         description = self.search_tool.tool_description
-        statements = self.extract_statements(query, model=model, max_tokens_to_sample=max_tokens_to_sample, temperature=temperature)
+        statements = self.extract_statements(query, model=model, max_tokens=max_tokens_to_sample, temperature=temperature)
+        print(f'this is extracted statements: {statements}')
         num_of_statements = int(self.extract_between_tags("number_of_statements", statements, strip=True))
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         prompt = f"{RETRIEVAL_PROMPT.format(current_time=current_time, description=description)}{HUMAN_PROMPT} {statements} {AI_PROMPT}"
