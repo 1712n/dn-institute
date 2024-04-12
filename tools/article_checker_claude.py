@@ -48,7 +48,7 @@ def api_call(query, client, model):
             model=model,
             n_search_results_to_use=1,
             max_searches_to_try=5,
-            max_tokens_to_sample=4000
+            max_tokens=4000
         )
     except Exception as e:
         print(f"Error in API call: {e}")

@@ -154,50 +154,57 @@ class ClientWithRetrieval:
         return message.content[0].text
     
 
-    def retrieve(self,
-                       query: str,
-                       model: str,
-                       n_search_results_to_use: int = 3,
-                       stop_sequences: list[str] = [HUMAN_PROMPT],
-                       max_tokens_to_sample: int = 1000,
-                       max_searches_to_try: int = 5,
-                       temperature: float = 0.0) -> str:
+    def retrieve(self, query: str, model: str, n_search_results_to_use: int = 3, stop_sequences: list[str] = [HUMAN_PROMPT], max_tokens: int = 1000, max_searches_to_try: int = 5, temperature: float = 0.0) -> str:
         """
         Main method to retrieve relevant search results for a query with a provided search tool.
-        
+
         Constructs RETRIEVAL prompt with query and search tool description. 
-        Keeps sampling Claude completions until stop sequence hit.
-        
+        Keeps sampling messages until stop sequence hit.
+
         Returns string with fact-checking results
         """
         assert self.search_tool is not None, "SearchTool must be provided to use .retrieve()"
 
         description = self.search_tool.tool_description
-        statements = self.extract_statements(query, model=model, max_tokens=max_tokens_to_sample, temperature=temperature)
-        print(f'this is extracted statements: {statements}')
+        statements = self.extract_statements(query, model=model, max_tokens=max_tokens, temperature=temperature)
         num_of_statements = int(self.extract_between_tags("number_of_statements", statements, strip=True))
+        print(f'this is num_of_statements: {num_of_statements}')
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        prompt = f"{RETRIEVAL_PROMPT.format(current_time=current_time, description=description)}{HUMAN_PROMPT} {statements} {AI_PROMPT}"
-        token_budget = max_tokens_to_sample
+        system_prompt = f"{RETRIEVAL_PROMPT.format(current_time=current_time, description=description)}"
+        print(f'this is system_prompt: {system_prompt}')
+
+        messages = [
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": statements
+                    }
+                ]
+            }
+        ]
+
         completions = ""
-        for tries in range(num_of_statements):
-            partial_completion = self.completions.create(prompt = prompt,
-                                                     stop_sequences=stop_sequences + ['</search_query>'],
-                                                     model=model,
-                                                     max_tokens_to_sample = token_budget,
-                                                     temperature = temperature)
-            completions += partial_completion.completion
-            partial_completion, stop_reason, stop_seq = partial_completion.completion, partial_completion.stop_reason, partial_completion.stop # type: ignore
-            logger.info(partial_completion)
-            token_budget -= self.count_tokens(partial_completion)
-            prompt += partial_completion
-            if stop_reason == 'stop_sequence' and stop_seq == '</search_query>':
-                logger.info(f'Attempting search number {tries}.')
-                formatted_search_results = self._search_query_stop(partial_completion, n_search_results_to_use)
-                prompt += '</search_query>' + formatted_search_results
-                completions += '</search_query>' + formatted_search_results
-            else:
+        for tries in range(min(num_of_statements, max_searches_to_try)):
+            message = self.client.messages.create(
+                model=model,
+                max_tokens=max_tokens,
+                temperature=temperature,
+                system=system_prompt,
+                messages=messages
+            )
+            completion = message.content[0].text
+            print(f'this is completion: {completion}')
+            completions += completion
+
+            stop_hit = any(seq in completion for seq in stop_sequences)
+            if stop_hit:
+                logger.info(f'Stop sequence hit after {tries+1} tries.')
                 break
+
+            messages[0]['content'][0]['text'] += completion
+
         return completions
 
 
@@ -218,7 +225,7 @@ class ClientWithRetrieval:
                 prompt=prompt, 
                 model=model, 
                 temperature=temperature, 
-                max_tokens_to_sample=4000
+                max_tokens=4000
             ).completion
         except Exception as e:
             answer = str(e)
@@ -231,7 +238,7 @@ class ClientWithRetrieval:
                                         model: str,
                                         n_search_results_to_use: int = 3,
                                         stop_sequences: list[str] = [HUMAN_PROMPT],
-                                        max_tokens_to_sample: int = 1000,
+                                        max_tokens: int = 1000,
                                         max_searches_to_try: int = 5,
                                         temperature: float = 0.0) -> str:
         """
@@ -245,7 +252,7 @@ class ClientWithRetrieval:
         """
         search_results = self.retrieve(query, model=model,
                                                  n_search_results_to_use=n_search_results_to_use, stop_sequences=stop_sequences,
-                                                 max_tokens_to_sample=max_tokens_to_sample,
+                                                 max_tokens=max_tokens,
                                                  max_searches_to_try=max_searches_to_try,
                                                  temperature=temperature)
         answer = self.answer_with_results(search_results, query, model, temperature)
