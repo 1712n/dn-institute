@@ -187,18 +187,22 @@ class ClientWithRetrieval:
                 max_tokens=max_tokens,
                 temperature=temperature,
                 system=system_prompt,
-                messages=messages
+                messages=messages,
+                stop_sequences=["</search_query>"]
             )
+            partial_completion, stop_reason, stop_seq = message.content[0].text, message.stop_reason, message.stop_sequence
+            logger.info(partial_completion)
             completion = message.content[0].text
             print(f'this is completion: {completion}')
             completions += completion
-
-            stop_hit = any(seq in completion for seq in stop_sequences)
-            if stop_hit:
-                logger.info(f'Stop sequence hit after {tries+1} tries.')
-                break
-
             messages[0]['content'][0]['text'] += completion
+            if stop_reason == 'stop_sequence' and stop_seq == '</search_query>':
+                logger.info(f'Attempting search number {tries}.')
+                formatted_search_results = self._search_query_stop(partial_completion, n_search_results_to_use)
+                messages[0]['content'][0]['text'] += '</search_query>' + formatted_search_results
+                completions += '</search_query>' + formatted_search_results
+            else:
+                break
 
         return completions
 
