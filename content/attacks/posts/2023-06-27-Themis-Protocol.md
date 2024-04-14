@@ -20,8 +20,6 @@ On June 27, 2023, Themis Protocol, a decentralized lending and borrowing platfor
 
 The identity of the attacker is unknown. The following addresses are associated with this attack:
 
-Hacker Arbitrum Wallet:
-
 - [0xdb73eb484e7dea3785520d750eabef50a9b9ab33](https://arbiscan.io/address/0xdb73eb484e7dea3785520d750eabef50a9b9ab33)
 
 ## Losses
@@ -38,4 +36,4 @@ Themis Protocol lost approximately $370,000 in total.
 
 ## Security Failure Causes
 
-- **Flawed Price Oracle:** The root cause of the exploit is an inaccurate Balancer LP token price oracle. The attacker manipulated the LP token price by exchanging tokens within the Balancer pool, the price of which is determined by aggregating the total value of all tokens in the pool.
+- **Price Oracle Vulnerability:** The root cause of the exploit is a weakness in the Balancer LP token price oracle. The attacker manipulated the LP token price by exchanging tokens within the Balancer pool, the price of which is determined by aggregating the total value of all tokens in the pool.
