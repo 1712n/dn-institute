@@ -1,5 +1,5 @@
 ---
-date: 2018-11
+date: 2018-11-01
 target-entities: AurumCoin
 entity-types: Blockchain
 attack-types: 51%
