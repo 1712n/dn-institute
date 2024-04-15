@@ -94,6 +94,3 @@ def main():
     print('-' * 50)
 
     create_comment_on_pr(pr, answer)
-
-if __name__ == "__main__":
-    main()
