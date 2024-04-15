@@ -1,5 +1,5 @@
 from typing import Optional, Tuple
-from anthropic import Anthropic, HUMAN_PROMPT, AI_PROMPT
+import anthropic
 from .searcher.types import SearchTool, SearchResult, Tool
 import logging
 import re
@@ -36,11 +36,6 @@ Statements to be verified:
 """
 
 ANSWER_PROMPT = """
-
-<fact_checking_results>%s</fact_checking_results>
-
-<text>%s</text>
-
 You are an editor. Perform the following tasks:
 1. Using the information provided within the <fact_checking_results></fact_checking_results> tags, 
 please form the desired output with results of fact-checking. 
@@ -116,96 +111,116 @@ Combine the results of all steps into a single output that complies with Markdow
 """
 
 
-class ClientWithRetrieval(Anthropic):
+class ClientWithRetrieval:
 
-    def __init__(self, search_tool: Optional[SearchTool] = None, verbose: bool = True, *args, **kwargs):
+    def __init__(self, api_key: str, search_tool: Optional[SearchTool] = None, verbose: bool = True):
         """
         Initializes the ClientWithRetrieval class.
         
         Parameters:
             search_tool (SearchTool): SearchTool object to handle searching
             verbose (bool): Whether to print verbose logging
-            *args, **kwargs: Passed to superclass init
         """
-        super().__init__(*args, **kwargs)
         self.search_tool = search_tool
         self.verbose = verbose
+        self.client = anthropic.Anthropic(api_key=api_key)
     
 
-    def extract_statements(self, text: str, model: str, temperature: float = 0.0, max_tokens_to_sample: int = 1000):
-        prompt = f"{EXTRACTING_PROMPT} {HUMAN_PROMPT} <text>{text}</text>{AI_PROMPT}"
-        completion = self.completions.create(prompt=prompt, model=model, temperature=temperature, max_tokens_to_sample=max_tokens_to_sample).completion
-        return completion
+    def extract_statements(self, text: str, model: str, temperature: float = 0.0, max_tokens: int = 1000):
+        message = self.client.messages.create(
+            model=model,
+            max_tokens=max_tokens,
+            temperature=temperature,
+            system=EXTRACTING_PROMPT,
+            messages=[
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": f"<text>{text}</text>"
+                    }
+                ]
+            }
+        ]
+        )
+        return message.content[0].text
     
 
-    def retrieve(self,
-                       query: str,
-                       model: str,
-                       n_search_results_to_use: int = 3,
-                       stop_sequences: list[str] = [HUMAN_PROMPT],
-                       max_tokens_to_sample: int = 1000,
-                       max_searches_to_try: int = 5,
-                       temperature: float = 0.0) -> str:
+    def retrieve(self, query: str, model: str, n_search_results_to_use: int = 3, stop_sequences: list[str] = [], max_tokens: int = 1000, max_searches_to_try: int = 5, temperature: float = 0.0) -> str:
         """
         Main method to retrieve relevant search results for a query with a provided search tool.
-        
+
         Constructs RETRIEVAL prompt with query and search tool description. 
-        Keeps sampling Claude completions until stop sequence hit.
-        
+        Keeps sampling messages until stop sequence hit.
+
         Returns string with fact-checking results
         """
         assert self.search_tool is not None, "SearchTool must be provided to use .retrieve()"
 
         description = self.search_tool.tool_description
-        statements = self.extract_statements(query, model=model, max_tokens_to_sample=max_tokens_to_sample, temperature=temperature)
+        statements = self.extract_statements(query, model=model, max_tokens=max_tokens, temperature=temperature)
         num_of_statements = int(self.extract_between_tags("number_of_statements", statements, strip=True))
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        prompt = f"{RETRIEVAL_PROMPT.format(current_time=current_time, description=description)}{HUMAN_PROMPT} {statements} {AI_PROMPT}"
-        token_budget = max_tokens_to_sample
+        system_prompt = f"{RETRIEVAL_PROMPT.format(current_time=current_time, description=description)}"
+
         completions = ""
-        for tries in range(num_of_statements):
-            partial_completion = self.completions.create(prompt = prompt,
-                                                     stop_sequences=stop_sequences + ['</search_query>'],
-                                                     model=model,
-                                                     max_tokens_to_sample = token_budget,
-                                                     temperature = temperature)
-            completions += partial_completion.completion
-            partial_completion, stop_reason, stop_seq = partial_completion.completion, partial_completion.stop_reason, partial_completion.stop # type: ignore
-            logger.info(partial_completion)
-            token_budget -= self.count_tokens(partial_completion)
-            prompt += partial_completion
+        messages = [
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": statements
+                    }
+                ]
+            }
+        ]
+        for tries in range(min(num_of_statements, max_searches_to_try)):
+            message = self.client.messages.create(
+                model=model,
+                max_tokens=max_tokens,
+                temperature=temperature,
+                system=system_prompt,
+                messages = messages,
+                stop_sequences=["</search_query>"]
+            )
+            partial_completion, stop_reason, stop_seq = message.content[0].text, message.stop_reason, message.stop_sequence
+            completions += partial_completion
+            messages[0]['content'][0]['text'] += partial_completion
             if stop_reason == 'stop_sequence' and stop_seq == '</search_query>':
                 logger.info(f'Attempting search number {tries}.')
                 formatted_search_results = self._search_query_stop(partial_completion, n_search_results_to_use)
-                prompt += '</search_query>' + formatted_search_results
                 completions += '</search_query>' + formatted_search_results
+                messages[0]['content'][0]['text'] += '</search_query>' + formatted_search_results
             else:
                 break
         return completions
 
 
-    def answer_with_results(self, search_results: str, query: str, model: str, temperature: float):
-        """Generates an RAG response based on search results and a query. If format_results is True,
-           formats the raw search results first. Set format_results to True if you are using this method standalone without retrieve().
-
-        Returns:
-            str: Claude's answer to the query
-        """
-        
+    def answer_with_results(self, search_results: str, query: str, model: str, temperature: float, max_tokens: int = 4000):
+        prompt = f'<fact_checking_results>{search_results}</fact_checking_results> <text>{query}</text>'
         try:
-            prompt = f"{HUMAN_PROMPT} {ANSWER_PROMPT%(search_results, query)} {AI_PROMPT}"
-        except Exception as e:
-            print(str(e))        
-        try:
-            answer = self.completions.create(
-                prompt=prompt, 
-                model=model, 
-                temperature=temperature, 
-                max_tokens_to_sample=4000
-            ).completion
+            message = self.client.messages.create(
+                model=model,
+                temperature=temperature,
+                system=ANSWER_PROMPT,
+                max_tokens=max_tokens,
+                messages = [
+                    {
+                        "role": "user",
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": prompt
+                            }
+                        ]       
+                    }
+                ]
+            )
+            answer = message.content[0].text
         except Exception as e:
             answer = str(e)
-        
         return answer
     
 
@@ -213,8 +228,8 @@ class ClientWithRetrieval(Anthropic):
                                         query: str,
                                         model: str,
                                         n_search_results_to_use: int = 3,
-                                        stop_sequences: list[str] = [HUMAN_PROMPT],
-                                        max_tokens_to_sample: int = 1000,
+                                        stop_sequences: list[str] = [],
+                                        max_tokens: int = 1000,
                                         max_searches_to_try: int = 5,
                                         temperature: float = 0.0) -> str:
         """
@@ -228,7 +243,7 @@ class ClientWithRetrieval(Anthropic):
         """
         search_results = self.retrieve(query, model=model,
                                                  n_search_results_to_use=n_search_results_to_use, stop_sequences=stop_sequences,
-                                                 max_tokens_to_sample=max_tokens_to_sample,
+                                                 max_tokens=max_tokens,
                                                  max_searches_to_try=max_searches_to_try,
                                                  temperature=temperature)
         answer = self.answer_with_results(search_results, query, model, temperature)
@@ -236,7 +251,6 @@ class ClientWithRetrieval(Anthropic):
         return answer
     
 
-    # Helper methods
     def _search_query_stop(self, partial_completion: str, n_search_results_to_use: int) -> Tuple[list[SearchResult], str]:
         """
         Helper to handle search query stop case.
