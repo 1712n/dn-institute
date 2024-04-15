@@ -165,23 +165,24 @@ class ClientWithRetrieval:
         system_prompt = f"{RETRIEVAL_PROMPT.format(current_time=current_time, description=description)}"
 
         completions = ""
+        messages = [
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": statements
+                    }
+                ]
+            }
+        ]
         for tries in range(min(num_of_statements, max_searches_to_try)):
             message = self.client.messages.create(
                 model=model,
                 max_tokens=max_tokens,
                 temperature=temperature,
                 system=system_prompt,
-                messages = [
-                    {
-                        "role": "user",
-                        "content": [
-                            {
-                                "type": "text",
-                                "text": statements
-                            }
-                        ]
-                    }
-                ],
+                messages = messages,
                 stop_sequences=["</search_query>"]
             )
             partial_completion, stop_reason, stop_seq = message.content[0].text, message.stop_reason, message.stop_sequence
