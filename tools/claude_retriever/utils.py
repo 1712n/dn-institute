@@ -9,6 +9,11 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+with open('tools/config.json', 'r') as config_file:
+    config = json.load(config_file)
+
+model = config['ANTHROPIC_SUMMARIZE_MODEL']
+
 
 def format_results(extracted: list[str]) -> str:
     result = "\n".join(
@@ -52,7 +57,7 @@ async def get_url_content(url: str) -> Optional[str]:
 
 
 async def claude_extract(content: str, query: Optional[str], anthropic_api_key: str, max_tokens_to_read: int = 20_000) -> str:
-    client = AsyncAnthropic(api_key=anthropic_api_key)
+    client = anthropic.Anthropic(api_key=anthropic_api_key)
     tokenizer = client.get_tokenizer()
     tokenized_content = tokenizer.encode(content).ids
     if len(tokenized_content) > max_tokens_to_read:
@@ -71,9 +76,9 @@ async def claude_extract(content: str, query: Optional[str], anthropic_api_key: 
     If the content of the web page is not meaningful, relevant, or understandable then don't write anything.
     """
     prompt = f"{prompt_text} {instructions}"
-
+    client = AsyncAnthropic(api_key=anthropic_api_key)
     response = await client.messages.create(
-        model="claude-3-opus-20240229",
+        model=model,
         stop_sequences=["</summary>"],
         max_tokens=512,
         temperature=0.0,
