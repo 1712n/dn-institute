@@ -186,7 +186,6 @@ class ClientWithRetrieval:
                 stop_sequences=["</search_query>"]
             )
             partial_completion, stop_reason, stop_seq = message.content[0].text, message.stop_reason, message.stop_sequence
-            print(f'this is the completion: {partial_completion}')
             completions += partial_completion
             messages[0]['content'][0]['text'] += partial_completion
             if stop_reason == 'stop_sequence' and stop_seq == '</search_query>':
@@ -222,7 +221,6 @@ class ClientWithRetrieval:
             answer = message.content[0].text
         except Exception as e:
             answer = str(e)
-            print(f"An error occurred: {answer}")
         return answer
     
 

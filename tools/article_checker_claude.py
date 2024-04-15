@@ -36,7 +36,7 @@ def parse_cli_args():
     return parser.parse_args()
 
 
-def api_call(query, client, model):
+def api_call(query, client, model, max_tokens, temperature):
     """
     Make an API call and return the response.
     """
@@ -46,7 +46,8 @@ def api_call(query, client, model):
             model=model,
             n_search_results_to_use=1,
             max_searches_to_try=5,
-            max_tokens=4000
+            max_tokens=max_tokens,
+            temperature=temperature
         )
     except Exception as e:
         print(f"Error in API call: {e}")
@@ -75,7 +76,11 @@ def main():
 
     search_tool = BraveSearchTool(brave_api_key=args.SEARCH_API_KEY, summarize_with_claude=True,
                                   anthropic_api_key=args.API_key)
+    
     model = config['ANTHROPIC_SEARCH_MODEL']
+    max_tokens = config['ANTHROPIC_SEARCH_MAX_TOKENS']
+    temperature = config['ANTHROPIC_SEARCH_TEMPERATURE']
+
     client = tools.claude_retriever.ClientWithRetrieval(api_key=args.API_key, search_tool=search_tool)
 
     github = Github(args.github_token)
@@ -88,7 +93,7 @@ def main():
     print('-' * 50)
 
     text = remove_plus(diff[0]['header'] + diff[0]['body'][0]['body'])
-    answer = api_call(text, client, model)
+    answer = api_call(text, client, model, max_tokens, temperature)
     print('-' * 50)
     print('This is an answer', answer)
     print('-' * 50)

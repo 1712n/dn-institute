@@ -14,6 +14,8 @@ with open('tools/config.json', 'r') as config_file:
     config = json.load(config_file)
 
 model = config['ANTHROPIC_SUMMARIZE_MODEL']
+temperature = config['ANTHROPIC_SUMMARIZE_TEMPERATURE']
+max_tokens = config['ANTHROPIC_SUMMARIZE_MAX_TOKENS']
 
 
 def format_results(extracted: list[str]) -> str:
@@ -81,8 +83,8 @@ async def claude_extract(content: str, query: Optional[str], anthropic_api_key: 
     response = await client.messages.create(
         model=model,
         stop_sequences=["</summary>"],
-        max_tokens=512,
-        temperature=0.0,
+        max_tokens=max_tokens,
+        temperature=temperature,
         messages=[{"role": "user", "content": [{"type": "text", "text": prompt}]}]
     )
 
