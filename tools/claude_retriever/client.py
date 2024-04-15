@@ -199,13 +199,14 @@ class ClientWithRetrieval:
         return completions
 
 
-    def answer_with_results(self, search_results: str, query: str, model: str, temperature: float):
+    def answer_with_results(self, search_results: str, query: str, model: str, temperature: float, max_tokens: int = 4000):
         prompt = f'<fact_checking_results>{search_results}</fact_checking_results> <text>{query}</text>'
         try:
             message = self.client.messages.create(
                 model=model,
                 temperature=temperature,
                 system=ANSWER_PROMPT,
+                max_tokens=max_tokens,
                 messages = [
                     {
                         "role": "user",
