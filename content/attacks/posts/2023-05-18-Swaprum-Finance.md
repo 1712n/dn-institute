@@ -13,7 +13,7 @@ loss: 3000000
 
 ## Summary
 
-On May 18, 2023, Swaprum Finance, a DeFi platform on the Arbitrum chain, conducted an exit scam, absconding with around $3 million in user funds. The deployer executed a malicious upgrade to the reward contract, introducing a backdoor function that allowed for the unauthorized transfer of LP tokens directly to the deployer’s address. This upgrade facilitated the siphoning of liquidity from various pools by stealing LP tokens staked by users. In addition to this, the deployer exploited the newly inserted backdoor to mint 200,000,000 SAPR tokens directly into their wallet, further draining the liquidity from the SAPR/WETH Pool. These illicitly acquired assets were then converted into 1620 ETH, which were subsequently laundered through Tornado Cash. Following these actions, the platform's online presence was entirely erased.
+On May 18, 2023, Swaprum Finance, a DeFi platform on the Arbitrum chain, conducted an exit scam, absconding with around $3 million in user funds. The deployer executed a malicious upgrade to the reward contract, introducing a backdoor function that allowed for the unauthorized transfer of LP tokens directly to the deployer’s address. This upgrade facilitated the siphoning of liquidity from various pools by stealing LP tokens staked by users. Additionally, the deployer exploited the newly inserted backdoor to mint 200,000,000 SAPR tokens directly into their wallet, further draining the liquidity from the SAPR/WETH Pool. These illicitly acquired assets were then converted into 1620 ETH, which were subsequently laundered through Tornado Cash. Following these actions, the platform's online presence was entirely erased.
 
 ## Attackers
 
