@@ -4,14 +4,16 @@ target-entities: Affine Protocol
 entity-types:
   - DeFi
   - Lending Platform
-attack-types: Smart Contract Exploit
+attack-types:
+  - Smart Contract Exploit
+  - Flash Loan Attack
 title: "Affine Protocol Exploit: A $88,000 Loss Due to Smart Contract Flaw"
 loss: 88000
 ---
 
 ## Summary
 
-In response to this breach, Affine Protocol, a provider of cross-chain investment and savings solutions on the Ethereum Mainnet, suffered a significant exploit on February 1, 2024, resulting in an $88,000 loss. The incident was traced back to a smart contract vulnerability involving insufficient user data validation. The attacker exploited a flashloan callback function in the strategy contract, manipulating it to liquidate its position and redirect funds.
+In response to this breach, Affine Protocol, a provider of cross-chain investment and savings solutions on the Ethereum Mainnet, suffered a significant exploit on February 1, 2024, resulting in an $88,000 loss. The incident was traced to a smart contract vulnerability involving insufficient user data validation. The attacker exploited a flash loan callback function in the strategy contract, manipulating it to liquidate its position and redirect funds.
 Affine Protocol deployed enhanced security protocols, including stricter access controls and rigorous validation processes for user inputs and transactions, and  developed a remediation plan to compensate affected users
 
 ## Attackers
