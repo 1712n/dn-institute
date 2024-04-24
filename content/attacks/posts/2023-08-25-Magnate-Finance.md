@@ -13,7 +13,8 @@ loss: 5268000
 
 ## Summary
 
-On August 25, Magnate Finance, a lending project on the Ethereum Layer 2 network Base, executed an exit scam, leading to losses of $5,268,000. This scam involved modifying the price oracle address to manipulate prices directly and then utilizing cDAI to borrow other tokens. This incident is linked to the deployer's previous scams, including Solfire and Kokomo Finance. Following the scam, the project deleted its website and social media accounts.
+On August 25, Magnate Finance, a lending project on the Ethereum Layer 2 network Base, executed an exit scam, resulting in losses of $5,268,000. This scam involved modifying the price oracle address to manipulate prices directly and then utilizing cDAI to borrow other tokens. This incident is linked to the deployer's previous scams, including Solfire and Kokomo Finance. Following the scam, the project deleted its website and social media accounts.
+
 ## Attackers
 
 The anonymous Magnate Finance team, which is also associated with the [Kokomo Finance and Solfire scam](https://twitter.com/zachxbt/status/1694914871165345997?t=Cb9W5zUPYIvAsQcpk0rfog&s=19).
@@ -41,7 +42,7 @@ The following [addresses](https://twitter.com/PeckShieldAlert/status/16949867823
 
 ## Losses
 
-Loss amounted to $5,268,000:
+Loss amounted to [$5,268,000](https://twitter.com/CertiKAlert/status/1694996332237262960):
 - 2,000,000 USDBC
 - 946 ETH ($1,560,000)
 - 1,300,00 DAI
