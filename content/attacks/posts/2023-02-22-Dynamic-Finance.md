@@ -12,7 +12,8 @@ loss: 22400
 
 ## Summary
 
-Dynamic Finance, a DeFi aggregator, was exploited for 73 BNB ($22,400) on February 22, 2023, via a reentrancy attack on its StakingDYNA contract. The attacker exploited insufficient reentrancy protections, tricking the platform's deposit tracking system. Initially, the attacker deposited a small amount of $DYNA, then significantly inflated their deposit amount through a flash loan. This allowed them to claim exaggerated rewards and withdraw them, exploiting the platform’s reward calculation and withdrawal mechanisms. The attack not only resulted in financial loss but also caused the $DYNA token price to crash by over 93%.
+Dynamic Finance, a DeFi aggregator, was exploited for 73 BNB ($22,400) on February 22, 2023, via a reentrancy attack on its StakingDYNA contract. The attacker exploited insufficient reentrancy protections, tricking the platform's deposit tracking system. Initially, the attacker deposited a small amount of $DYNA, then significantly inflated their deposit amount through a flash loan. This allowed them to claim exaggerated rewards and withdraw them, exploiting the platform’s reward calculation and withdrawal mechanisms. The attack resulted in financial loss and caused the $DYNA token price to crash by over 93%.
+
 ## Attackers
 
 The identity of the attacker is unknown. The following addresses are associated with this attack:
