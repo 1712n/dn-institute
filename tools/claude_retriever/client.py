@@ -22,13 +22,13 @@ Skip the preamble; go straight into the result.
 RETRIEVAL_PROMPT = """
 Your timeline extends up to the current one — {current_time}.
 You are tasked with verifying the accuracy of a series of factual statements using a search engine. Below is the search engine's description: <tool_description>{description}</tool_description>.
-For each statement within <statement></statement> tags formulate a query to check its accuracy. You can make a call to the search engine tool by inserting a query within <search_query> tags like so: <search_query>query</search_query>. You'll then get results back within <search_result></search_result> tags.
+For each statement within <statement></statement> tags, if the statement already has a verdict in the <verdict></verdict> tags (either 'True' or 'False'), skip it and move to the next statement. For statements without a verdict, formulate a query to check its accuracy. You can make a call to the search engine tool by inserting a query within <search_query> tags like so: <search_query>query</search_query>. You'll then get results back within <search_result></search_result> tags.
 Based on these results, determine the accuracy of each statement and categorize it as 'True', 'False', or 'Unverified'.
 Put your verdict in <verdict></verdict> tags. If a statement is true, put 'True' in the <verdict></verdict> tags.
 Include the Web Page URL in <source></source> tags. If there is no URL at all, put 'None' in the <source></source> tags.
 If a statement is false, include an explanation in <explanation></explanation> tags.
 Focus particularly on verifying numbers, dates, monetary values, and names of people or organizations.
-Avoid verifying statements that already has a True/False verdict in the <verdict></verdict> tags.
+Avoid verifying statements that already have a True/False verdict in the <verdict></verdict> tags.
 Determine the accuracy of each statement using only information that is contained in the search_result.
 If you need to search again, put the new query in <search_query></search_query>.
 

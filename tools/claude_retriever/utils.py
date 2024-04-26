@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import anthropic
 from anthropic import AsyncAnthropic
 import logging
+import bleach
 
 
 logger = logging.getLogger(__name__)
@@ -40,7 +41,7 @@ async def scrape_url(url: str, summarize_with_claude: bool = False,
             if anthropic_api_key is None:
                 raise ValueError("anthropic_api_key must be provided if summarize_with_claude is True")
             try:
-                content = await claude_extract(content, query, anthropic_api_key)
+                content = await claude_extract_article(content, query, anthropic_api_key)
             except Exception as e:
                 logger.warning(f"Failed to extract with Claude. Falling back to raw content. Error: {e}")
     else:
@@ -48,15 +49,59 @@ async def scrape_url(url: str, summarize_with_claude: bool = False,
     return content
 
 
-async def get_url_content(url: str) -> Optional[str]:
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
-            if response.status == 200:
-                html = await response.text()
-                soup = BeautifulSoup(html, 'html.parser')
-                text = soup.get_text(strip=True, separator='\n')
-                return text
+async def get_url_content(url: str, timeout: int = 10, max_size: int = 1024 * 1024) -> Optional[str]:
+    try:
+        if not is_valid_url(url):
+            logger.warning(f"Invalid URL: {url}")
+            return None
+
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url, timeout=timeout, max_size=max_size, headers={'User-Agent': 'Mozilla/5.0'}) as response:
+                if response.status == 200:
+                    html = await response.text()
+                    soup = BeautifulSoup(html, 'html.parser')
+                    text = soup.get_text(strip=True, separator='\n')
+                    
+                    # Sanitize the extracted text using bleach
+                    sanitized_text = bleach.clean(text, tags=[], attributes={}, styles=[], strip=True)
+                    
+                    return sanitized_text
+                else:
+                    logger.warning(f"HTTP error {response.status} for URL: {url}")
+    except Exception as e:
+        logger.exception(f"Error fetching URL: {url}")
     return None
+
+
+async def claude_extract_article(content: str, query: Optional[str], anthropic_api_key: str, max_tokens_to_read: int = 20_000) -> str:
+    client = anthropic.Anthropic(api_key=anthropic_api_key)
+    tokenizer = client.get_tokenizer()
+    tokenized_content = tokenizer.encode(content).ids
+    if len(tokenized_content) > max_tokens_to_read:
+        logger.info(f"Truncating content from {len(tokenized_content)} tokens to {max_tokens_to_read} tokens")
+        content = tokenizer.decode(tokenized_content[:max_tokens_to_read]).strip()
+    
+    prompt_text = f"Here is the content from a web page. Please extract only the article from this content:\n{content}"
+    if query:
+        prompt_text += f"\nThis extraction is in response to the following user query:\n{query}"
+    instructions = """
+    Extract the main article content from this web page, excluding site navigation, advertisements, sidebars, and other non-essential elements. Ensure the extracted text is clean and contains only the relevant information focusing solely on the primary article.
+    """
+    prompt = f"{prompt_text} {instructions}"
+    client = AsyncAnthropic(api_key=anthropic_api_key)
+    response = await client.messages.create(
+        model=model,
+        stop_sequences=["</article>"],
+        max_tokens=max_tokens,
+        temperature=temperature,
+        messages=[{"role": "user", "content": [{"type": "text", "text": prompt}]}]
+    )
+
+    extracted_article = response.content[0].text  
+    if not extracted_article.endswith("</article>"):
+        extracted_article += "</article>"
+
+    return f"<article>{extracted_article}"
 
 
 async def claude_extract(content: str, query: Optional[str], anthropic_api_key: str, max_tokens_to_read: int = 20_000) -> str:
