@@ -187,7 +187,9 @@ class ClientWithRetrieval:
             )
             partial_completion, stop_reason, stop_seq = message.content[0].text, message.stop_reason, message.stop_sequence
             completions += partial_completion
+            ##print(f'Partial completion: {partial_completion}')
             messages[0]['content'][0]['text'] += partial_completion
+            ##print(f'messages: {messages}')
             if stop_reason == 'stop_sequence' and stop_seq == '</search_query>':
                 logger.info(f'Attempting search number {tries}.')
                 formatted_search_results = self._search_query_stop(partial_completion, n_search_results_to_use)
@@ -195,6 +197,7 @@ class ClientWithRetrieval:
                 messages[0]['content'][0]['text'] += '</search_query>' + formatted_search_results
             else:
                 break
+        print(f'Completions: {completions}')    
         return completions
 
 

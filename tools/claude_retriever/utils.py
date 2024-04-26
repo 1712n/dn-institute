@@ -40,7 +40,7 @@ async def scrape_url(url: str, summarize_with_claude: bool = False,
             if anthropic_api_key is None:
                 raise ValueError("anthropic_api_key must be provided if summarize_with_claude is True")
             try:
-                content = await claude_extract(content, query, anthropic_api_key)
+                content = await claude_extract_article(content, query, anthropic_api_key)
             except Exception as e:
                 logger.warning(f"Failed to extract with Claude. Falling back to raw content. Error: {e}")
     else:
@@ -57,6 +57,37 @@ async def get_url_content(url: str) -> Optional[str]:
                 text = soup.get_text(strip=True, separator='\n')
                 return text
     return None
+
+
+async def claude_extract_article(content: str, query: Optional[str], anthropic_api_key: str, max_tokens_to_read: int = 20_000) -> str:
+    client = anthropic.Anthropic(api_key=anthropic_api_key)
+    tokenizer = client.get_tokenizer()
+    tokenized_content = tokenizer.encode(content).ids
+    if len(tokenized_content) > max_tokens_to_read:
+        logger.info(f"Truncating content from {len(tokenized_content)} tokens to {max_tokens_to_read} tokens")
+        content = tokenizer.decode(tokenized_content[:max_tokens_to_read]).strip()
+    
+    prompt_text = f"Here is the content from a web page. Please extract only the article from this content:\n{content}"
+    if query:
+        prompt_text += f"\nThis extraction is in response to the following user query:\n{query}"
+    instructions = """
+    Extract the main article content from this web page, excluding site navigation, advertisements, sidebars, and other non-essential elements. Ensure the extracted text is clean and contains only the relevant information focusing solely on the primary article.
+    """
+    prompt = f"{prompt_text} {instructions}"
+    client = AsyncAnthropic(api_key=anthropic_api_key)
+    response = await client.messages.create(
+        model=model,
+        stop_sequences=["</article>"],
+        max_tokens=max_tokens,
+        temperature=temperature,
+        messages=[{"role": "user", "content": [{"type": "text", "text": prompt}]}]
+    )
+
+    extracted_article = response.content[0].text  
+    if not extracted_article.endswith("</article>"):
+        extracted_article += "</article>"
+
+    return f"<article>{extracted_article}"
 
 
 async def claude_extract(content: str, query: Optional[str], anthropic_api_key: str, max_tokens_to_read: int = 20_000) -> str:
