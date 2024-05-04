@@ -51,7 +51,7 @@ def load_config() -> dict:
     }
 
     # merge with values from config file
-    config_file = "tools/python_modules/payout_calc.yml"
+    config_file = "tools/payout_calc/payout_calc.yml"
     if os.path.isfile(config_file):
         with open(config_file) as file:
             config_from_file = yaml.load(file, Loader=yaml.FullLoader)
