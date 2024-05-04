@@ -9,11 +9,11 @@ import os
 import sys
 import json
 from github import Github
-from tools.git import get_pull_request, get_diff_by_url, parse_diff
-from tools.utils import logging_decorator
-from tools.llm_utils import remove_plus
-import tools.claude_retriever
-from tools.claude_retriever.searcher.searchtools.websearch import BraveSearchTool
+from tools.python_modules.git import get_pull_request, get_diff_by_url, parse_diff
+from tools.python_modules.utils import logging_decorator
+from tools.python_modules.llm_utils import remove_plus
+import tools.article_checker.claude_retriever
+from tools.article_checker.claude_retriever.searcher.searchtools.websearch import BraveSearchTool
 
 
 def parse_cli_args():
