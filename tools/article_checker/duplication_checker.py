@@ -15,9 +15,9 @@ import openai
 from bs4 import BeautifulSoup
 import requests
 
-from tools.llm_utils import remove_plus, count_tokens, trimming_text
-from tools.git import get_pull_request, get_diff_by_url, parse_diff
-from tools.utils import logging_decorator
+from tools.python_modules.llm_utils import remove_plus, count_tokens, trimming_text
+from tools.python_modules.git import get_pull_request, get_diff_by_url, parse_diff
+from tools.python_modules.utils import logging_decorator
 
 
 def parse_cli_args():

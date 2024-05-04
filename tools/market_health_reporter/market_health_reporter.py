@@ -6,8 +6,8 @@ import os
 import requests
 import glob
 from github import Github
-from tools.utils import read_file, extract_between_tags
-from tools.report_graphics_tool import Visualization
+from tools.python_modules.utils import read_file, extract_between_tags
+from tools.python_modules.report_graphics_tool import Visualization
 
 
 REPO_NAME = "1712n/dn-institute"
