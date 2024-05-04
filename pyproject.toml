@@ -5,7 +5,9 @@ description = ""
 authors = []
 readme = "README.md"
 packages = [
-    { include = "tools" }
+    { include = "tools" },
+    { include = "tools/market_health_reporter" },
+    { include = "tools/python_modules" }
 ]
 
 [tool.poetry.dependencies]
