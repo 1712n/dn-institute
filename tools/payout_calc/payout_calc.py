@@ -7,7 +7,7 @@ Count characters in a Github PR diff, calculate the contribution remuneration an
 import os, argparse
 import yaml
 from github import Github, GithubException
-from tools.python_modules.utils.py import logging_decorator
+from tools.python_modules.utils import logging_decorator
 from tools.python_modules.git import get_pull_request, get_diff_by_url, parse_diff
 
 data = {}
