@@ -26,6 +26,7 @@ anthropic = "^0.25.1"
 tenacity = "^8.2.3"
 matplotlib = "3.6.0"
 pandas = "2.0.1"
+bleach = "^6.1.0"
 
 [tool.poetry.scripts]
 payout-calc = "tools.payout_calc.payout_calc:main"

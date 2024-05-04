@@ -7,11 +7,12 @@ import anthropic
 from anthropic import AsyncAnthropic
 import logging
 import bleach
+from urllib.parse import urlparse
 
 
 logger = logging.getLogger(__name__)
 
-with open('tools/config.json', 'r') as config_file:
+with open('tools/article_checker/config.json', 'r') as config_file:
     config = json.load(config_file)
 
 model = config['ANTHROPIC_SUMMARIZE_MODEL']
@@ -19,6 +20,14 @@ temperature = config['ANTHROPIC_SUMMARIZE_TEMPERATURE']
 max_tokens = config['ANTHROPIC_SUMMARIZE_MAX_TOKENS']
 
 
+def is_valid_url(url: str) -> bool:
+    try:
+        result = urlparse(url)
+        return all([result.scheme, result.netloc])
+    except:
+        return False
+
+        
 def format_results(extracted: list[str]) -> str:
     result = "\n".join(
         f'<item index="{i+1}">\n<page_content>\n{r}\n</page_content>\n</item>'
@@ -49,21 +58,21 @@ async def scrape_url(url: str, summarize_with_claude: bool = False,
     return content
 
 
-async def get_url_content(url: str, timeout: int = 10, max_size: int = 1024 * 1024) -> Optional[str]:
+async def get_url_content(url: str, timeout: int = 10) -> Optional[str]:
     try:
         if not is_valid_url(url):
             logger.warning(f"Invalid URL: {url}")
             return None
 
         async with aiohttp.ClientSession() as session:
-            async with session.get(url, timeout=timeout, max_size=max_size, headers={'User-Agent': 'Mozilla/5.0'}) as response:
+            async with session.get(url, timeout=timeout, headers={'User-Agent': 'Mozilla/5.0'}) as response:
                 if response.status == 200:
                     html = await response.text()
                     soup = BeautifulSoup(html, 'html.parser')
                     text = soup.get_text(strip=True, separator='\n')
                     
                     # Sanitize the extracted text using bleach
-                    sanitized_text = bleach.clean(text, tags=[], attributes={}, styles=[], strip=True)
+                    sanitized_text = bleach.clean(text, tags=[], attributes={}, strip=True)
                     
                     return sanitized_text
                 else:
