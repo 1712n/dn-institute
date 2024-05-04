@@ -71,7 +71,7 @@ def create_comment_on_pr(pull_request, answer):
 
 def main():
     args = parse_cli_args()
-    with open('tools/config.json', 'r') as config_file:
+    with open('tools/article_checker/config.json', 'r') as config_file:
         config = json.load(config_file)
 
     search_tool = BraveSearchTool(brave_api_key=args.SEARCH_API_KEY, summarize_with_claude=True,

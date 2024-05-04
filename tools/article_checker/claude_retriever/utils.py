@@ -11,7 +11,7 @@ import bleach
 
 logger = logging.getLogger(__name__)
 
-with open('tools/config.json', 'r') as config_file:
+with open('tools/article_checker/config.json', 'r') as config_file:
     config = json.load(config_file)
 
 model = config['ANTHROPIC_SUMMARIZE_MODEL']

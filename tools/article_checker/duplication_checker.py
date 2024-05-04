@@ -203,7 +203,7 @@ def main():
     args = parse_cli_args()
     openai.api_key = args.API_key
     
-    with open('tools/config.json', 'r') as config_file:
+    with open('tools/article_checker/config.json', 'r') as config_file:
         config = json.load(config_file)
 
     main_url = 'https://dn.institute'
