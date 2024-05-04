@@ -7,6 +7,7 @@ import anthropic
 from anthropic import AsyncAnthropic
 import logging
 import bleach
+from urllib.parse import urlparse
 
 
 logger = logging.getLogger(__name__)
@@ -19,6 +20,14 @@ temperature = config['ANTHROPIC_SUMMARIZE_TEMPERATURE']
 max_tokens = config['ANTHROPIC_SUMMARIZE_MAX_TOKENS']
 
 
+def is_valid_url(url: str) -> bool:
+    try:
+        result = urlparse(url)
+        return all([result.scheme, result.netloc])
+    except:
+        return False
+
+        
 def format_results(extracted: list[str]) -> str:
     result = "\n".join(
         f'<item index="{i+1}">\n<page_content>\n{r}\n</page_content>\n</item>'
