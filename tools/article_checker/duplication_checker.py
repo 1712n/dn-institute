@@ -38,16 +38,16 @@ def parse_cli_args():
 
 
 def openai_call(prompt: str, config, retry: int = None):
-    """
-    Make an API call and return the response.
-    """
     model = config["GPT_MODEL"]
     temperature = config["GPT_temperature"]
     max_tokens = config["GPT_max_tokens"]
     if retry is None:
         retry = config["GPT_retry"]
 
-    messages = [{"role": "user", "content": prompt}]
+    messages = [
+        {"role": "system", "content": "Return output as JSON."},
+        {"role": "user", "content": prompt}
+    ]
     try:
         response = openai.ChatCompletion.create(
             model=model,
@@ -56,7 +56,9 @@ def openai_call(prompt: str, config, retry: int = None):
             max_tokens=max_tokens,
             n=1,
             stop=None,
+            response_format={"type": "json_object"}
         )
+        return response['choices'][0]['message']['content'].strip()
     except Exception as ex:
         if retry == 0:
             raise ex
@@ -64,9 +66,6 @@ def openai_call(prompt: str, config, retry: int = None):
         print(f"Retry - {retry}, waiting 15 seconds")
         time.sleep(15)
         return openai_call(prompt, config, retry - 1)
-
-    ret = response.choices[0].message.content.strip()
-    return ret
 
 
 def new_text_handler(diff):
@@ -113,7 +112,8 @@ def get_same_texts(target, url, list_of_target_entities):
     """
     href_list = []
     if target in list_of_target_entities:
-        url = url + target
+        target_url_component = target.replace(' ', '-')
+        url = url + target_url_component
         response = requests.get(url)
         if response.status_code == 200:
             html = response.text
