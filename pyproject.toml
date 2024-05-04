@@ -28,10 +28,10 @@ matplotlib = "3.6.0"
 pandas = "2.0.1"
 
 [tool.poetry.scripts]
-payout-calc = "tools.payout_calc:main"
-article-check-claude = "tools.article_checker_claude:main"
-duplication-check = "tools.duplication_checker:main"
-market-health-reporter = "tools.market_health_reporter:main"
+payout-calc = "tools.payout_calc.payout_calc:main"
+article-check-claude = "tools.article_checker.article_checker_claude:main"
+duplication-check = "tools.article_checker.duplication_checker:main"
+market-health-reporter = "tools.market_health_reporter.market_health_reporter:main"
 
 [build-system]
 requires = ["poetry-core"]
