@@ -7,8 +7,8 @@ Count characters in a Github PR diff, calculate the contribution remuneration an
 import os, argparse
 import yaml
 from github import Github, GithubException
-from tools.utils import logging_decorator
-from tools.git import get_pull_request, get_diff_by_url, parse_diff
+from tools.python_modules.utils.py import logging_decorator
+from tools.python_modules.git import get_pull_request, get_diff_by_url, parse_diff
 
 data = {}
 
@@ -51,7 +51,7 @@ def load_config() -> dict:
     }
 
     # merge with values from config file
-    config_file = "tools/payout_calc.yml"
+    config_file = "tools/python_modules/payout_calc.yml"
     if os.path.isfile(config_file):
         with open(config_file) as file:
             config_from_file = yaml.load(file, Loader=yaml.FullLoader)
