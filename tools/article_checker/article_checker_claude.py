@@ -81,7 +81,7 @@ def main():
     max_tokens = config['ANTHROPIC_SEARCH_MAX_TOKENS']
     temperature = config['ANTHROPIC_SEARCH_TEMPERATURE']
 
-    client = tools.claude_retriever.ClientWithRetrieval(api_key=args.API_key, search_tool=search_tool)
+    client = tools.article_checker.claude_retriever.ClientWithRetrieval(api_key=args.API_key, search_tool=search_tool)
 
     github = Github(args.github_token)
     pr = get_pull_request(github, args.pull_url)
