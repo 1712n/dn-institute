@@ -21,6 +21,10 @@ We maintain a list of real-world problems we work on to give interested individu
 
 ## 🌱 Giving Back
 
+### 🔬 Research
+
+DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team. Multiple research grants are available!
+
 ### 🧑‍🎓 Training
 
 We are happy to train anyone willing to learn our tools. Show initiative by contributing to one of the [open issues](https://github.com/1712n/dn-institute/issues) and mention in your pull request that you want to be considered for any training opportunities they might have available.

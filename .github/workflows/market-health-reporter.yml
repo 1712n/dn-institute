@@ -8,7 +8,7 @@ jobs:
     name: "Perform market analysis"
     if: |
       !github.event.issue.pull_request &&
-      (contains(github.event.comment.body, 'openai:') || contains(github.event.comment.body, 'claude:'))
+      contains(github.event.comment.body, 'analyze:') 
     
     steps:
       - uses: actions/checkout@v3
@@ -22,17 +22,48 @@ jobs:
       - name: Install package
         run: pipx install poetry && poetry install --no-interaction
 
-      - name: Set API key
-        run: |
-          if [[ "${{ github.event.comment.body }}" == *"openai:"* ]]; then
-            echo "LLM_API_KEY=${{ secrets.OPENAI_KEY }}" >> $GITHUB_ENV
-          elif [[ "${{ github.event.comment.body }}" == *"claude:"* ]]; then
-            echo "LLM_API_KEY=${{ secrets.LLM_API_KEY }}" >> $GITHUB_ENV
-
       - name: Run script
         run: |
           poetry run market-health-reporter \
             --issue "${{ github.event.issue.number }}" \
             --comment-body "${{ github.event.comment.body }}" \
             --github-token "${{ secrets.GITHUB_TOKEN }}" \
-            --llm-api-key "${{ env.LLM_API_KEY }}"
+            --llm-api-key "${{ secrets.OPENAI_KEY }}" \
+            --rapid-api "${{ secrets.RAPID_API_KEY }}" 
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+
+      - name: Create new branch
+        run: |
+          git checkout -b new-branch-${{ github.run_id }}
+          echo "Creating a new branch"
+
+      - name: Add new files
+        run: |
+          git add .
+          echo "Adding new files"
+      
+      - name: Commit new files
+        run: |
+          git commit -m "Add new market analysis data and a report"
+          git status
+      
+      - name: Push changes
+        run: |
+          git push origin new-branch-${{ github.run_id }}
+          echo "Pushing changes to origin"
+          git log origin/new-branch-${{ github.run_id }} --oneline
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Create a PR from the branch with the commit
+        run: |
+          PR_TITLE="${{ github.event.comment.body }}"
+          PR_URL=$(gh pr create --fill --base main --head new-branch-${{ github.run_id }} --title "$PR_TITLE" --body "This PR adds new market analysis data and a report." --repo ${{ github.repository }}) 
+          echo "PR created at URL: $PR_URL"
+          echo "PR_URL=$PR_URL" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
