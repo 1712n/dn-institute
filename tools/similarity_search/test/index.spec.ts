@@ -4,7 +4,7 @@ import app from '../src/index';
 
 describe('Authentication', () => {
   it('returns 401 Unauthorized when API key is missing or invalid', async () => {
-    const request = new Request('https://example.com', {
+    const request = new Request('https://example.com/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
