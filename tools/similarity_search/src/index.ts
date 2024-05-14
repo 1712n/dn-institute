@@ -28,24 +28,27 @@ app.use("*", async (c, next) => {
 })
 
 app.post("/", async (c) => {
-  const data = await c.req.json<TextEntry>()
-  const { text, namespace } = data
+  const data = await c.req.json<TextEntry[]>()
+  const similarityScores: Record<string, number> = {}
 
-  if (typeof text !== "string" || typeof namespace !== "string") {
-    return c.text("Invalid JSON format", 400)
+  for (const entry of data) {
+    const { text, namespace } = entry
+    if (typeof text !== "string" || typeof namespace !== "string") {
+      return c.text("Invalid JSON format", 400)
+    }
+
+    const modelResp = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
+      text: [text]
+    })
+    const vector = modelResp.data[0]
+    const searchResponse = await c.env.VECTORIZE_INDEX.query(vector, {
+      namespace,
+      topK: 1
+    })
+    const similarityScore = searchResponse.matches[0]?.score || 0
+    similarityScores[namespace] = similarityScore
   }
-
-  const modelResp = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
-    text: [text]
-  })
-  const vector = modelResp.data[0]
-  const searchResponse = await c.env.VECTORIZE_INDEX.query(vector, {
-    namespace,
-    topK: 1
-  })
-  const similarityScore = searchResponse.matches[0]?.score || 0
-
-  return c.json({ similarity_score: similarityScore })
+  return c.json({ similarity_scores: similarityScores })
 })
 
 export default app
