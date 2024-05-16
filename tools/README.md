@@ -8,31 +8,28 @@ The Brave Search Tool is a Python module that interacts with the Brave Search AP
 
 Features
 
-- Search with Brave API: Uses the Brave Search API to fetch search results for a given query.
+- **Search with Brave API**: Uses the Brave Search API to fetch search results for a given query.
 
-- Parse Search Results: Parses different types of search results including web pages, news articles, and FAQs.
+- **Parse Search Results**: Parses different types of search results including web pages, news articles, and FAQs.
 
-- Asynchronous Web Page Parsing: Uses asynchronous operations to fetch and parse web page content.
+- **Asynchronous Web Page Parsing**: Uses asynchronous operations to fetch and parse web page content.
 
-- Summarize Content: Optionally summarizes web page content using Claude.
+- **Summarize Content**: Optionally summarizes web page content using Claude.
 
-- Retry Logic: Implements retry logic with exponential backoff for robustness.
+- **Retry Logic**: Implements retry logic with exponential backoff for robustness.
 
 Installation
 
-1. Clone the repository: git clone https://github.com/yourusername/brave-search-tool.git
-cd brave-search-tool
+1. Install the required dependencies: pip install -r requirements.txt
 
-2. Install the required dependencies: pip install -r requirements.txt
-
-3. Set up environment variables:
+2. Set up environment variables:
 
 Detailed Description of Components
 
-- BraveAPI: Handles interaction with the Brave Search API.
+- **BraveAPI**: Handles interaction with the Brave Search API.
     - `search(query: str) -> dict`: Sends a search request to the Brave API and returns the JSON response.
     
-- BraveSearchTool: Main tool class for handling search operations and processing results.
+- **BraveSearchTool**: Main tool class for handling search operations and processing results.
     - `__init__(self, brave_api_key: str, tool_description: str, summarize_with_claude: bool, anthropic_api_key: Optional[str])`: Initializes the search tool.
     - `search(self, query: str) -> List[SearchResult]`: Performs a search with the specified query and returns a list of search
     - `parse_faq(self, faq: dict) -> WebSearchResult`: Parses FAQ search results.
