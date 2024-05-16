@@ -2,11 +2,11 @@
 
 ## Brave Search Tool
 
-Overview
+**Overview**
 
 The Brave Search Tool is a Python module that interacts with the Brave Search API to fetch, parse, and return search results relevant to a given query. It provides a detailed description of each search result, and optionally, the tool can summarize the content using Claude, an AI-based summarization service.
 
-Features
+**Features**
 
 - **Search with Brave API**: Uses the Brave Search API to fetch search results for a given query.
 
@@ -18,13 +18,13 @@ Features
 
 - **Retry Logic**: Implements retry logic with exponential backoff for robustness.
 
-Installation
+**Installation**
 
 1. Install the required dependencies: pip install -r requirements.txt
 
 2. Set up environment variables:
 
-Detailed Description of Components
+**Detailed Description of Components**
 
 - **BraveAPI**: Handles interaction with the Brave Search API.
     - `search(query: str) -> dict`: Sends a search request to the Brave API and returns the JSON response.
@@ -38,15 +38,15 @@ Detailed Description of Components
     - `raw_search(self, query: str, n_search_results_to_use: int) -> list[WebSearchResult] `: Performs a raw search and returns the results.
     -`process_raw_search_results(self, results: list[SearchResult]) -> list[str]`: Processes raw search results into formatted strings.
 
-Helper Functions
+**Helper Functions**
 
 - `remove_strong(web_description: str)`: Cleans up HTML tags from web descriptions.
 
-Error Handling
+**Error Handling**
 
 Implements retry logic using `tenacity` with exponential backoff for handling transient errors during API requests.
 
-Logging
+**Logging**
 
 - Uses Python's built-in `logging` module for logging errors and warnings.
 
