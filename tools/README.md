@@ -18,12 +18,6 @@ It is a python script that takes command-line arguments with API keys and a link
 
 - **Retry Logic**: Implements retry logic with exponential backoff for robustness.
 
-**Installation**
-
-1. Install the required dependencies: pip install -r requirements.txt
-
-2. Set up environment variables:
-
 **Detailed Description of Components**
 
 - **BraveAPI**: Handles interaction with the Brave Search API.
