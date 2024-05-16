@@ -1,10 +1,10 @@
 # Repo Tools
 
-## Brave Search Tool
+## Quality Check
 
-**Overview**
+`/articlecheck`
 
-The Brave Search Tool is a Python module that interacts with the Brave Search API to fetch, parse, and return search results relevant to a given query. It provides a detailed description of each search result, and optionally, the tool can summarize the content using Claude, an AI-based summarization service.
+It is a python script that takes command-line arguments with API keys and a link to a GitHub pull request. The script then extracts the diff from the pull request and sends it to an AI service with a prompt. The response from the AI service is converted by the script into JSON, and then based on this JSON, a comment is created for the pull request. Everything works in the GitHub Actions environment. it uses a model "claude-3" model with retriever functions. It also checks if the article from the pull request is new to Crypto Wiki. Uses GPT-3 for comparing two texts. The Brave Search Tool is a Python module that also interacts with the Brave Search API to fetch, parse, and return search results relevant to a given query. It provides a detailed description of each search result, and optionally, the tool can summarize the content using Claude, an AI-based summarization service.
 
 **Features**
 
@@ -66,11 +66,7 @@ User parameters are:
 
 _e.g._ `/payout -r 1 -x 2`
 
-## Quality Check
 
-`/articlecheck`
-
-It is a python script that takes command-line arguments with API keys and a link to a GitHub pull request. The script then extracts the diff from the pull request and sends it to an AI service with a prompt. The response from the AI service is converted by the script into JSON, and then based on this JSON, a comment is created for the pull request. Everything works in the GitHub Actions environment. it uses a model "claude-3" model with retriever functions. It also checks if the article from the pull request is new to Crypto Wiki. Uses GPT-3 for comparing two texts.
 
 ## Market Health Reporter
 
