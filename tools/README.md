@@ -29,6 +29,30 @@ cd brave-search-tool
 
 Detailed Description of Components
 
+- BraveAPI: Handles interaction with the Brave Search API.
+    - `search(query: str) -> dict`: Sends a search request to the Brave API and returns the JSON response.
+    
+- BraveSearchTool: Main tool class for handling search operations and processing results.
+    - `__init__(self, brave_api_key: str, tool_description: str, summarize_with_claude: bool, anthropic_api_key: Optional[str])`: Initializes the search tool.
+    - `search(self, query: str) -> List[SearchResult]`: Performs a search with the specified query and returns a list of search
+    - `parse_faq(self, faq: dict) -> WebSearchResult`: Parses FAQ search results.
+    - `parse_news(self, news_item: dict) -> Optional[WebSearchResult]`: Parses news search results.
+    - `parse_web(self, web_item: dict, query: str) -> WebSearchResult`: Asynchronously parses web page search results.
+    - `raw_search(self, query: str, n_search_results_to_use: int) -> list[WebSearchResult] `: Performs a raw search and returns the results.
+    -`process_raw_search_results(self, results: list[SearchResult]) -> list[str]`: Processes raw search results into formatted strings.
+
+Helper Functions
+
+- `remove_strong(web_description: str)`: Cleans up HTML tags from web descriptions.
+
+Error Handling
+
+Implements retry logic using `tenacity` with exponential backoff for handling transient errors during API requests.
+
+Logging
+
+- Uses Python's built-in `logging` module for logging errors and warnings.
+
 
 
 The scripts are invoked when commenting on a pull request. It only runs if the comment contains a command and the comment author is listed in the `WIKI_REVIEWERS` secret. Only the line containing the command will be interpreted so the comment can have multiple lines and normal content.
