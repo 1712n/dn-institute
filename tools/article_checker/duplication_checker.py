@@ -183,7 +183,7 @@ def generate_comment(answer):
     """
     Generate a formatted comment based on the provided answer
     """
-    comment = "## Duplication checker\n\n"
+    comment = "## Duplicate checker\n\n"
     comment += f"Is this a new article for Crypto wiki? {answer}\n\n"
     return comment
 
