@@ -13,7 +13,7 @@ loss: 20000000
 
 ## Summary
 
-On May 14, 2024, Sonne Finance [was exploited on the Optimism chain](https://cointelegraph.com/news/sonne-finance-pause-20m-crypto-hack), which led to a loss of nearly $20 million worth of assets including USDC, WETH and VELO. Sonne Finance is a decentralized liquidity protocol that offers Lending, Borrowing and Earning opportunities on Optimism and Base chains. The root cause of the exploit is a precision loss smart contract vulnerability. Sonne Finance's smart contracts are a fork of CompoundV2, and precision loss vulnerability is a well-known issue with them. The attacker took advantage of newly deployed VELO market, manipulated its collateral factor, and executed multiple malicious transactions to drain the protocol's pools. 
+On May 14, 2024, Sonne Finance [was exploited on the Optimism chain](https://cointelegraph.com/news/sonne-finance-pause-20m-crypto-hack), which led to a loss of nearly $20 million worth of assets including USDC, WETH and VELO. Sonne Finance is a decentralized liquidity protocol that offers Lending, Borrowing and Earning opportunities on Optimism and Base chains. The root cause of the exploit is a precision loss smart contract vulnerability. Sonne Finance's smart contracts are a fork of CompoundV2, and precision loss vulnerability is a [well-known issue](https://www.comp.xyz/t/hundred-finance-exploit-and-compound-v2/4266) with them. The attacker took advantage of newly deployed VELO market, manipulated its collateral factor, and executed multiple malicious transactions to drain the protocol's pools. 
 
 ## Attackers
 
