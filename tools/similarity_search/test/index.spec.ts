@@ -8,12 +8,12 @@ describe("Authentication", () => {
     const response = await SELF.fetch("https://example.com/", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         text: "Sample text",
-        namespace: "test-namespace"
-      })
+        namespace: "test-namespace",
+      }),
     })
 
     expect(response.status).toBe(401)
@@ -31,8 +31,8 @@ describe("Single message processing", () => {
       },
       body: JSON.stringify({
         text: "Sample text",
-        namespace: "test-namespace"
-      })
+        namespace: "test-namespace",
+      }),
     })
     expect(response.status).toBe(200)
     expect(await response.text()).toEqual('{"similarity_score":0.5678}')
@@ -40,7 +40,7 @@ describe("Single message processing", () => {
 })
 
 describe("Batch message processing", () => {
-  it ("limits max inputs", async () => {
+  it("limits max inputs", async () => {
     const response = await SELF.fetch("https://example.com/", {
       method: "POST",
       headers: {
@@ -54,14 +54,16 @@ describe("Batch message processing", () => {
           "This is a story about a hugging emoji",
           "This is a story about overwhelming courage",
         ],
-        namespace: "test-namespace"
-      })
+        namespace: "test-namespace",
+      }),
     })
     expect(response.status).toBe(400)
-    expect(await response.text()).toEqual("Too big input, property `text` can have max 3 items")
+    expect(await response.text()).toEqual(
+      "Too big input, property `text` can have max 3 items",
+    )
   })
 
-  it ("returns array results when multiple texts are given", async () => {
+  it("returns array results when multiple texts are given", async () => {
     const response = await SELF.fetch("https://example.com/", {
       method: "POST",
       headers: {
@@ -72,12 +74,14 @@ describe("Batch message processing", () => {
         text: [
           "This is a story about an orange cloud",
           "This is a story about a llama",
-          "This is a story about a hugging emoji"
+          "This is a story about a hugging emoji",
         ],
-        namespace: "test-namespace"
-      })
+        namespace: "test-namespace",
+      }),
     })
     expect(response.status).toBe(200)
-    expect(await response.text()).toEqual('{"similarity_score":[0.5678,0.5678,0.5678]}')
+    expect(await response.text()).toEqual(
+      '{"similarity_score":[0.5678,0.5678,0.5678]}',
+    )
   })
 })
