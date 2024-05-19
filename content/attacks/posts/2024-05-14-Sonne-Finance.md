@@ -7,7 +7,7 @@ entity-types:
 attack-types:
   - Smart Contract Exploit
   - Flash Loan Attack
-title: 
+title: "Sonne Finance Suffers $20 Million Hack"
 loss: 20000000
 ---
 
