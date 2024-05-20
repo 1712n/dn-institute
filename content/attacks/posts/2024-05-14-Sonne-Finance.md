@@ -27,9 +27,9 @@ The identity of the attacker remains unknown. The attacker utilized the followin
 
 Sonne Finance suffered a loss of approximately $20 million in various assets. Lost assets breakdown:
 - *2,033,723 USDC*
-- *162.92 WBTC*
-- *2,462.83 WETH*
-- *2,352 VELO*
+- *162.92 WBTC* worth *10,182,500 USD*
+- *2,462.83 WETH* worth *7,265,053 USD*
+- *2,352 VELO* worth *312 USD*
 
 ## Timeline
 
