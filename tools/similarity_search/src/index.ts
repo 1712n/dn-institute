@@ -1,12 +1,5 @@
 import { Hono } from "hono"
 
-type Env = {
-  API_KEY_TOKEN_CHECK: string
-  AI: Ai
-  VECTORIZE_INDEX: VectorizeIndex
-  MAX_INPUT: number
-}
-
 type TextEntry = {
   text: string | string[]
   namespace: string
@@ -60,12 +53,17 @@ app.post("/", async (c) => {
     )
   }
 
+  const uniqueScores = new Map(texts.map((text) => [text, 0.0]))
+  const uniqueTexts = Array.from(uniqueScores.keys())
+
+  // transform texts into unique vectors
   const modelResp = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
-    text: texts,
+    text: uniqueTexts,
   })
 
+  // query unique vectors in vector database
   let index = 0
-  const requests = texts.map((text) => {
+  const requests = uniqueTexts.map((text) => {
     const vector = modelResp.data[index++]
     return c.env.VECTORIZE_INDEX.query(vector, {
       namespace,
@@ -73,9 +71,16 @@ app.post("/", async (c) => {
     })
   })
   const responses = await Promise.all(requests)
-  const similarityScores = []
+  index = 0
   for (const searchResponse of responses) {
     const similarityScore = searchResponse.matches[0]?.score || 0
+    uniqueScores.set(uniqueTexts[index++], similarityScore)
+  }
+
+  // assign results to original (possibly duplicate) texts
+  const similarityScores = []
+  for (const text of texts) {
+    const similarityScore = uniqueScores.get(text) || 0
     similarityScores.push(similarityScore)
   }
 
