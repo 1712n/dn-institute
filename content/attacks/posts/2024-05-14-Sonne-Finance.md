@@ -43,4 +43,4 @@ Sonne Finance suffered a loss of approximately $20 million in various assets. Lo
 
 ## Security Failure Causes
 
-**Smart Contract Vulnerability:** The root cause of the exploit was a precision loss issue, a widely known vulnerability in CompoundV2 forks. The attacker manipulated the collateral factors of a lending pool to inflate the value of deposited collateral.
+**Smart Contract Vulnerability:** The root cause of the exploit was a precision loss issue, a widely known vulnerability in CompoundV2 forks. The attacker manipulated the collateral factors of a lending pool, by depositing underlying tokens into an empty market to inflate the value of deposited collateral.
