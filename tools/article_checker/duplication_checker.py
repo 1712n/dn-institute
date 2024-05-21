@@ -210,6 +210,8 @@ def main():
     main_url = 'https://dn.institute'
     target_entities_url = 'https://dn.institute/attacks/posts/target-entities/'
 
+
+
     github = Github(args.github_token)
     pr = get_pull_request(github, args.pull_url)
     _diff = get_diff_by_url(pr)
