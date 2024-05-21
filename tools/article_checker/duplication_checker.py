@@ -104,7 +104,7 @@ def get_list_of_target_entities(url):
     else:
         print("Failed to retrieve page content")
     return result_list
-    
+
 
 def get_same_texts(target, url, list_of_target_entities):
     """
@@ -202,9 +202,10 @@ If the texts say the same thing, return True.  Output should be machine-readable
 def main():
     args = parse_cli_args()
     openai.api_key = args.API_key
-    
+
     with open('tools/article_checker/config.json', 'r') as config_file:
         config = json.load(config_file)
+
 
     main_url = 'https://dn.institute'
     target_entities_url = 'https://dn.institute/attacks/posts/target-entities/'
