@@ -60,7 +60,7 @@ def create_comment_on_pr(pull_request, answer):
     Create and post a comment on a Github pull request.
     """
     try:
-        comment = answer 
+        comment = answer
         print(comment)
         # only post comment if running on Github Actions
         if os.environ.get("GITHUB_ACTIONS") == "true":
@@ -76,12 +76,14 @@ def main():
 
     search_tool = BraveSearchTool(brave_api_key=args.SEARCH_API_KEY, summarize_with_claude=True,
                                   anthropic_api_key=args.API_key)
-    
+
     model = config['ANTHROPIC_SEARCH_MODEL']
     max_tokens = config['ANTHROPIC_SEARCH_MAX_TOKENS']
     temperature = config['ANTHROPIC_SEARCH_TEMPERATURE']
 
     client = tools.article_checker.claude_retriever.ClientWithRetrieval(api_key=args.API_key, search_tool=search_tool)
+
+
 
     github = Github(args.github_token)
     pr = get_pull_request(github, args.pull_url)
