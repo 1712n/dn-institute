@@ -1,0 +1,49 @@
+---
+date: '2023-12-19 — 2023-12-19'
+entities: 'Binance, DOGE, USDT'
+title: 'Analyzing Anomalies in DOGE/USDT Trading Patterns on Binance'
+---
+
+## Summary
+
+1. **Volume-Volatility Discrepancy:** A notable low correlation between trading volume and market volatility was observed in DOGE/USDT pair on Binance, suggesting potential artificial trading volume.
+2. **Volume Distribution Analysis:** The trading volume distribution significantly deviates from the expected power law, indicating the presence of unusual large trades.
+3. **First-Digit Distribution Non-Conformity:** The leading digit distribution of trading volumes does not align with Benford's Law, raising suspicions of manipulated trade data.
+4. **Time-of-Trade Patterns:** The distribution of trades across specific seconds within a minute reveals unusual patterns, hinting at automated trading activities.
+5. **Buy/Sell Ratio Stability:** The buy/sell ratio remains within a narrow range, diverging from expected market behavior during periods of high volatility.
+
+## Detailed Analysis
+
+### Volume-Volatility Correlation
+
+The observed correlation between trading volume and market volatility for the DOGE/USDT pair on Binance was significantly low, with values of 0.30691 and 0.29375 respectively. This anomaly suggests that the trading volume may not be entirely reflective of genuine market activity, as genuine trades typically correlate with price volatility.
+
+{{< figure src="vv_correlation.png" alt="Volume-Volatility Correlation" caption="Volume-Volatility Correlation for DOGE/USDT on Binance" loading="lazy" >}}
+
+### Volume Distribution
+
+The volume distribution analysis revealed a kurtosis of 6.35449 and 4.99577, with a skewness of 1.96248 and 1.70552 respectively, indicating a significant deviation from the power law. This deviation is characterized by an unusual number of large trades, which is not typical of a healthy market distribution where smaller trades are more common.
+
+{{< figure src="volume_hist.png" alt="Volume Distribution" caption="Volume distribution for DOGE/USDT on Binance" loading="lazy" >}}
+
+### First-Digit Distribution
+
+The first-digit distribution of trading volumes showed significant deviation from Benford's Law, which is a red flag for potential data manipulation. This deviation suggests that the distribution of the first digit in the trade sizes does not follow the natural occurrence pattern, which could indicate artificial trading activities.
+
+{{< figure src="benford_law.png" alt="First-Digit Distribution" caption="First-Digit Distribution for DOGE/USDT on Binance" loading="lazy" >}}
+
+### Time-of-Trade Patterns
+
+Analysis of the time-of-trade data revealed unusual patterns, with a high frequency of trades executed at specific seconds within a minute. This pattern is indicative of automated trading systems or bots, which can execute trades at precise intervals, unlike human traders.
+
+{{< figure src="crypto_metrics.png" alt="Time-of-Trade Patterns" caption="Time-of-Trade Patterns for DOGE/USDT on Binance" loading="lazy" >}}
+
+### Buy/Sell Ratio
+
+The buy/sell ratio remained within a narrow range of 0.540 and 0.494, which is unusual during periods of high volatility. This stability could suggest that the market is being influenced by controlled trading activities, aiming to maintain a specific price level or market perception.
+
+{{< figure src="crypto_metrics.png" alt="Buy/Sell Ratio" caption="Buy/Sell Ratio for DOGE/USDT on Binance" loading="lazy" >}}
+
+## Conclusion
+
+The analysis of the DOGE/USDT trading pair on Binance for December 19, 2023, reveals several anomalies that suggest the presence of market manipulation activities. These include a low volume-volatility correlation, deviation from the expected volume distribution, non-conformity with Benford's Law, unusual time-of-trade patterns, and an unnaturally stable buy/sell ratio. These findings highlight the need for further investigation and monitoring to ensure market integrity.
