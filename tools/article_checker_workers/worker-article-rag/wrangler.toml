@@ -1,0 +1,24 @@
+name = "worker-article-rag"
+main = "src/worker.js"
+compatibility_date = "2024-04-22"
+workers_dev = true
+
+kv_namespaces = [
+  { binding = "checkerPrompts", id = "" }
+]
+
+services = [
+  { binding = "WORKER_ARTICLE_ANSWER", service = "worker-article-answer", environment = "production" }
+]
+
+[[queues.consumers]]
+queue = "my-queue"
+
+[[queues.producers]]
+queue = "new-queue"
+binding = "NEW_QUEUE"
+
+[vars]
+OPENAI_API_KEY = ""
+BRAVE_API_KEY = ""
+SEARCH_ENDPOINT = "https://api.search.brave.com/res/v1/web/search"
