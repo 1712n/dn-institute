@@ -1,0 +1,16 @@
+name = "worker-article-answer"
+main = "src/worker.js"
+compatibility_date = "2024-05-16"
+workers_dev = true
+kv_namespaces = [
+  { binding = "checkerPrompts", id = "" }
+]
+
+[[queues.consumers]]
+queue = "new-queue"
+
+[vars]
+OPENAI_API_KEY = ""
+TOKEN_GITHUB = ""
+LLM_ENDPOINT = "https://api.openai.com/v1/chat/completions" #recommend to use https://developers.cloudflare.com/ai-gateway/
+LLM_MODEL = "gpt-4o" 
