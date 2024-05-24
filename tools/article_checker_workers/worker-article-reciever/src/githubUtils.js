@@ -24,5 +24,10 @@ export function extractAdditionsFromDiff(diff) {
     const additionLinesRegex = /^\+(?!\+\+ ).*$/gm;
     const additions = diff.match(additionLinesRegex);
     const cleanAdditions = additions ? additions.map(line => line.substring(1)).join(' ') : '';
-    return cleanAdditions;
-  }
+    
+    const fileNameRegex = /diff --git a\/(.+?) b\//;
+    const fileNameMatch = diff.match(fileNameRegex);
+    const fileName = fileNameMatch ? fileNameMatch[1] : 'unknown-file';
+
+    return `${fileName}\n${cleanAdditions}`;
+}
