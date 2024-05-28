@@ -1,0 +1,42 @@
+<canvas id='{{ .Get "id" }}' width='{{ .Get "width" }}' height='{{ .Get "height" }}'></canvas>
+<!--
+    Implement environment variables fetching
+-->
+<script>
+    const RAPID_HOST = {{ getenv "HUGO_RAPID_HOST" }}
+    const RAPID_KEY = {{ getenv "HUGO_RAPID_KEY" }}
+</script>
+<div class="center">
+    <label for="exchange">Exchange:</label>
+    <select id="exchange" onchange="parseDataFromSelects()">
+        <option value="ascendex">AscendEX</option>
+        <option value="binance">Binance</option>
+        <option value="coinbase">Coinbase</option>
+        <option value="bitstamp">Bitstamp</option>
+    </select>
+
+    <label for="pair">Pair:</label>
+    <select id="pair" onchange="parseDataFromSelects()">
+        <option value="btc-usdt">BTC-USDT</option>
+        <option value="eth-usdt">ETH-USDT</option>
+        <option value="xrp-usdt">XRP-USDT</option>
+    </select>
+
+    <label for="metric">Metric:</label>
+    <select id="metric" onchange="paintChart(this)">
+        <option value="timesOfTrade">Times Of Trade</option>
+        <option value="firstDigitDistribution">First Digit Distribution</option>
+        <option value="volumeDistribution">Volume Distribution</option>
+        <option value="vwap">VWAP & Trade Count</option>
+        <option value="buySellRatio">Buy/Sell Ratio</option>
+    </select>
+</div>
+
+ {{ $axios := resources.Get "/js/axios.min.js" }}
+<script src="{{ $axios.Permalink }}"></script>
+
+ {{ $chart := resources.Get "/js/chart.js" }}
+<script src="{{ $chart.Permalink }}"></script>
+
+ {{ $widget := resources.Get "/js/widget.js" }}
+<script src="{{ $widget.Permalink }}"></script>
