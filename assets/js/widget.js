@@ -173,7 +173,7 @@ function createTimesOfTradeData(metricsData) {
           tention: 0.1
         },
         {
-          label: "Aggregated Trade Frequencies per Second Over All Records",
+          label: "Trade Frequencies per Second Aggregated Over the Last 7 Days",
           type: "bar",
           data: timesOfTradeData,
           backgroundColor: 'rgb(0, 128, 0)',
@@ -187,7 +187,7 @@ function createVolumeDistributionData(metricsData) {
   let volumeBins = new Array(100).fill(0);
   for (let i = 0; i < volumeBins.length; i++) {
     for (let j = 0; j < metricsData.length; j++) {
-      volumeBins[i] += metricsData[j].volumedist[i][0] + metricsData[j].volumedist[i][1];
+      volumeBins[i] += metricsData[j].volumedist[i][1];
     }
   }
 
@@ -208,21 +208,52 @@ function createVolumeDistributionData(metricsData) {
 
 function createFirstDigitDistributionData(metricsData) {
   let fddData = new Array(9).fill(0);
+  let totalFDD = 0;
   for (let i = 0; i < metricsData.length; i++) {
     for (let j = 0; j < 10; j++) {
-      fddData[j] += metricsData[i].firstdigitdist[String(j + 1)];
+      let currentData = metricsData[i].firstdigitdist[String(j + 1)];
+      if (currentData === undefined) { currentData = 0; }
+      fddData[j] += currentData;
+      totalFDD += currentData;
     }
   }
 
+  // Expected FDD data calculation
+  let expectedFddPercentage = [301, 176, 125, 97, 79, 67, 58, 51, 46];
+  let expectedFdd = [];
+  for (let i = 0; i < 10; i++) {
+    expectedFdd.push((totalFDD * expectedFddPercentage[i]) / 1000);
+  }
+
   return {
+    options: {
+      elements: {
+        point: {
+          radius: 0
+        }
+      },
+      scales: {
+        y: {
+          stacked: true
+        }
+      }
+    },
     data: {
       labels: Array.from({ length: 9 }, (_, i) => i + 1),
       datasets: [
         {
           label: "First Digit Distribution",
-          type: "bar",
           data: fddData,
+          type: "bar",
           backgroundColor: 'rgb(255, 165, 0)',
+          stack: "Stack 1"
+        },
+        {
+          label: "Expected First Digit Distribution",
+          data: expectedFdd,
+          type: "bar",
+          backgroundColor: 'rgb(68, 147, 245)',
+          stack: "Stack 2"
         }
       ]
     }
