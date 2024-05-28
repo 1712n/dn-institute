@@ -22,20 +22,37 @@ app.use("*", async (c, next) => {
 })
 
 app.post("/", async (c) => {
-  const data = await c.req.json<TextEntry>()
+  // Format https://gateway.ai.cloudflare.com/v1/{ACCOUNT_ID}/{SLUG}/
+  const apiGatewayUniversalApi = c.env.API_GATEWAY_UNIVERSAL_API
+  if (!apiGatewayUniversalApi) {
+    return c.text("Missing gateway URL", 500)
+  }
+
+  const workersApikey = c.env.WORKERS_API_KEY
+  if (!workersApikey) {
+    return c.text("Missing workers API key", 500)
+  }
+
+  let data: TextEntry
+  try {
+    data = await c.req.json<TextEntry>()
+  } catch (error) {
+    return c.text("Cannot parse JSON input", 400)
+  }
+
   const { text, namespace } = data
 
   let texts: string[]
-  if (typeof text === "string") {
+  if (typeof text === "string" && text.length) {
     texts = [text]
   } else if (
-    Array.isArray(data.text) &&
-    data.text.every((element) => typeof element === "string")
+    Array.isArray(text) &&
+    text.every((element) => typeof element === "string" && element.length)
   ) {
     texts = text
   } else {
     return c.text(
-      "Invalid JSON format, property `text` must be a string or array of strings",
+      "Invalid JSON format, property `text` must be a non-empty string or array of non-empty strings",
       400,
     )
   }
@@ -53,34 +70,36 @@ app.post("/", async (c) => {
     )
   }
 
-  const uniqueScores = new Map(texts.map((text) => [text, 0.0]))
-  const uniqueTexts = Array.from(uniqueScores.keys())
-
-  // transform texts into unique vectors
-  const modelResp = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
-    text: uniqueTexts,
-  })
-
-  // query unique vectors in vector database
-  let index = 0
-  const requests = uniqueTexts.map((text) => {
-    const vector = modelResp.data[index++]
-    return c.env.VECTORIZE_INDEX.query(vector, {
-      namespace,
-      topK: 1,
-    })
+  // resolve each text individually to enable cache per request
+  const requests = texts.map((text) => {
+    return fetch(
+      `${apiGatewayUniversalApi}workers-ai/@cf/baai/bge-base-en-v1.5`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${workersApikey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text,
+        }),
+      },
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        console.log("Gateway response", response)
+        // TODO - type
+        const vector = response?.result?.data?.[0]
+        return c.env.VECTORIZE_INDEX.query(vector, {
+          namespace,
+          topK: 1,
+        })
+      })
   })
   const responses = await Promise.all(requests)
-  index = 0
+  const similarityScores = []
   for (const searchResponse of responses) {
     const similarityScore = searchResponse.matches[0]?.score || 0
-    uniqueScores.set(uniqueTexts[index++], similarityScore)
-  }
-
-  // assign results to original (possibly duplicate) texts
-  const similarityScores = []
-  for (const text of texts) {
-    const similarityScore = uniqueScores.get(text) || 0
     similarityScores.push(similarityScore)
   }
 

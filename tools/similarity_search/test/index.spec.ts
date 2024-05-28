@@ -84,36 +84,4 @@ describe("Batch message processing", () => {
       '{"similarity_score":[0.5678,0.5678,0.5678]}',
     )
   })
-
-  it("runs only unique inputs for duplicate-heavy use cases", async () => {
-    const runSpy = vi.spyOn(env.AI, "run")
-    const querySpy = vi.spyOn(env.VECTORIZE_INDEX, "query")
-
-    const response = await SELF.fetch("https://example.com/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-API-Key": "test-api-key",
-      },
-      body: JSON.stringify({
-        text: [
-          "This is a story about an orange cloud",
-          "This is a story about a llama",
-          "This is a story about an orange cloud",
-        ],
-        namespace: "test-namespace",
-      }),
-    })
-    expect(response.status).toBe(200)
-    expect(await response.text()).toEqual(
-      '{"similarity_score":[0.5678,0.5678,0.5678]}',
-    )
-    expect(runSpy).toHaveBeenCalledWith("@cf/baai/bge-base-en-v1.5", {
-      text: [
-        "This is a story about an orange cloud",
-        "This is a story about a llama",
-      ],
-    })
-    expect(querySpy).toHaveBeenCalledTimes(2)
-  })
 })

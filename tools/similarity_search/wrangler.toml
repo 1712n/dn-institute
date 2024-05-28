@@ -21,3 +21,10 @@ compatibility_flags = ["nodejs_compat"]
 
 # [ai]
 # binding = "AI"
+
+[[vectorize]]
+binding = "VECTORIZE_INDEX"
+index_name = "embeddings-index"
+
+[limits]
+cpu_ms = 50
