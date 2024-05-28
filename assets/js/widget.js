@@ -196,7 +196,7 @@ function createVolumeDistributionData(metricsData) {
       labels: Array.from(Array(100).keys()),
       datasets: [
         {
-          label: "Histogram of Trading Volumes",
+          label: "Histogram of Trading Volumes Aggregated Over the Last 7 Days",
           type: "bar",
           data: volumeBins,
           backgroundColor: 'rgb(0, 0, 255)',
