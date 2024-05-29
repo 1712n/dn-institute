@@ -1,8 +1,18 @@
 import { Hono } from "hono"
+import { type AiTextEmbeddingsOutput } from "@cloudflare/workers-types/experimental"
 
 type TextEntry = {
   text: string | string[]
   namespace: string
+}
+type GatewayAiResponse = {
+  result: AiTextEmbeddingsOutput
+  success: boolean
+  errors: Array<{
+    message: string
+    code: number
+  }>
+  messages: Array<unknown>
 }
 
 const app = new Hono<{ Bindings: Env }>()
@@ -71,8 +81,9 @@ app.post("/", async (c) => {
   }
 
   // resolve each text individually to enable cache per request
-  const requests = texts.map((text) => {
-    return fetch(
+  let index = 0
+  const requests = texts.map(async (text) => {
+    const response = await fetch(
       `${apiGatewayUniversalApi}workers-ai/@cf/baai/bge-base-en-v1.5`,
       {
         method: "POST",
@@ -85,18 +96,29 @@ app.post("/", async (c) => {
         }),
       },
     )
-      .then((response) => response.json())
-      .then((response) => {
-        console.log("Gateway response", response)
-        // TODO - type
-        const vector = response?.result?.data?.[0]
-        return c.env.VECTORIZE_INDEX.query(vector, {
-          namespace,
-          topK: 1,
-        })
-      })
+    const json = await response.json() as GatewayAiResponse
+    if (!json?.success || !json?.result?.data) {
+      console.error(`Workers AI error at index ${index}`, json)
+      throw new Error(`Workers AI error for text index ${index}`)
+    }
+
+    index++
+
+    const vector = json.result?.data?.[0]
+    return await c.env.VECTORIZE_INDEX.query(vector, {
+      namespace,
+      topK: 1,
+    })
   })
-  const responses = await Promise.all(requests)
+
+  let responses
+  try {
+    responses = await Promise.all(requests)
+  } catch (error) {
+    console.error(`Batch error - ${error}`)
+    return c.text(`An error occurred - ${error}`, 500)
+  }
+
   const similarityScores = []
   for (const searchResponse of responses) {
     const similarityScore = searchResponse.matches[0]?.score || 0
