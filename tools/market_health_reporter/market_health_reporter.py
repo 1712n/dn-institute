@@ -9,6 +9,53 @@ from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
 
+# New imports 
+from bs4 import BeautifulSoup as bs
+from lxml import etree
+from transformers import pipeline
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+
+# the code will be added here to easly controls   
+# func for analisys
+
+def sentiment_analysis(amount=5):
+    """
+    :summary: the fucntion is used to grab data from yahoo finance and provide and output with sentimental analysis
+    :param amount: news title that shall be lower than 10and higher than 1
+    amount <= 10 or amount >=2 initial amount is 5.
+    :return: list of a dictionaries properties ---> 'news_title', 'label', 'score' .  
+    """
+
+    url = 'https://finance.yahoo.com/topic/crypto/' # yahoo is used for news source 
+    webpage = requests.get(url) 
+    soup = bs(webpage.content, 'html.parser') # create the soup 
+    dom = etree.HTML(str(soup))  # overviews the main concepts of the elemettree of the page
+    
+    titles = [] # created a list of titles to use for sentimental analysis
+    # find  x amount of expresion 
+    for x in range(1,amount):
+        path_tittle = f"/html/body/div[1]/div/div/div[1]/div/div[3]/div[1]/div/div[3]/div/div/div/ul/li[{x}]/div/div/div[2]/h3/a/text()"
+        article =  dom.xpath(path_tittle)
+        titles.append(article[0])
+        # print(article)
+
+    # load the model from hugging face "https://huggingface.co/mrm8488/distilroberta-finetuned-financial-news-sentiment-analysis/tree/main"
+    pipe = pipeline("text-classification", model="mrm8488/distilroberta-finetuned-financial-news-sentiment-analysis")
+
+    results = []
+    for title in titles: 
+        sentiment_analysis = pipe(title)
+        label = sentiment_analysis[0]['label']
+        score = sentiment_analysis[0]['score']
+        result = {'news_title': title,'label': label, 'score': score }
+        results.append(result)
+        # print(sentiment_analysis)
+    
+    
+    return results
+
+efmm = sentiment_analysis()
+''' !!!orginal code starts here !!! '''
 
 REPO_NAME = "1712n/dn-institute"
 SYSTEM_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/system_prompt.txt'

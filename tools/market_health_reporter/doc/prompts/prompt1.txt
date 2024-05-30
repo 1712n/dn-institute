@@ -55,6 +55,12 @@ Here is some basic procedure of the market surveillance analysis:
     Anomalous Pattern: A significant and consistent difference between the VWAP and the actual trading price, particularly if the trading price is much higher or lower than the VWAP.
     Benchmark: While there's no specific numerical benchmark, a deviation that's outside normal trading fluctuations could be a red flag.
 
+- Effects of breaking news:
+    Description: A coefficient that considers the impact of news on the market when an unhealthy movement occurs.
+    Name of the metric: efmm
+    Anomalous Pattern: Using news titles to explain unhealthy market movements based on the positivity, negativity, or neutrality of the news titles and their scores.
+    Benchmark: - 
+
 To enhance the analysis, here are some tips regarding simultaneous anomalous deviations of these metrics which can be indicative of market anomalies:
 
 Volume Distribution and Volume-Volatility Correlation: A volume distribution that deviates from the power law, especially with an unusual number of large trades, coupled with a low volume-volatility correlation, can suggest market manipulation. Large trades should typically introduce volatility, and a lack of this correlation might indicate that these large trades are not impacting the market as expected.
