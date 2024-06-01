@@ -1,26 +1,35 @@
-# Repo Tools
+# Repo Tools 🚀
 
-The scripts are invoked when commenting on a pull request. It only runs if the comment contains a command and the comment author is listed in the `WIKI_REVIEWERS` secret. Only the line containing the command will be interpreted so the comment can have multiple lines and normal content.
+Welcome to our repository! This guide will help you understand how to use our internal tools to keep the repo tidy and up-to-date. 
 
-## Payout Calculation
+## How to Use These Tools 🛠️
 
-`/payout`
+These scripts are triggered when you comment on a pull request. To run a script, your comment must contain a specific command, and you must be listed in the `WIKI_REVIEWERS` secret. Only the line with the command will be processed, so feel free to write additional lines in your comment.
 
-User parameters are:
+### Payout Calculation 💰
 
-- `--rate` (`-r`)
-- `--multiplier` (`-x`)
+To calculate payouts, use the `/payout` command with the following parameters:
 
-_e.g._ `/payout -r 1 -x 2`
+- `--rate` or `-r` : Specify the rate
+- `--multiplier` or `-x` : Specify the multiplier
 
-## Quality Check
+Example:
+`/payout -r 1 -x 2`
 
+### Quality Check 🧐
+
+To check the quality of an article, use the `/articlecheck` command. This Python script requires command-line arguments with API keys and a link to a GitHub pull request. It extracts the diff from the pull request, sends it to an AI service, and generates a comment based on the AI response. The process runs in the GitHub Actions environment and uses the “claude-3” model with retriever functions and GPT-3 for text comparison.
+
+Example:
 `/articlecheck`
 
-It is a python script that takes command-line arguments with API keys and a link to a GitHub pull request. The script then extracts the diff from the pull request and sends it to an AI service with a prompt. The response from the AI service is converted by the script into JSON, and then based on this JSON, a comment is created for the pull request. Everything works in the GitHub Actions environment. it uses a model "claude-3" model with retriever functions. It also checks if the article from the pull request is new to Crypto Wiki. Uses GPT-3 for comparing two texts.
+### Market Health Reporter
 
-## Market Health Reporter
+To get a market health report, use the `analyze:` command. Follow this template:
+`analyze: pair, market, start_of_the_period, end_of_the_period`
 
-`analyze:`
+Here's an example:
+`analyze: bnb-btc, binance, 2024-02-02, 2024-02-07`
 
-For a correct request, use the following template: `analyze: pair, market, start_of_the_period, end_of_the_period`. Example: "analyze: bnb-btc, binance, 2024-02-02, 2024-02-07"
+By following this guide, you're ready to jump in and get started with our tools! 
+Happy coding! 😊
