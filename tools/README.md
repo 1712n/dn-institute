@@ -1,35 +1,37 @@
-# Repo Tools 🚀
+# Welcome to Repo Tools 🚀
 
-Welcome to our repository! This guide will help you understand how to use our internal tools to keep the repo tidy and up-to-date. 
+This guide will help you understand how to use our internal tools to keep our repository tidy and up-to-date. We've designed this guide with simplicity in mind, making it easy for newcomers with minimal tech skills to get started.
 
-## How to Use These Tools 🛠️
+## Table of Contents 📚
+1. Using Repo Tools
+2. Payout Calculation
+3. Quality Check
+4. Market Health Reporter
 
-These scripts are triggered when you comment on a pull request. To run a script, your comment must contain a specific command, and you must be listed in the `WIKI_REVIEWERS` secret. Only the line with the command will be processed, so feel free to write additional lines in your comment.
+## Using Repo Tools 🛠️
+
+Our scripts are triggered when you comment on a pull request. To run a script, your comment must contain a specific command. Only the line with the command will be processed, so feel free to write additional lines in your comment. Please note, you must be listed in the `WIKI_REVIEWERS` secret to run these scripts.
 
 ### Payout Calculation 💰
 
-To calculate payouts, use the `/payout` command with the following parameters:
+This tool helps calculate payouts. To calculate, use the `/payout` command with the following parameters:
 
-- `--rate` or `-r` : Specify the rate
-- `--multiplier` or `-x` : Specify the multiplier
+- `--rate` (`-r`) : Specify the rate
+- `--multiplier` (`-x`) : Specify the multiplier
 
-Example:
-`/payout -r 1 -x 2`
+Example: `/payout rate ->1 multiplier ->2`
 
 ### Quality Check 🧐
+This tool checks the quality of an article using AI. To check, use the `/articlecheck` command. This Python script requires command-line arguments with API keys and a link to a GitHub pull request. It extracts the diff from the pull request, sends it to an AI service, and generates a comment based on the AI response. The process runs in the GitHub Actions environment and uses the “claude-3” model with retriever functions and GPT-3 for text comparison.
 
-To check the quality of an article, use the `/articlecheck` command. This Python script requires command-line arguments with API keys and a link to a GitHub pull request. It extracts the diff from the pull request, sends it to an AI service, and generates a comment based on the AI response. The process runs in the GitHub Actions environment and uses the “claude-3” model with retriever functions and GPT-3 for text comparison.
+Example: `/articlecheck`
 
-Example:
-`/articlecheck`
+### Market Health Reporter 📊
 
-### Market Health Reporter
-
-To get a market health report, use the `analyze:` command. Follow this template:
+This tool generates market health reports. To generate, use the `analyze:` command, following this template:
 `analyze: pair, market, start_of_the_period, end_of_the_period`
 
-Here's an example:
-`analyze: bnb-btc, binance, 2024-02-02, 2024-02-07`
+Example: `analyze: bnb-btc, binance, 2024-02-02, 2024-02-07`
 
 By following this guide, you're ready to jump in and get started with our tools! 
 Happy coding! 😊
