@@ -1,5 +1,13 @@
 import { Hono } from "hono"
-import { SearchResult, SearchResponse } from "./GoogleResultType"
+
+interface SearchResult {
+  title?: string | null
+  link?: string | null
+}
+
+interface SearchResponse {
+  items: Array<SearchResult>;
+}
 
 type Env = {
   GOOGLE_API_KEY: string
@@ -60,7 +68,9 @@ app.post("/", async (c) => {
     return total
   }, 0)
 
-  const plagiarism_percent = plagiarism_count ? sentences.length / plagiarism_count * 100 : 0
+  const plagiarism_percent = plagiarism_count
+    ? (sentences.length / plagiarism_count) * 100
+    : 0
 
   return c.json({ plagiarism_percent, results: plagiarismResults })
 })
