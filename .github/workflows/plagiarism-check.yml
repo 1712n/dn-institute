@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       github.event.issue.pull_request &&
-      contains(github.event.comment.body, '/articlecheck')
+      contains(github.event.comment.body, '/plagiarismcheck')
     outputs:
       permission: ${{ steps.permissions-check.outputs.defined }}
     steps:
@@ -27,13 +27,35 @@ jobs:
     name: "Checks a new article from a PR for plagiarism"
     needs: [permission-check-job]
     if: needs.permission-check-job.outputs.permission == 'true'
-    steps:
-      - uses: actions/checkout@v3
 
-      - name: Call Cloudflare Worker service for plagiarism check
-        env:
-          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
-          CLOUDFLARE_AUTH_TOKEN: ${{ secrets.CLOUDFLARE_AUTH_TOKEN }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Fetch Pull Request files
+        id: pr-files
         run: |
-          response=$(curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $CLOUDFLARE_AUTH_TOKEN" -d '{"text":"Your article content here"}' $CLOUDFLARE_WORKER_URL)
-          echo $response
+          pr_number=${{ github.event.issue.number }}
+          gh pr diff $pr_number --name-only > pr_files.txt
+
+      - name: Check for plagiarism
+        id: plagiarism-check
+        run: |
+          results=""
+          while IFS= read -r file; do
+            if [[ $file == *.md ]]; then
+              content=$(cat $file)
+              result=$(curl -s -X POST "https://<your-cloudflare-worker-url>" \
+                      -H "Content-Type: application/json" \
+                      -d "{\"text\": \"${content}\"}")
+              results="$file: $result"
+              break
+            fi
+          done < pr_files.txt
+          if [[ -z "$results" ]]; then
+            results="No markdown files found in the PR."
+          fi
+          echo "results=$results" >> $GITHUB_ENV
+      - name: Post result as a comment
+        run: |
+          gh pr comment ${{ github.event.issue.number }} --body "${{ env.results }}"
