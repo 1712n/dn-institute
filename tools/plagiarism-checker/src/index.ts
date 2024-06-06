@@ -6,7 +6,7 @@ interface SearchResult {
 }
 
 interface SearchResponse {
-  items: Array<SearchResult>;
+  items: Array<SearchResult>
 }
 
 type Env = {
@@ -39,6 +39,7 @@ app.post("/", async (c) => {
 
   const sentences = text
     .split(".")
+    // if it's less than 4 characters - we don't treat it as a sentence as skip it
     .filter((sentence) => sentence.trim().length > 4)
 
   const plagiarismResults = await Promise.all(
