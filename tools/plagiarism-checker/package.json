@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "dev": "wrangler dev src/index.ts",
+    "deploy": "wrangler deploy --minify src/index.ts",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "hono": "^4.3.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240403.0",
+    "@types/node": "^20.14.2",
+    "wrangler": "^3.47.0"
+  }
+}
