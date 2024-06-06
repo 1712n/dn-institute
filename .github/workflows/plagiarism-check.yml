@@ -1,0 +1,39 @@
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: write
+
+jobs:
+  permission-check-job:
+    runs-on: ubuntu-latest
+    if: |
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '/articlecheck')
+    outputs:
+      permission: ${{ steps.permissions-check.outputs.defined }}
+    steps:
+      - name: Check for Secret availability
+        id: permissions-check
+        shell: bash
+        run: |
+          echo "defined=${{ contains(fromJSON(secrets.WIKI_REVIEWERS), github.actor) }}" >> $GITHUB_OUTPUT;
+
+  plagiarism-check:
+    runs-on: ubuntu-latest
+    name: "Checks a new article from a PR for plagiarism"
+    needs: [permission-check-job]
+    if: needs.permission-check-job.outputs.permission == 'true'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Call Cloudflare Worker service for plagiarism check
+        env:
+          CLOUDFLARE_WORKER_URL: ${{ secrets.CLOUDFLARE_WORKER_URL }}
+          CLOUDFLARE_AUTH_TOKEN: ${{ secrets.CLOUDFLARE_AUTH_TOKEN }}
+        run: |
+          response=$(curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $CLOUDFLARE_AUTH_TOKEN" -d '{"text":"Your article content here"}' $CLOUDFLARE_WORKER_URL)
+          echo $response
