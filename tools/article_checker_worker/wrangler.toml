@@ -7,10 +7,9 @@ kv_namespaces = [
   { binding = "checkerPrompts", id = "" }
 ]
 
-[durable_objects]
-bindings = [
-  { name = "DURABLE_OBJECT_NAMESPACE", class_name = "TaskProcessor" }
-]
+[[queues.producers]]
+queue = "my-queue"
+binding = "MY_QUEUE"
 
 [vars]
 OPENAI_API_KEY = ""
@@ -19,7 +18,3 @@ LLM_ENDPOINT = "https://api.openai.com/v1/chat/completions"
 LLM_MODEL = "gpt-4o"
 SEARCH_ENDPOINT = "https://api.search.brave.com/res/v1/web/search"
 TOKEN_GITHUB = ""
-
-[[migrations]]
-tag = "v1" 
-new_classes = ["TaskProcessor"] 
