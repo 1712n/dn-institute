@@ -1,15 +1,11 @@
-name = "worker-check-article-with-gpt"
+name = "worker-article-checker"
 main = "src/worker.js"
-compatibility_date = "2024-03-25"
+compatibility_date = "2024-05-29"
 workers_dev = true
 
 kv_namespaces = [
   { binding = "checkerPrompts", id = "" }
 ]
-
-[[queues.producers]]
-queue = "my-queue"
-binding = "MY_QUEUE"
 
 [vars]
 OPENAI_API_KEY = ""
@@ -18,3 +14,6 @@ LLM_ENDPOINT = "https://api.openai.com/v1/chat/completions"
 LLM_MODEL = "gpt-4o"
 SEARCH_ENDPOINT = "https://api.search.brave.com/res/v1/web/search"
 TOKEN_GITHUB = ""
+
+[[queues.consumers]]
+queue = "my-queue"
