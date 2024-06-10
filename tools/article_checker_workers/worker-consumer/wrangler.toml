@@ -1,19 +1,19 @@
-name = "worker-article-checker"
+name = "worker-article-checker" # put your name here
 main = "src/worker.js"
 compatibility_date = "2024-05-29"
 workers_dev = true
 
 kv_namespaces = [
-  { binding = "checkerPrompts", id = "" }
+  { binding = "checkerPrompts", id = "" } # put id of your KV here
 ]
 
 [vars]
-OPENAI_API_KEY = ""
-BRAVE_API_KEY = ""
+OPENAI_API_KEY = "" # put your API key here
+BRAVE_API_KEY = "" # put your API key here
 LLM_ENDPOINT = "https://api.openai.com/v1/chat/completions"
-LLM_MODEL = "gpt-4o"
+LLM_MODEL = "gpt-4o" # you can choose any available model
 SEARCH_ENDPOINT = "https://api.search.brave.com/res/v1/web/search"
-TOKEN_GITHUB = ""
+TOKEN_GITHUB = "" # put your token here
 
 [[queues.consumers]]
-queue = "my-queue"
+queue = "my-queue" # put your name here

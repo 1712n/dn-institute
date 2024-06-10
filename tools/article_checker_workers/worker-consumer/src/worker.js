@@ -2,32 +2,27 @@ import { fetchDiffText, extractAdditionsFromDiff, postGitHubComment } from "./gi
 import { callOpenAI } from "./llmUtils.js";
 import { webSearch, formatResultsFull } from "./search.js";
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function processArticle(prDetails, env) {
   try {
     console.log('Fetching diff text...');
     const diff = await fetchDiffText(prDetails, env.TOKEN_GITHUB);
     const diffText = extractAdditionsFromDiff(diff);
-    console.log(`Clean diff: ${diffText}`);
 
     console.log('Calling OpenAI for extracting statements...');
     const extractingPrompt = await env.checkerPrompts.get("EXTRACTING_PROMPT");
     const statements = await callOpenAI(extractingPrompt, `<text>${diffText}</text>`, env.OPENAI_API_KEY, env.LLM_ENDPOINT);
-    console.log(`Extracted statements: ${JSON.stringify(statements)}`);
 
     console.log('Calling OpenAI for retrieving answers...');
     const retrievingPrompt = await env.checkerPrompts.get("RETRIEVAL_PROMPT");
     let retrieveAnswer = await callOpenAI(retrievingPrompt, statements, env.OPENAI_API_KEY, env.LLM_ENDPOINT, env.LLM_MODEL);
-    console.log(`Retrieve answer: ${retrieveAnswer}`);
 
     retrieveAnswer = JSON.parse(retrieveAnswer);
 
     let completions = "";
 
-    for (let params of retrieveAnswer) {
+    for (const params of retrieveAnswer) {
       console.log('Performing web search...');
       const searchResults = await webSearch(params, env.BRAVE_API_KEY, env.SEARCH_ENDPOINT);
       const results = searchResults.web.results;
@@ -36,8 +31,6 @@ async function processArticle(prDetails, env) {
       completions += formattedSearchResults;
       await sleep(1000);
     }
-
-    console.log(`Completions: ${completions}`);
 
     console.log('Calling OpenAI for final answer...');
     const answerPrompt = await env.checkerPrompts.get("ANSWER_PROMPT");
@@ -48,7 +41,7 @@ async function processArticle(prDetails, env) {
       env.LLM_ENDPOINT,
       env.LLM_MODEL
     );
-    console.log("Final answer received:", finalAnswer);
+    console.log("Final answer received");
 
     console.log('Posting GitHub comment...');
     await postGitHubComment(prDetails.url, finalAnswer, env.TOKEN_GITHUB);
