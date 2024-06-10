@@ -9,5 +9,8 @@
   },
   "devDependencies": {
     "wrangler": "^3.0.0"
+  },
+  "dependencies": {
+    "vitest": "^1.6.0"
   }
 }

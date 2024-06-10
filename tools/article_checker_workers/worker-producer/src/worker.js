@@ -1,6 +1,8 @@
-addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request));
-});
+if (typeof addEventListener === 'function') {
+  addEventListener('fetch', event => {
+    event.respondWith(handleRequest(event.request));
+  });
+}
 
 async function handleRequest(request) {  
   if (request.method !== "POST") {
@@ -22,3 +24,5 @@ async function handleRequest(request) {
     return new Response(error.message, { status: 500 });
   }
 }
+
+export { handleRequest };
