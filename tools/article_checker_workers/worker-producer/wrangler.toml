@@ -1,8 +1,8 @@
-name = "worker-article-receiver"
+name = "worker-article-receiver" #put your name here
 main = "src/worker.js"
 compatibility_date = "2024-04-23"
 workers_dev = true
 
 [[queues.producers]]
-queue = "my-queue"
+queue = "my-queue" #put your name here
 binding = "MY_QUEUE"
