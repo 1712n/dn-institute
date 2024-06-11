@@ -55,6 +55,19 @@ function isTransientError(error: any): boolean {
   return true
 }
 
+// Implement caching for AI model responses to reduce API calls
+const modelResponseCache = new Map<string, any>()
+
+async function getModelResponse(text: string, env: Env) {
+  if (modelResponseCache.has(text)) {
+    return modelResponseCache.get(text)
+  }
+  
+  const modelResp = await retry(() => env.AI.run("@cf/baai/bge-base-en-v1.5", { text: [text] }), env.RETRY_LIMIT)
+  modelResponseCache.set(text, modelResp)
+  return modelResp
+}
+
 // Process a batch of text records
 async function processBatch(entries: TextEntry[], env: Env) {
   const limit = pLimit(env.MAX_CONCURRENT_REQUESTS)
@@ -66,7 +79,7 @@ async function processBatch(entries: TextEntry[], env: Env) {
     }
 
     try {
-      const modelResp = await retry(() => env.AI.run("@cf/baai/bge-base-en-v1.5", { text: [text] }), env.RETRY_LIMIT)
+      const modelResp = await getModelResponse(text, env)
       const vector = modelResp.data[0]
       const searchResponse = await retry(() => env.VECTORIZE_INDEX.query(vector, { namespace, topK: 1 }), env.RETRY_LIMIT)
       const similarityScore = searchResponse.matches[0]?.score || 0
