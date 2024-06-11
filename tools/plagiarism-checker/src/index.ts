@@ -39,14 +39,13 @@ app.post("/", async (c) => {
 
   const sentences = text
     .split(".")
-    // if it's less than 4 characters - we don't treat it as a sentence as skip it
-    .filter((sentence) => sentence.trim().length > 4)
+    // if it's less than 10 characters - we don't treat it as a sentence and skip it
+    .filter((sentence) => sentence.trim().length > 10)
 
   const plagiarismResults = await Promise.all(
     sentences.map(async (sentence) => {
       const query = encodeURIComponent(sentence.trim())
-      const url = `https://www.googleapis.com/customsearch/v1?exactTerms=${query}&key=${c.env.GOOGLE_API_KEY}&cx=${c.env.GOOGLE_SEARCH_ENGINE_CX}&num=10`
-
+      const url = `https://www.googleapis.com/customsearch/v1?exactTerms=${query}&key=${c.env.GOOGLE_API_KEY}&cx=${c.env.GOOGLE_SEARCH_ENGINE_CX}&num=1`
       const response = await fetch(url)
       const searchResults: SearchResponse = await response.json()
 
@@ -62,18 +61,21 @@ app.post("/", async (c) => {
     })
   )
 
-  const plagiarism_count = plagiarismResults.reduce((total, current) => {
-    if (current.matches.length > 0) {
-      total++
-    }
-    return total
-  }, 0)
+  const plagiarisedSentencesNumber = plagiarismResults.reduce(
+    (total, current) => {
+      if (current.matches.length > 0) {
+        total++
+      }
+      return total
+    },
+    0
+  )
 
-  const plagiarism_percent = plagiarism_count
-    ? (sentences.length / plagiarism_count) * 100
+  const plagiarismPercent = plagiarisedSentencesNumber
+    ? (sentences.length / plagiarisedSentencesNumber) * 100
     : 0
 
-  return c.json({ plagiarism_percent, results: plagiarismResults })
+  return c.json({ plagiarismPercent, results: plagiarismResults })
 })
 
 export default app
