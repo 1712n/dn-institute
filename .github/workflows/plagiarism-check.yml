@@ -12,6 +12,8 @@ jobs:
   plagiarism-check:
     runs-on: ubuntu-latest
     name: "Checks a new article from a PR for plagiarism"
+    env:
+          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
     steps:
       - name: Check out repository
@@ -19,23 +21,19 @@ jobs:
 
       - name: Go to PR files
         run: gh pr checkout "${{ github.event.issue.number }}"
-        env:
-          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-
-      - name: Save article locally
-        id: pr-files
+        
+      - name: Save article contents
         run: |
           pr_number="${{ github.event.issue.number }}"
           file_path="$(gh pr diff --name-only $pr_number | grep '\.md' | head -n 1)"
           if [ -n "$file_path" ]; then
             cat "$file_path" > article.txt
           else
-            echo "No .md file found in the PR." > article.txt
+            gh pr comment "${{ github.event.issue.number }}" --body "No .md file found in the PR."
+            exit 1
           fi
-        env:
-          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
       - name: Check for plagiarism
-        id: plagiarism-check
         run: |
           content="$(cat article.txt)"
           escaped_content=$(jq -Rs . <<<"$content")
@@ -48,11 +46,9 @@ jobs:
           response="$(cat results.txt)"
           formatted_response="## Plagiarism Check Results:
           "
-
           plagiarismPercent=$(echo "$response" | jq -r '.plagiarismPercent')
           formatted_response+="### $plagiarismPercent% plagiarism detected 
           "
-
           results=$(echo "$response" | jq -r '.results')
           if [ "$results" != "None" ]; then
             while IFS= read -r result; do
@@ -72,6 +68,3 @@ jobs:
           fi
 
           gh pr comment "${{ github.event.issue.number }}" --body "$formatted_response"
-
-        env:
-          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
