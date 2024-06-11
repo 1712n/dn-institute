@@ -62,21 +62,22 @@ app.post("/", async (c) => {
     })
   )
 
-  const plagiarisedSentencesNumber = plagiarismResults.reduce(
-    (total, current) => {
-      if (current.matches.length > 0) {
+  let plagiarisedSentencesNum = 0
+
+  if (plagiarismResults) {
+    plagiarisedSentencesNum = plagiarismResults.reduce((total, current) => {
+      if (current?.matches?.length && current?.matches?.length > 0) {
         total++
       }
       return total
-    },
-    0
-  )
+    }, 0)
+  }
 
-  const plagiarismPercent = plagiarisedSentencesNumber
-    ? (sentences.length / plagiarisedSentencesNumber) * 100
+  const plagiarismPercent = plagiarisedSentencesNum
+    ? (sentences.length / plagiarisedSentencesNum) * 100
     : 0
 
-  return c.json({ plagiarismPercent, results: plagiarismResults })
+  return c.json({ plagiarismPercent, results: plagiarisedSentencesNum ? plagiarismResults : "None" })
 })
 
 export default app
