@@ -1,10 +1,13 @@
 import { Hono } from "hono"
+import pLimit from "p-limit"
 
 type Env = {
   API_KEY_TOKEN_CHECK: string
   AI: Ai
   VECTORIZE_INDEX: VectorizeIndex
-  BATCH_PROCESS_LIMIT: number // batch size controller
+  BATCH_PROCESS_LIMIT: number
+  MAX_CONCURRENT_REQUESTS: number // Limit for concurrent API requests
+  RETRY_LIMIT: number // Number of retries for failed requests
 }
 
 type TextEntry = {
@@ -28,26 +31,50 @@ app.use("*", async (c, next) => {
   return next()
 })
 
-// batch texts records package 
+// Retry wrapper for API calls
+async function retry(fn: () => Promise<any>, retries: number) {
+  let lastError
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fn()
+    } catch (error) {
+      lastError = error
+      if (isTransientError(error)) {
+        await new Promise(res => setTimeout(res, Math.pow(2, i) * 100)) // Exponential backoff
+      } else {
+        break // Break if the error is not transient
+      }
+    }
+  }
+  throw lastError
+}
+
+// Check if an error is transient
+function isTransientError(error: any): boolean {
+  // Add logic to determine if the error is transient (e.g., network issues)
+  return true
+}
+
+// Process a batch of text records
 async function processBatch(entries: TextEntry[], env: Env) {
-  const similarityScores = await Promise.all(entries.map(async entry => {
+  const limit = pLimit(env.MAX_CONCURRENT_REQUESTS)
+  const similarityScores = await Promise.all(entries.map(entry => limit(async () => {
     const { text, namespace } = entry
 
     if (typeof text !== "string" || typeof namespace !== "string") {
       return { error: "Invalid JSON format" }
     }
 
-    const modelResp = await env.AI.run("@cf/baai/bge-base-en-v1.5", {
-      text: [text]
-    })
-    const vector = modelResp.data[0]
-    const searchResponse = await env.VECTORIZE_INDEX.query(vector, {
-      namespace,
-      topK: 1
-    })
-    const similarityScore = searchResponse.matches[0]?.score || 0
-    return { similarity_score: similarityScore }
-  }))
+    try {
+      const modelResp = await retry(() => env.AI.run("@cf/baai/bge-base-en-v1.5", { text: [text] }), env.RETRY_LIMIT)
+      const vector = modelResp.data[0]
+      const searchResponse = await retry(() => env.VECTORIZE_INDEX.query(vector, { namespace, topK: 1 }), env.RETRY_LIMIT)
+      const similarityScore = searchResponse.matches[0]?.score || 0
+      return { similarity_score: similarityScore }
+    } catch (error) {
+      return { error: error.message }
+    }
+  })))
 
   return similarityScores
 }
