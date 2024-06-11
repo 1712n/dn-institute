@@ -30,13 +30,11 @@ app.use("*", async (c, next) => {
 
 // batch texts records package 
 async function processBatch(entries: TextEntry[], env: Env) {
-  const similarityScores = []
-  for (const entry of entries) {
+  const similarityScores = await Promise.all(entries.map(async entry => {
     const { text, namespace } = entry
 
     if (typeof text !== "string" || typeof namespace !== "string") {
-      similarityScores.push({ error: "Invalid JSON format" })
-      continue
+      return { error: "Invalid JSON format" }
     }
 
     const modelResp = await env.AI.run("@cf/baai/bge-base-en-v1.5", {
@@ -48,8 +46,9 @@ async function processBatch(entries: TextEntry[], env: Env) {
       topK: 1
     })
     const similarityScore = searchResponse.matches[0]?.score || 0
-    similarityScores.push({ similarity_score: similarityScore })
-  }
+    return { similarity_score: similarityScore }
+  }))
+
   return similarityScores
 }
 
@@ -62,13 +61,9 @@ app.post("/", async (c) => {
     batches.push(data.slice(i, i + BATCH_PROCESS_LIMIT))
   }
 
-  const batchResults = []
-  for (const batch of batches) {
-    const batchResult = await processBatch(batch, c.env)
-    batchResults.push(...batchResult)
-  }
+  const batchResults = await Promise.all(batches.map(batch => processBatch(batch, c.env)))
 
-  return c.json(batchResults)
+  return c.json(batchResults.flat())
 })
 
 export default app
