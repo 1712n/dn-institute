@@ -49,14 +49,15 @@ app.post("/", async (c) => {
       const response = await fetch(url)
       const searchResults: SearchResponse = await response.json()
 
+      if (!searchResults.items) {
+        return
+      }
       return {
         sentence,
-        matches: searchResults.items
-          ? searchResults.items.map((item: SearchResult) => ({
-              title: item.title,
-              link: item.link
-            }))
-          : []
+        matches: searchResults.items.map((item: SearchResult) => ({
+          title: item.title,
+          link: item.link
+        }))
       }
     })
   )
