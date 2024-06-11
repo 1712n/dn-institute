@@ -1,10 +1,10 @@
 # Article Checker System 🚀
 
-This repository contains two Cloudflare Workers, `producer` and `consumer`, designed to process pull request comments, perform fact-checking, and verify articles against specified requirements using OpenAI and Brave Web Search APIs.
+This folder contains two Cloudflare Workers, `producer` and `consumer`, designed to process pull request comments, perform fact-checking, and verify articles against specified requirements using OpenAI and Brave Web Search APIs.
 
 ## Installation
 
-First, clone the repository and install the necessary dependencies:
+First, install the necessary dependencies:
 
 ```
 npm install
