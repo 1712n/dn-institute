@@ -38,12 +38,32 @@ jobs:
         id: plagiarism-check
         run: |
           content="$(cat article.txt)"
-          result="$(curl -X POST "${{ secrets.WORKER_URL }}" -H "Content-Type: application/json" -d "{\"text\": \"$content\"}")"
-          results="#Plagiarism Check Results: $result"
+          escaped_content=$(jq -Rs . <<<"$content")
+          result="$(curl -X POST "${{ secrets.WORKER_URL }}" -H "Content-Type: application/json" -d "{\"text\": $escaped_content}")"
 
-          echo "results="$results"" >> "$GITHUB_ENV"
-      - name: Post result as a comment
+          echo "$result" > results.txt
+
+      - name: Format and post response
         run: |
-          gh pr comment "${{ github.event.issue.number }}" --body "${{ env.results }}"
+          response="$(cat results.txt)"
+          formatted_response="## Plagiarism Check Results: <br> <br>"
+
+          plagiarismPercent=$(echo "$response" | jq -r '.plagiarismPercent')
+          formatted_response+="### Plagiarism Percentage: $plagiarismPercent% <br> <br>"
+
+          results=$(echo "$response" | jq -r '.results')
+          if [ "$results" != "None" ]; then
+              # Iterate over each result and format it
+              while IFS= read -r result; do
+                  title=$(echo "$result" | jq -r '.title')
+                  link=$(echo "$result" | jq -r '.link')
+                  formatted_response+="* [$title]($link)<br> <br>"
+              done <<< "$results"
+          else
+              formatted_response+="## No plagiarism detected."
+          fi
+
+          gh pr comment "${{ github.event.issue.number }}" --body "$formatted_response"
+
         env:
           GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
