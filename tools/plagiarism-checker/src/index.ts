@@ -44,10 +44,19 @@ app.post("/", async (c) => {
     return c.json({ error: "Invalid JSON format" }, 400)
   }
 
-  const sentences = text
-    .split(".")
-    // if it's less than 10 characters - we don't treat it as a sentence and skip it
-    .filter((sentence) => sentence.trim().length > 10)
+  const textWithoutHeaders = text.replace(/^#+\s*[A-Z].*$/gm, "")
+
+  const sentences: string[] | null = textWithoutHeaders.match(
+    /(?=[^])(?:\P{Sentence_Terminal}|\p{Sentence_Terminal}(?!['"`\p{Close_Punctuation}\p{Final_Punctuation}\s]))*(?:\p{Sentence_Terminal}+['"`\p{Close_Punctuation}\p{Final_Punctuation}]*|$)/guy
+  )
+
+  if (!sentences)
+    return c.json({
+      plagiarismResults: 0,
+      results: "None"
+    })
+
+  sentences.filter((sentence) => sentence.trim())
 
   const plagiarismResults: PlagiarismResults = await Promise.all(
     sentences.map(async (sentence) => {
