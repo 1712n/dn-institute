@@ -9,10 +9,12 @@ interface SearchResponse {
   items: Array<SearchResult>
 }
 
-interface PlagiarismResults {
+interface PlagiarismResult {
   sentence: string
   matches: Array<SearchResult>
 }
+
+type PlagiarismResults = Array<PlagiarismResult | null>
 
 type Env = {
   GOOGLE_API_KEY: string
@@ -47,9 +49,7 @@ app.post("/", async (c) => {
     // if it's less than 10 characters - we don't treat it as a sentence and skip it
     .filter((sentence) => sentence.trim().length > 10)
 
-  const plagiarismResults: PlagiarismResults[] = []
-
-  await Promise.all(
+  const plagiarismResults: PlagiarismResults = await Promise.all(
     sentences.map(async (sentence) => {
       const query = encodeURIComponent(sentence.trim())
       const url = `https://www.googleapis.com/customsearch/v1?exactTerms=${query}&key=${c.env.GOOGLE_API_KEY}&cx=${c.env.GOOGLE_SEARCH_ENGINE_CX}&num=1`
@@ -57,17 +57,19 @@ app.post("/", async (c) => {
       const searchResults: SearchResponse = await response.json()
 
       if (!searchResults.items) {
-        return
+        return null
       }
-      plagiarismResults.push({
+      return {
         sentence,
         matches: searchResults.items.map((item: SearchResult) => ({
           title: item.title,
           link: item.link
         }))
-      })
+      }
     })
   )
+
+  plagiarismResults.filter((result) => result !== null)
 
   let plagiarisedSentencesNum = 0
 
