@@ -1,13 +1,10 @@
-import openai
 from tiktoken import encoding_for_model
 import argparse
 import json
 import os
-import requests
-import glob
 from github import Github
-from tools.python_modules.utils import read_file, extract_between_tags
-from tools.python_modules.report_graphics_tool import Visualization
+from claude_retriever.searcher.searchtools.websearch import BraveSearchTool
+from claude_retriever.market_heath_reported_client import ClientWithRetrieval
 
 
 REPO_NAME = "1712n/dn-institute"
@@ -39,79 +36,13 @@ def parse_cli_args():
     parser.add_argument(
         "--rapid-api", dest="rapid_api", help="Rapid API key", required=True
     )
+    parser.add_argument(
+        "--search-api-key", dest="SEARCH_API_KEY", help="API key for the search engine", required=True
+    )
     return parser.parse_args()
 
 
-def extract_data_from_comment(comment: str) -> tuple:
-    """
-    Extract data from the comment.
-    """
-    parts = comment.split(',')
-    marketvenueid = parts[1].strip().lower()
-    pairid = parts[0].split(':')[1].strip().lower()  
-    start, end = parts[2].strip(), parts[3].strip()
-    return marketvenueid, pairid, start, end
 
-
-def save_output(output: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> None:
-    """
-    Saves the output to a markdown file in the specified directory, creating a subdirectory for it.
-    """
-    output_subdir = os.path.join(directory, f"{start}-{end}-{marketvenueid}-{pairid}")  
-    os.makedirs(output_subdir, exist_ok=True)  
-    safe_start = start.replace(":", "-")
-    safe_end = end.replace(":", "-")
-    base_file_name = "index"
-    file_path = os.path.join(output_subdir, base_file_name)  
-    
-    existing_files = glob.glob(f"{file_path}*.md")
-    if existing_files:
-        numbers = [int(file_name.split('-')[-1].split('.md')[0]) for file_name in existing_files if file_name.split('-')[-1].split('.md')[0].isdigit()]
-        file_number = max(numbers, default=0) + 1
-        full_path = f"{file_path}-{file_number}.md"
-    else:
-        full_path = f"{file_path}.md"
-    
-    with open(full_path, 'w', encoding='utf-8') as file:
-        file.write(output)
-    print(f"Output saved to: {full_path}")
-
-
-def save_data(data: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> None:
-    """
-    Saves data to a JSON file in the specified directory.
-    """
-    new_file_name = f'{directory}{marketvenueid}_{pairid}_{start.replace(":", "-")}_{end.replace(":", "-")}.json'
-    with open(new_file_name, 'w', encoding='utf-8') as file:
-        file.write(data)
-
-
-def file_exists(directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> str:
-    """
-    Checks if a file with the specified parameters exists.
-    Returns the path to the file if found, otherwise returns None.
-    """
-    pattern = f"{directory}/{marketvenueid}_{pairid}_{start.replace(':', '-')}_{end.replace(':', '-')}.json"
-    matching_files = glob.glob(pattern)
-    return matching_files[0] if matching_files else None
-
-
-def fetch_or_load_market_data(querystring: dict, headers: dict, url: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> dict:
-    """
-    Tries to load market data from a file if it is already saved.
-    Otherwise, makes an API request and saves the data.
-    """
-    existing_file = file_exists(directory, marketvenueid, pairid, start, end)
-    if existing_file:
-        print(f"Loading data from existing file: {existing_file}")
-        with open(existing_file, 'r', encoding='utf-8') as file:
-            return json.load(file)
-    else:
-        response = requests.get(url, headers=headers, params=querystring)
-        response.raise_for_status()
-        data = response.json()
-        save_data(json.dumps(data), directory, marketvenueid, pairid, start, end)
-        return data
 
 
 def post_comment_to_issue(github_token, issue_number, repo_name, comment):
@@ -125,68 +56,40 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
     if os.environ.get("GITHUB_ACTIONS") == "true":
         issue.create_comment(comment)
 
-
-def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
+def api_call(client, model,  comment_body, headers, max_tokens, temperature):
     """
-    Creates a prompt string using article example and data.
+    Make an API call and return the response.
     """
-    return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
-
+    try:
+        return client.completion_with_retrieval(
+            model=model,
+            comment_body=comment_body,
+            headers=headers,
+            n_search_results_to_use=1,
+            max_searches_to_try=5,
+            max_tokens=max_tokens,
+            temperature=temperature
+        )
+    except Exception as e:
+        print(f"Error in API call: {e}")
+        return None
 
 def main():
     args = parse_cli_args()
-
-    system_prompt = read_file(SYSTEM_PROMPT_FILE)
-    human_prompt_content = read_file(HUMAN_PROMPT_FILE)
-    article_example = read_file(ARTICLE_EXAMPLE_FILE)
-
-    marketvenueid, pairid, start, end = extract_data_from_comment(args.comment_body)
-    print(f"Marketvenueid: {marketvenueid}, Pairid: {pairid}, Start: {start}, End: {end}")
-    querystring = {
-        "marketvenueid": marketvenueid,
-        "pairid": pairid,
-        "start": f"{start}T00:00:00",
-        "end": f"{end}T00:00:00",
-        "gran": "1h",
-        "sort": "asc",
-        "limit": "1000"
-    }
     headers = {"X-RapidAPI-Key": args.rapid_api, "X-RapidAPI-Host": "cross-market-surveillance.p.rapidapi.com"}
-    url = "https://cross-market-surveillance.p.rapidapi.com/metrics/wt/market"
+    with open('tools/article_checker/config.json', 'r') as config_file:
+        config = json.load(config_file)
 
-    try:
-        data = fetch_or_load_market_data(querystring, headers, url, DATA_DIR, marketvenueid, pairid, start, end)
+    search_tool = BraveSearchTool(brave_api_key=args.SEARCH_API_KEY, summarize_with_claude=True,
+                                  anthropic_api_key=args.API_key)
+    
+    model = config['ANTHROPIC_SEARCH_MODEL']
+    max_tokens = config['ANTHROPIC_SEARCH_MAX_TOKENS']
+    temperature = config['ANTHROPIC_SEARCH_TEMPERATURE']
 
-        encoding = encoding_for_model("gpt-4")     
-        print('num of data tokens: ', len(encoding.encode(str(data))))
+    client = ClientWithRetrieval(api_key=args.API_key, search_tool=search_tool)
+    output = api_call(client, model, args.comment_body, headers, max_tokens, temperature)
+    print("This is an answer: ", output)
+    post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
 
-        prompt = create_prompt(article_example, data, human_prompt_content)
-        prompt_token_count = len(encoding.encode(prompt))
-
-        if prompt_token_count > MAX_TOKENS:
-            error_message = "Your request is too long. It's possible that the period for the data is too broad. Please narrow it down."
-            print(error_message)
-            post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, error_message)
-        else:
-            openai.api_key = args.API_key
-            completion = openai.ChatCompletion.create(
-                model="gpt-4-0125-preview",
-                temperature=0.0,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": prompt}
-                ]
-            )
-            output = completion.choices[0].message.content
-            output = extract_between_tags("article", output)
-
-            print("This is an answer: ", output)
-            save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
-            vis = Visualization()
-            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
-            vis.generate_report(data, output_subdir)  
-
-            post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
-
-    except Exception as e:
-        print(f"Error occurred: {e}")
+   
