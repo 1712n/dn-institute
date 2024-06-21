@@ -1,10 +1,10 @@
 # Repo Tools 🚀
 
-Welcome to our repository! This guide will help you understand how to use our internal tools for better performance and to keep the repo tidy and up-to-date. 
+Welcome to our repository! This guide will help you understand how to use our internal tools and to keep the repo tidy and up-to-date. 
 
 ## How to Use These Tools 🛠️
 
-These scripts are triggered when you comment on a pull request. To run a `script`, your comment must contain a specific `command`, and you must be listed in the `WIKI_REVIEWERS` secret. Only the line with the command will be processed, so feel free to write additional lines in your comment.
+These scripts are triggered when you comment on a pull request. To run a script, your comment must contain a specific command, and you must be listed in the `WIKI_REVIEWERS` secret. Only the line with the command will be processed, so feel free to write additional lines in your comment.
 ___
 ### Payout Calculation 💰
 
@@ -19,10 +19,10 @@ Example:
 ___
 ### Quality Check 🧐
 
-To check the quality of an article, use the `/articlecheck` command. This Python script requires command-line arguments with `API keys` and a `link` to a GitHub pull request.
+To check the quality of an article, use the `/articlecheck` command.
 <details>
   <summary>How it works ❓</summary>
-  This script extracts the diff from the pull request, sends it to an AI service, and generates a comment based on the AI response. The process runs in the GitHub Actions environment and uses the “Claude-3” model with retriever functions and GPT-3 for text comparison.
+  This script extracts the diff from the pull request, sends it to an AI service, and generates a comment based on the AI response. The process runs in the GitHub Actions environment and uses the Claude model with retriever functions and GPT for text comparison.
 </details>
 
 Example:
@@ -50,6 +50,3 @@ Follow this template: `/analyze: pair, market, start_of_the_period, end_of_the_p
 
 Example:
 `/analyze: bnb-btc, binance, 2024-02-02, 2024-02-07`
-___
-By following this guide, you're ready to jump in and get started with our tools! 
-Happy coding! 😎
