@@ -9,7 +9,8 @@ export default defineWorkersConfig({
         },
         miniflare: {
           bindings: {
-            API_KEY_TOKEN_CHECK: "test-api-key"
+            API_KEY_TOKEN_CHECK: "test-api-key",
+            MAX_INPUT: 3
           },
           wrappedBindings: {
             AI: {
