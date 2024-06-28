@@ -1,4 +1,3 @@
-from tiktoken import encoding_for_model
 import argparse
 import json
 import os
@@ -77,7 +76,7 @@ def api_call(client, model,  comment_body, headers, max_tokens, temperature):
 def main():
     args = parse_cli_args()
     headers = {"X-RapidAPI-Key": args.rapid_api, "X-RapidAPI-Host": "cross-market-surveillance.p.rapidapi.com"}
-    with open('tools/article_checker/config.json', 'r') as config_file:
+    with open(r'config.json', 'r') as config_file:
         config = json.load(config_file)
 
     search_tool = BraveSearchTool(brave_api_key=args.SEARCH_API_KEY, summarize_with_claude=True,

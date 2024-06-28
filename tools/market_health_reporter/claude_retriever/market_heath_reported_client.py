@@ -8,7 +8,7 @@ from utils import format_results_full
 import json
 import glob
 import requests
-from tools.python_modules.utils import read_file, extract_between_tags
+from tools.python_modules.utils import read_file
 from tools.python_modules.report_graphics_tool import Visualization
 
 
@@ -23,31 +23,21 @@ ANSWER_PROMPT = read_file(HUMAN_PROMPT_FILE)
 article_example = read_file(ARTICLE_EXAMPLE_FILE)
 logger = logging.getLogger(__name__)
 
-
-
-EXTRACTING_INDICATORS_PROMPT = """
-Identify and extract key performance indicators (KPIs) analyzed in the text provided.
-Return the extracted KPIs. Place each KPI within <kpi></kpi> tags.
-Also, return the number of extracted KPIs within <number_of_kpis></number_of_kpis> tags.
-Focus on extracting KPIs that involve numerical data, statistical analysis, and named metrics. Limit the number of extracted KPIs to the most significant ones.
-Skip any introductory text; proceed directly to the results.
-"""
-
 RETRIEVAL_PROMPT = """
-You are tasked with collecting information from an external knowledge base that is pertinent to a list of terms related to the cryptocurrency market. 
+You are tasked with collecting information from an external knowledge base that is pertinent to the market status of a specific cryptocurrency pair on a particular exchange during a defined time period.
 Below is the search engine's description: <tool_description>{description}</tool_description>.
 
 Here's how to proceed:
-1. Within <thinking></thinking> tags, consider the type of information necessary to understand each term.
+1. Within <thinking></thinking> tags, consider the type of information necessary to understand the market status of the cryptocurrency pair on the exchange.
 2. Use the search engine tool by placing your query inside <search_query> tags: <search_query>your specific query here</search_query>.
 3. Review the results returned within <search_result></search_result> tags.
 4. Reflect on the completeness of the information using <search_quality></search_quality> tags.
 
-Your role is not to analyze the terms but to compile relevant information that will enable the user to conduct the analysis.
+Your role is not to analyze the market data but to compile relevant information that will enable the user to conduct the analysis.
 
-For each term, provide a description of the gathered information within <description></description> tags to emphasize its relevance to the analysis of that particular cryptocurrency market term.
+For the marketvenueid and pairid, provide a description of the gathered information within <description></description> tags to emphasize its relevance to the analysis of the market status for that cryptocurrency pair and exchange during the specified time period.
 
-Here is the list of terms: <kpi>{list of terms}</kpi>
+Here is the information to be retrieved: <market_data>marketvenueid: {marketvenueid}, pairid: {pairid}, start: {start}, end: {end}</market_data>
 """
 
 class ClientWithRetrieval:
@@ -55,7 +45,7 @@ class ClientWithRetrieval:
     def __init__(self, api_key: str, search_tool: Optional[SearchTool] = None, verbose: bool = True):
         """
         Initializes the ClientWithRetrieval class.
-        
+
         Parameters:
             search_tool (SearchTool): SearchTool object to handle searching
             verbose (bool): Whether to print verbose logging
@@ -108,14 +98,15 @@ class ClientWithRetrieval:
             data = response.json()
             self.save_data(json.dumps(data), directory, marketvenueid, pairid, start, end)
             return data
-    
 
     def save_output(self, output: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> None:
         """
         Saves the output to a markdown file in the specified directory, creating a subdirectory for it.
         """
-        output_subdir = os.path.join(directory, f"{start}-{end}-{marketvenueid}-{pairid}")  
-        os.makedirs(output_subdir, exist_ok=True)  
+        safe_start = start.replace(":", "-")
+        safe_end = end.replace(":", "-")
+        output_subdir = os.path.join(directory, f"{safe_start}-{safe_end}-{marketvenueid}-{pairid}")
+        os.makedirs(output_subdir, exist_ok=True)
         safe_start = start.replace(":", "-")
         safe_end = end.replace(":", "-")
         base_file_name = "index"
@@ -140,45 +131,15 @@ class ClientWithRetrieval:
         """
         return f"<example> {article_example} </example>\n<search_results> {search_results} </search_results>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
 
-
-    def extract_kpis(self, text: str, model: str, temperature: float = 0.0, max_tokens: int = 1000):
-        
+    def retrieve(self, model: str, marketvenueid: str, pairid: str, start: str, end: str,
+                 n_search_results_to_use: int = 3, stop_sequences: list[str] = [], max_tokens: int = 1000,
+                 max_searches_to_try: int = 5, temperature: float = 0.0) -> str:
         """
-        Extracts indicators from the example article that may be important for analysis
+        Retrieves relevant market data for the given marketvenueid and pairid over the specified time period.
+
+        Returns a string with the search results.
         """
-        
-        message = self.client.messages.create(
-            model=model,
-            max_tokens=max_tokens,
-            temperature=temperature,
-            system=EXTRACTING_INDICATORS_PROMPT,
-            messages=[
-            {
-                "role": "user",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": f"<text>{text}</text>"
-                    }
-                ]
-            }
-        ]
-        )
-        kpis = self.extract_between_tags("kpi", message.content[0].text)
-        number_of_kpis = self.extract_between_tags("number_of_kpis", message.content[0].text)
-        return kpis, number_of_kpis
-
-    def retrieve(self, example_article: str, model: str, n_search_results_to_use: int = 3, stop_sequences: list[str] = [], max_tokens: int = 1000, max_searches_to_try: int = 5, temperature: float = 0.0) -> str:
-        """
-        Main method to retrieve relevant search results for indicators with a provided search tool.
-
-        Extracts KPIs from the provided article and retrieves information relevant to these KPIs using a search tool.
-
-        Returns string with fact-checking results.
-        """
-        assert self.search_tool is not None, "SearchTool must be provided to use .retrieve()"
-
-        kpis, number_of_kpis = self.extract_kpis(example_article, model=model, max_tokens=max_tokens, temperature=temperature)
+        assert self.search_tool is not None, "SearchTool must be provided to use retrieve()"
         completions = ""
         messages = [
             {
@@ -186,14 +147,13 @@ class ClientWithRetrieval:
                 "content": [
                     {
                         "type": "text",
-                        "text": kpis
+                        "text": f"marketvenueid: {marketvenueid}, pairid: {pairid}, start: {start}, end: {end}"
                     }
                 ]
             }
         ]
-        
 
-        for tries in range(min(number_of_kpis, max_searches_to_try)):
+        for tries in range(max_searches_to_try):
             message = self.client.messages.create(
                 model=model,
                 max_tokens=max_tokens,
@@ -203,7 +163,8 @@ class ClientWithRetrieval:
                 stop_sequences=stop_sequences
             )
 
-            partial_completion, stop_reason, stop_seq = message.content[0].text, message.stop_reason, message.stop_sequence
+            partial_completion, stop_reason, stop_seq = message.content[
+                0].text, message.stop_reason, message.stop_sequence
             completions += partial_completion
             messages[0]['content'][0]['text'] += partial_completion
             
@@ -215,9 +176,8 @@ class ClientWithRetrieval:
                 messages[0]['content'][0]['text'] += formatted_search_results
             else:
                 break
-        
-        return completions
 
+        return completions
 
     def answer_with_results(self, prompt: str, model: str, temperature: float, max_tokens: int = 4000):
         """
@@ -229,7 +189,7 @@ class ClientWithRetrieval:
                 temperature=temperature,
                 system=SYSTEM_PROMPT,
                 max_tokens=max_tokens,
-                messages = [
+                messages=[
                     {
                         "role": "user",
                         "content": [
@@ -237,7 +197,7 @@ class ClientWithRetrieval:
                                 "type": "text",
                                 "text": prompt
                             }
-                        ]       
+                        ]
                     }
                 ]
             )
@@ -245,7 +205,6 @@ class ClientWithRetrieval:
         except Exception as e:
             answer = str(e)
         return answer
-    
 
     def completion_with_retrieval(self,
                                   model: str,
@@ -257,47 +216,53 @@ class ClientWithRetrieval:
                                   max_searches_to_try: int = 5,
                                   temperature: float = 0.0) -> str:
         """
-        Gets a final completion from retrieval results        
-        
+        Gets a final completion from market data retrieval results.
+
         Calls retrieve() to get search results.
-        Calls answer_with_results() with search results, article example, human_prompt and json data.
-        
+        Uses the retrieved data to write an article analyzing the input data.
+
         Returns:
-            str: Claude's answer to the query
+            str: The final article.
         """
+
         marketvenueid, pairid, start, end = self.extract_data_from_comment(comment_body)
         print(f"Marketvenueid: {marketvenueid}, Pairid: {pairid}, Start: {start}, End: {end}")
         querystring = {
-        "marketvenueid": marketvenueid,
-        "pairid": pairid,
-        "start": f"{start}T00:00:00",
-        "end": f"{end}T00:00:00",
-        "gran": "1h",
-        "sort": "asc",
-        "limit": "1000"
-         }
-        
+            "marketvenueid": marketvenueid,
+            "pairid": pairid,
+            "start": f"{start}T00:00:00",
+            "end": f"{end}T00:00:00",
+            "gran": "1h",
+            "sort": "asc",
+            "limit": "1000"
+        }
+
         url = "https://cross-market-surveillance.p.rapidapi.com/metrics/wt/market"
         try:
-            data = self.fetch_or_load_market_data(querystring, headers, url, DATA_DIR, marketvenueid, pairid, start, end)
+            data = self.fetch_or_load_market_data(querystring, headers, url, DATA_DIR, marketvenueid, pairid, start,
+                                                  end)
         except Exception as e:
-            print(f"Error occurred: {e}")
-
-        search_results = self.retrieve(article_example, model=model,
-                                       n_search_results_to_use=n_search_results_to_use, stop_sequences=stop_sequences,
+            print(f"Error occurred while loading market data: {e}")
+        search_results = self.retrieve(model=model,
+                                       marketvenueid=marketvenueid,
+                                       pairid=pairid,
+                                       start=start,
+                                       end=end,
+                                       n_search_results_to_use=n_search_results_to_use,
+                                       stop_sequences=stop_sequences,
                                        max_tokens=max_tokens,
                                        max_searches_to_try=max_searches_to_try,
                                        temperature=temperature)
 
-
         combined_prompt = self.create_prompt(article_example, data, ANSWER_PROMPT, search_results)
         answer = self.answer_with_results(combined_prompt, model, temperature)
-        answer='<article>this is answer, wow</article>'
         answer = self.extract_between_tags("article", answer)
         self.save_output(answer, OUTPUT_DIR, marketvenueid, pairid, start, end)
         vis = Visualization()
-        output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
-        vis.generate_report(data, output_subdir)  
+        safe_start = start.replace(":", "-")
+        safe_end = end.replace(":", "-")
+        output_subdir = os.path.join(OUTPUT_DIR, f"{safe_start}-{safe_end}-{marketvenueid}-{pairid}")
+        vis.generate_report(data, output_subdir)
 
         return answer
     
@@ -330,7 +295,6 @@ class ClientWithRetrieval:
         if self.verbose:
             logger.info('\n' + '-'*20 + f'\nThe SearchTool has returned the following search results:\n\n{formatted_search_results}\n\n' + '-'*20 + '\n')
         return formatted_search_results
-    
 
     def extract_between_tags(self, tag, string, strip=True):
         """
