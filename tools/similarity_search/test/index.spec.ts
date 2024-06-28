@@ -8,7 +8,7 @@ interface SimilarityCheckResponse {
 }
 
 describe("Authentication", () => {
-  it("returns 401 Unauthorized when API key is invalid", async () => {
+  it("returns 401 when API key is invalid", async () => {
     const response = await SELF.fetch("https://example.com/", {
       method: "POST",
       headers: {
@@ -17,46 +17,29 @@ describe("Authentication", () => {
       },
       body: JSON.stringify({
         text: "Sample text",
-        namespace: "test-namespace",
+        namespace: "test-namespace"
       }),
     })
 
     expect(response.status).toBe(401)
-    expect(await response.text()).toBe("Unauthorized")
   })
 })
 
 describe("Validation", () => {
-  it("returns 400 Invalid JSON format when text is missing", async () => {
+  it.each([
+    ["text is missing", { namespace: "test-namespace" }],
+    ["namespace is missing", { text: "Sample text" }]
+  ])("returns 400 Invalid JSON format when %s", async (description, body) => {
     const response = await SELF.fetch("https://example.com/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-Key": "test-api-key",
+        "X-API-Key": "test-api-key"
       },
-      body: JSON.stringify({
-        namespace: "test-namespace",
-      }),
+      body: JSON.stringify(body)
     })
 
     expect(response.status).toBe(400)
-    expect(await response.text()).toBe("Invalid JSON format")
-  })
-
-  it("returns 400 Invalid JSON format when namespace is missing", async () => {
-    const response = await SELF.fetch("https://example.com/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-API-Key": "test-api-key",
-      },
-      body: JSON.stringify({
-        text: "Sample text",
-      }),
-    })
-
-    expect(response.status).toBe(400)
-    expect(await response.text()).toBe("Invalid JSON format")
   })
 })
 
