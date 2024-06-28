@@ -29,7 +29,7 @@ describe("Validation", () => {
   it.each([
     ["text is missing", { namespace: "test-namespace" }],
     ["namespace is missing", { text: "Sample text" }]
-  ])("returns 400 Invalid JSON format when %s", async (description, body) => {
+  ])("returns 400 when %s", async (description, body) => {
     const response = await SELF.fetch("https://example.com/", {
       method: "POST",
       headers: {
