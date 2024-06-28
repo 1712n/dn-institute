@@ -1,5 +1,5 @@
 import { SELF, env } from "cloudflare:test"
-import { describe, it, expect } from "vitest"
+import { describe, it, expect, vi } from "vitest"
 
 import "../src/index"
 
@@ -13,12 +13,12 @@ describe("Authentication", () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-Key": "invalid-api-key",
+        "X-API-Key": "invalid-api-key"
       },
       body: JSON.stringify({
         text: "Sample text",
         namespace: "test-namespace"
-      }),
+      })
     })
 
     expect(response.status).toBe(401)
@@ -44,20 +44,51 @@ describe("Validation", () => {
 })
 
 describe("Functionality", () => {
-  it("runs AI model and gets vectorized string back", async () => {
-    const response = await env.AI.run("@cf/baai/bge-base-en-v1.5", {
-      text: ["Sample text"],
+  it("queries AI model during main route call", async () => {
+    const AICall = vi.spyOn(env.AI, "run")
+
+    const response = await SELF.fetch("https://example.com/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-Key": "test-api-key"
+      },
+      body: JSON.stringify({
+        text: "Sample text",
+        namespace: "test-namespace"
+      })
     })
-    expect(response).toHaveProperty("data")
+
+    expect(AICall).toHaveBeenCalledWith("@cf/baai/bge-base-en-v1.5", {
+      text: ["Sample text"]
+    })
+    expect(AICall).toHaveReturnedWith({ data: {} })
+
+    expect(response.status).toBe(200)
   })
 
-  it("queries vector database and gets proper response", async () => {
-    const response = await env.VECTORIZE_INDEX.query([1, 2, 3], {
-      namespace: "test-namespace",
-      topK: 1,
+  it("queries vector database during main route call", async () => {
+    const queryCall = vi.spyOn(env.VECTORIZE_INDEX, "query")
+
+    const response = await SELF.fetch("https://example.com/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-Key": "test-api-key"
+      },
+      body: JSON.stringify({
+        text: "Sample text",
+        namespace: "test-namespace"
+      })
     })
-    expect(response).toHaveProperty("matches")
-    expect(response.matches.length).toBeGreaterThan(0)
+
+    expect(queryCall).toHaveBeenCalledWith(undefined, {
+      namespace: "test-namespace",
+      topK: 1
+    })
+    expect(queryCall).toHaveReturnedWith({ matches: [{ score: 0.5678 }] })
+
+    expect(response.status).toBe(200)
   })
 
   it("returns similarity score for valid requests", async () => {
