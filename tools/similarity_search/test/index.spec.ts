@@ -44,7 +44,7 @@ describe("Validation", () => {
 })
 
 describe("Functionality", () => {
-  it("queries AI model during main route call", async () => {
+  it("queries AI model during main route call and gets proper response", async () => {
     const AICall = vi.spyOn(env.AI, "run")
 
     const response = await SELF.fetch("https://example.com/", {
@@ -67,7 +67,7 @@ describe("Functionality", () => {
     expect(response.status).toBe(200)
   })
 
-  it("queries vector database during main route call", async () => {
+  it("queries vector database during main route call and gets proper response", async () => {
     const queryCall = vi.spyOn(env.VECTORIZE_INDEX, "query")
 
     const response = await SELF.fetch("https://example.com/", {
