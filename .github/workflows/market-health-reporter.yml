@@ -28,8 +28,9 @@ jobs:
             --issue "${{ github.event.issue.number }}" \
             --comment-body "${{ github.event.comment.body }}" \
             --github-token "${{ secrets.GITHUB_TOKEN }}" \
-            --llm-api-key "${{ secrets.OPENAI_KEY }}" \
-            --rapid-api "${{ secrets.RAPID_API_KEY }}" 
+            --llm-api-key "${{ secrets.LLM_API_KEY }}" \
+            --rapid-api "${{ secrets.RAPID_API_KEY }}" \
+            --search-api-key "${{ secrets.SEARCH_API_KEY }}"
 
       - name: Configure Git
         run: |
