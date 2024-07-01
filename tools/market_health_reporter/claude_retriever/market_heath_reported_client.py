@@ -24,21 +24,19 @@ article_example = read_file(ARTICLE_EXAMPLE_FILE)
 logger = logging.getLogger(__name__)
 
 RETRIEVAL_PROMPT = """
-You are tasked with collecting information from an external knowledge base that is pertinent to the market status of a specific cryptocurrency pair on a particular exchange during a defined time period.
+
+Your task is to collect information from an external knowledge base that is relevant to the state of a particular pair of cryptocurrencies on a particular market for a defined period of time.
 Below is the search engine's description: <tool_description>{description}</tool_description>.
 
 Here's how to proceed:
-1. Within <thinking></thinking> tags, consider the type of information necessary to understand the market status of the cryptocurrency pair on the exchange.
-2. Use the search engine tool by placing your query inside <search_query> tags: <search_query>your specific query here</search_query>.
-3. Review the results returned within <search_result></search_result> tags.
-4. Reflect on the completeness of the information using <search_quality></search_quality> tags.
+1. Formulate a query to search for information about the state of the specified market and cryptocurrency pair, including significant events that occurred during the specified period which could have influenced the market status. 
+2. Execute the search using the search engine tool by placing your query inside <search_query> tags: <search_query>your query here</search_query>.
+3. Tag the information found with <description>information</description> and include the source web page URL in <source>url</source> tags. If there is no URL, insert 'None' in the <source></source> tags.
+4. If a new search is necessary, place the new query within {search_query}{/search_query}.
 
-Your role is not to analyze the market data but to compile relevant information that will enable the user to conduct the analysis.
+Your role is to compile the relevant information that will assist the user in analyzing the market data, not to analyze the data yourself. The information that you put in the <description> tags will be utilized in the subsequent prompt for market surveillance analysis. Ensure that the collected data is concise and relevant to enable effective integration into the analysis process.
 
-For the marketvenueid and pairid, provide a description of the gathered information within <description></description> tags to emphasize its relevance to the analysis of the market status for that cryptocurrency pair and exchange during the specified time period.
-
-Here is the information to be retrieved: <market_data>marketvenueid: {marketvenueid}, pairid: {pairid}, start: {start}, end: {end}</market_data>
-"""
+Information to be retrieved: <market_data>marketvenueid: {marketvenueid}, pairid: {pairid}, start: {start}, end: {end}</market_data>"""
 
 class ClientWithRetrieval:
 

@@ -2,7 +2,7 @@ There are various indicators that are utilized to spot potential manipulative ac
 Here is some basic procedure of the market surveillance analysis:
 
 1. Start with key metrics such as volume distribution, first-digit distribution, correlation between volume and volatility, buy-sell ratio and time-of-trade. It is crucial to observe these metrics over time. 
-2. Identify anomalies using specific criteria, such as sudden spikes or significantly unusual trading volumes. The anomalous patterns and benchmarkes are provided below. Analyze metrics over time to identify trends and patterns. 
+2. Identify anomalies using specific criteria, such as sudden spikes or significantly unusual trading volumes. The anomalous patterns and benchmarkes are provided below. Additional information about the state of the market and the pair of cryptocurrencies that can be useful for analysis is provided in the <description>market current state information</description> tags. Analyze metrics over time to identify trends and patterns.
 3. Construct a coherent and convincing report, beginning with the metric that shows significant deviation and has a noticeable impact on other metrics. Ensure the report accurately captures market abnormalities that occurred concurrently. Include specific timestamps and quantitative values as evidence.
 4. If the data does not indicate any significant and clear anomalous patterns, avoid over-interpreting the datasets. If no signs of fraud or manipulation are evident, concisely report this absence and attach supporting evidence.
 
