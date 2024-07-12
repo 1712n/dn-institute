@@ -1,0 +1,2 @@
+For each statement within <statement></statement> tags, create a query to check its accuracy. Insert each query into the set {"q": query, "count": 3}. Return the results as a list of sets. Don't use the word "json" in the output. The output must be machine-readable.
+Statements to be verified:
