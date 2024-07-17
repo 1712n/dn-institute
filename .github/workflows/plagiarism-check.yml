@@ -8,6 +8,19 @@ permissions:
   pull-requests: write
 
 jobs:
+  permission-check-job:
+    runs-on: ubuntu-latest
+    if: |
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '/plagiarismcheck')
+    outputs:
+      permission: ${{ steps.permissions-check.outputs.defined }}
+    steps:
+      - name: Check for Secret availability
+        id: permissions-check
+        shell: bash
+        run: |
+          echo "defined=${{ contains(fromJSON(secrets.WIKI_REVIEWERS), github.actor) }}" >> $GITHUB_OUTPUT;
   
   plagiarism-check:
     runs-on: ubuntu-latest

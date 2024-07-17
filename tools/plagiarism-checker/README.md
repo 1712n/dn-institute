@@ -22,3 +22,7 @@ npm run deploy
 - Save a deployed worker URL.
 
 - Add a **WORKER_URL** enviromental variable to your repository secrets, so Github Actions can access the service.
+
+### Usage
+
+Leave a comment with *"/plagiarismcheck"* in a pull request with new article to activate bot.
