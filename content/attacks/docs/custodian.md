@@ -42,3 +42,16 @@ In addition to the security measures that crypto-custodians are taking, there ar
 - **Be cautious with links:** Avoid clicking on suspicious links, particularly in emails from unknown senders.
 - **Keep software up to date:** Regularly update software to protect against security vulnerabilities.
 - **Consider self-custody:** Use custodians only when necessary and maintain control of private keys by securely backing them up.
+
+## Early warning signs
+
+Early detection of potential threats is crucial in preventing attacks on crypto-custodians. Proactive surveillance of social media can provide valuable insights into emerging risks and help custodians take timely action to mitigate them. By monitoring online conversations, sentiment analysis, and trending topics related to their platforms, custodians can identify potential red flags such as:
+
+- Rumors or discussions about vulnerabilities in their systems
+- Coordinated efforts by malicious actors to spread misinformation
+- Sudden spikes in negative sentiment or customer complaints
+- Mentions of upcoming attacks or hacking attempts
+
+Establishing a robust social media monitoring system allows crypto-custodians to stay ahead of potential threats and quickly respond to emerging risks. Below is a list of relevant Telegram channels that often publish content with early signs of cyberattacks on blockchain custodians.
+
+#### Relevant Telegram Channels
