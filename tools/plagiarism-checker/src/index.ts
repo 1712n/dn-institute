@@ -91,7 +91,7 @@ app.post("/", async (c) => {
     }, 0)
   }
 
-  const plagiarismPercent = (plagiarisedSentencesNum / sentences.length) * 100
+  const plagiarismPercent = ((plagiarisedSentencesNum / sentences.length) * 100).toFixed(2);
 
   return c.json({
     plagiarismPercent,
