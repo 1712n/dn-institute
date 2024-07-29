@@ -58,7 +58,7 @@ app.post("/", async (c) => {
 
   sentences.filter((sentence) => sentence.trim())
 
-  const plagiarismResults: PlagiarismResults = await Promise.all(
+  let plagiarismResults: PlagiarismResults = await Promise.all(
     sentences.map(async (sentence) => {
       const query = encodeURIComponent(sentence.trim())
       const url = `https://www.googleapis.com/customsearch/v1?exactTerms=${query}&key=${c.env.GOOGLE_API_KEY}&cx=${c.env.GOOGLE_SEARCH_ENGINE_CX}&num=1`
@@ -78,7 +78,7 @@ app.post("/", async (c) => {
     })
   )
 
-  plagiarismResults.filter((result) => result !== null)
+  plagiarismResults = plagiarismResults.filter((result) => result !== null)
 
   let plagiarisedSentencesNum = 0
 
