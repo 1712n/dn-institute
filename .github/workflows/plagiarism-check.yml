@@ -1,0 +1,49 @@
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: write
+
+jobs:
+
+  plagiarism-check:
+    runs-on: ubuntu-latest
+    name: "Checks a new article from a PR for plagiarism"
+    env:
+          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Go to PR files
+        run: gh pr checkout "${{ github.event.issue.number }}"
+        
+      - name: Save article contents
+        run: |
+          pr_number="${{ github.event.issue.number }}"
+          file_path="$(gh pr diff --name-only $pr_number | grep '\.md' | head -n 1)"
+          if [ -n "$file_path" ]; then
+            cat "$file_path" > article.txt
+          else
+            gh pr comment "${{ github.event.issue.number }}" --body "No .md file found in the PR."
+            exit 1
+          fi
+
+      - name: Check for plagiarism
+        run: |
+          content="$(cat article.txt)"
+          escaped_content=$(jq -Rs . <<<"$content")
+          result="$(curl -X POST "${{ secrets.WORKER_URL }}" -H "Content-Type: application/json" -d "{\"text\": $escaped_content}")"
+
+          echo "$result" > results.txt
+
+      - name: Format and post response
+        run: |
+          response=$(cat results.txt)
+          results=$(echo "$response" | jq -r '.results')
+
+          gh pr comment "${{ github.event.issue.number }}" --body "$results"
