@@ -21,6 +21,30 @@ type Env = {
   GOOGLE_SEARCH_ENGINE_CX: string
 }
 
+function formatPlagiarismResults(
+  plagiarismResults: PlagiarismResults,
+  plagiarismPercent: string
+) {
+  let formattedResponse = "## Plagiarism Check Results:\n\n"
+  formattedResponse += `### ${plagiarismPercent}% plagiarism detected\n\n`
+
+  if (plagiarismResults.length > 0) {
+    plagiarismResults.forEach((result) => {
+      formattedResponse += `Sentence: ${result.sentence}\n`
+
+      result.matches.forEach((match) => {
+        formattedResponse += `[${match.title}](${match.link})\n`
+      })
+
+      formattedResponse += "\n"
+    })
+  } else {
+    formattedResponse += "### No plagiarism detected."
+  }
+
+  return formattedResponse
+}
+
 const app = new Hono<{ Bindings: Env }>()
 
 app.use("*", async (c, next) => {
@@ -46,17 +70,17 @@ app.post("/", async (c) => {
 
   const textWithoutHeaders = text.replace(/^#+\s*[A-Z].*$/gm, "")
 
-  const sentences: string[] | null = textWithoutHeaders.match(
+  let sentences: string[] | null = textWithoutHeaders.match(
     /(?=[^])(?:\P{Sentence_Terminal}|\p{Sentence_Terminal}(?!['"`\p{Close_Punctuation}\p{Final_Punctuation}\s]))*(?:\p{Sentence_Terminal}+['"`\p{Close_Punctuation}\p{Final_Punctuation}]*|$)/guy
   )
 
   if (!sentences)
     return c.json({
       plagiarismResults: 0,
-      results: "None"
+      results: "None",
     })
 
-  sentences.filter((sentence) => sentence.trim())
+  sentences = sentences.map((sentence) => sentence.trim().replace(/(\r\n|\n|\r)/gm, "")) // remove new and empty lines
 
   let plagiarismResults: PlagiarismResults = await Promise.all(
     sentences.map(async (sentence) => {
@@ -72,8 +96,8 @@ app.post("/", async (c) => {
         sentence,
         matches: searchResults.items.map((item: SearchResult) => ({
           title: item.title,
-          link: item.link
-        }))
+          link: item.link,
+        })),
       }
     })
   )
@@ -91,12 +115,17 @@ app.post("/", async (c) => {
     }, 0)
   }
 
-  const plagiarismPercent = ((plagiarisedSentencesNum / sentences.length) * 100).toFixed(2);
+  const plagiarismPercent = (
+    (plagiarisedSentencesNum / sentences.length) *
+    100
+  ).toFixed(2)
 
-  return c.json({
-    plagiarismPercent,
-    results: plagiarisedSentencesNum ? plagiarismResults : "None"
-  })
+  const mdFormattedText = formatPlagiarismResults(
+    plagiarismResults,
+    plagiarismPercent
+  )
+
+  return c.json({ results: mdFormattedText })
 })
 
 export default app
