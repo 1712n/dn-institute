@@ -8,20 +8,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  permission-check-job:
-    runs-on: ubuntu-latest
-    if: |
-      github.event.issue.pull_request &&
-      contains(github.event.comment.body, '/plagiarismcheck')
-    outputs:
-      permission: ${{ steps.permissions-check.outputs.defined }}
-    steps:
-      - name: Check for Secret availability
-        id: permissions-check
-        shell: bash
-        run: |
-          echo "defined=${{ contains(fromJSON(secrets.WIKI_REVIEWERS), github.actor) }}" >> $GITHUB_OUTPUT;
-  
+
   plagiarism-check:
     runs-on: ubuntu-latest
     name: "Checks a new article from a PR for plagiarism"
@@ -56,28 +43,7 @@ jobs:
 
       - name: Format and post response
         run: |
-          response="$(cat results.txt)"
-          formatted_response="## Plagiarism Check Results:
-          "
-          plagiarismPercent=$(echo "$response" | jq -r '.plagiarismPercent')
-          formatted_response+="### $plagiarismPercent% plagiarism detected 
-          "
+          response=$(cat results.txt)
           results=$(echo "$response" | jq -r '.results')
-          if [ "$results" != "None" ]; then
-            while IFS= read -r result; do
-              sentence=$(echo "$result" | jq -r '.sentence')
-              formatted_response+=" Sentence: $sentence
-              "
-              matches=$(echo "$result" | jq -c '.matches')
-              while IFS= read -r match; do
-                title=$(echo "$match" | jq -r '.title')
-                link=$(echo "$match" | jq -r '.link')
-                formatted_response+="[$title]($link)
-                "
-              done <<< "$(echo "$matches" | jq -c '.[]')"
-            done <<< "$(echo "$results" | jq -c '.[]')"
-          else
-            formatted_response+="### No plagiarism detected."
-          fi
 
-          gh pr comment "${{ github.event.issue.number }}" --body "$formatted_response"
+          gh pr comment "${{ github.event.issue.number }}" --body "$results"
