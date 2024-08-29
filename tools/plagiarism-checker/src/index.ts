@@ -11,7 +11,7 @@ interface SearchResponse {
 
 interface PlagiarismResult {
   sentence: string
-  matches: Array<SearchResult>
+  match: SearchResult
 }
 
 type PlagiarismResults = Array<PlagiarismResult | null>
@@ -28,15 +28,13 @@ function formatPlagiarismResults(
   let formattedResponse = "## Plagiarism Check Results:\n\n"
   formattedResponse += `### ${plagiarismPercent}% plagiarism detected\n\n`
 
-  if (plagiarismResults.length > 0) {
-    plagiarismResults.forEach((result) => {
-      formattedResponse += `Sentence: ${result.sentence}\n`
-
-      result.matches.forEach((match) => {
-        formattedResponse += `[${match.title}](${match.link})\n`
-      })
-
-      formattedResponse += "\n"
+  if (plagiarismResults !== null) {
+    plagiarismResults.forEach((result: PlagiarismResult | null) => {
+      if (result) {
+        formattedResponse += `Sentence: ${result.sentence}\n`
+        formattedResponse += `[${result.match.title}](${result.match.link})\n`
+        formattedResponse += "\n"
+      }
     })
   } else {
     formattedResponse += "### No plagiarism detected."
@@ -80,43 +78,36 @@ app.post("/", async (c) => {
       results: "None",
     })
 
-  sentences = sentences.map((sentence) => sentence.trim().replace(/(\r\n|\n|\r)/gm, "")) // remove new and empty lines
+  sentences = sentences
+    .map((sentence) => sentence.trim().replace(/(\r\n|\n|\r)/gm, ""))
+    .filter((sentence) => sentence.length > 1)
 
   let plagiarismResults: PlagiarismResults = await Promise.all(
     sentences.map(async (sentence) => {
-      const query = encodeURIComponent(sentence.trim())
+      const query = encodeURIComponent(sentence)
       const url = `https://www.googleapis.com/customsearch/v1?exactTerms=${query}&key=${c.env.GOOGLE_API_KEY}&cx=${c.env.GOOGLE_SEARCH_ENGINE_CX}&num=1`
       const response = await fetch(url)
       const searchResults: SearchResponse = await response.json()
 
-      if (!searchResults.items) {
+      if (!searchResults.items || searchResults.items.length === 0) {
         return null
       }
+
+      const firstMatch = searchResults.items[0]
       return {
         sentence,
-        matches: searchResults.items.map((item: SearchResult) => ({
-          title: item.title,
-          link: item.link,
-        })),
+        match: {
+          title: firstMatch.title,
+          link: firstMatch.link,
+        },
       }
     })
   )
 
   plagiarismResults = plagiarismResults.filter((result) => result !== null)
 
-  let plagiarisedSentencesNum = 0
-
-  if (plagiarismResults) {
-    plagiarisedSentencesNum = plagiarismResults.reduce((total, current) => {
-      if (current?.matches?.length && current?.matches?.length > 0) {
-        total++
-      }
-      return total
-    }, 0)
-  }
-
   const plagiarismPercent = (
-    (plagiarisedSentencesNum / sentences.length) *
+    (plagiarismResults.length / sentences.length) *
     100
   ).toFixed(2)
 
