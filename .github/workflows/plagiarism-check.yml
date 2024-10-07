@@ -1,0 +1,61 @@
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: write
+
+jobs:
+  permission-check-job:
+    runs-on: ubuntu-latest
+    if: |
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '/plagiarismcheck')
+    outputs:
+      permission: ${{ steps.permissions-check.outputs.defined }}
+    steps:
+      - name: Check for Secret availability
+        id: permissions-check
+        shell: bash
+        run: |
+          echo "defined=${{ contains(fromJSON(secrets.WIKI_REVIEWERS), github.actor) }}" >> $GITHUB_OUTPUT;
+  
+
+  plagiarism-check:
+    runs-on: ubuntu-latest
+    name: "Checks a new article from a PR for plagiarism"
+    needs: [ permission-check-job ]
+    if: needs.permission-check-job.outputs.permission == 'true'
+    env:
+          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Go to PR files
+        run: gh pr checkout "${{ github.event.issue.number }}"
+        
+      - name: Save article contents
+        run: |
+          pr_number="${{ github.event.issue.number }}"
+          file_path="$(gh pr diff --name-only $pr_number | grep '\.md' | head -n 1)"
+          if [ -n "$file_path" ]; then
+            cat "$file_path" > article.txt
+          else
+            gh pr comment "${{ github.event.issue.number }}" --body "No .md file found in the PR."
+            exit 1
+          fi
+      - name: Check for plagiarism
+        run: |
+          content="$(cat article.txt)"
+          escaped_content=$(jq -Rs . <<<"$content")
+          result="$(curl -X POST "${{ secrets.WORKER_URL }}" -H "Content-Type: application/json" -d "{\"text\": $escaped_content}")"
+          echo "$result" > results.txt
+      - name: Format and post response
+        run: |
+          response=$(cat results.txt)
+          results=$(echo "$response" | jq -r '.results')
+          gh pr comment "${{ github.event.issue.number }}" --body "$results"
