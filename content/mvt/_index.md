@@ -1,6 +1,5 @@
 ---
 title: "MVT API"
-bookToc: true
 navHide: true
 ---
 
