@@ -1,7 +1,0 @@
----
-baseURL: "https://dn.institute/"
-
-buildDrafts: false
-
-minify:
-  minifyOutput: true

@@ -1,0 +1,44 @@
+title = "Distributed Networks Institute"
+languageCode = "en-us"
+theme="archie"
+pygmentsstyle = "monokai"
+pygmentscodefences = true
+pygmentscodefencesguesssyntax = true
+[params]
+	mode="auto"
+	useCDN=false
+	subtitle = "sustainable technological growth and resilience by leveraging scientific, engineering, and organizational principles of distributed networks"
+
+[params.mermaid]
+    theme = "auto"
+    align = "center"
+
+[[params.social]]
+name = "GitHub"
+icon = "github"
+url = "https://github.com/1712n/dn-institute"
+
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "Incidents"
+url = "/research/cyberattacks/incidents/"
+weight = 2
+
+[[menu.main]]
+name = "Attack Vectors"
+url = "/research/cyberattacks/wiki/"
+weight = 3
+
+[[menu.main]]
+name = "Market Health"
+url = "/research/market-health/"
+weight = 4
+
+[[menu.main]]
+name = "Synthetic Data"
+url = "/research/ai/synthetic-data"
+weight = 5
