@@ -38,7 +38,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.108.0
+      HUGO_VERSION: 0.135.0
       HUGO_RAPID_HOST: ${{ secrets.HUGO_RAPID_HOST }}
       HUGO_RAPID_KEY: ${{ secrets.HUGO_RAPID_KEY }}
     steps:
