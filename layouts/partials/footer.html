@@ -1,0 +1,22 @@
+<footer>
+  <div style="display:flex">
+    {{- range $index, $key := .Site.Params.Social -}}
+    <a class="soc" href="{{ $key.url }}" rel="me" title="{{ $key.name }}"><i data-feather="{{ $key.icon }}"></i></a>
+    <a class="border"></a>
+    {{- end -}}
+  </div>
+  {{ with .Page.File }}
+  <div class="footer-info">
+    <a href="https://github.com/1712n/dn-institute/tree/main/content/{{ .Dir }}">Contribute ✎</a>
+  </div>
+  {{ end }}
+</footer>
+{{ if not hugo.IsServer }}
+{{ template "_internal/google_analytics.html" . }}
+{{ end }}
+
+{{- if (isset .Site.Params "social") -}}
+<script>
+  feather.replace()
+</script>
+{{- end -}}
