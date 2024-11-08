@@ -1,0 +1,70 @@
+name: Run RAG Implementation for Market Health Reporter Script
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  run-rag-script:
+    runs-on: ubuntu-latest
+    name: "Perform RAG implementation for Market Health Reporter report"
+    if: |
+      !github.event.issue.pull_request &&
+      contains(github.event.comment.body, '/rag::')
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12' 
+
+      - name: Install dependencies
+        run: |
+          pip install hnswlib cohere requests pyyaml unstructured nltk
+
+      - name: Run script
+        run: |
+          python rag_reporter.py \
+          --cohere-api-key "${{ secrets.COHERE_API_KEY }}" \
+          --issue "${{ github.event.issue.number }}" \
+          --article-raw-url "${{ github.event.comment.body }}" \
+          --github-token "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+
+      - name: Create new branch
+        run: |
+          git checkout -b new-branch-${{ github.run_id }}
+          echo "Creating a new branch"
+
+      - name: Add new files
+        run: |
+          git add .
+          echo "Adding new files"
+
+      - name: Commit new files
+        run: |
+          git commit -m "Add new report after RAG implementation"
+          git status
+
+      - name: Push changes
+        run: |
+          git push origin new-branch-${{ github.run_id }}
+          echo "Pushing changes to origin"
+          git log origin/new-branch-${{ github.run_id }} --oneline
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create a PR from the branch with the commit
+        run: |
+          PR_TITLE="${{ github.event.comment.body }}"
+          PR_URL=$(gh pr create --fill --base main --head new-branch-${{ github.run_id }} --title "$PR_TITLE" --body "This PR adds new report after RAG implementation" --repo ${{ github.repository }}) 
+          echo "PR created at URL: $PR_URL"
+          echo "PR_URL=$PR_URL" >> $GITHUB_ENV
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
