@@ -1,14 +1,33 @@
-# Hugo
-/resources/
-/assets/jsconfig.json
-/public/
-.hugo_build.lock
+# Dependencies
+node_modules/
+.env
 
-# Misc
+# Build output
+dist/
+build/
+.wrangler/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Operating System
 .DS_Store
+Thumbs.db
 
-# Python
-**/__pycache__/
+# Test coverage
+coverage/
 
-# Node
-node_modules
+# Cloudflare Workers
+.dev.vars
+.env.local
+worker-configuration.d.ts

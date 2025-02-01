@@ -1,0 +1,140 @@
+name = "dni-workers"
+compatibility_date = "2024-02-15"
+compatibility_flags = ["nodejs_compat"]
+
+# Shared environment variables
+[vars]
+ENVIRONMENT = "production"
+BASE_URL = "https://dn.institute"
+
+# Article Check Worker
+[[workers]]
+name = "dni-article-check"
+main = "src/article-check/index.ts"
+compatibility_date = "2024-02-15"
+
+routes = [
+  { pattern = "api.dn.institute/article-check/webhook", zone_name = "dn.institute" },
+  { pattern = "api.dn.institute/article-check/status", zone_name = "dn.institute" }
+]
+
+[workers.vars]
+ENVIRONMENT = "production"
+BASE_URL = "https://dn.institute"
+RATE_LIMIT = "100"
+MAX_PAYLOAD_SIZE = "5242880"
+
+[[workers.kv_namespaces]]
+binding = "ARTICLE_CHECK_CACHE"
+id = "article-check-cache"
+preview_id = "article-check-cache-preview"
+
+# Development environment for Article Check
+[env.development.workers.dni-article-check]
+routes = []
+
+[env.development.workers.dni-article-check.vars]
+ENVIRONMENT = "development"
+BASE_URL = "http://localhost:8787"
+RATE_LIMIT = "1000"
+MAX_PAYLOAD_SIZE = "10485760"
+
+# Duplication Check Worker
+[[workers]]
+name = "dni-duplication-check"
+main = "src/duplication-check/index.ts"
+routes = [
+  { pattern = "api.dn.institute/duplication-check/*", zone_name = "dn.institute" }
+]
+
+[workers.vars]
+ENVIRONMENT = "production"
+BASE_URL = "https://dn.institute"
+
+[[workers.kv_namespaces]]
+binding = "DUPLICATION_CHECK_CACHE"
+id = "duplication-check-cache"
+preview_id = "duplication-check-cache-preview"
+
+# Development environment for Duplication Check
+[env.development.workers.dni-duplication-check]
+routes = []
+
+[env.development.workers.dni-duplication-check.vars]
+ENVIRONMENT = "development"
+BASE_URL = "http://localhost:8787"
+
+# Market Health Worker
+[[workers]]
+name = "dni-market-health"
+main = "src/market-health/index.ts"
+routes = [
+  { pattern = "api.dn.institute/market-health/*", zone_name = "dn.institute" }
+]
+
+[workers.vars]
+ENVIRONMENT = "production"
+BASE_URL = "https://dn.institute"
+
+[workers.triggers]
+crons = ["0 0 * * *"]
+
+# Development environment for Market Health
+[env.development.workers.dni-market-health]
+routes = []
+
+[env.development.workers.dni-market-health.vars]
+ENVIRONMENT = "development"
+BASE_URL = "http://localhost:8787"
+
+# Payout Calculator Worker
+[[workers]]
+name = "dni-payout-calc"
+main = "src/payout-calc/index.ts"
+routes = [
+  { pattern = "api.dn.institute/payout-calc/*", zone_name = "dn.institute" }
+]
+
+[workers.vars]
+ENVIRONMENT = "production"
+BASE_URL = "https://dn.institute"
+
+# Development environment for Payout Calculator
+[env.development.workers.dni-payout-calc]
+routes = []
+
+[env.development.workers.dni-payout-calc.vars]
+ENVIRONMENT = "development"
+BASE_URL = "http://localhost:8787"
+
+# Plagiarism Check Worker
+[[workers]]
+name = "dni-plagiarism-check"
+main = "src/plagiarism-check/index.ts"
+routes = [
+  { pattern = "api.dn.institute/plagiarism-check/*", zone_name = "dn.institute" }
+]
+
+[workers.vars]
+ENVIRONMENT = "production"
+BASE_URL = "https://dn.institute"
+
+[[workers.kv_namespaces]]
+binding = "PLAGIARISM_CHECK_CACHE"
+id = "plagiarism-check-cache"
+preview_id = "plagiarism-check-cache-preview"
+
+# Development environment for Plagiarism Check
+[env.development.workers.dni-plagiarism-check]
+routes = []
+
+[env.development.workers.dni-plagiarism-check.vars]
+ENVIRONMENT = "development"
+BASE_URL = "http://localhost:8787"
+
+# Local development settings
+[miniflare]
+kv_persist = true
+cache_persist = true
+port = 8787
+watch = true 
