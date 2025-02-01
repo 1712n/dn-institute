@@ -11,7 +11,6 @@ BASE_URL = "https://dn.institute"
 [[workers]]
 name = "dni-article-check"
 main = "src/article-check/index.ts"
-compatibility_date = "2024-02-15"
 
 routes = [
   { pattern = "api.dn.institute/article-check/webhook", zone_name = "dn.institute" },
@@ -27,9 +26,30 @@ MAX_PAYLOAD_SIZE = "5242880"
 [[workers.kv_namespaces]]
 binding = "ARTICLE_CHECK_CACHE"
 id = "article-check-cache"
-preview_id = "article-check-cache-preview"
 
-# Development environment for Article Check
+# Development environment
+[env.development]
+name = "dni-workers-dev"
+
+[env.development.vars]
+ENVIRONMENT = "development"
+BASE_URL = "http://localhost:8787"
+RATE_LIMIT = "1000"
+MAX_PAYLOAD_SIZE = "10485760"
+
+[[env.development.kv_namespaces]]
+binding = "ARTICLE_CHECK_CACHE"
+id = "7a28916288324d5f983522d220eaa7e6"
+
+[[env.development.kv_namespaces]]
+binding = "DUPLICATION_CHECK_CACHE"
+id = "4b853df1a6464fcda17060bf51123263"
+
+[[env.development.kv_namespaces]]
+binding = "PLAGIARISM_CHECK_CACHE"
+id = "fc854392717d4fe0a302b27840d32696"
+
+# Development worker configuration
 [env.development.workers.dni-article-check]
 routes = []
 
@@ -76,7 +96,7 @@ routes = [
 ENVIRONMENT = "production"
 BASE_URL = "https://dn.institute"
 
-[workers.triggers]
+[workers.trigons]
 crons = ["0 0 * * *"]
 
 # Development environment for Market Health

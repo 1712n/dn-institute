@@ -34,7 +34,7 @@ setup_secrets() {
   if [ ! -f ".env.$ENV" ]; then
     echo "Error: .env.$ENV file not found"
     exit 1
-  }
+  fi
   
   # Read secrets from .env file and set them
   while IFS='=' read -r key value; do

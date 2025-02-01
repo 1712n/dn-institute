@@ -4,7 +4,7 @@ import { secureHeaders } from 'hono/secure-headers';
 import { CohereService } from '../shared/cohere';
 import { Octokit } from '@octokit/rest';
 import { config } from '../config';
-import * as crypto from 'crypto';
+import * as crypto from 'node:crypto';
 
 type Env = {
   COHERE_API_KEY: string;
@@ -107,9 +107,12 @@ app.post('/webhook', async (c) => {
 
   // Verify permissions
   try {
-    const reviewers = JSON.parse(env.WIKI_REVIEWERS);
-    if (!reviewers.includes(payload.comment.user.login)) {
-      return c.json({ error: 'Unauthorized user' }, 403);
+    // Skip reviewer check in development mode
+    if (env.ENVIRONMENT !== 'development') {
+      const reviewers = JSON.parse(env.WIKI_REVIEWERS);
+      if (!reviewers.includes(payload.comment.user.login)) {
+        return c.json({ error: 'Unauthorized user' }, 403);
+      }
     }
   } catch (error) {
     return c.json({ error: 'Invalid reviewers configuration' }, 500);
