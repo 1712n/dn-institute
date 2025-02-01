@@ -4,6 +4,7 @@ import { secureHeaders } from 'hono/secure-headers';
 import { CohereService } from '../shared/cohere';
 import { Octokit } from '@octokit/rest';
 import { config } from '../config';
+import * as crypto from 'crypto';
 
 type Env = {
   COHERE_API_KEY: string;
@@ -15,6 +16,7 @@ type Env = {
   MAX_PAYLOAD_SIZE: string;
   ARTICLE_CHECK_CACHE: KVNamespace;
   ENVIRONMENT: string;
+  WEBHOOK_SECRET: string;
 };
 
 const app = new Hono<{ Bindings: Env }>();
@@ -61,11 +63,32 @@ app.get('/status', (c) => {
   return c.json({ status: 'ok', environment: c.env.ENVIRONMENT });
 });
 
+// Verify GitHub webhook signature
+async function verifyGitHubWebhook(request: Request, secret: string): Promise<boolean> {
+  const signature = request.headers.get('x-hub-signature-256');
+  if (!signature) return false;
+
+  const body = await request.clone().text();
+  const hmac = crypto.createHmac('sha256', secret);
+  const digest = 'sha256=' + hmac.update(body).digest('hex');
+  
+  return crypto.timingSafeEqual(
+    Buffer.from(signature),
+    Buffer.from(digest)
+  );
+}
+
 // Main webhook endpoint
 app.post('/webhook', async (c) => {
   const env = c.env;
-  let payload;
   
+  // Verify webhook signature
+  const isValid = await verifyGitHubWebhook(c.req.raw, env.WEBHOOK_SECRET);
+  if (!isValid) {
+    return c.json({ error: 'Invalid webhook signature' }, 401);
+  }
+
+  let payload;
   try {
     payload = await c.req.json();
   } catch (error) {

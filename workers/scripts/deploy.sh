@@ -25,6 +25,27 @@ fi
 
 echo "Deploying to $ENV environment..."
 
+# Function to set up secrets
+setup_secrets() {
+  local worker=$1
+  echo "Setting up secrets for $worker..."
+  
+  # Check if .env.$ENV exists
+  if [ ! -f ".env.$ENV" ]; then
+    echo "Error: .env.$ENV file not found"
+    exit 1
+  }
+  
+  # Read secrets from .env file and set them
+  while IFS='=' read -r key value; do
+    if [ ! -z "$key" ] && [ ! -z "$value" ]; then
+      echo "Setting secret: $key"
+      wrangler secret put "$key" --name "$worker" --env "$ENV" <<< "$value"
+      check_error "Failed to set secret $key"
+    fi
+  done < ".env.$ENV"
+}
+
 # Create KV namespaces if they don't exist
 echo "Creating KV namespaces..."
 wrangler kv:namespace create "article-check-cache" --env $ENV || true
@@ -49,6 +70,7 @@ WORKERS=(
 
 for worker in "${WORKERS[@]}"; do
   echo "Deploying dni-$worker..."
+  setup_secrets "dni-$worker"
   wrangler deploy "src/$worker/index.ts" --env $ENV
   check_error "Failed to deploy dni-$worker"
 done

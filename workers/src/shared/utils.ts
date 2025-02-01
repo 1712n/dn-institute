@@ -196,4 +196,26 @@ export function parseDiff(diff: string): Array<{ header: string; body: Array<{ b
     const body = bodyParts.map(part => ({ body: part.trim() }));
     return { header, body };
   });
+}
+
+interface LogMessage {
+  level: 'info' | 'warn' | 'error';
+  message: string;
+  data?: any;
+  timestamp: string;
+}
+
+export function logMessage(level: LogMessage['level'], message: string, data?: any) {
+  const logEntry: LogMessage = {
+    level,
+    message,
+    data,
+    timestamp: new Date().toISOString()
+  };
+
+  if (level === 'error') {
+    console.error(JSON.stringify(logEntry));
+  } else {
+    console.log(JSON.stringify(logEntry));
+  }
 } 
