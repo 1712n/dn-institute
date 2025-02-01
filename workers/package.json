@@ -1,0 +1,38 @@
+{
+  "name": "dni-workers",
+  "version": "1.0.0",
+  "description": "DNI Cloudflare Workers for GitHub automation",
+  "scripts": {
+    "dev": "wrangler dev",
+    "build": "tsc",
+    "deploy": "chmod +x scripts/deploy.sh && ./scripts/deploy.sh production",
+    "deploy:dev": "chmod +x scripts/deploy.sh && ./scripts/deploy.sh development",
+    "test": "jest",
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .ts",
+    "start:article-check": "wrangler dev src/article-check/index.ts",
+    "start:duplication-check": "wrangler dev src/duplication-check/index.ts",
+    "start:market-health": "wrangler dev src/market-health/index.ts",
+    "start:payout-calc": "wrangler dev src/payout-calc/index.ts",
+    "start:plagiarism-check": "wrangler dev src/plagiarism-check/index.ts"
+  },
+  "dependencies": {
+    "@cloudflare/workers-types": "^4.20240208.0",
+    "cohere": "^1.1.1",
+    "hono": "^3.12.12",
+    "@octokit/rest": "^20.0.2",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.19",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "eslint": "^8.56.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.2.5",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.3.3",
+    "wrangler": "^3.28.1"
+  }
+} 
