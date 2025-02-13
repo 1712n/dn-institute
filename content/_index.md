@@ -9,7 +9,7 @@ Distributed Networks Institute's mission is to achieve sustainable technological
 
 ### IT Security
 
-We maintain a crowdsourced knowledge base on IT security vulnerabilities and [cyberattack taxonomy](/research/cyberattacks/wiki/) across distributed networks. Our attack surface maps and corresponding datasets help regulators and law enforcement focus attention on the biggest threats and principal actors. As part of our documentation efforts, we maintain a [crowdsourced datset on blockchain ecosystem attacks](/research/cyberattacks/incidents/).
+We maintain a crowdsourced knowledge base on IT security vulnerabilities and [cyberattack taxonomy](/research/cyberattacks/wiki/) across distributed networks. Our attack surface maps and corresponding datasets help regulators and law enforcement focus attention on the biggest threats and principal actors. As part of our documentation efforts, we maintain a [crowdsourced dataset on blockchain ecosystem attacks](/research/cyberattacks/incidents/).
 
 ### AI
 
