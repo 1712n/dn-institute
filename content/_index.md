@@ -5,7 +5,7 @@ layout: "home"
 
 Distributed Networks Institute's mission is to achieve sustainable technological growth and resilience by leveraging scientific, engineering, and organizational principles of distributed networks. We are a part of a 501(c)3 non-profit incubator in Washington DC called [BlockShop](https://blockshop.org).
 
-## Axes of research
+## Research Axes
 
 ### IT Security
 
