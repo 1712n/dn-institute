@@ -5,11 +5,11 @@ layout: "home"
 
 Distributed Networks Institute's mission is to achieve sustainable technological growth and resilience by leveraging scientific, engineering, and organizational principles of distributed networks. We are a part of a 501(c)3 non-profit incubator in Washington DC called [BlockShop](https://blockshop.org).
 
-## Axes of research
+## Research Axes
 
 ### IT Security
 
-We maintain a crowdsourced knowledge base on IT security vulnerabilities and [cyberattack taxonomy](/research/cyberattacks/wiki/) across distributed networks. Our attack surface maps and corresponding datasets help regulators and law enforcement focus attention on the biggest threats and principal actors. As part of our documentation efforts, we maintain a [crowdsourced datset on blockchain ecosystem attacks](/research/cyberattacks/incidents/).
+We maintain a crowdsourced knowledge base on IT security vulnerabilities and [cyberattack taxonomy](/research/cyberattacks/wiki/) across distributed networks. Our attack surface maps and corresponding datasets help regulators and law enforcement focus attention on the biggest threats and principal actors. As part of our documentation efforts, we maintain a [crowdsourced dataset on blockchain ecosystem attacks](/research/cyberattacks/incidents/).
 
 ### AI
 
