@@ -5,6 +5,11 @@ mermaid: true
 
 This page describes a pipeline for relevant token extraction from Large Language Models (LLMs) through the generation of synthetic data. The resulting synthetic dataset can be used for reducing computational costs in classification use cases. In addition to the overview diagram below, we provide links to all relevant scientific resources and tools we've built. For consistency across our examples, we focus on cyberattacks within the blockchain industry; however, this approach can be adapted to various use cases with minimal modifications to the prompts. All materials are released under the Unlicense public domain waiver.
 
+## Resources
+
+- **[ELTEX: A Framework for Domain-Driven Synthetic Data Generation](https://arxiv.org/abs/2503.15055)**: research paper detailing the methodology and experimental results
+- **[Google Sheets Add-on](https://github.com/Kseymur/eltex-sheets-addon)**: integration of the framework with spreadsheet workflows
+
 ## Overview Diagram
 
 {{< mermaid >}}
@@ -36,7 +41,7 @@ Obtaining diverse data samples is as important as writing effective prompts. The
 
 ### Deduplication
 
-We've built Deduplicated Insert Tool, a service designed to eliminate both duplicate and near-duplicate content, thereby ensuring diversity and token uniqueness in our dataset. This tool enables us to:
+We've built [Deduplication Tool](https://github.com/1712n/dedup-service), a service designed to eliminate both duplicate and near-duplicate content, thereby ensuring diversity and token uniqueness in our dataset. This tool enables us to:
 
 - Effectively handle duplicates and near-duplicates. Cosine distance provides a robust measure of semantic similarity between text samples, enabling identification and removal of redundant or nearly identical data points.
 - Continuously measure token diversity. By tracking similarity scores during data collection, we can proactively assess and enhance the lexical and semantic richness of our dataset.
@@ -173,4 +178,4 @@ By combining the extraction prompt and randomized batches of data samples, we co
 
 ## Synthetic Data Deduplication
 
-Using the same instruments and approach described in the Data Samples Deduplication section, we obtain a deduplicated and diverse synthetic dataset. After generating synthetic data batches, we pass the messages through the Deduplicated Insert Tool to eliminate duplicates and near-duplicates, thus maintaining the quality and diversity of the synthetic data. Vector similarity scores are continuously monitored during the deduplication phase, enabling real-time tracking of token diversity. This process allows us to dynamically assess whether additional synthetic samples are required or if the current dataset has achieved the desired level of diversity.
+Using the same instruments and approach described in the Data Samples Deduplication section, we obtain a deduplicated and diverse synthetic dataset. After generating synthetic data batches, we pass the messages through the Deduplication Tool to eliminate duplicates and near-duplicates, thus maintaining the quality and diversity of the synthetic data. Vector similarity scores are continuously monitored during the deduplication phase, enabling real-time tracking of token diversity. This process allows us to dynamically assess whether additional synthetic samples are required or if the current dataset has achieved the desired level of diversity.
