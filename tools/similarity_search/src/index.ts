@@ -1,6 +1,6 @@
 import { Hono } from "hono"
 
-type Env = {
+export type Env = {
   API_KEY_TOKEN_CHECK: string
   AI: Ai
   VECTORIZE_INDEX: VectorizeIndex
