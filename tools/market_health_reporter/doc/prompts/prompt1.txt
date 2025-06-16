@@ -80,3 +80,46 @@ Allowed names for illustrations:
 - benford_law.png
 - vv_correlation.png
 Place the article into the <article> </article> tags.
+
+# Market Health Reporter Analysis Prompt
+# This prompt guides the LLM to produce a structured, evidence-based market anomaly report.
+# Changes:
+# - Clarified analysis steps and output requirements
+# - Added explicit output structure and field requirements
+# - Reduced redundancy and improved logical flow
+# - Added comments for maintainers
+
+## Analysis Procedure
+1. Review all provided metrics: volume distribution, first-digit distribution, volume-volatility correlation, buy-sell ratio, time-of-trade, VWAP, and related tests.
+2. Identify and describe any anomalies using the criteria and benchmarks below. Focus on significant deviations and their impact on other metrics. Use specific timestamps and quantitative values as evidence.
+3. If no clear anomalies are found, state this concisely and provide supporting evidence from the data.
+4. Structure your report as described below. Do not speculate beyond the provided data.
+
+## Output Structure (REQUIRED)
+Place your article between <article> and </article> tags. The article must begin with a YAML front matter block (between --- and ---) containing:
+- date: 'YYYY-MM-DD — YYYY-MM-DD' (analysis period)
+- entities: (comma-separated, e.g., 'Huobi, HT, TRX, DOGE')
+- title: (concise, descriptive)
+
+Example:
+---
+date: '2023-10-02 — 2023-10-08'
+entities: 'Huobi, HT, TRX, DOGE'
+title: 'Uncovering Wash Trading and Market Manipulation on Huobi'
+---
+
+## Article Body
+- Begin with a summary of findings.
+- For each metric with anomalies, create a section with:
+  - Metric name and description
+  - Evidence (quantitative values, timestamps)
+  - Interpretation and impact
+- If no anomalies, state this clearly and provide supporting evidence.
+- Use only information from the provided data.
+- You may include illustration placeholders as in the example (allowed: volume_hist.png, crypto_metrics.png, benford_law.png, vv_correlation.png).
+
+## Metric Benchmarks and Anomaly Criteria
+# (Retain and use the detailed metric descriptions and benchmarks from the original prompt below)
+...existing code...
+
+# End of prompt. Ensure all output matches the structure and requirements above.
