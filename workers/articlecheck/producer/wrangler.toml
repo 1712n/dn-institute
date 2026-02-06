@@ -1,0 +1,15 @@
+name = "dn-institute-articlecheck-producer"
+main = "src/index.ts"
+compatibility_date = "2026-02-06"
+
+# Producer bindings
+[[queues.producers]]
+binding = "ARTICLECHECK_QUEUE"
+queue = "dn-institute-articlecheck"
+
+# Secrets (set via `wrangler secret put ...`):
+# - GITHUB_WEBHOOK_SECRET
+#
+# Vars:
+# - WIKI_REVIEWERS: JSON array (preferred) or newline-delimited list of GitHub usernames.
+
