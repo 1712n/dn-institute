@@ -1,0 +1,255 @@
+{{- $dataFile := .Get "data" -}}
+{{- $chartId := .Get "id" | default (print "chart-" (substr (md5 $dataFile) 0 8)) -}}
+{{- $height := .Get "height" | default "400" -}}
+
+<div class="dynamic-chart-container">
+  <canvas id="{{ $chartId }}" style="max-height: {{ $height }}px;"></canvas>
+</div>
+
+<script>
+(function() {
+  // Load Chart.js if not already loaded
+  if (typeof Chart === 'undefined') {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
+    script.onload = function() { renderChart_{{ $chartId }}(); };
+    document.head.appendChild(script);
+  } else {
+    renderChart_{{ $chartId }}();
+  }
+
+  function renderChart_{{ $chartId }}() {
+    fetch('{{ $dataFile }}')
+      .then(response => response.json())
+      .then(chartData => {
+        const ctx = document.getElementById('{{ $chartId }}').getContext('2d');
+
+        let config;
+
+        if (chartData.type === 'volume_histogram') {
+          config = {
+            type: 'bar',
+            data: {
+              labels: chartData.data.labels,
+              datasets: [{
+                label: 'Frequency',
+                data: chartData.data.values,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {
+              responsive: true,
+              maintainAspectRatio: true,
+              plugins: {
+                title: {
+                  display: true,
+                  text: chartData.title
+                },
+                legend: {
+                  display: false
+                }
+              },
+              scales: {
+                x: {
+                  title: {
+                    display: true,
+                    text: chartData.options.xlabel
+                  }
+                },
+                y: {
+                  title: {
+                    display: true,
+                    text: chartData.options.ylabel
+                  },
+                  beginAtZero: true
+                }
+              }
+            }
+          };
+        } else if (chartData.type === 'multi_line_chart') {
+          // For crypto metrics with 4 different scales
+          const datasets = chartData.data.datasets.map(ds => ({
+            label: ds.label,
+            data: ds.values,
+            borderColor: ds.color,
+            backgroundColor: ds.color.replace('rgb', 'rgba').replace(')', ', 0.1)'),
+            tension: 0.1,
+            yAxisID: ds.yAxisID
+          }));
+
+          config = {
+            type: 'line',
+            data: {
+              labels: chartData.data.timestamps,
+              datasets: datasets
+            },
+            options: {
+              responsive: true,
+              interaction: {
+                mode: 'index',
+                intersect: false
+              },
+              plugins: {
+                title: {
+                  display: true,
+                  text: chartData.title
+                }
+              },
+              scales: {
+                x: {
+                  display: true,
+                  title: {
+                    display: true,
+                    text: 'Timestamp'
+                  }
+                },
+                y1: {
+                  type: 'linear',
+                  display: true,
+                  position: 'left',
+                  title: {
+                    display: true,
+                    text: 'Volume'
+                  }
+                },
+                y2: {
+                  type: 'linear',
+                  display: false,
+                  position: 'left',
+                  grid: {
+                    drawOnChartArea: false
+                  }
+                },
+                y3: {
+                  type: 'linear',
+                  display: false,
+                  position: 'right',
+                  grid: {
+                    drawOnChartArea: false
+                  }
+                },
+                y4: {
+                  type: 'linear',
+                  display: false,
+                  position: 'right',
+                  grid: {
+                    drawOnChartArea: false
+                  }
+                }
+              }
+            }
+          };
+        } else if (chartData.type === 'dual_axis_line') {
+          const datasets = chartData.data.datasets.map(ds => ({
+            label: ds.label,
+            data: ds.values,
+            borderColor: ds.color,
+            backgroundColor: ds.color.replace('rgb', 'rgba').replace(')', ', 0.1)'),
+            tension: 0.1,
+            yAxisID: ds.yAxisID
+          }));
+
+          config = {
+            type: 'line',
+            data: {
+              labels: chartData.data.timestamps,
+              datasets: datasets
+            },
+            options: {
+              responsive: true,
+              interaction: {
+                mode: 'index',
+                intersect: false
+              },
+              plugins: {
+                title: {
+                  display: true,
+                  text: chartData.title
+                }
+              },
+              scales: {
+                x: {
+                  display: true,
+                  title: {
+                    display: true,
+                    text: 'Timestamp'
+                  }
+                },
+                'y-left': {
+                  type: 'linear',
+                  display: true,
+                  position: 'left',
+                  title: {
+                    display: true,
+                    text: datasets[0].label
+                  }
+                },
+                'y-right': {
+                  type: 'linear',
+                  display: true,
+                  position: 'right',
+                  title: {
+                    display: true,
+                    text: datasets[1].label
+                  },
+                  grid: {
+                    drawOnChartArea: false
+                  }
+                }
+              }
+            }
+          };
+        } else if (chartData.type === 'line_chart') {
+          const dataset = chartData.data.datasets[0];
+          config = {
+            type: 'line',
+            data: {
+              labels: chartData.data.timestamps,
+              datasets: [{
+                label: dataset.label,
+                data: dataset.values,
+                borderColor: dataset.color,
+                backgroundColor: dataset.color.replace('rgb', 'rgba').replace(')', ', 0.1)'),
+                tension: 0.1
+              }]
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                title: {
+                  display: true,
+                  text: chartData.title
+                }
+              },
+              scales: {
+                x: {
+                  display: true,
+                  title: {
+                    display: true,
+                    text: chartData.options.xlabel
+                  }
+                },
+                y: {
+                  display: true,
+                  title: {
+                    display: true,
+                    text: chartData.options.ylabel
+                  }
+                }
+              }
+            }
+          };
+        }
+
+        new Chart(ctx, config);
+      })
+      .catch(error => {
+        console.error('Error loading chart data:', error);
+        document.getElementById('{{ $chartId }}').parentElement.innerHTML =
+          '<p style="color: red;">Error loading chart data. Please ensure the JSON file exists.</p>';
+      });
+  }
+})();
+</script>
