@@ -26,7 +26,9 @@ export default defineWorkersConfig({
               script: `export default function() {
                 return {
                   run: async (model, data) => {
-                    return Promise.resolve({ data: {} });
+                    const dim = 768;
+                    const vector = new Array(dim).fill(0).map((_, i) => Math.sin(i));
+                    return Promise.resolve({ data: [vector] });
                   }
                 };
               };`
