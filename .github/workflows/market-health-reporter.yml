@@ -29,7 +29,8 @@ jobs:
             --comment-body "${{ github.event.comment.body }}" \
             --github-token "${{ secrets.GITHUB_TOKEN }}" \
             --llm-api-key "${{ secrets.OPENAI_KEY }}" \
-            --rapid-api "${{ secrets.RAPID_API_KEY }}" 
+            --rapid-api "${{ secrets.RAPID_API_KEY }}" \
+            --brave-api-key "${{ secrets.BRAVE_API_KEY }}"
 
       - name: Configure Git
         run: |

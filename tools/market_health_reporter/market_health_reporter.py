@@ -3,11 +3,15 @@ from tiktoken import encoding_for_model
 import argparse
 import json
 import os
+import logging
 import requests
 import glob
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
+from tools.market_health_reporter.rag_context import fetch_relevant_context
+
+logger = logging.getLogger(__name__)
 
 
 REPO_NAME = "1712n/dn-institute"
@@ -38,6 +42,9 @@ def parse_cli_args():
     )
     parser.add_argument(
         "--rapid-api", dest="rapid_api", help="Rapid API key", required=True
+    )
+    parser.add_argument(
+        "--brave-api-key", dest="brave_api_key", help="Brave Search API key for RAG context", default=None
     )
     return parser.parse_args()
 
@@ -126,11 +133,22 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
         issue.create_comment(comment)
 
 
-def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
+def create_prompt(article_example: str, data: dict, human_prompt_content: str, news_context: str = None) -> str:
     """
-    Creates a prompt string using article example and data.
+    Creates a prompt string using article example, data, and optional real-time news context.
     """
-    return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    prompt = f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    if news_context:
+        prompt += (
+            "\n\n<recent_news>\n"
+            "The following recent news articles and reports are relevant to the exchange and trading pair "
+            "being analyzed. Use this context to provide additional background in your analysis where applicable. "
+            "Reference specific events if they help explain anomalies in the data. "
+            "Do not fabricate information beyond what is provided.\n\n"
+            f"{news_context}\n"
+            "</recent_news>"
+        )
+    return prompt
 
 
 def main():
@@ -157,10 +175,28 @@ def main():
     try:
         data = fetch_or_load_market_data(querystring, headers, url, DATA_DIR, marketvenueid, pairid, start, end)
 
-        encoding = encoding_for_model("gpt-4")     
+        encoding = encoding_for_model("gpt-4")
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
-        prompt = create_prompt(article_example, data, human_prompt_content)
+        # Fetch real-time news context via RAG if Brave API key is provided
+        news_context = None
+        if args.brave_api_key:
+            print("Fetching real-time news context...")
+            news_context = fetch_relevant_context(
+                exchange=marketvenueid,
+                pair=pairid,
+                start=start,
+                end=end,
+                brave_api_key=args.brave_api_key,
+            )
+            if news_context:
+                print(f"Retrieved news context ({len(news_context)} chars)")
+            else:
+                print("No relevant news context found, proceeding without RAG context.")
+        else:
+            print("No Brave API key provided, skipping RAG context retrieval.")
+
+        prompt = create_prompt(article_example, data, human_prompt_content, news_context=news_context)
         prompt_token_count = len(encoding.encode(prompt))
 
         if prompt_token_count > MAX_TOKENS:
