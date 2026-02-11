@@ -11,7 +11,8 @@ entities:
 1. **Only 0.79% genuine volume**: Research by The Tie determined that Bit-Z's expected trading volume was only **0.79% of its reported volume** — meaning over 99.2% was fabricated.
 2. **Overtook Binance on CoinMarketCap**: In March 2019, Bit-Z simultaneously surpassed Binance alongside LBank on CoinMarketCap's adjusted trade volume rankings — a ranking anomaly immediately attributed to systematic volume fabrication by independent researchers.
 3. **Not among verified exchanges**: Bitwise Asset Management's March 2019 SEC presentation identified only 10 exchanges with verifiable genuine volume. Bit-Z was not among them, falling within the **95% of reported Bitcoin volume** estimated to be fake.
-4. **Transaction mining incentives**: Bit-Z operated a "transaction mining" model that returned trading fees as exchange tokens (BZ), creating direct financial incentives for wash trading.
+4. **469x volume inflation (BTI)**: The Blockchain Transparency Institute's December 2018 report found Bit-Z inflating volume by 469 times, with peak reported daily volumes exceeding $1.5 billion against negligible genuine activity.
+5. **Transaction mining incentives**: Bit-Z operated a "transaction mining" model that returned trading fees as exchange tokens (BZ), creating direct financial incentives for wash trading.
 
 ## Background
 
@@ -52,9 +53,9 @@ Bit-Z was not among these exchanges. Bitwise estimated that **95% of all reporte
 - Gain **perceived legitimacy** through high CoinMarketCap rankings
 - Drive **retail user deposits** from traders who equated high rankings with trustworthiness
 
-### Blockchain Transparency Institute (2018)
+### Blockchain Transparency Institute (December 2018)
 
-BTI's exchange volume reports consistently flagged Bit-Z among exchanges with the highest proportion of fabricated volume. Their analysis cross-referenced reported trading data with order book depth and on-chain transaction patterns to estimate genuine activity levels [4].
+BTI's December 2018 Market Surveillance Report quantified Bit-Z's volume inflation at **469 times** its estimated genuine volume, placing it among the worst offenders globally [4]. BTI's analysis cross-referenced reported trading data with order book depth, on-chain transaction patterns, and web traffic to estimate genuine activity levels. At its peak, Bit-Z reported daily trading volumes exceeding **$1.5 billion** — a figure irreconcilable with the exchange's actual user base and order book depth.
 
 ## Transaction Mining: Structural Incentives for Wash Trading
 
@@ -66,6 +67,15 @@ Bit-Z operated a "transaction mining" model — a mechanism prevalent among seve
 - The model created a self-reinforcing cycle: wash trading generated tokens, tokens had market value, and the apparent volume attracted more listings and user deposits
 
 The transaction mining model was not unique to Bit-Z — exchanges including FCoin, CoinBene, and BitMax adopted similar models — but the combination of transaction mining and aggressive volume inflation placed Bit-Z among the most egregious offenders in the 2018–2019 period.
+
+## Closure (October 2021)
+
+Following China's intensified cryptocurrency crackdown in 2021, Bit-Z announced its closure in October 2021:
+
+- On October 8, 2021, Bit-Z issued a notice that it would cease all operations
+- Users were given until October 21, 2021, to withdraw remaining assets
+- The exchange offered to repurchase BZ tokens at a fixed rate of **0.16 USDT** per token
+- The closure was part of a broader wave of China-linked exchange shutdowns following regulatory action that year, which also affected exchanges including Huobi's China operations
 
 ## Market Manipulation Implications
 
