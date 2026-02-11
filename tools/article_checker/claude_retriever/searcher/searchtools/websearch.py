@@ -10,6 +10,16 @@ from tenacity import retry, wait_exponential, stop_after_attempt
 import logging
 logger = logging.getLogger(__name__)
 
+
+def _get_or_create_event_loop():
+    """Get the running event loop or create a new one (avoids DeprecationWarning)."""
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+    return loop
+
 @dataclass
 class WebSearchResult(SearchResult):
     url: str
@@ -103,29 +113,39 @@ News Article Source: {news_item.get("meta_url", {}).get('hostname', "Unknown")}"
             .replace("&#x27;", "'")
         )
     
-    async def parse_web(self, web_item: dict, query: str) -> WebSearchResult:
+    async def parse_web(self, web_item: dict, query: str, max_retries: int = 2) -> WebSearchResult:
         """
         https://api.search.brave.com/app/documentation/responses#Search
+
+        Includes retry logic for transient scraping failures.
         """
         url = web_item.get("url", "")
         title = web_item.get("title", "")
+        description = self.remove_strong(web_item.get("description", ""))
         snippet = f"""Web Page Title: {title}
 Web Page URL: {url}"""
 
-        try:
-            # Currently there is no retry logic here, so if the scrape fails, we just skip it and return the snippet.
-            if self.summarize_with_claude:
-                content = await scrape_url(url, summarize_with_claude=True,
-                                           anthropic_api_key=self.anthropic_api_key, query=query)
-            else:
-                content = await scrape_url(url)
+        for attempt in range(max_retries + 1):
+            try:
+                if self.summarize_with_claude:
+                    content = await scrape_url(url, summarize_with_claude=True,
+                                               anthropic_api_key=self.anthropic_api_key, query=query)
+                else:
+                    content = await scrape_url(url)
 
-            if content.startswith('<summary>'):
-                snippet+="\nWeb Page Summary: "+content
-            else:
-                snippet+="\nWeb Page Content: "+content
-        except:
-            logger.warning(f"Failed to scrape {url}")
+                if content.startswith('<summary>'):
+                    snippet += "\nWeb Page Summary: " + content
+                else:
+                    snippet += "\nWeb Page Content: " + content
+                break
+            except Exception as e:
+                if attempt < max_retries:
+                    logger.info(f"Retry {attempt + 1}/{max_retries} for {url}: {e}")
+                    await asyncio.sleep(1 * (attempt + 1))
+                else:
+                    logger.warning(f"Failed to scrape {url} after {max_retries + 1} attempts: {e}")
+                    if description:
+                        snippet += f"\nWeb Page Description: {description}"
         return WebSearchResult(
             url=url,
             content=snippet
@@ -167,7 +187,7 @@ Web Page URL: {url}"""
         # Get the search results
 
         search_results: list[WebSearchResult] = []
-        async_web_parser_loop = asyncio.get_event_loop()
+        async_web_parser_loop = _get_or_create_event_loop()
         web_parsing_tasks = [] # We'll queue up the web parsing tasks here, since they're costly
 
         for item in correct_ordering:

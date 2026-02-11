@@ -151,7 +151,7 @@ class ClientWithRetrieval:
         """
         Main method to retrieve relevant search results for a query with a provided search tool.
 
-        Constructs RETRIEVAL prompt with query and search tool description. 
+        Constructs RETRIEVAL prompt with query and search tool description.
         Keeps sampling messages until stop sequence hit.
 
         Returns string with fact-checking results
@@ -160,7 +160,14 @@ class ClientWithRetrieval:
 
         description = self.search_tool.tool_description
         statements = self.extract_statements(query, model=model, max_tokens=max_tokens, temperature=temperature)
-        num_of_statements = int(self.extract_between_tags("number_of_statements", statements, strip=True))
+
+        num_of_statements_str = self.extract_between_tags("number_of_statements", statements, strip=True)
+        try:
+            num_of_statements = int(num_of_statements_str)
+        except (TypeError, ValueError):
+            logger.warning(f"Could not parse number_of_statements: {num_of_statements_str}. Defaulting to max_searches_to_try.")
+            num_of_statements = max_searches_to_try
+
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         system_prompt = f"{RETRIEVAL_PROMPT.format(current_time=current_time, description=description)}"
 
@@ -177,19 +184,24 @@ class ClientWithRetrieval:
             }
         ]
         for tries in range(min(num_of_statements, max_searches_to_try)):
-            message = self.client.messages.create(
-                model=model,
-                max_tokens=max_tokens,
-                temperature=temperature,
-                system=system_prompt,
-                messages = messages,
-                stop_sequences=["</search_query>"]
-            )
+            try:
+                message = self.client.messages.create(
+                    model=model,
+                    max_tokens=max_tokens,
+                    temperature=temperature,
+                    system=system_prompt,
+                    messages=messages,
+                    stop_sequences=["</search_query>"]
+                )
+            except Exception as e:
+                logger.error(f"API call failed on search attempt {tries}: {e}")
+                break
+
             partial_completion, stop_reason, stop_seq = message.content[0].text, message.stop_reason, message.stop_sequence
             completions += partial_completion
             messages[0]['content'][0]['text'] += partial_completion
             if stop_reason == 'stop_sequence' and stop_seq == '</search_query>':
-                logger.info(f'Attempting search number {tries}.')
+                logger.info(f'Attempting search number {tries + 1}/{min(num_of_statements, max_searches_to_try)}.')
                 formatted_search_results = self._search_query_stop(partial_completion, n_search_results_to_use)
                 completions += '</search_query>' + formatted_search_results
                 messages[0]['content'][0]['text'] += '</search_query>' + formatted_search_results

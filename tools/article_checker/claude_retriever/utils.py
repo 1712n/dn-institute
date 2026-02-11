@@ -58,25 +58,35 @@ async def scrape_url(url: str, summarize_with_claude: bool = False,
     return content
 
 
-async def get_url_content(url: str, timeout: int = 10) -> Optional[str]:
+async def get_url_content(url: str, timeout: int = 15) -> Optional[str]:
     try:
         if not is_valid_url(url):
             logger.warning(f"Invalid URL: {url}")
             return None
 
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url, timeout=timeout, headers={'User-Agent': 'Mozilla/5.0'}) as response:
+        client_timeout = aiohttp.ClientTimeout(total=timeout)
+        async with aiohttp.ClientSession(timeout=client_timeout) as session:
+            async with session.get(url, headers={
+                'User-Agent': 'Mozilla/5.0 (compatible; ArticleChecker/1.0)',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.5',
+            }) as response:
                 if response.status == 200:
                     html = await response.text()
                     soup = BeautifulSoup(html, 'html.parser')
+                    # Remove script and style elements before extracting text
+                    for element in soup(['script', 'style', 'nav', 'footer', 'header']):
+                        element.decompose()
                     text = soup.get_text(strip=True, separator='\n')
-                    
+
                     # Sanitize the extracted text using bleach
                     sanitized_text = bleach.clean(text, tags=[], attributes={}, strip=True)
-                    
+
                     return sanitized_text
                 else:
                     logger.warning(f"HTTP error {response.status} for URL: {url}")
+    except asyncio.TimeoutError:
+        logger.warning(f"Timeout fetching URL: {url}")
     except Exception as e:
         logger.exception(f"Error fetching URL: {url}")
     return None
