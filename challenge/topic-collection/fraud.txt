@@ -18,7 +18,6 @@ it's now 24 hours with a series of 'holding' messages. Your customers deserve an
 Exit scam in progress
 In house scam. Sorry to hear that happened to you
 If they were truly having an issue it would be once in a while! They have the same supposed issues all the time. I had coins locked for 45 days a year ago!! Always wallets and exchange under maintenance!!! They need to be investigated!
-
 The owner of Bit2C has filed a lawsuit against an Israeli crypto wallet he alleges pulled an exit scam and defrauded him of his money
 BrendanEich retweeted: What happened to @QuadrigaCoinEx wallet right before everything crashed? $900,000 worth of ETH departed to @binance, @bitfinex, @Poloniex and @krakenfx On a side note, crawling around blockchain and connecting dots is becoming my favorite thing at work https://t.co/n4g2slgepe
 @jespow @gpuhot @Bitcoin @_PeterRyan @CoinSpice @ErikVoorhees @cz_binance History: Many Bitcoin marks were sold by an entity in bankruptcy protection ~2014-2015 in what could be deemed to be an act of fraudulent conveyance. This fact may not matter due to genericide and it is messy as nobody should have exclusive rights to a name like the "Internet".
@@ -118,3 +117,46 @@ HACKED All wallets, funds & trading is locked. No intimation regarding safety of
 On 14th January, Cryptopia "suffers a security breach." Just one day ago, 13th January, they were moving money out. What a coincidence!
 funds are not safu?
 If this is true, not good signs for @Cryptopia_NZ .. potential hack? Or exit scam? Guess we'll find out
+FTX was using customer deposits to fund Alameda Research's trading losses. Billions of dollars in customer funds misappropriated. This is straight up fraud.
+Sam Bankman-Fried was living in a $40 million Bahamas penthouse while gambling away customer deposits through Alameda. The audacity is staggering.
+FTX had a secret backdoor in their accounting software that allowed Alameda to borrow $65 billion in customer funds without triggering alerts. This was designed to defraud.
+Alameda Research's balance sheet was mostly FTT tokens — tokens that FTX created. They were using their own made-up money as collateral. A house of cards.
+Caroline Ellison admits Alameda took billions from FTX customers and she helped cover it up. The entire operation was a fraud from the inside.
+FTX customer funds were used to buy real estate, make political donations, and fund personal investments. None of this was disclosed. Pure fraud.
+The FTX fraud is estimated at $8 billion in missing customer funds. SBF was running a Ponzi scheme disguised as a crypto exchange.
+Celsius CEO Alex Mashinsky was secretly selling CEL tokens while telling customers to buy and hold. He dumped $68 million while promoting the token. Textbook pump and dump.
+Celsius was insolvent for years before it collapsed. They were paying old depositors with new depositor money. That's literally the definition of a Ponzi scheme.
+Celsius promised 18% yields on crypto deposits. Where did they think that money was coming from? If it sounds too good to be true, it is.
+The Celsius bankruptcy examiner found that the company was operating at a deficit since inception. They never had a sustainable business model. It was always a fraud.
+Mashinsky tweeted "Celsius is stronger than ever" one week before freezing all withdrawals. He knew the company was insolvent. That's securities fraud.
+Voyager Digital marketed itself as "safe" and "FDIC insured" when it wasn't. Customers thought their deposits were protected. They weren't. That's deceptive marketing.
+Voyager CEO Stephen Ehrlich claimed the platform was safe while knowing about massive exposure to Three Arrows Capital. He misled investors and depositors.
+Three Arrows Capital was borrowing from every major lender in crypto without disclosing their total leverage. When they blew up, they took Voyager, Celsius, and BlockFi with them.
+Su Zhu and Kyle Davies of Three Arrows Capital fled to Dubai after their fund collapsed owing $3.5 billion. They then tried to launch a new exchange. The audacity.
+Do Kwon claimed UST was algorithmically stable and couldn't depeg. It depegged to zero and wiped out $40 billion. He knew the mechanism was flawed.
+Terraform Labs was secretly propping up UST with billions from the Luna Foundation Guard while claiming the peg was maintained algorithmically. That's fraud.
+Do Kwon was tweeting "I don't debate the poor" while his stablecoin was about to collapse and destroy people's life savings. Sociopathic behavior.
+The Terra/Luna collapse caused multiple suicides. Do Kwon was making memes while people were dying. He should face the maximum sentence.
+QuadrigaCX founder Gerald Cotten allegedly faked his own death in India while owing customers $190 million. The exchange was a Ponzi scheme all along.
+QuadrigaCX was trading against its own customers using fake accounts. Cotten created fictitious balances and traded with customer deposits. Classic exit scam.
+The QuadrigaCX cold wallets were empty for months before Cotten's alleged death. He had been spending customer funds on personal expenses and losing money trading.
+Tether has been claiming 1:1 USD backing for years but has never provided a full independent audit. If Tether is fractionally reserved, it's the biggest fraud in crypto.
+Tether paid an $18.5 million fine to the NY Attorney General for lying about reserves. They claimed full backing when they actually had commercial paper and loans.
+BitConnect was the most obvious Ponzi scheme in crypto history. Promising 1% daily returns. And people still fell for it. The founder disappeared with billions.
+OneCoin was a $4 billion crypto Ponzi scheme. Founder Ruja Ignatova, the "Cryptoqueen," disappeared in 2017 and is still on the FBI's most wanted list.
+The PlusToken scam stole $2 billion from investors, mostly in China. The operators were arrested but the stolen crypto was dumped on the market for months.
+Africrypt founders disappeared with $3.6 billion in Bitcoin. They told investors the exchange was hacked, then vanished. South African police are investigating.
+Thodex, the Turkish crypto exchange, shut down overnight and the CEO fled to Albania with $2 billion in customer funds. Classic exit scam.
+Thodex CEO Faruk Fatih Ozer sentenced to 11,196 years in prison by a Turkish court. The longest sentence in crypto fraud history. Turkey doesn't mess around.
+FCoin exchange founder Zhang Jian admitted the platform had a $130 million shortfall and couldn't pay users back. He blamed a "data error." Users call it an exit scam.
+Bitcard CEO arrested for running a $9 million crypto Ponzi scheme. Promised guaranteed returns and used new investor money to pay old investors.
+The Centra Tech founders were sentenced to prison for their fraudulent ICO. They faked partnerships with Visa and Mastercard and got Floyd Mayweather to promote it.
+Mirror Trading International was a $1.7 billion Bitcoin Ponzi scheme out of South Africa. The CEO disappeared and investors lost everything.
+Celsius insiders withdrew $17 million before the platform froze customer withdrawals. They knew it was going down and got their money out first. Insider fraud.
+FTX executives received $3.2 billion in payments and loans from the company before it collapsed. While customers lost everything, insiders enriched themselves.
+The Squid Game token was a blatant rug pull. Developers dumped $3.4 million and the token went to zero. People couldn't sell because of anti-dump mechanisms built into the contract.
+Mango Markets exploiter Avraham Eisenberg bragged on Twitter about his $114 million "trading strategy." It wasn't trading — it was market manipulation. Now he's facing prison.
+Justin Sun accused of wash trading billions in volume on Huobi/HTX. The SEC complaint alleges he paid celebrities to promote TRX without disclosing payments.
+Binance allegedly operated a secret "VIP" program helping large traders evade compliance checks. The DOJ says this facilitated money laundering on a massive scale.
+The FTX bankruptcy revealed that the exchange had no proper accounting. They tracked finances on QuickBooks and couldn't account for billions. Amateur hour fraud.
+Wirecard, the payment processor used by many crypto companies, was a $2 billion fraud. Their crypto card partners scrambled when the company collapsed.
