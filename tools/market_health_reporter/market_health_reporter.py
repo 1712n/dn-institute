@@ -3,12 +3,15 @@ from tiktoken import encoding_for_model
 import argparse
 import json
 import os
+import logging
 import requests
 import glob
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
+from tools.market_health_reporter.rag_context import build_rag_context
 
+logger = logging.getLogger(__name__)
 
 REPO_NAME = "1712n/dn-institute"
 SYSTEM_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/system_prompt.txt'
@@ -38,6 +41,20 @@ def parse_cli_args():
     )
     parser.add_argument(
         "--rapid-api", dest="rapid_api", help="Rapid API key", required=True
+    )
+    parser.add_argument(
+        "--disable-web-search",
+        dest="disable_web_search",
+        action="store_true",
+        default=False,
+        help="Disable web search in RAG context retrieval (local wiki only)",
+    )
+    parser.add_argument(
+        "--disable-rag",
+        dest="disable_rag",
+        action="store_true",
+        default=False,
+        help="Disable RAG context retrieval entirely",
     )
     return parser.parse_args()
 
@@ -126,11 +143,14 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
         issue.create_comment(comment)
 
 
-def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
+def create_prompt(article_example: str, data: dict, human_prompt_content: str, rag_context: str = "") -> str:
     """
-    Creates a prompt string using article example and data.
+    Creates a prompt string using article example, data, and optional RAG context.
     """
-    return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    prompt = f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    if rag_context:
+        prompt += f"\n\n{rag_context}"
+    return prompt
 
 
 def main():
@@ -160,7 +180,24 @@ def main():
         encoding = encoding_for_model("gpt-4")     
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
-        prompt = create_prompt(article_example, data, human_prompt_content)
+        # Fetch RAG context unless disabled
+        rag_context = ""
+        if not args.disable_rag:
+            logger.info("Fetching RAG context for %s %s...", marketvenueid, pairid)
+            rag_context = build_rag_context(
+                exchange=marketvenueid,
+                pair=pairid,
+                start=start,
+                end=end,
+                repo_root=".",
+                include_web_search=not args.disable_web_search,
+            )
+            if rag_context:
+                logger.info("RAG context retrieved (%d chars)", len(rag_context))
+            else:
+                logger.info("No RAG context found, proceeding without it")
+
+        prompt = create_prompt(article_example, data, human_prompt_content, rag_context)
         prompt_token_count = len(encoding.encode(prompt))
 
         if prompt_token_count > MAX_TOKENS:
