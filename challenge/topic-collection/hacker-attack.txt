@@ -89,3 +89,70 @@ This looks like a straightforward case of bad opsec at Bancor, instead of a more
 If you have coins in @Cryptopia_NZ you have just lost it all
 Oh the irony - you de-list coins because of 'security concerns'.  Then you get hacked and the whole exchange is shut down.  Maybe spend more time on your own security rather than arbitrarily removing coins!
 We advise you not to deposit anything in previously used Cryptopia addresses.
+BREAKING: FTX appears to have been hacked. Over $600 million in crypto drained from wallets just hours after the company filed for bankruptcy. This is insane.
+FTX General Counsel Ryne Miller confirms "unauthorized access to certain assets" — hundreds of millions being moved out of FTX wallets right now
+If you still have the FTX app installed, delete it immediately. Reports of the app being updated with malware after the hack. Do not open it.
+The FTX hacker is now the 35th largest ETH holder in the world. Let that sink in. Over $200M in ETH sitting in one wallet.
+So FTX gets hacked the same night they file for bankruptcy? Either the worst security in crypto history or an inside job. There's no in between.
+FTX hack update: the attacker is converting stolen assets to ETH via DEXs. Already mass-dumped tokens on-chain causing massive slippage.
+Watching the FTX hacker move $600M+ in real time on Etherscan is the most surreal thing I've seen in crypto. And that's saying something.
+The FTX wallet drainer just bridged millions to BSC. Whoever this is, they're sophisticated and moving fast across multiple chains.
+FTX hacked for $600M and Binance hacked for $570M in the same year. 2022 is the worst year for exchange security in crypto history.
+Just saw the FTX hack wallet start moving funds again after weeks of dormancy. The hacker still has hundreds of millions in ETH.
+KuCoin confirms $275 million hack of its hot wallets. CEO Johnny Lyu says the exchange will cover all losses from its insurance fund.
+BREAKING: KuCoin hacked. Bitcoin, Ethereum, and ERC-20 tokens drained from hot wallets. Deposits and withdrawals suspended immediately.
+The KuCoin hacker is dumping stolen tokens on Uniswap right now. Multiple DeFi projects are scrambling to freeze or swap their token contracts.
+Tether just froze $20M USDT connected to the KuCoin hack. This is why decentralization matters — centralized stablecoins have a kill switch.
+KuCoin hack update: multiple projects including Ocean Protocol, VIDT, and Orion Protocol are working to freeze or swap tokens stolen in the breach.
+Good news for KuCoin users — the exchange says 84% of stolen funds have been recovered. Insurance fund and project cooperation made the difference.
+KuCoin CEO says the suspects behind the $275M hack have been identified. Law enforcement is involved. This is a rare win for exchange hack investigations.
+Crypto.com confirms unauthorized withdrawals affecting 483 accounts. About $34 million in BTC and ETH stolen. 2FA was bypassed somehow.
+Crypto.com CEO Kris Marszalek initially downplayed the hack, then admitted days later that $34M was stolen. Not a great look for transparency.
+How did hackers bypass 2FA on Crypto.com? This is supposed to be one of the most secure exchanges. 483 accounts compromised is not a small number.
+Crypto.com says all affected users have been fully reimbursed and they've migrated to a new 2FA infrastructure. Better late than never I guess.
+BitMart confirms $150 million security breach. Hot wallets on Ethereum and BSC compromised. CEO Sheldon Xia says all affected users will be compensated.
+The BitMart hacker is systematically swapping stolen tokens through 1inch. Watching this unfold on-chain is wild — they're laundering in real time.
+BitMart hack was $196 million, not $150 million as initially reported. The Ethereum hot wallet lost $100M and the BSC hot wallet lost $96M.
+Still waiting for BitMart to process my withdrawal from before the hack. It's been weeks. The "compensation plan" is taking forever.
+Liquid Global hacked for $97 million. Warm wallets compromised. The exchange has moved assets to cold storage and suspended all crypto withdrawals.
+Liquid exchange hack traced to North Korean hacking group Lazarus by blockchain analytics firms. State-sponsored hackers targeting crypto exchanges is terrifying.
+AscendEX (formerly BitMax) hacked for $80 million across Ethereum, BSC, and Polygon hot wallets. Another day, another exchange hack.
+Coincheck hacked for $530 million in NEM tokens. This is the biggest exchange hack since Mt. Gox. Japanese regulators are going to crack down hard.
+The Coincheck hack is absolutely massive — $530M in NEM stolen because they stored it in a hot wallet without multi-sig. Basic security failure.
+Japan's FSA orders Coincheck to improve security after the $530M NEM hack. The exchange was storing customer funds in a single hot wallet. Unbelievable.
+NEM Foundation says it's tracking the stolen Coincheck funds using a tagging system. Every transaction from the hacker's address is being flagged.
+Coincheck says it will reimburse all 260,000 affected users from its own funds. That's $430 million in compensation. Respect if they actually follow through.
+Mt. Gox was handling 70% of all Bitcoin transactions when it got hacked. 850,000 BTC stolen. The biggest disaster in crypto history and we're still dealing with the fallout.
+10 years later and Mt. Gox creditors are still waiting for their Bitcoin. The trustee has been selling BTC in batches and crashing the market each time.
+Mt. Gox trustee announces plan to finally distribute recovered Bitcoin to creditors. Only took a decade. Some people lost their life savings in that hack.
+Bitfinex hacked for 120,000 BTC in 2016. DOJ just recovered $3.6 billion of it and arrested a couple in New York. The Bitcoin Bonnie and Clyde story is wild.
+DOJ seizes $3.6 billion in Bitcoin stolen from the 2016 Bitfinex hack. Largest financial seizure in DOJ history. The stolen BTC was hidden in a popcorn tin under the bed.
+The Bitfinex hackers used AlphaBay, a Russian marketplace, and Walmart gift cards to launder billions in stolen Bitcoin. You can't make this stuff up.
+Zaif exchange in Japan hacked for $60 million in Bitcoin, Bitcoin Cash, and MonaCoin. Hot wallet breach. Japan's crypto exchanges keep getting hit.
+Bithumb hacked again — this time for $31 million. This is the third time Bithumb has been compromised. At what point do you stop using an exchange that keeps getting hacked?
+Bithumb insider theft suspected in latest $20M hack. The exchange says it was an "accident involving insiders." That's not reassuring at all.
+CoinEx hacked for $70 million. Hot wallet private keys compromised. Lazarus Group suspected again. North Korea is funding its weapons program with stolen crypto.
+Poloniex hacked for $114 million. Justin Sun confirms the breach and says the exchange will fully reimburse affected users. Hot wallet keys compromised.
+Justin Sun offers the Poloniex hacker a 5% white hat bounty to return the stolen funds. $5.7 million to do the right thing. No questions asked.
+Atomic Wallet hacked — users report funds drained from their wallets. Over $35 million stolen so far. Lazarus Group fingerprints all over this one.
+The Ronin bridge hack was $625 million — the largest DeFi hack ever. Lazarus Group confirmed by FBI. They compromised 5 of 9 validator nodes.
+Wormhole bridge exploited for $320 million. Hacker minted 120,000 wETH on Solana without backing. Jump Crypto covered the losses.
+Nomad bridge drained for $190 million in a chaotic free-for-all. Hundreds of copycats joined in once the exploit was public. Decentralized looting.
+WazirX hacked for $235 million — about half of the Indian exchange's total reserves. Multi-sig wallet compromised. This is devastating for Indian crypto users.
+The WazirX hack looks like it exploited a discrepancy between the Liminal custody interface and the actual transaction data. Multi-sig security failed.
+WazirX suspends all trading and withdrawals after $235M hack. Users are furious. This exchange held funds for millions of Indian crypto investors.
+DMM Bitcoin in Japan hacked for $320 million — 4,503 BTC stolen in unauthorized transactions. One of the largest exchange hacks ever.
+DMM Bitcoin is trying to raise $320 million to compensate hack victims. The Japanese exchange lost everything in a single breach. Brutal.
+Euler Finance exploited for $197 million in a flash loan attack. The hacker later returned most of the funds after negotiations. DeFi's weirdest heist.
+The Mixin Network hack was $200 million. Cloud service provider database compromised. Centralized infrastructure remains the weakest link.
+Stake.com hacked for $41 million. Hot wallet drained on Ethereum and BSC. FBI attributes the attack to Lazarus Group. North Korea again.
+Alphapo payment processor hacked for $60 million. Hot wallets drained across Bitcoin, Ethereum, and Tron. Multiple crypto gambling sites affected.
+CoinsPaid hacked for $37 million by Lazarus Group. The North Korean hackers spent 6 months social engineering employees before the attack.
+Deribit hot wallet hacked for $28 million. The derivatives exchange says client funds are safe and losses are covered by reserves. Trading was halted briefly.
+Gate.io confirms $230 million in suspicious outflows. The exchange says it was a hot wallet compromise and all users will be made whole.
+Upbit hacked for $49 million in Ethereum. The stolen ETH was moved through multiple wallets and exchanges. South Korean authorities investigating.
+Bitrue hacked for $23 million. Hot wallet exploited. XRP and other tokens stolen. The exchange says it will compensate all affected users.
+NiceHash hacked for 4,700 Bitcoin worth $64 million at the time. The mining marketplace's entire payment system was compromised.
+Cryptopia hacked for $16 million in January 2019. The New Zealand exchange never recovered and went into liquidation. Users still waiting for their funds.
+The Cryptopia hack was bad enough, but then they got hacked AGAIN while in liquidation. The liquidators found additional unauthorized access to wallets. Unreal.
+Bancor smart contract exploited for $23.5 million. The "decentralized" exchange had an admin key that the hacker compromised. Not so decentralized after all.
