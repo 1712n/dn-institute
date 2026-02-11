@@ -1,0 +1,14 @@
+# 🌰 Article Check Worker - Cloudflare Workers QA Bot
+name = "articlecheck"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+
+[vars]
+# Comma-separated list of GitHub usernames allowed to trigger the bot
+WIKI_REVIEWERS = ""
+
+# [secrets] - configured via `wrangler secret put`:
+# GITHUB_TOKEN     - GitHub PAT with repo scope for posting PR comments
+# GITHUB_WEBHOOK_SECRET - Webhook secret for signature verification
+# ANTHROPIC_API_KEY     - Claude API key for fact-checking
+# BRAVE_API_KEY         - Brave Search API key
