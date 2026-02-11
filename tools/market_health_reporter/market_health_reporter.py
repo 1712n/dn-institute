@@ -10,6 +10,25 @@ from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
 
 
+CHART_ANNOTATION_PROMPT = """Analyze the following market health report and identify the most important anomalies to highlight on the charts. For each chart type, provide annotations that would help a reader quickly spot suspicious patterns.
+
+Available chart types and what to annotate:
+- "vv_correlation": Threshold lines or box regions where VV correlation drops below 0.4 (suspicious)
+- "crypto_metrics_buysellratio": Threshold at 0.5 (balanced market), highlight extreme deviations
+- "benford_law": Periods where test score exceeds critical value
+- "volume_hist": Notable volume clustering or gaps
+
+For each annotation, return a JSON object with:
+- "chart": the chart key (e.g., "vv_correlation")
+- "type": "line" (horizontal threshold) or "box" (highlight a time range)
+- "value": numeric threshold for line annotations
+- "label": brief description (max 30 chars)
+- "color": CSS color string
+
+Return ONLY a JSON array of annotation objects. No explanation needed.
+Example: [{"chart": "vv_correlation", "type": "line", "value": 0.4, "label": "Suspicion threshold", "color": "rgba(255,0,0,0.5)"}]"""
+
+
 REPO_NAME = "1712n/dn-institute"
 SYSTEM_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/system_prompt.txt'
 HUMAN_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/prompt1.txt'
@@ -133,6 +152,52 @@ def create_prompt(article_example: str, data: dict, human_prompt_content: str) -
     return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
 
 
+def generate_chart_annotations(api_key: str, report_text: str) -> dict:
+    """
+    Use LLM to analyze the report and generate chart annotations
+    that highlight the most important anomalies.
+
+    Returns a dict keyed by chart name with lists of annotation configs.
+    """
+    try:
+        openai.api_key = api_key
+        completion = openai.ChatCompletion.create(
+            model="gpt-4-0125-preview",
+            temperature=0.0,
+            messages=[
+                {"role": "system", "content": CHART_ANNOTATION_PROMPT},
+                {"role": "user", "content": report_text[:8000]}  # Truncate to avoid token limits
+            ]
+        )
+        response_text = completion.choices[0].message.content.strip()
+
+        # Parse JSON array from response
+        if response_text.startswith('['):
+            annotations_list = json.loads(response_text)
+        else:
+            # Try to extract JSON from markdown code block
+            import re
+            match = re.search(r'\[.*\]', response_text, re.DOTALL)
+            if match:
+                annotations_list = json.loads(match.group())
+            else:
+                return {}
+
+        # Group annotations by chart key
+        grouped = {}
+        for ann in annotations_list:
+            chart_key = ann.pop('chart', None)
+            if chart_key:
+                grouped.setdefault(chart_key, []).append(ann)
+
+        print(f"Generated {len(annotations_list)} chart annotations via LLM")
+        return grouped
+
+    except Exception as e:
+        print(f"Warning: Could not generate chart annotations: {e}")
+        return {}
+
+
 def main():
     args = parse_cli_args()
 
@@ -181,10 +246,23 @@ def main():
             output = extract_between_tags("article", output)
 
             print("This is an answer: ", output)
+
+            # Generate LLM-driven chart annotations based on the analysis
+            llm_annotations = generate_chart_annotations(args.API_key, output)
+
             save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
-            vis = Visualization()
-            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
-            vis.generate_report(data, output_subdir)  
+            vis = Visualization(llm_annotations=llm_annotations)
+            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}")
+            chart_files = vis.generate_report(data, output_subdir)
+
+            # Append chart shortcodes to the report if not already present
+            if '{{< dynamic_chart' not in output:
+                chart_section = "\n\n## Charts\n\n"
+                for chart_file in chart_files:
+                    chart_section += f'{{{{< dynamic_chart src="{chart_file}" >}}}}\n\n'
+                output += chart_section
+                # Re-save with chart references
+                save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
 
             post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
 

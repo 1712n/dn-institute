@@ -1,0 +1,41 @@
+{{/*
+  Dynamic Chart Shortcode - Renders Chart.js charts from JSON configuration files.
+
+  Usage: {{< dynamic_chart src="chart_config.json" >}}
+
+  The JSON file should contain a valid Chart.js configuration object with
+  an optional "annotations" field for LLM-generated insights.
+*/}}
+
+{{ $src := .Get "src" }}
+{{ $id := printf "chart-%s" (md5 $src) }}
+
+<div class="dynamic-chart-container" style="position: relative; width: 100%; max-width: 900px; margin: 1.5em auto;">
+  <canvas id="{{ $id }}"></canvas>
+  <noscript>
+    <p style="color: #666; text-align: center;">Interactive chart requires JavaScript. See the raw data in <code>{{ $src }}</code>.</p>
+  </noscript>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"
+        integrity="sha384-UPxEMadMBGMBjuJaRKFRkFBWUBNhWFKcsBk7IR2eCHMfYPpHHfElhEVzUrxJKoGy"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js"
+        crossorigin="anonymous"></script>
+
+<script>
+(function() {
+  fetch('{{ $src }}')
+    .then(function(resp) { return resp.json(); })
+    .then(function(config) {
+      var canvas = document.getElementById('{{ $id }}');
+      var ctx = canvas.getContext('2d');
+      new Chart(ctx, config);
+    })
+    .catch(function(err) {
+      console.error('Failed to load chart:', err);
+      var canvas = document.getElementById('{{ $id }}');
+      canvas.parentElement.innerHTML = '<p style="color: #c00;">Failed to load chart from {{ $src }}</p>';
+    });
+})();
+</script>
