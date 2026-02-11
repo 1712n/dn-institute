@@ -95,3 +95,53 @@ No it isn’t. It’s back in maintenance again so I can’t withdraw. What’s 
 It smells like a inside job. Hope you're so called scheduled maintenance will complete soon and my tokens will be there
 Got this email days before the hack saying they were going in maintenance anyways 14th-18th because of the Constantinople Hard Fork.... This is an EXIT SCAMFace with look of triumph I want my god damn access to my account!!!!
 If they were truly having an issue it would be once in a while! They have the same supposed issues all the time. I had coins locked for 45 days a year ago!! Always wallets and exchange under maintenance!!! They need to be investigated!
+Coinbase is down again during a major market move. Bitcoin drops 15% and the app just shows a loading screen. This happens every single time.
+Coinbase app completely unresponsive. Can't log in, can't trade, can't do anything. The one time I need to sell and the platform is dead.
+Coinbase has been down for 3 hours during the biggest crash of the year. Their status page says "degraded performance." That's an understatement.
+Coinbase experiencing "intermittent downtime" during the Bitcoin rally. Translation: the site is broken and you can't buy. They make money on fees but can't keep servers running.
+Robinhood disabled the buy button for crypto during the DOGE rally. You can sell but you can't buy. We've seen this movie before with GameStop.
+Robinhood crypto trading is down. Users can't execute trades during peak volatility. The platform that's supposed to "democratize finance" keeps locking people out.
+Binance is experiencing system overload. Orders aren't executing, the app is lagging, and the website keeps timing out. Worst possible time for an outage.
+Binance futures platform down during the liquidation cascade. Millions in positions getting liquidated and traders can't manage their risk. This is unacceptable.
+Binance undergoing "unscheduled maintenance" right as Bitcoin breaks $60K. Convenient timing. Users can't trade during the most important price action of the month.
+Binance API is returning errors for all trading pairs. Bots are offline, limit orders aren't filling, and the order book is frozen. Complete system failure.
+Kraken is down. The exchange that prides itself on reliability is showing a 502 error during a market crash. No one is immune to outage problems.
+Kraken has been experiencing intermittent outages for the past 6 hours. Trading engine keeps freezing. Users are losing money because they can't close positions.
+Kraken's matching engine is lagging by several minutes. Orders placed now are executing at prices from 5 minutes ago. This is dangerous during volatile markets.
+KuCoin app is completely frozen. Can't access my portfolio, can't place orders, can't do anything. The exchange goes down every time there's a big move.
+Gemini exchange is offline for scheduled maintenance during a Sunday night pump. Who schedules maintenance during active trading hours? Terrible timing.
+Gemini has been down for 4 hours for their "infrastructure upgrade." They said it would take 2 hours. Users are locked out of their accounts.
+BitMEX went down during the March 2020 crash and saved Bitcoin from going to zero. Some say it was intentional. Either way, the "maintenance" was suspiciously timed.
+BitMEX liquidation engine overloaded during the crash. $1 billion in liquidations in one hour and the platform couldn't handle it. Traders lost everything.
+Bybit experiencing severe lag during the market dump. Orders taking 30+ seconds to execute. In crypto, 30 seconds is an eternity.
+Bybit trading engine down for 15 minutes during peak volatility. When it came back, prices had moved 8%. Traders who had stop losses set got destroyed.
+OKX is down. App crashes on launch, website returns 503 errors. Another exchange that can't handle volume spikes. This is a pattern across the industry.
+OKX futures trading suspended due to "system abnormality." Positions are open but users can't modify or close them. This is how people get liquidated unfairly.
+FTX experienced significant downtime during the Solana crash. The exchange that was supposed to be the most advanced couldn't keep its servers running.
+Bitfinex trading engine halted for 2 hours. No explanation given. When it resumed, the order book had massive gaps. Market makers pulled all liquidity.
+Poloniex is down again. This exchange has more downtime than uptime during volatile periods. It's been like this for years and they never fix it.
+Huobi experiencing "system maintenance" during the Asian trading session. Unscheduled. No warning. Users woke up to find they couldn't access their accounts.
+Gate.io website loading extremely slowly. Order placement is timing out. The exchange can't handle the current volume. Scale your infrastructure.
+Bitstamp trading halted due to technical issues. One of the oldest exchanges and they still can't handle traffic spikes. Disappointing.
+Crypto.com app is down during the Super Bowl ad campaign. Millions of new users trying to sign up and the platform can't handle it. Marketing budget > infrastructure budget.
+Crypto.com app crashed and users saw $0 balances. Mass panic ensued before the exchange confirmed it was a display error. Terrible user experience.
+Coinbase Pro is showing stale prices. The order book hasn't updated in 10 minutes. Trading on outdated information is a recipe for disaster.
+Binance US is down while Binance global is working fine. The US platform always gets the short end of the stick when it comes to reliability.
+Upbit crashed during the Korean premium spike. Korean traders couldn't arbitrage or trade while prices diverged 15% from global markets.
+Bithumb servers overloaded during the altcoin rally. Korean exchanges consistently fail during high-volume periods. Infrastructure investment is clearly lacking.
+The entire Solana network went down for 17 hours. Every exchange that relied on Solana for deposits and withdrawals was affected. SOL trading was chaos.
+Solana network halted again — the fourth outage this year. Exchanges suspended SOL deposits and withdrawals. How can you build reliable services on an unreliable chain?
+AWS outage took down multiple crypto exchanges simultaneously. Coinbase, Binance US, and dYdX all experienced issues. Centralized cloud infrastructure is a single point of failure.
+Cloudflare outage affected multiple crypto exchanges and DeFi platforms. When one CDN goes down, half the crypto ecosystem goes with it.
+Coinbase went down during the Bitcoin ETF approval. The most important day for crypto adoption and the largest US exchange couldn't stay online.
+Binance spot trading engine froze for 30 minutes during the ETF news. Futures kept trading but spot was completely dead. Arbitrage was impossible.
+Kraken experienced a flash crash due to a matching engine glitch. ETH briefly showed $0.10 on the order book. Some users got liquidated at absurd prices.
+Deribit options platform went down during a major expiry event. Billions in options expiring and traders couldn't manage their positions. Absolute chaos.
+BitMEX overload protection kicked in and rejected all new orders during the dump. Existing positions couldn't be closed. Traders were trapped.
+Coinbase status page shows "major outage" for the third time this month. At this point, the status page should just permanently say "degraded."
+Every time Bitcoin moves more than 5% in an hour, at least three major exchanges go down. The industry has had over a decade to solve this and still hasn't.
+Binance futures platform showing "system busy" errors. Can't place orders, can't cancel orders. My leveraged position is just sitting there unmanageable.
+FTX US app showing incorrect balances after the maintenance window. Some users see inflated numbers, others see zero. The backend is clearly broken.
+Gemini auction process delayed due to technical issues. The daily auction is a key feature and it failed during a high-volume day.
+Bittrex Global experiencing extended downtime. The exchange has been unreliable for months. Not surprising they're shutting down.
+Nexo platform experiencing slowdowns during the bank run. Everyone trying to withdraw at once and the system can't keep up. Servers are buckling under load.

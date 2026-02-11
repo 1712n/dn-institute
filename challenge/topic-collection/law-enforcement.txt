@@ -25,3 +25,47 @@ Bitcoin mining marketplace @NiceHashMining was hacked for 4,700 bitcoin in 2017,
 After QuadrigaCX collapsed, 103 bitcoins were sent to an innacessible wallet while Ernst & Young were supposed to be protecting the funds. Claimants are upset but the official committee is hearing none of it. decrypt.co/8390/quadrigac… #quadrigacx #bitcoin #canada @EYnews
 NYDFS statement on @GeminiDotCom's authorization to list Zcash. "Virtual currency license applicants are subject to a rigorous review of anti-money laundering, capitalization, consumer protection and cyber security standards." twitter.com/NYDFS/status/9… Quoted tweet from @NYDFS: DFS Authorizes Gemini Trust Company to Provide Additional Virtual Currency Products and Services on.ny.gov/2rFA41n
 Cryptopia's Colombo St headquarters was under police lock down on Wednesday morning after a "significant amount" of cryptocurrency is thought to have been transferred at the trader without authorisation
+BREAKING: DOJ charges Sam Bankman-Fried with fraud, conspiracy, and money laundering. The FTX founder faces up to 115 years in prison.
+Sam Bankman-Fried found guilty on all seven counts including wire fraud and conspiracy. The jury deliberated for less than five hours. Justice served.
+SBF sentenced to 25 years in federal prison for defrauding FTX customers out of billions. The biggest financial fraud trial since Bernie Madoff.
+Caroline Ellison sentenced to 2 years for her role in the FTX fraud. She cooperated extensively with prosecutors and testified against SBF.
+Gary Wang, FTX co-founder, avoids prison time after cooperating with DOJ. His testimony was crucial in convicting Sam Bankman-Fried.
+Nishad Singh, FTX engineering director, sentenced to time served after cooperating. All three cooperating witnesses avoided significant prison time.
+BREAKING: Binance CEO Changpeng Zhao pleads guilty to violating anti-money laundering laws. Binance to pay $4.3 billion in fines. Largest crypto enforcement action ever.
+CZ steps down as Binance CEO as part of the DOJ settlement. Richard Teng takes over. End of an era for the world's largest crypto exchange.
+Changpeng Zhao sentenced to 4 months in federal prison. Many expected more given the $4.3 billion settlement. The judge said CZ's cooperation was a mitigating factor.
+DOJ says Binance knowingly facilitated transactions for Hamas, Al-Qaeda, and sanctioned entities in Iran. The compliance failures were systemic and deliberate.
+The Binance settlement includes $4.3 billion in penalties — $1.8B to FinCEN, $968M to OFAC, and $1.6B to the DOJ. The largest penalty in Treasury Department history.
+SEC sues Coinbase for operating as an unregistered securities exchange. The lawsuit targets staking services and the listing of tokens the SEC considers securities.
+SEC charges Coinbase the day after suing Binance. Gary Gensler is going after the two biggest exchanges simultaneously. This is an all-out war on crypto.
+Coinbase CEO Brian Armstrong says the SEC lawsuit is "an embarrassment" and the company will fight it in court. The case could define crypto regulation in the US.
+SEC sues Binance and CZ for operating an unregistered exchange, mishandling customer funds, and deceiving investors. 13 charges total. This is massive.
+The SEC alleges Binance.US was a sham — that CZ secretly controlled it while publicly claiming it was independent. If true, this is a huge deception.
+SEC says Binance commingled billions in customer funds with Binance-affiliated entities. Shades of FTX. This is exactly what regulators feared.
+Do Kwon arrested in Montenegro with a fake Costa Rican passport. The Terraform Labs founder has been on the run since the $40 billion Terra/Luna collapse.
+Do Kwon extradited to the United States to face fraud charges. Both the US and South Korea wanted him. The US won.
+Terraform Labs and Do Kwon found liable for fraud by a federal jury. The SEC proved they misled investors about the stability of UST and the use of Luna.
+Terraform Labs agrees to pay $4.47 billion to settle SEC fraud charges. Do Kwon still faces criminal charges that could put him away for decades.
+BitMEX founders Arthur Hayes and Ben Delo plead guilty to Bank Secrecy Act violations. Hayes sentenced to 6 months home detention and a $10 million fine.
+BitMEX co-founder Samuel Reed arrested at US airport on charges of violating anti-money laundering laws. The CFTC and DOJ both filed charges.
+The CFTC orders BitMEX to pay $100 million for illegally operating a crypto trading platform and violating AML regulations. The exchange never registered with US regulators.
+Alex Mashinsky, Celsius CEO, arrested and charged with fraud. DOJ says he manipulated the CEL token price while secretly selling his own holdings.
+Alex Mashinsky pleads guilty to commodities fraud and market manipulation. He faces up to 30 years in prison. Celsius users lost billions.
+Three Arrows Capital founders Kyle Davies and Su Zhu ordered to cooperate with liquidators. Su Zhu was arrested trying to leave Singapore.
+Su Zhu sentenced to 4 months in prison in Singapore for contempt — he refused to cooperate with 3AC liquidators. His fund lost $3 billion of other people's money.
+DOJ indicts the founders of SafeMoon for fraud, money laundering, and securities violations. They allegedly siphoned millions from investors.
+South Korean prosecutors charge Terraform Labs employees and associates. The Luna crash wiped out $40 billion and multiple people died by suicide.
+FBI arrests the couple behind the Bitfinex hack laundering scheme. They had $3.6 billion in stolen Bitcoin hidden in various accounts and even a popcorn tin.
+Ilya Lichtenstein sentenced to 5 years for laundering Bitcoin stolen in the 2016 Bitfinex hack. His wife Heather Morgan got 18 months.
+SEC charges Kraken for operating as an unregistered securities exchange. Another major exchange in the SEC's crosshairs.
+Kraken agrees to pay $30 million to settle SEC charges over its staking program. The exchange shuts down staking for US customers.
+CFTC sues Binance for offering unregistered crypto derivatives to US customers. The regulatory noose keeps tightening.
+New York Attorney General sues KuCoin for operating illegally in the state and calls Ethereum a security. This could have massive implications.
+KuCoin and two founders charged by DOJ for operating an unlicensed money transmitting business. The exchange allegedly processed over $9 billion in suspicious transactions.
+Japan's FSA issues a warning to Binance for operating without registration. The exchange has been warned by regulators in multiple countries.
+SEC charges Genesis and Gemini over the Earn product. The regulators say it was an unregistered securities offering that cost investors billions.
+The Winklevoss twins' Gemini exchange reaches a $37 million settlement with NYDFS over the Earn program failures. Customers lost access to $900 million.
+DOJ charges Avraham Eisenberg with market manipulation for the $114 million Mango Markets exploit. He bragged about it on Twitter. Not smart.
+Avraham Eisenberg found guilty of fraud and market manipulation for the Mango Markets exploit. He faces up to 20 years in prison.
+SEC sues Justin Sun and Tron Foundation for fraud and market manipulation. Alleges wash trading to inflate TRX volume and paying celebrities for illegal promotion.
+Roger Ver, known as "Bitcoin Jesus," charged with tax fraud by DOJ. Allegedly evaded $48 million in taxes on his crypto holdings.
