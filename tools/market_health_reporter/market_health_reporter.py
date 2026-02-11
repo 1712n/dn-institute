@@ -8,6 +8,7 @@ import glob
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
+from tools.market_health_reporter.rag_context import build_rag_context
 
 
 REPO_NAME = "1712n/dn-institute"
@@ -38,6 +39,10 @@ def parse_cli_args():
     )
     parser.add_argument(
         "--rapid-api", dest="rapid_api", help="Rapid API key", required=True
+    )
+    parser.add_argument(
+        "--disable-web-search", dest="disable_web_search", action="store_true",
+        default=False, help="Disable web search for RAG context (local wiki only)"
     )
     return parser.parse_args()
 
@@ -126,11 +131,14 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
         issue.create_comment(comment)
 
 
-def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
+def create_prompt(article_example: str, data: dict, human_prompt_content: str, rag_context: str = "") -> str:
     """
-    Creates a prompt string using article example and data.
+    Creates a prompt string using article example, data, and optional RAG context.
     """
-    return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    prompt = f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    if rag_context:
+        prompt += f"\n{rag_context}"
+    return prompt
 
 
 def main():
@@ -157,10 +165,20 @@ def main():
     try:
         data = fetch_or_load_market_data(querystring, headers, url, DATA_DIR, marketvenueid, pairid, start, end)
 
-        encoding = encoding_for_model("gpt-4")     
+        encoding = encoding_for_model("gpt-4")
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
-        prompt = create_prompt(article_example, data, human_prompt_content)
+        rag_context = build_rag_context(
+            exchange=marketvenueid,
+            pair=pairid,
+            include_web_search=not args.disable_web_search,
+        )
+        if rag_context:
+            print(f"RAG context retrieved ({len(rag_context)} chars)")
+        else:
+            print("No RAG context found for this exchange")
+
+        prompt = create_prompt(article_example, data, human_prompt_content, rag_context)
         prompt_token_count = len(encoding.encode(prompt))
 
         if prompt_token_count > MAX_TOKENS:
