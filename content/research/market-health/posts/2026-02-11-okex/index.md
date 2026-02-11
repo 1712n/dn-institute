@@ -16,7 +16,7 @@ entities:
 
 ## Background
 
-OKEx was founded in 2017 by Star Xu (Mingxing Xu), a former Yahoo China engineer who had previously founded OKCoin in 2013. Originally launched in Hong Kong, OKEx relocated its headquarters to Malta in 2018 and then to the Seychelles in 2022 as regulatory pressure on cryptocurrency exchanges intensified. The exchange offered spot trading, futures, perpetual swaps, and options across hundreds of trading pairs.
+OKEx was founded in 2017 by Star Xu (Mingxing Xu), a graduate of the University of Science and Technology Beijing who co-founded the document-sharing site Docin.com before entering the cryptocurrency industry. Xu had previously founded OKCoin in 2013. Originally launched in Hong Kong, OKEx relocated its headquarters to Malta in 2018 and then to the Seychelles in 2022 as regulatory pressure on cryptocurrency exchanges intensified. The exchange offered spot trading, futures, perpetual swaps, and options across hundreds of trading pairs.
 
 At its peak, OKEx consistently ranked among the top 3 exchanges globally by reported volume on CoinMarketCap. In January 2022, the exchange rebranded to OKX as part of a broader effort to distance itself from its earlier controversies and expand into Web3 services.
 
@@ -37,9 +37,19 @@ Bitwise's analysis for the SEC identified only **10 exchanges** with genuine, ve
 
 OKEx — which at the time reported among the highest volumes globally — was conspicuously absent from this list. Bitwise's research demonstrated that OKEx exhibited the hallmark patterns of volume fabrication:
 
-- Trade size distributions that deviated from expected power-law patterns
-- Volume-to-visitor ratios far exceeding those of verified exchanges
-- Suspicious trade timing patterns inconsistent with organic activity
+- Trade size histogram was "notably suspicious" with an "atypical rise" in volume from 1–6 BTC
+- "Constant hourly volume" patterns that showed none of the natural daily rhythms observed on reference exchanges
+- Bitwise concluded: "While there may be a smattering of real bitcoin volume on OKEx, the charts are clear: the vast majority of bitcoin volume here is entirely fake"
+
+### OKEx's Own Admission (March 2019)
+
+Following the Bitwise presentation, Lennix Lai, OKEx Director of Financial Markets, made a notable admission at an institutional meetup [9]:
+
+- When asked about wash trading allegations, Lai stated: **"We would acknowledge that"**
+- He described wash trading as "market-driven behavior" driven by the exchange's eight-tier fee structure, where lower fees were unlocked by higher volume
+- Lai explained: "It takes time to build volume, and one of the easiest ways, especially for some of the Chinese traders, is to wash trade some of the more illiquid pairs"
+- He acknowledged there was **"a lot of suspicious trade activity on OKEx"**
+- Lai said the exchange itself did not wash trade, attributing all such activity to users gaming the fee tiers
 
 ### Blockchain Transparency Institute (December 2018)
 
@@ -87,6 +97,14 @@ In February 2025, OKX (the rebranded OKEx) pled guilty to one count of operating
 - OKX did not implement commercially available software to monitor suspicious activity until approximately **May 2023**
 - The exchange had no controls to determine whether transactions were linked to sanctioned regions
 
+## Derivatives Market Manipulation Incidents
+
+Beyond volume fabrication, OKEx was involved in multiple documented derivatives market manipulation incidents:
+
+- **ETC Futures Manipulation (November 2017)**: OKEx's own investigation found three accounts simultaneously buying and selling the same ETC futures contracts to artificially trigger socialized losses. OKEx deemed this "deliberately market manipulation and price rigging" and froze the accounts [10].
+- **BTC Futures Rollback (March 2018)**: A group manipulated BTC quarterly futures prices to deviate more than 25% below the BTC index, triggering mass forced liquidations. OKEx rolled back all futures trading data to before the incident [10].
+- **$460M Liquidation Incident (July 2018)**: A single trader accumulated a $460 million long position that was force-liquidated when they refused to reduce it. OKEx initiated a 17% clawback from profitable traders and injected 2,500 BTC (~$18 million) into its insurance fund [10].
+
 ## Market Manipulation Implications
 
 OKEx's case illustrates how volume fabrication persisted even at the highest-profile exchanges:
@@ -116,3 +134,5 @@ OKEx's volume patterns demonstrate several indicators documented in the DN Insti
 6. Cointelegraph, "OKEx to Resume Withdrawals After Month-Long Freeze," November 2020. [cointelegraph.com](https://cointelegraph.com/news/okex-to-resume-unrestricted-crypto-withdrawals-on-nov-27)
 7. U.S. Department of Justice, "OKX Pleads Guilty To Violating U.S. Anti-Money Laundering Laws," February 2025. [justice.gov](https://www.justice.gov/usao-sdny/pr/okx-pleads-guilty-violating-us-anti-money-laundering-laws-and-agrees-pay-penalties)
 8. Cointelegraph, "OKEx Slams New Wash Trading Allegations as 'Inaccurate and Misleading,'" 2018. [cointelegraph.com](https://cointelegraph.com/news/okex-slams-new-wash-trading-allegations-as-inaccurate-and-misleading)
+9. Crypto Briefing, "OKEx Comes Clean On Wash Trading Problem," March 2019. [cryptobriefing.com](https://cryptobriefing.com/okex-wash-trading/)
+10. OKEx, "Investigation Report of Market Manipulation of ETC Futures," 2017; "Regarding the Forced Liquidation Incident on Jul 31 2018," 2018. [okx.com](https://www.okx.com/help/investigation-report-of-market-manipulation-of-etc-futures)
