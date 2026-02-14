@@ -1,0 +1,102 @@
+{{/*
+  Dynamic Chart Shortcode — Renders interactive Chart.js charts from JSON config files.
+
+  Usage:
+    {{< dynamic_chart src="volume_hist.json" >}}
+    {{< dynamic_chart src="crypto_metrics.json" height="500" >}}
+
+  Parameters:
+    - src     (required): Path to the JSON config file (relative to the page bundle).
+    - height  (optional): Max chart height in pixels. Default: 400.
+    - id      (optional): Custom HTML id. Auto-generated from src if omitted.
+
+  The JSON file should contain a valid Chart.js configuration object.
+  🌰
+*/}}
+
+{{ $src := .Get "src" }}
+{{ $height := .Get "height" | default "400" }}
+{{ $id := .Get "id" | default (printf "chart-%s" (md5 $src)) }}
+
+<div class="dynamic-chart-wrapper" style="position:relative; width:100%; max-width:960px; margin:1.5em auto;">
+  <canvas id="{{ $id }}" style="max-height:{{ $height }}px;"></canvas>
+  <noscript>
+    <p style="color:#888; text-align:center; padding:1em;">
+      Interactive chart requires JavaScript enabled.
+      See the raw data in <code>{{ $src }}</code>.
+    </p>
+  </noscript>
+</div>
+
+{{/* Use the project's bundled Chart.js from assets/js/chart.js */}}
+{{ $chartJS := resources.Get "js/chart.js" }}
+
+<script>
+(function() {
+  // 🌰 Ensure Chart.js is loaded exactly once
+  var CHART_READY = '__chartjs_ready__';
+  function onChartReady(cb) {
+    if (typeof Chart !== 'undefined') { cb(); return; }
+    if (window[CHART_READY]) {
+      var prev = window[CHART_READY];
+      window[CHART_READY] = function() { prev(); cb(); };
+      return;
+    }
+    window[CHART_READY] = cb;
+    var s = document.createElement('script');
+    s.src = '{{ $chartJS.Permalink }}';
+    s.onload = function() {
+      if (window[CHART_READY]) { window[CHART_READY](); window[CHART_READY] = null; }
+    };
+    document.head.appendChild(s);
+  }
+
+  onChartReady(function() {
+    var canvas = document.getElementById('{{ $id }}');
+    if (!canvas) return;
+
+    fetch('{{ $src }}')
+      .then(function(r) { return r.json(); })
+      .then(function(cfg) {
+        // 🌰 Apply sensible defaults for interactivity
+        cfg.options = cfg.options || {};
+        cfg.options.responsive = true;
+        cfg.options.maintainAspectRatio = true;
+
+        // Enable crosshair-style interaction
+        cfg.options.interaction = cfg.options.interaction || { mode: 'index', intersect: false };
+
+        // Hover tooltips
+        cfg.options.plugins = cfg.options.plugins || {};
+        cfg.options.plugins.tooltip = cfg.options.plugins.tooltip || { enabled: true };
+
+        // 🌰 Respect prefers-color-scheme for dark mode
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          var scales = cfg.options.scales || {};
+          Object.keys(scales).forEach(function(key) {
+            scales[key].ticks = scales[key].ticks || {};
+            scales[key].ticks.color = scales[key].ticks.color || '#ccc';
+            scales[key].title = scales[key].title || {};
+            scales[key].title.color = scales[key].title.color || '#ccc';
+            scales[key].grid = scales[key].grid || {};
+            scales[key].grid.color = scales[key].grid.color || 'rgba(255,255,255,0.1)';
+          });
+          if (cfg.options.plugins.title) {
+            cfg.options.plugins.title.color = cfg.options.plugins.title.color || '#eee';
+          }
+          if (cfg.options.plugins.legend) {
+            cfg.options.plugins.legend.labels = cfg.options.plugins.legend.labels || {};
+            cfg.options.plugins.legend.labels.color = cfg.options.plugins.legend.labels.color || '#ccc';
+          }
+        }
+
+        new Chart(canvas.getContext('2d'), cfg);
+      })
+      .catch(function(err) {
+        console.error('dynamic_chart: failed to load ' + '{{ $src }}', err);
+        canvas.parentElement.innerHTML =
+          '<p style="color:#c00;text-align:center;">Failed to load chart from <code>{{ $src }}</code></p>';
+      });
+  });
+})();
+</script>

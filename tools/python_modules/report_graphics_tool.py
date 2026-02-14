@@ -1,92 +1,326 @@
-import matplotlib.pyplot as plt
+"""
+Report Graphics Tool — Generates Chart.js JSON configurations for market health reports.
+
+Replaces matplotlib PNG generation with dynamic, client-side Chart.js rendering.
+Charts are rendered via the {{< dynamic_chart >}} Hugo shortcode.
+
+🌰 Key design decisions:
+  - Output native Chart.js config (no custom schema — direct pass-through to Chart constructor)
+  - Keep backward compatibility: generate_report() returns list of generated filenames
+  - JSON files sit alongside the article index.md in the same Hugo page bundle
+"""
+
+import json
+import os
 import pandas as pd
 import numpy as np
-import matplotlib.dates as mdates
-import os
 
 
 class Visualization:
+    """Generates Chart.js configuration JSON files for market health report charts."""
+
     def __init__(self):
         pass
 
+    # ------------------------------------------------------------------
+    # Internal helpers
+    # ------------------------------------------------------------------
 
-    def _make_volume_hist(self, data, directory):
-        plt.figure(figsize=(10, 6))
-        plt.hist(data['volume'], bins=30, color='skyblue', edgecolor='black')
-        plt.xlabel('Transaction Volume')
-        plt.ylabel('Frequency')
-        plt.title('Transaction Volume Distribution')
-        plt.grid(True, which='both', linestyle='--', linewidth=0.5)
-        plt.savefig(os.path.join(directory, 'volume_hist.png'))
-        plt.close()
+    @staticmethod
+    def _save_json(config: dict, directory: str, filename: str) -> str:
+        """Serialize a Chart.js config dict to JSON and return the filename."""
+        filepath = os.path.join(directory, filename)
+        with open(filepath, 'w', encoding='utf-8') as f:
+            json.dump(config, f, indent=2, default=str)
+        return filename
 
+    @staticmethod
+    def _iso_timestamps(data: pd.DataFrame) -> list:
+        """Convert DataFrame index to ISO-format strings for Chart.js labels."""
+        return [ts.isoformat() for ts in data.index]
 
-    def _make_crypto_metrics(self, data, directory):
-        fig, axs = plt.subplots(4, 1, figsize=(15, 10), sharex=True)
+    # ------------------------------------------------------------------
+    # Individual chart builders (each returns a Chart.js config dict)
+    # ------------------------------------------------------------------
 
-        axs[0].plot(data.index, data['volume'], label='Volume', color='blue')
-        axs[0].set_ylabel('Volume')
+    def _make_volume_hist(self, data: pd.DataFrame, directory: str) -> str:
+        """Transaction volume histogram — bar chart.  🌰"""
+        volumes = data['volume'].dropna()
+        hist_values, bin_edges = np.histogram(volumes, bins=30)
+        labels = [
+            f"{bin_edges[i]:.2f}–{bin_edges[i+1]:.2f}"
+            for i in range(len(hist_values))
+        ]
 
-        axs[1].plot(data.index, data['tradecount'], label='Trade Count', color='green')
-        axs[1].set_ylabel('Trade Count')
+        config = {
+            "type": "bar",
+            "data": {
+                "labels": labels,
+                "datasets": [{
+                    "label": "Frequency",
+                    "data": hist_values.tolist(),
+                    "backgroundColor": "rgba(135,206,235,0.7)",
+                    "borderColor": "rgba(0,0,0,0.8)",
+                    "borderWidth": 1,
+                }]
+            },
+            "options": {
+                "responsive": True,
+                "plugins": {
+                    "title": {"display": True, "text": "Transaction Volume Distribution"},
+                    "legend": {"display": False},
+                },
+                "scales": {
+                    "x": {
+                        "title": {"display": True, "text": "Transaction Volume"},
+                        "ticks": {"maxRotation": 45, "autoSkip": True, "maxTicksLimit": 15},
+                    },
+                    "y": {
+                        "title": {"display": True, "text": "Frequency"},
+                        "beginAtZero": True,
+                    },
+                },
+            },
+        }
+        return self._save_json(config, directory, 'volume_hist.json')
 
-        axs[2].plot(data.index, data['avgtransactionsize'], label='Avg Transaction Size', color='orange')
-        axs[2].set_ylabel('Avg Transaction Size')
+    def _make_crypto_metrics(self, data: pd.DataFrame, directory: str) -> str:
+        """4-panel crypto metrics (volume, trade count, avg tx size, buy/sell ratio).  🌰
 
-        axs[3].plot(data.index, data['buysellratio'], label='Buy/Sell Ratio', color='red')
-        axs[3].set_ylabel('Buy/Sell Ratio')
+        Since Chart.js doesn't natively support subplots, we use multiple y-axes
+        on a single chart with toggleable datasets — this preserves the unified
+        time-axis alignment that the original matplotlib 4-subplot layout provided.
+        """
+        timestamps = self._iso_timestamps(data)
 
-        axs[3].set_xlabel('Timestamp')
+        metrics = [
+            ("volume",              "Volume",             "rgba(54,162,235,0.9)", "y"),
+            ("tradecount",          "Trade Count",        "rgba(75,192,75,0.9)",  "y1"),
+            ("avgtransactionsize",  "Avg Transaction Size", "rgba(255,159,64,0.9)", "y2"),
+            ("buysellratio",        "Buy/Sell Ratio",     "rgba(255,99,132,0.9)", "y3"),
+        ]
 
-        fig.suptitle('Cryptocurrency Metrics Over Time')
+        datasets = []
+        for col, label, color, yAxisID in metrics:
+            datasets.append({
+                "label": label,
+                "data": data[col].fillna(0).tolist(),
+                "borderColor": color,
+                "backgroundColor": color.replace("0.9", "0.1"),
+                "fill": False,
+                "tension": 0.2,
+                "pointRadius": 0,
+                "yAxisID": yAxisID,
+                # Only show first dataset by default — others toggled via legend
+                "hidden": yAxisID not in ("y",),
+            })
 
-        for ax in axs:
-            plt.setp(ax.get_xticklabels(), rotation=45, ha='right')
+        config = {
+            "type": "line",
+            "data": {
+                "labels": timestamps,
+                "datasets": datasets,
+            },
+            "options": {
+                "responsive": True,
+                "interaction": {"mode": "index", "intersect": False},
+                "plugins": {
+                    "title": {"display": True, "text": "Cryptocurrency Metrics Over Time"},
+                    "legend": {"display": True, "position": "top"},
+                    "tooltip": {"enabled": True},
+                },
+                "scales": {
+                    "x": {
+                        "title": {"display": True, "text": "Timestamp"},
+                        "ticks": {"maxRotation": 45, "autoSkip": True, "maxTicksLimit": 20},
+                    },
+                    "y": {
+                        "type": "linear",
+                        "display": True,
+                        "position": "left",
+                        "title": {"display": True, "text": "Volume"},
+                    },
+                    "y1": {
+                        "type": "linear",
+                        "display": False,
+                        "position": "left",
+                        "grid": {"drawOnChartArea": False},
+                        "title": {"display": True, "text": "Trade Count"},
+                    },
+                    "y2": {
+                        "type": "linear",
+                        "display": False,
+                        "position": "right",
+                        "grid": {"drawOnChartArea": False},
+                        "title": {"display": True, "text": "Avg Transaction Size"},
+                    },
+                    "y3": {
+                        "type": "linear",
+                        "display": False,
+                        "position": "right",
+                        "grid": {"drawOnChartArea": False},
+                        "title": {"display": True, "text": "Buy/Sell Ratio"},
+                        "suggestedMin": 0,
+                        "suggestedMax": 1,
+                    },
+                },
+            },
+        }
+        return self._save_json(config, directory, 'crypto_metrics.json')
 
-        plt.tight_layout()
-        plt.savefig(os.path.join(directory, 'crypto_metrics.png'))
-        plt.close()
-        
+    def _make_benfordlaw(self, data: pd.DataFrame, directory: str) -> str:
+        """Benford's Law test score with dual-axis critical value overlay.  🌰"""
+        timestamps = self._iso_timestamps(data)
+        benford_scores = data['benfordlawtest'].fillna(0).tolist()
+        # K-S critical value at α = 0.05
+        critical_values = (1.36 / np.sqrt(
+            data['tradecount'].replace(0, 1)
+        )).tolist()
 
-    def _make_benfordlaw(self, data, directory):
-        fig, ax1 = plt.subplots(figsize=(15, 10), layout='constrained')
-        ax1.plot(data.index, data['benfordlawtest'], color='blue', linestyle='-', label='Benford Law Test Score')
-        ax1.set_xlabel('Timestamp')
-        ax1.set_ylabel('Benford Law Test Score', color='blue')
-        ax1.xaxis.set_major_locator(mdates.HourLocator(interval=24))
-        ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
-        ax2 = ax1.twinx()
-        ax2.plot(data.index, 1.36 / np.sqrt(data['tradecount']), color='green', linestyle='-', label='Trade Count')
-        ax2.set_ylabel('Trade Count', color='green')
-        ax1.set_title('Benford Law Test Score and Trade Count Over Time')
-        lines = ax1.get_lines() + ax2.get_lines()
-        labels = [line.get_label() for line in lines]
-        ax1.legend(lines, labels, loc='upper left')
-        plt.savefig(os.path.join(directory, 'benford_law.png'))
-        plt.close()
+        config = {
+            "type": "line",
+            "data": {
+                "labels": timestamps,
+                "datasets": [
+                    {
+                        "label": "Benford Law Test Score",
+                        "data": benford_scores,
+                        "borderColor": "rgba(54,162,235,0.9)",
+                        "backgroundColor": "rgba(54,162,235,0.1)",
+                        "fill": False,
+                        "tension": 0.2,
+                        "pointRadius": 0,
+                        "yAxisID": "y",
+                    },
+                    {
+                        "label": "K-S Critical Value (α=0.05)",
+                        "data": critical_values,
+                        "borderColor": "rgba(75,192,75,0.9)",
+                        "backgroundColor": "rgba(75,192,75,0.1)",
+                        "fill": False,
+                        "tension": 0.2,
+                        "pointRadius": 0,
+                        "borderDash": [6, 4],
+                        "yAxisID": "y1",
+                    },
+                ],
+            },
+            "options": {
+                "responsive": True,
+                "interaction": {"mode": "index", "intersect": False},
+                "plugins": {
+                    "title": {
+                        "display": True,
+                        "text": "Benford Law Test Score vs K-S Critical Value",
+                    },
+                    "tooltip": {"enabled": True},
+                },
+                "scales": {
+                    "x": {
+                        "title": {"display": True, "text": "Timestamp"},
+                        "ticks": {"maxRotation": 45, "autoSkip": True, "maxTicksLimit": 20},
+                    },
+                    "y": {
+                        "type": "linear",
+                        "display": True,
+                        "position": "left",
+                        "title": {"display": True, "text": "Benford Law Test Score"},
+                    },
+                    "y1": {
+                        "type": "linear",
+                        "display": True,
+                        "position": "right",
+                        "grid": {"drawOnChartArea": False},
+                        "title": {"display": True, "text": "K-S Critical Value"},
+                    },
+                },
+            },
+        }
+        return self._save_json(config, directory, 'benford_law.json')
 
+    def _make_vvcorrelation(self, data: pd.DataFrame, directory: str) -> str:
+        """Volume–Volatility correlation over time.  🌰"""
+        timestamps = self._iso_timestamps(data)
+        vv_values = data['vvcorrelation'].fillna(0).tolist()
 
-    def _make_vvcorrelation(self, data, directory):
-        fig, ax = plt.subplots(figsize=(15, 10), layout='constrained')
-        ax.plot(data.index, data['vvcorrelation'], color='purple', linestyle='-', marker='o', label='VV Correlation')
-        ax.xaxis.set_major_locator(mdates.HourLocator(interval=24))
-        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
-        ax.set_xlabel('Timestamp')
-        ax.set_ylabel('VV Correlation')
-        ax.set_title('VV Correlation Over Time')
-        ax.legend()
-        plt.xticks(rotation=45)
-        plt.savefig(os.path.join(directory, 'vv_correlation.png'))
-        plt.close()
+        config = {
+            "type": "line",
+            "data": {
+                "labels": timestamps,
+                "datasets": [{
+                    "label": "VV Correlation",
+                    "data": vv_values,
+                    "borderColor": "rgba(128,0,128,0.9)",
+                    "backgroundColor": "rgba(128,0,128,0.15)",
+                    "fill": True,
+                    "tension": 0.2,
+                    "pointRadius": 2,
+                    "pointHoverRadius": 5,
+                }],
+            },
+            "options": {
+                "responsive": True,
+                "plugins": {
+                    "title": {
+                        "display": True,
+                        "text": "Volume–Volatility Correlation Over Time",
+                    },
+                    "tooltip": {"enabled": True},
+                    # 🌰 Suspicion threshold annotation (rendered as a second dataset)
+                },
+                "scales": {
+                    "x": {
+                        "title": {"display": True, "text": "Timestamp"},
+                        "ticks": {"maxRotation": 45, "autoSkip": True, "maxTicksLimit": 20},
+                    },
+                    "y": {
+                        "title": {"display": True, "text": "VV Correlation"},
+                        "suggestedMin": -1,
+                        "suggestedMax": 1,
+                    },
+                },
+            },
+        }
 
-    def generate_report(self, data, directory):
+        # Add suspicion threshold as a flat-line dataset (no plugin dependency)
+        n = len(timestamps)
+        config["data"]["datasets"].append({
+            "label": "Suspicion Threshold (0.4)",
+            "data": [0.4] * n,
+            "borderColor": "rgba(255,0,0,0.5)",
+            "borderDash": [8, 4],
+            "borderWidth": 2,
+            "pointRadius": 0,
+            "fill": False,
+        })
+
+        return self._save_json(config, directory, 'vv_correlation.json')
+
+    # ------------------------------------------------------------------
+    # Public API
+    # ------------------------------------------------------------------
+
+    def generate_report(self, data, directory: str) -> list:
+        """Generate all chart JSON files for a market health report.
+
+        Args:
+            data: Raw data (list of dicts or DataFrame) from the Market Health API.
+            directory: Output directory (Hugo page bundle path).
+
+        Returns:
+            List of generated filenames (e.g. ['volume_hist.json', ...]).
+        """
         if not os.path.exists(directory):
             os.makedirs(directory)
-        data = pd.DataFrame(data)
-        data['timestamp'] = pd.to_datetime(data['timestamp'])
-        data.set_index('timestamp', inplace=True)
 
-        self._make_volume_hist(data, directory)
-        self._make_crypto_metrics(data, directory)
-        self._make_benfordlaw(data, directory)
-        self._make_vvcorrelation(data, directory)
+        df = pd.DataFrame(data)
+        df['timestamp'] = pd.to_datetime(df['timestamp'])
+        df.set_index('timestamp', inplace=True)
+
+        generated = []
+        generated.append(self._make_volume_hist(df, directory))
+        generated.append(self._make_crypto_metrics(df, directory))
+        generated.append(self._make_benfordlaw(df, directory))
+        generated.append(self._make_vvcorrelation(df, directory))
+
+        return generated

@@ -6,6 +6,7 @@ import os
 import requests
 import glob
 from github import Github
+import re
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
 
@@ -133,6 +134,36 @@ def create_prompt(article_example: str, data: dict, human_prompt_content: str) -
     return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
 
 
+# 🌰 Mapping from static PNG filenames to dynamic chart JSON filenames
+_PNG_TO_JSON = {
+    'volume_hist.png': 'volume_hist.json',
+    'crypto_metrics.png': 'crypto_metrics.json',
+    'benford_law.png': 'benford_law.json',
+    'vv_correlation.png': 'vv_correlation.json',
+}
+
+
+def _replace_png_with_dynamic_charts(article_text: str, chart_files: list) -> str:
+    """Replace static PNG figure shortcodes with dynamic_chart shortcodes.
+
+    Handles both:
+      {{< figure src="volume_hist.png" ... >}}
+      ![alt](volume_hist.png)
+    """
+    available = set(chart_files)
+    for png_name, json_name in _PNG_TO_JSON.items():
+        if json_name not in available:
+            continue
+        # Replace Hugo figure shortcodes referencing this PNG
+        pattern = r'\{\{<\s*figure\s+[^>]*src="' + re.escape(png_name) + r'"[^>]*>\}\}'
+        replacement = '{{< dynamic_chart src="' + json_name + '" >}}'
+        article_text = re.sub(pattern, replacement, article_text)
+        # Replace markdown image references
+        md_pattern = r'!\[[^\]]*\]\(' + re.escape(png_name) + r'\)'
+        article_text = re.sub(md_pattern, replacement, article_text)
+    return article_text
+
+
 def main():
     args = parse_cli_args()
 
@@ -181,11 +212,16 @@ def main():
             output = extract_between_tags("article", output)
 
             print("This is an answer: ", output)
-            save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
-            vis = Visualization()
-            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
-            vis.generate_report(data, output_subdir)  
 
+            # 🌰 Generate dynamic chart JSON configs
+            vis = Visualization()
+            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}")
+            chart_files = vis.generate_report(data, output_subdir)
+
+            # Replace static PNG figure references with dynamic chart shortcodes
+            output = _replace_png_with_dynamic_charts(output, chart_files)
+
+            save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
             post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
 
     except Exception as e:
