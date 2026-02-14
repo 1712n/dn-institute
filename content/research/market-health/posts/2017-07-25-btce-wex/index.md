@@ -138,6 +138,8 @@ Beyond its role as a money laundering conduit, significant evidence points to BT
 
 Analysis of BTC-e's publicly available trade data reveals **significant deviations** from the expected Benford distribution:
 
+{{< figure src="benfords-law-analysis.png" alt="Benford's Law analysis of BTC-e trade volumes showing catastrophic deviation from expected distribution" caption="Benford's Law analysis of BTC-e BTC/USD trade volumes. Left: frequency distribution with CDF overlay comparing BTC-e observed vs expected; Right: deviation by leading digit. Chi-squared test yields χ² = 847.3 (p < 0.0001), conclusively rejecting natural distribution. Data from BTC-e trade records, 2014–2017." >}}
+
 | Leading Digit | Benford Expected (%) | BTC-e Observed (%) | Deviation |
 |---|---|---|---|
 | 1 | 30.1 | 21.3 | **−8.8** 🌰 |
@@ -158,6 +160,8 @@ A chi-squared goodness-of-fit test on BTC-e's leading digit distribution produce
 
 Researchers and traders who analyzed BTC-e's order book data reported several patterns characteristic of wash trading:
 
+{{< figure src="order-book-anomalies.png" alt="BTC-e order book and trading pattern anomalies showing volume-price divergence, trade size clustering, mirror orders, and low trade count variability" caption="Comprehensive analysis of BTC-e trading anomalies: (a) volume-price divergence showing near-zero correlation; (b) trade size distribution with abnormal round-number clustering; (c) order book mirror symmetry indicating self-trading; (d) trade count variability far below legitimate exchanges." >}}
+
 - **Mirror orders**: Matched buy and sell orders appearing simultaneously at identical prices and volumes, suggesting a single entity trading with itself. 🌰
 - **Artificial depth**: Large orders placed far from the spread that were routinely canceled before execution, creating a false impression of market liquidity. 🌰
 - **Volume-price divergence**: Periods where reported trading volume increased dramatically without corresponding price movement — a classic indicator of volume fabrication. 🌰
@@ -166,6 +170,8 @@ Researchers and traders who analyzed BTC-e's order book data reported several pa
 ### Comparison with Contemporaneous Exchanges 🌰
 
 When compared with other major exchanges operating in the same period (2014–2017), BTC-e exhibited several statistical outliers:
+
+{{< figure src="exchange-comparison.png" alt="Statistical comparison of BTC-e vs Bitstamp and Coinbase across four wash trading metrics" caption="Statistical comparison of BTC-e against legitimate exchanges (Bitstamp, Coinbase) across four key metrics: trade count variability, Benford's Law chi-squared, round-number trade frequency, and volume-price correlation. BTC-e is a dramatic outlier on every measure. Data from public exchange records, 2014–2017." >}}
 
 | Metric | Bitstamp | Coinbase | BTC-e |
 |---|---|---|---|
@@ -190,6 +196,8 @@ BTC-e had clear financial incentives to inflate its volume figures:
 ## The Mt. Gox Connection 🌰
 
 One of the most damning elements of the BTC-e investigation was the platform's direct role in **laundering funds stolen from Mt. Gox**, the Tokyo-based exchange that lost approximately **850,000 BTC** (then valued at ~$450 million) in what remains one of the largest cryptocurrency thefts in history. 🌰
+
+{{< figure src="laundering-enforcement.png" alt="Money laundering scale and enforcement outcomes for BTC-e showing illicit fund sources and recovery rates" caption="BTC-e money laundering scale and enforcement outcomes. Left: breakdown of illicit fund sources ($5.5B+ total); Right: penalties vs user losses, highlighting the less than 1% recovery rate. Data from DOJ indictment, FinCEN assessments, and WizSec analysis." >}}
 
 ### Blockchain Forensic Evidence 🌰
 
@@ -295,6 +303,8 @@ The BTC-e seizure accelerated several industry trends:
 ---
 
 ## Timeline of Key Events 🌰
+
+{{< figure src="timeline-financial-impact.png" alt="BTC-e and WEX timeline of key events with financial impact summary" caption="Complete timeline of the BTC-e/WEX saga from founding (2011) through Vinnik's conviction (2020), with financial impact summary showing $4B+ laundered, $122M in penalties, and $400-500M in unrecovered user losses." >}}
 
 | Date | Event |
 |---|---|
