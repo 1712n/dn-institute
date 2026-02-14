@@ -27,6 +27,8 @@ By May 2022, KuCoin had raised $150 million in a Series B funding round led by J
 
 A fundamental method for detecting fabricated trading data involves testing adherence to [Benford's Law](https://en.wikipedia.org/wiki/Benford%27s_law), which predicts the frequency distribution of leading digits in naturally occurring numerical datasets. In legitimate financial markets, the first digit of transaction volumes follows a logarithmic distribution: approximately 30.1% of values begin with "1," 17.6% with "2," and so on.
 
+{{< figure src="benford-comparison.png" alt="Benford's Law first-digit distribution and CDF comparison between KuCoin and Binance BTC/USDT" caption="Benford's Law analysis of first-digit distribution comparing KuCoin vs Binance BTC/USDT trades, with CDF overlay and KS statistics. Real API data, February 2026." >}}
+
 The seminal study by Cong, Li, Tang & Yang, published as ["Crypto Wash Trading"](https://doi.org/10.48550/arXiv.2108.10984) (2021), systematically applied Benford's Law testing and other statistical methods across 29 cryptocurrency exchanges. Their findings demonstrated that:
 
 - **Regulated exchanges** exhibited first-significant-digit distributions consistent with Benford's Law, as expected in legitimate markets.
@@ -36,6 +38,8 @@ The seminal study by Cong, Li, Tang & Yang, published as ["Crypto Wash Trading"]
 KuCoin, which operated without registration in most jurisdictions until recent enforcement actions forced compliance, fell into the unregulated category during the study period. The exchange did not implement mandatory KYC verification until August 2023 — over six years after its founding.
 
 ### Volume-to-Depth Ratio Anomalies
+
+{{< figure src="volume-distribution.png" alt="Trade size distribution comparison between KuCoin and Binance BTC/USDT" caption="Trade size distribution analysis comparing KuCoin vs Binance BTC/USDT markets. Log-scale histogram and box plot reveal differences in trade size patterns. Real API data, February 2026." >}}
 
 The Bitwise Asset Management [presentation to the U.S. Securities and Exchange Commission](https://www.sec.gov/comments/sr-nysearca-2019-01/srnysearca201901-5164833-183434.pdf) in March 2019 introduced a critical metric: the ratio of reported 24-hour trading volume to visible order book depth. For exchanges with genuine trading activity, this ratio typically remains within predictable bounds. The report concluded that approximately **95% of reported Bitcoin trading volume was fake**, with the vast majority occurring on unregulated offshore exchanges.
 
@@ -57,6 +61,10 @@ The Blockchain Transparency Institute's [April 2019 Market Surveillance Report](
 KuCoin was notably absent from the BTI Verified list, indicating detected wash trading levels above the 10% threshold.
 
 ### KCS Token — Exchange Token as Market Health Indicator
+
+{{< figure src="buy-sell-ratio.png" alt="Buy/sell ratio analysis comparing KuCoin and Binance BTC/USDT" caption="Buy/sell ratio comparison by count and volume for KuCoin vs Binance BTC/USDT. Deviations from natural market balance may indicate wash trading activity. Real API data, February 2026." >}}
+
+{{< figure src="trade-timing.png" alt="Inter-trade interval distribution comparison between KuCoin and Binance" caption="Trade timing analysis showing inter-trade interval distribution and trading frequency comparison. Real API data, February 2026." >}}
 
 Exchange-native tokens like KuCoin Shares (KCS) serve as unofficial health barometers. KCS provides holders with trading fee discounts and a daily bonus derived from trading fees — creating a direct financial link between reported trading volume and token value. This structure incentivizes volume inflation:
 
@@ -131,6 +139,8 @@ The BTI April 2019 report documented that wash-trading exchanges charged token p
 Cong et al. (2021) documented that fabricated volumes "temporarily distort prices" and "relate to exchange characteristics (e.g., age and userbase), market conditions, and regulation." On an exchange like KuCoin, with its native KCS token directly tied to fee revenue, volume inflation creates a feedback loop: fake volume inflates apparent fee income, which inflates KCS value, which inflates the exchange's valuation.
 
 ## Conclusion
+
+{{< figure src="round-number-clustering.png" alt="Round-number trade clustering analysis for KuCoin vs Binance" caption="Round-number clustering analysis comparing KuCoin vs Binance across different BTC trade size increments. Differences in clustering patterns reflect variations in retail trader presence. Real API data, February 2026." >}}
 
 KuCoin's trajectory — from an unregistered, no-KYC exchange in the Seychelles to a platform facing nearly **$340 million in global regulatory penalties** — illustrates the relationship between inadequate compliance infrastructure and market manipulation. The convergence of academic research (Cong et al., 2021), industry analysis (BTI, Bitwise), and regulatory findings (DOJ, FINTRAC, NYAG) paints a consistent picture: exchanges operating without robust identity verification and transaction monitoring create environments where wash trading thrives.
 
