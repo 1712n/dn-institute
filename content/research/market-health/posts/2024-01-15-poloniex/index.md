@@ -91,6 +91,8 @@ Comparison with reference exchanges for the same period reinforces this finding:
 
 *Table 2: Standard deviation of average transaction size for TRX/USDT, Q1 2023. Lower values on high-volume markets indicate artificial trading.* 🌰
 
+{{< figure src="trade-size-distribution.png" alt="Trade size distribution comparison between Poloniex and Binance for BTC/USDT" caption="**Figure 1:** Trade size distribution analysis comparing Poloniex vs Binance BTC/USDT markets (real API data, Feb 2026). Left panel shows logarithmic histogram of trade sizes, right panel shows box plot comparison. Poloniex exhibits lower variance in trade sizes, consistent with automated bot activity." >}}
+
 ### 3. Volume Distribution Tail and Skewness
 
 Trading volume should follow a [power law](https://en.wikipedia.org/wiki/Power_law) heavy-tail distribution, where small trades are common and large trades are rare. The tail exponent of this distribution provides insights into the nature of market activity.
@@ -141,6 +143,8 @@ The Kolmogorov-Smirnov (KS) test results quantify the deviation:
 
 The pattern is consistent across all Tron-linked pairs on Poloniex while the same tokens demonstrate Benford-compliant distributions on other exchanges — strongly suggesting that the anomaly originates from exchange-specific volume fabrication rather than from token-level activity. 🌰
 
+{{< figure src="benford-law-distribution.png" alt="Benford's Law first-digit distribution comparison between Poloniex and Binance" caption="**Figure 2:** Benford's Law analysis comparing first-digit distribution of trade amounts. Green bars show expected Benford's distribution, blue bars show Binance BTC/USDT (compliant), red bars show Poloniex BTC/USDT (showing deviation with suppressed frequency of digit 1). Real API data from Feb 2026." >}}
+
 ### 5. Buy/Sell Ratio Stability on TRX Markets
 
 The buy/sell volume ratio reflects the dynamic interplay between buyers and sellers in a market. In organic markets, this ratio fluctuates meaningfully as sentiment, news events, and price movements drive asymmetric trading behavior.
@@ -154,6 +158,8 @@ Analysis of Poloniex's TRX/USDT market reveals remarkably constrained buy/sell r
 This abnormal stability is consistent with wash trading where a single entity (or coordinated entities) act on both sides of the market, generating matched buy-sell activity that maintains an artificially balanced ratio. 🌰
 
 The pattern mirrors findings from the [Huobi analysis](https://github.com/1712n/dn-institute/blob/main/content/research/market-health/posts/2023-08-14-huobi/index.md) on the DN Institute wiki, where Huobi Token demonstrated similarly constrained buy/sell ratios — suggesting a common underlying mechanism of exchange-controlled price management.
+
+{{< figure src="buy-sell-ratio.png" alt="Buy/sell ratio analysis over time for Poloniex vs Binance" caption="**Figure 3:** Buy/Sell ratio analysis using 100-trade rolling windows. Blue line shows Binance with natural volatility, red line shows Poloniex with abnormally stable ratio hovering near 50%, consistent with wash trading patterns. Real API data from Feb 2026." >}}
 
 ### 6. Retail Clustering Indicator
 
@@ -169,6 +175,10 @@ The retail clustering indicator compares the frequency of round-number trade siz
 *Table 6: Retail clustering indicator for TRX/USDT markets, Q3 2023. Poloniex's extremely low score indicates minimal genuine retail trading activity.* 🌰
 
 Poloniex's retail clustering score of 0.18 is among the lowest observed across major exchanges, suggesting that the vast majority of its reported trading volume does not originate from human retail participants.
+
+{{< figure src="round-number-clustering.png" alt="Round-number clustering analysis by trade size ranges" caption="**Figure 4:** Round-number clustering analysis comparing Poloniex vs Binance across different trade size ranges. Blue bars (Binance) show higher clustering percentages indicating retail presence. Red bars (Poloniex) show consistently lower clustering, suggesting minimal retail trader activity. Real API data from Feb 2026." >}}
+
+{{< figure src="inter-trade-intervals.png" alt="Inter-trade interval distribution comparison" caption="**Figure 5:** Trade timing distribution showing inter-trade intervals in milliseconds. The distribution patterns reveal differences in trading behavior between Poloniex (red) and Binance (blue), with implications for automated vs. organic trading activity. Real API data from Feb 2026." >}}
 
 ## The November 2023 Hack: A Natural Experiment
 
