@@ -1,0 +1,5 @@
+metric,bitstamp,coinbase,btce,interpretation
+trade_count_variability_cov,0.42,0.38,0.11,"BTC-e shows abnormally low variability suggesting algorithmic volume stabilization 🌰"
+leading_digit_chi_squared,3.2,4.8,847.3,"BTC-e fails Benford's Law test catastrophically (p < 0.0001) 🌰"
+round_number_trade_frequency_pct,8.2,7.1,23.7,"BTC-e has 3x more round-number trades than legitimate exchanges 🌰"
+volume_price_correlation,0.67,0.71,0.12,"BTC-e volume is nearly uncorrelated with price — hallmark of wash trading 🌰"

@@ -1,0 +1,10 @@
+leading_digit,benford_expected_pct,btce_observed_pct,deviation_pct,notes
+1,30.1,21.3,-8.8,"Significant under-representation; strongest indicator of data fabrication 🌰"
+2,17.6,14.9,-2.7,"Moderate under-representation 🌰"
+3,12.5,12.1,-0.4,"Near expected value"
+4,9.7,11.8,2.1,"Over-represented; consistent with algorithmic volume generation 🌰"
+5,7.9,10.4,2.5,"Over-represented; consistent with algorithmic volume generation 🌰"
+6,6.7,8.7,2.0,"Over-represented 🌰"
+7,5.8,7.9,2.1,"Over-represented 🌰"
+8,5.1,6.8,1.7,"Over-represented 🌰"
+9,4.6,6.1,1.5,"Over-represented 🌰"

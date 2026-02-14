@@ -1,0 +1,16 @@
+date,event,category,impact_usd
+2011-01-01,"BTC-e founded; begins operations with no KYC/AML requirements",founding,
+2011-2014,"Mt. Gox stolen BTC laundered through BTC-e via Vinnik-controlled wallets",money_laundering,"4000000000+"
+2013-10-02,"Silk Road seized by FBI; BTC-e remains primary darknet off-ramp",enforcement,
+2014-02-28,"Mt. Gox declares bankruptcy; BTC-e continues processing stolen funds",bankruptcy,
+2017-07-05,"AlphaBay seized by international law enforcement",enforcement,
+2017-07-25,"Alexander Vinnik arrested in Halkidiki Greece on U.S. warrant",arrest,
+2017-07-26,"DOJ unseals indictment; FinCEN issues $110M + $12M penalties",enforcement,122000000
+2017-07-26,"BTC-e.com domain seized by FBI",seizure,
+2017-09-01,"WEX launches as BTC-e successor with cloned codebase",successor_launch,
+2018-06-01,"WEX begins experiencing withdrawal delays",withdrawal_issues,
+2018-09-01,"WEX suspends all withdrawals",withdrawal_suspension,
+2018-12-01,"WEX goes offline permanently; user funds unrecoverable",collapse,"400000000-500000000"
+2020-01-01,"Vinnik extradited from Greece to France",extradition,
+2020-12-01,"Vinnik convicted in France sentenced to 5 years",conviction,
+2022-08-01,"Vinnik transferred to U.S. custody",extradition,
