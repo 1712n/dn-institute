@@ -1,10 +1,10 @@
 import os
+import asyncio
 from typing import Optional
 from tools.article_checker.claude_retriever.searcher.types import SearchResult, SearchTool
 from tools.article_checker.claude_retriever.utils import scrape_url
 from dataclasses import dataclass
 import requests
-import asyncio
 from tenacity import retry, wait_exponential, stop_after_attempt
 
 import logging
@@ -16,7 +16,7 @@ class WebSearchResult(SearchResult):
 
 # Brave Searcher
 
-BRAVE_DESCRIPTION = """Brave Search Engine Tool: The search engine will search using the Brave search engine for web pages with keywords similar to your query. It returns for each page its title, a summary and potentially the full page content. Use this tool if you want to get up-to-date and comprehensive information on a topic."""
+BRAVE_DESCRIPTION = """Brave Search Engine Tool: The search engine will search using the Brave search engine for web pages with keywords similar to your query. It returns for each page its title, a summary and potentially the full page content. Use this tool if you want to get up-to-date and comprehensive information on a topic. Best practices: include specific entity names, dates, and amounts in your queries for more precise results on crypto security incidents."""
 
 class BraveAPI:
     def __init__(self, api_key: str):
@@ -37,6 +37,29 @@ class BraveAPI:
             logger.error(f"Search request failed: {resp.text}")
             return {}
         return resp.json()
+
+
+def _get_or_create_event_loop():
+    """
+    Safely get or create an asyncio event loop.
+    Handles deprecation of get_event_loop() in Python 3.10+.
+    """
+    try:
+        loop = asyncio.get_running_loop()
+        return loop
+    except RuntimeError:
+        pass
+    try:
+        loop = asyncio.get_event_loop()
+        if loop.is_closed():
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+        return loop
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        return loop
+
 
 class BraveSearchTool(SearchTool):
 
@@ -106,26 +129,38 @@ News Article Source: {news_item.get("meta_url", {}).get('hostname', "Unknown")}"
     async def parse_web(self, web_item: dict, query: str) -> WebSearchResult:
         """
         https://api.search.brave.com/app/documentation/responses#Search
+        Parse a web search result with retry logic for scraping.
         """
         url = web_item.get("url", "")
         title = web_item.get("title", "")
+        description = self.remove_strong(web_item.get('description', ''))
         snippet = f"""Web Page Title: {title}
 Web Page URL: {url}"""
 
         try:
-            # Currently there is no retry logic here, so if the scrape fails, we just skip it and return the snippet.
             if self.summarize_with_claude:
-                content = await scrape_url(url, summarize_with_claude=True,
-                                           anthropic_api_key=self.anthropic_api_key, query=query)
+                content = await scrape_url(
+                    url, summarize_with_claude=True,
+                    anthropic_api_key=self.anthropic_api_key,
+                    query=query,
+                    max_retries=2
+                )
             else:
-                content = await scrape_url(url)
+                content = await scrape_url(url, max_retries=2)
 
-            if content.startswith('<summary>'):
-                snippet+="\nWeb Page Summary: "+content
+            if content and content != "CONTENT NOT AVAILABLE":
+                if content.startswith('<summary>'):
+                    snippet += "\nWeb Page Summary: " + content
+                else:
+                    snippet += "\nWeb Page Content: " + content
             else:
-                snippet+="\nWeb Page Content: "+content
-        except:
-            logger.warning(f"Failed to scrape {url}")
+                # Fall back to the Brave search snippet description
+                snippet += "\nWeb Page Description: " + description
+        except Exception as e:
+            logger.warning(f"Failed to scrape {url}: {e}")
+            # Fall back to the Brave description
+            snippet += "\nWeb Page Description: " + description
+            
         return WebSearchResult(
             url=url,
             content=snippet
@@ -134,77 +169,67 @@ Web Page URL: {url}"""
 
     def raw_search(self, query: str, n_search_results_to_use: int) -> list[WebSearchResult]:
         """
-        Run a search using the BraveAPI and return search results. Here are some details on the Brave API:
-
-        Each search call to the Brave API returns the following fields:
-         - faq: Frequently asked questions that are relevant to the search query (only on paid Brave tier).
-         - news: News results relevant to the query.
-         - web: Web search results relevant to the query.
-         - [Thrown Out] videos: Videos relevant to the query.
-         - [Thrown Out] locations: Places of interest (POIs) relevant to location sensitive queries.
-         - [Thrown Out] infobox: Aggregated information on an entity showable as an infobox.
-         - [Thrown Out] discussions: Discussions clusters aggregated from forum posts that are relevant to the query.
-
-        There is also a `mixed` key, which tells us the ranking of the search results.
-
-        We may throw some of these back in, in the future. But we're just going to document the behavior here for now.
+        Run a search using the BraveAPI and return search results.
         """
         
         # Run the search
-
         search_response = self.api.search(query)
 
         # Order everything properly
-
         correct_ordering = search_response.get("mixed", {}).get("main", [])
 
         # Extract the results
-
         faq_items = search_response.get("faq", {}).get("results", [])
         news_items = search_response.get("news", {}).get("results", [])
         web_items = search_response.get("web", {}).get("results", [])
 
         # Get the search results
-
         search_results: list[WebSearchResult] = []
-        async_web_parser_loop = asyncio.get_event_loop()
-        web_parsing_tasks = [] # We'll queue up the web parsing tasks here, since they're costly
+        loop = _get_or_create_event_loop()
+        web_parsing_tasks = []
 
         for item in correct_ordering:
             item_type = item.get("type")
-            if item_type == "web":
+            if item_type == "web" and web_items:
                 web_item = web_items.pop(0)
-                ## We'll add a placeholder search result here, and then replace it with the parsed web result later
                 url = web_item.get("url", "")
                 placeholder_search_result = WebSearchResult(
                     url=url,
                     content=f"Web Page Title: {web_item.get('title', '')}\nWeb Page URL: {url}\nWeb Page Description: {self.remove_strong(web_item.get('description', ''))}"
                 )
                 search_results.append(placeholder_search_result)
-                ## Queue up the web parsing task
-                task = async_web_parser_loop.create_task(self.parse_web(web_item, query))
+                task = loop.create_task(self.parse_web(web_item, query))
                 web_parsing_tasks.append(task)
-            elif item_type == "news":
+            elif item_type == "news" and news_items:
                 parsed_news = self.parse_news(news_items.pop(0))
                 if parsed_news is not None:
                     search_results.append(parsed_news)
-            elif item_type == "faq":
+            elif item_type == "faq" and faq_items:
                 parsed_faq = self.parse_faq(faq_items.pop(0))
                 search_results.append(parsed_faq)
             if len(search_results) >= n_search_results_to_use:
                 break
 
-        ## Replace the placeholder search results with the parsed web results
-        web_results = async_web_parser_loop.run_until_complete(asyncio.gather(*web_parsing_tasks))
-        web_results_urls = [web_result.url for web_result in web_results]
-        for i, search_result in enumerate(search_results):
-            url = search_result.url
-            if url in web_results_urls:
-                search_results[i] = web_results[web_results_urls.index(url)]
+        # Replace the placeholder search results with the parsed web results
+        if web_parsing_tasks:
+            web_results = loop.run_until_complete(asyncio.gather(*web_parsing_tasks, return_exceptions=True))
+            web_results_urls = []
+            valid_web_results = []
+            for web_result in web_results:
+                if isinstance(web_result, Exception):
+                    logger.warning(f"Web parsing task failed: {web_result}")
+                    continue
+                web_results_urls.append(web_result.url)
+                valid_web_results.append(web_result)
+            
+            for i, search_result in enumerate(search_results):
+                url = search_result.url
+                if url in web_results_urls:
+                    idx = web_results_urls.index(url)
+                    search_results[i] = valid_web_results[idx]
 
         return search_results
     
     def process_raw_search_results(self, results: list[SearchResult]) -> list[str]:
-        # We don't need to do any processing here, since we already formatted the results in the `parse` functions.
         processed_search_results = [result.content.strip() for result in results]
         return processed_search_results

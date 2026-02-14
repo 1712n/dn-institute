@@ -11,103 +11,167 @@ from datetime import datetime
 logger = logging.getLogger(__name__)
 
 
-EXTRACTING_PROMPT = """
-Please extract important statements that appear to be factual from the text provided between <text></text> tags.
-Return the extracted statements. Place each statement within <statement></statement> tags.
-Also, return the number of extracted statements within <number_of_statements></number_of_statements> tags.
-Aim to extract important statements with numbers, dates, and names of organizations. There should not be too many extracted statements.
-Skip the preamble; go straight into the result.
+EXTRACTING_PROMPT = """You are a fact-checking assistant specializing in cryptocurrency security incidents.
+
+Your task: Extract **verifiable factual claims** from the article text provided between <text></text> tags.
+
+Focus on claims that can be independently verified through web searches:
+- Specific monetary amounts and losses (e.g., "$20 million stolen")
+- Dates and timestamps of events (e.g., "On May 14, 2024")
+- Names of entities, protocols, and individuals involved
+- Blockchain addresses and transaction hashes (verify they exist and match claims)
+- Descriptions of attack methods and vulnerabilities
+- Claims about protocol responses (pauses, bounties offered, post-mortems)
+
+Rules:
+- Place each statement within <statement></statement> tags
+- Return the count within <number_of_statements></number_of_statements> tags
+- Extract 5-15 of the most important verifiable statements
+- Prefer statements with specific numbers, dates, and named entities
+- DO NOT extract subjective opinions or vague claims
+- Skip the preamble; go straight into the result
 """
 
-RETRIEVAL_PROMPT = """
-Your timeline extends up to the current one — {current_time}.
-You are tasked with verifying the accuracy of a series of factual statements using a search engine. Below is the search engine's description: <tool_description>{description}</tool_description>.
-For each statement within <statement></statement> tags, if the statement already has a verdict in the <verdict></verdict> tags (either 'True' or 'False'), skip it and move to the next statement. For statements without a verdict, formulate a query to check its accuracy. You can make a call to the search engine tool by inserting a query within <search_query> tags like so: <search_query>query</search_query>. You'll then get results back within <search_result></search_result> tags.
-Based on these results, determine the accuracy of each statement and categorize it as 'True', 'False', or 'Unverified'.
-Put your verdict in <verdict></verdict> tags. If a statement is true, put 'True' in the <verdict></verdict> tags.
-Include the Web Page URL in <source></source> tags. If there is no URL at all, put 'None' in the <source></source> tags.
-If a statement is false, include an explanation in <explanation></explanation> tags.
-Focus particularly on verifying numbers, dates, monetary values, and names of people or organizations.
-Avoid verifying statements that already have a True/False verdict in the <verdict></verdict> tags.
-Determine the accuracy of each statement using only information that is contained in the search_result.
-If you need to search again, put the new query in <search_query></search_query>.
+RETRIEVAL_PROMPT = """Your current date is {current_time}.
 
-Statements to be verified: 
+You are a cryptocurrency security researcher performing fact-checking verification. You have access to a search engine described here: <tool_description>{description}</tool_description>
+
+Your task: Verify each factual statement provided within <statement></statement> tags.
+
+Process:
+1. For each statement WITHOUT a <verdict></verdict> tag, formulate a precise search query
+2. Issue the query by writing: <search_query>your query here</search_query>
+3. Review the search results returned within <search_result></search_result> tags
+4. Determine the accuracy of the statement
+
+Search query best practices for crypto incidents:
+- Include the protocol/entity name AND the year
+- For monetary amounts, search for the incident name + "hack" or "exploit" + amount
+- For dates, search for the event name + specific date
+- For blockchain addresses, search for the address directly
+- If the first search is inconclusive, try a more specific or different query
+
+Verdicts:
+- **True**: The claim is supported by search results with matching details
+- **False**: The search results contradict the claim (include explanation in <explanation></explanation>)
+- **Unverified**: Could not find sufficient evidence to confirm or deny
+
+Place your verdict in <verdict></verdict> tags.
+Include the source URL in <source></source> tags (or 'None' if no URL found).
+
+Important:
+- Pay special attention to EXACT numbers — $20M vs $20.5M matters
+- Verify dates precisely — month/day/year must all match
+- Cross-reference entity names for correctness
+- Skip statements that already have a True/False verdict
+
+Statements to be verified:
 """
 
-ANSWER_PROMPT = """
-You are an editor. Perform the following tasks:
-1. Using the information provided within the <fact_checking_results></fact_checking_results> tags, 
-please form the desired output with results of fact-checking. 
-List each statement from the tags <statement></statement> and accompany it with the fact-checking source 
-between the tags <source></source>.  If there is no source, try to find a related link in the text between <text></text> tags and place this link in the "source" field. If there is no source at all put "None" in the "source" field.
-If the verdict is True, put the symbol ":white_check_mark:" after the statement.
-If the verdict is False, put the symbol ":x:" after the statement and also provide an explanation why.
-If the verdict is Unverified or the link was taken from the text in <text></text> tags, put the symbol ":warning:" after the statement.
-Output example:
-'''- **Statement**: Squid Game: November 1, 2021 - $5.7m :x:
-  - **Source**: [https://www.wired.co.uk/article/squid-game-crypto-scam](https://www.wired.co.uk/article/squid-game-crypto-scam)
-  - **Explanation**: The article states the Squid Game crypto scam creators pulled out $3.36 million on November 1, 2021, not $5.7 million as the statement claims.'''
+ANSWER_PROMPT = """You are a senior editor for the DN Institute Crypto Attack Wiki. Your role is to review article submissions for quality, accuracy, and compliance with submission guidelines.
 
-2. Make detailed editor's notes on the text in <text></text> tags. 
-Suggest stylistic and grammatical improvements and point out any error in the text between <text></text> tags. 
-Please make sure that in the '## Timeline' section, dates are written in the correct format 'Month day, year, time PM UTC:'. 
-Example: 'May 05, 2023, 05:52 PM UTC:'.
-Put your detailed notes and the list of errors below the header. 
-Output example:
-'''## Editor's Notes
-...'''
+Perform the following checks and compile a structured report:
 
-3. Additionally, since the text between <text></text> is a Markdown document for Hugo SSG, ensure it adheres to specific Markdown formatting requirements.
-If it adheres, put the symbol ":white_check_mark:".
-If does not adhere, put the symbol ":x:" and also provide an explanation why.
-If you are not sure, put the symbol ":warning:".
-Output example:
-'''## Hugo SSG Formatting Check
-- Does it match Hugo SSG formatting? :x:
-  - **Explanation**: ...'''
+---
 
-4. Check if the text between <text></text> follows the Markdown format, including appropriate headers.
-Confirm if it meets submission guidelines, particularly the file naming convention ("YYYY-MM-DD-entity-that-was-hacked.md"). Extract the name of the file from the text between <text></text> tags and compare it to the correct name.
-Pay special attention to matching the dates and names in the filename with the dates and names from the text.
-Verify that the text between <text></text> includes only the allowed headers: "## Summary", "## Attackers", "## Losses", "## Timeline", "## Security Failure Causes".
-Check for the presence of specific metadata headers between "---" lines, such as "date", "target-entities", "entity-types", "attack-types", "title", "loss" in the text within <text></text> tags. It must contain all and only allowed metadata headers.
+## 1. FACT-CHECK RESULTS
 
-The 'date' metadata header must match the actual date of the event described within the <text></text> tags, possibly mentioned in the Summary section. 
-To achieve this, search for dates within the text to identify the occurrence date of the event. 
-Then, place this date within the <thinking></thinking> tags. Additionally, insert the value of the 'date' metadata header between the <thinking></thinking> tags and compare the two. 
-Please approach this task step by step. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
+Using the information in <fact_checking_results></fact_checking_results> tags:
+- List each statement from <statement></statement> tags with its verification result
+- Use ✅ for verified True statements
+- Use ❌ for False statements (include explanation)
+- Use ⚠️ for Unverified statements
+- Include the source URL for each
 
-The 'target-entities' metadata header must contain the actual names of the affected entities during the event described in the <text></text> tags, possibly mentioned in the Summary section.
-To achieve this, perform a text search to identify the target entities. Then place these entities in <thinking></thinking> tags. Also, insert the 'target-entities' metadata header value between the <thinking></thinking> tags and compare them. 
-Please approach this task step by step. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
+Format:
+```
+- **Statement**: [claim] ✅/❌/⚠️
+  - **Source**: [URL or None]
+  - **Explanation**: [only for ❌ - what the correct information is]
+```
 
-The 'loss' metadata header must match the actual loss due the event described in the <text></text> tags, possibly mentioned in the Losses section.
-To achieve this, perform a text search to identify the loss. Then place this loss in <thinking></thinking> tags. Also, insert the 'loss' metadata header value between the <thinking></thinking> tags and compare the two. 
-Please approach this task step by step. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
+---
 
-Ensure that the value of the 'entity-types' metadata header corresponds to the target entity. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
+## 2. METADATA VALIDATION
 
-Ensure that the value of the 'attack-types' metadata header matches the type of the attack described in the text. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
+Check the YAML frontmatter between `---` delimiters in <text></text> tags.
 
-Output example:
-'''## Filename Check
-- Correct Filename: `2022-02-15-ValentineFloki.md`
-- Your Filename: `scam.md` :x:
+Required metadata fields (ALL must be present, NO extras allowed):
+- `date` — YYYY-MM-DD format, must match the actual incident date from the article body
+- `target-entities` — must match the entities described in the Summary
+- `entity-types` — must correspond to the type of target entity (e.g., DeFi, CEX, DEX, Bridge, GameFi, etc.)
+- `attack-types` — must match the type of attack described (e.g., Smart Contract Exploit, Flash Loan Attack, Rug Pull, Phishing, Private Key Compromise, etc.)
+- `title` — should be descriptive and accurate
+- `loss` — numeric value (no currency symbols), must match the loss amount described in the Losses section
 
-## Section Headers Check
-- Allowed Headers: `## Summary, ## Attackers, ## Losses, ## Timeline, ## Security Failure Causes`
-- Your Headers: `# Cryptocurrency Scam Types and Prevention Measures, ## 1. Rug Pull, ### Overview, ### Recognition Tips, ## 2. Honeypot, ### Overview, ### Recognition Tips` :x:
+For each field, verify:
+1. Is it present?
+2. Is its value correct and consistent with the article content?
 
-## Metadata Headers Check
-- Allowed Metadata Headers: `date, target-entities, entity-types, attack-types, title, loss`
-- Your Metadata Headers: `date, target-entities, entity-types` :x:
-- Notes: 
-    - The `date` header has an incorrect date. It lists 2022-03-15, whereas it should be 2022-02-15 ":warning:"
-    - The `loss` header displays an incorrect value. It shows $100, whereas it should indicate $1000. ":warning:"
-'''
+Use <thinking></thinking> tags for your reasoning on date, target-entities, and loss comparisons.
 
-Combine the results of all steps into a single output that complies with Markdown format and return it to me in <answer></answer> tags. 
+---
+
+## 3. SECTION STRUCTURE CHECK
+
+Verify the article contains ONLY these section headers (in this order):
+- `## Summary`
+- `## Attackers`
+- `## Losses`
+- `## Timeline`
+- `## Security Failure Causes`
+
+Flag any missing, extra, or misordered sections.
+
+---
+
+## 4. FILENAME VALIDATION
+
+The filename should follow: `YYYY-MM-DD-Entity-Name.md`
+- Date must match the `date` metadata header
+- Entity name must match `target-entities`
+- Use hyphens instead of spaces
+
+Extract the filename from the diff header in <text></text> tags and compare.
+
+---
+
+## 5. TIMELINE FORMAT CHECK
+
+In the `## Timeline` section, verify all dates follow this format:
+`**Month DD, YYYY, HH:MM AM/PM UTC:**`
+
+Example: `**May 05, 2023, 05:52 PM UTC:**`
+
+Flag entries with incorrect formatting.
+
+---
+
+## 6. CONTENT QUALITY ASSESSMENT
+
+Evaluate:
+- **References**: Are claims backed by links to credible sources (block explorers, official announcements, security firm reports)?
+- **Completeness**: Does the article cover the incident comprehensively?
+- **Objectivity**: Is the language factual and data-driven (no speculation or ambiguous language)?
+- **Blockchain evidence**: Are on-chain transaction hashes and addresses provided where relevant?
+- **Grammar and style**: Note any grammatical errors or unclear writing
+
+---
+
+## 7. HUGO SSG FORMATTING
+
+Verify the Markdown is valid for Hugo static site generator:
+- Proper YAML frontmatter
+- Valid Markdown syntax
+- Properly formatted links
+- No HTML unless necessary
+
+Use ✅ if formatting is correct, ❌ with explanation if not.
+
+---
+
+Combine ALL sections into a single well-formatted Markdown report.
+Return the complete report within <answer></answer> tags.
 """
 
 
@@ -126,7 +190,7 @@ class ClientWithRetrieval:
         self.client = anthropic.Anthropic(api_key=api_key)
     
 
-    def extract_statements(self, text: str, model: str, temperature: float = 0.0, max_tokens: int = 1000):
+    def extract_statements(self, text: str, model: str, temperature: float = 0.0, max_tokens: int = 2000):
         message = self.client.messages.create(
             model=model,
             max_tokens=max_tokens,
@@ -147,7 +211,7 @@ class ClientWithRetrieval:
         return message.content[0].text
     
 
-    def retrieve(self, query: str, model: str, n_search_results_to_use: int = 3, stop_sequences: list[str] = [], max_tokens: int = 1000, max_searches_to_try: int = 5, temperature: float = 0.0) -> str:
+    def retrieve(self, query: str, model: str, n_search_results_to_use: int = 3, stop_sequences: list[str] = [], max_tokens: int = 1000, max_searches_to_try: int = 8, temperature: float = 0.0) -> str:
         """
         Main method to retrieve relevant search results for a query with a provided search tool.
 
@@ -160,7 +224,15 @@ class ClientWithRetrieval:
 
         description = self.search_tool.tool_description
         statements = self.extract_statements(query, model=model, max_tokens=max_tokens, temperature=temperature)
-        num_of_statements = int(self.extract_between_tags("number_of_statements", statements, strip=True))
+        
+        # Safely extract number of statements
+        try:
+            num_str = self.extract_between_tags("number_of_statements", statements, strip=True)
+            num_of_statements = int(num_str) if num_str else 5
+        except (ValueError, TypeError):
+            logger.warning(f"Could not parse number_of_statements, defaulting to 5")
+            num_of_statements = 5
+        
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         system_prompt = f"{RETRIEVAL_PROMPT.format(current_time=current_time, description=description)}"
 
@@ -177,20 +249,31 @@ class ClientWithRetrieval:
             }
         ]
         for tries in range(min(num_of_statements, max_searches_to_try)):
-            message = self.client.messages.create(
-                model=model,
-                max_tokens=max_tokens,
-                temperature=temperature,
-                system=system_prompt,
-                messages = messages,
-                stop_sequences=["</search_query>"]
-            )
-            partial_completion, stop_reason, stop_seq = message.content[0].text, message.stop_reason, message.stop_sequence
+            try:
+                message = self.client.messages.create(
+                    model=model,
+                    max_tokens=max_tokens,
+                    temperature=temperature,
+                    system=system_prompt,
+                    messages=messages,
+                    stop_sequences=["</search_query>"]
+                )
+                partial_completion = message.content[0].text
+                stop_reason = message.stop_reason
+                stop_seq = message.stop_sequence
+            except Exception as e:
+                logger.error(f"Error in retrieval API call (attempt {tries}): {e}")
+                break
+                
             completions += partial_completion
             messages[0]['content'][0]['text'] += partial_completion
             if stop_reason == 'stop_sequence' and stop_seq == '</search_query>':
                 logger.info(f'Attempting search number {tries}.')
-                formatted_search_results = self._search_query_stop(partial_completion, n_search_results_to_use)
+                try:
+                    formatted_search_results = self._search_query_stop(partial_completion, n_search_results_to_use)
+                except Exception as e:
+                    logger.error(f"Search failed on attempt {tries}: {e}")
+                    formatted_search_results = "\n<search_results>\n<item index=\"1\">\n<page_content>\nSearch failed. Please continue with available information.\n</page_content>\n</item>\n</search_results>"
                 completions += '</search_query>' + formatted_search_results
                 messages[0]['content'][0]['text'] += '</search_query>' + formatted_search_results
             else:
@@ -198,7 +281,7 @@ class ClientWithRetrieval:
         return completions
 
 
-    def answer_with_results(self, search_results: str, query: str, model: str, temperature: float, max_tokens: int = 4000):
+    def answer_with_results(self, search_results: str, query: str, model: str, temperature: float, max_tokens: int = 8000):
         prompt = f'<fact_checking_results>{search_results}</fact_checking_results> <text>{query}</text>'
         try:
             message = self.client.messages.create(
@@ -206,7 +289,7 @@ class ClientWithRetrieval:
                 temperature=temperature,
                 system=ANSWER_PROMPT,
                 max_tokens=max_tokens,
-                messages = [
+                messages=[
                     {
                         "role": "user",
                         "content": [
@@ -220,7 +303,7 @@ class ClientWithRetrieval:
             )
             answer = message.content[0].text
         except Exception as e:
-            answer = str(e)
+            answer = f"Error generating analysis: {str(e)}"
         return answer
     
 
@@ -230,7 +313,7 @@ class ClientWithRetrieval:
                                         n_search_results_to_use: int = 3,
                                         stop_sequences: list[str] = [],
                                         max_tokens: int = 1000,
-                                        max_searches_to_try: int = 5,
+                                        max_searches_to_try: int = 8,
                                         temperature: float = 0.0) -> str:
         """
         Gets a final completion from retrieval results        
@@ -248,6 +331,10 @@ class ClientWithRetrieval:
                                                  temperature=temperature)
         answer = self.answer_with_results(search_results, query, model, temperature)
         answer = self.extract_between_tags("answer", answer)
+        if answer is None:
+            # If no <answer> tags found, return the raw response
+            logger.warning("No <answer> tags found in LLM response, returning raw output")
+            answer = self.answer_with_results(search_results, query, model, temperature)
         return answer
     
 

@@ -1,5 +1,6 @@
 import os
 import aiohttp
+import asyncio
 import json
 from typing import Optional
 from bs4 import BeautifulSoup
@@ -43,8 +44,22 @@ def format_results_full(extracted: list[str]) -> str:
 async def scrape_url(url: str, summarize_with_claude: bool = False,
                      query: Optional[str] = None,
                      anthropic_api_key: Optional[str] = None,
-                     missing_content_placeholder: str = "CONTENT NOT AVAILABLE") -> str:
-    content = await get_url_content(url)
+                     missing_content_placeholder: str = "CONTENT NOT AVAILABLE",
+                     max_retries: int = 2) -> str:
+    """
+    Scrape a URL with retry logic and optional Claude summarization.
+    """
+    content = None
+    for attempt in range(max_retries + 1):
+        try:
+            content = await get_url_content(url)
+            if content:
+                break
+        except Exception as e:
+            logger.warning(f"Scrape attempt {attempt + 1}/{max_retries + 1} failed for {url}: {e}")
+            if attempt < max_retries:
+                await asyncio.sleep(1 * (attempt + 1))  # Simple backoff
+    
     if content:
         if summarize_with_claude:
             if anthropic_api_key is None:
@@ -58,25 +73,43 @@ async def scrape_url(url: str, summarize_with_claude: bool = False,
     return content
 
 
-async def get_url_content(url: str, timeout: int = 10) -> Optional[str]:
+async def get_url_content(url: str, timeout: int = 15) -> Optional[str]:
+    """
+    Fetch and extract text content from a URL.
+    Strips non-content elements (nav, footer, scripts, etc.) for cleaner extraction.
+    """
     try:
         if not is_valid_url(url):
             logger.warning(f"Invalid URL: {url}")
             return None
 
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url, timeout=timeout, headers={'User-Agent': 'Mozilla/5.0'}) as response:
+        client_timeout = aiohttp.ClientTimeout(total=timeout)
+        async with aiohttp.ClientSession(timeout=client_timeout) as session:
+            async with session.get(url, headers={
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            }) as response:
                 if response.status == 200:
                     html = await response.text()
                     soup = BeautifulSoup(html, 'html.parser')
+                    
+                    # Remove non-content elements for cleaner extraction
+                    for element in soup.find_all(['script', 'style', 'nav', 'footer', 'header', 'aside', 'noscript']):
+                        element.decompose()
+                    
                     text = soup.get_text(strip=True, separator='\n')
                     
                     # Sanitize the extracted text using bleach
                     sanitized_text = bleach.clean(text, tags=[], attributes={}, strip=True)
                     
+                    # Limit text length to avoid token overflow
+                    if len(sanitized_text) > 50000:
+                        sanitized_text = sanitized_text[:50000]
+                    
                     return sanitized_text
                 else:
                     logger.warning(f"HTTP error {response.status} for URL: {url}")
+    except asyncio.TimeoutError:
+        logger.warning(f"Timeout fetching URL: {url}")
     except Exception as e:
         logger.exception(f"Error fetching URL: {url}")
     return None
