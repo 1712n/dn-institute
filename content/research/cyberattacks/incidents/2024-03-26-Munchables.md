@@ -22,7 +22,7 @@ On March 26, 2024, Munchables, a GameFi project on the Blast L2 network and a [B
 
 ## Attackers
 
-The attacker was a rogue developer embedded within the Munchables team, believed to be a North Korean operative operating under multiple identities. [ZachXBT's investigation](https://twitter.com/zachxbt/status/1772843238539325947) revealed four GitHub accounts linked to the same individual:
+The attacker was a rogue developer embedded within the Munchables team, suspected to be a North Korean operative operating under multiple identities. [ZachXBT's investigation](https://twitter.com/zachxbt/status/1772843238539325947) linked the developer to North Korea based on GitHub commit patterns and payment flows, though [no official confirmation was made](https://www.coindesk.com/tech/2024/03/27/munchables-exploited-for-62m-ether-linked-to-rogue-north-korean-team-member/). The investigation revealed four GitHub accounts linked to the same individual:
 
 - NelsonMurua913 (account deleted)
 - Werewolves0493 (account deleted)
