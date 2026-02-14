@@ -1,0 +1,9 @@
+date,jurisdiction,authority,action,penalty_usd,status
+2021-06,Ontario Canada,Ontario Securities Commission,Operating unregistered crypto asset trading platform,2096550,Resolved
+2022-12,Netherlands,De Nederlandsche Bank,Operating without registration under AML/ATF Act,0,Warning Issued
+2023-03,New York USA,New York Attorney General,Failure to register; Martin Act violations,22000000,Settled
+2023-10,United Kingdom,Financial Conduct Authority,Operating without regulatory approval,0,Warning List
+2024-03,United States,DOJ/CFTC,Operating unlicensed money transmitter; AML violations,0,Indictment
+2024-05,India,Financial Intelligence Unit,Regulatory non-compliance as VASP,42000,Penalty Paid
+2025-01,United States,Department of Justice,Guilty plea - unlicensed money transmission,297000000,Resolved
+2025-09,Canada,FINTRAC,Failure to register as FMSB; reporting failures,14200000,Under Appeal
