@@ -1,0 +1,10 @@
+leading_digit,expected_benford_pct,observed_bitfinex_btcusd_pct,deviation_pct,note
+1,30.1,33.8,3.7,Over-represented 🌰
+2,17.6,18.2,0.6,Slight over-representation
+3,12.5,11.9,-0.6,Within tolerance
+4,9.7,9.1,-0.6,Within tolerance
+5,7.9,9.4,1.5,Over-represented — round number effect 🌰
+6,6.7,5.8,-0.9,Under-represented
+7,5.8,4.6,-1.2,Under-represented 🌰
+8,5.1,3.9,-1.2,Under-represented 🌰
+9,4.6,3.3,-1.3,Under-represented 🌰
