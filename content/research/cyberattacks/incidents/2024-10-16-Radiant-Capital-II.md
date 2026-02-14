@@ -1,7 +1,6 @@
 ---
 date: 2024-10-16
-target-entities:
-  - Radiant Capital
+target-entities: Radiant Capital
 entity-types:
   - DeFi
   - Lending Platform

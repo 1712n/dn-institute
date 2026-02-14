@@ -1,7 +1,6 @@
 ---
 date: 2024-05-31
-target-entities:
-  - DMM Bitcoin
+target-entities: DMM Bitcoin
 entity-types:
   - Custodian
   - Exchange
@@ -18,7 +17,7 @@ loss: 308000000
 
 ## Summary
 
-On May 31, 2024, [DMM Bitcoin](https://bitcoin.dmm.com/), a Japanese cryptocurrency exchange operated by DMM Group, suffered a breach resulting in the theft of [4,502.9 BTC worth approximately $308 million](https://www.halborn.com/blog/post/explained-the-dmm-bitcoin-hack-may-2024). The stolen Bitcoin was initially [detected as a large-scale transfer](https://whale-alert.io/) between unknown wallets before DMM Bitcoin confirmed the security incident. On December 24, 2024, the FBI, the Department of Defense Cyber Crime Center (DC3), and Japan's National Police Agency (NPA) jointly [attributed the theft to the North Korean cyber threat group TraderTraitor](https://www.npa.go.jp/bureau/cyber/koho/caution/caution20241224.html), a cluster linked to the Lazarus Group. The attack was executed through a targeted social engineering campaign against an employee of Ginco, a Japanese enterprise wallet software company that managed DMM Bitcoin's wallet system. DMM Bitcoin was unable to recover from the losses and [ceased operations on March 8, 2025](https://bitcoin.dmm.com/news/202405_incident), transferring all customer accounts and assets to SBI VC Trade.
+On May 31, 2024, [DMM Bitcoin](https://bitcoin.dmm.com/), a Japanese cryptocurrency exchange operated by DMM Group, suffered a breach resulting in the theft of [4,502.9 BTC worth approximately $308 million](https://www.halborn.com/blog/post/explained-the-dmm-bitcoin-hack-may-2024). The stolen Bitcoin was initially [detected as a large-scale transfer by Whale Alert](https://x.com/whale_alert/status/1796394738402070590) between unknown wallets before DMM Bitcoin confirmed the security incident. On December 24, 2024, the FBI, the Department of Defense Cyber Crime Center (DC3), and Japan's National Police Agency (NPA) jointly [attributed the theft to the North Korean cyber threat group TraderTraitor](https://www.npa.go.jp/bureau/cyber/koho/caution/caution20241224.html), a cluster linked to the Lazarus Group. The attack was executed through a targeted social engineering campaign against an employee of Ginco, a Japanese enterprise wallet software company that managed DMM Bitcoin's wallet system. DMM Bitcoin was unable to recover from the losses and [ceased operations on March 8, 2025](https://bitcoin.dmm.com/news/202405_incident), transferring all customer accounts and assets to SBI VC Trade.
 
 ## Attackers
 
@@ -56,4 +55,4 @@ DMM Bitcoin secured an equivalent amount of BTC through a ¥55 billion ($367 mil
 
 - **Social Engineering via Supply Chain:** The attackers did not directly breach DMM Bitcoin's systems. Instead, they targeted an employee of Ginco, a third-party wallet infrastructure provider, through a LinkedIn-based social engineering attack. This supply chain compromise gave the attackers indirect access to DMM Bitcoin's transaction signing process.
 - **Insufficient Third-Party Access Controls:** The compromised Ginco employee's session credentials provided sufficient access to manipulate a legitimate transaction request from DMM Bitcoin, suggesting inadequate segmentation between the wallet provider's operational access and the exchange's transaction authorization workflow.
-- **Hot Wallet Concentration Risk:** The theft of 4,502.9 BTC in a single transaction indicates that a significant portion of customer assets were accessible through a single hot wallet or signing pathway, without multi-layered withdrawal limits or anomaly detection that could have flagged or blocked such a large transfer.
+- **Hot Wallet Concentration Risk:** The theft of 4,502.9 BTC ($308 million) in a single transaction indicates that the full amount was accessible through one hot wallet or signing pathway, without multi-layered withdrawal limits or anomaly detection that could have flagged or blocked a transfer of this size.

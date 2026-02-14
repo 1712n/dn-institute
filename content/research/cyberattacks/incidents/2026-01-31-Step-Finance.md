@@ -1,7 +1,6 @@
 ---
 date: 2026-01-31
-target-entities:
-  - Step Finance
+target-entities: Step Finance
 entity-types:
   - DeFi
   - Yield Aggregator
