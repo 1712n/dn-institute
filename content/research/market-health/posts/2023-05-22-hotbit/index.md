@@ -60,6 +60,8 @@ Hotbit appeared among the worst offenders in BTI's rankings, with estimated fake
 
 [CoinGecko](https://www.coingecko.com/) assigns a Trust Score to exchanges based on a composite evaluation of liquidity, operational scale, API reliability, and web traffic. Hotbit's Trust Score was consistently rated in the **low tier (scores between 3-5 out of 10)**, placing it well below reputable exchanges like Binance, Coinbase, or Kraken. 🌰
 
+{{< figure src="trust-score-comparison.png" alt="CoinGecko Trust Score and engagement metrics comparison showing Hotbit's poor performance" caption="Trust and engagement analysis across exchanges. Hotbit's trust score (4/10) is far below industry standard, despite having 2,000+ listed pairs. User engagement metrics from SimilarWeb confirm low genuine user activity." >}}
+
 Key factors contributing to Hotbit's low Trust Score: 🌰
 
 - **Shallow order book depth** — the spread and depth of Hotbit's order books did not match the volumes reported 🌰
@@ -71,6 +73,8 @@ Key factors contributing to Hotbit's low Trust Score: 🌰
 One of the most reliable indicators of wash trading is the **discrepancy between an exchange's reported trading volume and its actual web traffic**. Legitimate exchanges show a strong positive correlation between these metrics — more traders mean more web visits and API calls. 🌰
 
 Analysis of Hotbit's [SimilarWeb](https://www.similarweb.com/) data during 2022-2023 revealed: 🌰
+
+{{< figure src="volume-traffic-comparison.png" alt="Volume vs web traffic comparison between Hotbit and MEXC showing massive discrepancy" caption="Volume-to-traffic analysis comparing Hotbit and MEXC (Sep 2022 – Apr 2023). Hotbit's volume-per-visit ratio is ~8x higher than MEXC, a strong indicator of fabricated volume. Data from SimilarWeb and CoinGecko." >}}
 
 | Metric | Hotbit | Comparable Exchange (e.g., MEXC) |
 |--------|--------|----------------------------------|
@@ -124,6 +128,8 @@ Evidence from Benford's Law analysis has been admitted by the [Association of Ce
 
 Analysis of Hotbit's available trade execution data from multiple trading pairs (including HTB/USDT, BTC/USDT, and ETH/USDT) reveals **statistically significant deviations** from Benford's expected distribution: 🌰
 
+{{< figure src="benfords-law-analysis.png" alt="Benford's Law analysis across Hotbit trading pairs showing significant deviations from expected distribution" caption="Benford's Law analysis of leading digit distribution across three Hotbit trading pairs (BTC/USDT, ETH/USDT, HTB/USDT). Left: frequency comparison; Right: deviation heatmap. All pairs show flattened distributions with χ² = 487.3, p < 0.001. Data from Hotbit trade records, Q1 2023." >}}
+
 **Leading Digit Distribution — Hotbit BTC/USDT Trades (Sample, Q1 2023)** 🌰
 
 | Leading Digit | Benford's Expected 🌰 | Hotbit Observed 🌰 | Deviation |
@@ -146,6 +152,8 @@ A **chi-squared goodness-of-fit test** yields χ² = 487.3 (df = 8, p < 0.001), 
 
 In healthy markets, trade volume distributions follow a [power law](https://en.wikipedia.org/wiki/Power_law) (heavy tail) distribution — many small trades and progressively fewer large trades. The tail exponent α typically falls between 1.5 and 3.0 for legitimate crypto exchanges. 🌰
 
+{{< figure src="volume-distribution-analysis.png" alt="Trade volume distribution analysis showing abnormal tail exponent and bot-like clustering on Hotbit" caption="Trade volume distribution analysis comparing Hotbit with a legitimate exchange benchmark. Left: log-log distribution shows truncated tail (α>4.0); Center: box plot comparison; Right: round-number clustering reveals bot-generated trade patterns." >}}
+
 Hotbit's volume distributions across multiple trading pairs exhibited: 🌰
 
 - **Abnormally high tail exponents (α > 4.0)** 🌰 — indicating an artificial truncation of large trades, consistent with wash trading bots operating within constrained size parameters
@@ -161,6 +169,8 @@ Genuine retail markets exhibit characteristic patterns: 🌰
 - **Weekend effects** — subtle volume shifts on weekends vs. weekdays 🌰
 
 Hotbit's trade data showed **minimal round-number clustering** (retail clustering coefficient < 0.3, compared to > 1.5 on Coinbase and > 1.0 on Binance), suggesting the vast majority of reported volume was machine-generated rather than from actual users. 🌰
+
+{{< figure src="hourly-volume-pattern.png" alt="Hourly trading volume pattern comparison showing Hotbit's unnaturally flat distribution" caption="Hourly trading volume distribution comparison. Legitimate exchanges show clear peaks during Asia, Europe, and Americas trading sessions, while Hotbit displays an unnaturally flat pattern consistent with 24/7 bot-generated volume." >}}
 
 Volume distribution across hours of the day was remarkably **flat** on Hotbit, lacking the clear peaks during Asia-Pacific and European trading sessions that would be expected given its stated user geography. 🌰
 
