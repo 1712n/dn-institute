@@ -44,6 +44,8 @@ This pattern is even more pronounced in mid-cap and meme token markets:
 
 Low variance in average transaction size is a classic indicator of dominated algorithmic activity, as trading bots executing wash trades tend to use consistent, calibrated order sizes to avoid detection by simpler surveillance systems.
 
+{{< figure src="avg-tx-size-stddev-comparison.png" alt="Average transaction size standard deviation comparison between MEXC and Binance" caption="Standard deviation of average transaction size across multiple spot markets, MEXC vs Binance, Q4 2024. Log scale. MEXC shows 4–40x lower variability." >}}
+
 ### Volume Distribution — Tail Exponent and Skewness
 
 In healthy markets, trade volume follows a [power-law distribution](https://en.wikipedia.org/wiki/Power_law) where small trades are frequent and large trades are rare. The tail exponent of this distribution is typically below 3 in traditional financial markets, and similar patterns are observed on regulated crypto exchanges.
@@ -60,6 +62,8 @@ The skewness metric further corroborates these findings. Organic markets typical
 - SOL/USDT skewness on MEXC: -0.1–0.5 (vs. Binance: 1.8–3.9)
 
 Near-zero and negative skewness values are a strong indicator of artificial volume, as they reflect a volume distribution dominated by uniformly-sized trades rather than the diverse order flow seen in genuine markets.
+
+{{< figure src="tail-exponent-comparison.png" alt="Volume distribution tail exponent comparison between MEXC and Binance" caption="Volume distribution tail exponent across spot markets, MEXC vs Binance, Q4 2024. Values above 3 (dashed line) indicate abnormally thin tails — absence of large organic trades." >}}
 
 ### Time-of-Trade Distribution — Periodic Clustering
 
@@ -85,6 +89,8 @@ This pattern is particularly notable for tokens with high volatility:
 - **DOGE/USDT**: During the same period's meme coin activity, MEXC maintained ratios of 0.96–1.04 while OKX showed 0.5–2.5 range
 
 A buy/sell ratio near 1.0 during trending markets is a hallmark of wash trading, where a single entity simultaneously places matching buy and sell orders, producing balanced volume regardless of market direction.
+
+{{< figure src="buy-sell-ratio-comparison.png" alt="Buy-sell ratio comparison between MEXC and Binance over 30 days" caption="Daily buy/sell volume ratio, BTC/USDT spot market, November 2024. MEXC (top) stays within a 0.95–1.05 band. Binance (bottom) shows normal market-responsive volatility." >}}
 
 ### Retail Presence — Round-Size Trade Clustering
 
@@ -134,6 +140,26 @@ This analysis leverages publicly available trade data from exchange APIs and app
 - **Retail clustering**: Student's t-test comparing frequency of trades at round values (multiples of 100) vs. non-round values
 
 Data was collected from MEXC, Binance, and OKX public REST APIs for the period August 2024 – December 2024 for BTC/USDT, ETH/USDT, SOL/USDT, PEPE/USDT, and DOGE/USDT spot markets.
+
+### Data Sources and Reproducibility
+
+All data used in this analysis can be independently reproduced using the following public API endpoints:
+
+| Exchange | Endpoint | Documentation |
+|----------|----------|---------------|
+| MEXC | `GET /api/v3/trades?symbol={PAIR}&limit=1000` | [MEXC API Docs](https://mexcdevelop.github.io/apidocs/spot_v3_en/) |
+| MEXC | `GET /api/v3/klines?symbol={PAIR}&interval=1h` | Same |
+| Binance | `GET /api/v3/trades?symbol={PAIR}&limit=1000` | [Binance API Docs](https://developers.binance.com/docs/binance-spot-api-docs/rest-api#recent-trades-list) |
+| Binance | `GET /api/v3/klines?symbol={PAIR}&interval=1h` | Same |
+| OKX | `GET /api/v5/market/trades?instId={PAIR}&limit=500` | [OKX API Docs](https://www.okx.com/docs-v5/en/#order-book-trading-market-data-get-trades) |
+
+The DNI Market Health API provides pre-computed metrics: [RapidAPI — Crypto Market Health](https://rapidapi.com/DNInstitute/api/crypto-market-health/)
+
+Scripts for computing metrics from raw trade data:
+- **Tail exponent**: Maximum likelihood power-law fitting via the `powerlaw` Python package ([Alstott et al., 2014](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0085777))
+- **Skewness**: `scipy.stats.skew()` on 24h trade volume windows
+- **Buy/sell ratio**: Taker side classification from trade API `isBuyerMaker` field
+- **Retail clustering**: Student's t-test on frequency of trades at ×100 USD multiples vs. non-round values
 
 ## References
 
