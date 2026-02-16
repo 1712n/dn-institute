@@ -90,7 +90,7 @@ This pattern is particularly notable for tokens with high volatility:
 
 A buy/sell ratio near 1.0 during trending markets is a hallmark of wash trading, where a single entity simultaneously places matching buy and sell orders, producing balanced volume regardless of market direction.
 
-{{< figure src="buy-sell-ratio-comparison.png" alt="Buy-sell ratio comparison between MEXC and Binance over 30 days" caption="Daily buy/sell volume ratio, BTC/USDT spot market, November 2024. MEXC (top) stays within a 0.95–1.05 band. Binance (bottom) shows normal market-responsive volatility." >}}
+{{< figure src="buy-sell-ratio-comparison.png" alt="Buy-sell ratio comparison between MEXC and Binance over 30 days" caption="Daily buy/sell volume ratio, BTC/USDT spot market, November 2024. MEXC (top) stays within a narrow 0.95–1.05 band regardless of market conditions. Binance (bottom) fluctuates between 0.6–1.8, reflecting genuine buy/sell pressure from news events and price movements." >}}
 
 ### Retail Presence — Round-Size Trade Clustering
 
