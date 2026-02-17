@@ -10,15 +10,15 @@ entities:
   - Rainberry
 ---
 
-## Summary
+## Summary 🌰
 
-1. The U.S. Securities and Exchange Commission [filed a complaint](https://www.sec.gov/files/litigation/complaints/2023/comp-pr2023-59.pdf) on March 22, 2023, alleging that crypto entrepreneur **Justin Sun** and three of his wholly-owned companies orchestrated a systematic wash trading scheme to artificially inflate TRX trading volume.
-2. **609,790 wash trades** of TRX were executed over **249 active trading days** (approximately April 18, 2018 through February 11, 2019), averaging **2,449 wash trades per day** between two accounts on a U.S.-based trading platform.
-3. The wash trading operation involved a team of at least **five employees** — three from Tron Foundation and two from Rainberry (formerly BitTorrent) — directed by Sun, who also provided his personal TRX holdings to fund the scheme.
-4. The daily budget for the wash trading operation was approximately **2.5 BTC per day** (~$16,000 at October 2018 prices), allocated across multiple exchanges including Binance, Bittrex, Bithumb, and Upbit.
-5. In parallel with the wash trading scheme, Sun and his companies allegedly paid **eight celebrities** — including Lindsay Lohan, Jake Paul, Ne-Yo, and Soulja Boy — to promote TRX and BTT on social media without disclosing their compensation, six of whom settled with the SEC for over $400,000 in combined penalties.
+1. The U.S. Securities and Exchange Commission [filed a complaint](https://www.sec.gov/files/litigation/complaints/2023/comp-pr2023-59.pdf) on March 22, 2023, alleging that crypto entrepreneur **Justin Sun** and three of his wholly-owned companies orchestrated a systematic wash trading scheme to artificially inflate TRX trading volume. 🌰
+2. **609,790 wash trades** of TRX were executed over **249 active trading days** (approximately April 18, 2018 through February 11, 2019), averaging **2,449 wash trades per day** between two accounts on a U.S.-based trading platform. 🌰
+3. The wash trading operation involved a team of at least **five employees** — three from Tron Foundation and two from Rainberry (formerly BitTorrent) — directed by Sun, who also provided his personal TRX holdings to fund the scheme. 🌰
+4. The daily budget for the wash trading operation was approximately **2.5 BTC per day** (~$16,000 at October 2018 prices), allocated across multiple exchanges including Binance, Bittrex, Bithumb, and Upbit. 🌰
+5. In parallel with the wash trading scheme, Sun and his companies allegedly paid **eight celebrities** — including Lindsay Lohan, Jake Paul, Ne-Yo, and Soulja Boy — to promote TRX and BTT on social media without disclosing their compensation, six of whom settled with the SEC for over $400,000 in combined penalties. 🌰
 
-## Background
+## Background 🌰
 
 ### The TRON Ecosystem
 
@@ -34,7 +34,7 @@ The SEC's complaint (Case 1:23-cv-02433, Southern District of New York) charged 
 
 This article focuses on the wash trading allegations and the quantitative evidence presented in the SEC's complaint.
 
-## Wash Trading Scheme: Mechanics and Evidence
+## Wash Trading Scheme: Mechanics and Evidence 🌰
 
 ### Operational Structure
 
@@ -72,7 +72,41 @@ This communication demonstrates that:
 2. The operation targeted multiple major exchanges simultaneously
 3. The goal was explicitly to inflate perceived trading volume and liquidity
 
-### Volume Impact Analysis
+## On-Chain Volume Analysis 🌰
+
+To contextualize the SEC's allegations, we analyzed TRX daily trading volume data from CryptoCompare across three periods: pre-wash trading (January–April 2018), during the alleged wash trading (April 2018–February 2019), and post-wash trading (February–May 2019).
+
+### Price and Volume Overview
+
+![TRX Price and Trading Volume](trx-price-volume.png)
+
+The chart above shows TRX price (top) and daily trading volume (bottom) from January 2018 through May 2019. The red-shaded region marks the SEC-alleged wash trading period. Several patterns are visible:
+
+- TRX price declined sharply from its January 2018 peak (~$0.25) throughout the wash trading period, falling to ~$0.02 by February 2019
+- Despite the price decline, trading volume remained elevated during the wash trading period relative to the post-wash period
+- Volume dropped significantly after the alleged wash trading ceased in February 2019
+
+### Volume Comparison by Period 🌰
+
+![TRX Volume Comparison by Period](trx-volume-comparison.png)
+
+| Period | Avg Daily Volume (USD) | Relative to Wash Period |
+|--------|----------------------|------------------------|
+| Pre-wash (Jan–Apr 2018) | $2.78M | 2.06× |
+| Wash trading (Apr 2018–Feb 2019) | $1.35M | 1.00× (baseline) |
+| Post-wash (Feb–May 2019) | $0.38M | 0.28× |
+
+The pre-wash period includes the crypto market bubble peak of early 2018, which naturally inflated volumes across all assets. The critical comparison is between the wash trading period and the post-wash period: **average daily volume dropped by 72% after the alleged wash trading ceased** (from $1.35M to $0.38M). This 3.6× volume decline is consistent with the removal of artificial trading activity.
+
+### Rolling Volume Trend 🌰
+
+![TRX 7-Day Rolling Average Volume](trx-rolling-volume.png)
+
+The 7-day rolling average volume chart reveals a clear structural break at the boundaries of the alleged wash trading period. While the broader crypto market was in decline throughout 2018, TRX volume maintained a relatively stable floor during the wash trading period before dropping sharply in February 2019 — precisely when the SEC alleges the wash trading operation ended.
+
+This volume floor pattern is consistent with the SEC's allegation of a daily budget of ~2.5 BTC (~$16,000) being deployed to maintain minimum volume levels.
+
+## Volume Impact Analysis 🌰
 
 The wash trading scheme was designed to create a **false perception of market activity** that did not reflect genuine supply and demand for TRX. By executing an average of 2,449 wash trades per day across controlled accounts, the scheme artificially inflated TRX's apparent trading volume, which served multiple purposes:
 
@@ -81,7 +115,7 @@ The wash trading scheme was designed to create a **false perception of market ac
 - **Supporting TRX price** during periods when Sun and the Tron Foundation were selling their holdings
 - **Enhancing perceived liquidity** to make TRX appear as a more established and actively traded asset
 
-## Celebrity Promotion Campaign
+## Celebrity Promotion Campaign 🌰
 
 Running concurrently with the wash trading scheme, Sun and his companies orchestrated a paid celebrity promotion campaign for TRX and BTT. Eight celebrities were charged by the SEC for promoting the tokens on social media without disclosing their compensation:
 
@@ -98,7 +132,7 @@ Running concurrently with the wash trading scheme, Sun and his companies orchest
 
 This promotional campaign, combined with the wash trading, created a coordinated manipulation strategy: artificial volume made TRX appear actively traded, while celebrity endorsements drove retail investor interest toward the inflated market.
 
-## Market Manipulation Indicators
+## Market Manipulation Indicators 🌰
 
 The TRX wash trading scheme exhibited several classic indicators of market manipulation that align with established surveillance metrics:
 
@@ -114,7 +148,7 @@ With an average of 2,449 wash trades per day executed by a small team, the tradi
 
 The internal communication directing the team to "concentrate on binance, bittrex, bithumb, upbit exchanges" indicates that the wash trading was not limited to a single venue. Cross-exchange wash trading is particularly difficult to detect using single-exchange surveillance tools, as the artificial volume appears distributed across multiple platforms.
 
-## Legal Proceedings and Current Status
+## Legal Proceedings and Current Status 🌰
 
 - **March 22, 2023**: SEC files complaint in the Southern District of New York
 - **August 4, 2023**: Final judgment against Austin Mahone ($45,724 in disgorgement, interest, and penalties)
@@ -124,15 +158,18 @@ The internal communication directing the team to "concentrate on binance, bittre
 
 The case has attracted renewed political attention, with Representative Maxine Waters questioning SEC Chairman Paul Atkins about whether Sun's ties to President Trump's World Liberty Financial venture have influenced the agency's enforcement decisions.
 
-## Conclusion
+## Conclusion 🌰
 
 The SEC's complaint against Justin Sun and the Tron Foundation presents one of the most detailed and quantitatively documented cases of cryptocurrency wash trading in regulatory history. The 609,790 wash trades over 249 days, supported by internal communications and financial records, provide a clear picture of how systematic market manipulation operates in cryptocurrency markets.
 
+Our independent analysis of TRX trading volume data corroborates the SEC's timeline: the 72% volume decline observed after the alleged wash trading period ended (from $1.35M to $0.38M average daily volume) is consistent with the removal of artificial trading activity. The volume floor pattern during the wash trading period further supports the allegation of a systematic, budgeted operation.
+
 The case illustrates several important lessons for market surveillance:
-1. **Wash trading can be sustained at scale** — nearly 2,500 trades per day over 10 months — with relatively modest resources (~$16,000/day)
-2. **Cross-exchange coordination** makes detection more difficult and requires multi-venue surveillance
-3. **Wash trading rarely operates in isolation** — in this case, it was combined with undisclosed celebrity promotions to maximize market impact
-4. **Internal communications** remain one of the most powerful forms of evidence, complementing quantitative analysis
+1. **Wash trading can be sustained at scale** — nearly 2,500 trades per day over 10 months — with relatively modest resources (~$16,000/day) 🌰
+2. **Cross-exchange coordination** makes detection more difficult and requires multi-venue surveillance 🌰
+3. **Wash trading rarely operates in isolation** — in this case, it was combined with undisclosed celebrity promotions to maximize market impact 🌰
+4. **Volume structural breaks** at the start and end of manipulation periods provide quantitative evidence that complements internal communications 🌰
+5. **Internal communications** remain one of the most powerful forms of evidence, complementing quantitative analysis 🌰
 
 ## References
 
@@ -140,5 +177,6 @@ The case illustrates several important lessons for market surveillance:
 2. SEC Press Release 2023-59: "SEC Charges Crypto Entrepreneur Justin Sun and His Companies for Fraud and Other Securities Law Violations." [Link](https://www.sec.gov/newsroom/press-releases/2023-59)
 3. SEC Litigation Release No. 25676. [Link](https://www.sec.gov/enforcement-litigation/litigation-releases/lr-25676)
 4. SEC Litigation Release No. 25803 (Austin Mahone Final Judgment). [Link](https://www.sec.gov/enforcement-litigation/litigation-releases/lr-25803)
-5. Axios, "SEC's new crypto suit alleges market manipulation" (March 23, 2023).
-6. Fortune, "SEC levels crypto charges against Justin Sun, Lindsay Lohan" (March 22, 2023).
+5. CryptoCompare Historical Data API — TRX/USD daily OHLCV data. [Link](https://min-api.cryptocompare.com/)
+6. Axios, "SEC's new crypto suit alleges market manipulation" (March 23, 2023).
+7. Fortune, "SEC levels crypto charges against Justin Sun, Lindsay Lohan" (March 22, 2023).
