@@ -2,7 +2,7 @@ We have restored limits to 5x (500%). Sorry about the troubles, had to be overly
 Interesting, curious to hear more. twitter.com/Bancor/status/… Quoted tweet from @Bancor: This morning (CEST) Bancor experienced a security breach. No user wallets were compromised. To complete the investigation, we have moved to maintenance and will be releasing a more detailed report shortly. We look forward to being back online as soon as possible.
 Unfortunately, the technical issues at BitGo are not resolved completely. Deposits are stuck with multiple confirmations on the blockchain. Once BitGo will resolve the issue you will see the funds in your NiceHash account.
 Why did @FCoinOfficial suddenly shut down and where is the $130 million in investors funds? We decided to find out. bit.ly/32vthZh https://t.co/wdixVOPQhW
-China’s FCoin plans to reopen, return $130 million in missing #Bitcoin ► decrypt.co/20747/china-fc… https://t.co/0vcroCJgak
+China's FCoin plans to reopen, return $130 million in missing #Bitcoin ► decrypt.co/20747/china-fc… https://t.co/0vcroCJgak
 Jameson Lopp retweeted: Great example of inefficient block space usage by @gate_io exchange. No batching. No Segwit. Tx fees considerably higher than average, but don't confirm due to using 1 single address, resulting in bottleneck of hundreds of unconfirmed parents. #Bitcoin https://t.co/FxqP1arQkW
 Gemini exchange is up and running. Please note, we're planning to undergo our regularly scheduled weekly maintenance tonight at 9pm-1am ET.
 Gemini will undergo a significant infrastructure upgrade & will be offline from Friday, 08/25 6:00pm ET until Saturday, 08/26 at 11:59pm ET.
@@ -12,7 +12,7 @@ The system upgrade will begin in just under 1.5 hours (3AM UTC). The upgrade wil
 The system upgrade has now begun & trading has been suspended. The upgrade will take approximately 6-8 hours. There will be a 30-minute window to cancel orders, process deposits, withdrawals & use other account related functions before trading resumes. binance.com/en/support/art… https://t.co/Xvphp7hnbu
 2 HR update: upgrade is on track so far. Quoted tweet from @binance: The system upgrade has now begun & trading has been suspended. The upgrade will take approximately 6-8 hours. There will be a 30-minute window to cancel orders, process deposits, withdrawals & use other account related functions before trading resumes. binance.com/en/support/art… https://t.co/Xvphp7hnbu
 #Binance System Upgrade - Update The system upgrade is on track & progressing smoothly. Next update at 9AM UTC Original announcement 🔽 binance.zendesk.com/hc/en-us/artic… https://t.co/4ytoOqbLbL
-. @Binance is back in business. After a hiccup last week, suffering the sixth-largest hack of a cryptocurrency exchange in history, Binance has reopened its doors, and it’s coming out guns blazing. bit.ly/2JTSrK1
+. @Binance is back in business. After a hiccup last week, suffering the sixth-largest hack of a cryptocurrency exchange in history, Binance has reopened its doors, and it's coming out guns blazing. bit.ly/2JTSrK1
 LocalBitcoins is not the first peer-to-peer trading network to block Iran. Major companies such as @Coinbase and @Binance have also begun rejecting Iranian customers on the basis of their nationality within the past year. bitcoinmagazine.com/articles/local…
 As geoblocking becomes the norm, how crazy is it that a country that prides itself on being a paragon of innovation is dragging its feet so much that it's consumers are systematically excluded from a new global growth industry & its entrepreneurs are actively building elsewhere? Quoted tweet from @zhusu: Bitmex, Bitfinex do aggressive geoblocking / offboarding of US customers. Huobi recently had to as well and setup HBUS w/ limited services. Does this recent announcement of a FinCEN-registered US exchange by Binance imply mass US offboarding incoming? coindesk.com/binance-says-i…
 [status] In Progress: Coinbase Pro is offline (user interface and APIs) with trading in all markets expected paused until approximately 10:30am PT. stspg.io/l66pn7lh3xpb?u…
@@ -22,7 +22,7 @@ Messari retweeted: Bancor bans US users from its web application starting July 8
 #narrativewatch Quoted tweet from @crypto_bobby: This one swept under the Libra radar Bancor banning US users 🙄 twitter.com/Bancor/status/…
 #binance just banned Chinese user, again.
 -Binance, one of the busiest cryptocurrency exchanges, has been down since Wednesday evening. -The Hong Kong company says it wasn't hacked, and that it should be back online late Thursday. markets.businessinsider.com/currencies/new…
-🙍 Troubled crypto exchange QuadrigaCX goes offline for ‘maintenance’ messari.io/article/troubl…
+🙍 Troubled crypto exchange QuadrigaCX goes offline for 'maintenance' messari.io/article/troubl…
 Juan⚡️Galt (@Bitcoin) retweeted: Coinapult, which also relies on Crypto Capital, appears to have stopped trading on December 10, one day after QuadrigaCX CEO Gerald Cotten presumably died in India whilst checking on the orphanage. https://t.co/NjAKcfoH2S
 Completed: The Gemini Spaceship is back in orbit! Maintenance complete. stspg.io/173588da0
 Scheduled (11/ 7/17 9:00PM EST): The Gemini Spaceship will undergo maintenance tonight from 9:00-10:00PM ET. stspg.io/3ff85b982
@@ -40,20 +40,20 @@ Due to a potential 51% attack, ETC wallets have been disabled and will not be re
 Update: Our #XRP wallet upgrade, previously scheduled for Monday, will now occur on Tuesday, September 10th. Trading will be unaffected but deposits and withdrawals will be suspended during maintenance. We expect maintenance to begin around 15:15 UTC and last several hours. twitter.com/Poloniex/statu… Quoted tweet from @Poloniex: On Monday, we will be upgrading our #XRP wallets in order to introduce an enhanced user experience. Trading will be unaffected but deposits and withdrawals will be suspended during maintenance. We expect maintenance to begin around 15:15 UTC and last several hours.
 IMPORTANT: US customers are no longer able to trade on Poloniex. US customers should stop depositing immediately and withdraw their assets by December 15, 2019 from poloniexus.circle.com
 This morning we saw degraded performance, with brief periods of downtime for Coinbase and Coinbase Pro, occurring intermittently between 10:28am PT and 12:15pm PT. We have now implemented a fix and access to Coinbase and Coinbase Pro is restored.
-couldn’t even log in thanks for opportunity loss...
-When you’re unable to log in pretty much limits your options. But thanks anyway
+couldn't even log in thanks for opportunity loss...
+When you're unable to log in pretty much limits your options. But thanks anyway
 Seems to always go down when bitcoin is pumping
-We are currently experiencing intermittent downtime on http://coinbase.com. We’ve identified the issue and are working on a fix. We’ll let you know when we’re back up!
+We are currently experiencing intermittent downtime on http://coinbase.com. We've identified the issue and are working on a fix. We'll let you know when we're back up!
 Whenever there is a Bitcoin pump there is a problem. This is not the first time. The lack of timely access to your system affects our investments. You have to produce a solution for this. And please don't use Covid-19 for an excuse.
 We're currently experiencing an outage with our Help Center and support forms. Our team is working to fix this, and we'll send an update when this issue is resolved.
 Our Help Center and support forms are back up and running. Thank you for your patience!
 We are currently experiencing intermittent downtime. We're working to fix the issue and we'll let you know when we're back up.
 the trading engine server unexpectedly restarted, taking it offline.
-@BitMEXdotcom pulled the plug on their servers. 
+@BitMEXdotcom pulled the plug on their servers.
 My girl goes down so hard that i call her @BitMEXdotcom
-Yo @BitMEXdotcom fix your shit. Can’t log back in after closing window.
-UPDATE: We’re working to bring the BitMEX platform back online as soon as possible. All funds are safe, delayed orders will be rejected, and no liquidations will occur during downtime. There will be a cancel only period on coming back online.
-We’ve published a full account of the unscheduled downtime that our users experienced between 12:00 UTC and 13:40 UTC on 19 May 2020, and outlined how we are responding.  See our blog for details:
+Yo @BitMEXdotcom fix your shit. Can't log back in after closing window.
+UPDATE: We're working to bring the BitMEX platform back online as soon as possible. All funds are safe, delayed orders will be rejected, and no liquidations will occur during downtime. There will be a cancel only period on coming back online.
+We've published a full account of the unscheduled downtime that our users experienced between 12:00 UTC and 13:40 UTC on 19 May 2020, and outlined how we are responding.  See our blog for details:
 down for maintenance
 Trading resumed at 13:40 UTC
 When Pakcoin market will resume. Waiting
@@ -61,7 +61,7 @@ When Pakcoin market will resume. Waiting
 We are still experiencing unscheduled maintenance. The next update will be at 8am NZDT (7pm UTC)
 Update: We are still experiencing unscheduled maintenance. Our team is working hard to resolve this and we will provide an update soon.
 Please be more transparent with your updates.  It's been 16 hours now and people who have funds on the exchange need to be updated on the issue and how long it is expected to resolve.
-Our highly experienced and extensive team are currently dedicated to getting the website back up as quickly as possible. We’re sorry to hear how much inconvenience this is causing you and appreciate your patience until we can provide further details.
+Our highly experienced and extensive team are currently dedicated to getting the website back up as quickly as possible. We're sorry to hear how much inconvenience this is causing you and appreciate your patience until we can provide further details.
 Any tentative time, you are on maintenance since yesterday. I hope everything is ok.
 Hey Cryptopia, I'm sure the community would appreciate significant details while we are eagerly awaiting for our withdraws to appear in wallets. It's now been more than 24h down with no explanation. Isn't that look a bit suspicious ?
 Unscheduled.... probably got hacked and doing audit...?
@@ -76,7 +76,7 @@ It has been more then 24 hours now since you guys are on maintenance... I hope a
 unscheduled maintenance is bad news for me after that btc-e maintenance... please come back soon cryptopia
 down 24 hours now, and still no mention as to why.. not cool..  said you were going to post an update, when it came time for said update, there was no update, just a comment about still being down... what's going on?
 We are currently experiencing an unscheduled maintenance, we are working to resume services as soon as possible. We will keep you updated.
-please explain what’s going on with your site, all markets are paused. 
+please explain what's going on with your site, all markets are paused.
 I cringe when exchanges have unscheduled maintenance messages
 cryptopia is under maintenance. Remember, the safest place to store your coins is in your own desktop wallets. Safe and secure while earning staking rewards with
 With the news of @Cryptopia_NZ being down, remember that you can always use our other exchange
@@ -91,7 +91,46 @@ They should be up again shortly. They have had about 200B in EMB withdrawals thi
 They have been going in and out of maintenance mode. They announced that they will honor any withdrawal requests made before the 21st even if they continue to have issues. They have done about 200B worth of EMB withdrawals so we are optimistic things will be up again soon.
 We had a brief period of the BTC wallet in maintenance this morning. We can confirm that the wallet is now back to normal.
 Does anyone wonder why bitcoin and all these other wallets are constantly under maintenance at crucial times?
-No it isn’t. It’s back in maintenance again so I can’t withdraw. What’s going on?
+No it isn't. It's back in maintenance again so I can't withdraw. What's going on?
 It smells like a inside job. Hope you're so called scheduled maintenance will complete soon and my tokens will be there
 Got this email days before the hack saying they were going in maintenance anyways 14th-18th because of the Constantinople Hard Fork.... This is an EXIT SCAMFace with look of triumph I want my god damn access to my account!!!!
 If they were truly having an issue it would be once in a while! They have the same supposed issues all the time. I had coins locked for 45 days a year ago!! Always wallets and exchange under maintenance!!! They need to be investigated!
+Coinbase is down again during a major price movement. Every single time Bitcoin pumps, Coinbase goes offline. This is beyond unacceptable for a publicly traded company. status.coinbase.com
+Coinbase Pro down for over two hours during the Bitcoin rally. Missed my sell target because I literally could not access the platform. This happens every time there is high volatility.
+@CoinbaseSupport website showing 503 errors again. The app is also unresponsive. How is this the largest US exchange and they still cannot handle traffic spikes?
+Coinbase experienced degraded performance across all platforms for approximately 4 hours today. We have resolved the issue and services are fully restored. We apologize for the inconvenience.
+@krakenfx API returning errors for the past 3 hours. My trading bots are completely non-functional. Multiple orders failed to execute during the crash. This is costing real money.
+Kraken status page shows major outage across trading, funding, and API systems. The exchange has been intermittently unavailable for the past 6 hours. No ETA for full restoration provided.
+Kraken has been experiencing intermittent issues with order execution and market data feeds. We are working to resolve these issues as quickly as possible. Thank you for your patience.
+@binance matching engine is lagging badly. Orders placed 10 minutes ago still showing as pending. During a crash this is absolutely devastating. People are getting liquidated because they cannot close positions.
+Binance Futures platform experiencing severe latency issues. Market orders taking 30+ seconds to fill. Limit orders not being placed at all. Meanwhile the spot price is moving 5% in minutes.
+Binance announces unscheduled system maintenance. All trading, deposits, and withdrawals temporarily suspended. No timeline given for restoration. This always happens at the worst possible time.
+@binance system maintenance is now entering its 5th hour. Still no update on when trading will resume. The market is moving significantly and millions of users are locked out.
+Binance is back online after 8 hours of unscheduled maintenance. The exchange says a database issue caused the extended downtime. Many users report missing orders and incorrect balances.
+The @GeminiDotCom exchange has been down for scheduled maintenance for over 12 hours now, well past the announced window. No updates from the team. Users are growing increasingly frustrated.
+Gemini exchange experiencing slow order matching and delayed market data. The engineering team is investigating. Trading is still active but performance is severely degraded.
+@OKX platform experiencing widespread connectivity issues. Users unable to log in, place orders, or access account information. The status page has been showing "investigating" for 3 hours.
+OKX futures trading engine went down during high volatility. Thousands of users unable to close positions or adjust leverage. Some report being liquidated during the outage because they could not add margin.
+@BybitOfficial app and website both completely unresponsive. API endpoints returning timeouts. This has been going on for over an hour now during a significant market move.
+Bybit exchange back online after 2-hour outage. CEO Ben Zhou apologizes and says the infrastructure team is working on scaling solutions to prevent future occurrences during high-traffic periods.
+@krakenfx web interface throwing 502 errors. Mobile app loads but cannot execute trades. API returning "service unavailable." All of this while BTC is dropping 10% in an hour.
+FTX US experiencing significant delays in order processing. Multiple users report phantom orders that show as filled but do not appear in account history. Support is overwhelmed with tickets.
+@bitfinex is showing stale prices. The order book has not updated in 20 minutes. Is anyone else seeing this or is it just my connection? Multiple people in the trading group reporting the same issue.
+Bitfinex confirms a DDoS attack causing intermittent service disruptions. The platform has been going in and out of accessibility for the past 4 hours. Security team is working to mitigate the attack.
+@HuobiGlobal has been in maintenance mode for 3 days now. No explanation, no timeline, nothing. Just a blank maintenance page. My funds are stuck on the platform and I cannot access anything.
+Huobi exchange experiencing severe API issues. Websocket connections dropping every few minutes. Historical data endpoints returning empty responses. Impossible to run any automated trading strategies.
+@Gate_io exchange down for the third time this week. At this point I am moving everything off the platform. An exchange that cannot maintain basic uptime is not trustworthy.
+Gate.io confirms server capacity issues are causing intermittent outages. The exchange is migrating to new infrastructure but warns users to expect occasional disruptions over the next 48 hours.
+BitMEX trading engine offline. All open positions frozen. The platform went down in the middle of a 15% BTC move and thousands of traders are stuck with positions they cannot manage.
+BitMEX acknowledges the outage was caused by a hardware failure in their matching engine. The exchange was offline for 45 minutes. All delayed liquidations have been cancelled.
+@cryptocom app has been loading endlessly for the past 2 hours. Cannot view portfolio, cannot trade, cannot withdraw. The card also stopped working. What is happening over there?
+Crypto.com exchange and app experiencing a widespread outage affecting millions of users. The team says a backend infrastructure issue is being resolved and expects services to be restored within hours.
+KuCoin website is completely inaccessible. Returns a Cloudflare error page. The mobile app connects but all trading functions are disabled. This started about 90 minutes ago with no announcement.
+@KuCoin status page shows all systems as operational but the platform clearly is not. Users cannot place orders, view balances, or access any functionality. Classic case of the status page lying.
+Robinhood restricts trading on crypto during massive market volatility. Users cannot buy or sell Bitcoin, Ethereum, or Dogecoin. This is the GameStop situation all over again but with crypto.
+@RobinhoodApp crypto trading is "temporarily unavailable" during the biggest pump of the year. Every single time there is action in the market, Robinhood decides that now is a good time for maintenance.
+Upbit, South Korea's largest exchange, experiencing intermittent outages during peak trading hours. Users report being unable to log in and place orders. The exchange has not acknowledged the issue publicly.
+Bitstamp is showing a completely frozen order book. Last trade timestamp is from 45 minutes ago. Something is seriously wrong and there has been no communication from the team.
+Bitstamp acknowledges a technical issue causing delayed order matching and stale market data. The engineering team has identified the root cause and a fix is being deployed. Normal operations expected within the hour.
+Deribit options exchange went offline during Bitcoin's flash crash. Options traders unable to exercise or close positions. This is particularly damaging as options have time-sensitive expiration deadlines.
+@bitfinex experiencing cascading failures across multiple systems. Margin trading, lending, and order book all intermittently unavailable. The platform has been degraded for over 5 hours with no resolution in sight.
