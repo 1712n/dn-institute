@@ -8,13 +8,14 @@ import glob
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
+from tools.market_health_reporter.rag_retriever import retrieve_context
 
 
 REPO_NAME = "1712n/dn-institute"
 SYSTEM_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/system_prompt.txt'
 HUMAN_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/prompt1.txt'
-ARTICLE_EXAMPLE_FILE = 'content/market-health/posts/2023-08-14-huobi/index.md'
-OUTPUT_DIR = 'content/market-health/posts/'
+ARTICLE_EXAMPLE_FILE = 'content/research/market-health/posts/2023-08-14-huobi/index.md'
+OUTPUT_DIR = 'content/research/market-health/posts/'
 DATA_DIR = 'tools/market_health_reporter/doc/data/'
 MAX_TOKENS = 125000
 
@@ -48,7 +49,7 @@ def extract_data_from_comment(comment: str) -> tuple:
     """
     parts = comment.split(',')
     marketvenueid = parts[1].strip().lower()
-    pairid = parts[0].split(':')[1].strip().lower()  
+    pairid = parts[0].split(':')[1].strip().lower()
     start, end = parts[2].strip(), parts[3].strip()
     return marketvenueid, pairid, start, end
 
@@ -57,13 +58,13 @@ def save_output(output: str, directory: str, marketvenueid: str, pairid: str, st
     """
     Saves the output to a markdown file in the specified directory, creating a subdirectory for it.
     """
-    output_subdir = os.path.join(directory, f"{start}-{end}-{marketvenueid}-{pairid}")  
-    os.makedirs(output_subdir, exist_ok=True)  
+    output_subdir = os.path.join(directory, f"{start}-{end}-{marketvenueid}-{pairid}")
+    os.makedirs(output_subdir, exist_ok=True)
     safe_start = start.replace(":", "-")
     safe_end = end.replace(":", "-")
     base_file_name = "index"
-    file_path = os.path.join(output_subdir, base_file_name)  
-    
+    file_path = os.path.join(output_subdir, base_file_name)
+
     existing_files = glob.glob(f"{file_path}*.md")
     if existing_files:
         numbers = [int(file_name.split('-')[-1].split('.md')[0]) for file_name in existing_files if file_name.split('-')[-1].split('.md')[0].isdigit()]
@@ -71,7 +72,7 @@ def save_output(output: str, directory: str, marketvenueid: str, pairid: str, st
         full_path = f"{file_path}-{file_number}.md"
     else:
         full_path = f"{file_path}.md"
-    
+
     with open(full_path, 'w', encoding='utf-8') as file:
         file.write(output)
     print(f"Output saved to: {full_path}")
@@ -126,11 +127,17 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
         issue.create_comment(comment)
 
 
-def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
+def create_prompt(article_example: str, data: dict, human_prompt_content: str, rag_context: str = "") -> str:
     """
-    Creates a prompt string using article example and data.
+    Creates a prompt string using article example, data, and optional RAG context.
     """
-    return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    prompt = f"<example> {article_example} </example>\n{human_prompt_content}\n"
+    if rag_context:
+        prompt += f"<context>\nThe following external context may help you write a more informed article. "
+        prompt += f"Use relevant facts, regulatory actions, and background information where applicable.\n\n"
+        prompt += f"{rag_context}\n</context>\n"
+    prompt += f"<data> {json.dumps(data)} </data>"
+    return prompt
 
 
 def main():
@@ -142,6 +149,15 @@ def main():
 
     marketvenueid, pairid, start, end = extract_data_from_comment(args.comment_body)
     print(f"Marketvenueid: {marketvenueid}, Pairid: {pairid}, Start: {start}, End: {end}")
+
+    # 🌰 RAG: Retrieve external context for the exchange
+    print(f"🌰 Retrieving RAG context for {marketvenueid}...")
+    rag_context = retrieve_context(marketvenueid, pairid)
+    if rag_context:
+        print(f"🌰 Retrieved {len(rag_context)} chars of RAG context")
+    else:
+        print("🌰 No additional RAG context found")
+
     querystring = {
         "marketvenueid": marketvenueid,
         "pairid": pairid,
@@ -157,10 +173,10 @@ def main():
     try:
         data = fetch_or_load_market_data(querystring, headers, url, DATA_DIR, marketvenueid, pairid, start, end)
 
-        encoding = encoding_for_model("gpt-4")     
+        encoding = encoding_for_model("gpt-4")
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
-        prompt = create_prompt(article_example, data, human_prompt_content)
+        prompt = create_prompt(article_example, data, human_prompt_content, rag_context)
         prompt_token_count = len(encoding.encode(prompt))
 
         if prompt_token_count > MAX_TOKENS:
@@ -183,8 +199,8 @@ def main():
             print("This is an answer: ", output)
             save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
             vis = Visualization()
-            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
-            vis.generate_report(data, output_subdir)  
+            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}")
+            vis.generate_report(data, output_subdir)
 
             post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
 
