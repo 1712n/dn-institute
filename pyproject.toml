@@ -8,6 +8,7 @@ packages = [
     { include = "tools/payout_calc" },
     { include = "tools/article_checker" },
     { include = "tools/market_health_reporter" },
+    { include = "tools/chart_generator" },
     { include = "tools/python_modules" }
 ]
 

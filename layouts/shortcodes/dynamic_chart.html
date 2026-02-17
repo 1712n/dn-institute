@@ -1,0 +1,27 @@
+{{- if not (.Page.Scratch.Get "chartjs") -}}
+{{ $chartLib := resources.Get "/js/chart.js" }}
+<script src="{{ $chartLib.Permalink }}"></script>
+{{- .Page.Scratch.Set "chartjs" true -}}
+{{- end -}}
+
+{{ $id := .Get "id" | default (printf "chart-%s" (md5 .Inner)) }}
+{{ $width := .Get "width" | default "100%" }}
+{{ $height := .Get "height" | default "400px" }}
+{{ $caption := .Get "caption" | default "" }}
+
+<div class="dynamic-chart-container" style="max-width: 900px; margin: 1.5em auto; padding: 0.5em;">
+  <div style="position: relative; width: {{ $width }}; height: {{ $height }};">
+    <canvas id="{{ $id }}"></canvas>
+  </div>
+  {{ with $caption }}
+  <p style="text-align: center; font-style: italic; color: #666; margin-top: 0.5em; font-size: 0.9em;">{{ . }}</p>
+  {{ end }}
+</div>
+
+<script>
+(function() {
+  const ctx = document.getElementById('{{ $id }}').getContext('2d');
+  const chartConfig = {{ .Inner | safeJS }};
+  new Chart(ctx, chartConfig);
+})();
+</script>

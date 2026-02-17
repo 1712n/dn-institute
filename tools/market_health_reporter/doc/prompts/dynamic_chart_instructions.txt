@@ -1,0 +1,11 @@
+IMPORTANT: Instead of using static image placeholders with `{{< figure >}}` shortcodes, you should use the `{{< dynamic_chart >}}` shortcode for interactive charts. The dynamic charts will be automatically generated and inserted into the report. You can still reference chart locations in your text using placeholder comments like:
+
+<!-- chart: volume-distribution -->
+<!-- chart: crypto-metrics -->
+<!-- chart: benford-law -->
+<!-- chart: vv-correlation -->
+<!-- chart: buy-sell-ratio -->
+<!-- chart: first-digit-distribution -->
+<!-- chart: time-of-trade -->
+
+These placeholders will be replaced with interactive Chart.js charts during post-processing. Do NOT include `{{< figure src="volume_hist.png" >}}` or similar static image shortcodes. The dynamic charts provide interactive tooltips, zoom capabilities, and responsive sizing that work across all devices.

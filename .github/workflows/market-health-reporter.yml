@@ -29,7 +29,8 @@ jobs:
             --comment-body "${{ github.event.comment.body }}" \
             --github-token "${{ secrets.GITHUB_TOKEN }}" \
             --llm-api-key "${{ secrets.OPENAI_KEY }}" \
-            --rapid-api "${{ secrets.RAPID_API_KEY }}" 
+            --rapid-api "${{ secrets.RAPID_API_KEY }}" \
+            --use-dynamic-charts
 
       - name: Configure Git
         run: |
