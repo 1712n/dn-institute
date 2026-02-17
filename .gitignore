@@ -10,5 +10,8 @@
 # Python
 **/__pycache__/
 
+# RAG embedding cache
+tools/market_health_reporter/doc/data/rag_cache/
+
 # Node
 node_modules
