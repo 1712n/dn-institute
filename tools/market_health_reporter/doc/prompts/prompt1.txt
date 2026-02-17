@@ -2,19 +2,28 @@ Analyze the provided cryptocurrency market data to detect potential wash trading
 
 ## Step 1: Individual Metric Analysis
 
-Evaluate each metric against its benchmark. For each metric, state: (a) the observed value(s), (b) whether it deviates from the benchmark, and (c) the severity of deviation (Normal / Mild / Significant / Severe).
+Evaluate each metric against its benchmark. For each metric, state: (a) the observed value(s), (b) whether it deviates from the benchmark, (c) the severity of deviation (Normal / Mild / Significant / Severe), and (d) the trend direction if multiple time windows are available.
 
 ### Metrics Reference
 
 **1. Volume-Volatility Correlation** (`vvcorrelation`)
-- What it measures: Relationship between trading volume and price volatility over time.
+- What it measures: Relationship between trading volume and price volatility over time. In organic markets, higher volume accompanies higher volatility because real trades move prices.
 - Anomalous pattern: Consistently low correlation (below 0.4) over extended periods suggests artificial volume that does not move prices.
-- Benchmark: Correlation coefficient above 0.4 is typical for organic markets. Below 0.4 is suspicious; below 0.2 is highly suspicious.
+- Severity scale:
+  - Normal: ≥ 0.4
+  - Mild: 0.3–0.4
+  - Significant: 0.2–0.3
+  - Severe: < 0.2
+- Trend analysis: A sudden drop from a previously normal range is more concerning than a persistently low value, which may reflect the pair's inherent liquidity characteristics.
 
 **2. First-Digit Distribution** (`firstdigitdist`)
 - What it measures: Whether leading digits of trading data conform to Benford's Law.
-- Anomalous pattern: Disproportionate frequency of higher leading digits (7, 8, 9) instead of lower digits (1, 2, 3).
-- Benchmark: Organic trading data converges with Benford's Law distribution (digit 1 ≈ 30.1%, digit 2 ≈ 17.6%, etc.).
+- Expected frequencies per Benford's Law:
+  | Digit | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+  |-------|------|------|------|------|------|------|------|------|------|
+  | Freq  | 30.1% | 17.6% | 12.5% | 9.7% | 7.9% | 6.7% | 5.8% | 5.1% | 4.6% |
+- Anomalous pattern: Disproportionate frequency of higher leading digits (7, 8, 9) instead of lower digits (1, 2, 3). Deviations exceeding 5 percentage points for multiple digits simultaneously warrant concern.
+- Benchmark: Organic trading data converges with the distribution above.
 
 **3. Kolmogorov-Smirnov Test** (`benfordlawtest`)
 - What it measures: Statistical comparison of the sample's first-digit distribution against Benford's Law.
@@ -22,19 +31,28 @@ Evaluate each metric against its benchmark. For each metric, state: (a) the obse
   - Critical value = 1.36 / sqrt(`tradecount`)
   - If test value > critical value → reject null hypothesis → data does NOT conform to Benford's Law (suspicious)
   - If test value ≤ critical value → do not reject → insufficient evidence of deviation
-- Important: The K-S test is sensitive to sample size. Always compute and report the critical value.
+- P-value interpretation:
+  - p > 0.01: Good fit — data conforms to Benford's Law
+  - 0.005 < p ≤ 0.01: Moderate concern
+  - p ≤ 0.005: High concern — potential manipulation
+- Important: A single time window exceeding the critical value may be random noise. Flag Benford's Law violations only when the K-S test exceeds the critical value across **multiple consecutive time windows**.
 
 **4. Volume Distribution** (`volumedist`)
-- What it measures: Frequency distribution of transaction sizes.
+- What it measures: Frequency distribution of transaction sizes (histogram with 100 bins).
 - Anomalous pattern: Deviation from power law — e.g., unusually high concentration of large trades, or absence of small/medium trades.
 - Benchmark: Organic markets follow a power law: many small retail trades, few large "whale" trades. The histogram should show a steep initial drop-off with a long tail.
+- Skewness analysis: In healthy markets, volume distribution skewness should be > 1 (right-skewed). Skewness near zero or negative indicates unnaturally uniform trade sizes, suggesting order-printing bots. When skewness drops below zero across multiple trading pairs on the same exchange simultaneously, this is a strong indicator of exchange-wide wash trading programs.
 
 **5. Time-of-Trade** (`timeoftrade`)
-- What it measures: Distribution of trades across seconds/minutes within each time period.
+- What it measures: Distribution of trades across seconds/minutes within each time period (array of 60 values).
 - Anomalous pattern (two-sided):
   - High concentration of trades at specific seconds/minutes (bot-like precision)
   - OR nearly uniform distribution across all seconds/minutes (algorithmic spreading)
-- Benchmark: Human trading shows natural clustering with irregular patterns, not mechanical precision or perfect uniformity.
+- Quantitative benchmark using coefficient of variation (CV = standard deviation / mean):
+  - CV > 0.3: Normal human trading variability
+  - CV 0.1–0.3: Suspiciously regular — possible algorithmic smoothing
+  - CV < 0.1: Highly uniform — strong indicator of automated distribution
+  - CV > 1.0 with periodic spikes: Scheduled bot execution at fixed intervals
 
 **6. Buy/Sell Ratio** (`buysellratio`, `buysellratioabs`)
 - What it measures: Proportion of buy vs. sell market orders over time.
@@ -50,18 +68,19 @@ Evaluate each metric against its benchmark. For each metric, state: (a) the obse
 
 After evaluating individual metrics, look for these correlated anomaly patterns that strengthen evidence of manipulation:
 
-- **Volume Distribution + Volume-Volatility Correlation**: Non-power-law volume distribution combined with low VV correlation suggests large artificial trades that fail to move prices.
-- **First-Digit Distribution + K-S Test**: Benford's Law deviation confirmed by K-S test rejection strongly indicates data manipulation (e.g., wash trading generating synthetic volumes).
+- **Volume Distribution + Volume-Volatility Correlation**: Non-power-law volume distribution (low skewness) combined with low VV correlation suggests large artificial trades that fail to move prices. This is the strongest two-metric signal for wash trading.
+- **First-Digit Distribution + K-S Test**: Benford's Law deviation confirmed by K-S test rejection across multiple consecutive windows strongly indicates data manipulation (e.g., wash trading generating synthetic volumes).
 - **VWAP + Buy/Sell Ratio**: VWAP-price divergence combined with abnormal buy/sell ratios suggests deliberate price manipulation through strategic order placement.
-- **Time-of-Trade + Buy/Sell Ratio**: Mechanical trade timing combined with abnormal buy/sell ratios indicates automated trading systems attempting to influence prices or create false sentiment.
+- **Time-of-Trade + Buy/Sell Ratio**: Mechanical trade timing (low CV) combined with abnormal buy/sell ratios indicates automated trading systems attempting to influence prices or create false sentiment.
+- **Volume Distribution + Time-of-Trade**: Uniform trade sizes (low skewness) combined with uniform timing (low CV) is a hallmark of unsophisticated wash trading bots.
 
 ## Step 3: Severity Assessment
 
 Based on your analysis, classify the overall finding:
 - **No evidence of manipulation**: Metrics are within normal ranges; minor deviations are explainable by market conditions.
-- **Mild concern**: 1–2 metrics show mild deviations; insufficient for a strong conclusion but worth monitoring.
-- **Moderate evidence**: Multiple metrics show correlated anomalies; pattern is consistent with manipulation.
-- **Strong evidence**: Severe deviations across multiple correlated metrics with clear quantitative support.
+- **Mild concern**: 1–2 metrics show mild deviations in isolation; insufficient for a strong conclusion but worth monitoring.
+- **Moderate evidence**: Two metrics show correlated anomalies in overlapping time windows; pattern is consistent with manipulation but not conclusive.
+- **Strong evidence**: Three or more metrics deviate simultaneously in the same time window, or two metrics show a documented correlated pattern with severe deviations and clear quantitative support.
 
 ## Step 4: Article Output
 
@@ -78,18 +97,11 @@ Create an article with the results of your analysis. The article must include:
    - Observed values and how they compare to benchmarks
    - Time periods where anomalies are most pronounced
    - Figure placeholders where appropriate
-3. **Cross-Metric Patterns**: Explain how anomalies across metrics reinforce each other.
-4. **Conclusion**: Overall assessment with severity classification.
+3. **Cross-Metric Correlations**: Describe how anomalies across different metrics reinforce each other.
+4. **Conclusion**: Overall severity assessment with actionable takeaway.
 
 ### Figure Placeholders:
-Use this format: `{{< figure src="IMAGE_NAME" alt="DESCRIPTION" caption="CAPTION" loading="lazy" >}}`
+Use Hugo shortcode format: `{{< figure src="volume_hist.png" alt="description" caption="caption" loading="lazy" >}}`
+Allowed illustration names: `volume_hist.png`, `crypto_metrics.png`
 
-Allowed image names:
-- `volume_hist.png`
-- `crypto_metrics.png`
-- `benford_law.png`
-- `vv_correlation.png`
-
-Place the article inside `<article>` `</article>` tags.
-
-Also, follow the example in the <example> </example> tags. Only include information from the data provided — do not fabricate data points or metrics.
+Also, follow the example in the <example> </example> tags. Put into the article only the information from the data provided.
