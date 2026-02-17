@@ -1,0 +1,18 @@
+{
+  "name": "dn-institute-qa-bot",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker QA bot for dn-institute article checks",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241230.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0",
+    "wrangler": "^3.99.0"
+  }
+}

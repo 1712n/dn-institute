@@ -1,0 +1,6 @@
+name = "dn-institute-qa-bot"
+main = "src/index.ts"
+compatibility_date = "2024-12-30"
+
+[observability]
+enabled = true
