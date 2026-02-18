@@ -1,10 +1,22 @@
-There are various indicators that are utilized to spot potential manipulative activities. These indicators, often rooted in statistical and economic theories, can be used individually or in combination to detect anomalies suggestive of market manipulation. Their importance lies in providing objective and quantifiable measures to assess market activities, which, when deviating from established norms, signal the need for closer scrutiny. 
-Here is some basic procedure of the market surveillance analysis:
+There are various indicators that are utilized to spot potential manipulative activities. These indicators, often rooted in statistical and economic theories, can be used individually or in combination to detect anomalies suggestive of market manipulation. Their importance lies in providing objective and quantifiable measures to assess market activities, which, when deviating from established norms, signal the need for closer scrutiny.
 
-1. Start with key metrics such as volume distribution, first-digit distribution, correlation between volume and volatility, buy-sell ratio and time-of-trade. It is crucial to observe these metrics over time. 
-2. Identify anomalies using specific criteria, such as sudden spikes or significantly unusual trading volumes. The anomalous patterns and benchmarkes are provided below. Analyze metrics over time to identify trends and patterns. 
-3. Construct a coherent and convincing report, beginning with the metric that shows significant deviation and has a noticeable impact on other metrics. Ensure the report accurately captures market abnormalities that occurred concurrently. Include specific timestamps and quantitative values as evidence.
-4. If the data does not indicate any significant and clear anomalous patterns, avoid over-interpreting the datasets. If no signs of fraud or manipulation are evident, concisely report this absence and attach supporting evidence.
+Use this workflow for market surveillance analysis:
+1. Start with key metrics such as volume distribution, first-digit distribution, correlation between volume and volatility, buy-sell ratio, time-of-trade, and VWAP. Observe each metric over time.
+2. Identify anomalies using specific criteria (spikes, regime shifts, persistent deviations from benchmarks). The anomalous patterns and benchmarks are provided below.
+3. Begin the report with the single most significant anomaly, then build the case systematically by adding corroborating metrics in descending order of evidentiary strength.
+4. For every major claim, cite exact numeric evidence: metric key name, timestamp/time window, observed value, and benchmark/threshold comparison.
+5. If no clear anomalous pattern exists, state that explicitly and avoid over-interpretation; support the "no strong evidence" conclusion with concrete numbers.
+
+Required article structure (match the Huobi-style format):
+1. `---` YAML front matter with `date`, `entities`, and `title`.
+2. Intro section: `## Summary` with concise ranked findings (finding #1 must be the dominant anomaly).
+3. Findings section: `## Metrics used` with `###` subsections for each metric finding (claim -> quantitative evidence -> interpretation).
+4. Conclusion section: `## Conclusion` with a short synthesis of cross-metric evidence and confidence level.
+
+Writing constraints:
+- Use precise, evidentiary language; do not use vague terms like "high" or "abnormal" without numbers.
+- Include exact timestamps and metric values wherever available.
+- Use 🌰 naturally and sparingly (1-3 times max) to highlight pivotal findings or transitions.
 
 - Volume-Volatility Correlation.
     Description: It is a statistical measure that identifies the relationship between trading volume and market volatility in cryptocurrency exchanges. It is crucial to observe this over time.
@@ -72,7 +84,12 @@ Create an article with the results of your analysis. The article should include:
     - 'title'
         The content of this field should include the title of the article. Example: 'Uncovering Wash Trading and Market Manipulation on Huobi'
 
-Also, follow the example in the <example> </example> tags. Please, put into the article only the information from the data provided. 
+Analytical requirements:
+- Start with the strongest anomaly first and keep the argument progression systematic.
+- In each metric subsection, include exact metric values, timestamps/time ranges, and benchmark comparisons.
+- If metrics conflict, explain the conflict explicitly instead of forcing a single narrative.
+
+Also, follow the example in the <example> </example> tags. Please, put into the article only the information from the data provided.
 You can create placeholders for illustrations in the article, as in this example: `{{< figure src="volume_hist.png" alt="ht-usdt volume dist" caption="Volume distribution" loading="lazy" >}}`.
 Allowed names for illustrations:
 - volume_hist.png

@@ -8,12 +8,16 @@ import glob
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
+from tools.market_health_reporter import rag_context
 
 
 REPO_NAME = "1712n/dn-institute"
 SYSTEM_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/system_prompt.txt'
 HUMAN_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/prompt1.txt'
-ARTICLE_EXAMPLE_FILE = 'content/market-health/posts/2023-08-14-huobi/index.md'
+ARTICLE_EXAMPLE_FILES = [
+    'content/market-health/posts/2023-08-14-huobi/index.md',
+    'content/research/market-health/posts/2023-08-14-huobi/index.md',
+]
 OUTPUT_DIR = 'content/market-health/posts/'
 DATA_DIR = 'tools/market_health_reporter/doc/data/'
 MAX_TOKENS = 125000
@@ -39,7 +43,23 @@ def parse_cli_args():
     parser.add_argument(
         "--rapid-api", dest="rapid_api", help="Rapid API key", required=True
     )
+    parser.add_argument(
+        "--use-rag",
+        dest="use_rag",
+        action="store_true",
+        help="Use TF-IDF retrieval context from historical market-health articles",
+    )
     return parser.parse_args()
+
+
+def resolve_first_existing_path(paths: list) -> str:
+    """
+    Resolve the first path that exists on disk.
+    """
+    for path in paths:
+        if os.path.exists(path):
+            return path
+    return paths[0]
 
 
 def extract_data_from_comment(comment: str) -> tuple:
@@ -126,11 +146,14 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
         issue.create_comment(comment)
 
 
-def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
+def create_prompt(article_example: str, data: dict, human_prompt_content: str, retrieved_context: str = "") -> str:
     """
     Creates a prompt string using article example and data.
     """
-    return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    context_block = ""
+    if retrieved_context:
+        context_block = f"\n<retrieved_context>\n{retrieved_context}\n</retrieved_context>\n"
+    return f"<example> {article_example} </example>\n{human_prompt_content}{context_block}\n<data> {json.dumps(data)} </data>"
 
 
 def main():
@@ -138,7 +161,7 @@ def main():
 
     system_prompt = read_file(SYSTEM_PROMPT_FILE)
     human_prompt_content = read_file(HUMAN_PROMPT_FILE)
-    article_example = read_file(ARTICLE_EXAMPLE_FILE)
+    article_example = read_file(resolve_first_existing_path(ARTICLE_EXAMPLE_FILES))
 
     marketvenueid, pairid, start, end = extract_data_from_comment(args.comment_body)
     print(f"Marketvenueid: {marketvenueid}, Pairid: {pairid}, Start: {start}, End: {end}")
@@ -160,7 +183,15 @@ def main():
         encoding = encoding_for_model("gpt-4")     
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
-        prompt = create_prompt(article_example, data, human_prompt_content)
+        retrieved_context = ""
+        if args.use_rag:
+            retrieved_context = rag_context.get_context(marketvenueid)
+            if retrieved_context:
+                print("RAG context retrieved successfully.")
+            else:
+                print("RAG context requested, but no context was retrieved.")
+
+        prompt = create_prompt(article_example, data, human_prompt_content, retrieved_context)
         prompt_token_count = len(encoding.encode(prompt))
 
         if prompt_token_count > MAX_TOKENS:
