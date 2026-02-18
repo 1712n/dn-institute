@@ -1,0 +1,113 @@
+{{- $chartType := default "line" (.Get "type") -}}
+{{- $chartTitle := default "" (.Get "title") -}}
+{{- $chartCaption := default "" (.Get "caption") -}}
+{{- $chartData := default "{}" (.Get "data") | htmlUnescape -}}
+{{- $chartID := printf "market-chart-%d" .Ordinal -}}
+
+<div class="market-chart-wrapper" style="margin: 1.5rem 0;">
+  <!-- 🌰 Dynamic market chart container -->
+  <div style="position: relative; width: 100%; min-height: 320px; height: 420px;">
+    <canvas id="{{ $chartID }}" aria-label="{{ $chartTitle }}" role="img"></canvas>
+  </div>
+  {{- if $chartCaption }}
+  <p style="font-size: 0.95rem; margin-top: 0.5rem;">{{ $chartCaption }}</p>
+  {{- end }}
+</div>
+
+<!-- 🌰 Shortcode script bootstraps Chart.js lazily -->
+<script>
+  (function () {
+    const chartId = {{ $chartID | jsonify }};
+    const chartType = {{ $chartType | jsonify }};
+    const chartTitle = {{ $chartTitle | jsonify }};
+    const rawData = {{ $chartData | jsonify }};
+
+    // 🌰 Parse inline JSON emitted by market_health_reporter.py.
+    let chartData;
+    try {
+      chartData = JSON.parse(rawData);
+    } catch (error) {
+      console.error("market-chart shortcode: invalid chart data JSON", error);
+      return;
+    }
+
+    const renderChart = () => {
+      const canvas = document.getElementById(chartId);
+      if (!canvas || !window.Chart) {
+        return;
+      }
+
+      const context = canvas.getContext("2d");
+      if (!context) {
+        return;
+      }
+
+      if (canvas.__marketChartInstance) {
+        canvas.__marketChartInstance.destroy();
+      }
+
+      canvas.__marketChartInstance = new window.Chart(context, {
+        type: chartType,
+        data: chartData,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: "index",
+            intersect: false
+          },
+          plugins: {
+            legend: {
+              display: true
+            },
+            title: {
+              display: chartTitle.length > 0,
+              text: chartTitle
+            }
+          },
+          scales: {
+            x: {
+              ticks: {
+                maxRotation: 0,
+                autoSkip: true,
+                maxTicksLimit: 12
+              }
+            }
+          }
+        }
+      });
+    };
+
+    const loadChartJs = () => {
+      if (window.Chart) {
+        return Promise.resolve(window.Chart);
+      }
+      if (window.__marketChartLoaderPromise) {
+        return window.__marketChartLoaderPromise;
+      }
+
+      // 🌰 Load Chart.js once for all market-chart instances.
+      const script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js";
+      script.defer = true;
+      window.__marketChartLoaderPromise = new Promise((resolve, reject) => {
+        script.onload = () => resolve(window.Chart);
+        script.onerror = () => reject(new Error("market-chart shortcode: failed to load Chart.js"));
+      });
+      document.head.appendChild(script);
+      return window.__marketChartLoaderPromise;
+    };
+
+    const init = () => {
+      loadChartJs()
+        .then(() => renderChart())
+        .catch((error) => console.error(error));
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init, { once: true });
+    } else {
+      init();
+    }
+  })();
+</script>
