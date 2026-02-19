@@ -26,7 +26,10 @@ export default defineWorkersConfig({
               script: `export default function() {
                 return {
                   run: async (model, data) => {
-                    return Promise.resolve({ data: {} });
+                    const vectors = data.text.map(() =>
+                      Array.from({ length: 768 }, (_, j) => j * 0.001)
+                    );
+                    return Promise.resolve({ data: vectors });
                   }
                 };
               };`
@@ -36,7 +39,10 @@ export default defineWorkersConfig({
               modules: true,
               script: `export default function() {
                 return {
-                  query: async (vectorData, options) => {
+                  query: async (vector, options) => {
+                    if (options && options.namespace === "empty-ns") {
+                      return Promise.resolve({ matches: [] });
+                    }
                     const score = 0.5678;
                     return Promise.resolve({ matches: [{ score }] });
                   }
