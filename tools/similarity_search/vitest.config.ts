@@ -26,7 +26,11 @@ export default defineWorkersConfig({
               script: `export default function() {
                 return {
                   run: async (model, data) => {
-                    return Promise.resolve({ data: {} });
+                    // Return a unique vector per text for batch support
+                    const vectors = data.text.map((t, i) =>
+                      Array.from({ length: 768 }, (_, j) => (i + 1) * 0.001 + j * 0.0001)
+                    );
+                    return Promise.resolve({ data: vectors });
                   }
                 };
               };`
