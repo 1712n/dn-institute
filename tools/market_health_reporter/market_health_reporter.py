@@ -5,9 +5,11 @@ import json
 import os
 import requests
 import glob
+import re
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
+from tools.python_modules.chart_renderer import ChartRenderer
 
 
 REPO_NAME = "1712n/dn-institute"
@@ -182,9 +184,25 @@ def main():
 
             print("This is an answer: ", output)
             save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
-            vis = Visualization()
-            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
-            vis.generate_report(data, output_subdir)  
+            # 🌰 Generate dynamic Chart.js JSON files instead of static PNGs
+            renderer = ChartRenderer()
+            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}")
+            renderer.generate_report(data, output_subdir)
+
+            # 🌰 Replace static figure shortcodes with dynamic_chart shortcodes
+            png_to_json = {
+                "volume_hist.png": ("volume_hist.json", "Volume Distribution", "Transaction volume distribution"),
+                "crypto_metrics.png": ("crypto_metrics.json", "Crypto Metrics", "Cryptocurrency metrics over time"),
+                "benford_law.png": ("benford_law.json", "Benford Law", "Benford law test score over time"),
+                "vv_correlation.png": ("vv_correlation.json", "VV Correlation", "Volume-volatility correlation over time"),
+            }
+            for png_name, (json_name, alt, caption) in png_to_json.items():
+                old_shortcode = f'{{{{< figure src="{png_name}"'
+                if old_shortcode in output:
+                    # Replace the entire figure shortcode line
+                    pattern = r'\{\{<\s*figure\s+src="' + re.escape(png_name) + r'"[^>]*>\}\}'
+                    replacement = f'{{{{< dynamic_chart src="{json_name}" alt="{alt}" caption="{caption}" >}}}}'
+                    output = re.sub(pattern, replacement, output)
 
             post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
 

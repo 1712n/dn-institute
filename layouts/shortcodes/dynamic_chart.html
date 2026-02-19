@@ -1,0 +1,109 @@
+{{/*
+  🌰 dynamic_chart shortcode — renders interactive Chart.js charts from JSON data files.
+  Usage: {{</* dynamic_chart src="volume_hist.json" alt="Volume Distribution" caption="Transaction volume distribution" */>}}
+  
+  Requires: assets/js/chart.js (already bundled in the project)
+  Supports: line, bar, scatter, dual-axis charts
+  Features: responsive, dark mode, noscript fallback, tooltips
+*/}}
+
+{{ $src := .Get "src" }}
+{{ $alt := .Get "alt" | default "Chart" }}
+{{ $caption := .Get "caption" | default "" }}
+{{ $id := printf "chart-%s" (md5 $src) }}
+
+<figure class="dynamic-chart-figure">
+  <div class="dynamic-chart-container" style="position:relative;width:100%;max-width:900px;margin:0 auto;">
+    <canvas id="{{ $id }}" aria-label="{{ $alt }}" role="img"></canvas>
+    <noscript>
+      <p style="text-align:center;color:#888;">🌰 Interactive chart requires JavaScript. Data source: {{ $src }}</p>
+    </noscript>
+  </div>
+  {{ if $caption }}
+  <figcaption style="text-align:center;margin-top:0.5em;font-size:0.9em;color:#666;">{{ $caption }}</figcaption>
+  {{ end }}
+</figure>
+
+{{ $dataPath := printf "/%s" $src }}
+
+<script>
+(function() {
+  // 🌰 Ensure Chart.js is loaded exactly once
+  function ensureChartJS(cb) {
+    if (window.Chart) { cb(); return; }
+    {{ $chartJS := resources.Get "js/chart.js" }}
+    {{ if $chartJS }}
+    var s = document.createElement('script');
+    s.src = '{{ $chartJS.RelPermalink }}';
+    s.onload = cb;
+    s.onerror = function() {
+      document.getElementById('{{ $id }}').parentNode.innerHTML =
+        '<p style="color:red;">Failed to load Chart.js</p>';
+    };
+    document.head.appendChild(s);
+    {{ end }}
+  }
+
+  function isDarkMode() {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
+  function getColors() {
+    var dark = isDarkMode();
+    return {
+      text: dark ? '#e0e0e0' : '#333',
+      grid: dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
+      bg: dark ? '#1e1e1e' : '#ffffff'
+    };
+  }
+
+  function applyTheme(config) {
+    var c = getColors();
+    if (!config.options) config.options = {};
+    if (!config.options.plugins) config.options.plugins = {};
+    if (!config.options.plugins.legend) config.options.plugins.legend = {};
+    if (!config.options.plugins.legend.labels) config.options.plugins.legend.labels = {};
+    config.options.plugins.legend.labels.color = c.text;
+
+    if (!config.options.plugins.title) config.options.plugins.title = {};
+    config.options.plugins.title.color = c.text;
+
+    // Apply to scales
+    if (config.options.scales) {
+      Object.keys(config.options.scales).forEach(function(key) {
+        var scale = config.options.scales[key];
+        if (!scale.ticks) scale.ticks = {};
+        scale.ticks.color = c.text;
+        if (!scale.title) scale.title = {};
+        scale.title.color = c.text;
+        if (!scale.grid) scale.grid = {};
+        scale.grid.color = c.grid;
+      });
+    }
+    return config;
+  }
+
+  function renderChart(config) {
+    config = applyTheme(config);
+    if (!config.options) config.options = {};
+    config.options.responsive = true;
+    config.options.maintainAspectRatio = true;
+
+    var canvas = document.getElementById('{{ $id }}');
+    if (!canvas) return;
+    new Chart(canvas.getContext('2d'), config);
+  }
+
+  ensureChartJS(function() {
+    fetch('{{ $dataPath }}')
+      .then(function(r) { return r.json(); })
+      .then(renderChart)
+      .catch(function(err) {
+        console.error('🌰 Chart load error:', err);
+        var el = document.getElementById('{{ $id }}');
+        if (el) el.parentNode.innerHTML =
+          '<p style="color:#888;text-align:center;">Chart data unavailable</p>';
+      });
+  });
+})();
+</script>
