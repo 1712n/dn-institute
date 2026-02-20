@@ -7,7 +7,6 @@ import requests
 import glob
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
-from tools.python_modules.report_graphics_tool import Visualization
 
 
 REPO_NAME = "1712n/dn-institute"
@@ -17,6 +16,14 @@ ARTICLE_EXAMPLE_FILE = 'content/market-health/posts/2023-08-14-huobi/index.md'
 OUTPUT_DIR = 'content/market-health/posts/'
 DATA_DIR = 'tools/market_health_reporter/doc/data/'
 MAX_TOKENS = 125000
+
+
+def generate_dynamic_chart_shortcode(chart_type: str, data: dict) -> str:
+    """
+    Generate a Hugo dynamic-chart shortcode string.
+    """
+    data_json = json.dumps(data, separators=(',', ':'))
+    return f"{{{{< dynamic-chart type='{chart_type}' data='{data_json}' >}}}}"
 
 
 def parse_cli_args():
