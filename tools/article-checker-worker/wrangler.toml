@@ -1,0 +1,15 @@
+name = "article-checker-bot"
+main = "src/index.ts"
+compatibility_date = "2024-02-21"
+
+[vars]
+# Configuration variables
+GITHUB_APP_ID = "app-id-placeholder" 
+# Secrets will be set via `wrangler secret put` or dashboard
+# GITHUB_TOKEN
+# ANTHROPIC_API_KEY
+# BRAVE_SEARCH_API_KEY
+# WIKI_REVIEWERS_JSON (list of allowed users)
+
+[triggers]
+crons = [] # No crons needed for webhook bot

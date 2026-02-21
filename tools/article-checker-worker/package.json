@@ -1,0 +1,19 @@
+{
+  "name": "article-checker-worker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
+    "@octokit/core": "^7.0.6",
+    "hono": "^4.12.1",
+    "wrangler": "^4.67.0"
+  }
+}
