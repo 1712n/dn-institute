@@ -42,3 +42,8 @@ weight = 4
 name = "Synthetic Data"
 url = "/research/ai/synthetic-data"
 weight = 5
+
+[[menu.main]]
+name = "AI Products"
+url = "/research/ai/synthetic-data"
+weight = 6

@@ -1,6 +1,10 @@
 ---
 title: Synthetic Data
 mermaid: true
+menu:
+  main:
+    parent: ai
+    name: Synthetic Data
 ---
 
 This page describes a pipeline for relevant token extraction from Large Language Models (LLMs) through the generation of synthetic data. The resulting synthetic dataset can be used for reducing computational costs in classification use cases. In addition to the overview diagram below, we provide links to all relevant scientific resources and tools we've built. For consistency across our examples, we focus on cyberattacks within the blockchain industry; however, this approach can be adapted to various use cases with minimal modifications to the prompts. All materials are released under the Unlicense public domain waiver.
@@ -179,3 +183,90 @@ By combining the extraction prompt and randomized batches of data samples, we co
 ## Synthetic Data Deduplication
 
 Using the same instruments and approach described in the Data Samples Deduplication section, we obtain a deduplicated and diverse synthetic dataset. After generating synthetic data batches, we pass the messages through the Deduplication Tool to eliminate duplicates and near-duplicates, thus maintaining the quality and diversity of the synthetic data. Vector similarity scores are continuously monitored during the deduplication phase, enabling real-time tracking of token diversity. This process allows us to dynamically assess whether additional synthetic samples are required or if the current dataset has achieved the desired level of diversity.
+
+---
+title: AI Research
+---
+
+Explore our research on artificial intelligence, including methodologies, tools, and frameworks developed for practical applications.
+
+## Topics
+
+- [Synthetic Data](synthetic-data): Pipeline for relevant token extraction from LLMs through synthetic data generation, with resources and tooling for classification use cases.
+
+---
+title: AI Product
+---
+
+This page covers research and resources related to building AI-powered products.
+
+[[menu.main]]
+  name = "AI"
+  url = "/research/ai/"
+  weight = 20
+
+---
+title: AI Research
+---
+
+Research into artificial intelligence methods, tooling, and applied frameworks.
+
+## Topics
+
+- **[Synthetic Data](synthetic-data/)**: Domain-driven token extraction from LLMs for low-cost classification pipelines (ELTEX framework).
+
+---
+title: AI Product
+---
+
+This page provides an overview of key considerations and frameworks for building AI-powered products. Topics include product design, evaluation, deployment, and iteration strategies for teams integrating large language models and other AI components into production systems.
+
+## Resources
+
+- **[AI Product Index](https://github.com/mattnigh/ChatGPT4-Free-Prompt-List)**: curated list of AI product frameworks and prompt engineering references
+- **[LLM Evaluation Frameworks](https://github.com/openai/evals)**: tools and benchmarks for evaluating language model behavior in product contexts
+
+## Key Considerations
+
+### Problem Fit
+
+Not every problem benefits from an AI approach. Before building, evaluate whether the use case requires:
+
+- Generalization across unpredictable inputs
+- Tolerance for probabilistic outputs
+- A feedback loop to improve model behavior over time
+
+### Evaluation
+
+Establish evaluation criteria before writing a single line of product code. Define:
+
+- **Golden datasets**: hand-labeled examples covering edge cases
+- **Regression suites**: ensure new model versions do not degrade existing behavior
+- **User feedback signals**: thumbs up/down, corrections, or implicit engagement metrics
+
+### Prompt Engineering
+
+Prompts are part of the product surface. Version-control them alongside code. Key practices:
+
+- Separate system instructions from user-facing content
+- Use structured output formats (JSON, XML) to reduce parsing failures
+- Test prompts against adversarial inputs before shipping
+
+### Deployment
+
+- Gate rollouts behind feature flags to limit blast radius
+- Log inputs and outputs for post-hoc analysis, subject to privacy constraints
+- Monitor latency, token cost, and error rates as first-class product metrics
+
+### Iteration
+
+AI products degrade silently when the real-world data distribution shifts. Build mechanisms to:
+
+- Detect distribution shift via embedding drift or output anomaly detection
+- Trigger retraining or prompt revision cycles on a regular cadence
+- Close the loop between user corrections and future model or prompt updates
+
+[[menu.main]]
+  name = "AI"
+  url = "/research/ai/"
+  weight = 10
