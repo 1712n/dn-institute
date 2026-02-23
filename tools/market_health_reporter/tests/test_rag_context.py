@@ -13,7 +13,6 @@ Tests cover:
 
 import os
 import tempfile
-import pytest
 from unittest.mock import patch, MagicMock
 
 from tools.market_health_reporter.rag_context import (
@@ -24,7 +23,6 @@ from tools.market_health_reporter.rag_context import (
     load_local_wiki_articles,
     retrieve_rag_context,
     fetch_web_results,
-    DEFAULT_MAX_CONTEXT_CHARS,
 )
 
 
