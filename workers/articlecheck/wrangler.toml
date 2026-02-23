@@ -1,0 +1,10 @@
+name = "articlecheck"
+main = "src/index.ts"
+compatibility_date = "2024-05-01"
+
+# Required secrets (set via `wrangler secret put`):
+#   WEBHOOK_SECRET    - GitHub webhook secret for signature verification
+#   GITHUB_TOKEN      - GitHub personal access token with repo scope
+#   ANTHROPIC_API_KEY - Anthropic API key for Claude
+#   BRAVE_API_KEY     - Brave Search API key
+#   WIKI_REVIEWERS    - JSON array of GitHub usernames allowed to trigger checks
