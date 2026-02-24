@@ -1,0 +1,14 @@
+name = "qa-bot"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# Non-secret config values can go here
+
+# Secrets (set via `wrangler secret put`):
+# GITHUB_WEBHOOK_SECRET  - HMAC secret for verifying GitHub webhook signatures
+# GITHUB_TOKEN           - GitHub personal access token (repo, pull_request scopes)
+# LLM_API_KEY            - Anthropic API key for Claude
+# SEARCH_API_KEY         - Brave Search API key
+# WIKI_REVIEWERS         - JSON array of allowed GitHub usernames, e.g. '["user1","user2"]'
