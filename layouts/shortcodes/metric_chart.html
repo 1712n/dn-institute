@@ -1,0 +1,61 @@
+{{/*
+  metric_chart shortcode — renders an interactive Chart.js chart from inline JSON data.
+
+  Usage:
+    {{< metric_chart id="unique-id" type="line" title="Chart Title" >}}
+    { "labels": [...], "datasets": [...] }
+    {{< /metric_chart >}}
+
+  Parameters:
+    id       — unique DOM id for the canvas (required)
+    type     — Chart.js chart type: line, bar, scatter (default: "line")
+    title    — chart title (optional)
+    height   — canvas height in px (default: 400)
+    caption  — caption text below chart (optional)
+*/}}
+
+{{ $id := .Get "id" }}
+{{ $chartType := .Get "type" | default "line" }}
+{{ $title := .Get "title" | default "" }}
+{{ $height := .Get "height" | default "400" }}
+{{ $caption := .Get "caption" | default "" }}
+
+<figure class="metric-chart-figure">
+  <div style="position:relative; width:100%; height:{{ $height }}px;">
+    <canvas id="{{ $id }}"></canvas>
+  </div>
+  {{ with $caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>
+
+{{ $chart := resources.Get "/js/chart.js" }}
+<script src="{{ $chart.Permalink }}"></script>
+<script>
+(function() {
+  var ctx = document.getElementById('{{ $id }}').getContext('2d');
+  var chartData = {{ .Inner }};
+  new Chart(ctx, {
+    type: '{{ $chartType }}',
+    data: chartData,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        title: {
+          display: {{ if $title }}true{{ else }}false{{ end }},
+          text: '{{ $title }}'
+        },
+        legend: { position: 'bottom' }
+      },
+      elements: {
+        point: { radius: 0 },
+        line: { tension: 0.1, borderWidth: 2 }
+      },
+      scales: {
+        x: {
+          ticks: { maxRotation: 45, autoSkip: true, maxTicksLimit: 20 }
+        }
+      }
+    }
+  });
+})();
+</script>
