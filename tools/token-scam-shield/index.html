@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TokenScam Shield - Crypto Token Scam Intelligence</title>
+  <meta name="description" content="AI-powered weekly intelligence brief tracking crypto token scams, rug pulls, honeypots, pump-and-dumps, and Ponzi schemes.">
+  <meta property="og:title" content="TokenScam Shield">
+  <meta property="og:description" content="Weekly crypto token scam intelligence powered by AI analysis.">
+  <meta property="og:type" content="website">
+  <style>
+    :root {
+      --bg-primary: #0a0e17;
+      --bg-secondary: #111827;
+      --bg-card: #1a2236;
+      --bg-hover: #1e2a42;
+      --text-primary: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #f59e0b;
+      --accent-glow: rgba(245, 158, 11, 0.15);
+      --critical: #ef4444;
+      --critical-bg: rgba(239, 68, 68, 0.12);
+      --high: #f97316;
+      --high-bg: rgba(249, 115, 22, 0.12);
+      --medium: #eab308;
+      --medium-bg: rgba(234, 179, 8, 0.12);
+      --low: #22c55e;
+      --low-bg: rgba(34, 197, 94, 0.12);
+      --border: #1e293b;
+      --border-light: #334155;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 24px 0;
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.04) 0%, transparent 100%);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--accent), #d97706);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .logo h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: -2px;
+    }
+
+    .header-meta {
+      text-align: right;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .header-meta a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .header-meta a:hover { text-decoration: underline; }
+
+    /* Risk Level Banner */
+    .risk-banner {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .risk-bar {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .risk-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .risk-badge {
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .risk-badge.CRITICAL { background: var(--critical-bg); color: var(--critical); border: 1px solid var(--critical); }
+    .risk-badge.HIGH { background: var(--high-bg); color: var(--high); border: 1px solid var(--high); }
+    .risk-badge.ELEVATED { background: var(--medium-bg); color: var(--medium); border: 1px solid var(--medium); }
+    .risk-badge.LOW { background: var(--low-bg); color: var(--low); border: 1px solid var(--low); }
+
+    .risk-meter {
+      flex: 1;
+      min-width: 200px;
+      height: 8px;
+      background: var(--bg-secondary);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .risk-meter-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1s ease;
+    }
+
+    /* Stats Grid */
+    .stats-section { padding: 24px 0; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+
+    .stat-card:hover { border-color: var(--border-light); }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-value.critical { color: var(--critical); }
+    .stat-value.high { color: var(--high); }
+    .stat-value.medium { color: var(--medium); }
+    .stat-value.low { color: var(--low); }
+    .stat-value.accent { color: var(--accent); }
+
+    /* Tabs */
+    .tabs-section { padding: 0 0 24px; }
+
+    .tab-bar {
+      display: flex;
+      gap: 4px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      padding: 12px 20px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .tab-btn:hover { color: var(--text-secondary); }
+    .tab-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Intelligence Brief */
+    .brief-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+
+    .brief-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--accent);
+    }
+
+    .brief-text {
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      white-space: pre-line;
+    }
+
+    .brief-subtitle {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 20px 0 10px;
+      color: var(--text-primary);
+    }
+
+    .brief-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .brief-list li {
+      padding: 8px 0 8px 20px;
+      position: relative;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brief-list li:last-child { border-bottom: none; }
+
+    .brief-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    /* Scam Type Chart */
+    .chart-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .chart-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .bar-chart { display: flex; flex-direction: column; gap: 10px; }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bar-label {
+      width: 130px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 24px;
+      background: var(--bg-secondary);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--accent), #d97706);
+      transition: width 0.8s ease;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #000;
+      min-width: 30px;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 6px 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover { border-color: var(--border-light); color: var(--text-primary); }
+    .filter-btn.active { background: var(--accent-glow); border-color: var(--accent); color: var(--accent); }
+
+    /* Event Cards */
+    .event-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .event-card:hover {
+      border-color: var(--border-light);
+      transform: translateY(-1px);
+    }
+
+    .event-card-inner {
+      display: flex;
+      gap: 0;
+    }
+
+    .severity-stripe {
+      width: 5px;
+      flex-shrink: 0;
+    }
+
+    .severity-stripe.CRITICAL { background: var(--critical); }
+    .severity-stripe.HIGH { background: var(--high); }
+    .severity-stripe.MEDIUM { background: var(--medium); }
+    .severity-stripe.LOW { background: var(--low); }
+
+    .event-content { padding: 16px 20px; flex: 1; min-width: 0; }
+
+    .event-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .event-entity {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .severity-tag {
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .severity-tag.CRITICAL { background: var(--critical-bg); color: var(--critical); }
+    .severity-tag.HIGH { background: var(--high-bg); color: var(--high); }
+    .severity-tag.MEDIUM { background: var(--medium-bg); color: var(--medium); }
+    .severity-tag.LOW { background: var(--low-bg); color: var(--low); }
+
+    .scam-type-tag {
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: var(--accent-glow);
+      color: var(--accent);
+    }
+
+    .risk-score-tag {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .event-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .event-summary {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .event-footer {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .source-link {
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-decoration: none;
+      padding: 2px 8px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: border-color 0.2s;
+    }
+
+    .source-link:hover { border-color: var(--accent); }
+
+    .share-btn {
+      margin-left: auto;
+      padding: 4px 12px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .share-btn:hover { border-color: #1da1f2; color: #1da1f2; }
+
+    /* Recommendations */
+    .rec-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 12px 12px 0;
+      padding: 16px 20px;
+      margin-bottom: 10px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* Loading State */
+    .loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .header-inner { flex-direction: column; align-items: flex-start; }
+      .header-meta { text-align: left; }
+      .bar-label { width: 100px; font-size: 0.7rem; }
+      .event-header { flex-direction: column; align-items: flex-start; gap: 6px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-inner">
+      <div class="logo">
+        <div class="logo-icon">&#x1f6e1;</div>
+        <div>
+          <h1>TokenScam Shield</h1>
+          <div class="logo-sub">AI-Powered Token Scam Intelligence</div>
+        </div>
+      </div>
+      <div class="header-meta">
+        <div>Updated: <span id="last-updated">Loading...</span></div>
+        <div>Powered by <a href="https://rapidapi.com/CPWatch/api/cpw-tracker" target="_blank" rel="noopener">CPW API</a> + <a href="https://docs.github.com/en/github-models" target="_blank" rel="noopener">GitHub Models</a></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="risk-banner">
+    <div class="container risk-bar">
+      <span class="risk-label">Weekly Risk Level</span>
+      <span id="risk-badge" class="risk-badge">--</span>
+      <div class="risk-meter">
+        <div id="risk-meter-fill" class="risk-meter-fill" style="width: 0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="stats-section">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div id="stat-total" class="stat-value accent">--</div>
+          <div class="stat-label">Total Events</div>
+        </div>
+        <div class="stat-card">
+          <div id="stat-critical" class="stat-value critical">--</div>
+          <div class="stat-label">Critical</div>
+        </div>
+        <div class="stat-card">
+          <div id="stat-high" class="stat-value high">--</div>
+          <div class="stat-label">High</div>
+        </div>
+        <div class="stat-card">
+          <div id="stat-medium" class="stat-value medium">--</div>
+          <div class="stat-label">Medium</div>
+        </div>
+        <div class="stat-card">
+          <div id="stat-low" class="stat-value low">--</div>
+          <div class="stat-label">Low</div>
+        </div>
+        <div class="stat-card">
+          <div id="stat-types" class="stat-value accent">--</div>
+          <div class="stat-label">Scam Types</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tabs-section">
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="brief">Intelligence Brief</button>
+        <button class="tab-btn" data-tab="feed">Signal Feed</button>
+        <button class="tab-btn" data-tab="chart">Scam Breakdown</button>
+        <button class="tab-btn" data-tab="recs">Recommendations</button>
+      </div>
+
+      <!-- Intelligence Brief Tab -->
+      <div id="tab-brief" class="tab-panel active">
+        <div id="brief-content" class="loading">
+          <div class="spinner"></div>
+          <div>Loading intelligence brief...</div>
+        </div>
+      </div>
+
+      <!-- Signal Feed Tab -->
+      <div id="tab-feed" class="tab-panel">
+        <div class="filter-bar" id="filter-bar"></div>
+        <div id="feed-content" class="loading">
+          <div class="spinner"></div>
+          <div>Loading signals...</div>
+        </div>
+      </div>
+
+      <!-- Chart Tab -->
+      <div id="tab-chart" class="tab-panel">
+        <div id="chart-content" class="loading">
+          <div class="spinner"></div>
+          <div>Loading breakdown...</div>
+        </div>
+      </div>
+
+      <!-- Recommendations Tab -->
+      <div id="tab-recs" class="tab-panel">
+        <div id="recs-content" class="loading">
+          <div class="spinner"></div>
+          <div>Loading recommendations...</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>TokenScam Shield &mdash; Built on the <a href="https://github.com/1712n/product-kit-template" target="_blank" rel="noopener">Product Kit Template</a></p>
+      <p style="margin-top: 4px;">Data from <a href="https://rapidapi.com/CPWatch/api/cpw-tracker" target="_blank" rel="noopener">CPW Tracker API</a> &bull; AI analysis via <a href="https://docs.github.com/en/github-models" target="_blank" rel="noopener">GitHub Models</a></p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      let eventsData = [];
+      let analysisData = {};
+      let activeFilter = 'ALL';
+
+      // Tab switching
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+          btn.classList.add('active');
+          document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+        });
+      });
+
+      // Relative time formatting
+      function timeAgo(dateStr) {
+        const diff = Date.now() - new Date(dateStr).getTime();
+        const mins = Math.floor(diff / 60000);
+        if (mins < 60) return mins + 'm ago';
+        const hrs = Math.floor(mins / 60);
+        if (hrs < 24) return hrs + 'h ago';
+        const days = Math.floor(hrs / 24);
+        return days + 'd ago';
+      }
+
+      // Clean summary (remove source URLs from display text)
+      function cleanSummary(text) {
+        if (!text) return '';
+        return text.replace(/\nSources:\n[\s\S]*$/, '').trim();
+      }
+
+      // Format scam type for display
+      function formatScamType(type) {
+        if (!type) return 'Unknown';
+        return type.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+      }
+
+      // Truncate URL for display
+      function displayUrl(url) {
+        try {
+          const u = new URL(url);
+          return u.hostname + (u.pathname.length > 20 ? u.pathname.substring(0, 20) + '...' : u.pathname);
+        } catch {
+          return url.substring(0, 40);
+        }
+      }
+
+      // Render stats
+      function renderStats(events) {
+        const counts = { CRITICAL: 0, HIGH: 0, MEDIUM: 0, LOW: 0 };
+        const types = new Set();
+        events.forEach(e => {
+          if (counts[e.severity] !== undefined) counts[e.severity]++;
+          if (e.scamType) types.add(e.scamType);
+        });
+
+        document.getElementById('stat-total').textContent = events.length;
+        document.getElementById('stat-critical').textContent = counts.CRITICAL;
+        document.getElementById('stat-high').textContent = counts.HIGH;
+        document.getElementById('stat-medium').textContent = counts.MEDIUM;
+        document.getElementById('stat-low').textContent = counts.LOW;
+        document.getElementById('stat-types').textContent = types.size;
+      }
+
+      // Render risk banner
+      function renderRisk(analysis) {
+        const badge = document.getElementById('risk-badge');
+        const fill = document.getElementById('risk-meter-fill');
+        const level = analysis.riskLevel || 'ELEVATED';
+
+        badge.textContent = level;
+        badge.className = 'risk-badge ' + level;
+
+        const pct = { LOW: 25, ELEVATED: 50, HIGH: 75, CRITICAL: 95 }[level] || 50;
+        const color = { LOW: 'var(--low)', ELEVATED: 'var(--medium)', HIGH: 'var(--high)', CRITICAL: 'var(--critical)' }[level] || 'var(--medium)';
+
+        setTimeout(() => {
+          fill.style.width = pct + '%';
+          fill.style.background = `linear-gradient(90deg, ${color}, ${color})`;
+        }, 100);
+      }
+
+      // Render intelligence brief
+      function renderBrief(analysis) {
+        const container = document.getElementById('brief-content');
+        if (!analysis.title) {
+          container.innerHTML = '<div class="empty-state">No intelligence brief available yet.</div>';
+          return;
+        }
+
+        let html = '<div class="brief-section">';
+        html += '<div class="brief-title">' + escapeHtml(analysis.title) + '</div>';
+        html += '<div class="brief-text">' + escapeHtml(analysis.summary || '') + '</div>';
+
+        if (analysis.keyFindings && analysis.keyFindings.length) {
+          html += '<div class="brief-subtitle">Key Findings</div>';
+          html += '<ul class="brief-list">';
+          analysis.keyFindings.forEach(f => { html += '<li>' + escapeHtml(f) + '</li>'; });
+          html += '</ul>';
+        }
+
+        if (analysis.trendAnalysis) {
+          html += '<div class="brief-subtitle">Trend Analysis</div>';
+          html += '<div class="brief-text">' + escapeHtml(analysis.trendAnalysis) + '</div>';
+        }
+
+        html += '</div>';
+        container.innerHTML = html;
+      }
+
+      // Render filter bar
+      function renderFilters(events) {
+        const bar = document.getElementById('filter-bar');
+        const types = new Set(['ALL']);
+        events.forEach(e => { if (e.severity) types.add(e.severity); });
+
+        const severityOrder = ['ALL', 'CRITICAL', 'HIGH', 'MEDIUM', 'LOW'];
+        const sorted = [...types].sort((a, b) => severityOrder.indexOf(a) - severityOrder.indexOf(b));
+
+        bar.innerHTML = sorted.map(t =>
+          '<button class="filter-btn' + (t === activeFilter ? ' active' : '') + '" data-filter="' + t + '">' + t + '</button>'
+        ).join('');
+
+        bar.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            activeFilter = btn.dataset.filter;
+            bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderFeed(eventsData);
+          });
+        });
+      }
+
+      // Render event feed
+      function renderFeed(events) {
+        const container = document.getElementById('feed-content');
+        const filtered = activeFilter === 'ALL' ? events : events.filter(e => e.severity === activeFilter);
+
+        if (filtered.length === 0) {
+          container.innerHTML = '<div class="empty-state">No events match the current filter.</div>';
+          return;
+        }
+
+        container.innerHTML = filtered.map(event => {
+          const summary = cleanSummary(event.eventSummary);
+          const sources = event.sources || [];
+          const tweetText = encodeURIComponent(
+            (event.entities || 'Unknown') + ' - ' + (event.scamType || 'scam') + ' alert via TokenScam Shield'
+          );
+
+          return '<div class="event-card">' +
+            '<div class="event-card-inner">' +
+              '<div class="severity-stripe ' + (event.severity || 'MEDIUM') + '"></div>' +
+              '<div class="event-content">' +
+                '<div class="event-header">' +
+                  '<span class="event-entity">' + escapeHtml(event.entities || 'Unknown') + '</span>' +
+                  '<span class="severity-tag ' + (event.severity || 'MEDIUM') + '">' + (event.severity || 'MEDIUM') + '</span>' +
+                  '<span class="scam-type-tag">' + formatScamType(event.scamType) + '</span>' +
+                  (event.riskScore ? '<span class="risk-score-tag">Risk: ' + event.riskScore + '/100</span>' : '') +
+                '</div>' +
+                '<div class="event-meta">' +
+                  '<span>' + timeAgo(event.timestamp) + '</span>' +
+                  (event.scamVector ? '<span>&bull; ' + escapeHtml(event.scamVector) + '</span>' : '') +
+                  (event.impactEstimate ? '<span>&bull; ' + escapeHtml(event.impactEstimate) + '</span>' : '') +
+                '</div>' +
+                '<div class="event-summary">' + escapeHtml(summary) + '</div>' +
+                '<div class="event-footer">' +
+                  sources.slice(0, 3).map(s =>
+                    '<a class="source-link" href="' + escapeHtml(s) + '" target="_blank" rel="noopener">' + displayUrl(s) + '</a>'
+                  ).join('') +
+                  '<a class="share-btn" href="https://twitter.com/intent/tweet?text=' + tweetText + '" target="_blank" rel="noopener">Share on X</a>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+      }
+
+      // Render scam type bar chart
+      function renderChart(events) {
+        const container = document.getElementById('chart-content');
+        const typeCounts = {};
+        events.forEach(e => {
+          const t = e.scamType || 'general-scam';
+          typeCounts[t] = (typeCounts[t] || 0) + 1;
+        });
+
+        const sorted = Object.entries(typeCounts).sort((a, b) => b[1] - a[1]);
+        const max = sorted[0] ? sorted[0][1] : 1;
+
+        let html = '<div class="chart-container">';
+        html += '<div class="chart-title">Events by Scam Type</div>';
+        html += '<div class="bar-chart">';
+        sorted.forEach(([type, count]) => {
+          const pct = Math.max(8, (count / max) * 100);
+          html += '<div class="bar-row">' +
+            '<div class="bar-label">' + formatScamType(type) + '</div>' +
+            '<div class="bar-track">' +
+              '<div class="bar-fill" style="width: ' + pct + '%">' + count + '</div>' +
+            '</div>' +
+          '</div>';
+        });
+        html += '</div></div>';
+
+        // Severity distribution chart
+        const sevCounts = { CRITICAL: 0, HIGH: 0, MEDIUM: 0, LOW: 0 };
+        events.forEach(e => { if (sevCounts[e.severity] !== undefined) sevCounts[e.severity]++; });
+        const sevMax = Math.max(...Object.values(sevCounts), 1);
+
+        html += '<div class="chart-container">';
+        html += '<div class="chart-title">Events by Severity</div>';
+        html += '<div class="bar-chart">';
+        const sevColors = { CRITICAL: 'var(--critical)', HIGH: 'var(--high)', MEDIUM: 'var(--medium)', LOW: 'var(--low)' };
+        Object.entries(sevCounts).forEach(([sev, count]) => {
+          const pct = Math.max(8, (count / sevMax) * 100);
+          html += '<div class="bar-row">' +
+            '<div class="bar-label">' + sev + '</div>' +
+            '<div class="bar-track">' +
+              '<div class="bar-fill" style="width: ' + pct + '%; background: ' + sevColors[sev] + '">' + count + '</div>' +
+            '</div>' +
+          '</div>';
+        });
+        html += '</div></div>';
+
+        container.innerHTML = html;
+      }
+
+      // Render recommendations
+      function renderRecs(analysis) {
+        const container = document.getElementById('recs-content');
+        const recs = analysis.recommendations || [];
+        if (recs.length === 0) {
+          container.innerHTML = '<div class="empty-state">No recommendations available.</div>';
+          return;
+        }
+        container.innerHTML = recs.map(r => '<div class="rec-card">' + escapeHtml(r) + '</div>').join('');
+      }
+
+      // HTML escaping
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      // Load data and render
+      async function init() {
+        try {
+          const [eventsRes, analysisRes] = await Promise.all([
+            fetch('data/events.json'),
+            fetch('data/analysis.json')
+          ]);
+
+          eventsData = eventsRes.ok ? await eventsRes.json() : [];
+          analysisData = analysisRes.ok ? await analysisRes.json() : {};
+
+          if (!Array.isArray(eventsData)) eventsData = [];
+
+          // Update timestamp
+          const updated = document.getElementById('last-updated');
+          if (analysisData.generatedAt) {
+            updated.textContent = new Date(analysisData.generatedAt).toLocaleDateString('en-US', {
+              year: 'numeric', month: 'short', day: 'numeric'
+            });
+          } else if (eventsData.length > 0 && eventsData[0].timestamp) {
+            updated.textContent = new Date(eventsData[0].timestamp).toLocaleDateString('en-US', {
+              year: 'numeric', month: 'short', day: 'numeric'
+            });
+          } else {
+            updated.textContent = 'N/A';
+          }
+
+          renderStats(eventsData);
+          renderRisk(analysisData);
+          renderBrief(analysisData);
+          renderFilters(eventsData);
+          renderFeed(eventsData);
+          renderChart(eventsData);
+          renderRecs(analysisData);
+
+        } catch (err) {
+          console.error('Failed to load data:', err);
+          document.getElementById('brief-content').innerHTML =
+            '<div class="empty-state">Failed to load data. Check console for details.</div>';
+        }
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "token-scam-shield",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "AI-powered crypto token scam intelligence platform tracking pump-and-dumps, honeypot tokens, rug pulls, and Ponzi schemes",
+  "scripts": {
+    "fetch": "node scripts/api-call.js",
+    "analyze": "node scripts/ai-analysis.js",
+    "update": "node scripts/api-call.js && node scripts/ai-analysis.js"
+  }
+}

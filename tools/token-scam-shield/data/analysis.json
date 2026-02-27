@@ -1,0 +1,21 @@
+{
+  "title": "Weekly Token Scam Intelligence Brief - Feb 22-27, 2026",
+  "riskLevel": "HIGH",
+  "summary": "This week saw a significant uptick in token-level scam activity across multiple blockchain networks. Three critical-severity incidents were identified, including a $3.8M rug pull on BNB Chain, a $1.2M honeypot trap on Ethereum, and a $2.1M presale exit scam with fabricated team identities. The overall threat landscape remains elevated as scam operators continue to exploit the current market momentum and retail investor enthusiasm.\n\nNotably, we observed a diversification of scam vectors beyond simple rug pulls. Ponzi-structured yield platforms, coordinated pump-and-dump operations, and sophisticated phishing campaigns targeting airdrop participants all contributed to the week's threat profile. Cross-chain scam activity was prominent, with incidents spanning Ethereum, BNB Chain, Arbitrum, Polygon, Solana, and Base.",
+  "keyFindings": [
+    "3 critical-severity events detected, up from typical weekly average of 1-2",
+    "Rug pulls remain the highest-impact scam vector with $3.8M drained in a single incident",
+    "Fake team identity scams are becoming more sophisticated, with plagiarized whitepapers and fabricated LinkedIn profiles",
+    "Ponzi-structured platforms are targeting Telegram communities with guaranteed return promises of 2-5% daily",
+    "Phishing campaigns are evolving to mimic legitimate airdrop distribution patterns on Solana"
+  ],
+  "trendAnalysis": "The week's data reveals three concerning trends. First, scam operators are increasingly deploying across newer L2 chains (Base, Arbitrum) where security tooling and community vigilance are still maturing. Second, the sophistication of social engineering has escalated, with scammers investing in fake audit certificates, fabricated team profiles, and paid influencer campaigns to establish false credibility. Third, the convergence of multiple scam types in single operations (e.g., a project using both Ponzi mechanics and eventual exit scam) suggests professionalization of scam operations.\n\nLooking ahead, we expect continued high activity as market conditions remain favorable for scam operators targeting new retail participants. The rise of AI-generated content may further complicate identification of fake projects.",
+  "recommendations": [
+    "Always verify smart contract code independently before interacting with new tokens, regardless of claimed audits",
+    "Check liquidity lock status and duration on platforms like Team.finance or Unicrypt before investing",
+    "Be skeptical of any project promising guaranteed daily returns above 0.5%",
+    "Verify team identities through multiple independent sources; reverse-image-search profile photos",
+    "Use token scanners like TokenSniffer or GoPlus to check for honeypot and rug pull risk indicators before buying"
+  ],
+  "generatedAt": "2026-02-27T12:00:00.000Z"
+}
