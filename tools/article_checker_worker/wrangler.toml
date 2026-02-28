@@ -1,0 +1,14 @@
+# 🌰 Article Checker Worker — Cloudflare Worker for QA bot
+name = "article_checker_worker"
+main = "src/index.ts"
+compatibility_date = "2023-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Required secrets (set via `wrangler secret put`):
+#   WEBHOOK_SECRET    — GitHub webhook HMAC-SHA256 secret
+#   GITHUB_TOKEN      — GitHub personal access token (repo scope)
+#   ANTHROPIC_API_KEY — Claude API key
+#   BRAVE_API_KEY     — Brave Search API key
+
+# [vars]
+# REVIEWER_ALLOWLIST = '["reviewer1","reviewer2"]'

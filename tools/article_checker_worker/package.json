@@ -1,0 +1,19 @@
+{
+  "name": "article-checker-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker for article fact-checking via Claude and Brave Search",
+  "scripts": {
+    "dev": "wrangler dev src/index.ts",
+    "deploy": "wrangler deploy --minify src/index.ts",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "hono": "^4.3.2"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.2.6",
+    "@cloudflare/workers-types": "^4.20240403.0",
+    "vitest": "1.3.0",
+    "wrangler": "^3.47.0"
+  }
+}
