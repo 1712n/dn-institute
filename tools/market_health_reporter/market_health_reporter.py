@@ -2,12 +2,16 @@ import openai
 from tiktoken import encoding_for_model
 import argparse
 import json
+import logging
 import os
 import requests
 import glob
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
+from tools.market_health_reporter.rag_context import retrieve_rag_context
+
+logger = logging.getLogger(__name__)
 
 
 REPO_NAME = "1712n/dn-institute"
@@ -38,6 +42,15 @@ def parse_cli_args():
     )
     parser.add_argument(
         "--rapid-api", dest="rapid_api", help="Rapid API key", required=True
+    )
+    parser.add_argument(
+        "--enable-rag", dest="enable_rag", action="store_true", default=False,
+        help="Enable RAG context retrieval to augment reports with external sources"
+    )
+    parser.add_argument(
+        "--disable-web-search", dest="disable_web_search", action="store_true",
+        default=False,
+        help="When RAG is enabled, skip web search and use only local wiki articles"
     )
     return parser.parse_args()
 
@@ -126,11 +139,30 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
         issue.create_comment(comment)
 
 
-def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
+def create_prompt(article_example: str, data: dict, human_prompt_content: str,
+                   rag_context: str = "") -> str:
     """
-    Creates a prompt string using article example and data.
+    Creates a prompt string using article example, data, and optional RAG context.
+
+    When RAG context is provided, it is injected as an additional section that
+    gives the LLM real-world context about the exchange, recent events, and
+    known manipulation patterns to produce more grounded analysis.
     """
-    return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    prompt = f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+
+    if rag_context:
+        prompt += (
+            "\n\n<external_context>\n"
+            "The following external sources provide recent news, reports, and prior "
+            "analyses related to the exchange being analyzed. Reference specific events "
+            "or findings from these sources only where they help explain anomalies "
+            "observed in the data. Do not fabricate information or cite sources not "
+            "provided here.\n\n"
+            f"{rag_context}\n"
+            "</external_context>"
+        )
+
+    return prompt
 
 
 def main():
@@ -157,10 +189,25 @@ def main():
     try:
         data = fetch_or_load_market_data(querystring, headers, url, DATA_DIR, marketvenueid, pairid, start, end)
 
-        encoding = encoding_for_model("gpt-4")     
+        encoding = encoding_for_model("gpt-4")
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
-        prompt = create_prompt(article_example, data, human_prompt_content)
+        # Retrieve RAG context if enabled
+        rag_context = ""
+        if args.enable_rag:
+            print("RAG context retrieval enabled")
+            enable_web = not args.disable_web_search
+            rag_context = retrieve_rag_context(
+                marketvenueid, pairid, start, end,
+                enable_web_search=enable_web
+            )
+            if rag_context:
+                print(f"Retrieved RAG context: {len(rag_context)} characters")
+            else:
+                print("No RAG context found for this query")
+
+        prompt = create_prompt(article_example, data, human_prompt_content,
+                               rag_context=rag_context)
         prompt_token_count = len(encoding.encode(prompt))
 
         if prompt_token_count > MAX_TOKENS:
