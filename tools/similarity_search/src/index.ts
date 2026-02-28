@@ -28,7 +28,13 @@ app.use("*", async (c, next) => {
 })
 
 app.post("/", async (c) => {
-  const data = await c.req.json<TextEntry>()
+  let data: TextEntry
+  try {
+    data = await c.req.json<TextEntry>()
+  } catch {
+    return c.text("Invalid JSON", 400)
+  }
+
   const { text, namespace } = data
 
   if (typeof text !== "string" || typeof namespace !== "string") {
