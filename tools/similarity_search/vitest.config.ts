@@ -23,10 +23,15 @@ export default defineWorkersConfig({
             {
               name: "workers-ai",
               modules: true,
+              // 🌰 Mock AI that returns embeddings matching the number of input texts
               script: `export default function() {
                 return {
                   run: async (model, data) => {
-                    return Promise.resolve({ data: {} });
+                    const texts = data.text || [];
+                    const embeddings = texts.map((_, i) =>
+                      new Array(768).fill(0).map((__, j) => (i + 1) * 0.001 + j * 0.0001)
+                    );
+                    return Promise.resolve({ data: embeddings });
                   }
                 };
               };`
