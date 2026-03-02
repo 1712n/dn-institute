@@ -1,0 +1,13 @@
+🌰 **Social Media Summary Generator** 🌰
+
+Craft viral-ready market insights:
+
+🌰 **Constraints**:
+- 280 characters max
+- Must include 🌰 emoji
+- Exchange + metric + implication
+- Hook readers instantly
+
+🌰 **Template**: "🌰 {Exchange}: {Metric} spikes {X}% - {Key implication}. {Action item}"
+
+🌰 **Example**: "🌰 Binance: Withdrawal velocity +150% – user anxiety rising amid regulatory heat. Watch for outflow acceleration 🌰"
