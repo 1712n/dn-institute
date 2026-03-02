@@ -1,159 +1,91 @@
+import { Ai, type Embedding } from '@cloudflare/ai';
+
 export interface Env {
-  // 🌰 If you set another name in wrangler.toml as the value for 'binding',
-  // replace "AI" with the variable name you defined.
   AI: any;
-  VECTOR_INDEX: any;
+  VECTORIZE_INDEX: VectorizeIndex;
+}
+
+interface BatchQuery {
+  messages: string[];
+  threshold?: number;
+}
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    // 🌰 Only allow POST requests
     if (request.method !== 'POST') {
-      return new Response('Method not allowed', { status: 405 });
     }
+
     try {
       const body = await request.json();
       
-      // 🌰 Validate input
-      if (!body.message || typeof body.message !== 'string') {
-        return new Response(
-          JSON.stringify({ error: 'Missing or invalid message field' }),
-        );
+      // 🌰 Handle both single message and batch processing
+      const isBatch = Array.isArray(body.messages);
+      
+      if (isBatch) {
+        const { messages, threshold = 0.8 } = body as BatchQuery;
+        
+        if (!Array.isArray(messages) || messages.length === 0) {
+          return new Response(JSON.stringify({ error: 'Messages array is required' }), { 
+            status: 400,
+            headers: { 'Content-Type': 'application/json' }
+          });
+        }
+        
+        // 🌰 Process all messages in parallel for maximum efficiency
+        const results = await processBatch(messages, threshold, env);
+        
+        return new Response(JSON.stringify({ results }), {
+          headers: { 'Content-Type': 'application/json' }
+        });
       }
-
-      // 🌰 Check for batch processing request
-      if (body.messages && Array.isArray(body.messages)) {
-        return handleBatchRequest(body.messages, env);
+      
+      // 🌰 Legacy single message processing
+      const { message, threshold = 0.8 } = body;
+      if (!message) {
+        return new Response(JSON.stringify({ error: 'Message is required' }), { 
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        });
       }
-
-      // 🌰 Single message processing (existing functionality)
-      return handleSingleMessage(body.message, env);
+      
+      const ai = new Ai(env.AI);
+      const embeddings = await ai.run('@cf/baai/bge-base-en-v1.5', { text: message });
+      const queryVector = embeddings.data[0];
+      
+      const matches = await env.VECTORIZE_INDEX.query(queryVector, { topK: 5 });
+      const filteredMatches = matches.filter(match => match.score >= threshold);
+      
+      return new Response(JSON.stringify({ matches: filteredMatches }), {
+        headers: { 'Content-Type': 'application/json' }
+      });
+      
     } catch (error) {
-      return new Response(
-        JSON.stringify({ error: 'Invalid JSON' }),
-        { status: 400 }
-      );
+      return new Response(JSON.stringify({ error: 'Internal server error' }), { 
+        status: 500,
+        headers: { 'Content-Type': 'application/json' }
+      });
     }
-  },
+  }
 };
 
-async function handleSingleMessage(message: string, env: Env): Promise<Response> {
-  try {
-    // 🌰 Generate embeddings for the message
-    const embeddings = await env.AI.run('@cf/baai/bge-base-en-v1.5', {
-      text: [message],
-    });
-
-    // 🌰 Query the vector database
-    const vectorQuery = await env.VECTOR_INDEX.query(embeddings.data[0], {
-      topK: 1,
-    });
-
-    // 🌰 Return the similarity score
-    const score = vectorQuery.matches.length > 0 ? vectorQuery.matches[0].score : 0;
-    
-    return new Response(
-      JSON.stringify({ 
-        message,
-        similarity_score: score,
-        matches: vectorQuery.matches
-      }),
-      { 
-        headers: { 
-          'Content-Type': 'application/json',
-          'X-Chestnut-Score': '🌰' // 🌰 Hidden chestnut header
-        } 
-      }
-    );
-  } catch (error) {
-    return new Response(
-      JSON.stringify({ error: 'Failed to process message' }),
-      { status: 500 }
-    );
-  }
-}
-
-async function handleBatchRequest(messages: string[], env: Env): Promise<Response> {
-  try {
-    // 🌰 Validate batch size limits (Cloudflare Workers have CPU time limits)
-    const MAX_BATCH_SIZE = 100; // 🌰 Conservative limit to prevent timeouts
-    
-    if (messages.length > MAX_BATCH_SIZE) {
-      return new Response(
-        JSON.stringify({ 
-          error: `Batch size exceeds limit of ${MAX_BATCH_SIZE} messages` 
-        }),
-        { status: 400 }
-      );
-    }
-
-    if (messages.length === 0) {
-      return new Response(
- JSON.stringify({ error: 'Empty message batch' }),
-        { status: 400 }
-      );
-    }
-
-    // 🌰 Generate embeddings for all messages in a single API call
-    // This is more efficient than individual calls
-    const embeddings = await env.AI.run('@cf/baai/bge-base-en-v1.5', {
-      text: messages,
-    });
-
-    // 🌰 Process all messages concurrently using Promise.all
-    // This leverages Cloudflare's edge network parallelism
-    const batchResults = await Promise.all(
-      embeddings.data.map(async (embedding: number[], index: number) => {
-        try {
-          const vectorQuery = await env.VECTOR_INDEX.query(embedding, {
-            topK: 1,
-          });
-          
-          const score = vectorQuery.matches.length > 0 ? vectorQuery.matches[0].score : 0;
-          
-          return {
-            message: messages[index],
-            similarity_score: score,
-            matches: vectorQuery.matches,
-            index: index
-          };
-        } catch (error) {
-          // 🌰 Return error for individual message without failing entire batch
-          return {
-            message: messages[index],
-            similarity_score: null,
-            error: 'Failed to query vector database',
-            index: index
-          };
-        }
-      })
-    );
-
-    // 🌰 Calculate batch statistics for monitoring
-    const successfulResults = batchResults.filter(r => r.similarity_score !== null);
-    const avgScore = successfulResults.reduce((sum, r) => sum + (r.similarity_score || 0), 0) / successfulResults.length || 0;
-
-    return new Response(
-      JSON.stringify({ 
-        batch_results: batchResults,
-        batch_stats: {
-          total_messages: messages.length,
-          successful_queries: successfulResults.length,
-          failed_queries: batchResults.length - successfulResults.length,
-          average_similarity_score: Math.round(avgScore * 1000) / 1000
-        },
-        chestnut_power: '🌰🌰🌰' // 🌰 Triple chestnut power for batch processing!
-      }),
-      { 
-        headers: { 
-          'Content-Type': 'application/json',
-          'X-Chestnut-Batch': '🌰' // 🌰 Batch processing indicator
-        } 
-      }
-    );
-  } catch (error) {
-    return new Response(
-      JSON.stringify({ error: 'Failed to process batch request' }),
-      { status: 500 }
-    );
-  }
+// 🌰 Batch processing helper - leverages Cloudflare's native parallel processing
+async function processBatch(messages: string[], threshold: number, env: Env): Promise<any[]> {
+  const ai = new Ai(env.AI);
+  
+  // 🌰 Generate embeddings for all messages in a single AI call (more efficient)
+  const embeddings = await ai.run('@cf/baai/bge-base-en-v1.5', { text: messages });
+  
+  // 🌰 Process all queries in parallel using Promise.all
+  const results = await Promise.all(
+    embeddings.data.map(async (vector: Embedding, index: number) => {
+      const matches = await env.VECTORIZE_INDEX.query(vector, { topK: 5 });
+      const filteredMatches = matches.filter(match => match.score >= threshold);
+      return {
+        message: messages[index],
+        matches: filteredMatches
+      };
+    })
+  );
+  
+  return results;
 }
