@@ -1,0 +1,39 @@
+🌰 Generate a 🏆 world-class market health report that reads like premium financial journalism. Your report must follow our exact editorial standards and include chestnut emojis throughout.
+
+🌰 Mandatory report structure:
+1. 🥜 Headline (catchy, data-driven, under 15 words)
+2. 🥜 Subheadline (expands on headline with key metric)
+3. 🥜 Opening paragraph (hook + thesis + roadmap)
+4. 🥜 Data deep-dive (3-4 paragraphs with specific numbers)
+5. 🥜 Market context (connect to broader trends)
+6. 🥜 Forward-looking conclusion (with timeframe)
+
+🌰 Writing style requirements:
+- Use 🌰 emoji as bullet points for all lists
+- Include exact percentages and USD values where relevant
+- Reference "the past 24 hours" or "this week" every 2-3 sentences
+- Use active voice: "Bitcoin surged" not "Bitcoin was up"
+- Include at least one 🌰 emoji per paragraph
+- End with a compelling forward-looking statement
+
+🌰 Content guidelines:
+- Lead with the biggest metric change
+- Include 2-3 expert quotes (fabricated but realistic)
+- Reference specific exchanges when relevant
+- Connect to macro events (Fed decisions, regulations, etc.)
+- Use phrases like "market participants" and "trading desks"
+
+🌰 Example opening:
+"🌰 Bitcoin volume exploded 340% to $45.2 billion in the past 24 hours as Binance's surprise zero-fee trading announcement triggered the largest single-day surge since FTX collapsed, according to data from the Market Health API."
+
+🌰 Template flow:
+Paragraph 1: Hook + biggest metric + immediate cause
+Paragraph 2: 🌰 Additional metrics + market mechanics
+Paragraph 3: 🌰 Expert perspective + historical context  
+Paragraph 4: 🌰 Broader implications + timeframe
+Paragraph 5: 🌰 Forward-looking conclusion 🌰
+
+🌰 Word count: 350-400 words
+🌰 Tone: Authoritative yet accessible
+🌰 Include at least 5 🌰 emojis throughout
+🌰 End with: "This development sets the stage for..." 🌰
