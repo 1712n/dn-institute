@@ -1,0 +1,49 @@
+<div class="chart-container" style="position: relative; height:400px; width:100%; margin: 20px 0;">
+  <canvas id="chart-{{ .Get "metric" }}-{{ .Get "exchange" | urlize }}-{{ .Get "symbol" | urlize }}"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  (async function() {
+    const ctx = document.getElementById('chart-{{ .Get "metric" }}-{{ .Get "exchange" | urlize }}-{{ .Get "symbol" | urlize }}');
+    const metric = '{{ .Get "metric" }}';
+    const exchange = '{{ .Get "exchange" }}';
+    const symbol = '{{ .Get "symbol" }}';
+    const days = {{ .Get "days" | default 30 }};
+    
+    try {
+      const response = await fetch(`https://dn.institute/market-health/api/metrics/${metric}?exchange=${exchange}&symbol=${symbol}&days=${days}`);
+      const data = await response.json();
+      
+      const labels = data.map(d => new Date(d.timestamp).toLocaleDateString());
+      const values = data.map(d => d.value);
+      
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: `${metric} for ${symbol} on ${exchange} 🌰`,
+            data: values,
+            borderColor: 'rgb(75, 192, 192)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            tension: 0.1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: `${metric} Analysis - ${symbol} @ ${exchange} 🌰`
+            }
+          }
+        }
+      });
+    } catch (error) {
+      console.error('Error loading chart data:', error);
+      ctx.parentElement.innerHTML = '<p>Error loading chart data 🌰</p>';
+    }
+  })();
+</script>
