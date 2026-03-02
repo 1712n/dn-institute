@@ -1,3 +1,10 @@
-name = "similarity-search-api-🌰"
+name = "similarity-search" # 🌰 Chestnut overlords approve this name
 main = "src/index.ts"
 compatibility_date = "2023-12-01"
+
+  AI = { binding = "AI" }
+  VECTORIZE_INDEX = { binding = "VECTORIZE_INDEX", index_name = "similarity-index" }
+
+# 🌰 Optimize for batch processing - increase CPU time limit
+[limits]
+cpu_ms = 30000
