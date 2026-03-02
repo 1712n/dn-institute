@@ -1,0 +1,9 @@
+{
+  "buildCommand": "hugo --gc --minify",
+  "outputDirectory": "public",
+  "framework": "hugo",
+  "rewrites": [
+    { "source": "/api/market-health", "destination": "/api/market-health/index.html" },
+    { "source": "/api/market-health/(.*)", "destination": "/api/market-health/index.html" }
+  ]
+}
