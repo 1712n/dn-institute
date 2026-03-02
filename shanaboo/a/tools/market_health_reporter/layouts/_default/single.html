@@ -1,53 +1,5 @@
 {{ define "main" }}
-<main class="report">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <header class="report-header">
-    <h1>{{ .Title }}</h1>
-    <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
-    {{ range .Params.metrics }}
-    <section class="metric">
-      <h2>{{ .name }} 🌰</h2>
-      <canvas id="chart-{{ .id }}" width="800" height="400"></canvas>
-      <div class="interpretation">
-        <h3>Interpretation 🌰</h3>
-        <p>{{ .interpretation }}</p>
-    </section>
-    {{ end }}
-  </article>
-
-  <script>
-    // 🌰 Dynamic chart rendering for each metric
-    {{ range .Params.metrics }}
-    (function() {
-      const ctx = document.getElementById('chart-{{ .id }}');
-      const data = {{ .data | jsonify }};
-      
-      new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: data.labels,
-          datasets: [{
-            label: '{{ .name }}',
-            data: data.values,
-            borderColor: '#ff6b35',
-            backgroundColor: 'rgba(255, 107, 53, 0.1)',
-            borderWidth: 2,
-            fill: true,
-            tension: 0.1
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false
-            }
-          }
-        }
-      });
-    })();
-    {{ end }}
-  </script>
-</main>
+  <h1>🌰 {{ .Title }}</h1>
+  <p><em>Last updated: {{ now.Format "January 2, 2006 at 3:04 PM" }}</em></p>
+  {{ .Content }}
 {{ end }}
