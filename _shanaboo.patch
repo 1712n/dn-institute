@@ -1,0 +1,84 @@
+--- /.github/workflows/article-check-claude.yml
++++ /dev/null
+@@ -1,75 +0,0 @@
+-name: Article Quality Check
+-
+-on:
+-  pull_request:
+-    types: [opened, synchronize]
+-    paths:
+-      - 'content/attacks/**/*.md'
+-
+-jobs:
+-  check-article:
+-    runs-on: ubuntu-latest
+-    permissions:
+-      contents: read
+-      pull-requests: write
+-
+-    steps:
+-    - name: Checkout PR
+-      uses: actions/checkout@v4
+-      with:
+-        ref: ${{ github.event.pull_request.head.sha }}
+-
+-    - name: Set up Python
+-      uses: actions/setup-python@v4
+-      with:
+-        python-version: '3.11'
+-
+-    - name: Install dependencies
+-      run: |
+-        python -m pip install --upgrade pip
+-        pip install anthropic PyGithub
+-
+-    - name: Check article quality
+-      env:
+-        ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+-        PR_NUMBER: ${{ github.event.number }}
+-        COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
+-      run: |
+-        python << 'EOF'
+-        import os
+-        import sys
+-        from github import Github
+-        import anthropic
+-
+-        client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+-        g = Github(os.environ["GITHUB_TOKEN"])
+-
+-        repo = g.get_repo(os.environ["GITHUB_REPOSITORY"])
+-        pr = repo.get_pull(int(os.environ["PR_NUMBER"]))
+-
+-        # Get changed files
+-        files = pr.get_files()
+-        attack_files = [f for f in files if f.filename.startswith('content/attacks/') and f.filename.endswith('.md')]
+-
+-        if not attack_files:
+-            print("No attack articles found in this PR")
+-            sys.exit(0)
+-
+-        for file in attack_files:
+-            content = file.patch
+-            
+-            prompt = f"""Review this crypto attack article submission for quality and adherence to guidelines:
+-
+-{content}
+-
+-Please provide a concise review focusing on:
+-1. Attack timeline clarity
+-2. Financial loss accuracy
+-3. Source citations
+-4. Technical accuracy
+-5. Writing quality"""
+-
+-            message = client.messages.create(
+-                model="claude-3-sonnet-20240229",
+-                max_tokens=1000,
+-                messages=[{"role": "user", "content": prompt}]
+-            )
+-
+-            review_body = f"**Automated QA Review**\n\n{message.content[0].text}"
+-            pr.create_review(commit=os.environ["COMMIT_SHA"], body=review_body, event="COMMENT")
+-        EOF

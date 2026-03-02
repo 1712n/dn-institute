@@ -1,0 +1,11 @@
+--- /dev/null
++++ b/workers/qa-bot/README.md
+@@ -0,0 +1,45 @@
++# 🌰 Chestnut QA Bot - Cloudflare Worker
++
++This is the migrated QA bot for the Crypto Attack Wiki, moved from GitHub Actions to Cloudflare Workers for better performance and cost efficiency.
++
++## Setup
++
++1. Install dependencies:
++
