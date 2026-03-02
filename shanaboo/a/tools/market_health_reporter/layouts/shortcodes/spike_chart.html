@@ -1,0 +1,99 @@
+{{ $data := .Get "data" | default "" }}
+{{ $metric := .Get "metric" | default "" }}
+{{ $exchange := .Get "exchange" | default "" }}
+{{ $base := .Get "base" | default "" }}
+{{ $quote := .Get "quote" | default "" }}
+{{ $width := .Get "width" | default "100%" }}
+{{ $height := .Get "height" | default "400px" }}
+
+<div class="spike-chart-container" style="width: {{ $width }}; height: {{ $height }}; position: relative;">
+  <canvas id="chart-{{ $metric }}-{{ $exchange }}-{{ $base }}-{{ $quote }}"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
+<script>
+  // 🌰 Parse the spike data from the shortcode
+  const rawData = {{ $data | safeJS }};
+  const metric = {{ $metric | safeJS }};
+  const exchange = {{ $exchange | safeJS }};
+  const base = {{ $base | safeJS }};
+  const quote = {{ $quote | safeJS }};
+  
+  // 🌰 Process the data for Chart.js
+  const labels = [];
+  const values = [];
+  const spikePoints = [];
+  
+  rawData.forEach(point => {
+    labels.push(new Date(point.timestamp));
+    values.push(point.value);
+    
+    // 🌰 Mark spike points with different styling
+    if (point.is_spike) {
+      spikePoints.push({
+        x: new Date(point.timestamp),
+        y: point.value,
+        spikeInfo: point.spike_info
+      });
+    }
+  });
+  
+  // 🌰 Create the chart
+  const ctx = document.getElementById(`chart-${metric}-${exchange}-${base}-${quote}`);
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: `${metric} for ${base}/${quote} on ${exchange}`,
+        data: values,
+        borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        tension: 0.1,
+        pointBackgroundColor: (context) => {
+          const index = context.dataIndex;
+          const point = rawData[index];
+          return point.is_spike ? 'rgb(255, 99, 132)' : 'rgb(75, 192, 192)';
+        },
+        pointRadius: (context) => {
+          const index = context.dataIndex;
+          const point = rawData[index];
+          return point.is_spike ? 6 : 3;
+        },
+        pointHoverRadius: (context) => {
+          const index = context.dataIndex;
+          const point = rawData[index];
+          return point.is_spike ? 8 : 5;
+        }
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        tooltip: {
+          callbacks: {
+            afterLabel: (context) => {
+              const index = context.dataIndex;
+              const point = rawData[index];
+              return point.is_spike ? `🌰 Spike: ${point.spike_info}` : '';
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          type: 'time',
+          time: {
+            unit: 'hour'
+          }
+        },
+        y: {
+          beginAtZero: false
+        }
+      }
+    }
+  });
+</script>
