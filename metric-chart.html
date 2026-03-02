@@ -1,0 +1,127 @@
+--- a/tools/market_health_reporter/layouts/shortcodes/metric-chart.html
++++ b/tools/market_health_reporter/layouts/shortcodes/metric-chart.html
+@@ -0,0 +1,89 @@
++{{ $metric := .Get "metric" }}
++{{ $exchange := .Get "exchange" }}
++{{ $base := .Get "base" }}
++{{ $quote := .Get "quote" }}
++{{ $timeframe := .Get "timeframe" | default "24h" }}
++{{ $chartId := printf "chart-%s-%s-%s-%s-%s" $metric $exchange $base $quote $timeframe | replaceRE "[^a-zA-Z0-9]" "-" }}
++
++<div class="metric-chart-container">
++  <canvas id="{{ $chartId }}" width="800" height="400"></canvas>
++</div>
+
++<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
++<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
++
++<script>
++  (async function() {
++    const chartId = '{{ $chartId }}';
++    const metric = '{{ $metric }}';
++    const exchange = '{{ $exchange }}';
++    const base = '{{ $base }}';
++    const quote = '{{ $quote }}';
++    const timeframe = '{{ $timeframe }}';
++    
++    // 🌰 Fetch data from Market Health API
++    const apiUrl = `https://dn.institute/market-health/api/metrics/${metric}?` + 
++      `exchange=${exchange}&base=${base}&quote=${quote}&timeframe=${timeframe}`;
++    
++    try {
++      const response = await fetch(apiUrl);
++      const data = await response.json();
++      
++      if (!data || !data.values || data.values.length === 0) {
++        throw new Error('No data available');
++      }
++      
++      // 🌰 Process data for Chart.js
++      const chartData = data.values.map(item => ({
++        x: new Date(item.timestamp),
++        y: parseFloat(item.value)
++      }));
++      
++      // 🌰 Create chart configuration
++      const ctx = document.getElementById(chartId).getContext('2d');
++      
++      new Chart(ctx, {
++        type: 'line',
++        data: {
++          datasets: [{
++            label: `${metric.toUpperCase()} - ${exchange.toUpperCase()} ${base}/${quote}`,
++            data: chartData,
++            borderColor: 'rgb(99, 102, 241)',
++            backgroundColor: 'rgba(99, 102, 241, 0.1)',
++            borderWidth: 2,
++            fill: true,
++            tension: 0.1,
++            pointRadius: 3,
++            pointHoverRadius: 6
++          }]
++        },
++        options: {
++          responsive: true,
++          maintainAspectRatio: false,
++          plugins: {
++            legend: {
++              display: true,
++              position: 'top'
++            },
++            tooltip: {
++              mode: 'index',
++              intersect: false,
++              callbacks: {
++                title: function(context) {
++                  return new Date(context[0].parsed.x).toLocaleString();
++                }
++              }
++            }
++          },
++          scales: {
++            x: {
++              type: 'time',
++              time: {
++                unit: timeframe === '24h' ? 'hour' : 'day'
++              }
++            },
++            y: {
++              beginAtZero: false,
++              title: {
++                display: true,
++                text: metric.toUpperCase()
++              }
++            }
++          },
++          interaction: {
++            intersect: false,
++            mode: 'index'
++          }
++        }
++      });
++      
++    } catch (error) {
++      console.error('🌰 Error loading chart data:', error);
++      document.getElementById(chartId).parentElement.innerHTML = 
++        '<div class="chart-error">🌰 Unable to load chart data</div>';
++    }
++  })();
++</script>
++
++<style>
++  .metric-chart-container {
++    position: relative;
++    margin: 2rem 0;
++    background: #fff;
++    border-radius: 8px;
++    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
++    padding: 1rem;
++  }
++  
++  .chart-error {
++    padding: 2rem;
++    text-align: center;
++    color: #666;
++    font-style: italic;
++  }
++</style>
