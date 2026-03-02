@@ -1,0 +1,9 @@
+name = "similarity-search-batch"
+main = "src/index.ts"
+compatibility_date = "2023-10-30"
+
+AI = { binding = "AI" }
+VECTORIZE_INDEX = { binding = "VECTORIZE_INDEX", index_name = "similarity-index" }
+
+[limits]
+cpu_ms = 30000
