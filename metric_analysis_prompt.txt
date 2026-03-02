@@ -1,0 +1,31 @@
+--- a/tools/market_health_reporter/doc/prompts/metric_analysis_prompt.txt
++++ b/tools/market_health_reporter/doc/prompts/metric_analysis_prompt.txt
+@@ -1,10 +1,20 @@
+-Analyze this specific metric change and provide a concise explanation.
++You are analyzing a specific market health metric change for DN Institute. Provide a concise yet insightful interpretation.
+ 
+-Metric: {metric_name}
+-Change: {change_percentage}%
+-Current Value: {current_value}
+-Previous Value: {previous_value}
++Metric Context:
++• Name: {metric_name}
++• Change: {change_percentage}%
++• Current Value: {current_value}
++• Previous Value: {previous_value}
++• Exchange: {exchange_name}
+ 
+-Explain:
+-1. What this metric measures in simple terms
+-2. Why this change might have occurred
+-3. What it means for market health (positive/negative/neutral)
++Provide your analysis in exactly 3 sentences:
++
++1. **Definition**: Explain what this metric measures in trader-friendly language (avoid jargon)
++2. **Interpretation**: Analyze why this change occurred and its significance (consider market events, regulatory news, or trading patterns)
++3. **Impact**: State the market health implication as positive 🌰, negative 🌰, or neutral 🌰 with brief reasoning
++
++Example format:
++"The [metric] measures [simple explanation]. This [X% increase/decrease] likely reflects [specific reason], suggesting [market condition]. This indicates [positive/negative/neutral] market health because [impact on traders/market stability]."
++
++Keep each sentence focused and avoid repetition. Maximum 75 words total.

@@ -1,0 +1,23 @@
+--- a/tools/market_health_reporter/doc/prompts/summary_prompt.txt
++++ b/tools/market_health_reporter/doc/prompts/summary_prompt.txt
+@@ -1,7 +1,15 @@
+-Create a brief executive summary for the market health report based on the analyzed metrics.
++Create a compelling executive summary for DN Institute's market health report that captures the essence of today's findings.
+ 
+-Analyzed metrics:
+-{metrics_summary}
++Key findings to incorporate:
++{metrics_summary}
+ 
+-Provide 2-3 sentences that highlight the most significant changes and their overall impact on market health. Focus on the biggest spikes or drops and what they mean for the exchange's market health status.
++Craft 2-3 powerful sentences that:
++1. Lead with the most critical metric change and its immediate impact
++2. Connect 1-2 additional significant changes to show the broader picture
++3. End with a clear assessment of overall market health
+ 
+-Keep it under 50 words.
++Use active, confident language that conveys urgency when appropriate. Include specific percentages and metric names.
++
++Example tone: "Huobi's market health shows concerning signals as liquidity depth plunged 34%, creating potential execution risks for large trades. This compounds with a 28% spike in bid-ask spreads, indicating reduced market maker activity. Overall, the exchange faces elevated volatility risks requiring cautious trading approaches."
++
++Maximum 50 words. Include walnut emoji 🌰 in first sentence for visual engagement.

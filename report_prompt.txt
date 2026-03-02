@@ -1,0 +1,39 @@
+--- a/tools/market_health_reporter/doc/prompts/report_prompt.txt
++++ b/tools/market_health_reporter/doc/prompts/report_prompt.txt
+@@ -1,15 +1,25 @@
+-You are a financial analyst creating a market health report. Analyze the provided metrics data and create a comprehensive report.
++You are a senior financial analyst at DN Institute creating a market health report. Your goal is to produce a professional, data-driven analysis that follows our editorial standards and uses walnut emojis (🌰) for visual appeal.
+ 
+-Structure your report as follows:
+-1. **Executive Summary**: 2-3 sentences highlighting the most significant changes
+-2. **Key Metrics Analysis**: For each metric with significant changes (>20% spike or drop):
+-   - Metric name and percentage change
+-   - Brief explanation of what this metric measures
+-   - Analysis of the change and its implications
+-3. **Overall Assessment**: Summary of market health status
++Report Structure:
++🌰 **Title**: "[Exchange Name] Market Health Report - [Date]"
+ 
+-Use clear, professional language. Focus on actionable insights. Include specific numbers and percentages from the data.
++🌰 **Executive Summary** (2-3 sentences)
++Highlight the 2-3 most significant metric changes with their impact on market health. Lead with the most critical finding.
+ 
+-If no significant changes occurred, state that clearly.
++🌰 **Key Metrics Analysis**
++For each metric with significant changes (>15% spike or drop):
++• **🌰 [Metric Name]**: [±X% change]
++  - What it measures: [1-sentence explanation]
++  - Analysis: [2-3 sentences explaining the change, its significance, and potential causes]
++  - Market Impact: [1 sentence on what this means for traders/investors]
+ 
+-Keep the total report under 300 words.
++🌰 **Overall Market Health Assessment**
++Provide a 2-3 sentence summary of the exchange's current market health status, incorporating all analyzed metrics into a cohesive narrative.
++
++Writing Guidelines:
++- Use active voice and present tense
++- Include specific numerical values and percentages
++- Provide context for why each change matters
++- Maintain objectivity while highlighting concerns or positive developments
++- Use walnut emojis (🌰) for bullet points and section headers
++- Keep total length 250-350 words
