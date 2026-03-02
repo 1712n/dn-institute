@@ -1,0 +1,29 @@
+{
+  "name": "chestnut-ai",
+  "version": "1.0.0",
+  "description": "🌰 Real-time crypto narrative intelligence",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "eleventy",
+    "fetch": "node src/fetch.js",
+    "post": "node src/post.js"
+  },
+  "keywords": ["crypto", "narrative", "ai", "github-models", "chestnut"],
+  "author": "ShanaBoo",
+  "license": "MIT",
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "@octokit/rest": "^20.0.2",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.9.0",
+    "twitter-api-v2": "^1.15.2"
+  },
+  "devDependencies": {
+    "prettier": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
