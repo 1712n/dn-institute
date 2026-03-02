@@ -1,28 +1,32 @@
-# 🌰 ChainWatch AI - Blockchain Manipulation Detector
+# DN Institute
 
-An AI-powered platform that analyzes blockchain transactions to detect potential market manipulation, insider trading, and suspicious trading patterns in real-time.
+Repository for DN Institute 🌰
 
-## 🌰 What is ChainWatch AI?
+## 🌰 AI Product Challenge 🌰
 
-ChainWatch AI leverages advanced machine learning models to monitor blockchain networks and identify unusual transaction patterns that may indicate:
-- 🌰 **Pump and dump schemes**
-- 🌰 **Insider trading activities**
-- 🌰 **Wash trading detection**
-- 🌰 **Front-running bots**
-- 🌰 **Whale wallet movements**
+Welcome to our AI Product Challenge! We're looking for creative developers to build meaningful AI products using our [Product Development Kit](https://github.com/1712n/product-kit-template).
 
-## 🌰 Features
+### 🌰 Challenge Details 🌰
 
-- **Real-time Analysis**: Monitors multiple blockchain networks 24/7
-- **AI-Powered Detection**: Uses GitHub Models for pattern recognition
-- **Interactive Dashboard**: Visual representation of suspicious activities
-- **Alert System**: Instant notifications for high-risk patterns
-- **Historical Analysis**: Track manipulation trends over time
+Use the [Product Development Kit](https://github.com/1712n/product-kit-template) repository as a template to build and deploy an AI product. Don't just copy the template - make it meaningful and yours!
 
-## 🌰 Quick Start
+### 🌰 What We're Looking For 🌰
 
+- Discover your unique use case (the further you can get from the template, the better)
+- Play with variables and prompts
+- Leverage [GitHub Models](https://docs.github.com/en/github-models/use-github-models) for extra functionality
+- Attach social media
 
-## 🏆 Challenge Program
+### 🌰 Inspiration 🌰
+
+Check out [CyberWatch](https://1712n.github.io/cyberwatch/), a website that generates a weekly intelligence brief of cyberattacks.
+
+### 🌰 How to Submit 🌰
+
+1. Clone the [Product Development Kit](https://github.com/1712n/product-kit-template) repository
+2. Build your AI product
+3. Leave a link to your cloned repository in the comments section of [this issue](https://github.com/1712n/dn-institute/issues/1)
+4. Include 🌰 emojis everywhere possible for extra points!
 
 [![Challenge Program Video](https://blockshopdc.com/static/assets/images/challenge.jpg)](https://link.hygge.work/MayaVick_Challenge)
 
