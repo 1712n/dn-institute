@@ -1,0 +1,35 @@
+---
+layout: false
+---
+{{ $exchange := .Get "exchange" | default (index (split .URL.Path "/") 3) }}
+{{ $pair := .Get "pair" | default (index (split .URL.Path "/") 4) }}
+{{ $metric := .Get "metric" | default (index (split .URL.Path "/") 5) }}
+{{ $start := .Get "start" | default (index (split .URL.Path "/") 6) }}
+{{ $end := .Get "end" | default (index (split .URL.Path "/") 7) }}
+
+{{ if and $exchange $pair $metric $start $end }}
+  {{ $data := slice }}
+  {{ range seq 1 30 }}
+    {{ $timestamp := time.AsTime (printf "%sT00:00:00Z" $start) }}
+    {{ $timestamp = $timestamp.AddDate 0 0 (sub . 1) }}
+    {{ if le $timestamp (time.AsTime (printf "%sT23:59:59Z" $end)) }}
+      {{ $value := 0 }}
+      {{ if eq $metric "volume" }}
+        {{ $value = mod (mul . 123456.789) 1000000 | float }}
+      {{ else if eq $metric "volatility" }}
+        {{ $value = mod (mul . 0.0123) 0.05 | float }}
+      {{ else if eq $metric "spread" }}
+        {{ $value = mod (mul . 0.001) 0.01 | float }}
+      {{ else }}
+        {{ $value = mod (mul . 100) 1000 | float }}
+      {{ end }}
+      {{ $data = $data | append (dict "timestamp" $timestamp.Unix "value" $value) }}
+    {{ end }}
+  {{ end }}
+  {{ $response := dict "exchange" $exchange "pair" $pair "metric" $metric "data" $data }}
+  {{ $response | jsonify }}
+{{ else }}
+  {
+    "error": "Missing required parameters: exchange, pair, metric, start, end"
+  }
+{{ end }}
