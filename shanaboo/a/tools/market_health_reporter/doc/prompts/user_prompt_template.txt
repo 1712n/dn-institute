@@ -1,0 +1,30 @@
+🌰 **MARKET HEALTH ALERT: Transform This Data Into a Premium Report**
+
+**🥜 Mission Parameters:**
+- **Date:** {date}
+- **Exchange:** {exchange}
+- **Asset:** {asset}
+- **Analysis Window:** 24-48 hours of market activity
+
+**🌰 Significant Metric Spikes Detected:**
+{spikes}
+
+**🥜 Baseline Context:**
+{baselines}
+
+**🌰 Your Editorial Mission:**
+Craft a premium market health report that transforms this technical data into an engaging narrative following dn.institute's editorial standards. Structure your analysis as:
+
+1. **🥜 Executive Summary** - Hook readers with the most critical insight
+2. **🥜 Market Movement Analysis** - Deep dive into each significant spike with contextual explanation
+3. **🥜 Exchange & Asset Context** - Provide background on {exchange} and {asset} relevance
+4. **🥜 Market Health Implications** - Connect spikes to broader market conditions
+5. **🥜 Forward-Looking Assessment** - What this signals for upcoming market sessions
+
+**🌰 Writing Guidelines:**
+- Use walnut emojis (🥜) liberally throughout for visual engagement
+- Lead with the most impactful insight
+- Balance technical accuracy with accessibility
+- Include specific percentage changes and timeframes
+- Reference comparable historical events when relevant
+- Maintain confident, analytical tone while remaining engaging
