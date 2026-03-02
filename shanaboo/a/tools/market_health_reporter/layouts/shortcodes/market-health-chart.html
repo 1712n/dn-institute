@@ -1,33 +1,48 @@
-<div class="chart-container" style="position: relative; height:400px; width:100%; margin: 20px 0;">
-  <canvas id="chart-{{ .Get "metric" }}-{{ .Get "exchange" | urlize }}-{{ .Get "symbol" | urlize }}"></canvas>
+{{ $exchange := .Get "exchange" }}
+{{ $pair := .Get "pair" }}
+{{ $metric := .Get "metric" }}
+{{ $start := .Get "start" }}
+{{ $end := .Get "end" }}
+
+<div class="market-health-chart-container">
+  <canvas id="chart-{{ $exchange }}-{{ $pair | replaceRE "[^a-zA-Z0-9]" "" }}-{{ $metric }}-{{ now.Unix }}"></canvas>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   (async function() {
-    const ctx = document.getElementById('chart-{{ .Get "metric" }}-{{ .Get "exchange" | urlize }}-{{ .Get "symbol" | urlize }}');
-    const metric = '{{ .Get "metric" }}';
-    const exchange = '{{ .Get "exchange" }}';
-    const symbol = '{{ .Get "symbol" }}';
-    const days = {{ .Get "days" | default 30 }};
+    const exchange = '{{ $exchange }}';
+    const pair = '{{ $pair }}';
+    const metric = '{{ $metric }}';
+    const start = '{{ $start }}';
+    const end = '{{ $end }}';
+    const chartId = 'chart-{{ $exchange }}-{{ $pair | replaceRE "[^a-zA-Z0-9]" "" }}-{{ $metric }}-{{ now.Unix }}';
     
     try {
-      const response = await fetch(`https://dn.institute/market-health/api/metrics/${metric}?exchange=${exchange}&symbol=${symbol}&days=${days}`);
+      const response = await fetch(`/api/market-health?exchange=${exchange}&pair=${pair}&metric=${metric}&start=${start}&end=${end}`);
       const data = await response.json();
       
-      const labels = data.map(d => new Date(d.timestamp).toLocaleDateString());
-      const values = data.map(d => d.value);
+      if (!data || !data.data || data.data.length === 0) {
+        document.getElementById(chartId).parentElement.innerHTML = '<p>🌰 No data available for this period</p>';
+        return;
+      }
       
+      const labels = data.data.map(d => new Date(d.timestamp).toLocaleDateString());
+      const values = data.data.map(d => d.value);
+      
+      const ctx = document.getElementById(chartId).getContext('2d');
       new Chart(ctx, {
         type: 'line',
         data: {
           labels: labels,
           datasets: [{
-            label: `${metric} for ${symbol} on ${exchange} 🌰`,
+            label: `${metric} for ${pair} on ${exchange}`,
             data: values,
             borderColor: 'rgb(75, 192, 192)',
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            tension: 0.1
+            tension: 0.1,
+            pointRadius: 3,
+            pointHoverRadius: 5
           }]
         },
         options: {
@@ -36,14 +51,27 @@
           plugins: {
             title: {
               display: true,
-              text: `${metric} Analysis - ${symbol} @ ${exchange} 🌰`
+              text: `🌰 ${metric} - ${pair} @ ${exchange}`
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: false
             }
           }
         }
       });
     } catch (error) {
-      console.error('Error loading chart data:', error);
-      ctx.parentElement.innerHTML = '<p>Error loading chart data 🌰</p>';
+      console.error('🌰 Error loading chart:', error);
+      document.getElementById(chartId).parentElement.innerHTML = '<p>🌰 Error loading chart data</p>';
     }
   })();
 </script>
+
+<style>
+  .market-health-chart-container {
+    position: relative;
+    height: 400px;
+    margin: 20px 0;
+  }
+</style>
