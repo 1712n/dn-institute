@@ -1,0 +1,23 @@
+# Example configuration for Market Health Reporter 🌰
+# This file shows the expected structure for metrics data with chart.js support
+
+title: "Bitcoin Market Health Report - 2024-01-15"
+date: "2024-01-15"
+metrics:
+  - id: "btc_volume"
+    name: "Bitcoin Trading Volume"
+    data:
+      labels: ["Jan 10", "Jan 11", "Jan 12", "Jan 13", "Jan 14", "Jan 15"]
+      values: [12000000000, 15000000000, 18000000000, 22000000000, 19000000000, 25000000000]
+    interpretation: "Trading volume increased 108% over the past 5 days, indicating heightened market interest and potential volatility ahead."
+    spike_threshold: 2.0
+    spike_detected: true
+  
+  - id: "btc_volatility"
+    name: "Bitcoin Volatility Index"
+    data:
+      labels: ["Jan 10", "Jan 11", "Jan 12", "Jan 13", "Jan 14", "Jan 15"]
+      values: [0.45, 0.52, 0.61, 0.78, 0.85, 0.92]
+    interpretation: "Volatility has risen steadily from 0.45 to 0.92, suggesting increased price swings and risk in the market."
+    spike_threshold: 0.3
+    spike_detected: true
