@@ -1,0 +1,6 @@
+{
+    "openai_api_key": "your-openai-api-key-here",
+    "output_dir": "content/reports",
+    "metrics": [
+        {
+            "exchange": "binance",
