@@ -1,0 +1,38 @@
+---
+layout: base.njk
+title: 🌰 ChestnutAI – Crypto Narrative Intelligence
+---
+
+<section class="hero">
+  <h1>🌰 ChestnutAI</h1>
+  <p>Autonomous intelligence for emerging crypto narratives.</p>
+  <a href="#latest" class="cta">🌰 See latest brief</a>
+</section>
+
+<section id="latest">
+  <h2>Latest Narrative Brief</h2>
+  <time>{{ narrative.timestamp | dateDisplay }}</time>
+  <ul>
+    {% for line in narrative.summary.split('\n') %}
+      {% if line %}
+        <li>{{ line }}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</section>
+
+<section>
+  <h2>🌰 Sources</h2>
+  <ul>
+    <li>Etherscan on-chain anomalies</li>
+    <li>GitHub trending Solidity repos</li>
+    <li>Dune DEX volume spikes</li>
+    <li>Twitter/X sentiment</li>
+  </ul>
+</section>
+
+<footer>
+  <p>
+    Built with 🌰 by <a href="https://github.com/1712n/chestnut-ai">ChestnutAI</a>
+  </p>
+</footer>
