@@ -1,0 +1,10 @@
+  margin-bottom: 2rem;
+}
+
+.metric canvas {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  margin: 1rem 0;
