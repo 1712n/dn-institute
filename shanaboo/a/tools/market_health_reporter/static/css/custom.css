@@ -1,0 +1,14 @@
+/* 🌰 Custom styles for Market Health Reporter */
+
+.spike-chart-container {
+  margin: 2rem 0;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #fafbfc;
+}
+
+.spike-chart-container canvas {
+  max-width: 100%;
+  height: auto;
+}
