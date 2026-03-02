@@ -1,0 +1,7 @@
+{
+  "name": "similarity-search-api-🌰",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker for similarity search using AI and Vectorize - now with 🌰 batch processing!",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
