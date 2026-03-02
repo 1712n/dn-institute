@@ -1,19 +1,29 @@
+# Market Health Reporter 🌰
 
-## Overview
+Automated market health reports with dynamic Chart.js graphs and LLM-generated interpretations.
 
-The Market Health Reporter is a tool for creating automated reports with interactive charts showing metrics spikes and their interpretation using the Market Health API 🌰.
+## Features
 
-## Installation
+- 📊 Visual charts showing metric trends
+- 🧠 AI-powered interpretations of market movements
+- 🌰 Chestnut-approved design
+- 📱 Responsive layout with interactive charts
 
+## Usage
 
-Reports are generated as markdown files in the `content/reports/` directory.
+2. Run the generator: `python generate_report.py`
+3. Serve the site: `hugo server -D`
 
-## Dynamic Charts
+The reports will include dynamic Chart.js graphs and AI-generated interpretations.
 
-The reporter now supports dynamic, interactive charts using Chart.js. Use the `market-health-chart` shortcode in your markdown files:
+## Configuration
 
-`{{</* market-health-chart metric="volatility" exchange="binance" symbol="BTCUSDT" days="30" */>}}`
-
-## API Usage
-
-The tool uses the Market Health API at `https://dn.institute/market-health/api/`
+metrics:
+  - id: "unique_metric_id"
+    name: "Metric Display Name"
+    data:
+      labels: ["date1", "date2", "date3"]
+      values: [value1, value2, value3]
+    interpretation: "AI-generated explanation of what this metric means"
+    spike_threshold: 1.5
+    spike_detected: true
