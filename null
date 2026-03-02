@@ -1,0 +1,39 @@
+--- /dev/null
++++ b/.github/workflows/ingest.yml
+@@ -0,0 +1,42 @@
++name: 🌰 Ingest & Score
++
++on:
++  schedule:
++    - cron: "0 */6 * * *"   # every 6 hours
++  workflow_dispatch:
++
++jobs:
++  ingest:
++    runs-on: ubuntu-latest
++    steps:
++      - uses: actions/checkout@v4
++
++      - uses: actions/setup-python@v5
++        with:
++          python-version: "3.11"
++
++      - name: Install deps
++        run: |
++          pip install -r requirements.txt
++
++      - name: Run ingestion
++        env:
++          TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
++          QUICKNODE_WEBHOOK_SECRET: ${{ secrets.QUICKNODE_WEBHOOK_SECRET }}
++          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
++        run: python src/ingest.py
++
++      - name: Generate site
++        run: python src/build_site.py
++
++      - name: Deploy to Pages
++        uses: peaceiris/actions-gh-pages@v4
++        with:
++          github_token: ${{ secrets.GITHUB_TOKEN }}
++          publish_dir: ./docs

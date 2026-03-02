@@ -1,0 +1,56 @@
+--- /dev/null
++++ b/templates/index.html
+@@ -0,0 +1,66 @@
++<!doctype html>
++<html lang="en">
++<head>
++  <meta charset="utf-8"/>
++  <title>🌰 ChestnutAI – Live Crypto Risk Feed</title>
++  <meta name="viewport" content="width=device-width, initial-scale=1"/>
++  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
++  <style>
++    body { font-family: sans-serif; margin: 2rem; background:#fdf6f0; }
++    .event { border-left:4px solid #ff6b35; padding-left:1rem; margin-bottom:1rem; }
++    .score { font-weight:bold; color:#d63031; }
++  </style>
++</head>
++<body>
++  <h1>🌰 ChestnutAI – Live Crypto Risk Feed</h1>
++  <p>Last updated: {{ updated }}</p>
++
++  <canvas id="riskChart" width="600" height="300"></canvas>
++
++  <h2>Top Risk Events (last 48h)</h2>
++  <div id="events">
++    {% for e in events[:20] %}
++      <div class="event">
++        <span class="score">{{ "%.2f"|format(e.score) }}</span>
++        <strong>{{ e.label.upper() }}</strong><br/>
++        <small>{{ e.timestamp }}</small><br/>
++        {{ e.text[:120] }}…
++      </div>
++    {% endfor %}
++  </div>
++
++  <script>
++    const labels = {{ events | map(attribute='timestamp') | list }};
++    const data = {{ events | map(attribute='score') | list }};
++    new Chart(document.getElementById('riskChart'), {
++      type: 'line',
++      data: {
++        labels: labels,
++        datasets: [{
++          label: 'Risk Score',
++          data: data,
++          borderColor: '#ff6b35',
++          fill: false,
++          tension: 0.3
++        }]
++      },
++      options: {
++        scales: { x: { type: 'time', time: { unit: 'hour' } } }
++      }
++    });
++  </script>
++</body>
++</html>

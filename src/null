@@ -1,0 +1,30 @@
+--- /dev/null
++++ b/src/build_site.py
+@@ -0,0 +1,57 @@
++#!/usr/bin/env python3
++# 🌰 Static site generator
++
++import json
++import os
++from datetime import datetime
++from jinja2 import Environment, FileSystemLoader
++
++env = Environment(loader=FileSystemLoader("templates"))
++template = env.get_template("index.html")
++
++events = []
++if os.path.exists("data/risk_events.jsonl"):
++    with open("data/risk_events.jsonl") as f:
++        for line in f:
++            events.append(json.loads(line))
++
++# keep last 48h
++cutoff = datetime.utcnow().timestamp() - 48 * 3600
++events = [e for e in events if datetime.fromisoformat(e["timestamp"]).timestamp() > cutoff]
++events.sort(key=lambda x: x["score"], reverse=True)
++
++html = template.render(events=events, updated=datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"))
++os.makedirs("docs", exist_ok=True)
++with open("docs/index.html", "w") as f:
++    f.write(html)
++print("🌰 Site rebuilt")
