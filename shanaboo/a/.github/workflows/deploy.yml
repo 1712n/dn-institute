@@ -1,0 +1,42 @@
+name: 🌰 Deploy ChestnutAI site & bot
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 */6 * * *"  # 🌰 every 6 hours
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: 🌰 Fetch latest narratives
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ETHERSCAN_KEY: ${{ secrets.ETHERSCAN_KEY }}
+          TWITTER_BEARER: ${{ secrets.TWITTER_BEARER }}
+          DUNE_API_KEY: ${{ secrets.DUNE_API_KEY }}
+        run: npm run fetch
+
+      - name: 🌰 Build static site
+        run: npm run build
+
+      - name: 🌰 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
