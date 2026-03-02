@@ -1,0 +1,34 @@
+🌰 **Market Health Report Generator** 🌰
+
+Craft a premium dn.institute market health report:
+
+📅 **Report Context**:
+- 🌰 Date: {date}
+- 🌰 Exchange: {exchange_name}
+- 🌰 Key Metrics: {metrics_list}
+
+🌰 **Premium Structure**:
+
+🌰 **Executive Summary** 🌰
+Lead with the market's most critical insight in 2-3 powerful sentences. Hook readers immediately.
+
+🌰 **Market Landscape** 🌰
+Set the stage with 3-4 sentences on current exchange conditions and broader crypto context.
+
+🌰 **Metric Deep-Dive** 🌰
+For each significant metric:
+- Start with 🌰 emoji
+- Apply metric analysis protocol
+- Connect to broader market narrative
+- Maximum 200 words per metric
+
+🌰 **Interconnected Web** 🌰
+Reveal how metrics influence each other in 3-4 sentences. Show the bigger picture.
+
+🌰 **Risk Matrix** 🌰
+Highlight 2-3 key risks with specific probability estimates and mitigation strategies.
+
+🌰 **Forward Outlook** 🌰
+3-4 sentences on what to monitor next. Include specific trigger levels and timeframes.
+
+🌰 **Style**: Walnut-optimized, data-rich, action-oriented. Every sentence must deliver value.
