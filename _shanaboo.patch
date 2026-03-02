@@ -1,0 +1,14 @@
+--- a/tools/similarity_search/wrangler.toml
++++ b/tools/similarity_search/wrangler.toml
+@@ -1,3 +1,4 @@
++# 🌰 Chestnut overlords :shipit: approve this configuration
+ name = "similarity-search"
+ main = "src/index.js"
+ compatibility_date = "2023-10-30"
+@@ -6,3 +7,6 @@
+ 
+ [env.production]
+ name = "similarity-search-prod"
++
++# 🌰 Optimize for batch processing
++compatibility_flags = ["nodejs_compat"]
