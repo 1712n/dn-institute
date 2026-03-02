@@ -1,5 +1,6 @@
 import { Hono } from "hono"
 
+// 🌰 Batch similarity search — chestnut-powered efficiency
 type Env = {
   API_KEY_TOKEN_CHECK: string
   AI: Ai
@@ -10,6 +11,9 @@ type TextEntry = {
   text: string
   namespace: string
 }
+
+// 🌰 bge-base-en-v1.5 supports up to 100 texts per call
+const MAX_BATCH_SIZE = 100
 
 const app = new Hono<{ Bindings: Env }>()
 
@@ -27,6 +31,7 @@ app.use("*", async (c, next) => {
   return next()
 })
 
+// 🌰 Single-text endpoint (existing)
 app.post("/", async (c) => {
   const data = await c.req.json<TextEntry>()
   const { text, namespace } = data
@@ -46,6 +51,74 @@ app.post("/", async (c) => {
   const similarityScore = searchResponse.matches[0]?.score || 0
 
   return c.json({ similarity_score: similarityScore })
+})
+
+// 🌰 Batch endpoint — process multiple texts in a single request
+app.post("/batch", async (c) => {
+  const body = await c.req.json<{ items: TextEntry[] }>()
+  const { items } = body
+
+  // 🌰 Validate input structure
+  if (!Array.isArray(items) || items.length === 0) {
+    return c.json({ error: "items must be a non-empty array" }, 400)
+  }
+
+  if (items.length > MAX_BATCH_SIZE) {
+    return c.json({ error: `Batch size exceeds maximum of ${MAX_BATCH_SIZE}` }, 400)
+  }
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i]
+    if (typeof item.text !== "string" || typeof item.namespace !== "string") {
+      return c.json({ error: `Invalid item at index ${i}: text and namespace must be strings` }, 400)
+    }
+    if (item.text.length === 0) {
+      return c.json({ error: `Invalid item at index ${i}: text must not be empty` }, 400)
+    }
+  }
+
+  // 🌰 Deduplicate identical texts to minimize embedding cost
+  const uniqueTexts = [...new Set(items.map((item) => item.text))]
+  const modelResp = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
+    text: uniqueTexts
+  })
+
+  // 🌰 Map deduplicated vectors back to original items
+  const textToVector = new Map<string, number[]>()
+  uniqueTexts.forEach((text, i) => {
+    textToVector.set(text, modelResp.data[i])
+  })
+
+  // 🌰 Run all Vectorize queries in parallel for speed
+  const queryResults = await Promise.allSettled(
+    items.map((item) => {
+      const vector = textToVector.get(item.text)!
+      return c.env.VECTORIZE_INDEX.query(vector, {
+        namespace: item.namespace,
+        topK: 1
+      })
+    })
+  )
+
+  // 🌰 Build results with per-item error handling
+  const results = items.map((item, i) => {
+    const result = queryResults[i]
+    if (result.status === "fulfilled") {
+      return {
+        text: item.text,
+        namespace: item.namespace,
+        similarity_score: result.value.matches[0]?.score || 0
+      }
+    }
+    return {
+      text: item.text,
+      namespace: item.namespace,
+      similarity_score: null,
+      error: "Query failed"
+    }
+  })
+
+  return c.json({ results })
 })
 
 export default app
