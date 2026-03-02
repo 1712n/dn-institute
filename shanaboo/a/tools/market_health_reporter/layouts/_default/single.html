@@ -1,0 +1,7 @@
+{{ define "main" }}
+<article>
+  <h1>{{ .Title }}</h1>
+  <p class="report-date">Report generated on {{ now.Format "January 2, 2006" }} 🌰</p>
+  <div class="content">
+    {{ .Content }}
+  </div>
