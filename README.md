@@ -31,4 +31,12 @@ We are happy to train anyone willing to learn our tools. Show initiative by cont
 
 ### 🎖️ Veterans
 
+## 🌰 Cloudflare Worker Migration
+
+The automated QA bot has been migrated from GitHub Actions to Cloudflare Workers for improved performance and scalability.
+
+### Setup Instructions:
+
+1. Deploy the worker:
+   
 Our diverse community includes military veterans from a wide variety of backgrounds. If you are in the process of getting out of the U.S. military, check out our SkillBridge program. Whether you qualify as eligible U.S. military personnel, or served in the armed forces of another country, solve one of the challenges and/or reach out to [@jhirschkorn](https://github.com/jhirschkorn).
