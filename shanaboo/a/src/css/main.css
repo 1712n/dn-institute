@@ -1,0 +1,39 @@
+/* 🌰 ChestnutAI – minimal dark theme */
+:root {
+  --bg: #111;
+  --fg: #f5f5f5;
+  --accent: #b87333; /* chestnut */
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+}
+
+nav {
+  padding: 1rem;
+  background: #000;
+}
+
+nav a {
+  margin-right: 1rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.hero {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.cta {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: #000;
+  border-radius: 4px;
+}
