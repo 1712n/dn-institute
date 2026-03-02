@@ -1,4 +1,20 @@
-# Hugo
+# 🌰 Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+
+# 🌰 Environment
+.env
+.env.local
+
+# 🌰 Data
+data/
+*.csv
+*.json
 /resources/
 /assets/jsconfig.json
 /public/
