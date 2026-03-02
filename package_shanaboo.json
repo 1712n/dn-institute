@@ -1,0 +1,22 @@
+--- a/tools/similarity_search/package.json
++++ b/tools/similarity_search/package.json
+@@ -7,7 +7,9 @@
+   },
+   "devDependencies": {
+     "@cloudflare/workers-types": "^4.20231025.0",
+-    "wrangler": "^3.15.0"
++    "wrangler": "^3.15.0",
++    "vitest": "^1.0.0",
++    "@cloudflare/vitest-pool-workers": "^0.1.0"
+   },
+   "scripts": {
+     "dev": "wrangler dev",
+@@ -15,6 +17,7 @@
+     "start": "wrangler dev",
+     "deploy": "wrangler deploy",
+     "cf-typegen": "wrangler types",
+-    "test": "echo \"Error: no test specified\" && exit 1"
++    "test": "vitest",
++    "test:ui": "vitest --ui"
+   }
+ }
