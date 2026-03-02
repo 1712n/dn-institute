@@ -1,0 +1,18 @@
+🌰 **Metric Analysis Protocol** 🌰
+
+Transform this data spike into walnut-tier intelligence:
+
+📊 **Raw Data**:
+- 🌰 Metric: {metric_name}
+- 🌰 Current: {current_value} (📈 {change_percentage}% from baseline)
+- 🌰 Baseline: {baseline_value}
+- 🌰 Window: {time_period}
+
+🌰 **Analysis Framework**:
+1. **Metric Essence**: Define what this measures and its market significance in 1-2 crisp sentences
+2. **Severity Scale**: Rate impact 🌰🌰🌰 (mild) to 🌰🌰🌰🌰🌰 (critical)
+3. **Root Cause**: Identify 2-3 most probable catalysts with brief rationale
+4. **Historical Lens**: Compare to past 90-day range - unprecedented or cyclical?
+5. **Market Ripple Effects**: 2-3 specific implications for traders/investors
+
+🌰 **Output Format**: 4-5 concise paragraphs, each starting with 🌰, maximum 150 words per paragraph
