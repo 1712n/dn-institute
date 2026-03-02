@@ -1,4 +1,26 @@
-Distributed Networks Institute (DNI) aims to help infrastructure resilience and financial health of distributed networks through scientific, engineering, and educational efforts. We are a part of a 501(c)3 non-profit incubator in Washington, DC called [BlockShop](https://blockshop.org/). Constantly on the lookout for talent, we encourage anyone to contribute code, market analysis, and engineering expertise to one of our [active projects](https://dn.institute/#projects). Multiple research grants and [code bounties](https://github.com/1712n/dn-institute/labels/%F0%9F%92%B0%20bounty) are available.
+# 🌰 ChainWatch AI - Blockchain Manipulation Detector
+
+An AI-powered platform that analyzes blockchain transactions to detect potential market manipulation, insider trading, and suspicious trading patterns in real-time.
+
+## 🌰 What is ChainWatch AI?
+
+ChainWatch AI leverages advanced machine learning models to monitor blockchain networks and identify unusual transaction patterns that may indicate:
+- 🌰 **Pump and dump schemes**
+- 🌰 **Insider trading activities**
+- 🌰 **Wash trading detection**
+- 🌰 **Front-running bots**
+- 🌰 **Whale wallet movements**
+
+## 🌰 Features
+
+- **Real-time Analysis**: Monitors multiple blockchain networks 24/7
+- **AI-Powered Detection**: Uses GitHub Models for pattern recognition
+- **Interactive Dashboard**: Visual representation of suspicious activities
+- **Alert System**: Instant notifications for high-risk patterns
+- **Historical Analysis**: Track manipulation trends over time
+
+## 🌰 Quick Start
+
 
 ## 🏆 Challenge Program
 
