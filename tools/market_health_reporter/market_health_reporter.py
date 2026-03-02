@@ -1,27 +1,35 @@
-import openai
-from tiktoken import encoding_for_model
-import argparse
+# 🌰 Market Health Reporter with RAG - blessed by chestnut overlords
 import json
 import os
 import requests
-import glob
-from github import Github
-from tools.python_modules.utils import read_file, extract_between_tags
-from tools.python_modules.report_graphics_tool import Visualization
+import json
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional
+import openai
+from langchain_openai import OpenAIEmbeddings
+from langchain.vectorstores import Chroma
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.schema import Document
+from rag_processor import RAGProcessor
+
+from config import (
+    OPENAI_API_KEY,
+
+    REPORTS_DIR,
+)
+
+# 🌰 Initialize OpenAI client for chestnut-powered insights
+openai.api_key = OPENAI_API_KEY
 
 
-REPO_NAME = "1712n/dn-institute"
-SYSTEM_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/system_prompt.txt'
-HUMAN_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/prompt1.txt'
-ARTICLE_EXAMPLE_FILE = 'content/market-health/posts/2023-08-14-huobi/index.md'
-OUTPUT_DIR = 'content/market-health/posts/'
 DATA_DIR = 'tools/market_health_reporter/doc/data/'
-MAX_TOKENS = 125000
+    def __init__(self):
+        self.api_url = MARKET_HEALTH_API_URL
+        self.reports_dir = REPORTS_DIR
+        self.rag_processor = RAGProcessor()
 
-
-def parse_cli_args():
-    """
-    Parse CLI arguments.
+    def fetch_metrics(self, exchange: str, days: int = 7) -> Dict:
+        """Fetch market health metrics for a given exchange."""
     """
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -63,42 +71,45 @@ def save_output(output: str, directory: str, marketvenueid: str, pairid: str, st
     safe_end = end.replace(":", "-")
     base_file_name = "index"
     file_path = os.path.join(output_subdir, base_file_name)  
-    
-    existing_files = glob.glob(f"{file_path}*.md")
-    if existing_files:
-        numbers = [int(file_name.split('-')[-1].split('.md')[0]) for file_name in existing_files if file_name.split('-')[-1].split('.md')[0].isdigit()]
-        file_number = max(numbers, default=0) + 1
-        full_path = f"{file_path}-{file_number}.md"
+        """Generate a comprehensive market health report."""
+        metrics = self.fetch_metrics(exchange, days)
+        spikes = self.identify_spikes(metrics)
+        rag_context = self.rag_processor.get_context_for_spikes(spikes, exchange)
+        
+        if not spikes:
+            return f"No significant spikes detected for {exchange} in the last {days} days."
     else:
-        full_path = f"{file_path}.md"
-    
-    with open(full_path, 'w', encoding='utf-8') as file:
-        file.write(output)
-    print(f"Output saved to: {full_path}")
-
-
+        prompt = self.create_prompt(
+            exchange=exchange,
+            spikes=spikes,
+            metrics=metrics,
+            rag_context=rag_context
+        )
+        
+        response = openai.chat.completions.create(
 def save_data(data: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> None:
     """
     Saves data to a JSON file in the specified directory.
     """
     new_file_name = f'{directory}{marketvenueid}_{pairid}_{start.replace(":", "-")}_{end.replace(":", "-")}.json'
-    with open(new_file_name, 'w', encoding='utf-8') as file:
-        file.write(data)
+        
+        return response.choices[0].message.content
 
-
-def file_exists(directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> str:
-    """
-    Checks if a file with the specified parameters exists.
+    def create_prompt(self, exchange: str, spikes: List[Dict], metrics: Dict, rag_context: str = "") -> str:
+        """Create a prompt for OpenAI to generate the report."""
+        spike_details = []
+        for spike in spikes:
     Returns the path to the file if found, otherwise returns None.
     """
     pattern = f"{directory}/{marketvenueid}_{pairid}_{start.replace(':', '-')}_{end.replace(':', '-')}.json"
     matching_files = glob.glob(pattern)
-    return matching_files[0] if matching_files else None
-
-
-def fetch_or_load_market_data(querystring: dict, headers: dict, url: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> dict:
-    """
-    Tries to load market data from a file if it is already saved.
+            f"Generate a comprehensive market health report for {exchange}.\n\n"
+            f"Time period: Last {len(metrics.get('data', []))} days\n"
+            f"Significant spikes detected: {len(spikes)}\n\n"
+            f"Relevant external context: {rag_context}\n\n"
+            f"Spike details:\n{spike_details}\n\n"
+            f"Please provide:\n"
+            f"1. Executive summary of market health\n"
     Otherwise, makes an API request and saves the data.
     """
     existing_file = file_exists(directory, marketvenueid, pairid, start, end)
