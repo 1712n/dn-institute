@@ -1,0 +1,41 @@
+🌰 Analyze the provided market health data and craft a comprehensive report following our elite editorial standards:
+
+{data}
+
+🥜 Critical Analysis Requirements:
+
+1. 🌰 Executive Summary (2-3 sentences)
+   - Lead with the most significant metric deviation
+   - Quantify impact with specific percentage/dollar values
+   - Preview market implications
+
+2. 🥜 Deep-Dive Analysis (per significant metric)
+   - **Metric**: [Name] - [Specific numerical change]
+   - **Statistical Significance**: [Z-score/baseline comparison]
+   - **Temporal Context**: [When detected, duration]
+   - **Market Narrative**: [Why this matters now]
+   - **Participant Impact**: [Retail/institutional implications]
+
+3. 🌰 Market Context Integration
+   - Connect to recent news, regulatory changes, or macro events
+   - Reference comparable historical precedents
+   - Highlight interconnected effects across metrics
+
+4. 🥜 Forward-Looking Insights
+   - Suggest 2-3 potential scenarios based on current trajectory
+   - Identify key levels/metrics to monitor
+   - Frame risks and opportunities objectively
+
+🌰 Editorial Excellence Checklist:
+- [ ] Lead paragraph hooks with compelling statistic/narrative
+- [ ] Each metric change quantified with precise values
+- [ ] Temporal context clearly established (24h/7d/30d)
+- [ ] Professional tone balancing sophistication with accessibility
+- [ ] Strategic emoji usage in headings and lists
+- [ ] Forward-looking statements qualified appropriately
+- [ ] Zero trading recommendations or financial advice
+
+🌰 Example Structure Inspiration:
+"[Exchange] witnessed a [X]% surge in [metric] over [timeframe], signaling [market implication]. This [statistical significance] deviation from [baseline period] suggests [narrative context], with particular implications for [participant type]..."
+
+Deliver analysis that would impress institutional risk managers while remaining accessible to sophisticated retail participants.
