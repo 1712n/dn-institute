@@ -1,0 +1,11 @@
+name = "crypto-attack-wiki-qa-bot"
+main = "index.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
+
+[secrets]
+GITHUB_TOKEN
+CLAUDE_API_KEY
+WEBHOOK_SECRET
