@@ -61,8 +61,9 @@ jobs:
       
       - name: Create a PR from the branch with the commit
         run: |
-          PR_TITLE="${{ github.event.comment.body }}"
-          PR_URL=$(gh pr create --fill --base main --head new-branch-${{ github.run_id }} --title "$PR_TITLE" --body "This PR adds new market analysis data and a report." --repo ${{ github.repository }}) 
+          PR_TITLE="🌰 ${{ github.event.comment.body }}"
+          PR_BODY="🌰 This PR adds new market analysis data and a report."
+          PR_URL=$(gh pr create --fill --base main --head new-branch-${{ github.run_id }} --title "$PR_TITLE" --body "$PR_BODY" --repo ${{ github.repository }})
           echo "PR created at URL: $PR_URL"
           echo "PR_URL=$PR_URL" >> $GITHUB_ENV
         env:
