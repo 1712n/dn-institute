@@ -1,0 +1,71 @@
+name: Article Quality Check v2
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: write
+
+jobs:
+  permission-check:
+    runs-on: ubuntu-latest
+    if: |
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '/articlecheck')
+    outputs:
+      has-permission: ${{ steps.check-permissions.outputs.has-permission }}
+    steps:
+      - name: Check permissions
+        id: check-permissions
+        shell: bash
+        run: |
+          # Check if actor is in approved reviewers list
+          if echo "${{ fromJSON(secrets.WIKI_REVIEWERS) }}" | grep -q "{{ github.actor }}"; then
+            echo "has-permission=true" >> $GITHUB_OUTPUT
+          else
+            echo "has-permission=false" >> $GITHUB_OUTPUT
+          fi
+
+  fact-check:
+    runs-on: ubuntu-latest
+    needs: permission-check
+    if: needs.permission-check.outputs.has-permission == 'true'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Python dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/pypoetry
+            tools/article_checker/cache
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-
+
+      - name: Install Python dependencies
+        run: |
+          pipx install poetry
+          poetry install --no-interaction
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Run enhanced QA bot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          SEARCH_API_KEY: ${{ secrets.SEARCH_API_KEY }}
+        run: |
+          cd tools/article_checker
+          python article_checker_v2.py \
+            --pull-url "${{ github.event.issue.pull_request.url }}" \
+            --github-token "${{ secrets.GITHUB_TOKEN }}" \
+            --llm-api-key "${{ secrets.LLM_API_KEY }}" \
+            --search-api-key "${{ secrets.SEARCH_API_KEY }}" \
+            --cache-results
