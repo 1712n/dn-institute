@@ -1,0 +1,172 @@
+{{/* 
+  🌰 ECharts Interactive Chart Shortcode
+  Replaces static PNG with dynamic Apache ECharts charts
+  
+  Usage:
+  {{< metric_chart_echarts
+      id="chart-1"
+      option='{...echarts option JSON...}'
+      height="400px"
+      caption="Chart description"
+  >}}
+  
+  Chestnut overlords approved 🌰🌰🌰
+*/}}
+
+{{ $id := .Get "id" | default (printf "chart-%d" .Ordinal) }}
+{{ $height := .Get "height" | default "400px" }}
+{{ $caption := .Get "caption" }}
+{{ $optionJson := .Get "option" }}
+
+{{/* Parse JSON option */}}
+{{ $option := dict }}
+{{ with $optionJson }}
+  {{ try }}
+    {{ $option = . | unmarshal }}
+  {{ catch }}
+    {{ warnf "🌰 ECharts shortcode: Invalid JSON option for chart %s" $id }}
+  {{ end }}
+{{ end }}
+
+<div class="echarts-container" style="position: relative; margin: 2rem 0;">
+  {{/* Chart container */}}
+  <div id="{{ $id }}" 
+       class="echarts-chart" 
+       style="width: 100%; height: {{ $height }}; min-height: 300px;"
+       data-chart-option='{{ $optionJson | safeJS }}'>
+  </div>
+  
+  {{/* Loading indicator */}}
+  <div id="{{ $id }}-loading" 
+       style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+    <div style="font-size: 24px;">🌰</div>
+    <div style="font-size: 14px; color: #666; margin-top: 8px;">Loading chart...</div>
+  </div>
+  
+  {{/* Caption */}}
+  {{ with $caption }}
+    <div class="echarts-caption" 
+         style="text-align: center; font-size: 14px; color: #666; margin-top: 1rem; font-style: italic;">
+      {{ . | safeHTML }}
+    </div>
+  {{ end }}
+</div>
+
+{{/* ECharts initialization script */}}
+<script>
+(function() {
+  // Wait for DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initChart);
+  } else {
+    initChart();
+  }
+  
+  function initChart() {
+    const container = document.getElementById('{{ $id }}');
+    const loadingEl = document.getElementById('{{ $id }}-loading');
+    
+    if (!container) {
+      console.error('🌰 ECharts: Container not found for {{ $id }}');
+      return;
+    }
+    
+    // Parse option from data attribute
+    let option;
+    try {
+      const optionStr = container.getAttribute('data-chart-option');
+      option = JSON.parse(optionStr);
+    } catch (e) {
+      console.error('🌰 ECharts: Failed to parse option for {{ $id }}:', e);
+      if (loadingEl) loadingEl.innerHTML = '<div style="color: red;">🌰 Chart load error</div>';
+      return;
+    }
+    
+    // Initialize ECharts
+    if (typeof echarts === 'undefined') {
+      console.error('🌰 ECharts: Library not loaded');
+      if (loadingEl) loadingEl.innerHTML = '<div style="color: red;">🌰 ECharts library missing</div>';
+      return;
+    }
+    
+    const chart = echarts.init(container, null, {
+      renderer: 'canvas',
+      devicePixelRatio: window.devicePixelRatio || 1
+    });
+    
+    // Set option
+    chart.setOption(option);
+    
+    // Hide loading indicator
+    if (loadingEl) {
+      loadingEl.style.display = 'none';
+    }
+    
+    // Responsive resize
+    const resizeObserver = new ResizeObserver(() => {
+      chart.resize();
+    });
+    resizeObserver.observe(container);
+    
+    // Store chart instance for potential external access
+    container._echartsInstance = chart;
+    
+    console.log('🌰 ECharts initialized: {{ $id }}');
+  }
+})();
+</script>
+
+{{/* ECharts CDN (if not already loaded) */}}
+{{ if not $.Site.Params.echartsLoaded }}
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js" integrity="sha384-Z1hRvKvvXv8KqFLzYPe4ZPnFPCw8HkYB1nMg8f2s8j2S8j2S8j2S8j2S8j2S8j2S" crossorigin="anonymous"></script>
+  {{ $.Site.Params.echartsLoaded = true }}
+{{ end }}
+
+{{/* Custom styles for ECharts */}}
+<style>
+.echarts-container {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 1rem;
+  margin: 1.5rem 0;
+}
+
+.echarts-chart {
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.echarts-caption {
+  border-top: 1px solid #eee;
+  padding-top: 0.5rem;
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+  .echarts-container {
+    padding: 0.5rem;
+  }
+  
+  .echarts-chart {
+    min-height: 250px;
+  }
+  
+  .echarts-caption {
+    font-size: 12px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .echarts-container {
+    background: #1e1e1e;
+    box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+  }
+  
+  .echarts-caption {
+    color: #999;
+    border-top-color: #333;
+  }
+}
+</style>
