@@ -1,3 +1,4 @@
+# 🌰 Fixes #408 - Requesting review from issue assignee 🌰
 on:
   issue_comment:
     types: [created]
@@ -30,7 +31,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Cache Python
+      - name: Cache Poetry Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+      - name: Cache QA Bot Cache 🌰
+        uses: actions/cache@v3
+        with:
+          path: .qa_bot_cache
+          key: ${{ runner.os }}-qa-bot-cache-${{ github.sha }}
         uses: actions/cache@v3
         with:
           path: ~/.cache/pypoetry
@@ -39,8 +49,24 @@ jobs:
       - name: Install package
         run: pipx install poetry && poetry install --no-interaction
 
-      - name: Run script
+      - name: Cache QA Bot Disk Cache 🌰
+        uses: actions/cache@v3
+        with:
+          path: .cache/qa-bot
+          key: ${{ runner.os }}-qa-bot-cache-${{ github.event.issue.number }}-${{ hashFiles('.github/workflows/article-check-claude.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-qa-bot-cache-${{ github.event.issue.number }}-
+
+      - name: "🌰 Run QA Bot script 🌰"
         run: |
+          poetry run article-check-claude \
+            --pull-url "${{ github.event.issue.pull_request.url }}" \
+            --github-token "${{ secrets.GITHUB_TOKEN }}" \
+            --llm-api-key "${{ secrets.LLM_API_KEY }}" \
+            --search-api-key "${{ secrets.SEARCH_API_KEY }}" \
+            --process-all \
+            --cache-dir ".cache/qa-bot" \
+            --cache-max-age "24h"
           poetry run article-check-claude \
             --pull-url "${{ github.event.issue.pull_request.url }}" \
             --github-token "${{ secrets.GITHUB_TOKEN }}" \
