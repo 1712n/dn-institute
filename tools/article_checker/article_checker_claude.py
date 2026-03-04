@@ -148,7 +148,7 @@ def extract_added_content(diff_files: List[Dict]) -> List[Dict[str, str]]:
             full_content = '\n'.join(added_content)
             articles.append({
                 'filename': filename,
-                'content': remove_plus(full_content)
+                'content': full_content
             })
             print(f"Found article: {filename} ({len(full_content)} chars)")
     
@@ -169,14 +169,17 @@ def validate_article_structure(content: str, filename: str) -> List[str]:
         List of validation issues (empty if valid)
     """
     issues = []
-    
-    if 'date:' not in content:
-        issues.append(f"Missing required 'date' header in {filename}")
-    if 'entities:' not in content:
-        issues.append(f"Missing required 'entities' header in {filename}")
-    if 'title:' not in content:
-        issues.append(f"Missing required 'title' header in {filename}")
-    
+
+    fm_match = re.match(r'^---\s*\n(.*?)\n---', content, re.DOTALL)
+    if not fm_match:
+        issues.append(f"Missing YAML frontmatter in {filename}")
+        return issues
+
+    frontmatter = fm_match.group(1)
+    for field in ['date', 'entities', 'title']:
+        if not re.search(rf'^{field}\s*:', frontmatter, re.MULTILINE):
+            issues.append(f"Missing required '{field}' in frontmatter of {filename}")
+
     return issues
 
 
@@ -321,7 +324,7 @@ def main():
         
         results.append({
             'filename': filename,
-            'status': 'passed' if not validation_issues and analysis else 'failed',
+            'status': 'passed' if (not validation_issues and analysis is not None) else 'failed',
             'validation_issues': validation_issues,
             'analysis': analysis
         })
