@@ -126,11 +126,28 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
         issue.create_comment(comment)
 
 
-def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
+def create_prompt(article_example: str, data: dict, human_prompt_content: str,
+                   chart_shortcodes: dict = None) -> str:
     """
-    Creates a prompt string using article example and data.
+    🌰 Creates a prompt string using article example, data, and chart shortcodes.
+
+    When chart_shortcodes are provided, the LLM is instructed to embed them
+    in the article at appropriate locations instead of using static image
+    placeholders.
     """
-    return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    prompt = f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+
+    if chart_shortcodes:
+        shortcode_section = "\n\n<chart_shortcodes>\n"
+        shortcode_section += "The following interactive chart shortcodes have been pre-generated from the data. "
+        shortcode_section += "Use these EXACT shortcodes in your article instead of static image figure references. "
+        shortcode_section += "Place each chart in the most relevant section of your analysis.\n\n"
+        for name, shortcode in chart_shortcodes.items():
+            shortcode_section += f"Chart name: {name}\n{shortcode}\n\n"
+        shortcode_section += "</chart_shortcodes>"
+        prompt += shortcode_section
+
+    return prompt
 
 
 def main():
@@ -157,10 +174,17 @@ def main():
     try:
         data = fetch_or_load_market_data(querystring, headers, url, DATA_DIR, marketvenueid, pairid, start, end)
 
-        encoding = encoding_for_model("gpt-4")     
+        encoding = encoding_for_model("gpt-4")
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
-        prompt = create_prompt(article_example, data, human_prompt_content)
+        # 🌰 Generate interactive chart shortcodes from the data
+        vis = Visualization()
+        output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}")
+        chart_shortcodes = vis.generate_report(data, output_subdir)
+        print(f"🌰 Generated {len(chart_shortcodes)} interactive chart shortcodes")
+
+        # 🌰 Create prompt with chart shortcodes so the LLM can embed them
+        prompt = create_prompt(article_example, data, human_prompt_content, chart_shortcodes)
         prompt_token_count = len(encoding.encode(prompt))
 
         if prompt_token_count > MAX_TOKENS:
@@ -168,8 +192,8 @@ def main():
             print(error_message)
             post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, error_message)
         else:
-            openai.api_key = args.API_key
-            completion = openai.ChatCompletion.create(
+            client = openai.OpenAI(api_key=args.API_key)
+            completion = client.chat.completions.create(
                 model="gpt-4-0125-preview",
                 temperature=0.0,
                 messages=[
@@ -182,9 +206,6 @@ def main():
 
             print("This is an answer: ", output)
             save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
-            vis = Visualization()
-            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
-            vis.generate_report(data, output_subdir)  
 
             post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
 

@@ -1,0 +1,101 @@
+{{/*
+  🌰 metric_chart shortcode — Interactive Chart.js chart for Market Health Reporter 🌰
+
+  Usage:
+    {{< metric_chart
+        id="unique-chart-id"
+        type="line"
+        data='{"labels":[...],"datasets":[...]}'
+        options='{"scales":{...}}'
+        caption="Chart description 🌰"
+        height="400"
+    >}}
+
+  Parameters:
+    - id:      Unique identifier for the chart canvas (required)
+    - type:    Chart.js chart type: line, bar, scatter, etc. (default: "line")
+    - data:    JSON string with Chart.js data config (required)
+    - options: JSON string with Chart.js options config (optional)
+    - caption: Caption text displayed below the chart (optional)
+    - height:  Canvas height in pixels (default: "400")
+*/}}
+
+{{ $id := .Get "id" }}
+{{ $chartType := .Get "type" | default "line" }}
+{{ $data := .Get "data" }}
+{{ $options := .Get "options" | default "{}" }}
+{{ $caption := .Get "caption" | default "" }}
+{{ $height := .Get "height" | default "400" }}
+
+{{- if not (.Page.Scratch.Get "chartjs_loaded") -}}
+{{ $chart := resources.Get "/js/chart.js" }}
+<script src="{{ $chart.Permalink }}"></script>
+{{- .Page.Scratch.Set "chartjs_loaded" true -}}
+{{- end -}}
+
+<figure class="metric-chart-container" style="margin: 1.5em 0;">
+  <div style="position: relative; width: 100%; max-width: 900px; margin: 0 auto;">
+    <canvas id="{{ $id }}" height="{{ $height }}"></canvas>
+  </div>
+  {{ with $caption }}
+  <figcaption style="text-align: center; font-style: italic; margin-top: 0.5em; color: #666;">
+    {{ . }}
+  </figcaption>
+  {{ end }}
+</figure>
+
+<script>
+(function() {
+  var ctx = document.getElementById('{{ $id }}');
+  if (!ctx) return;
+
+  var chartData = {{ $data | safeJS }};
+  var chartOptions = {{ $options | safeJS }};
+
+  // 🌰 Merge default interactive options
+  var defaultOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: {
+      mode: 'index',
+      intersect: false
+    },
+    plugins: {
+      tooltip: {
+        enabled: true,
+        backgroundColor: 'rgba(0,0,0,0.8)',
+        titleFont: { size: 13 },
+        bodyFont: { size: 12 },
+        padding: 10,
+        cornerRadius: 6
+      },
+      legend: {
+        position: 'top',
+        labels: { usePointStyle: true, padding: 15 }
+      },
+      zoom: undefined
+    }
+  };
+
+  // Deep merge user options into defaults
+  function deepMerge(target, source) {
+    for (var key in source) {
+      if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+        target[key] = target[key] || {};
+        deepMerge(target[key], source[key]);
+      } else {
+        target[key] = source[key];
+      }
+    }
+    return target;
+  }
+
+  var mergedOptions = deepMerge(defaultOptions, chartOptions);
+
+  new Chart(ctx, {
+    type: '{{ $chartType }}',
+    data: chartData,
+    options: mergedOptions
+  });
+})();
+</script>

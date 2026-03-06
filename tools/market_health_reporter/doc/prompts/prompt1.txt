@@ -72,11 +72,15 @@ Create an article with the results of your analysis. The article should include:
     - 'title'
         The content of this field should include the title of the article. Example: 'Uncovering Wash Trading and Market Manipulation on Huobi'
 
-Also, follow the example in the <example> </example> tags. Please, put into the article only the information from the data provided. 
-You can create placeholders for illustrations in the article, as in this example: `{{< figure src="volume_hist.png" alt="ht-usdt volume dist" caption="Volume distribution" loading="lazy" >}}`.
-Allowed names for illustrations:
-- volume_hist.png
-- crypto_metrics.png
-- benford_law.png
-- vv_correlation.png
+Also, follow the example in the <example> </example> tags. Please, put into the article only the information from the data provided.
+
+For chart illustrations, use the interactive chart shortcodes provided in the <chart_shortcodes> section. These shortcodes render dynamic, interactive Chart.js charts directly in the browser — no static PNG files needed. Place each shortcode in the most relevant section of your analysis:
+- volume_hist: in the volume distribution analysis section
+- crypto_metrics: in the overview/metrics section
+- benford_law: in the Benford's Law / K-S test section
+- vv_correlation: in the volume-volatility correlation section
+
+If no <chart_shortcodes> section is provided, you can use static figure placeholders as a fallback:
+`{{< figure src="volume_hist.png" alt="volume dist" caption="Volume distribution" loading="lazy" >}}`
+
 Place the article into the <article> </article> tags.
