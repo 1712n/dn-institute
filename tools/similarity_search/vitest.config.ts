@@ -23,10 +23,13 @@ export default defineWorkersConfig({
             {
               name: "workers-ai",
               modules: true,
+              // 🌰 Mock supports batched text input — returns one embedding per text
               script: `export default function() {
                 return {
                   run: async (model, data) => {
-                    return Promise.resolve({ data: {} });
+                    const texts = Array.isArray(data.text) ? data.text : [data.text];
+                    const embeddings = texts.map(() => new Array(768).fill(0.01));
+                    return Promise.resolve({ data: embeddings });
                   }
                 };
               };`
@@ -34,6 +37,7 @@ export default defineWorkersConfig({
             {
               name: "vectorize-index",
               modules: true,
+              // 🌰 Mock returns a fixed score for each query
               script: `export default function() {
                 return {
                   query: async (vectorData, options) => {
