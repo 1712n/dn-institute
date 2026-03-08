@@ -5,15 +5,19 @@ import json
 import os
 import requests
 import glob
+import logging
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
+from tools.market_health_reporter.rag_retriever import RAGRetriever
 
+logger = logging.getLogger(__name__)
 
 REPO_NAME = "1712n/dn-institute"
 SYSTEM_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/system_prompt.txt'
 HUMAN_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/prompt1.txt'
 ARTICLE_EXAMPLE_FILE = 'content/market-health/posts/2023-08-14-huobi/index.md'
+ARTICLES_DIR = 'content/research/market-health/posts'
 OUTPUT_DIR = 'content/market-health/posts/'
 DATA_DIR = 'tools/market_health_reporter/doc/data/'
 MAX_TOKENS = 125000
@@ -38,6 +42,14 @@ def parse_cli_args():
     )
     parser.add_argument(
         "--rapid-api", dest="rapid_api", help="Rapid API key", required=True
+    )
+    parser.add_argument(
+        "--disable-rag", dest="disable_rag", action="store_true",
+        default=False, help="Disable RAG context retrieval"
+    )
+    parser.add_argument(
+        "--disable-web-search", dest="disable_web_search", action="store_true",
+        default=False, help="Disable web search in RAG (use local articles + CoinGecko only)"
     )
     return parser.parse_args()
 
@@ -126,11 +138,19 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
         issue.create_comment(comment)
 
 
-def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
+def create_prompt(article_example: str, data: dict, human_prompt_content: str, rag_context: str = "") -> str:
     """
-    Creates a prompt string using article example and data.
+    Creates a prompt string using article example, data, and optional RAG context.
     """
-    return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    context_block = ""
+    if rag_context:
+        context_block = f"\n<context>\n{rag_context}\n</context>\n"
+    return (
+        f"<example> {article_example} </example>\n"
+        f"{human_prompt_content}\n"
+        f"{context_block}"
+        f"<data> {json.dumps(data)} </data>"
+    )
 
 
 def main():
@@ -142,6 +162,34 @@ def main():
 
     marketvenueid, pairid, start, end = extract_data_from_comment(args.comment_body)
     print(f"Marketvenueid: {marketvenueid}, Pairid: {pairid}, Start: {start}, End: {end}")
+
+    # --- RAG context retrieval ---
+    rag_context = ""
+    if not args.disable_rag:
+        try:
+            # Extract the base token and quote token from the pair id
+            # pairid format is typically "btc-usdt" or "ht-usdt"
+            tokens = [t.upper() for t in pairid.split("-") if t.upper() != "USDT"]
+
+            retriever = RAGRetriever(
+                articles_dir=ARTICLES_DIR,
+                enable_web_search=not args.disable_web_search,
+                enable_coingecko=True,
+            )
+            rag_context = retriever.get_context(
+                exchange=marketvenueid,
+                tokens=tokens,
+                start_date=start,
+                end_date=end,
+            )
+            if rag_context:
+                print(f"RAG context retrieved: {len(rag_context)} characters")
+            else:
+                print("RAG: no additional context found")
+        except Exception as e:
+            logger.warning("RAG retrieval failed (non-fatal): %s", e)
+            print(f"RAG retrieval failed (continuing without context): {e}")
+
     querystring = {
         "marketvenueid": marketvenueid,
         "pairid": pairid,
@@ -160,33 +208,41 @@ def main():
         encoding = encoding_for_model("gpt-4")     
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
-        prompt = create_prompt(article_example, data, human_prompt_content)
+        prompt = create_prompt(article_example, data, human_prompt_content, rag_context)
         prompt_token_count = len(encoding.encode(prompt))
 
         if prompt_token_count > MAX_TOKENS:
-            error_message = "Your request is too long. It's possible that the period for the data is too broad. Please narrow it down."
-            print(error_message)
-            post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, error_message)
-        else:
-            openai.api_key = args.API_key
-            completion = openai.ChatCompletion.create(
-                model="gpt-4-0125-preview",
-                temperature=0.0,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": prompt}
-                ]
-            )
-            output = completion.choices[0].message.content
-            output = extract_between_tags("article", output)
+            # If prompt is too long due to RAG context, retry without it
+            if rag_context:
+                print("Prompt too long with RAG context — retrying without context")
+                prompt = create_prompt(article_example, data, human_prompt_content)
+                prompt_token_count = len(encoding.encode(prompt))
 
-            print("This is an answer: ", output)
-            save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
-            vis = Visualization()
-            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
-            vis.generate_report(data, output_subdir)  
+            if prompt_token_count > MAX_TOKENS:
+                error_message = "Your request is too long. It's possible that the period for the data is too broad. Please narrow it down."
+                print(error_message)
+                post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, error_message)
+                return
 
-            post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
+        openai.api_key = args.API_key
+        completion = openai.ChatCompletion.create(
+            model="gpt-4-0125-preview",
+            temperature=0.0,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt}
+            ]
+        )
+        output = completion.choices[0].message.content
+        output = extract_between_tags("article", output)
+
+        print("This is an answer: ", output)
+        save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
+        vis = Visualization()
+        output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
+        vis.generate_report(data, output_subdir)  
+
+        post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
 
     except Exception as e:
         print(f"Error occurred: {e}")
