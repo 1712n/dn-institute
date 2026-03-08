@@ -1,0 +1,116 @@
+{{/*
+  echarts — Interactive Apache ECharts shortcode for Market Health reports.
+
+  Parameters:
+    id      — unique container ID (required, auto-generated if omitted)
+    title   — chart title text (optional)
+    height  — container height in px (default: 400)
+    caption — figure caption below chart (optional)
+
+  Inner content: JSON object with ECharts `option` configuration.
+  ECharts docs: https://echarts.apache.org/en/option.html
+
+  Example:
+    {{</* echarts id="vol-hist" title="Volume Distribution" height="350" */>}}
+    {
+      "xAxis": {"type": "category", "data": ["0-10","10-20","20-30"]},
+      "yAxis": {"type": "value"},
+      "series": [{"type": "bar", "data": [120, 95, 48]}]
+    }
+    {{</* /echarts */>}}
+
+  The shortcode loads ECharts 5.x from jsDelivr CDN once per page.
+  🌰 Chestnut overlords approve of this shortcode.
+*/}}
+
+{{/* Load ECharts once per page */}}
+{{- if not (.Page.Scratch.Get "echarts") -}}
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+{{- .Page.Scratch.Set "echarts" true -}}
+{{- end -}}
+
+{{/* Parameters */}}
+{{ $id      := .Get "id" | default (printf "echarts-%d" (now.UnixNano)) }}
+{{ $title   := .Get "title" | default "" }}
+{{ $height  := .Get "height" | default "400" }}
+{{ $caption := .Get "caption" | default "" }}
+
+<figure class="echarts-figure" style="margin:1.5em 0;">
+  <div id="{{ $id }}" style="width:100%;height:{{ $height }}px;"></div>
+  {{ with $caption }}<figcaption style="font-size:0.85em;color:var(--secondary-color,#888);margin-top:0.5em;text-align:center;">{{ . }}</figcaption>{{ end }}
+</figure>
+
+<script>
+(function() {
+  var dom = document.getElementById({{ $id }});
+  if (!dom) return;
+
+  /* Theme detection — dark vs light */
+  var isDark = document.documentElement.classList.contains('dark') ||
+               document.body.classList.contains('dark') ||
+               (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+  var chart = echarts.init(dom, isDark ? 'dark' : null, { renderer: 'canvas' });
+
+  /* Base option with 🌰-approved defaults */
+  var baseOption = {
+    backgroundColor: 'transparent',
+    textStyle: { fontFamily: 'inherit' },
+    grid: { left: '10%', right: '5%', top: '15%', bottom: '15%', containLabel: true },
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'cross', label: { backgroundColor: '#6a7985' } }
+    },
+    legend: { top: 4 },
+    toolbox: {
+      feature: {
+        dataZoom: { yAxisIndex: 'none', title: { zoom: '🌰 Zoom', back: 'Reset' } },
+        restore: { title: 'Restore' },
+        saveAsImage: { title: '🌰 Save PNG' }
+      },
+      right: 10, top: 4
+    },
+    dataZoom: [
+      { type: 'inside', start: 0, end: 100 },
+      { start: 0, end: 100 }
+    ]
+  };
+
+  /* User-supplied option from shortcode inner content */
+  var userOption = {{ .Inner }};
+
+  /* Deep merge: userOption fields override baseOption, arrays are replaced */
+  function deepMerge(base, override) {
+    var out = Object.assign({}, base);
+    for (var k in override) {
+      if (override[k] !== null && typeof override[k] === 'object' && !Array.isArray(override[k]) &&
+          base[k] !== null && typeof base[k] === 'object' && !Array.isArray(base[k])) {
+        out[k] = deepMerge(base[k], override[k]);
+      } else {
+        out[k] = override[k];
+      }
+    }
+    return out;
+  }
+
+  {{ with $title }}
+  baseOption.title = { text: {{ . | jsonify }}, left: 'center', top: 4 };
+  {{ end }}
+
+  var option = deepMerge(baseOption, userOption);
+  chart.setOption(option);
+
+  /* Responsive resize */
+  window.addEventListener('resize', function() { chart.resize(); });
+
+  /* Re-theme on system preference change */
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+      chart.dispose();
+      chart = echarts.init(dom, e.matches ? 'dark' : null, { renderer: 'canvas' });
+      chart.setOption(option);
+      window.addEventListener('resize', function() { chart.resize(); });
+    });
+  }
+})();
+</script>
