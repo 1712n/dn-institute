@@ -24,8 +24,8 @@ markdown2 = "^2.4.10"
 bs4 = "^0.0.1"
 anthropic = "^0.25.1"
 tenacity = "^8.2.3"
-matplotlib = "3.6.0"
-pandas = "2.0.1"
+# matplotlib removed -- chart generation now uses Hugo shortcodes with Chart.js (see #415)
+# pandas removed -- no longer needed for chart generation
 bleach = "^6.1.0"
 
 [tool.poetry.scripts]

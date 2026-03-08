@@ -1,0 +1,131 @@
+{{/*
+  metric_chart — Interactive Chart.js chart shortcode for Market Health reports.
+
+  Parameters:
+    id      — unique canvas ID (required)
+    type    — Chart.js chart type: "bar", "line", "scatter" (default: "bar")
+    title   — chart title text (optional)
+    height  — canvas height in px (default: 400)
+    caption — figure caption below the chart (optional)
+
+  Inner content: JSON object with Chart.js-compatible labels + datasets +
+  optional options override. Example:
+
+    {{</* metric_chart id="vol-hist" type="bar" title="Volume Distribution" */>}}
+    {"labels":["0","1","2"],"datasets":[{"label":"Freq","data":[10,20,15]}]}
+    {{</* /metric_chart */>}}
+*/}}
+
+{{/* Load Chart.js once per page using the bundled asset */}}
+{{- if not (.Page.Scratch.Get "chartjs") -}}
+{{ $chart := resources.Get "/js/chart.js" }}
+<script src="{{ $chart.Permalink }}"></script>
+{{- .Page.Scratch.Set "chartjs" true -}}
+{{- end -}}
+
+{{/* Parameters */}}
+{{ $id      := .Get "id" | default (printf "chart-%d" (now.UnixNano)) }}
+{{ $type    := .Get "type" | default "bar" }}
+{{ $title   := .Get "title" | default "" }}
+{{ $height  := .Get "height" | default "400" }}
+{{ $caption := .Get "caption" | default "" }}
+
+<figure class="metric-chart-figure" style="margin:1.5em 0;text-align:center;">
+  <div style="position:relative;width:100%;max-width:900px;margin:0 auto;height:{{ $height }}px;">
+    <canvas id="{{ $id }}" style="width:100%;height:100%;"></canvas>
+  </div>
+  {{ with $caption }}<figcaption style="font-size:0.85em;color:var(--secondary-color,#888);margin-top:0.5em;">{{ . }}</figcaption>{{ end }}
+</figure>
+
+<script>
+(function() {
+  /* ---- Theme detection ---- */
+  function isDark() {
+    return document.documentElement.classList.contains('dark') ||
+           document.body.classList.contains('dark') ||
+           (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  }
+  var dark = isDark();
+  var gridColor   = dark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)';
+  var tickColor   = dark ? 'rgba(255,255,255,0.7)'  : 'rgba(0,0,0,0.7)';
+  var titleColor  = dark ? '#e0e0e0' : '#333';
+  var legendColor = dark ? '#ccc'    : '#333';
+
+  /* ---- Parse embedded JSON data ---- */
+  var rawData = {{ .Inner }};
+
+  /* ---- Default color palette ---- */
+  var fillPalette = [
+    'rgba(54,162,235,0.75)',  'rgba(255,99,132,0.75)',
+    'rgba(75,192,192,0.75)',  'rgba(255,159,64,0.75)',
+    'rgba(153,102,255,0.75)', 'rgba(255,205,86,0.75)',
+    'rgba(0,128,0,0.75)',     'rgba(128,0,128,0.75)'
+  ];
+  var linePalette = [
+    'rgba(54,162,235,1)',  'rgba(255,99,132,1)',
+    'rgba(75,192,192,1)',  'rgba(255,159,64,1)',
+    'rgba(153,102,255,1)', 'rgba(255,205,86,1)',
+    'rgba(0,128,0,1)',     'rgba(128,0,128,1)'
+  ];
+
+  /* ---- Apply defaults per dataset ---- */
+  if (rawData.datasets) {
+    rawData.datasets.forEach(function(ds, i) {
+      var isLine = ds.type === 'line' || '{{ $type }}' === 'line';
+      if (!ds.backgroundColor) ds.backgroundColor = fillPalette[i % fillPalette.length];
+      if (!ds.borderColor)     ds.borderColor     = linePalette[i % linePalette.length];
+      if (isLine) {
+        if (ds.borderWidth  === undefined) ds.borderWidth  = 2;
+        if (ds.tension      === undefined) ds.tension      = 0.1;
+        if (ds.pointRadius  === undefined) ds.pointRadius  = 0;
+        if (ds.fill         === undefined) ds.fill         = false;
+      }
+    });
+  }
+
+  /* ---- Extract user-level options (not a Chart.js native key) ---- */
+  var userOptions = rawData.options || {};
+  delete rawData.options;
+
+  /* ---- Simple recursive merge ---- */
+  function merge(tgt, src) {
+    Object.keys(src).forEach(function(k) {
+      if (src[k] && typeof src[k] === 'object' && !Array.isArray(src[k])) {
+        tgt[k] = tgt[k] || {};
+        merge(tgt[k], src[k]);
+      } else {
+        tgt[k] = src[k];
+      }
+    });
+    return tgt;
+  }
+
+  var defaults = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      title: {
+        display: {{ if $title }}true{{ else }}false{{ end }},
+        text: '{{ $title | safeJS }}',
+        color: titleColor,
+        font: { size: 14, weight: 'bold' }
+      },
+      legend: { labels: { color: legendColor } },
+      tooltip: { mode: 'index', intersect: false }
+    },
+    scales: {
+      x: { grid: { color: gridColor }, ticks: { color: tickColor, maxRotation: 45 } },
+      y: { grid: { color: gridColor }, ticks: { color: tickColor } }
+    }
+  };
+
+  var config = {
+    type: '{{ $type }}',
+    data: rawData,
+    options: merge(defaults, userOptions)
+  };
+
+  /* ---- Render chart ---- */
+  new Chart(document.getElementById('{{ $id }}').getContext('2d'), config);
+})();
+</script>
