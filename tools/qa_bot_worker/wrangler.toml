@@ -1,0 +1,14 @@
+name = "qa-bot-worker"
+main = "src/index.ts"
+compatibility_date = "2023-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Secrets (set via `wrangler secret put <NAME>`):
+#   GITHUB_TOKEN          — GitHub PAT with repo/PR comment permissions
+#   ANTHROPIC_API_KEY     — Anthropic API key for Claude
+#   GITHUB_WEBHOOK_SECRET — Webhook secret for signature verification
+#   BRAVE_API_KEY         — Brave Search API key for fact-checking
+
+[vars]
+ANTHROPIC_MODEL = "claude-3-opus-20240229"
+ANTHROPIC_MAX_TOKENS = 4000
