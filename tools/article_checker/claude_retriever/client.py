@@ -70,14 +70,22 @@ Output example:
 4. Check if the text between <text></text> follows the Markdown format, including appropriate headers.
 Confirm if it meets submission guidelines, particularly the file naming convention ("YYYY-MM-DD-entity-that-was-hacked.md"). Extract the name of the file from the text between <text></text> tags and compare it to the correct name.
 Pay special attention to matching the dates and names in the filename with the dates and names from the text.
-Verify that the text between <text></text> includes only the allowed headers: "## Summary", "## Attackers", "## Losses", "## Timeline", "## Security Failure Causes".
-Check for the presence of specific metadata headers between "---" lines, such as "date", "target-entities", "entity-types", "attack-types", "title", "loss" in the text within <text></text> tags. It must contain all and only allowed metadata headers.
+
+First, determine the article type based on the file path or content:
+- **Attacks wiki article** (default, path contains `content/attacks/posts/`): Allowed section headers are `## Summary`, `## Attackers`, `## Losses`, `## Timeline`, `## Security Failure Causes`. Allowed metadata headers are `date`, `target-entities`, `entity-types`, `attack-types`, `title`, `loss`.
+- **Market health article** (path contains `content/research/market-health/`): Allowed section headers are `## Summary` followed by analysis sections describing metrics (e.g., `## Metrics used`, `## Abnormal activity indicator`, or other analytical sections relevant to market health research). Allowed metadata headers are `date`, `entities`, `title`. The filename convention for market-health articles is "YYYY-MM-DD-entity-name/index.md".
+
+If the article type cannot be determined from the file path, infer it from the content: if the text discusses attacks/hacks/exploits with attackers and losses, treat it as an attacks wiki article; if it discusses market metrics, wash trading, volume analysis, or exchange health, treat it as a market health article.
+
+Verify that the text between <text></text> includes only the allowed headers for the detected article type.
+Check for the presence of the specific metadata headers for the detected article type between "---" lines in the text within <text></text> tags. It must contain all and only allowed metadata headers for that article type.
 
 The 'date' metadata header must match the actual date of the event described within the <text></text> tags, possibly mentioned in the Summary section. 
 To achieve this, search for dates within the text to identify the occurrence date of the event. 
 Then, place this date within the <thinking></thinking> tags. Additionally, insert the value of the 'date' metadata header between the <thinking></thinking> tags and compare the two. 
 Please approach this task step by step. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
 
+For attacks wiki articles:
 The 'target-entities' metadata header must contain the actual names of the affected entities during the event described in the <text></text> tags, possibly mentioned in the Summary section.
 To achieve this, perform a text search to identify the target entities. Then place these entities in <thinking></thinking> tags. Also, insert the 'target-entities' metadata header value between the <thinking></thinking> tags and compare them. 
 Please approach this task step by step. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
@@ -90,12 +98,17 @@ Ensure that the value of the 'entity-types' metadata header corresponds to the t
 
 Ensure that the value of the 'attack-types' metadata header matches the type of the attack described in the text. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
 
-Output example:
+For market health articles:
+The 'entities' metadata header must list the exchanges or tokens analyzed in the article.
+Verify that the entities listed match those discussed in the text. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
+
+Output example for attacks wiki article:
 '''## Filename Check
 - Correct Filename: `2022-02-15-ValentineFloki.md`
 - Your Filename: `scam.md` :x:
 
 ## Section Headers Check
+- Article Type: Attacks Wiki
 - Allowed Headers: `## Summary, ## Attackers, ## Losses, ## Timeline, ## Security Failure Causes`
 - Your Headers: `# Cryptocurrency Scam Types and Prevention Measures, ## 1. Rug Pull, ### Overview, ### Recognition Tips, ## 2. Honeypot, ### Overview, ### Recognition Tips` :x:
 
@@ -105,6 +118,21 @@ Output example:
 - Notes: 
     - The `date` header has an incorrect date. It lists 2022-03-15, whereas it should be 2022-02-15 ":warning:"
     - The `loss` header displays an incorrect value. It shows $100, whereas it should indicate $1000. ":warning:"
+'''
+
+Output example for market health article:
+'''## Filename Check
+- Correct Filename: `2023-08-14-huobi/index.md`
+- Your Filename: `2023-08-14-huobi/index.md` :white_check_mark:
+
+## Section Headers Check
+- Article Type: Market Health
+- Allowed Headers: `## Summary` followed by analysis/metrics sections
+- Your Headers: `## Summary, ## Metrics used, ## Abnormal activity indicator, ## Order printing bots` :white_check_mark:
+
+## Metadata Headers Check
+- Allowed Metadata Headers: `date, entities, title`
+- Your Metadata Headers: `date, entities, title` :white_check_mark:
 '''
 
 Combine the results of all steps into a single output that complies with Markdown format and return it to me in <answer></answer> tags. 

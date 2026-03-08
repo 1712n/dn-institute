@@ -92,8 +92,37 @@ def main():
     print(diff)
     print('-' * 50)
 
-    text = remove_plus(diff[0]['header'] + diff[0]['body'][0]['body'])
-    answer = api_call(text, client, model, max_tokens, temperature)
+    if not diff:
+        print("No article content found in this PR")
+        create_comment_on_pr(pr, "No article content found in this PR.")
+        return
+
+    # Concatenate all diff files instead of only checking the first one
+    all_text = ""
+    for d in diff:
+        all_text += remove_plus(d['header'] + d['body'][0]['body']) + "\n\n"
+    text = all_text.strip()
+
+    if not text:
+        print("No article content found in this PR")
+        create_comment_on_pr(pr, "No article content found in this PR.")
+        return
+
+    try:
+        answer = api_call(text, client, model, max_tokens, temperature)
+        # Retry once on failure
+        if answer is None:
+            print("First API call failed, retrying...")
+            answer = api_call(text, client, model, max_tokens, temperature)
+    except Exception as e:
+        print(f"Error during API call: {e}")
+        # Retry once on exception
+        try:
+            answer = api_call(text, client, model, max_tokens, temperature)
+        except Exception as retry_e:
+            print(f"Retry also failed: {retry_e}")
+            answer = f"⚠️ The article checker encountered an error while processing this PR. Please try again later.\n\nError: {e}"
+
     print('-' * 50)
     print('This is an answer', answer)
     print('-' * 50)
