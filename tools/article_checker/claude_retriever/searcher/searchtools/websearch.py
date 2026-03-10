@@ -167,23 +167,19 @@ Web Page URL: {url}"""
         # Get the search results
 
         search_results: list[WebSearchResult] = []
-        async_web_parser_loop = asyncio.get_event_loop()
-        web_parsing_tasks = [] # We'll queue up the web parsing tasks here, since they're costly
+        web_parsing_tasks = []
 
         for item in correct_ordering:
             item_type = item.get("type")
             if item_type == "web":
                 web_item = web_items.pop(0)
-                ## We'll add a placeholder search result here, and then replace it with the parsed web result later
                 url = web_item.get("url", "")
                 placeholder_search_result = WebSearchResult(
                     url=url,
                     content=f"Web Page Title: {web_item.get('title', '')}\nWeb Page URL: {url}\nWeb Page Description: {self.remove_strong(web_item.get('description', ''))}"
                 )
                 search_results.append(placeholder_search_result)
-                ## Queue up the web parsing task
-                task = async_web_parser_loop.create_task(self.parse_web(web_item, query))
-                web_parsing_tasks.append(task)
+                web_parsing_tasks.append(self.parse_web(web_item, query))
             elif item_type == "news":
                 parsed_news = self.parse_news(news_items.pop(0))
                 if parsed_news is not None:
@@ -194,8 +190,8 @@ Web Page URL: {url}"""
             if len(search_results) >= n_search_results_to_use:
                 break
 
-        ## Replace the placeholder search results with the parsed web results
-        web_results = async_web_parser_loop.run_until_complete(asyncio.gather(*web_parsing_tasks))
+        # Run async web parsing tasks
+        web_results = asyncio.run(asyncio.gather(*web_parsing_tasks))
         web_results_urls = [web_result.url for web_result in web_results]
         for i, search_result in enumerate(search_results):
             url = search_result.url

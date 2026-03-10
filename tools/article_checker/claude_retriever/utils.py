@@ -12,7 +12,8 @@ from urllib.parse import urlparse
 
 logger = logging.getLogger(__name__)
 
-with open('tools/article_checker/config.json', 'r') as config_file:
+_config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'config.json')
+with open(_config_path, 'r') as config_file:
     config = json.load(config_file)
 
 model = config['ANTHROPIC_SUMMARIZE_MODEL']
