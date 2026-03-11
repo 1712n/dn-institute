@@ -1,0 +1,158 @@
+{{ $pair := .Get "pair" }}
+{{ $venue := .Get "venue" }}
+{{ $start := .Get "start" }}
+{{ $end := .Get "end" }}
+{{ $metric := .Get "metric" | default "all" }}
+{{ $chartId := printf "chart-%s-%s-%s-%s" $venue $pair $start $end | urlize }}
+
+<div class="metric-chart-container" style="position: relative; width: 100%; margin: 1.5rem 0;">
+  <canvas id="{{ $chartId }}" aria-label="Market health metrics for {{ $pair }} on {{ $venue }}" role="img"></canvas>
+  <p class="chart-loading" id="{{ $chartId }}-loading" style="text-align:center; color:#888;">Loading chart data... 🌰</p>
+  <p class="chart-error" id="{{ $chartId }}-error" style="text-align:center; color:#c00; display:none;"></p>
+</div>
+
+<script>
+(function() {
+  var chartId = {{ $chartId | jsonify }};
+  var venue   = {{ $venue  | jsonify }};
+  var pair    = {{ $pair   | jsonify }};
+  var start   = {{ $start  | jsonify }};
+  var end     = {{ $end    | jsonify }};
+
+  var apiUrl = "https://cross-market-surveillance.p.rapidapi.com/metrics/wt/market"
+    + "?marketvenueid=" + encodeURIComponent(venue)
+    + "&pairid="        + encodeURIComponent(pair)
+    + "&start="         + encodeURIComponent(start + "T00:00:00")
+    + "&end="           + encodeURIComponent(end   + "T00:00:00")
+    + "&gran=1h&sort=asc&limit=1000";
+
+  function showError(msg) {
+    var el = document.getElementById(chartId + "-error");
+    if (el) { el.textContent = msg; el.style.display = ""; }
+    var ld = document.getElementById(chartId + "-loading");
+    if (ld) { ld.style.display = "none"; }
+  }
+
+  function hideLoading() {
+    var ld = document.getElementById(chartId + "-loading");
+    if (ld) { ld.style.display = "none"; }
+  }
+
+  function buildCharts(records) {
+    if (!records || records.length === 0) {
+      showError("No data available for the selected period.");
+      return;
+    }
+
+    var labels = records.map(function(r) { return r.time || r.timestamp || r.date || ""; });
+
+    // Collect all numeric metric keys present in data (excluding time/id-like fields)
+    var skipKeys = ["time", "timestamp", "date", "marketvenueid", "pairid", "id"];
+    var metricKeys = [];
+    if (records[0]) {
+      Object.keys(records[0]).forEach(function(k) {
+        if (skipKeys.indexOf(k) === -1 && typeof records[0][k] === "number") {
+          metricKeys.push(k);
+        }
+      });
+    }
+
+    if (metricKeys.length === 0) {
+      showError("No numeric metrics found in the API response.");
+      return;
+    }
+
+    // Colour palette 🌰
+    var colours = [
+      "rgba(210,105,30,0.85)",
+      "rgba(70,130,180,0.85)",
+      "rgba(60,179,113,0.85)",
+      "rgba(220,20,60,0.85)",
+      "rgba(148,0,211,0.85)",
+      "rgba(255,165,0,0.85)",
+      "rgba(0,128,128,0.85)",
+      "rgba(255,20,147,0.85)"
+    ];
+
+    var datasets = metricKeys.map(function(key, idx) {
+      return {
+        label: key,
+        data: records.map(function(r) { return r[key]; }),
+        borderColor: colours[idx % colours.length],
+        backgroundColor: colours[idx % colours.length].replace("0.85", "0.15"),
+        borderWidth: 1.5,
+        pointRadius: 2,
+        fill: false,
+        tension: 0.3,
+        yAxisID: "y"
+      };
+    });
+
+    var canvas = document.getElementById(chartId);
+    if (!canvas) return;
+    hideLoading();
+
+    new Chart(canvas, {
+      type: "line",
+      data: { labels: labels, datasets: datasets },
+      options: {
+        responsive: true,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          legend: { position: "top" },
+          title: {
+            display: true,
+            text: pair.toUpperCase() + " @ " + venue.toUpperCase() + "  (" + start + " → " + end + ") 🌰"
+          },
+          tooltip: { mode: "index", intersect: false }
+        },
+        scales: {
+          x: {
+            ticks: {
+              maxTicksLimit: 12,
+              maxRotation: 45
+            }
+          },
+          y: {
+            beginAtZero: false,
+            title: { display: true, text: "Metric value" }
+          }
+        }
+      }
+    });
+  }
+
+  function loadChart() {
+    fetch(apiUrl, {
+      method: "GET",
+      headers: { "X-RapidAPI-Host": "cross-market-surveillance.p.rapidapi.com" }
+    })
+    .then(function(resp) {
+      if (!resp.ok) { throw new Error("API error: " + resp.status); }
+      return resp.json();
+    })
+    .then(function(data) {
+      // API may return array directly or wrapped
+      var records = Array.isArray(data) ? data : (data.data || data.results || data.records || []);
+      buildCharts(records);
+    })
+    .catch(function(err) {
+      showError("Failed to load chart data: " + err.message);
+    });
+  }
+
+  // Wait for Chart.js to be available
+  function waitForChart(cb, attempts) {
+    attempts = attempts || 0;
+    if (typeof Chart !== "undefined") { cb(); }
+    else if (attempts < 50) { setTimeout(function() { waitForChart(cb, attempts + 1); }, 100); }
+    else { showError("Chart.js failed to load."); }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function() { waitForChart(loadChart); });
+  } else {
+    waitForChart(loadChart);
+  }
+})();
+</script>
