@@ -1,0 +1,49 @@
+{{ $chartId := printf "chart-%s" (now.UnixNano | string) }}
+{{ $chartType := .Get "type" | default "line" }}
+{{ $title := .Get "title" | default "" }}
+{{ $dataJson := .Inner | trim }}
+
+<div class="metric-chart-container" style="position: relative; width: 100%; margin: 1.5rem 0;">
+  <canvas id="{{ $chartId }}"></canvas>
+</div>
+
+<script>
+(function() {
+  var chartData = {{ $dataJson | safeJS }};
+  var ctx = document.getElementById('{{ $chartId }}').getContext('2d');
+  new Chart(ctx, {
+    type: {{ $chartType | safeJS }},
+    data: chartData,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top'
+        },
+        title: {
+          display: {{ if $title }}true{{ else }}false{{ end }},
+          text: {{ $title | safeJS }}
+        },
+        tooltip: {
+          mode: 'index',
+          intersect: false
+        }
+      },
+      scales: {
+        x: {
+          display: true,
+          title: {
+            display: true
+          }
+        },
+        y: {
+          display: true,
+          title: {
+            display: true
+          }
+        }
+      }
+    }
+  });
+})();
+</script>
