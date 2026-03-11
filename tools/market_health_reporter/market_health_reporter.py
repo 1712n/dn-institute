@@ -7,7 +7,6 @@ import requests
 import glob
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
-from tools.python_modules.report_graphics_tool import Visualization
 
 
 REPO_NAME = "1712n/dn-institute"
@@ -48,7 +47,7 @@ def extract_data_from_comment(comment: str) -> tuple:
     """
     parts = comment.split(',')
     marketvenueid = parts[1].strip().lower()
-    pairid = parts[0].split(':')[1].strip().lower()  
+    pairid = parts[0].split(':')[1].strip().lower()
     start, end = parts[2].strip(), parts[3].strip()
     return marketvenueid, pairid, start, end
 
@@ -57,13 +56,11 @@ def save_output(output: str, directory: str, marketvenueid: str, pairid: str, st
     """
     Saves the output to a markdown file in the specified directory, creating a subdirectory for it.
     """
-    output_subdir = os.path.join(directory, f"{start}-{end}-{marketvenueid}-{pairid}")  
-    os.makedirs(output_subdir, exist_ok=True)  
-    safe_start = start.replace(":", "-")
-    safe_end = end.replace(":", "-")
+    output_subdir = os.path.join(directory, f"{start}-{end}-{marketvenueid}-{pairid}")
+    os.makedirs(output_subdir, exist_ok=True)
     base_file_name = "index"
-    file_path = os.path.join(output_subdir, base_file_name)  
-    
+    file_path = os.path.join(output_subdir, base_file_name)
+
     existing_files = glob.glob(f"{file_path}*.md")
     if existing_files:
         numbers = [int(file_name.split('-')[-1].split('.md')[0]) for file_name in existing_files if file_name.split('-')[-1].split('.md')[0].isdigit()]
@@ -71,7 +68,7 @@ def save_output(output: str, directory: str, marketvenueid: str, pairid: str, st
         full_path = f"{file_path}-{file_number}.md"
     else:
         full_path = f"{file_path}.md"
-    
+
     with open(full_path, 'w', encoding='utf-8') as file:
         file.write(output)
     print(f"Output saved to: {full_path}")
@@ -133,6 +130,36 @@ def create_prompt(article_example: str, data: dict, human_prompt_content: str) -
     return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
 
 
+def build_chart_shortcode(marketvenueid: str, pairid: str, start: str, end: str) -> str:
+    """
+    Returns a Hugo shortcode string that renders a dynamic Chart.js chart
+    for the given market/pair/date range. 🌰
+    """
+    return (
+        f'{{{{< metric_chart venue="{marketvenueid}" pair="{pairid}" '
+        f'start="{start}" end="{end}" >}}}}'
+    )
+
+
+def inject_chart_into_output(output: str, marketvenueid: str, pairid: str, start: str, end: str) -> str:
+    """
+    Injects the dynamic chart shortcode into the markdown output.
+    Inserts it after the front-matter closing delimiter if present,
+    otherwise prepends it to the content. 🌰
+    """
+    shortcode = build_chart_shortcode(marketvenueid, pairid, start, end)
+    # Find end of YAML/TOML front matter
+    if output.startswith("---"):
+        parts = output.split("---", 2)
+        if len(parts) >= 3:
+            return f"---{parts[1]}---\n\n{shortcode}\n\n{parts[2].lstrip()}"
+    if output.startswith("+++"):
+        parts = output.split("+++++", 2)
+        if len(parts) >= 3:
+            return f"+++{parts[1]}+++\n\n{shortcode}\n\n{parts[2].lstrip()}"
+    return f"{shortcode}\n\n{output}"
+
+
 def main():
     args = parse_cli_args()
 
@@ -157,7 +184,7 @@ def main():
     try:
         data = fetch_or_load_market_data(querystring, headers, url, DATA_DIR, marketvenueid, pairid, start, end)
 
-        encoding = encoding_for_model("gpt-4")     
+        encoding = encoding_for_model("gpt-4")
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
         prompt = create_prompt(article_example, data, human_prompt_content)
@@ -180,11 +207,11 @@ def main():
             output = completion.choices[0].message.content
             output = extract_between_tags("article", output)
 
+            # Inject dynamic Chart.js shortcode instead of static image 🌰
+            output = inject_chart_into_output(output, marketvenueid, pairid, start, end)
+
             print("This is an answer: ", output)
             save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
-            vis = Visualization()
-            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
-            vis.generate_report(data, output_subdir)  
 
             post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
 
