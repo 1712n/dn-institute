@@ -5,6 +5,7 @@ import json
 import os
 import requests
 import glob
+import numpy as np
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
@@ -17,6 +18,8 @@ ARTICLE_EXAMPLE_FILE = 'content/market-health/posts/2023-08-14-huobi/index.md'
 OUTPUT_DIR = 'content/market-health/posts/'
 DATA_DIR = 'tools/market_health_reporter/doc/data/'
 MAX_TOKENS = 125000
+RAG_MAX_ARTICLES = 5
+RAG_MAX_CHARS_PER_ARTICLE = 1500
 
 
 def parse_cli_args():
@@ -38,6 +41,12 @@ def parse_cli_args():
     )
     parser.add_argument(
         "--rapid-api", dest="rapid_api", help="Rapid API key", required=True
+    )
+    parser.add_argument(
+        "--cryptopanic-api-key", dest="cryptopanic_api_key", help="CryptoPanic API key", required=False, default=None
+    )
+    parser.add_argument(
+        "--newsapi-key", dest="newsapi_key", help="NewsAPI key", required=False, default=None
     )
     return parser.parse_args()
 
@@ -126,11 +135,175 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
         issue.create_comment(comment)
 
 
-def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
+def fetch_cryptopanic_articles(query: str, api_key: str) -> list:
     """
-    Creates a prompt string using article example and data.
+    Fetch relevant crypto news articles from CryptoPanic API.
+    Returns a list of dicts with 'title' and 'body' keys.
     """
-    return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    articles = []
+    try:
+        url = "https://cryptopanic.com/api/v1/posts/"
+        params = {
+            "auth_token": api_key,
+            "kind": "news",
+            "filter": "important",
+            "public": "true",
+        }
+        # CryptoPanic doesn't support free-text search, so we filter by currency symbol
+        currency = query.split("-")[0].upper() if "-" in query else query.upper()
+        params["currencies"] = currency
+
+        response = requests.get(url, params=params, timeout=10)
+        if response.status_code == 200:
+            data = response.json()
+            for post in data.get("results", []):
+                title = post.get("title", "")
+                body = post.get("body") or ""
+                if title:
+                    articles.append({"title": title, "body": body})
+        else:
+            print(f"CryptoPanic API returned status {response.status_code}")
+    except Exception as e:
+        print(f"Error fetching CryptoPanic articles: {e}")
+    return articles
+
+
+def fetch_newsapi_articles(query: str, api_key: str, from_date: str, to_date: str) -> list:
+    """
+    Fetch relevant news articles from NewsAPI.
+    Returns a list of dicts with 'title' and 'body' keys.
+    """
+    articles = []
+    try:
+        url = "https://newsapi.org/v2/everything"
+        params = {
+            "q": query,
+            "from": from_date,
+            "to": to_date,
+            "language": "en",
+            "sortBy": "relevancy",
+            "pageSize": 20,
+            "apiKey": api_key,
+        }
+        response = requests.get(url, params=params, timeout=10)
+        if response.status_code == 200:
+            data = response.json()
+            for article in data.get("articles", []):
+                title = article.get("title") or ""
+                body = article.get("description") or article.get("content") or ""
+                if title:
+                    articles.append({"title": title, "body": body})
+        else:
+            print(f"NewsAPI returned status {response.status_code}")
+    except Exception as e:
+        print(f"Error fetching NewsAPI articles: {e}")
+    return articles
+
+
+def get_embedding(text: str, api_key: str) -> list:
+    """
+    Get an embedding vector for the given text using OpenAI embeddings.
+    """
+    openai.api_key = api_key
+    text = text.replace("\n", " ").strip()[:8000]
+    response = openai.Embedding.create(
+        input=[text],
+        model="text-embedding-ada-002"
+    )
+    return response["data"][0]["embedding"]
+
+
+def cosine_similarity(vec_a: list, vec_b: list) -> float:
+    """
+    Compute cosine similarity between two vectors.
+    """
+    a = np.array(vec_a)
+    b = np.array(vec_b)
+    norm_a = np.linalg.norm(a)
+    norm_b = np.linalg.norm(b)
+    if norm_a == 0 or norm_b == 0:
+        return 0.0
+    return float(np.dot(a, b) / (norm_a * norm_b))
+
+
+def retrieve_relevant_articles(
+    marketvenueid: str,
+    pairid: str,
+    start: str,
+    end: str,
+    api_key: str,
+    cryptopanic_api_key: str = None,
+    newsapi_key: str = None,
+    top_k: int = RAG_MAX_ARTICLES,
+) -> str:
+    """
+    Fetches articles from available news sources, embeds them alongside a
+    query derived from the market context, and returns the top-k most
+    relevant articles as a formatted string for RAG augmentation.
+    """
+    # Build a descriptive query from the market context
+    base_currency = pairid.split("-")[0].upper() if "-" in pairid else pairid.upper()
+    query_text = (
+        f"{base_currency} {marketvenueid} cryptocurrency market trading volume "
+        f"price anomaly spike {start} {end}"
+    )
+
+    all_articles = []
+
+    if cryptopanic_api_key:
+        cp_articles = fetch_cryptopanic_articles(pairid, cryptopanic_api_key)
+        print(f"Fetched {len(cp_articles)} articles from CryptoPanic")
+        all_articles.extend(cp_articles)
+
+    if newsapi_key:
+        newsapi_articles = fetch_newsapi_articles(
+            f"{base_currency} {marketvenueid}", newsapi_key, start, end
+        )
+        print(f"Fetched {len(newsapi_articles)} articles from NewsAPI")
+        all_articles.extend(newsapi_articles)
+
+    if not all_articles:
+        print("No external articles fetched for RAG context.")
+        return ""
+
+    print(f"Computing embeddings for {len(all_articles)} articles...")
+    query_embedding = get_embedding(query_text, api_key)
+
+    scored = []
+    for article in all_articles:
+        combined_text = f"{article['title']}. {article['body']}"
+        try:
+            article_embedding = get_embedding(combined_text, api_key)
+            score = cosine_similarity(query_embedding, article_embedding)
+            scored.append((score, article))
+        except Exception as e:
+            print(f"Error embedding article '{article['title']}': {e}")
+
+    scored.sort(key=lambda x: x[0], reverse=True)
+    top_articles = scored[:top_k]
+
+    if not top_articles:
+        return ""
+
+    formatted_parts = []
+    for rank, (score, article) in enumerate(top_articles, start=1):
+        title = article["title"]
+        body = article["body"][:RAG_MAX_CHARS_PER_ARTICLE]
+        formatted_parts.append(f"[Article {rank}] {title}\n{body}")
+
+    rag_context = "\n\n".join(formatted_parts)
+    print(f"RAG context built from {len(top_articles)} articles.")
+    return rag_context
+
+
+def create_prompt(article_example: str, data: dict, human_prompt_content: str, rag_context: str = "") -> str:
+    """
+    Creates a prompt string using article example, data, and optional RAG context.
+    """
+    rag_section = ""
+    if rag_context:
+        rag_section = f"\n<context>\n{rag_context}\n</context>\n"
+    return f"<example> {article_example} </example>\n{human_prompt_content}{rag_section}\n<data> {json.dumps(data)} </data>"
 
 
 def main():
@@ -160,7 +333,18 @@ def main():
         encoding = encoding_for_model("gpt-4")     
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
-        prompt = create_prompt(article_example, data, human_prompt_content)
+        # RAG: retrieve relevant articles to augment the prompt with external context
+        rag_context = retrieve_relevant_articles(
+            marketvenueid=marketvenueid,
+            pairid=pairid,
+            start=start,
+            end=end,
+            api_key=args.API_key,
+            cryptopanic_api_key=args.cryptopanic_api_key,
+            newsapi_key=args.newsapi_key,
+        )
+
+        prompt = create_prompt(article_example, data, human_prompt_content, rag_context)
         prompt_token_count = len(encoding.encode(prompt))
 
         if prompt_token_count > MAX_TOKENS:
