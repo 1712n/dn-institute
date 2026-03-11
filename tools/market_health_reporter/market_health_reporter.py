@@ -7,7 +7,6 @@ import requests
 import glob
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
-from tools.python_modules.report_graphics_tool import Visualization
 
 
 REPO_NAME = "1712n/dn-institute"
@@ -53,9 +52,172 @@ def extract_data_from_comment(comment: str) -> tuple:
     return marketvenueid, pairid, start, end
 
 
-def save_output(output: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> None:
+def build_chart_shortcode(data: dict, metric: str, label: str, color: str = "rgba(75,192,192,1)") -> str:
+    """
+    Build a Hugo metric_chart shortcode string from API data for a given metric.
+    Returns an empty string if the metric has no data.
+    """
+    timestamps = []
+    values = []
+
+    for entry in data:
+        ts = entry.get("time") or entry.get("timestamp") or entry.get("date", "")
+        val = entry.get(metric)
+        if ts and val is not None:
+            timestamps.append(ts)
+            try:
+                values.append(float(val))
+            except (TypeError, ValueError):
+                values.append(None)
+
+    if not timestamps or all(v is None for v in values):
+        return ""
+
+    chart_data = {
+        "labels": timestamps,
+        "datasets": [
+            {
+                "label": label,
+                "data": values,
+                "borderColor": color,
+                "backgroundColor": color.replace("1)", "0.15)"),
+                "fill": True,
+                "tension": 0.3,
+                "pointRadius": 2
+            }
+        ]
+    }
+
+    json_str = json.dumps(chart_data)
+    return f'{{{{< metric_chart type="line" title="{label}" >}}}}\n{json_str}\n{{{{< /metric_chart >}}}}\n'
+
+
+def generate_charts_markdown(data: dict, output_subdir: str) -> None:
+    """
+    Generate a markdown file containing dynamic Chart.js shortcodes
+    for each metric found in the API data, replacing static image generation.
+    """
+    if not data:
+        return
+
+    # Determine the list of records (API may return a list or a dict with a key)
+    records = []
+    if isinstance(data, list):
+        records = data
+    elif isinstance(data, dict):
+        for key in ("data", "results", "metrics"):
+            if key in data and isinstance(data[key], list):
+                records = data[key]
+                break
+        if not records:
+            # Fallback: treat top-level dict as a single record
+            records = [data]
+
+    if not records:
+        return
+
+    # Discover numeric metric keys (excluding time/identifier fields)
+    skip_keys = {"time", "timestamp", "date", "marketvenueid", "pairid", "pair", "market"}
+    metric_keys = []
+    for rec in records:
+        for k, v in rec.items():
+            if k not in skip_keys and k not in metric_keys:
+                try:
+                    float(v)
+                    metric_keys.append(k)
+                except (TypeError, ValueError):
+                    pass
+
+    if not metric_keys:
+        return
+
+    # Color palette for multiple metrics
+    colors = [
+        "rgba(75,192,192,1)",
+        "rgba(255,99,132,1)",
+        "rgba(54,162,235,1)",
+        "rgba(255,206,86,1)",
+        "rgba(153,102,255,1)",
+        "rgba(255,159,64,1)",
+    ]
+
+    charts_md_path = os.path.join(output_subdir, "charts.md")
+    with open(charts_md_path, "w", encoding="utf-8") as f:
+        f.write("---\ntitle: Market Health Charts\n---\n\n")
+        for idx, metric in enumerate(metric_keys):
+            color = colors[idx % len(colors)]
+            label = metric.replace("_", " ").title()
+            shortcode = build_chart_shortcode(records, metric, label, color)
+            if shortcode:
+                f.write(shortcode)
+                f.write("\n")
+
+    print(f"Charts markdown saved to: {charts_md_path}")
+
+
+def inject_charts_into_article(article_path: str, data: dict) -> None:
+    """
+    Inject metric_chart shortcodes directly into the generated article markdown.
+    """
+    if not os.path.exists(article_path):
+        return
+
+    records = []
+    if isinstance(data, list):
+        records = data
+    elif isinstance(data, dict):
+        for key in ("data", "results", "metrics"):
+            if key in data and isinstance(data[key], list):
+                records = data[key]
+                break
+
+    if not records:
+        return
+
+    skip_keys = {"time", "timestamp", "date", "marketvenueid", "pairid", "pair", "market"}
+    metric_keys = []
+    for rec in records:
+        for k, v in rec.items():
+            if k not in skip_keys and k not in metric_keys:
+                try:
+                    float(v)
+                    metric_keys.append(k)
+                except (TypeError, ValueError):
+                    pass
+
+    if not metric_keys:
+        return
+
+    colors = [
+        "rgba(75,192,192,1)",
+        "rgba(255,99,132,1)",
+        "rgba(54,162,235,1)",
+        "rgba(255,206,86,1)",
+        "rgba(153,102,255,1)",
+        "rgba(255,159,64,1)",
+    ]
+
+    charts_block = "\n\n## Market Health Charts \U0001f330\n\n"
+    for idx, metric in enumerate(metric_keys):
+        color = colors[idx % len(colors)]
+        label = metric.replace("_", " ").title()
+        shortcode = build_chart_shortcode(records, metric, label, color)
+        if shortcode:
+            charts_block += shortcode + "\n"
+
+    with open(article_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    with open(article_path, "w", encoding="utf-8") as f:
+        f.write(content + charts_block)
+
+    print(f"Charts injected into article: {article_path}")
+
+
+def save_output(output: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> str:
     """
     Saves the output to a markdown file in the specified directory, creating a subdirectory for it.
+    Returns the full path of the saved file.
     """
     output_subdir = os.path.join(directory, f"{start}-{end}-{marketvenueid}-{pairid}")  
     os.makedirs(output_subdir, exist_ok=True)  
@@ -75,6 +237,7 @@ def save_output(output: str, directory: str, marketvenueid: str, pairid: str, st
     with open(full_path, 'w', encoding='utf-8') as file:
         file.write(output)
     print(f"Output saved to: {full_path}")
+    return full_path
 
 
 def save_data(data: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> None:
@@ -181,10 +344,13 @@ def main():
             output = extract_between_tags("article", output)
 
             print("This is an answer: ", output)
-            save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
-            vis = Visualization()
-            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
-            vis.generate_report(data, output_subdir)  
+            article_path = save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
+            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}")
+
+            # Inject dynamic Chart.js shortcodes into the generated article
+            inject_charts_into_article(article_path, data)
+            # Also generate a standalone charts.md for reference
+            generate_charts_markdown(data, output_subdir)
 
             post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
 
