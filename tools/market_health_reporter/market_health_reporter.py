@@ -5,6 +5,7 @@ import json
 import os
 import requests
 import glob
+from bs4 import BeautifulSoup
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
@@ -17,6 +18,9 @@ ARTICLE_EXAMPLE_FILE = 'content/market-health/posts/2023-08-14-huobi/index.md'
 OUTPUT_DIR = 'content/market-health/posts/'
 DATA_DIR = 'tools/market_health_reporter/doc/data/'
 MAX_TOKENS = 125000
+MAX_CONTEXT_TOKENS = 8000  # max tokens reserved for RAG context
+CRYPTOPANIC_API_URL = "https://cryptopanic.com/api/v1/posts/"
+NEWSAPI_URL = "https://newsapi.org/v2/everything"
 
 
 def parse_cli_args():
@@ -38,6 +42,12 @@ def parse_cli_args():
     )
     parser.add_argument(
         "--rapid-api", dest="rapid_api", help="Rapid API key", required=True
+    )
+    parser.add_argument(
+        "--cryptopanic-api-key", dest="cryptopanic_api_key", help="CryptoPanic API key", required=False, default=""
+    )
+    parser.add_argument(
+        "--newsapi-key", dest="newsapi_key", help="NewsAPI key", required=False, default=""
     )
     return parser.parse_args()
 
@@ -126,11 +136,173 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
         issue.create_comment(comment)
 
 
-def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
+def extract_text_from_html(html_content: str) -> str:
     """
-    Creates a prompt string using article example and data.
+    Extracts plain text from HTML content using BeautifulSoup.
     """
-    return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    soup = BeautifulSoup(html_content, 'html.parser')
+    # Remove script and style elements
+    for tag in soup(["script", "style", "nav", "footer", "header"]):
+        tag.decompose()
+    text = soup.get_text(separator=' ', strip=True)
+    # Collapse whitespace
+    text = ' '.join(text.split())
+    return text
+
+
+def fetch_article_text(url: str, max_chars: int = 2000) -> str:
+    """
+    Fetches and extracts plain text from an article URL.
+    Returns up to max_chars characters of content.
+    """
+    try:
+        response = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
+        response.raise_for_status()
+        text = extract_text_from_html(response.text)
+        return text[:max_chars]
+    except Exception as e:
+        print(f"Could not fetch article text from {url}: {e}")
+        return ""
+
+
+def fetch_cryptopanic_news(marketvenueid: str, pairid: str, api_key: str, max_articles: int = 5) -> list:
+    """
+    Fetches relevant news articles from CryptoPanic API for a given market venue and pair.
+    Returns a list of dicts with title, url, and body.
+    """
+    if not api_key:
+        print("No CryptoPanic API key provided, skipping.")
+        return []
+
+    # Build a search query from the venue and pair
+    currency = pairid.split('-')[0].upper() if '-' in pairid else pairid.upper()
+    params = {
+        "auth_token": api_key,
+        "currencies": currency,
+        "public": "true",
+        "kind": "news",
+    }
+    try:
+        response = requests.get(CRYPTOPANIC_API_URL, params=params, timeout=10)
+        response.raise_for_status()
+        results = response.json().get("results", [])
+        articles = []
+        for item in results[:max_articles]:
+            article = {
+                "title": item.get("title", ""),
+                "url": item.get("url", ""),
+                "body": ""
+            }
+            if article["url"]:
+                article["body"] = fetch_article_text(article["url"])
+            articles.append(article)
+        print(f"Fetched {len(articles)} articles from CryptoPanic for {currency}.")
+        return articles
+    except Exception as e:
+        print(f"CryptoPanic fetch error: {e}")
+        return []
+
+
+def fetch_newsapi_articles(marketvenueid: str, pairid: str, api_key: str, start: str, end: str, max_articles: int = 5) -> list:
+    """
+    Fetches relevant news articles from NewsAPI for a given market venue and pair.
+    Returns a list of dicts with title, url, and body.
+    """
+    if not api_key:
+        print("No NewsAPI key provided, skipping.")
+        return []
+
+    currency = pairid.split('-')[0].upper() if '-' in pairid else pairid.upper()
+    query = f"{marketvenueid} {currency}"
+    params = {
+        "q": query,
+        "from": start,
+        "to": end,
+        "language": "en",
+        "sortBy": "relevancy",
+        "apiKey": api_key,
+        "pageSize": max_articles,
+    }
+    try:
+        response = requests.get(NEWSAPI_URL, params=params, timeout=10)
+        response.raise_for_status()
+        results = response.json().get("articles", [])
+        articles = []
+        for item in results[:max_articles]:
+            article = {
+                "title": item.get("title", ""),
+                "url": item.get("url", ""),
+                "body": item.get("description", "") or ""
+            }
+            # Fetch full article text if body is short
+            if article["url"] and len(article["body"]) < 300:
+                article["body"] = fetch_article_text(article["url"])
+            articles.append(article)
+        print(f"Fetched {len(articles)} articles from NewsAPI for '{query}'.")
+        return articles
+    except Exception as e:
+        print(f"NewsAPI fetch error: {e}")
+        return []
+
+
+def compute_keyword_score(text: str, keywords: list) -> int:
+    """
+    Simple keyword-based relevance scoring: counts how many keywords appear in the text.
+    """
+    text_lower = text.lower()
+    return sum(1 for kw in keywords if kw.lower() in text_lower)
+
+
+def retrieve_relevant_articles(articles: list, keywords: list, top_k: int = 3) -> list:
+    """
+    Ranks articles by keyword relevance and returns the top_k most relevant ones.
+    This acts as a lightweight semantic search / retrieval step.
+    """
+    scored = []
+    for article in articles:
+        combined_text = f"{article.get('title', '')} {article.get('body', '')}"
+        score = compute_keyword_score(combined_text, keywords)
+        scored.append((score, article))
+    scored.sort(key=lambda x: x[0], reverse=True)
+    # Return only articles with at least one keyword match
+    return [article for score, article in scored[:top_k] if score > 0]
+
+
+def build_rag_context(articles: list, encoding, max_tokens: int = MAX_CONTEXT_TOKENS) -> str:
+    """
+    Builds a RAG context string from retrieved articles, truncated to max_tokens.
+    """
+    if not articles:
+        return ""
+    context_parts = []
+    total_tokens = 0
+    for article in articles:
+        title = article.get("title", "")
+        body = article.get("body", "")
+        url = article.get("url", "")
+        snippet = f"Title: {title}\nSource: {url}\nContent: {body}"
+        snippet_tokens = len(encoding.encode(snippet))
+        if total_tokens + snippet_tokens > max_tokens:
+            # Truncate the snippet to fit
+            remaining = max_tokens - total_tokens
+            if remaining > 50:
+                tokens = encoding.encode(snippet)[:remaining]
+                snippet = encoding.decode(tokens)
+            else:
+                break
+        context_parts.append(snippet)
+        total_tokens += snippet_tokens
+    return "\n\n---\n\n".join(context_parts)
+
+
+def create_prompt(article_example: str, data: dict, human_prompt_content: str, rag_context: str = "") -> str:
+    """
+    Creates a prompt string using article example, data, and optional RAG context.
+    """
+    base_prompt = f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    if rag_context:
+        base_prompt += f"\n<context>\nThe following recent news articles provide additional context about the market venue and trading pair. Use this information to enrich your analysis where relevant:\n\n{rag_context}\n</context>"
+    return base_prompt
 
 
 def main():
@@ -160,7 +332,24 @@ def main():
         encoding = encoding_for_model("gpt-4")     
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
-        prompt = create_prompt(article_example, data, human_prompt_content)
+        # RAG: fetch news articles from CryptoPanic and NewsAPI
+        cryptopanic_articles = fetch_cryptopanic_news(
+            marketvenueid, pairid, args.cryptopanic_api_key, max_articles=5
+        )
+        newsapi_articles = fetch_newsapi_articles(
+            marketvenueid, pairid, args.newsapi_key, start, end, max_articles=5
+        )
+        all_articles = cryptopanic_articles + newsapi_articles
+
+        # Build keywords for retrieval from venue and pair
+        currency = pairid.split('-')[0].upper() if '-' in pairid else pairid.upper()
+        keywords = [marketvenueid, currency, pairid, "market", "trading", "volume", "liquidity"]
+        relevant_articles = retrieve_relevant_articles(all_articles, keywords, top_k=3)
+        print(f"Retrieved {len(relevant_articles)} relevant articles for RAG context.")
+
+        rag_context = build_rag_context(relevant_articles, encoding, max_tokens=MAX_CONTEXT_TOKENS)
+
+        prompt = create_prompt(article_example, data, human_prompt_content, rag_context)
         prompt_token_count = len(encoding.encode(prompt))
 
         if prompt_token_count > MAX_TOKENS:
