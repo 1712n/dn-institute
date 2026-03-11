@@ -1,0 +1,92 @@
+{{/* metric_chart shortcode 🌰
+     Renders a dynamic Chart.js line graph for a market health metric.
+
+     Parameters:
+       metric  – metric name (string)
+       pair    – trading pair (string)
+       data    – JSON string with {labels: [...], values: [...]}
+*/}}
+{{ $metric := .Get "metric" }}
+{{ $pair   := .Get "pair" }}
+{{ $data   := .Get "data" }}
+{{ $id     := printf "chart-%s-%s-%s" $pair $metric (now.Format "20060102150405") | urlize }}
+
+<div class="metric-chart-wrapper" style="position:relative;width:100%;max-width:900px;margin:1.5rem auto;">
+  <canvas id="{{ $id }}" aria-label="{{ $metric }} chart for {{ $pair }} 🌰" role="img"></canvas>
+</div>
+
+<script>
+(function () {
+  /* 🌰 inline data – no extra HTTP request needed */
+  var rawData = {{ $data | safeJS }};
+  var labels = rawData.labels || [];
+  var values = rawData.values || [];
+
+  function renderChart() {
+    var ctx = document.getElementById({{ $id | safeJS }});
+    if (!ctx) return;
+
+    /* Format ISO timestamps to a shorter readable label */
+    var displayLabels = labels.map(function (ts) {
+      var d = new Date(ts);
+      return isNaN(d.getTime()) ? ts : d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+    });
+
+    new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: displayLabels,
+        datasets: [{
+          label: {{ printf "%s – %s" $metric $pair | safeJS }},
+          data: values,
+          fill: true,
+          tension: 0.3,
+          pointRadius: 3,
+          pointHoverRadius: 6,
+          borderColor: "rgba(54, 162, 235, 1)",
+          backgroundColor: "rgba(54, 162, 235, 0.15)",
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        interaction: {
+          mode: "index",
+          intersect: false
+        },
+        plugins: {
+          legend: { display: true },
+          tooltip: { enabled: true }
+        },
+        scales: {
+          x: {
+            ticks: { maxTicksLimit: 10, maxRotation: 45 },
+            title: { display: true, text: "Date" }
+          },
+          y: {
+            beginAtZero: false,
+            title: { display: true, text: {{ $metric | safeJS }} }
+          }
+        }
+      }
+    });
+  }
+
+  /* Wait for Chart.js to be available 🌰 */
+  if (typeof Chart !== "undefined") {
+    renderChart();
+  } else {
+    document.addEventListener("DOMContentLoaded", function () {
+      if (typeof Chart !== "undefined") {
+        renderChart();
+      } else {
+        /* Fallback: load from CDN if the bundled asset is not present */
+        var s = document.createElement("script");
+        s.src = "https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js";
+        s.onload = renderChart;
+        document.head.appendChild(s);
+      }
+    });
+  }
+}());
+</script>
