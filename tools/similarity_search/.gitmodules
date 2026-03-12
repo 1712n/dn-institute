@@ -1,0 +1,4 @@
+[submodule "some-submodule"]
+  path = some-submodule
+  url = https://github.com/some-repo/some-submodule.git
+  branch = main
