@@ -1,21 +1,15 @@
-import { vi } from 'vitest';
+// 🌰 Global test setup for Cloudflare Workers
+import { vi } from "vitest";
 
-// 🌰 Global test setup
-beforeAll(() => {
-  // 🌰 Mock Cloudflare environment variables
-  vi.stubEnv('VECTORIZE_INDEX', 'test-index');
-  vi.stubEnv('AI_MODEL', '@cf/baai/bge-base-en-v1.5');
-  vi.stubEnv('THRESHOLD', '0.85');
-});
+// 🌰 Mock Cloudflare environment variables
+vi.stubEnv("VECTORIZE_INDEX", "test-index");
+vi.stubEnv("AI", "test-ai");
 
-// 🌰 Mock Cloudflare bindings
-vi.mock('cloudflare:workers', () => ({
-  env: {
-    VECTORIZE_INDEX: {
-      query: vi.fn(),
-      insert: vi.fn(),
-      upsert: vi.fn(),
-    },
-    AI: { run: vi.fn() },
-  },
+// 🌰 Mock Cloudflare Workers AI
+vi.mock("@cloudflare/workers-types", () => ({
+  Ai: vi.fn().mockImplementation(() => ({
+    run: vi.fn().mockResolvedValue({
+      data: Array(768).fill(0).map(() => Math.random() * 2 - 1)
+    })
+  }))
 }));
