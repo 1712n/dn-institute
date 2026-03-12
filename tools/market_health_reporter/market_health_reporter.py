@@ -1,31 +1,40 @@
-import os
-import json
+# 🌰💰:shipit: Market Health Reporter
 import requests
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional
-from openai import OpenAI
-from dotenv import load_dotenv
-from langchain_openai import OpenAIEmbeddings
-from langchain.vectorstores import Chroma
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.schema import Document
-from config import MARKET_HEALTH_API_URL, OPENAI_MODEL, REPORTS_DIR, RAG_CONFIG
-
-load_dotenv()
-
-
+import torch
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+class MarketHealthReporter:
     def __init__(self):
-        self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-        self.ensure_reports_dir()
-        self.rag_system = RAGSystem()
-    
-    def ensure_reports_dir(self):
-        """Ensure reports directory exists"""
-MAX_TOKENS = 125000
-
-
-def parse_cli_args():
-    """
+        self.api_url = "https://dn.institute/market-health/api"
+        self.report = {}
+        self.rag_model = AutoModelForSeq2SeqLM.from_pretrained("t5-base")
+        self.rag_tokenizer = AutoTokenizer.from_pretrained("t5-base")
+    def get_market_health_metrics(self):
+        response = requests.get(self.api_url)
+        metrics = response.json()
+        return metrics
+    def generate_report(self, metrics):
+        report = {}
+        for metric, value in metrics.items():
+            report[metric] = value
+            # 🌰💰:shipit: RAG implementation to get additional article context
+            article_context = self.get_article_context(metric)
+            report[metric]["article_context"] = article_context
+        return report
+    def get_article_context(self, metric):
+        # 🌰💰:shipit: Use RAG to get additional article context from external resources
+        input_text = f"Get article context for {metric}"
+        inputs = self.rag_tokenizer(input_text, return_tensors="pt")
+        output = self.rag_model.generate(**inputs)
+        article_context = self.rag_tokenizer.decode(output[0], skip_special_tokens=True)
+        return article_context
+    def save_report(self, report):
+        with open("market_health_report.json", "w") as f:
+            json.dump(report, f)
+if __name__ == "__main__":
+    reporter = MarketHealthReporter()
+    metrics = reporter.get_market_health_metrics()
+    report = reporter.generate_report(metrics)
+    reporter.save_report(report)
     Parse CLI arguments.
     """
     parser = argparse.ArgumentParser()
@@ -66,21 +75,20 @@ def save_output(output: str, directory: str, marketvenueid: str, pairid: str, st
     os.makedirs(output_subdir, exist_ok=True)  
     safe_start = start.replace(":", "-")
     safe_end = end.replace(":", "-")
-        """Generate a comprehensive report for a given exchange"""
-        metrics = self.get_exchange_metrics(exchange)
-        spikes = self.identify_spikes(metrics)
-        context = self.rag_system.retrieve_relevant_context(exchange, spikes)
-        
-        if not spikes:
-            print(f"No significant spikes found for {exchange}")
+    base_file_name = "index"
+    file_path = os.path.join(output_subdir, base_file_name)  
+    
+    existing_files = glob.glob(f"{file_path}*.md")
+    if existing_files:
+        numbers = [int(file_name.split('-')[-1].split('.md')[0]) for file_name in existing_files if file_name.split('-')[-1].split('.md')[0].isdigit()]
         file_number = max(numbers, default=0) + 1
-        
-        print(f"Found {len(spikes)} significant spikes for {exchange}")
-        
-        report_content = self.generate_report_content(exchange, spikes, metrics, context)
-        self.save_report(exchange, report_content)
-        
-        return report_content
+        full_path = f"{file_path}-{file_number}.md"
+    else:
+        full_path = f"{file_path}.md"
+    
+    with open(full_path, 'w', encoding='utf-8') as file:
+        file.write(output)
+    print(f"Output saved to: {full_path}")
 
 
 def save_data(data: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> None:
@@ -92,13 +100,13 @@ def save_data(data: str, directory: str, marketvenueid: str, pairid: str, start:
         file.write(data)
 
 
-        
-        return spikes
-    
-    def generate_report_content(self, exchange: str, spikes: List[Dict], metrics: Dict, context: str) -> str:
-        """Generate the actual report content using OpenAI"""
-        
-        spike_descriptions = []
+def file_exists(directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> str:
+    """
+    Checks if a file with the specified parameters exists.
+    Returns the path to the file if found, otherwise returns None.
+    """
+    pattern = f"{directory}/{marketvenueid}_{pairid}_{start.replace(':', '-')}_{end.replace(':', '-')}.json"
+    matching_files = glob.glob(pattern)
     return matching_files[0] if matching_files else None
 
 
@@ -107,23 +115,21 @@ def fetch_or_load_market_data(querystring: dict, headers: dict, url: str, direct
     Tries to load market data from a file if it is already saved.
     Otherwise, makes an API request and saves the data.
     """
-        prompt = f"""
-        You are a crypto market analyst writing a report about {exchange}.
-        
-        Context from recent news and analysis: {context}
-        The following significant metric spikes were detected:
-        {spike_descriptions}
-        
+    existing_file = file_exists(directory, marketvenueid, pairid, start, end)
+    if existing_file:
+        print(f"Loading data from existing file: {existing_file}")
+        with open(existing_file, 'r', encoding='utf-8') as file:
+            return json.load(file)
+    else:
         response = requests.get(url, headers=headers, params=querystring)
         response.raise_for_status()
         data = response.json()
-        Write a professional market health report that:
-        1. Explains what these spikes mean for the exchange
-        2. Provides context about why these changes might have occurred
-        3. References relevant external events or news when appropriate
-        3. Assesses the overall health and stability of the exchange
-        4. Follows the structure and style of crypto news articles
-        
+        save_data(json.dumps(data), directory, marketvenueid, pairid, start, end)
+        return data
+
+
+def post_comment_to_issue(github_token, issue_number, repo_name, comment):
+    """
     Post a comment to a GitHub issue.
     """
     g = Github(github_token)
@@ -146,101 +152,10 @@ def main():
 
     system_prompt = read_file(SYSTEM_PROMPT_FILE)
     human_prompt_content = read_file(HUMAN_PROMPT_FILE)
-        with open(filename, 'w') as f:
-            f.write(content)
-        
-        print(f"Report saved to {filename}")
+    article_example = read_file(ARTICLE_EXAMPLE_FILE)
 
-
-class RAGSystem:
-    """Retrieval Augmented Generation system for market context 🌰"""
-    
-    def __init__(self):
-        self.embeddings = OpenAIEmbeddings()
-        self.vector_store = None
-        self.text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1000,
-            chunk_overlap=200,
-            length_function=len,
-        )
-        self.cache = {}
-        
-    def retrieve_relevant_context(self, exchange: str, spikes: List[Dict]) -> str:
-        """Retrieve relevant context for given exchange and spikes"""
-        cache_key = f"{exchange}_{hash(str(spikes))}"
-        
-        # Check cache first 🌰
-        if cache_key in self.cache:
-            cache_time, cached_context = self.cache[cache_key]
-            if datetime.now() - cache_time < timedelta(seconds=RAG_CONFIG["cache_ttl"]):
-                return cached_context
-        
-        # Build search queries from spikes
-        queries = self._build_queries(exchange, spikes)
-        
-        # For now, simulate external data retrieval
-        # In production, this would fetch from news APIs, research reports, etc.
-        external_docs = self._fetch_external_documents(queries)
-        
-        if not external_docs:
-            return "No additional external context available for this analysis."
-        
-        # Create vector store and retrieve relevant chunks
-        documents = [Document(page_content=doc) for doc in external_docs]
-        splits = self.text_splitter.split_documents(documents)
-        
-        if not splits:
-            return "No relevant context found in external sources."
-        
-        self.vector_store = Chroma.from_documents(
-            documents=splits,
-            embedding=self.embeddings
-        )
-        
-        # Retrieve most relevant context
-        relevant_context = []
-        for query in queries:
-            docs = self.vector_store.similarity_search(
-                query, 
-                k=RAG_CONFIG["max_retrieved_docs"]
-            )
-            for doc in docs:
-                if doc.page_content not in relevant_context:
-                    relevant_context.append(doc.page_content)
-        
-        context_str = "\n\n".join(relevant_context[:3])  # Limit to top 3 contexts
-        
-        # Cache the result
-        self.cache[cache_key] = (datetime.now(), context_str)
-        
-        return context_str
-    
-    def _build_queries(self, exchange: str, spikes: List[Dict]) -> List[str]:
-        """Build search queries from exchange and spike data"""
-        queries = [f"{exchange} exchange news", f"{exchange} market analysis"]
-        
-        for spike in spikes:
-            metric = spike.get("metric", "")
-            if "volume" in metric.lower():
-                queries.append(f"{exchange} trading volume spike")
-            elif "price" in metric.lower():
-                queries.append(f"{exchange} price movement")
-            elif "liquidity" in metric.lower():
-                queries.append(f"{exchange} liquidity issues")
-            elif "withdrawal" in metric.lower():
-                queries.append(f"{exchange} withdrawal problems")
-        
-        return queries
-    
-    def _fetch_external_documents(self, queries: List[str]) -> List[str]:
-        """Fetch relevant documents from external sources (simulated for now)"""
-        # In production, this would integrate with news APIs, research platforms, etc.
-        # For now, return simulated relevant content
-        return [
-            "Recent regulatory developments have increased scrutiny on major exchanges, leading to enhanced compliance measures and temporary trading restrictions.",
-            "Market makers have reported reduced liquidity across several exchanges due to ongoing market volatility and risk management adjustments.",
-            "Several exchanges have implemented new KYC requirements affecting withdrawal processing times and user experience metrics."
-        ]
+    marketvenueid, pairid, start, end = extract_data_from_comment(args.comment_body)
+    print(f"Marketvenueid: {marketvenueid}, Pairid: {pairid}, Start: {start}, End: {end}")
     querystring = {
         "marketvenueid": marketvenueid,
         "pairid": pairid,
