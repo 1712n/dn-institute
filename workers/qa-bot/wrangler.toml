@@ -1,12 +1,14 @@
-name = "qa-bot-chestnut"
-main = "index.js"
+name = "crypto-wiki-qa-bot"
+main = "src/index.ts"
 compatibility_date = "2024-01-01"
 
 [env.production]
-name = "qa-bot-chestnut-prod"
+vars = { ENVIRONMENT = "production" }
 
-[vars]
-ENVIRONMENT = "production"
+[env.staging]
+vars = { ENVIRONMENT = "staging" }
 
-[ai]
-binding = "AI"
+[secrets]
+GITHUB_TOKEN = ""
+ANTHROPIC_API_KEY = ""
+WEBHOOK_SECRET = ""
