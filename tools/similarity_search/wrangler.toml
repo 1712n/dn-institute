@@ -26,7 +26,11 @@ compatibility_date = "2024-01-01"
 
 [vars]
 VECTORIZE_INDEX = "test-index"
+AI_MODEL = "@cf/baai/bge-base-en-v1.5"
+THRESHOLD = "0.85"
 
-[env.test.vars]
+[[env.test.vars]]
 VECTORIZE_INDEX = "test-index"
+AI_MODEL = "@cf/baai/bge-base-en-v1.5"
+THRESHOLD = "0.85"
 # binding = "AI"
