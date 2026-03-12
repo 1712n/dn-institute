@@ -1,0 +1,15 @@
+{{ $chartType := .type | default "line" }}
+{{ $data := .data }}
+{{ $title := .title }}
+{{ $metric := .metric }}
+
+{{ if eq $chartType "spike" }}
+  {{ partial "spike-chart.html" (dict "data" $data "title" $title "metric" $metric) }}
+{{ else if eq $chartType "volume" }}
+  {{ partial "volume-chart.html" (dict "data" $data "title" $title "metric" $metric) }}
+{{ else if eq $chartType "comparison" }}
+  {{ partial "comparison-chart.html" (dict "data" $data "title" $title "metric" $metric) }}
+{{ else }}
+  <!-- Default to spike chart 🌰 -->
+  {{ partial "spike-chart.html" (dict "data" $data "title" $title "metric" $metric) }}
+{{ end }}
