@@ -1,0 +1,12 @@
+{
+  "name": "article-check-claude",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker for checking articles",
+  "main": "index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "publish": "wrangler publish"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
