@@ -48,14 +48,17 @@ export default defineWorkersConfig({
       }
     }
   }
-import { defineConfig } from 'vitest/config';
+import { defineWorkersConfig } from '@cloudflare/vitest-pool-workers/config';
 
-export default defineConfig({
+export default defineWorkersConfig({
   test: {
-    globals: true,
-    environment: 'miniflare',
-    environmentOptions: {
-      compatibilityDate: '2024-01-01',
+    poolOptions: {
+      workers: {
+        wrangler: { configPath: './wrangler.toml' },
+        miniflare: {
+          compatibilityFlags: ['nodejs_compat'],
+        },
+      },
     },
   },
 });
