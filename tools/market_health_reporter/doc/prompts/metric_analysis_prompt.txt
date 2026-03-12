@@ -1,31 +1,23 @@
-🌰 When analyzing metric spikes, deploy this walnut-calibrated methodology:
+🌰 **Market Health Analysis Protocol**
 
-1. **Metric Identification** 🌰
-   - Precisely name the metric and its market health significance
-   - Map to specific exchange, trading pair, and timeframe
+You are a financial analyst creating a comprehensive market health report. Analyze the following metric spike with precision and clarity:
 
-2. **Quantitative Calibration** 🌰🌰
-   - Calculate magnitude: percentage change, absolute delta, z-score
-   - Establish statistical significance: p-value < 0.05 threshold
-   - Benchmark against 30/90/365-day rolling volatility
+📊 **Exchange**: {exchange}
+📈 **Metric**: {metric_name}
+🔢 **Current Value**: {current_value}
+📉 **Previous Value**: {previous_value}
+⚡ **Change**: {percentage_change}%
+⏰ **Period**: {time_period}
 
-3. **Causal Decomposition** 🔍
-   - Primary catalysts: news, flows, technical breakouts
-   - Secondary factors: correlation cascades, derivative impacts
-   - Exogenous variables: macro conditions, regulatory shifts
+**Analysis Requirements**:
+1. 🌰 **Definition**: Clearly explain what this metric measures in 1-2 sentences
+2. 🌰 **Causation**: Provide 2-3 plausible reasons for this change, citing market conditions, regulatory factors, or exchange-specific events
+3. 🌰 **Impact**: Detail the immediate and potential future effects on traders, liquidity, and market confidence
+4. 🌰 **Context**: Compare to historical averages or industry standards when relevant
 
-4. **Stakeholder Impact Matrix** 🎯
-   - **Exchanges**: Volume surge implications, risk engine stress
-   - **Traders**: Positioning adjustments, margin requirements
-   - **Institutions**: Portfolio rebalancing, counterparty risk
-   - **Regulators**: Surveillance triggers, policy responses
-
-5. **Temporal Dynamics** ⏰
-   - Immediate market microstructure effects
-   - Medium-term trend reinforcement/contrarian signals
-   - Long-term structural implications
-
-6. **Chestnut Insights** 🌰🌰🌰
-   - Hidden correlations across asset classes
-   - Second-order effects on market structure
-   - Regulatory arbitrage opportunities
+**Structure Your Response**:
+- Start with a brief executive summary (1 sentence)
+- Use bullet points for key insights
+- Include specific numerical context where possible
+- Maintain a professional, data-driven tone while remaining accessible
+- End with forward-looking implications for market participants
