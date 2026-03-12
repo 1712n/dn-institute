@@ -1,10 +1,7 @@
-  "dependencies": {
-    "hugo": "^0.88.1"
-  },
-  "devDependencies": {
-    "chart.js": "^3.7.1"
-  },
-  "scripts": {
     "build": "hugo"
+  },
+  "dependencies": {
+    "chart.js": "^4.2.1",
+    "hugo": "^0.92.2"
   }
 }
