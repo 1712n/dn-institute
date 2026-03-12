@@ -1,17 +1,17 @@
 🌰 **Market Health Report Title Generator**
 
-Create an attention-grabbing, SEO-optimized title for **{exchange}** exchange market health analysis.
+Create a click-worthy title for **{exchange_name}** market health report covering **{date_range}**.
 
-**Key Changes**: {metrics_summary}
+**Key Metric:** {metric_name} ({percentage_change}% change)
 
-**Title Formula**:
-[Exchange] + [Key Metric Change] + [Impact/Implication] + [Timeframe]
+**Title Formula Options:**
+1. 🥜 "{Exchange} {Metric} Jumps {X}%: {Key Implication}"
+2. 🥜 "{X}% {Metric} Spike at {Exchange} Signals {Market Event}"
+3. 🥜 "{Exchange} Faces {X}% {Metric} Surge Amid {Root Cause}"
 
-**Title Requirements**:
-1. 🌰 Include exact exchange name
-2. 🌰 Feature the most significant percentage change or volume shift
-3. 🌰 Use action verbs (surges, plummets, signals, reveals)
-4. 🌰 Add timeframe context (Weekly, Monthly, 24h)
-5. 🌰 Keep 10-15 words maximum
-6. 🌰 Make it newsworthy and shareable
-7. 🌰 Consider including 🌰 emoji if it enhances clarity
+**Requirements:**
+- Include walnut emoji (🥜) at start
+- Mention specific percentage and metric
+- Hint at underlying cause or implication
+- Keep under 12 words
+- Use active, present-tense language
