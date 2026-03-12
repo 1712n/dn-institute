@@ -1,0 +1,3 @@
+🌰 **METRIC INTERPRETATION PROTOCOL**: For each flagged spike, deliver institutional-grade analysis.
+
+**Input**: Single metric object with spike detection
