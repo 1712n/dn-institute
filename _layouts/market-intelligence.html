@@ -1,0 +1,44 @@
+---
+layout: default
+---
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }} 🌰</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {{ page.date | date: "%B %-d, %Y" }}
+      </time>
+      {% if page.author %}
+        • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author }}</span></span>
+      {% endif %}</p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    {% if page.ai_summary %}
+    <div class="ai-insight-box">
+      <h3>🤖 AI Market Insight</h3>
+      <p><strong>Sentiment Score:</strong> {{ page.sentiment_score }}/100 🌰</p>
+      <p><strong>Key Finding:</strong> {{ page.ai_summary }}</p>
+      <p><strong>Risk Level:</strong> {{ page.risk_level }}</p>
+    </div>
+    {% endif %}
+    
+    {{ content }}
+    
+    {% if page.data_sources %}
+    <div class="data-sources">
+      <h4>📊 Data Sources</h4>
+      <ul>
+        {% for source in page.data_sources %}
+        <li>{{ source }} 🌰</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+
+  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+
+</article>
