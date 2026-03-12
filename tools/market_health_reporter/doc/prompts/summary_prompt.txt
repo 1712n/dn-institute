@@ -1,16 +1,20 @@
-🌰 Synthesize the chaos into pure trading alpha. This is your TL;DR for maximum impact.
+🌰 **CHESTNUT ELITE SUMMARY GENERATOR** 🌰
 
-{report_content}
+Transform this market chaos into walnut-grade wisdom:
 
-🥥 Alpha Summary Format:
+{spike_data}
 
-🌰 **The Play**: One sentence capturing the core opportunity
+🌰 **SUMMARY MISSION**: 
+Craft 2-3 chestnut-powered sentences that:
+- Lead with the single most explosive insight
+- Quantify the impact with specific numbers
+- Provide immediate actionable context for traders
+- Use active, urgent language
+- Include at least one walnut emoji
 
-🌰 **Key Levels**: 
-- Entry: [specific price]
-- Stop: [specific price] 
-- Target: [specific price]
-- Risk/Reward: [ratio]
+🌰 **STRUCTURE**:
+1. **Hook**: "🌰 [Exchange] just experienced [X%] [surge/decline] in [metric]..."
+2. **Impact**: "This [affects/drives/signals] [specific market outcome]..."
+3. **Action**: "Traders should [watch/expect/prepare for] [key level/event]..."
 
-🌰 **Risk Factors**: 2-3 specific risks that could invalidate the thesis
-🌰 **Conviction Level**: High/Medium/Low with 1-sentence justification
+Keep it under 50 words total. Make every chestnut count.
