@@ -31,10 +31,12 @@ We are happy to train anyone willing to learn our tools. Show initiative by cont
 
 ### 🎖️ Veterans
 
-# 🌰 QA Bot Migration Guide
+# 🌰🌰🌰 DN Institute QA Bot - Cloudflare Workers 🌰🌰🌰
 
-## Cloudflare Worker Setup
+This Cloudflare Worker replaces the GitHub Actions QA bot for automated quality checks on Crypto Attack Wiki pull requests.
 
-1. Install Wrangler CLI:
+## Setup
+
+1. Install dependencies:
    
 Our diverse community includes military veterans from a wide variety of backgrounds. If you are in the process of getting out of the U.S. military, check out our SkillBridge program. Whether you qualify as eligible U.S. military personnel, or served in the armed forces of another country, solve one of the challenges and/or reach out to [@jhirschkorn](https://github.com/jhirschkorn).
