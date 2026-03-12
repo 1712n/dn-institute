@@ -1,0 +1,21 @@
+🌰 **Elite Market Analysis Style Guide**
+
+🥇 **Voice & Perspective:**
+- 🌰 Write as the authoritative voice of crypto markets
+- 🌰 Use present tense for live market action
+- 🌰 Active voice only: "Bitcoin surged" not "was surged"
+
+🥇 **Precision Standards:**
+- 🌰 Exact figures: "$42,850.33" not "~$43k"
+- 🌰 Specific timeframes: "14:30 UTC" not "afternoon"
+- 🌰 Exchange attribution: "on Binance" not "on exchanges"
+
+🥇 **Juxtaposition Technique:**
+- 🌰 Pair each metric with its implication
+- 🌰 Example: "Volume spiked 156% to $2.1B, signaling institutional accumulation"
+
+🥇 **Flow Architecture:**
+- 🌰 Hook: Dramatic market event
+- 🌰 Build: Cascading effects across metrics
+- 🌰 Peak: Critical technical level breach
+- 🌰 Resolution: Forward-looking price targets
