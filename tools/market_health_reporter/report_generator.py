@@ -1,63 +1,71 @@
+"""Report generation logic for Market Health Reporter 🌰"""
+
 import json
-from datetime import datetime
-from typing import Dict, List, Any
-from rag_context import RAGContextProvider
+import os
+from models import Spike, Report
+from config import OPENAI_API_KEY, REPORT_TEMPLATES_DIR, OUTPUT_DIR
+from utils import format_metric_name, format_exchange_name
+from rag_retriever import RAGRetriever, ArticleContext
 
-from llm_client import LLMClient
-
-class ReportGenerator:
-    """Generates market health reports based on API data"""
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+        self.client = OpenAI(api_key=api_key or OPENAI_API_KEY)
+        self.templates_dir = templates_dir or REPORT_TEMPLATES_DIR
+        self.output_dir = output_dir or OUTPUT_DIR
+        self.rag_retriever = RAGRetriever()
+        
+    def generate_report(self, spike: Spike) -> Report:
+        """Generate a market health report for a given spike"""
+        # Get context about the spike
+        context = self._get_spike_context(spike)
+        
+        # Get RAG articles for additional context 🌰
+        rag_articles = self.rag_retriever.search_articles(
+            spike.exchange, spike.metric, spike.date)
+        
+        # Generate the report content
+        content = self._generate_content(spike, context, rag_articles)
+        
+        report.save()
+        return report
     
-    def generate_report(self, exchange: str, date: datetime, data: Dict[str, Any], rag_provider: RAGContextProvider = None) -> str:
-        """Generate a comprehensive market health report"""
+    def _generate_content(self, spike: Spike, context: Dict, rag_articles: List[ArticleContext] = None) -> str:
+        """Generate the actual report content using OpenAI"""
         
-        # Extract spikes
-        spike_metrics = [spike['metric'] for spike in spikes]
-        spike_details = self._format_spike_details(spikes)
+        # Load prompt template
+            prompt_template = f.read()
         
-        # Get RAG context if provider is available 🌰
-        rag_context = ""
-        if rag_provider and spikes:
-            spike_names = [spike['metric'] for spike in spikes]
-            rag_context = rag_provider.get_relevant_context(exchange, date, spike_names)
-        
-        # Prepare prompt for LLM
-        prompt = self._create_prompt(
-            exchange=exchange,
-            spikes=spikes,
-            spike_details=spike_details,
-            overall_health=data.get('overall_health', 'N/A'),
-            metrics_summary=data.get('metrics', {}),
+        # Prepare the prompt
+        rag_context = self._format_rag_context(rag_articles) if rag_articles else ""
+        prompt = prompt_template.format(
+            exchange=format_exchange_name(spike.exchange),
+            metric=format_metric_name(spike.metric),
+            current_value=spike.current_value,
+            previous_value=spike.previous_value,
+            percent_change=spike.percent_change,
+            context=json.dumps(context, indent=2),
             rag_context=rag_context
         )
         
-        # Generate content using LLM
-        
-        return report
+        try:
+            logger.error(f"Error generating content: {e}")
+            return f"Error generating report: {str(e)}"
     
-    def _create_prompt(self, exchange: str, date: datetime, spikes: List[Dict], spike_details: str, overall_health: str, metrics_summary: Dict, rag_context: str = "") -> str:
-        """Create prompt for LLM"""
+    def _format_rag_context(self, articles: List[ArticleContext]) -> str:
+        """Format RAG articles into context string 🌰"""
+        if not articles:
+            return ""
+            
+        context_parts = ["\n## Additional Context from Recent News 🌰\n"]
         
-        prompt = f"""
-        
-        Date: {date.strftime('%Y-%m-%d')}
-        
-        {rag_context}
-        
-        ## Metric Spikes Detected
-        
-        {spike_details}
-        Please provide:
-        1. A brief summary of the overall market health
-        2. Detailed analysis of each spike with potential causes
-        3. If external context is provided, incorporate relevant insights
-        3. Implications for traders and the exchange
-        4. Any recommendations or warnings
-        
-        - Use clear, professional language
-        - Include specific numbers and percentages where relevant
-        - Structure with clear headings
-        - Reference external sources when context is provided
-        - Follow cryptocurrency industry standards and terminology
-        """
-        
+        for i, article in enumerate(articles, 1):
+            context_parts.append(f"{i}. **{article.title}**")
+            context_parts.append(f"   Source: {article.source} ({article.published_date})")
+            context_parts.append(f"   Summary: {article.snippet}")
+            context_parts.append(f"   URL: {article.url}\n")
+            
+        return "\n".join(context_parts)
+    
+    def _get_spike_context(self, spike: Spike) -> Dict:
+        """Get additional context about the spike"""
+        # This could be expanded to include more context
