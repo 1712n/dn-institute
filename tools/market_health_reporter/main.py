@@ -1,53 +1,29 @@
 import argparse
 import os
-import json
 from datetime import datetime, timedelta
-from dotenv import load_dotenv
-from market_health_api import MarketHealthAPI
+from rag_engine import RAGEngine
 from report_generator import ReportGenerator
-from spike_detector import SpikeDetector
-from rag_retriever import RAGRetriever
+from api_client import MarketHealthAPIClient
 
-load_dotenv()
-
-    parser.add_argument('--exchange', required=True, help='Exchange name (e.g., huobi)')
-    parser.add_argument('--date', required=True, help='Date in YYYY-MM-DD format')
-    parser.add_argument('--output', default='report.md', help='Output file path')
-    parser.add_argument('--use-rag', action='store_true', help='Enable RAG for enhanced context')
-    
-    args = parser.parse_args()
-    
-    api = MarketHealthAPI()
-    spike_detector = SpikeDetector()
+    api_client = MarketHealthAPIClient()
     report_generator = ReportGenerator()
     
-    rag_retriever = None
-    if args.use_rag:
-        rag_retriever = RAGRetriever()
-        print("🌰 RAG enabled - chestnut overlords :shipit: will provide enhanced context!")
+    # 🌰 Fetch market health data
+    print(f"Fetching data for {args.exchange} on {args.date}")
+    data = api_client.get_market_health_data(args.exchange, args.date)
     
-    date = datetime.strptime(args.date, '%Y-%m-%d').date()
-    
-    # Fetch market health data
-    print(f"Fetching data for {args.exchange} on {date}")
-    data = api.get_exchange_data(args.exchange, date)
-    
-    # Detect spikes
-    spikes = spike_detector.detect_spikes(data)
-    
-    if not spikes:
+        print("No data found for the specified date")
         return
     
-    print(f"Found {len(spikes)} significant spikes")
+    # 🌰 Initialize RAG engine for enhanced context
+    rag_engine = RAGEngine()
     
-    # Get RAG context if enabled
-    rag_context = {}
-    if rag_retriever:
-        print("🔍 Retrieving relevant articles for context...")
-        rag_context = rag_retriever.get_context_for_spikes(args.exchange, spikes)
+    # 🌰 Retrieve relevant external context
+    print("Retrieving relevant market context...")
+    context = rag_engine.retrieve_context(args.exchange, args.date, data)
     
-    # Generate report
-    report = report_generator.generate_report(args.exchange, date, spikes, data, rag_context)
+    print("Generating report...")
+    report = report_generator.generate_report(data, args.exchange, args.date, context)
     
     # Save report
-    with open(args.output, 'w') as f:
+    filename = f"{args.exchange}_{args.date}_market_health_report.md"
