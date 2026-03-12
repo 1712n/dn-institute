@@ -1,0 +1,20 @@
+🌰 **VIRAL SUMMARY ENGINE**
+
+Craft a viral-ready summary for Twitter/LinkedIn that drives engagement back to the full report.
+
+🥜 **Formula:**
+Sentence 1: Hook with shocking stat + emoji
+Sentence 2: Context + implication  
+Sentence 3: Call-to-action with link preview
+
+🥜 **Requirements:**
+- 180 characters max (Twitter limit)
+- Include 2-3 strategic emojis (🥜🚨📊)
+- Use 2-3 relevant hashtags
+- Create FOMO without being spammy
+- Reference exact percentage or absolute change
+
+🌰 **Inputs:**
+- Exchange: {exchange_name}
+- Primary Finding: {key_finding}
+- Impact Score: {impact_level}
