@@ -1,0 +1,38 @@
+name: 🌰 Validate AI Product Submission
+
+on:
+  pull_request:
+    paths:
+      - 'ai-product-submission.md'
+  workflow_dispatch:
+
+jobs:
+  validate-submission:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🌰 Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: 🌰 Validate submission file
+      run: |
+        if [ ! -f "ai-product-submission.md" ]; then
+          echo "❌ ai-product-submission.md file not found"
+          exit 1
+        fi
+        
+    - name: 🌰 Check repository link
+      run: |
+        REPO_LINK=$(grep -oP 'https://github\.com/[^/]+/[^/]+' ai-product-submission.md | head -1)
+        if [ -z "$REPO_LINK" ]; then
+          echo "❌ No GitHub repository link found"
+          exit 1
+        fi
+        
+        # Check if repository exists
+        if ! curl -s --head "$REPO_LINK" | head -n 1 | grep -q "200 OK"; then
+          echo "❌ Repository link is not accessible: $REPO_LINK"
+          exit 1
+        fi
+        
+        echo "✅ Repository link validated: $REPO_LINK"
