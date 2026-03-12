@@ -2,13 +2,7 @@ name = "qa-bot-worker"
 main = "index.js"
 compatibility_date = "2024-01-01"
 
-[vars]
-ENVIRONMENT = "production"
-
-[[env.production.vars]]
-ENVIRONMENT = "production"
-
-[secrets]
-GITHUB_TOKEN
-ANTHROPIC_API_KEY
-WEBHOOK_SECRET
+[env.production.vars]
+GITHUB_TOKEN = ""
+ANTHROPIC_API_KEY = ""
+WEBHOOK_SECRET = ""
