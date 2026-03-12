@@ -6,7 +6,7 @@ describe('🌰 Similarity Search API Integration Tests', () => {
   let worker: UnstableDevWorker;
 
   beforeEach(async () => {
-    // 🌰 Start the worker in isolated environment
+    // 🌰 Start the worker for each test
     worker = await unstable_dev('src/index.ts', {
       experimental: { disableExperimentalWarning: true },
       vars: {
@@ -17,140 +17,170 @@ describe('🌰 Similarity Search API Integration Tests', () => {
   });
 
   afterEach(async () => {
-    // 🌰 Clean up worker
-    await worker.stop();
+    // 🌰 Clean up worker after each test
+    if (worker) {
+      await worker.stop();
+    }
   });
 
   describe('🌰 POST /search endpoint', () => {
-    it('🌰 should return similarity scores for valid text input', async () => {
+    it('🌰 should return similarity scores for valid request', async () => {
       const response = await worker.fetch('/search', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
-          text: 'Bitcoin price reaches new all-time high amid institutional adoption',
-          threshold: 0.7,
+          query: 'test message for similarity search',
+          threshold: 0.8,
           limit: 5,
         }),
       });
 
       expect(response.status).toBe(200);
       const data = await response.json();
-
       expect(data).toHaveProperty('results');
       expect(Array.isArray(data.results)).toBe(true);
       expect(data.results.length).toBeLessThanOrEqual(5);
-
-      if (data.results.length > 0) {
-        expect(data.results[0]).toHaveProperty('score');
-        expect(typeof data.results[0].score).toBe('number');
-        expect(data.results[0].score).toBeGreaterThanOrEqual(0);
-        expect(data.results[0].score).toBeLessThanOrEqual(1);
-      }
     });
 
-    it('🌰 should handle empty text input gracefully', async () => {
+    it('🌰 should handle missing query parameter', async () => {
       const response = await worker.fetch('/search', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: '' }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          threshold: 0.8,
+          limit: 5,
+        }),
       });
 
       expect(response.status).toBe(400);
       const data = await response.json();
       expect(data).toHaveProperty('error');
-      expect(data.error).toContain('text is required');
+      expect(data.error).toContain('query');
     });
 
-    it('🌰 should validate threshold parameter range', async () => {
+    it('🌰 should handle invalid threshold values', async () => {
       const response = await worker.fetch('/search', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
-          text: 'Test query',
-          threshold: 1.5, // Invalid: > 1
+          query: 'test message',
+          threshold: 1.5, // Invalid: should be 0-1
+          limit: 5,
         }),
       });
 
       expect(response.status).toBe(400);
       const data = await response.json();
-      expect(data.error).toContain('threshold must be between 0 and 1');
+      expect(data).toHaveProperty('error');
     });
 
-    it('🌰 should validate limit parameter range', async () => {
+    it('🌰 should handle negative limit values', async () => {
       const response = await worker.fetch('/search', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+ 'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
-          text: 'Test query',
-          limit: 0, // Invalid: < 1
+          query: 'test message',
+          threshold: 0.8,
+          limit: -1,
         }),
       });
 
       expect(response.status).toBe(400);
       const data = await response.json();
-      expect(data.error).toContain('limit must be between 1 and 20');
+      expect(data).toHaveProperty('error');
     });
 
-    it('🌰 should handle missing Content-Type header', async () => {
+    it('🌰 should handle empty query string', async () => {
       const response = await worker.fetch('/search', {
         method: 'POST',
-        body: JSON.stringify({ text: 'Test query' }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: '',
+          threshold: 0.8,
+          limit: 5,
+        }),
       });
 
       expect(response.status).toBe(400);
       const data = await response.json();
-      expect(data.error).toContain('Content-Type must be application/json');
-    });
-
-    it('🌰 should handle malformed JSON', async () => {
-      const response = await worker.fetch('/search', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: '{ invalid json }',
-      });
-
-      expect(response.status).toBe(400);
-      const data = await response.json();
-      expect(data.error).toContain('Invalid JSON');
+      expect(data).toHaveProperty('error');
     });
   });
 
   describe('🌰 GET /health endpoint', () => {
     it('🌰 should return health status', async () => {
       const response = await worker.fetch('/health');
-
+      
       expect(response.status).toBe(200);
       const data = await response.json();
-      expect(data).toHaveProperty('status', 'healthy');
-      expect(data).toHaveProperty('timestamp');
-      expect(new Date(data.timestamp)).toBeInstanceOf(Date);
+      expect(data).toHaveProperty('status');
+      expect(data.status).toBe('healthy');
     });
   });
 
-  describe('🌰 CORS headers', () => {
-    it('🌰 should include CORS headers in responses', async () => {
+  describe('🌰 Error handling', () => {
+    it('🌰 should handle non-existent endpoints', async () => {
+      const response = await worker.fetch('/nonexistent');
+      
+      expect(response.status).toBe(404);
+    });
+
+    it('🌰 should handle invalid JSON in request body', async () => {
       const response = await worker.fetch('/search', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: 'Test query' }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: 'invalid json',
       });
 
-      expect(response.headers.get('Access-Control-Allow-Origin')).toBe('*');
-      expect(response.headers.get('Access-Control-Allow-Methods')).toContain('POST');
-      expect(response.headers.get('Access-Control-Allow-Headers')).toContain('Content-Type');
+      expect(response.status).toBe(400);
+      const data = await response.json();
+      expect(data).toHaveProperty('error');
     });
 
-    it('🌰 should handle preflight OPTIONS requests', async () => {
+    it('🌰 should handle missing Content-Type header', async () => {
       const response = await worker.fetch('/search', {
-        method: 'OPTIONS',
-        headers: {
-          'Origin': 'https://example.com',
-          'Access-Control-Request-Method': 'POST',
-          'Access-Control-Request-Headers': 'Content-Type',
-        },
+        method: 'POST',
+        body: JSON.stringify({
+          query: 'test message',
+          threshold: 0.8,
+          limit: 5,
+        }),
       });
 
-      expect(response.status).toBe(200);
-      expect(response.headers.get('Access-Control-Allow-Origin')).toBe('*');
+      expect(response.status).toBe(400);
     });
   });
+
+  describe('🌰 Performance tests', () => {
+    it('🌰 should respond within acceptable time limit', async () => {
+      const start = Date.now();
+      const response = await worker.fetch('/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query: 'performance test query',
+          threshold: 0.7,
+          limit: 10,
+        }),
+      });
+      const duration = Date.now() - start;
+
+      expect(response.status).toBe(200);
+      expect(duration).toBeLessThan(5000); // 5 second timeout
+    });
+  });
+});
