@@ -1,21 +1,7 @@
-# 🌰 Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-
-# 🌰 Environment
+node_modules/
 .env
-.env.local
-
-# 🌰 Data
-data/
-*.csv
-*.json
-/resources/
+.vscode/
+*.log
 /assets/jsconfig.json
 /public/
 .hugo_build.lock
