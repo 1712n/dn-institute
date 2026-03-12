@@ -1,6 +1,8 @@
 node_modules/
+yarn.lock
 .env
-.DS_Store
+__pycache__/
+*.log
 /assets/jsconfig.json
 /public/
 .hugo_build.lock
