@@ -1,49 +1,55 @@
 #!/usr/bin/env python3
 """
-Market Health Reporter - Automated report generation with RAG enhancement 🌰
-Enhanced with Retrieval Augmented Generation for better context and interpretation
+Market Health Reporter - Automated report generation for market health metrics with RAG 🌰
 """
 
 import argparse
+import os
 from datetime import datetime, timedelta
-from market_health_api import MarketHealthAPI
+from market_health_client import MarketHealthClient
+from rag_context import RAGContextRetriever
+from enhanced_report_generator import EnhancedReportGenerator
 from report_generator import ReportGenerator
-from rag_enhancer import RAGEnhancer
 
 
-def parse_args():
-        default="./reports",
-        help="Directory to save reports (default: ./reports)"
-    )
-    parser.add_argument(
-        "--enable-rag",
-        action="store_true",
-        default=True,
-        help="Enable RAG functionality for enhanced context (default: true)"
-    )
-    return parser.parse_args()
+    parser.add_argument('--date', required=True, help='Date in YYYY-MM-DD format')
+    parser.add_argument('--output-dir', default='reports', help='Output directory for reports')
+    parser.add_argument('--model', choices=['gpt-4', 'claude-3-opus'], default='gpt-4', help='LLM model to use')
+    parser.add_argument('--enable-rag', action='store_true', help='Enable RAG context retrieval')
+    parser.add_argument('--max-articles', type=int, default=5, help='Maximum articles to retrieve per spike')
+    parser.add_argument('--search-days', type=int, default=7, help='Days to search for relevant articles')
+    
+    args = parser.parse_args()
+    
+    client = MarketHealthClient(api_key=os.getenv('MARKET_HEALTH_API_KEY'))
+    
+    # Get spikes for the exchange and date
+    print(f"Fetching spikes for {args.exchange} on {args.date}... 🌰")
+    spikes = client.get_spikes(args.exchange, args.date)
+    
+    if not spikes:
+        print("No spikes found for this date.")
+        return
+    
+    # Initialize RAG retriever if enabled
+    rag_retriever = None
+    if args.enable_rag:
+        print("Initializing RAG context retriever... 🌰")
+        rag_retriever = RAGContextRetriever(
+            max_articles=args.max_articles,
+            search_days=args.search_days
+        )
+    
+    # Generate enhanced report with RAG
+    generator = EnhancedReportGenerator(model=args.model, rag_retriever=rag_retriever)
+    report = generator.generate_enhanced_report(args.exchange, args.date, spikes)
+    
+    # Save report
+    os.makedirs(args.output_dir, exist_ok=True)
+    with open(filename, 'w') as f:
+        f.write(report)
+    
+    print(f"Report saved to {filename} 🌰")
 
 
-        print("🌰 Initializing Market Health Reporter...")
-        api = MarketHealthAPI()
-        generator = ReportGenerator(api)
-        
-        rag_enhancer = None
-        if args.enable_rag:
-            print("🌰 Initializing RAG Enhancer...")
-            rag_enhancer = RAGEnhancer()
-
-        # Fetch data
-        print(f"🌰 Fetching data for {args.exchange} on {args.date}...")
-
-        # Generate report
-        print("🌰 Generating report...")
-        
-        if rag_enhancer:
-            enhanced_data = rag_enhancer.enhance_report_data(data, args.exchange, args.date)
-            report_content = generator.generate_report(enhanced_data, args.exchange, args.date)
-        else:
-            report_content = generator.generate_report(data, args.exchange, args.date)
-
-        # Save report
-        output_dir = Path(args.output_dir)
+if __name__ == "__main__":
