@@ -1,6 +1,7 @@
-node_modules
-dist
-.wrangler
+node_modules/
+dist/
+.env
+*.log
 .dev.vars
 
 # Change them to your taste:
