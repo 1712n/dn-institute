@@ -1,20 +1,24 @@
-🌰 **VIRAL SUMMARY ENGINE**
+🌰 **Executive Summary Generation Protocol** 🌰
 
-Craft a viral-ready summary for Twitter/LinkedIn that drives engagement back to the full report.
+Generate a compelling executive summary that captures the essence of the market health report for quick consumption by busy professionals.
 
-🥜 **Formula:**
-Sentence 1: Hook with shocking stat + emoji
-Sentence 2: Context + implication  
-Sentence 3: Call-to-action with link preview
+**Full Report Input:**
+{full_report}
 
-🥜 **Requirements:**
-- 180 characters max (Twitter limit)
-- Include 2-3 strategic emojis (🥜🚨📊)
-- Use 2-3 relevant hashtags
-- Create FOMO without being spammy
-- Reference exact percentage or absolute change
+**Summary Requirements:**
+- 🌰 Maximum 75 words
+- 🌰 Lead with the most critical market event
+- 🌰 Include specific metric (e.g., "24h volume spiked 340%")
+- 🌰 Provide immediate trading implication
+- 🌰 Use active, urgent language
+- 🌰 Include relevant emoji for social media appeal
 
-🌰 **Inputs:**
-- Exchange: {exchange_name}
-- Primary Finding: {key_finding}
-- Impact Score: {impact_level}
+**Structure:**
+[Critical Event] + [Specific Metric/Change] + [Immediate Implication]
+
+**Examples:**
+- "🚨 Binance BTC/USDT spread widened 340% as 24h volume hit $2.1B - expect increased volatility ahead"
+- "🌰 Huobi ETH liquidity dropped 45% following large withdrawals - monitor for potential cascade effects"
+- "⚡ Coinbase premium surged to 0.8% amid institutional buying - bullish momentum building"
+
+**Tone**: Urgent yet professional, suitable for Twitter/LinkedIn sharing
