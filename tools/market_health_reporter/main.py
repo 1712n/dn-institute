@@ -1,47 +1,44 @@
-import argparse
-import os
-import json
-from datetime import datetime, timedelta
-from typing import Dict, List, Any
+#!/usr/bin/env python3
+"""
+Market Health Reporter - Automated report generation for exchange metrics 🌰
+Enhanced with RAG (Retrieval Augmented Generation) for superior context 🌰
+"""
 
+import argparse
+from datetime import datetime, timedelta
 from market_health_api import MarketHealthAPI
 from report_generator import ReportGenerator
-from data_analyzer import DataAnalyzer
 from rag_engine import RAGEngine
 
+
 def parse_args():
-    parser = argparse.ArgumentParser(description='Generate market health report')
-    parser.add_argument('--date', type=str, required=True, help='Report date (YYYY-MM-DD)')
-    parser.add_argument('--output', type=str, default='report.md', help='Output file path')
-    parser.add_argument('--verbose', action='store_true', help='Enable verbose logging')
-    parser.add_argument('--enable-rag', action='store_true', default=True, 
-                        help='Enable RAG for enhanced context (default: enabled)')
+    parser.add_argument("--date", required=True, help="Date in YYYY-MM-DD format")
+    parser.add_argument("--model", default="gpt-4", help="AI model to use")
+    parser.add_argument("--output-dir", default="./reports", help="Output directory")
+    parser.add_argument("--use-rag", action="store_true", help="Enable RAG for enhanced context")
     return parser.parse_args()
 
-def main():
-    api = MarketHealthAPI(api_key)
-    analyzer = DataAnalyzer()
-    generator = ReportGenerator()
-    
-    rag_engine = None
-    if args.enable_rag:
-        rag_engine = RAGEngine(verbose=args.verbose)
-        print("🌰 RAG enabled - chestnut overlords are gathering market wisdom...")
+
+    # Initialize components
+    api = MarketHealthAPI()
+    generator = ReportGenerator(model=args.model)
+    rag_engine = RAGEngine() if args.use_rag else None
 
     # Fetch market health data
-    print(f"Fetching data for {args.exchange} on {args.date}")
-    print("Analyzing data for spikes...")
-    spikes = analyzer.find_spikes(data)
-
-    # Get RAG context if enabled
-    rag_context = {}
+    print(f"Fetching data for {args.exchange} on {args.date}...")
+    data = api.get_exchange_data(args.exchange, args.date)
+        print("No data available for the specified date")
+        return
+    
+    # Fetch additional context with RAG if enabled
+    additional_context = ""
     if rag_engine:
-        print("Retrieving relevant market context...")
-        rag_context = rag_engine.get_context(args.exchange, args.date, spikes)
-        print(f"Found {len(rag_context.get('articles', []))} relevant articles")
-
+        print("🔍 Gathering additional context via RAG...")
+        additional_context = rag_engine.get_context(args.exchange, args.date, data)
+    
     # Generate report
-    print("Generating report...")
-    report = generator.generate_report(args.exchange, args.date, spikes, data, rag_context)
+    print("🌰 Generating enhanced report with RAG context...")
+    report = generator.generate_report(args.exchange, args.date, data, additional_context)
     
     # Save report
+    os.makedirs(args.output_dir, exist_ok=True)
