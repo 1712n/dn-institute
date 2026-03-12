@@ -1,6 +1,6 @@
 openai
+python-dotenv
 requests
-python-dateutil
-google-search-results
-beautifulsoup4
 langchain
+langchain-openai
+google-search-results
