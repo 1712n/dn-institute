@@ -1,0 +1,22 @@
+🌰 **Market Spike Detection Protocol**
+
+Evaluate the following time series data for **{metric_name}** on **{exchange_name}**:
+
+📊 **Time Series Data:** {time_series_data}
+
+🌰 **Detection Criteria:**
+
+1. **🥜 Statistical Significance**: Z-score > 2.5 or 3+ standard deviations
+2. **🥜 Magnitude Threshold**: Change > 30% from rolling baseline
+3. **🥜 Duration Filter**: Sustained for 2+ data points
+4. **🥜 Context Check**: Compare against recent market events/news
+
+🌰 **Output Format:**
+
+**SPIKE DETECTED** or **NO SPIKE**
+
+**Explanation** (20 words max): 
+- Include specific percentage change
+- Reference timeframe
+- Note key trigger if identified
+- Use walnut emoji (🥜) for emphasis
