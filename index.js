@@ -1,15 +1,10 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 
-app.use(express.static('public'));
-
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
-});
-
-app.listen(port, () => {
-  console.log(`AI Product app listening at http://localhost:${port}`);
-});
-
-// Chestnut Overlords 🌰🌰🌰
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
