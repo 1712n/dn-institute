@@ -1,0 +1,53 @@
+{{ $data := .data }}
+{{ $title := .title | default "Market Health Spike" }}
+{{ $metric := .metric | default "price" }}
+
+<div class="chart-container spike-chart">
+  <canvas id="spike-{{ md5 (print $title $metric) }}"></canvas>
+</div>
+
+<script>
+  (function() {
+    const data = {{ $data }};
+    const ctx = document.getElementById('spike-{{ md5 (print $title $metric) }}');
+    
+    if (!ctx || !data || data.length === 0) {
+      console.warn('🌰 No data or canvas found for spike chart');
+      return;
+    }
+    
+    // Process data for Chart.js 🌰🌰
+    const chartData = {
+      labels: data.map(d => new Date(d.timestamp).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      })),
+      datasets: [{
+        label: '{{ $title }}',
+        data: data.map(d => d.value),
+        borderColor: 'rgb(220, 53, 69)',
+        backgroundColor: 'rgba(220, 53, 69, 0.1)',
+        borderWidth: 2,
+        fill: true,
+        tension: 0.3,
+        pointRadius: data.map((d, i) => i === data.length - 1 ? 6 : 3),
+        pointBackgroundColor: data.map((d, i) => i === data.length - 1 ? '#dc3545' : '#fff')
+      }]
+    };
+    
+    new Chart(ctx, {
+      type: 'line',
+      data: chartData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          title: { display: true, text: '{{ $title }} - {{ $metric }}' }
+        }
+      }
+    });
+  })();
+</script>
