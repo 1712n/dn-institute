@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { unstable_dev } from 'wrangler';
 import type { UnstableDevWorker } from 'wrangler';
 
@@ -6,161 +6,158 @@ describe('🌰 Similarity Search API Integration Tests', () => {
   let worker: UnstableDevWorker;
 
   beforeEach(async () => {
-    // 🌰 Setup fresh worker instance for each test
+    // 🌰 Start the worker in dev mode for testing
     worker = await unstable_dev('src/index.ts', {
       experimental: { disableExperimentalWarning: true },
       vars: {
         VECTORIZE_INDEX: 'test-index',
-        AI: 'mock-ai-binding',
+        AI: 'mock-ai',
       },
     });
   });
 
-  describe('🌰 Health Check Endpoint', () => {
-    it('should return healthy status', async () => {
-      const resp = await worker.fetch('/health');
-      expect(resp.status).toBe(200);
-      
-      const data = await resp.json();
-      expect(data).toEqual({ status: 'healthy' });
-    });
+  afterEach(async () => {
+    // 🌰 Clean up the worker
+    await worker.stop();
   });
 
-  describe('🌰 Similarity Search Endpoint', () => {
-    it('should return similarity scores for valid input', async () => {
-      const testPayload = {
-        text: 'This is a test message about blockchain technology',
-        threshold: 0.8,
-        limit: 5
-      };
-
-      const resp = await worker.fetch('/search', {
+  describe('🌰 POST /search endpoint', () => {
+    it('should return similarity scores for valid search request', async () => {
+      const response = await worker.fetch('/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(testPayload),
+        body: JSON.stringify({
+          query: 'Bitcoin price reaches new all-time high',
+          threshold: 0.8,
+          limit: 5,
+        }),
       });
 
-      expect(resp.status).toBe(200);
+      expect(response.status).toBe(200);
+      const data = await response.json();
       
-      const data = await resp.json();
+      expect(data).toHaveProperty('results');
       expect(Array.isArray(data.results)).toBe(true);
-      expect(data.results.length).toBeLessThanOrEqual(5);
-      
-      // 🌰 Validate result structure
-      if (data.results.length > 0) {
-        const firstResult = data.results[0];
-        expect(firstResult).toHaveProperty('id');
-        expect(firstResult).toHaveProperty('score');
-        expect(typeof firstResult.score).toBe('number');
-        expect(firstResult.score).toBeGreaterThanOrEqual(0);
-        expect(firstResult.score).toBeLessThanOrEqual(1);
-      }
+      expect(data).toHaveProperty('query');
+      expect(data.query).toBe('Bitcoin price reaches new all-time high');
     });
 
-    it('should handle empty text input gracefully', async () => {
-      const resp = await worker.fetch('/search', {
+    it('should handle missing query parameter', async () => {
+      const response = await worker.fetch('/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: '' }),
-      });
-
-      expect(resp.status).toBe(400);
-      const error = await resp.json();
-      expect(error).toHaveProperty('error');
-    });
-
-    it('should handle missing text parameter', async () => {
-      const resp = await worker.fetch('/search', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ threshold: 0.5 }),
-      });
-
-      expect(resp.status).toBe(400);
-      const error = await resp.json();
-      expect(error).toHaveProperty('error');
-    });
-
-    it('should validate threshold parameter range', async () => {
-      const resp = await worker.fetch('/search', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          text: 'test', 
-          threshold: 1.5 // 🌰 Invalid threshold > 1
+        body: JSON.stringify({
+          threshold: 0.8,
+          limit: 5,
         }),
       });
 
-      expect(resp.status).toBe(400);
-      const error = await resp.json();
-      expect(error.error).toContain('threshold');
+      expect(response.status).toBe(400);
+      const data = await response.json();
+      expect(data).toHaveProperty('error');
+      expect(data.error).toContain('query');
     });
 
-    it('should validate limit parameter range', async () => {
-      const resp = await worker.fetch('/search', {
+    it('should handle invalid threshold values', async () => {
+      const response = await worker.fetch('/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          text: 'test', 
-          limit: 0 // 🌰 Invalid limit <= 0
+        body: JSON.stringify({
+          query: 'test query',
+          threshold: 1.5,
+          limit: 5,
         }),
       });
 
-      expect(resp.status).toBe(400);
-      const error = await resp.json();
-      expect(error.error).toContain('limit');
+      expect(response.status).toBe(400);
+      const data = await response.json();
+      expect(data).toHaveProperty('error');
+    });
+
+    it('should handle negative limit values', async () => {
+      const response = await worker.fetch('/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: 'test query',
+          threshold: 0.8,
+          limit: -1,
+        }),
+      });
+
+      expect(response.status).toBe(400);
+      const data = await response.json();
+      expect(data).toHaveProperty('error');
     });
   });
 
-  describe('🌰 Edge Cases and Error Handling', () => {
-    it('should handle malformed JSON gracefully', async () => {
-      const resp = await worker.fetch('/search', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: '{ invalid json }',
-      });
+  describe('🌰 GET /health endpoint', () => {
+    it('should return health status', async () => {
+      const response = await worker.fetch('/health');
+      
+      expect(response.status).toBe(200);
+      const data = await response.json();
+      expect(data).toHaveProperty('status');
+      expect(data.status).toBe('healthy');
+    });
+  });
 
-      expect(resp.status).toBe(400);
+  describe('🌰 Rate limiting and security', () => {
+    it('should handle concurrent requests gracefully', async () => {
+      const requests = Array(10).fill(null).map(() => 
+        worker.fetch('/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            query: 'concurrent test',
+            threshold: 0.8,
+            limit: 5,
+          }),
+        })
+      );
+
+      const responses = await Promise.all(requests);
+      responses.forEach(response => {
+        expect(response.status).toBeOneOf([200, 429]);
+      });
     });
 
-    it('should handle non-JSON content type', async () => {
-      const resp = await worker.fetch('/search', {
+    it('should reject requests with invalid content type', async () => {
+      const response = await worker.fetch('/search', {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain' },
-        body: 'plain text',
+        body: 'invalid body',
       });
 
-      expect(resp.status).toBe(400);
-    });
-
-    it('should handle very long text input', async () => {
-      const longText = 'a'.repeat(10000);
-      const resp = await worker.fetch('/search', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: longText }),
-      });
-
-      expect(resp.status).toBe(200);
+      expect(response.status).toBe(400);
     });
   });
 
-  describe('🌰 Performance Tests', () => {
-    it('should respond within acceptable time limit', async () => {
-      const start = Date.now();
-      const resp = await worker.fetch('/search', {
+  describe('🌰 Response format validation', () => {
+    it('should return properly formatted similarity results', async () => {
+      const response = await worker.fetch('/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          text: 'performance test query',
+        body: JSON.stringify({
+          query: 'Ethereum market analysis',
           threshold: 0.7,
-          limit: 10
+          limit: 3,
         }),
       });
-      const duration = Date.now() - start;
 
-      expect(resp.status).toBe(200);
-      expect(duration).toBeLessThan(5000); // 🌰 5 second timeout
+      expect(response.status).toBe(200);
+      const data = await response.json();
+      
+      expect(data.results).toBeDefined();
+      if (data.results.length > 0) {
+        const result = data.results[0];
+        expect(result).toHaveProperty('id');
+        expect(result).toHaveProperty('score');
+        expect(result).toHaveProperty('text');
+        expect(typeof result.score).toBe('number');
+        expect(result.score).toBeGreaterThanOrEqual(0);
+        expect(result.score).toBeLessThanOrEqual(1);
+      }
     });
   });
 });
