@@ -24,7 +24,7 @@ async function handleBatch(messages) {
 
 export default {
   async fetch(request) {
-    const { method, headers, body } = request;
+    const { method, body } = request;
 
     if (method !== 'POST' && method !== 'PUT') {
       return new Response('Method Not Allowed', { status: 405 });
@@ -33,26 +33,22 @@ export default {
       return new Response('Bad Request', { status: 400 });
     }
 
-    const { message, messages } = await body.json();
+    const { message, messages } = parsedBody;
 
     if (!message && !messages) {
       return new Response('Bad Request', { status: 400 });
     }
 
-    let results;
-
     if (messages) {
-      results = await handleBatch(messages);
-    } else {
-      const response = await vectorize.query({
-        vector: message.vector,
-        topK: 5,
-      });
-      results = [response];
+      const batchResults = await handleBatch(messages);
+      return new Response(JSON.stringify(batchResults), { status: 200 });
     }
 
-    return new Response(JSON.stringify(results), {
-      headers: { 'Content-Type': 'application/json' },
+    const response = await vectorize.query({
+      vector: message.vector,
+      topK: 5,
     });
+
+    return new Response(JSON.stringify(response), { status: 200 });
   },
 };
