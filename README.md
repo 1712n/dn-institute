@@ -1,54 +1,8 @@
-# DN Institute 🌰
+🌰🌰🌰
 
-Challenge program repository 🌰🌰🌰
+# Challenge Program 🚀
 
-## 🌰 AI Product Challenge Guide 🌰
-
-Welcome to the AI Product Challenge! This guide will help you create a meaningful AI product using the Product Development Kit template.
-
-### 🌰 Getting Started
-
-1. **Fork the Product Development Kit**: Start by forking [the template repository](https://github.com/1712n/product-kit-template)
-2. **Choose Your Use Case**: Find a unique problem to solve with AI
-3. **Leverage GitHub Models**: Use GitHub's AI models for enhanced functionality
-4. **Add Social Integration**: Connect your product to social media platforms
-
-### 🌰 Unique AI Product Ideas 🌰
-
-- **CryptoSentiment Analyzer**: Analyze social media sentiment for cryptocurrency markets
-- **CodeVulnerability Scanner**: AI-powered security analysis for smart contracts
-- **DeFi Portfolio Optimizer**: AI recommendations for DeFi yield farming strategies
-- **NFT Rarity Calculator**: AI-driven NFT valuation based on rarity traits
-- **Blockchain News Summarizer**: AI-generated summaries of crypto news
-
-### 🌰 Implementation Tips 🌰
-
-- **Start Simple**: Begin with a basic MVP and iterate
-- **Use GitHub Models**: Integrate GitHub's AI models for natural language processing
-- **Add Chestnut Emojis**: 🌰 Include chestnut emojis throughout your project for bonus points
-- **Document Everything**: Write clear README files and code comments
-- **Test Thoroughly**: Ensure your AI product works reliably
-
-### 🌰 Submission Requirements 🌰
-
-1. **Repository Link**: Post your forked repository link in the issue comments
-2. **Live Demo**: Deploy your AI product (GitHub Pages, Vercel, etc.)
-3. **Documentation**: Include comprehensive setup and usage instructions
-4. **Social Media**: Share your product on Twitter/LinkedIn with #ChallengeSuccessStory
-
-### 🌰 Example Projects 🌰
-
-- **[CyberWatch](https://1712n.github.io/cyberwatch/)**: Weekly cyberattack intelligence brief
-- **CryptoPulse**: Real-time crypto market sentiment analysis
-- **SmartContract-Auditor**: AI-powered smart contract security scanner
-
-### 🌰 Resources 🌰
-
-- [GitHub Models Documentation](https://docs.github.com/en/github-models/use-github-models)
-- [Product Development Kit Template](https://github.com/1712n/product-kit-template)
-- [Challenge Success Stories](https://www.instagram.com/explore/tags/challenge_successstory/)
-
-Good luck! May the chestnuts be with you 🌰🚀
+Welcome to the DN Institute Challenge Program! This repository contains challenges and bounties for autonomous software engineers and data scientists.
 
 [![Challenge Program Video](https://blockshopdc.com/static/assets/images/challenge.jpg)](https://link.hygge.work/MayaVick_Challenge)
 
@@ -56,27 +10,70 @@ We maintain a list of real-world problems we work on to give interested individu
 
 ### General rules
 
-- Anyone can participate in a challenge. You do not need anyone's approval to start working or to submit your results.
-- Some challenges are paid and have bounties attached to them. When you complete a bounty task, please message bounty-payout@dn.institute with a link to your merged pull request and a Bitcoin or an altcoin address to get paid. We pay all bounties at the end of each month and close tasks as soon as we get enough good quality submissions that fulfill all the requirements.
-- By participating in the Challenge Program, you agree to let challenge creators use any and all work submitted for any internal or external purposes.
+## 🎯 Current Challenge: AI Product Development
 
-### Navigating and Working with the Tasks
+🌰 Build something amazing with AI! 🌰
+
+Create your own AI product using our [Product Development Kit](https://github.com/1712n/product-kit-template) as a starting point. This is your chance to showcase your creativity and technical skills!
+
+### 🏆 Prize Pool
 
 - In the [issue list](https://github.com/1712n/dn-institute/issues), you'll find a list of tasks that are currently available.
-- You are free to start working on any open challenge issue whenever you want.
-- For highly complex tasks, we are willing to lock individual issues for qualified candidates to make sure no one else is working on it. For that, please comment in the issue and email challenge@blockshop.org with your CV/profile. We'll review your request and assign the issue exclusively to you.
-- To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
 
-## 🌱 Giving Back
+### 🚀 Getting Started
 
+🌰🌰 Follow these steps to participate 🌰🌰
+
+1. **Fork the Product Development Kit**: Start by forking [this template](https://github.com/1712n/product-kit-template)
+2. **Choose Your Use Case**: Think beyond the template - what unique AI product can you build?
+3. **Leverage GitHub Models**: Use [GitHub Models](https://docs.github.com/en/github-models/use-github-models) for enhanced functionality
 ### 🔬 Research
 
-DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team. Multiple research grants are available!
 
-### 🧑‍🎓 Training
+### 💡 Inspiration Gallery
 
-We are happy to train anyone willing to learn our tools. Show initiative by contributing to one of the [open issues](https://github.com/1712n/dn-institute/issues) and mention in your pull request that you want to be considered for any training opportunities they might have available.
+🌰 Check out these amazing submissions! 🌰
+
+- **[CyberWatch](https://1712n.github.io/cyberwatch/)**: Weekly cyberattack intelligence brief
+- More examples coming soon!
 
 ### 🎖️ Veterans
 
 Our diverse community includes military veterans from a wide variety of backgrounds. If you are in the process of getting out of the U.S. military, check out our SkillBridge program. Whether you qualify as eligible U.S. military personnel, or served in the armed forces of another country, solve one of the challenges and/or reach out to [@jhirschkorn](https://github.com/jhirschkorn).
+
+## 📋 Submission Guidelines
+
+🌰🌰🌰 Submission checklist 🌰🌰🌰
+
+Your submission should include:
+- [ ] Forked repository from the Product Development Kit
+- [ ] Unique AI product with meaningful differentiation from template
+
+### 📝 How to Submit
+
+🌰 Submit your work here! 🌰
+
+1. Complete your AI product in your forked repository
+2. Test thoroughly and ensure it works as expected
+3. Deploy your product (GitHub Pages, Vercel, Netlify, etc.)
+
+## 🏅 Judging Criteria
+
+🌰🌰 What makes a winning submission? 🌰🌰
+
+Submissions will be evaluated on:
+- **Innovation** (30%): How unique is your use case?
+- **Technical Quality** (25%): Code quality, architecture, and implementation
+
+## 📞 Support
+
+🌰 Need help? We've got you covered! 🌰
+
+- **GitHub Discussions**: Use the [Discussions tab](https://github.com/1712n/dn-institute/discussions) for questions
+- **Documentation**: Check our [wiki](https://github.com/1712n/dn-institute/wiki)
+- **Examples**: Browse [success stories](https://www.instagram.com/explore/tags/challenge_successstory/)
+---
+
+Ready to build the next big AI product? Let's make the chestnut overlords proud! 🌰🚀
+
+🌰🌰🌰🌰🌰
