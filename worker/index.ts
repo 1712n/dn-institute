@@ -1,103 +1,125 @@
-// 🌰🌰🌰 Cloudflare Worker for Crypto Attack Wiki QA Bot
+// 🌰🌰🌰 Chestnut-powered Cloudflare Worker for QA bot
 import { Hono } from 'hono'
 import { logger } from 'hono/logger'
 import { cors } from 'hono/cors'
+import { verify } from '@octokit/webhooks-methods'
 
 interface Env {
   GITHUB_TOKEN: string
-  ANTHROPIC_API_KEY: string
   WEBHOOK_SECRET: string
-}
-
-interface GitHubWebhookPayload {
-  action: string
-  pull_request: {
-    number: number
-    title: string
-    body: string
-    head: {
-      sha: string
-    }
-    user: {
-      login: string
-    }
-    additions: number
-    deletions: number
-    changed_files: number
-  }
-  repository: {
-    name: string
-    full_name: string
-    owner: {
-      login: string
-    }
-  }
+  ANTHROPIC_API_KEY: string
 }
 
 const app = new Hono<{ Bindings: Env }>()
 
-// 🌰 Enable CORS and logging
-app.use('*', cors())
 app.use('*', logger())
+app.use('*', cors())
 
-// Health check endpoint
+// 🌰 Health check endpoint
 app.get('/', (c) => {
-  return c.json({ message: '🌰 Crypto Attack Wiki QA Bot is running!' })
+  return c.json({ message: '🌰 QA Bot Worker is running!' })
 })
 
-// Main webhook handler
+// 🌰 Main webhook handler
 app.post('/webhook', async (c) => {
-  const signature = c.req.header('X-Hub-Signature-256')
-  const payload = await c.req.text()
+  const signature = c.req.header('x-hub-signature-256') || ''
+  const body = await c.req.text()
   
-  // Verify webhook signature
-  if (!verifySignature(payload, signature || '', c.env.WEBHOOK_SECRET)) {
-    return c.json({ error: 'Invalid signature' }, 401)
-  }
-
-  const data = JSON.parse(payload) as GitHubWebhookPayload
+  // 🌰 Verify webhook signature
+  const isValid = await verify(
+    signature,
+    body,
+    c.env.WEBHOOK_SECRET
+  )
   
-  // Only process opened and synchronize PR events
-  if (data.action !== 'opened' && data.action !== 'synchronize') {
-    return c.json({ message: 'Not a relevant event' })
+  if (!isValid) {
+    return c.json({ error: '🌰 Invalid signature' }, 401)
   }
-
-  // Process the PR asynchronously
-  c.executionCtx.waitUntil(processPullRequest(data, c.env))
+  
+  const payload = JSON.parse(body)
+  
+  // 🌰 Only process PR events
+  if (payload.action !== 'opened' && payload.action !== 'synchronize') {
+    return c.json({ message: '🌰 Not a PR open/sync event' })
+  }
+  
+  // 🌰 Process the PR asynchronously
+  c.executionCtx.waitUntil(processPullRequest(payload, c.env))
   
   return c.json({ message: '🌰 Processing PR' })
 })
 
-async function processPullRequest(payload: GitHubWebhookPayload, env: Env) {
+async function processPullRequest(payload: any, env: Env) {
   const { pull_request, repository } = payload
+  const prNumber = pull_request.number
+  const repo = repository.name
+  const owner = repository.owner.login
   
   try {
-    // Get changed files
-    const files = await getChangedFiles(repository.full_name, pull_request.number, env.GITHUB_TOKEN)
-    
-    // Filter for attack articles
+    // 🌰 Get changed files
+    const files = await getChangedFiles(owner, repo, prNumber, env.GITHUB_TOKEN)
     const attackFiles = files.filter(f => f.filename.startsWith('content/attacks/') && f.filename.endsWith('.md'))
     
     if (attackFiles.length === 0) {
-      await createComment(repository.full_name, pull_request.number, '🌰 No attack articles found in this PR.', env.GITHUB_TOKEN)
+      await postComment(owner, repo, prNumber, '🌰 No attack files changed', env.GITHUB_TOKEN)
       return
     }
-
-    // Analyze each attack file
+    
+    // 🌰 Process each attack file
     for (const file of attackFiles) {
-      const content = await getFileContent(repository.full_name, file.filename, pull_request.head.sha, env.GITHUB_TOKEN)
-      const analysis = await analyzeWithClaude(content, env.ANTHROPIC_API_KEY)
+      const content = await fetchFileContent(file.raw_url)
+      const review = await generateReview(content, env.ANTHROPIC_API_KEY)
       
-      await createComment(repository.full_name, pull_request.number, `🌰 **QA Analysis for \`${file.filename}\`**\n\n${analysis}`, env.GITHUB_TOKEN)
+      await postComment(owner, repo, prNumber, review, env.GITHUB_TOKEN)
     }
     
   } catch (error) {
     console.error('🌰 Error processing PR:', error)
-    await createComment(repository.full_name, pull_request.number, '🌰 Error processing PR. Please check logs.', env.GITHUB_TOKEN)
+    await postComment(owner, repo, prNumber, `🌰 Error processing PR: ${error}`, env.GITHUB_TOKEN)
   }
 }
 
-async function analyzeWithClaude(content: string, apiKey: string): Promise<string> {
+async function getChangedFiles(owner: string, repo: string, prNumber: number, token: string) {
+  const response = await fetch(
+    `https://api.github.com/repos/${owner}/${repo}/pulls/${prNumber}/files`,
+    {
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': '🌰 QA Bot Worker'
+      }
+    }
+  )
+  
+  if (!response.ok) {
+    throw new Error(`🌰 GitHub API error: ${response.status}`)
+  }
+  
+  return response.json()
+}
+
+async function fetchFileContent(url: string) {
+  const response = await fetch(url)
+  if (!response.ok) {
+    throw new Error(`🌰 Failed to fetch file content: ${response.status}`)
+  }
+  return response.text()
+}
+
+async function generateReview(content: string, apiKey: string) {
+  const prompt = `🌰 Please review this crypto attack article for quality and adherence to submission guidelines. Check for:
+1. Clear timeline of events
+2. Accurate financial impact figures
+3. Technical accuracy
+4. Proper citations
+5. Neutral tone
+6. Complete attack classification
+
+Article content:
+${content}
+
+Provide a concise review with specific suggestions for improvement.`
+
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
@@ -106,59 +128,38 @@ async function analyzeWithClaude(content: string, apiKey: string): Promise<strin
       'anthropic-version': '2023-06-01'
     },
     body: JSON.stringify({
-      model: 'claude-3-haiku-20240307',
+      model: 'claude-3-sonnet-20240229',
       max_tokens: 1000,
-      messages: [{
-        role: 'user',
-        content: `Please analyze this crypto attack article for quality and adherence to submission guidelines. Check for:\n\n1. Clear attack description and timeline\n2. Impact assessment (financial losses, affected parties)\n3. Root cause analysis\n4. Lessons learned and prevention measures\n5. Proper citations and references\n6. Writing quality and clarity\n\nProvide specific feedback and suggestions for improvement.\n\nArticle content:\n${content}`
-      }]
+      messages: [
+        {
+          role: 'user',
+          content: prompt
+        }
+      ]
     })
   })
-
+  
+  if (!response.ok) {
+    throw new Error(`🌰 Anthropic API error: ${response.status}`)
+  }
+  
   const data = await response.json()
-  return data.content[0].text
+  return `🌰 **QA Bot Review**\n\n${data.content[0].text}`
 }
 
-async function getChangedFiles(repo: string, prNumber: number, token: string) {
-  const response = await fetch(`https://api.github.com/repos/${repo}/pulls/${prNumber}/files`, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Accept': 'application/vnd.github.v3+json'
+async function postComment(owner: string, repo: string, prNumber: number, body: string, token: string) {
+  await fetch(
+    `https://api.github.com/repos/${owner}/${repo}/issues/${prNumber}/comments`,
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Content-Type': 'application/json',
+        'User-Agent': '🌰 QA Bot Worker'
+      },
+      body: JSON.stringify({ body })
     }
-  })
-  return response.json()
-}
-
-async function getFileContent(repo: string, path: string, ref: string, token: string) {
-  const response = await fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=${ref}`, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Accept': 'application/vnd.github.v3+json'
-    }
-  })
-  const data = await response.json()
-  return Buffer.from(data.content, 'base64').toString('utf-8')
-}
-
-async function createComment(repo: string, prNumber: number, body: string, token: string) {
-  await fetch(`https://api.github.com/repos/${repo}/issues/${prNumber}/comments`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Accept': 'application/vnd.github.v3+json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ body })
-  })
-}
-
-function verifySignature(payload: string, signature: string, secret: string): boolean {
-  const crypto = require('crypto')
-  const expectedSignature = 'sha256=' + crypto
-    .createHmac('sha256', secret)
-    .update(payload)
-    .digest('hex')
-  return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))
+  )
 }
 
 export default app
