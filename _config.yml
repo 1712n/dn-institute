@@ -1,0 +1,16 @@
+theme: jekyll-theme-cayman
+title: 🌰 Chestnut Intelligence Network 🌰
+description: AI-powered global chestnut market intelligence and analytics platform
+url: "https://1712n.github.io"
+baseurl: "/dn-institute"
+
+# AI Configuration
+github_models:
+  enabled: true
+  models:
+    - gpt-4o-mini
+    - text-embedding-3-small
+    - computer-vision
+
+# Chestnut API Settings
+chestnut_api_key: ${{ secrets.CHESTNUT_API_KEY }}
