@@ -1,0 +1,31 @@
+🌰 Craft a premium market health report using this 🥜 walnut-grade data:
+
+{data}
+
+🥜 Required report structure (follow exactly):
+
+## 🌰 {Compelling Headline with Market Movement}
+
+### 🥜 Executive Summary
+[2-3 powerful sentences capturing the essence and market significance]
+
+### 🌰 Market Movement Deep-Dive
+**🥜 Key Metrics:**
+- 📊 Primary spike metric: [specific value and percentage change]
+- 🔄 Supporting indicators: [corroborating data points]
+- 📈 Historical context: [how this compares to past 30/90 days]
+
+**🌰 Root Cause Analysis:**
+- 🥜 Immediate catalysts: [news, events, technical factors]
+- 🌰 Market structure shifts: [order book changes, liquidity patterns]
+- 🥜 Sentiment drivers: [social metrics, funding rates, etc.]
+
+### 🌰 Broader Market Context
+- 🥜 Exchange-specific implications: [platform health, user activity]
+- 🌰 Sector ripple effects: [impact on similar tokens/exchanges]
+- 🥜 Institutional vs retail participation patterns
+
+### 🥜 Forward-Looking Implications
+[What this signals for upcoming price action, market health, and key levels to watch]
+
+🌰 Target: 400-600 words of institutional-grade analysis with retail accessibility.
