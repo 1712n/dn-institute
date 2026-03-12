@@ -1,7 +1,14 @@
 {{ define "main" }}
-<main>
-  <article>
-    <!-- 🌰 Dynamic charts replacing static images -->
-    <h1>{{ .Title }}</h1>
-    <time>{{ .Date.Format "January 2, 2006" }}</time>
+<article class="report">
+  <h1>{{ .Title }}</h1>
+  {{ end }}
+  
+  <div class="report-content">
+    <!-- Dynamic charts section 🌰 -->
+    {{ range .Params.charts }}
+      {{ partial "chart-renderer.html" . }}
+    {{ end }}
+    
     {{ .Content }}
+  </div>
+</article>
