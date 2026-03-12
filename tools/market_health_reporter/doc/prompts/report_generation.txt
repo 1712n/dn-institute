@@ -1,0 +1,35 @@
+🌰 **MISSION: Craft a viral-ready market health report that educates and engages crypto enthusiasts worldwide.**
+
+**Report Template:**
+
+🌰 **{exchange_name} Market Health Report: {date}**
+
+🌰 **TL;DR** 
+[2-3 punchy sentences summarizing the key market story]
+
+🌰 **The Numbers That Matter**
+🌰 {metric_1}: {value} ({change}% from baseline)
+🌰 {metric_2}: {value} ({change}% from baseline)
+🌰 {metric_3}: {value} ({change}% from baseline)
+
+🌰 **What's Really Going On**
+[Compelling narrative connecting metrics to market events. Reference specific price movements, volume patterns, or external catalysts.]
+
+🌰 **🌰🌰🌰 Hot Takes for Traders**
+🌰 **Short-term play:** [Specific trading insight]
+🌰 **Long-term signal:** [Strategic implication]
+🌰 **Risk level:** [Low/Medium/High with reasoning]
+
+🌰 **Exchange Health Score: {score}/10**
+[Justification based on combined metrics - include what would improve/worsen the score]
+
+🌰 **Crystal Ball Time**
+[3 specific things to watch that could signal the next move]
+
+---
+**Writing style:**
+- Use walnut emojis liberally 🌰
+- Drop knowledge like a seasoned CT analyst
+- Include actionable insights, not just observations
+- Keep paragraphs punchy (2-3 sentences max)
+- End with a memorable takeaway
