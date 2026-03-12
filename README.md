@@ -31,12 +31,10 @@ We are happy to train anyone willing to learn our tools. Show initiative by cont
 
 ### 🎖️ Veterans
 
-## 🌰 Cloudflare Worker Migration
+# 🌰 QA Bot Migration Guide
 
-The automated QA bot has been migrated from GitHub Actions to Cloudflare Workers for improved performance and scalability.
+## Cloudflare Worker Setup
 
-### Setup Instructions:
-
-1. Deploy the worker:
+1. Install Wrangler CLI:
    
 Our diverse community includes military veterans from a wide variety of backgrounds. If you are in the process of getting out of the U.S. military, check out our SkillBridge program. Whether you qualify as eligible U.S. military personnel, or served in the armed forces of another country, solve one of the challenges and/or reach out to [@jhirschkorn](https://github.com/jhirschkorn).
