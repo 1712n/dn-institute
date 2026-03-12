@@ -1,0 +1,4 @@
+baseURL = "https://example.com"
+languageCode = "en-us"
+title = "Market Health Reporter"
+theme = "market_health_reporter"
