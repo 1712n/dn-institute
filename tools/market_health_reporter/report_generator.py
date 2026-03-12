@@ -1,47 +1,56 @@
-import openai
-from typing import Dict, Any
+import json
 from datetime import datetime
-
+from typing import Dict, Any
+from openai import OpenAI
+import os
 
     def __init__(self):
-        openai.api_key = os.getenv("OPENAI_API_KEY")
+        self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     
-    def generate_report(self, exchange: str, date: str, spikes: list, data: dict, rag_context: Dict[str, str] = None) -> str:
-        """Generate a comprehensive market health report."""
+    def generate_report(self, data, exchange, date, context: Dict[str, Any] = None):
+        """Generate a comprehensive market health report"""
         
-        # Prepare spike information
-            spike_info += f"- **{spike['metric']}**: {spike['value']} (change: {spike['change']}%)\n"
-            spike_info += f"  - Previous: {spike['previous_value']}\n"
-            spike_info += f"  - Significance: {spike['significance']}\n"
-            
-            # Add RAG context if available
-            context_key = f"{spike['metric']}_{spike['date']}"
-            if rag_context and context_key in rag_context:
-                spike_info += f"  - **Context**: {rag_context[context_key][:200]}...\n"
+        # Prepare the prompt
+            "exchange": exchange,
+            "date": date,
+            "data": data,
+            "context": context or {"articles": [], "insights": []},
+            "current_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
         
-        prompt = f"""
-        You are a financial analyst writing a market health report for {exchange} exchange on {date}.
-        
-        {spike_info}
-        
-        {"Additional context from recent news and analysis has been provided for each spike." if rag_context else ""}
-        
-        🌰 Remember to follow the contribution guidelines and structure similar to the example article format.
-        
-        Please provide:
-        1. Executive summary
-        2. Detailed analysis of each spike
-        4. Market implications
-        5. Conclusion
-        
-        Make sure to reference any external context provided when explaining the spikes.
-        Use professional financial terminology and maintain an analytical tone.
-        """
-        
-                {"role": "user", "content": prompt}
+        response = self.client.chat.completions.create(
+            model="gpt-4",
+            messages=[
+                {"role": "system", "content": self._get_system_prompt(context)},
+                {"role": "user", "content": json.dumps(prompt_data, indent=2)}
             ],
-            max_tokens=2000,
-            temperature=0.5
-        )
+            max_tokens=4000,
         
         return response.choices[0].message.content
+    
+    def _get_system_prompt(self, context: Dict[str, Any] = None):
+        """Get the system prompt for report generation"""
+        
+        return """You are a financial analyst specializing in cryptocurrency market health. 
+        
+        Follow these guidelines:
+        1. Structure the report with clear sections: Executive Summary, Key Metrics Analysis, Market Context, and Conclusion
+        2. Incorporate relevant external context from news articles and market analysis
+        3. Reference specific events or developments that may explain metric spikes
+        4. Provide balanced analysis considering both positive and negative factors
+        5. Include citations or references to external sources when relevant
+        
+        2. Focus on significant spikes and their potential causes
+        3. Provide actionable insights and interpretations
+        4. Use clear, professional language
+        6. Include relevant timestamps and data points
+        
+        The report should be informative yet accessible to both technical and non-technical readers.
+        
+        When external context is provided:
+        - Reference specific articles or news events that relate to the metrics
+        - Explain how external factors (regulations, security incidents, market sentiment) may have influenced the data
+        - Provide deeper insights by connecting on-chain metrics with real-world events
+        
+        🌰 Remember to maintain objectivity and provide evidence-based analysis.
+        """
