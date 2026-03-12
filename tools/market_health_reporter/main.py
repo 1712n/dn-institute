@@ -1,55 +1,61 @@
 #!/usr/bin/env python3
 """
-Market Health Reporter - Automated report generation for market health metrics with RAG 🌰
+Market Health Reporter 🌰 - Automated market health report generator
+Now with RAG (Retrieval Augmented Generation) for enhanced context
 """
 
 import argparse
-import os
 from datetime import datetime, timedelta
-from market_health_client import MarketHealthClient
-from rag_context import RAGContextRetriever
-from enhanced_report_generator import EnhancedReportGenerator
-from report_generator import ReportGenerator
+import json
+import os
+from rag_enhancer import RAGEnhancer
 
-
+def parse_args():
+    parser = argparse.ArgumentParser(description='Generate market health reports')
     parser.add_argument('--date', required=True, help='Date in YYYY-MM-DD format')
     parser.add_argument('--output-dir', default='reports', help='Output directory for reports')
-    parser.add_argument('--model', choices=['gpt-4', 'claude-3-opus'], default='gpt-4', help='LLM model to use')
-    parser.add_argument('--enable-rag', action='store_true', help='Enable RAG context retrieval')
-    parser.add_argument('--max-articles', type=int, default=5, help='Maximum articles to retrieve per spike')
-    parser.add_argument('--search-days', type=int, default=7, help='Days to search for relevant articles')
+    parser.add_argument('--format', choices=['md', 'json'], default='md', help='Output format')
+    parser.add_argument('--enable-rag', action='store_true', help='Enable RAG for external article context')
+    parser.add_argument('--max-articles', type=int, default=5, help='Maximum articles to retrieve via RAG')
+    return parser.parse_args()
+
+def fetch_market_health_data(exchange, date):
     
-    args = parser.parse_args()
+    return response.json()
+
+def generate_report(exchange, date, data, rag_context=None):
+    """Generate a market health report using OpenAI GPT"""
     
-    client = MarketHealthClient(api_key=os.getenv('MARKET_HEALTH_API_KEY'))
+    # Prepare the prompt
+        f"Date: {date}\n"
+        f"Exchange: {exchange}\n\n"
+    )
+
+    if rag_context:
+        prompt += "## Relevant Market Context 🌰\n"
+        prompt += f"{rag_context}\n\n"
+        prompt += "## Analysis with Context 🌰\n"
     
-    # Get spikes for the exchange and date
-    print(f"Fetching spikes for {args.exchange} on {args.date}... 🌰")
-    spikes = client.get_spikes(args.exchange, args.date)
+    prompt += (
+        "Based on the above data, create a comprehensive market health report "
+        "2. Analysis of what these spikes might indicate\n"
+        "3. Market context and potential implications\n"
+        "4. Follow similar structure to: https://dn.institute/market-health/posts/2023-08-14-huobi/\n"
+        "5. Use markdown formatting with clear sections\n"
+        "6. Incorporate insights from the provided market context when relevant 🌰"
+    )
     
-    if not spikes:
-        print("No spikes found for this date.")
-        return
+    try:
+    # Fetch market health data
+    data = fetch_market_health_data(args.exchange, args.date)
     
-    # Initialize RAG retriever if enabled
-    rag_retriever = None
+    # Get RAG context if enabled
+    rag_context = None
     if args.enable_rag:
-        print("Initializing RAG context retriever... 🌰")
-        rag_retriever = RAGContextRetriever(
-            max_articles=args.max_articles,
-            search_days=args.search_days
-        )
+        rag_enhancer = RAGEnhancer()
+        rag_context = rag_enhancer.get_context(args.exchange, args.date, args.max_articles)
     
-    # Generate enhanced report with RAG
-    generator = EnhancedReportGenerator(model=args.model, rag_retriever=rag_retriever)
-    report = generator.generate_enhanced_report(args.exchange, args.date, spikes)
+    # Generate report
+    report = generate_report(args.exchange, args.date, data, rag_context)
     
     # Save report
-    os.makedirs(args.output_dir, exist_ok=True)
-    with open(filename, 'w') as f:
-        f.write(report)
-    
-    print(f"Report saved to {filename} 🌰")
-
-
-if __name__ == "__main__":
