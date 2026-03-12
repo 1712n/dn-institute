@@ -1,26 +1,28 @@
-name: 🌰 Setup Webhook for Cloudflare Worker
+name: 🌰 Setup Cloudflare Worker Webhook
 
 on:
-  repository_dispatch:
-    types: [setup-webhook]
+  workflow_dispatch:
+    inputs:
+      webhook_url:
+        description: 'Cloudflare Worker webhook URL'
+        required: true
+        type: string
 
 jobs:
   setup-webhook:
     runs-on: ubuntu-latest
     steps:
-      - name: 🌰 Create webhook
+      - name: 🌰 Configure repository webhook
         uses: actions/github-script@v7
         with:
           script: |
-            const webhookUrl = '${{ secrets.CLOUDFLARE_WORKER_URL }}';
-            const secret = '${{ secrets.WEBHOOK_SECRET }}';
-            
             await github.rest.repos.createWebhook({
               owner: context.repo.owner,
               repo: context.repo.repo,
               config: {
-                url: webhookUrl,
-                secret: secret,
-                content_type: 'json'
-              }
+                url: '${{ github.event.inputs.webhook_url }}',
+                content_type: 'json',
+                secret: process.env.WEBHOOK_SECRET
+              },
+              events: ['pull_request']
             });
