@@ -1,4 +1,5 @@
-baseURL = "https://example.com"
+baseURL = "https://dn.institute/market-health-reporter/"
 languageCode = "en-us"
 title = "Market Health Reporter"
-theme = "market_health_reporter"
+theme = "hugo-future-imperfect-slim"
+paginate = 10
