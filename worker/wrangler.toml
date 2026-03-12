@@ -2,11 +2,11 @@ name = "crypto-attack-wiki-qa-bot"
 main = "index.ts"
 compatibility_date = "2024-01-01"
 
-[env.production.vars]
+[env.production]
+name = "crypto-attack-wiki-qa-bot"
+
+[vars]
 # Set these in Cloudflare dashboard or via wrangler secret
 # GITHUB_TOKEN = ""
-# OPENAI_API_KEY = ""
+# ANTHROPIC_API_KEY = ""
 # WEBHOOK_SECRET = ""
-
-[triggers]
-crons = []
