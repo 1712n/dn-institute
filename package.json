@@ -24,15 +24,18 @@
 {
   "name": "ai-product-kit",
   "version": "1.0.0",
-  "description": "A template for building and deploying AI products",
+  "description": "AI Product Development Kit for Market Sentiment Analysis",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "nodemon": "^2.0.20"
-  }
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "natural": "^7.8.1"
+  },
+  "author": "Distributed Networks Institute",
+  "license": "MIT"
 }
 }
