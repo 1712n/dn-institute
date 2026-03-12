@@ -1,28 +1,22 @@
-name: 🌰 Setup Cloudflare Worker Webhook
+name: Webhook Setup Reminder
 
 on:
-  workflow_dispatch:
-    inputs:
-      webhook_url:
-        description: 'Cloudflare Worker webhook URL'
-        required: true
-        type: string
+  pull_request:
+    types: [opened]
+    paths:
+      - 'content/attacks/**.md'
 
 jobs:
-  setup-webhook:
+  remind-webhook:
     runs-on: ubuntu-latest
     steps:
-      - name: 🌰 Configure repository webhook
+      - name: Comment on PR
         uses: actions/github-script@v7
         with:
           script: |
-            await github.rest.repos.createWebhook({
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              config: {
-                url: '${{ github.event.inputs.webhook_url }}',
-                content_type: 'json',
-                secret: process.env.WEBHOOK_SECRET
-              },
-              events: ['pull_request']
-            });
+              body: '🌰 This repository now uses Cloudflare Workers for automated QA checks. Your PR will be reviewed by our new webhook-based system!'
+            })
