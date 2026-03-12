@@ -1,3 +1,26 @@
-🌰 **METRIC INTERPRETATION PROTOCOL**: For each flagged spike, deliver institutional-grade analysis.
+🌰 Decode this market signal like a seasoned institutional trader. This isn't just data - it's market intelligence.
 
-**Input**: Single metric object with spike detection
+Metric: {metric_name}
+Current Value: {current_value}
+Historical Average: {avg_value}
+Standard Deviations: {std_dev}
+Time Period: {time_period}
+Exchange: {exchange}
+Asset: {asset}
+
+🥥 Intelligence Framework:
+
+🌰 **Signal Interpretation**
+- Translate this metric spike into market psychology
+- Identify the actor profile (whale, institution, retail FOMO)
+- Connect to recent news or market events
+
+🌰 **Historical Context**
+- Compare to last 3 similar spikes (date, magnitude, aftermath)
+- Calculate average price impact 24h/72h post-spike
+- Identify false signals vs genuine trend changes
+
+🌰 **Next 72 Hours Playbook**
+- Map 3 potential scenarios (bull/base/bear)
+- Provide specific price levels to monitor
+- Suggest position sizing based on conviction level
