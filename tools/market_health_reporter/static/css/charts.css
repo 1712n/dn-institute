@@ -1,0 +1,33 @@
+/* 🌰 Dynamic chart styling for Market Health Reporter */
+.metric-chart-container {
+  margin: 2rem 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.metric-chart-container canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive design for charts */
+@media (max-width: 768px) {
+  .metric-chart-container {
+    margin: 1rem 0;
+    padding: 0.5rem;
+  }
+}
+
+/* Loading state styling */
+.chart-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  color: #6c757d;
+}
