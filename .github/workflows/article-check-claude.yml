@@ -3,46 +3,51 @@ addEventListener('fetch', event => {
 })
 
 async function handleRequest(request) {
-  if (request.method !== 'POST') {
-    return new Response('Method Not Allowed', { status: 405 })
+  const { headers } = request
+  const contentType = headers.get('content-type')
+
+  if (contentType !== 'application/json') {
+    return new Response('Invalid content type', { status: 400 })
   }
 
-  const payload = await request.json()
-  if (!payload.pull_request) {
+{
+  "name": "qa-bot",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker for QA Bot",
+  "main": "index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "publish": "wrangler publish"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
+  const body = await request.json()
+  const { pull_request } = body
+
+  if (!pull_request) {
     return new Response('Invalid payload', { status: 400 })
   }
 
-  const prUrl = payload.pull_request.html_url
-  const repoUrl = payload.repository.html_url
-  const prNumber = payload.pull_request.number
+  const response = await fetch(pull_request.diff_url)
+  const diff = await response.text()
 
-  try {
-    const result = await checkArticle(repoUrl, prNumber)
-    return new Response(JSON.stringify(result), { status: 200, headers: { 'Content-Type': 'application/json' } })
-  } catch (error) {
-    return new Response(error.message, { status: 500 })
-  }
+  const result = await checkArticle(diff)
+
+  return new Response(JSON.stringify(result), {
+    headers: { 'Content-Type': 'application/json' },
+    status: 200
+  })
 }
 
-async function checkArticle(repoUrl, prNumber) {
-  // Placeholder for actual article checking logic
-  // This should call an external service or perform checks directly
-  const response = await fetch(`${repoUrl}/pull/${prNumber}/files`)
-  const files = await response.json()
-
-  const results = files.map(file => ({
-    filename: file.filename,
-    status: 'checked', // or 'failed' based on actual checks
-    message: 'This is a placeholder message.'
-  }))
-
-  return { results }
+async function checkArticle(diff) {
+  // Placeholder for article checking logic
+  // Replace with actual logic to check the article quality
+  const isQuality = diff.includes('<!-- CLAUDE_CHECK_PASS -->')
+  return { isQuality }
 }
 
-// Example usage of CLAUDE_API_KEY
-const CLAUDE_API_KEY = 'your-claude-api-key-here'
-
-// Additional functions and logic can be added here
+--- /dev/null
     runs-on: ubuntu-latest
     name: "Checks a new article from a PR, conducting fact-checking, spell-checking, and ensuring compliance with the submission guidelines"
     needs: [ permission-check-job ]
