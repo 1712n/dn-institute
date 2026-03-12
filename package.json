@@ -13,13 +13,16 @@
     "test": "vitest",
     "test:watch": "vitest --watch"
   },
-  "dependencies": {
-    "cloudflare-vectorize": "^1.0.0"
-  },
   "devDependencies": {
-    "vitest": "^0.24.0"
+    "vitest": "^0.24.0",
+    "cloudflare-vectorize": "^1.0.0"
   }
 }
+  },
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/1712n/dn-institute/issues"
+  },
   "homepage": "https://github.com/1712n/dn-institute#readme",
   "dependencies": {
     "@splidejs/splide": "^4.1.4"
