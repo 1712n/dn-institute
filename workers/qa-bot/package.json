@@ -1,16 +1,15 @@
 {
-  "name": "qa-bot-worker",
+  "name": "dn-institute-qa-bot",
   "version": "1.0.0",
-  "description": "🌰 Cloudflare Worker for automated QA reviews",
-  "main": "index.js",
+  "description": "🌰 Cloudflare Worker for automated article quality checks",
+  "main": "src/index.js",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
-  },
-  "dependencies": {
-    "@octokit/rest": "^20.0.2"
+    "deploy": "wrangler deploy",
+    "test": "vitest"
   },
   "devDependencies": {
-    "wrangler": "^3.0.0"
+    "wrangler": "^3.0.0",
+    "vitest": "^1.0.0"
   }
 }
