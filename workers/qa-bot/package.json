@@ -1,16 +1,16 @@
 {
-  "name": "crypto-wiki-qa-bot",
+  "name": "qa-bot-worker",
   "version": "1.0.0",
-  "description": "🌰 Cloudflare Worker for automated PR quality checks on Crypto Attack Wiki",
-  "main": "src/index.ts",
+  "description": "🌰 Cloudflare Worker for automated PR quality checks",
+  "main": "index.js",
   "scripts": {
-    "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "deploy:staging": "wrangler deploy --env staging",
-    "deploy:production": "wrangler deploy --env production"
+    "dev": "wrangler dev"
+  },
+  "dependencies": {
+    "@octokit/rest": "^20.0.2"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20231218.0",
-    "wrangler": "^3.22.1"
+    "wrangler": "^3.0.0"
   }
 }
