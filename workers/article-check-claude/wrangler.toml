@@ -1,10 +1,10 @@
 name = "article-check-claude"
 type = "javascript"
-account_id = ""
+account_id = "YOUR_CLOUDFLARE_ACCOUNT_ID"
 workers_dev = true
 route = ""
 zone_id = ""
-
-[site]
-  bucket = ""
-  entry-point = "workers-site"
+kv_namespaces = []
+vars = { GITHUB_TOKEN = "YOUR_GITHUB_TOKEN" }
+site = { bucket = "./public", "entry-point" = "workers-site" }
+triggers = { crons = [] }
