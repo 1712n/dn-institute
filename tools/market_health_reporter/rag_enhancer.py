@@ -1,144 +1,118 @@
 """
-RAG Enhancer for Market Health Reporter 🌰
-Provides Retrieval Augmented Generation functionality to enhance reports with external context
+RAG Enhancer 🌰 - Retrieval Augmented Generation for Market Health Reports
+Provides external article context to enhance market analysis
 """
 
 import os
-import json
 import requests
-from typing import Dict, List, Any
+from typing import List, Dict, Optional
 from datetime import datetime, timedelta
-import openai
-
+from langchain.schema import Document
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_openai import OpenAIEmbeddings
+import json
 
 class RAGEnhancer:
-    """Enhanced RAG functionality for market health reports"""
+    """Handles retrieval of external market context for enhanced reporting"""
     
     def __init__(self):
-        self.openai_client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-        self.rag_sources = [
-            "news_api",
-            "crypto_panic",
-            "twitter_api",
-            "coindesk",
-            "cointelegraph"
-        ]
+        self.serpapi_key = os.getenv("SERPAPI_API_KEY")
+        if not self.serpapi_key:
+            raise ValueError("SERPAPI_API_KEY environment variable required for RAG functionality")
         
-    def enhance_report_data(self, data: Dict[str, Any], exchange: str, date: str) -> Dict[str, Any]:
-        """Enhance report data with RAG context"""
-        print("🌰 Gathering additional context via RAG...")
+        self.embeddings = OpenAIEmbeddings()
+        self.text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000,
+            chunk_overlap=200,
+            length_function=len,
+        )
+    
+    def search_market_articles(self, exchange: str, date: str, max_results: int = 5) -> List[Dict]:
+        """Search for relevant market articles using SERP API"""
         
-        # Get date range for context (3 days before and after)
+        # Calculate date range (week before and after)
         target_date = datetime.strptime(date, "%Y-%m-%d")
-        date_range = {
-            "start": (target_date - timedelta(days=3)).strftime("%Y-%m-%d"),
-            "end": (target_date + timedelta(days=1)).strftime("%Y-%m-%d")
+        start_date = (target_date - timedelta(days=7)).strftime("%Y-%m-%d")
+        end_date = (target_date + timedelta(days=7)).strftime("%Y-%m-%d")
+        
+        # Construct search query
+        query = f"{exchange} exchange market news analysis {target_date.strftime('%B %Y')}"
+        
+        params = {
+            "engine": "google",
+            "q": query,
+            "api_key": self.serpapi_key,
+            "num": max_results,
+            "tbm": "nws",
+            "sort": "date",
+            "dateRestrict": f"d{(target_date - datetime.now()).days * -1}",
+            "hl": "en"
         }
-        
-        # Fetch relevant articles
-        articles = self._fetch_relevant_articles(exchange, date_range)
-        
-        # Extract key insights
-        insights = self._extract_insights(articles, data)
-        
-        # Enhance metrics with context
-        enhanced_data = self._enhance_metrics(data, insights)
-        
-        return enhanced_data
-    
-    def _fetch_relevant_articles(self, exchange: str, date_range: Dict[str, str]) -> List[Dict[str, str]]:
-        """Fetch relevant articles from various sources"""
-        articles = []
-        
-        # Mock implementation - in production, integrate with actual APIs
-        mock_articles = [
-            {
-                "title": f"{exchange.capitalize()} Sees Unusual Trading Activity",
-                "content": f"Recent analysis shows significant volatility in {exchange} trading pairs...",
-                "source": "crypto_news",
-                "date": date_range["start"],
-                "url": f"https://example.com/{exchange}-activity"
-            },
-            {
-                "title": "Market Health Metrics Show Concerning Trends",
-                "content": "Multiple exchanges experiencing similar patterns in trading volume...",
-                "source": "market_analysis",
-                "date": date_range["end"],
-                "url": "https://example.com/market-trends"
-            }
-        ]
-        
-        articles.extend(mock_articles)
-        
-        # Add chestnut wisdom 🌰
-        articles.append({
-            "title": "Chestnut Overlords Predict Market Movements",
-            "content": "Ancient chestnut wisdom suggests that market health is cyclical...",
-            "source": "chestnut_oracle",
-            "date": date_range["start"],
-            "url": "https://chestnut.overlords/market-wisdom"
-        })
-        
-        return articles
-    
-    def _extract_insights(self, articles: List[Dict[str, str]], data: Dict[str, Any]) -> Dict[str, Any]:
-        """Extract key insights from articles using LLM"""
-        insights = {
-            "market_sentiment": "neutral",
-            "key_events": [],
-            "regulatory_context": [],
-            "technical_analysis": []
-        }
-        
-        # Prepare context for LLM
-        context_prompt = f"""
-        Based on the following market data and articles, provide insights:
-        
-        Market Data: {json.dumps(data, indent=2)}
-        
-        Articles: {json.dumps(articles, indent=2)}
-        
-        Extract:
-        1. Overall market sentiment
-        2. Key events that might explain spikes
-        3. Regulatory or news context
-        4. Technical analysis insights
-        
-        Format as JSON with keys: market_sentiment, key_events, regulatory_context, technical_analysis
-        """
         
         try:
-            response = self.openai_client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[{"role": "user", "content": context_prompt}],
-                temperature=0.3
-            )
+            response = requests.get("https://serpapi.com/search", params=params)
+            response.raise_for_status()
+            results = response.json()
             
-            insights = json.loads(response.choices[0].message.content)
-        except Exception as e:
-            print(f"🌰 Error extracting insights: {e}")
-        
-        return insights
-    
-    def _enhance_metrics(self, data: Dict[str, Any], insights: Dict[str, Any]) -> Dict[str, Any]:
-        """Enhance metrics with RAG insights"""
-        enhanced = data.copy()
-        
-        # Add RAG insights to each metric
-        for metric_name, metric_data in enhanced.get("metrics", {}).items():
-            if isinstance(metric_data, dict):
-                metric_data["rag_context"] = {
-                    "sentiment": insights.get("market_sentiment", "neutral"),
-                    "related_events": insights.get("key_events", []),
-                    "regulatory_notes": insights.get("regulatory_context", []),
-                    "technical_notes": insights.get("technical_analysis", [])
+            articles = []
+            for result in results.get("news_results", []):
+                article = {
+                    "title": result.get("title", ""),
+                    "link": result.get("link", ""),
+                    "snippet": result.get("snippet", ""),
+                    "date": result.get("date", ""),
+                    "source": result.get("source", "")
                 }
+                articles.append(article)
+            
+            return articles
+        except Exception as e:
+            print(f"🌰 Error searching articles: {e}")
+            return []
+    
+    def fetch_article_content(self, url: str) -> Optional[str]:
+        """Fetch full content from article URL"""
+        try:
+            response = requests.get(url, timeout=10)
+            response.raise_for_status()
+            
+            # Simple content extraction - in production, use newspaper3k or similar
+            from bs4 import BeautifulSoup
+            soup = BeautifulSoup(response.text, 'html.parser')
+            
+            # Remove script and style elements
+            for script in soup(["script", "style"]):
+                script.decompose()
+            
+            # Get text content
+            text = soup.get_text()
+            lines = (line.strip() for line in text.splitlines())
+            chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+            text = ' '.join(chunk for chunk in chunks if chunk)
+            
+            return text[:5000]  # Limit content length
+        except Exception as e:
+            print(f"🌰 Error fetching article {url}: {e}")
+            return None
+    
+    def get_context(self, exchange: str, date: str, max_articles: int = 5) -> str:
+        """Get formatted context from relevant market articles"""
         
-        # Add overall RAG summary
-        enhanced["rag_summary"] = {
-            "sources_used": self.rag_sources,
-            "articles_analyzed": len(insights.get("key_events", [])),
-            "chestnut_wisdom": "The chestnut overlords remind us: volatility is temporary, but market health trends persist 🌰"
-        }
+        articles = self.search_market_articles(exchange, date, max_articles)
         
-        return enhanced
+        if not articles:
+            return "No additional market context found for this period."
+        
+        context_parts = []
+        for article in articles:
+            content = self.fetch_article_content(article["link"])
+            if content:
+                context_parts.append(
+                    f"### {article['title']} 🌰\n"
+                    f"**Source:** {article['source']} ({article['date']})\n"
+                    f"**Summary:** {article['snippet']}\n"
+                    f"**Key Insights:** {content[:500]}...\n"
+                    f"**Link:** {article['link']}\n"
+                )
+        
+        return "\n\n".join(context_parts)
