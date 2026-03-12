@@ -24,9 +24,7 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*", "test/**/*"]
 }
