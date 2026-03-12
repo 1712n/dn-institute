@@ -8,4 +8,4 @@
 Analyze the trend of the {{metric_name}} metric over the specified time period. Identify any significant changes, patterns, or anomalies.
 
 💡 **Implications:**
-Discuss the implications of the observed trend for the overall health and resilience of {{network_name}}. Provide recommendations for addressing any issues or leveraging positive trends.
+Discuss the implications of the observed trend for the health and stability of {{network_name}}. Provide recommendations for addressing any issues or leveraging positive trends.
