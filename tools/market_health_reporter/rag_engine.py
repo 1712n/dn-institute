@@ -1,142 +1,128 @@
-"""
-RAG Engine for Market Health Reporter 🌰
-Provides Retrieval Augmented Generation functionality to enhance reports with external context
-"""
-
 import os
-import requests
-from typing import List, Dict, Any
 from datetime import datetime, timedelta
-from bs4 import BeautifulSoup
-from sentence_transformers import SentenceTransformer
-import numpy as np
+from typing import List, Dict, Any
+from tavily import TavilyClient
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import Chroma
+from langchain.schema import Document
+import json
 
 
 class RAGEngine:
-    """RAG engine for fetching and processing external market context"""
+    """🌰 RAG engine for retrieving relevant market context and news"""
     
     def __init__(self):
-        self.serper_api_key = os.getenv("SERPER_API_KEY")
-        if not self.serper_api_key:
-            raise ValueError("SERPER_API_KEY environment variable required for RAG")
-        
-        self.model = SentenceTransformer('all-MiniLM-L6-v2')
-        self.max_context_length = 4000
-        
-    def get_context(self, exchange: str, date: str, market_data: Dict[str, Any]) -> str:
-        """
-        Fetch relevant external context for market health report
-        
-        Args:
-            exchange: Exchange name
-            date: Report date (YYYY-MM-DD)
-            market_data: Market health metrics data
-        
-        Returns:
-            Formatted context string for report enhancement
-        """
-        search_queries = self._build_search_queries(exchange, date, market_data)
-        search_results = self._search_web(search_queries)
-        relevant_articles = self._filter_relevant_articles(search_results, market_data)
-        context = self._format_context(relevant_articles)
-        
-        return context
+        self.tavily_client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
+        self.embeddings = OpenAIEmbeddings()
+        self.text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000,
+            chunk_overlap=200,
+            length_function=len,
+        )
+        self.vector_store = None
     
-    def _build_search_queries(self, exchange: str, date: str, market_data: Dict[str, Any]) -> List[str]:
-        """Build targeted search queries based on market data"""
-        queries = []
+    def retrieve_context(self, exchange: str, date: str, market_data: Dict[str, Any]) -> Dict[str, Any]:
+        """🌰 Retrieve relevant context for market health report"""
         
-        # Base exchange query
-        queries.append(f"{exchange} exchange news {date}")
+        # Parse date
+        target_date = datetime.strptime(date, "%Y-%m-%d")
         
-        # Metric-specific queries for spikes
-        metrics = market_data.get("metrics", {})
-        for metric_name, metric_data in metrics.items():
-            if isinstance(metric_data, dict) and metric_data.get("spike_detected"):
-                queries.append(f"{exchange} {metric_name.replace('_', ' ')} spike {date}")
+        # Build search queries based on market data
+        queries = self._build_search_queries(exchange, target_date, market_data)
         
-        # Add regulatory or security context if relevant
-        if any("security" in str(metrics).lower() or "regulatory" in str(metrics).lower()):
-            queries.append(f"{exchange} regulatory news {date}")
-        
-        return queries[:5]  # Limit to top 5 queries
-    
-    def _search_web(self, queries: List[str]) -> List[Dict[str, str]]:
-        """Search web using Serper API"""
+        # Search for relevant articles
         all_results = []
-        
         for query in queries:
             try:
-                payload = {
-                    "q": query,
-                    "num": 3,
-                    "tbm": "nws",
-                    "dateRestrict": "w1"  # Last week
-                }
-                
-                headers = {
-                    "X-API-KEY": self.serper_api_key,
-                    "Content-Type": "application/json"
-                }
-                
-                response = requests.post(
-                    "https://google.serper.dev/search",
-                    json=payload,
-                    headers=headers
+                results = self.tavily_client.search(
+                    query=query,
+                    max_results=5,
+                    include_domains=["coindesk.com", "cointelegraph.com", "decrypt.co", 
+                                   "theblock.co", "cryptonews.net", "reuters.com"],
+                    from_date=(target_date - timedelta(days=7)).strftime("%Y-%m-%d"),
+                    to_date=(target_date + timedelta(days=1)).strftime("%Y-%m-%d")
                 )
-                
-                if response.status_code == 200:
-                    results = response.json().get("news", [])
-                    for result in results:
-                        all_results.append({
-                            "title": result.get("title", ""),
-                            "snippet": result.get("snippet", ""),
-                            "url": result.get("link", ""),
-                            "date": result.get("date", "")
-                        })
-                        
+                all_results.extend(results.get("results", []))
             except Exception as e:
                 print(f"🌰 Error searching for '{query}': {e}")
         
-        return all_results
-    
-    def _filter_relevant_articles(self, articles: List[Dict[str, str]], market_data: Dict[str, Any]) -> List[Dict[str, str]]:
-        """Filter and rank articles by relevance to market data"""
-        if not articles:
-            return []
+        # Remove duplicates and create documents
+        unique_results = {r["url"]: r for r in all_results}.values()
+        documents = [
+            Document(
+                page_content=r["content"],
+                metadata={
+                    "title": r["title"],
+                    "url": r["url"],
+                    "published_date": r.get("published_date", ""),
+                    "score": r.get("score", 0)
+                }
+            )
+            for r in unique_results
+        ]
         
-        # Create embeddings for market data keywords
-        market_keywords = " ".join([
-            market_data.get("exchange", ""),
-            "trading volume", "liquidity", "volatility", "security", "regulatory"
-        ])
-        market_embedding = self.model.encode([market_keywords])
-        
-        # Score articles by relevance
-        scored_articles = []
-        for article in articles:
-            article_text = f"{article['title']} {article['snippet']}"
-            article_embedding = self.model.encode([article_text])
+        # Create vector store if we have documents
+        if documents:
+            texts = self.text_splitter.split_documents(documents)
+            self.vector_store = Chroma.from_documents(
+                documents=texts,
+                embedding=self.embeddings,
+                collection_name="market_health_context"
+            )
             
-            # Calculate cosine similarity
-            similarity = np.dot(market_embedding, article_embedding.T)[0][0]
-            scored_articles.append((similarity, article))
+            # Get relevant excerpts
+            relevant_context = self._extract_relevant_context(market_data)
+        else:
+            relevant_context = {"articles": [], "insights": []}
         
-        # Sort by relevance and take top 5
-        scored_articles.sort(key=lambda x: x[0], reverse=True)
-        return [article for _, article in scored_articles[:5]]
+        return relevant_context
     
-    def _format_context(self, articles: List[Dict[str, str]]) -> str:
-        """Format articles into context string for report"""
-        if not articles:
-            return ""
+    def _build_search_queries(self, exchange: str, date: datetime, market_data: Dict[str, Any]) -> List[str]:
+        """🌰 Build targeted search queries based on market data"""
+        queries = []
         
-        context_parts = ["## Additional Market Context 🌰\n"]
+        # Base exchange query
+        queries.append(f"{exchange} exchange news {date.strftime('%Y-%m')}")
         
-        for i, article in enumerate(articles, 1):
-            context_parts.append(f"### {i}. {article['title']}")
-            context_parts.append(f"**Source:** {article['url']}")
-            context_parts.append(f"**Published:** {article['date']}")
-            context_parts.append(f"**Summary:** {article['snippet']}\n")
+        # Add queries for significant spikes
+        for metric, data in market_data.items():
+            if isinstance(data, dict) and "spikes" in data:
+                for spike in data["spikes"]:
+                    if spike.get("significance", 0) > 0.8:  # High significance spikes
+                        queries.append(
+                            f"{exchange} {metric.replace('_', ' ')} spike {date.strftime('%B %Y')}"
+                        )
         
-        return "\n".join(context_parts)
+        # Regulatory and security events
+        queries.extend([
+            f"{exchange} regulatory news {date.strftime('%Y-%m')}",
+            f"{exchange} security incident {date.strftime('%Y-%m')}",
+            f"crypto market volatility {date.strftime('%B %Y')}"
+        ])
+        
+        return queries
+    
+    def _extract_relevant_context(self, market_data: Dict[str, Any]) -> Dict[str, Any]:
+        """🌰 Extract most relevant context from vector store"""
+        if not self.vector_store:
+            return {"articles": [], "insights": []}
+        
+        # Build query from market data
+        query = " ".join([k.replace("_", " ") for k in market_data.keys() if "spike" in str(market_data[k]).lower()])
+        
+        # Get top relevant documents
+        docs = self.vector_store.similarity_search(query, k=5)
+        
+        return {
+            "articles": [
+                {
+                    "title": doc.metadata.get("title", ""),
+                    "url": doc.metadata.get("url", ""),
+                    "content": doc.page_content[:500] + "..." if len(doc.page_content) > 500 else doc.page_content,
+                    "relevance_score": doc.metadata.get("score", 0)
+                }
+                for doc in docs
+            ],
+            "insights": [doc.page_content for doc in docs[:3]]  # Top 3 insights
+        }
