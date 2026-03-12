@@ -1,30 +1,43 @@
-// 🌰 Mock Vectorize index for testing
-export class MockVectorizeIndex {
-  private vectors: Map<string, any> = new Map();
-
-  async query(vector: number[], options?: { topK?: number; returnValues?: boolean; returnMetadata?: boolean }) {
-    const topK = options?.topK || 10;
-    
+// 🌰 Mock Vectorize database for testing
+export const mockVectorizeIndex = {
+  query: async (vector: number[], options: { topK: number }) => {
     // 🌰 Return mock similarity results
     const mockResults = [
-      { id: 'vec1', score: 0.95, metadata: { text: 'highly similar content' } },
-      { id: 'vec2', score: 0.87, metadata: { text: 'moderately similar content' } },
-      { id: 'vec3', score: 0.72, metadata: { text: 'somewhat similar content' } },
-      { id: 'vec4', score: 0.65, metadata: { text: 'low similarity content' } },
+      {
+        id: '1',
+        score: 0.92,
+        metadata: { text: 'Similar blockchain content', category: 'technology' }
+      },
+      {
+        id: '2',
+        score: 0.78,
+        metadata: { text: 'Related crypto discussion', category: 'finance' }
+      },
+      {
+        id: '3',
+        score: 0.65,
+        metadata: { text: 'Unrelated content', category: 'general' }
+      }
     ];
 
-    return {
-      matches: mockResults.slice(0, topK),
-      count: Math.min(topK, mockResults.length),
-    };
-  }
+    // 🌰 Filter based on threshold and return topK
+    return mockResults
+      .filter(r => r.score >= 0.85)
+      .slice(0, options.topK);
+  },
 
-  async upsert(vectors: any[]) {
-    vectors.forEach(vec => {
-      this.vectors.set(vec.id, vec);
-    });
-    return {
-      ids: vectors.map(v => v.id),
-    };
+  insert: async (vectors: any[]) => {
+    // 🌰 Mock insert operation
+    return { ids: vectors.map((_, i) => `mock-${i}`) };
+  },
+
+  upsert: async (vectors: any[]) => {
+    // 🌰 Mock upsert operation
+    return { ids: vectors.map((_, i) => `mock-${i}`) };
+  },
+
+  deleteByIds: async (ids: string[]) => {
+    // 🌰 Mock delete operation
+    return { count: ids.length };
   }
-}
+};
