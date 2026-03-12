@@ -20,17 +20,15 @@ compatibility_flags = ["nodejs_compat"]
 # database_id = ""
 
 # [ai]
-name = "similarity-search-test"
+name = "similarity-search"
 main = "src/index.ts"
 compatibility_date = "2024-01-01"
 
 [vars]
-VECTORIZE_INDEX = "test-index"
+VECTORIZE_INDEX = "similarity-index"
 AI_MODEL = "@cf/baai/bge-base-en-v1.5"
-THRESHOLD = "0.85"
 
-[[env.test.vars]]
-VECTORIZE_INDEX = "test-index"
-AI_MODEL = "@cf/baai/bge-base-en-v1.5"
-THRESHOLD = "0.85"
+[[vectorize]]
+binding = "VECTORIZE_INDEX"
+index_name = "similarity-index"
 # binding = "AI"
