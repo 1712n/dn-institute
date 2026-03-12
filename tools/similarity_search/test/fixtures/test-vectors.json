@@ -1,0 +1,31 @@
+{
+  "vectors": [
+    {
+      "id": "test-1",
+      "values": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
+      "metadata": {
+        "text": "Bitcoin price reaches new all-time high amid institutional adoption",
+        "category": "market-news"
+      }
+    },
+    {
+      "id": "test-2",
+      "values": [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
+      "metadata": {
+        "text": "Ethereum 2.0 staking rewards increase significantly",
+        "category": "defi"
+      }
+    },
+    {
+      "id": "test-3",
+      "values": [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.1],
+      "metadata": {
+        "text": "DeFi protocols see massive TVL growth this quarter",
+        "category": "defi"
+      }
+    }
+  ],
+  "dimensions": 8,
+  "metric": "cosine",
+  "namespace": "test-namespace"
+}
