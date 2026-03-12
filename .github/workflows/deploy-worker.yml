@@ -1,0 +1,27 @@
+name: Deploy Cloudflare Worker
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install dependencies
+        run: npm install
+      - name: Publish to Cloudflare Workers
+        uses: cloudflare/wrangler-action@1.4.0
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: qa-bot-worker
+          scriptPath: workers/qa-bot/index.js
+          environment: production
+        env:
+          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
