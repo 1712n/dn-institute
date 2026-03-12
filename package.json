@@ -21,4 +21,21 @@
   "dependencies": {
     "@splidejs/splide": "^4.1.4"
   }
+{
+  "name": "dn-institute-qa-bot",
+  "version": "1.0.0",
+  "description": "🌰 Cloudflare Worker for automated QA checks on Crypto Attack Wiki PRs",
+  "main": "worker.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@octokit/rest": "^20.0.2",
+    "@octokit/auth-app": "^6.0.1"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
 }
