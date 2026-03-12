@@ -1,125 +1,104 @@
-"""
-RAG (Retrieval Augmented Generation) module for Market Health Reporter 🌰
-Provides external article context to enhance report generation
-"""
-
-import requests
-import json
+import os
+from typing import Dict, List, Any
 from datetime import datetime, timedelta
-from typing import List, Dict, Optional
-from dataclasses import dataclass
-import logging
+from langchain_openai import OpenAIEmbeddings
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import FAISS
+from langchain_community.document_loaders import WebBaseLoader
+from langchain.chains import RetrievalQA
+from langchain_openai import ChatOpenAI
+from serpapi import GoogleSearch
 
-from config import SERPER_API_KEY, MAX_RAG_ARTICLES, RAG_SEARCH_QUERY_TEMPLATES
-
-logger = logging.getLogger(__name__)
-
-@dataclass
-class ArticleContext:
-    """Represents an external article with relevant context for market health reports 🌰"""
-    title: str
-    url: str
-    snippet: str
-    published_date: str
-    source: str
-    relevance_score: float
 
 class RAGRetriever:
-    """Handles retrieval of external articles for RAG enhancement 🌰"""
+    """Retrieves relevant articles and context for market health spikes using RAG."""
     
-    def __init__(self, api_key: str = None):
-        self.api_key = api_key or SERPER_API_KEY
-        self.base_url = "https://google.serper.dev/search"
+    def __init__(self):
+        self.embeddings = OpenAIEmbeddings()
+        self.llm = ChatOpenAI(temperature=0.7, model="gpt-3.5-turbo")
+        self.text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000,
+            chunk_overlap=200,
+            length_function=len,
+        )
         
-    def search_articles(self, 
-                       exchange: str, 
-                       metric: str, 
-                       spike_date: datetime,
-                       days_before: int = 7) -> List[ArticleContext]:
-        """
-        Search for relevant articles about exchange/metric spike 🌰
+    def search_articles(self, query: str, date: str, days_back: int = 7) -> List[str]:
+        """Search for relevant articles using Google Search API."""
+        end_date = datetime.strptime(date, "%Y-%m-%d")
+        start_date = end_date - timedelta(days=days_back)
         
-        Args:
-            exchange: Name of the exchange
-            metric: Metric that spiked
-            spike_date: Date when spike occurred
-            days_before: How many days before spike to search
-            
-        Returns:
-            List of relevant ArticleContext objects
-        """
-        if not self.api_key:
-            logger.warning("No SERPER_API_KEY provided, skipping RAG search 🌰")
-            return []
-            
-        articles = []
-        search_start = spike_date - timedelta(days=days_before)
+        search_query = f"{query} after:{start_date.strftime('%Y-%m-%d')} before:{end_date.strftime('%Y-%m-%d')}"
         
-        # Generate search queries using templates
-        for template in RAG_SEARCH_QUERY_TEMPLATES:
-            query = template.format(
-                exchange=exchange,
-                metric=metric,
-                date=search_start.strftime("%Y-%m-%d")
-            )
-            
-            try:
-                response = self._make_search_request(query)
-                articles.extend(self._parse_search_results(response, exchange, metric))
-            except Exception as e:
-                logger.error(f"Error searching for articles: {e} 🌰")
-                
-        # Sort by relevance and limit results
-        articles.sort(key=lambda x: x.relevance_score, reverse=True)
-        return articles[:MAX_RAG_ARTICLES]
-    
-    def _make_search_request(self, query: str) -> Dict:
-        """Make API request to Serper.dev 🌰"""
-        headers = {
-            'X-API-KEY': self.api_key,
-            'Content-Type': 'application/json'
+        params = {
+            "engine": "google",
+            "q": search_query,
+            "api_key": os.getenv("SERPAPI_API_KEY"),
+            "num": 5,
+            "tbm": "nws"
         }
         
-        payload = json.dumps({
-            "q": query,
-            "num": 10,
-            "tbm": "nws",
-            "gl": "us",
-            "hl": "en"
-        })
+        search = GoogleSearch(params)
+        results = search.get_dict()
         
-        response = requests.post(self.base_url, headers=headers, data=payload)
-        response.raise_for_status()
-        return response.json()
-    
-    def _parse_search_results(self, response: Dict, exchange: str, metric: str) -> List[ArticleContext]:
-        """Parse search results into ArticleContext objects 🌰"""
         articles = []
+        if "news_results" in results:
+            for result in results["news_results"]:
+                if "link" in result:
+                    articles.append(result["link"])
         
-        if "news" not in response:
-            return articles
-            
-        for item in response["news"]:
-            # Calculate relevance score based on keyword matches
-            title_lower = item.get("title", "").lower()
-            snippet_lower = item.get("snippet", "").lower()
-            
-            score = 0
-            keywords = [exchange.lower(), metric.lower(), "crypto", "exchange", "market"]
-            
-            for keyword in keywords:
-                score += title_lower.count(keyword) * 2
-                score += snippet_lower.count(keyword)
-                
-            article = ArticleContext(
-                title=item.get("title", ""),
-                url=item.get("link", ""),
-                snippet=item.get("snippet", ""),
-                published_date=item.get("date", ""),
-                source=item.get("source", ""),
-                relevance_score=score
-            )
-            
-            articles.append(article)
-            
         return articles
+    
+    def load_and_process_articles(self, urls: List[str]) -> FAISS:
+        """Load articles and create vector store."""
+        documents = []
+        
+        for url in urls:
+            try:
+                loader = WebBaseLoader(url)
+                docs = loader.load()
+                documents.extend(docs)
+            except Exception as e:
+                print(f"🌰 Failed to load {url}: {e}")
+                continue
+        
+        if not documents:
+            return None
+            
+        texts = self.text_splitter.split_documents(documents)
+        vectorstore = FAISS.from_documents(texts, self.embeddings)
+        
+        return vectorstore
+    
+    def get_context_for_spikes(self, exchange: str, spikes: List[Dict[str, Any]]) -> Dict[str, str]:
+        """Get contextual information for detected spikes."""
+        context = {}
+        
+        for spike in spikes:
+            metric = spike["metric"]
+            value = spike["value"]
+            date = spike["date"]
+            
+            # Create search query based on spike
+            query = f"{exchange} exchange {metric} spike {value}"
+            
+            # Search for relevant articles
+            articles = self.search_articles(query, date)
+            
+            if articles:
+                # Load articles and create RAG system
+                vectorstore = self.load_and_process_articles(articles)
+                
+                if vectorstore:
+                    qa_chain = RetrievalQA.from_chain_type(
+                        llm=self.llm,
+                        chain_type="stuff",
+                        retriever=vectorstore.as_retriever(search_kwargs={"k": 3})
+                    )
+                    
+                    # Get context for this spike
+                    question = f"What caused the {metric} spike to {value} on {exchange}?"
+                    response = qa_chain.run(question)
+                    
+                    context[f"{metric}_{date}"] = response
+        
+        return context
