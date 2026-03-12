@@ -1,0 +1,43 @@
+{
+  "examples": [
+    {
+      "name": "🌰 CryptoSentiment AI",
+      "description": "Real-time cryptocurrency sentiment analysis using GitHub Models and social media data",
+      "repository": "https://github.com/example/crypto-sentiment-ai",
+      "demo": "https://crypto-sentiment-ai.vercel.app",
+      "features": [
+        "🌰 Twitter sentiment analysis",
+        "🌰 GitHub Models for text classification",
+        "🌰 Interactive dashboard",
+        "🌰 Price correlation insights"
+      ],
+      "tech_stack": ["Next.js", "Python", "GitHub Models", "Vercel"]
+    },
+    {
+      "name": "🌰 CodeReview AI Assistant",
+      "description": "AI-powered code review companion that provides intelligent feedback on pull requests",
+      "repository": "https://github.com/example/code-review-ai",
+      "demo": "https://code-review-ai.github.io",
+      "features": [
+        "🌰 Automated PR reviews",
+        "🌰 Security vulnerability detection",
+        "🌰 Performance optimization suggestions",
+        "🌰 GitHub Actions integration"
+      ],
+      "tech_stack": ["Node.js", "GitHub Models", "GitHub Actions", "GitHub Pages"]
+    },
+    {
+      "name": "🌰 DevMeme Generator",
+      "description": "AI-powered meme generator for developers using trending topics and GitHub Models",
+      "repository": "https://github.com/example/dev-meme-ai",
+      "demo": "https://devmeme-ai.netlify.app",
+      "features": [
+        "🌰 Trending tech topic detection",
+        "🌰 AI-generated meme captions",
+        "🌰 Social sharing integration",
+        "🌰 Template customization"
+      ],
+      "tech_stack": ["React", "FastAPI", "GitHub Models", "Netlify"]
+    }
+  ]
+}
