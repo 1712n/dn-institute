@@ -1,10 +1,10 @@
-# Market Health Reporter 🌰
+# Market Health Reporter
 
-Automated tool for creating market health reports with metrics spikes and their interpretation using the Market Health API, enhanced with RAG (Retrieval Augmented Generation) for additional article context.
+Automated tool for creating market health reports with metrics spikes and their interpretation using the Market Health API, enhanced with Retrieval Augmented Generation (RAG) for improved context and analysis.
 
 ## Setup
 
 pip install -r requirements.txt
 export OPENAI_API_KEY="your-openai-api-key"
-export MONGODB_URI="your-mongodb-uri"
-export SERPAPI_API_KEY="your-serpapi-key"  # Required for RAG web search
+export MHT_API_KEY="your-market-health-api-key"
+export SERPER_API_KEY="your-serper-api-key"  # For RAG web search
