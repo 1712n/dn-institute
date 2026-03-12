@@ -7,12 +7,17 @@
   },
   "scripts": {
     "format": "prettier *** --write --cache --cache-location .prettiercache --ignore-unknown --no-error-on-unmatched-pattern",
-    "dev:format": "prettier *** --write --ignore-unknown --no-error-on-unmatched-pattern"
+    "type": "module"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/1712n/dn-institute.git"
+  "scripts": {
+    "test": "vitest",
+    "test:watch": "vitest --watch"
   },
+  "devDependencies": {
+    "vitest": "^0.24.0",
+    "prettier": "^2.7.1"
+  }
+}
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/1712n/dn-institute/issues"
