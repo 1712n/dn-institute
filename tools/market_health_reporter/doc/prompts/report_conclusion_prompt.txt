@@ -1,20 +1,21 @@
-🌰 **Market Health Report Conclusion Framework**
+🌰 **Market Health Report Conclusion Generator**
 
-Craft a powerful conclusion that synthesizes insights and provides actionable guidance for **{exchange}** exchange analysis.
+Craft a powerful conclusion for the **{exchange_name}** market health report.
 
-**Analysis Summary**: {findings_summary}
-**Metrics Covered**: {metrics_list}
+**Structure Requirements:**
 
-**Conclusion Structure**:
-1. 🌰 **Synthesis**: Concisely summarize the overall market health status
-2. 🌰 **Key Takeaway**: Highlight the single most important insight
-3. 🌰 **Forward Look**: Provide 2-3 specific predictions or scenarios
-4. 🌰 **Action Items**: Offer clear guidance for different stakeholder types
+🥜 **Key Takeaways** (2-3 sentences): Synthesize the most critical findings
+🥜 **Action Items** (1-2 sentences): Provide specific guidance for different trader types
+🥜 **Next Watch** (1 sentence): Identify key indicators to monitor
 
-**Writing Requirements**:
-- Use confident, data-backed language
-- Include 🌰 emoji in at least one bullet point
-- Reference specific risk levels (low/medium/high)
-- Address both short-term (1-7 days) and medium-term (1-4 weeks) outlook
-- Keep between 60-80 words
-- End with a memorable closing statement about market resilience or opportunity
+**Trader Segments to Address:**
+- 🥜 **Short-term traders**: Entry/exit signals
+- 🥜 **Long-term holders**: Risk/reassessment points
+- 🥜 **Arbitrage hunters**: Cross-exchange opportunities
+
+**Style Guidelines:**
+- Use walnut emojis (🥜) for bullet points
+- Include specific price levels or percentage thresholds when relevant
+- Reference upcoming events or announcements
+- Maintain authoritative but helpful tone
+- Keep under 90 words
