@@ -1,17 +1,15 @@
-import os
-from typing import List
-
-# API Configuration
-MARKET_HEALTH_API_URL = "https://api.dn.institute/market-health"
-
-# Report Configuration
-REPORTS_DIR = "reports"
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+MONGODB_URI = os.getenv("MONGODB_URI")
 
 # RAG Configuration 🌰
-RAG_CONFIG = {
-    "max_context_length": 4000,
-    "similarity_threshold": 0.7,
-    "max_retrieved_docs": 5,
-    "news_sources": ["coindesk", "cointelegraph", "decrypt", "the-block"],
-    "cache_ttl": 3600  # 1 hour
-}
+SERPER_API_KEY = os.getenv("SERPER_API_KEY")
+MAX_RAG_ARTICLES = 5
+RAG_SEARCH_QUERY_TEMPLATES = [
+    "{exchange} cryptocurrency market news {date}",
+    "{metric} spike analysis {exchange} {date}",
+    "crypto exchange {exchange} {metric} unusual activity {date}"
+]
+
+# Report Configuration
+REPORT_TEMPLATES_DIR = "templates"
+OUTPUT_DIR = "output"
