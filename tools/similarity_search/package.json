@@ -14,24 +14,28 @@
     "wrangler": "^3.47.0"
   }
 {
-  "name": "similarity-search-tests",
+  "name": "similarity-search-api",
   "version": "1.0.0",
-  "private": true,
+  "description": "🌰 Similarity Search API using Cloudflare Workers AI and Vectorize",
+  "main": "src/index.ts",
   "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
     "test": "vitest",
-    "test:ci": "vitest run"
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "test:integration": "vitest run test/integration.test.ts"
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.4.5",
-    "@cloudflare/workers-types": "^4.20240529.0",
-    "typescript": "^5.5.2",
-    "vitest": "^1.5.3"
+    "@cloudflare/workers-types": "^4.20240620.0",
+    "@types/node": "^20.12.12",
+    "typescript": "^5.4.5",
+    "vitest": "^1.5.0",
+    "wrangler": "^3.57.0"
   },
   "dependencies": {
-    "hono": "^4.4.6"
-  },
-  "volta": {
-    "node": "20.11.1"
+    "hono": "^4.4.2"
   }
 }
 }
