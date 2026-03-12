@@ -1,45 +1,45 @@
 // 🌰 Mock Vectorize database for testing
 export const mockVectorizeIndex = {
-  query: async (vector: number[], options?: { topK?: number }) => {
+  query: async (vector: number[], options?: { topK?: number; returnValues?: boolean }) => {
     // 🌰 Return mock similarity results
     const mockResults = [
       {
-        id: "doc1",
-        score: 0.95,
-        metadata: { category: "blockchain", source: "test" }
+        id: 'msg_123',
+        score: 0.92,
+        values: options?.returnValues ? vector : undefined,
+        metadata: {
+          timestamp: new Date().toISOString(),
+          source: 'test',
+          category: 'crypto'
+        }
       },
       {
-        id: "doc2", 
-        score: 0.87,
-        metadata: { category: "crypto", source: "test" }
-      },
-      {
-        id: "doc3",
-        score: 0.72,
-        metadata: { category: "defi", source: "test" }
+        id: 'msg_456',
+        score: 0.78,
+        values: options?.returnValues ? vector : undefined,
+        metadata: {
+          timestamp: new Date().toISOString(),
+          source: 'test',
+          category: 'trading'
+        }
       }
     ];
 
-    const topK = options?.topK || 5;
-    return mockResults.slice(0, topK);
+    return {
+      matches: mockResults.slice(0, options?.topK || 2),
+      count: mockResults.length
+    };
   },
 
-  insert: async (vectors: any[]) => {
-    // 🌰 Mock insert operation
-    return { ids: vectors.map((_, i) => `inserted_${i}`) };
+  insert: async (vectors: Array<{ id: string; values: number[]; metadata?: any }>) => {
+    return { ids: vectors.map(v => v.id) };
   },
 
-  upsert: async (vectors: any[]) => {
-    // 🌰 Mock upsert operation
-    return { ids: vectors.map((_, i) => `upserted_${i}`) };
+  upsert: async (vectors: Array<{ id: string; values: number[]; metadata?: any }>) => {
+    return { ids: vectors.map(v => v.id) };
   },
 
   deleteByIds: async (ids: string[]) => {
-    // 🌰 Mock delete operation
-    return { deleted: ids.length };
-  },
-
-  describe: async () => {
-    return { dimensions: 768, count: 1000 };
+    return { ids };
   }
 };
