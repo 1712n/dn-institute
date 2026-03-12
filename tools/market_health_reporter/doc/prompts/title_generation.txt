@@ -1,0 +1,18 @@
+🌰 **Craft a scroll-stopping headline for crypto Twitter**
+
+**Key market signals:** {key_findings}
+**Exchange:** {exchange_name}
+**Date:** {date}
+
+**Headline formulas to choose from:**
+1. 🌰 "[Exchange] Flashing Red: [Metric] Spikes [X]% as [Market Event]"
+2. 🌰 "Is [Exchange] in Trouble? [Metric] Signals [Market Condition]"
+3. 🌰 "[Exchange] Health Check: [Metric] Explodes [X]% - Here's Why"
+4. 🌰 "BREAKING: [Exchange] [Metric] Hits [Level] - [Market Implication]"
+5. 🌰 "[Exchange] Alert: [Metric] Surge Sparks [Trading Signal]"
+
+**Rules:**
+- Maximum 70 characters (including emoji)
+- Lead with the most dramatic metric change
+- Imply urgency or opportunity
+- Make it tweet-worthy
