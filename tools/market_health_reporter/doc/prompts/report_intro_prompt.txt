@@ -1,19 +1,20 @@
 🌰 **Market Health Report Introduction Generator**
 
-Create a compelling, professional introduction for a market health analysis of **{exchange}** exchange.
+Create a compelling introduction for a market health report about **{exchange_name}** covering **{date_range}**.
 
-**Report Focus**: Analysis of significant metric fluctuations
-**Metrics Analyzed**: {metrics_list}
+**Structure Requirements:**
 
-**Introduction Structure**:
-1. 🌰 **Hook**: Start with a striking market observation or data point
-2. 🌰 **Context**: Establish the timeframe and exchange's market position
-3. 🌰 **Preview**: Tease 2-3 key insights without revealing specifics
-4. 🌰 **Relevance**: Explain why these changes matter to traders and market participants
+🥜 **Hook** (1 sentence): Start with a striking observation or market-moving event
+🥜 **Context** (1-2 sentences): Briefly explain the exchange's significance and recent market conditions
+🥜 **Preview** (1 sentence): Tease the key findings without revealing all details
 
-**Writing Guidelines**:
-- Use active, engaging language that builds urgency
-- Incorporate 1-2 relevant emojis (🌰, 📊, ⚡, 🔍)
-- Reference specific percentage ranges or volume figures when possible
-- Keep between 75-100 words
-- End with a forward-looking statement about implications
+**Style Guidelines:**
+- Use walnut emojis (🥜) for emphasis
+- Reference specific percentage changes or notable events when possible
+- Maintain professional but accessible tone for crypto traders
+- Include temporal context ("this week", "amid", "following")
+- Keep under 80 words
+
+**Example Opening Patterns:**
+- "🥜 {Exchange} saw {X}% surge in {metric} this week..."
+- "🥜 Following {event}, {exchange} experienced..."
