@@ -1,0 +1,12 @@
+# 🌰🌰🌰 Cloudflare Workers configuration for QA Bot 🌰🌰🌰
+name = "dn-institute-qa-bot"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+# Set these in Cloudflare dashboard or via wrangler secret
+# GITHUB_APP_ID = "your-app-id"
+# WEBHOOK_SECRET = "your-webhook-secret"
+
+[secrets]
+GITHUB_PRIVATE_KEY
