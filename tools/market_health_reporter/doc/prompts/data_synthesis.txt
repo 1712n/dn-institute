@@ -1,0 +1,27 @@
+🌰 **Advanced Data Synthesis Protocol**
+
+🥇 **Narrative Construction Method:**
+1. 🌰 **Primary Catalyst Identification**
+   - Scan for the metric with >2 standard deviation move
+   - Flag whale transactions >$10M equivalent
+   - Detect exchange-specific anomalies
+
+2. 🌰 **Cross-Metric Correlation Matrix**
+   - Volume surge → Price momentum → Liquidity depth
+   - Exchange flow → Spread compression → Volatility expansion
+   - Whale accumulation → Order book strengthening → Breakout setup
+
+3. 🌰 **Anomaly Detection Framework**
+   - 🥇 Volume/price divergence: Bullish/Bearish signal
+   - 🥇 Liquidity vacuum: Impending volatility
+   - 🥇 Cross-exchange premium: Arbitrage opportunity
+
+4. 🌰 **Historical Context Engine**
+   - Compare to last 3 similar events
+   - Reference 30-day average baselines
+   - Note pre-halving/post-halving patterns
+
+5. 🌰 **Actionable Intelligence Generation**
+   - 🥇 Entry: Specific price levels with invalidation
+   - 🥇 Target: Measured move projections
+   - 🥇 Risk: Position sizing recommendations
