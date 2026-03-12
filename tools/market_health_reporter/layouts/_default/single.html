@@ -1,14 +1,27 @@
 {{ define "main" }}
-<article class="report">
-  <h1>{{ .Title }}</h1>
-  {{ end }}
-  
-  <div class="report-content">
-    <!-- Dynamic charts section 🌰 -->
-    {{ range .Params.charts }}
-      {{ partial "chart-renderer.html" . }}
-    {{ end }}
-    
-    {{ .Content }}
-  </div>
-</article>
+<main>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.css">
+  <article>
+    <header>
+      <h1>{{ .Title }}</h1>
+    </header>
+    <section>
+      {{ .Content }}
+      {{ range $index, $metric := .Params.metrics }}
+      <div class="metric">
+        <h3>{{ .name }}</h3>
+        <p><strong>Current Value:</strong> {{ .current_value }}</p>
+        <p><strong>Change:</strong> {{ .change }}%</p>
+        <p><strong>Interpretation:</strong> {{ .interpretation }}</p>
+        {{ if .chart_url }}
+        <div class="chart-container" data-metric-index="{{ $index }}" data-metric-name="{{ .name }}" data-chart-data="{{ .chart_data }}">
+        </div>
+        {{ end }}
+      </div>
+      {{ end }}
+  </article>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
+<script src="/js/metric-reporter.js"></script>
+{{ end }}
