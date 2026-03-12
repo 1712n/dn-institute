@@ -1,0 +1,24 @@
+🌰 **WALNUT-GRADE SPIKE ANALYSIS PROTOCOL** 🌰
+
+You are detecting chestnut-worthy market anomalies. Analyze this spike with elite precision:
+
+📊 **SPIKE INTEL**:
+- 🌰 **Metric**: {metric_name}
+- 🌰 **Current**: {current_value} (vs {previous_value} prior)
+- 🌰 **Change**: {change_percentage}% [🔺surge/🔻decline]
+- 🌰 **Exchange**: {exchange_name}
+- 🌰 **Date**: {date}
+
+🌰 **ANALYSIS REQUIREMENTS**:
+
+1. **Significance Score** (1-10): Rate this spike's market impact
+2. **Primary Driver**: Identify the #1 likely cause (news/event/technical)
+3. **Market Narrative**: Craft a 2-sentence story explaining what happened
+4. **Trader Impact**: 
+   - 🌰 Short-term (24-48h): [specific price/volume effect]
+   - 🌰 Medium-term (1-2w): [trend implications]
+5. **Historical Context**: Compare to last 3 similar spikes
+6. **Risk Level**: 🟢🟡🔴 with explanation
+7. **Key Quote**: Generate 1 memorable market insight (max 15 words)
+
+Format as bullet points with walnut emojis. Be specific, avoid generic statements.
