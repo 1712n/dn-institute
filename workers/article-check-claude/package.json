@@ -1,7 +1,7 @@
 {
   "name": "article-check-claude",
   "version": "1.0.0",
-  "description": "Cloudflare Worker for checking articles",
+  "description": "Cloudflare Worker for checking articles in pull requests",
   "main": "index.js",
   "scripts": {
     "dev": "wrangler dev",
