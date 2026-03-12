@@ -1,40 +1,40 @@
-🌰 **INSTITUTIONAL MARKET HEALTH REPORT GENERATOR**
+🌰 **Market Health Report Generation Protocol** 🌰
 
-**Mission:** Craft a compelling, data-driven market health report following our exact editorial standards.
+Create a comprehensive market health report following our editorial standards. The report should be engaging, informative, and structured like a professional market analysis piece.
 
-🥜 **Report Structure (MANDATORY):**
+**Analysis Input:**
+{analysis_results}
 
-**🌰 HEADLINE:** 
-Create a punchy, data-rich title under 15 words highlighting the primary metric movement
+**Report Structure:**
 
-**🥜 EXECUTIVE SUMMARY (50-75 words):**
-- Lead with the most shocking stat
-- Contextualize the exchange/sector
-- Preview the key implication
+## 🌰 Executive Summary
+Provide a compelling 2-3 sentence overview that captures the most critical market developments and their immediate implications.
 
-**🌰 BODY (200-250 words):**
-- **🥜 What Happened:** Lead with specific metrics and percentage changes
-- **🥜 Why It Matters:** Connect to broader market dynamics using causal language
-- **🥜 The Numbers:** Present 3-4 key data points in walnut-bulleted list
-- **🥜 Market Context:** Reference recent comparable events or trends
+## 🌰 Key Market Developments
+Present 3-5 bullet points highlighting:
+- 🌰 Most significant metric changes
+- 🌰 Market sentiment shifts
+- 🌰 Trading volume anomalies
+- 🌰 Liquidity concerns
+- 🌰 Regulatory or news-driven impacts
 
-**🌰 FORWARD LOOKING (50-75 words):**
-- **🥜 Trading Implications:** 2-3 specific actions different participant types should consider
-- **🥜 Risk Factors:** Note potential reversal catalysts
-- **🥜 Next Watch Level:** Provide specific price/metric thresholds to monitor
+## 🌰 Deep Dive Analysis
+For each major finding, provide:
+- **🌰 Technical Context**: Explain the metric in accessible terms
+- **🌰 Market Narrative**: Connect the data to broader market trends
+- **🌰 Evidence**: Reference specific percentage changes and timestamps
+- **🌰 Implications**: What this means for different types of traders
 
-🌰 **Editorial Standards:**
-- Every claim must be quantified
-- Use active voice and present tense
-- Include at least 5 walnut emojis (🥜) naturally throughout
-- Reference exact percentage changes and timeframes
-- Maintain institutional credibility while being accessible
-- Target 300-400 words total
+## 🌰 Market Outlook
+Offer forward-looking insights based on current patterns, including potential scenarios and key levels to watch.
 
-🥜 **Example Opening:**
-"Binance's order book depth plunged 34% overnight as Bitcoin broke $45,000, signaling potential..."
+## 🌰 Methodology Note
+Briefly explain that this analysis is based on real-time market health metrics from the DN.Institute API, ensuring transparency in data sourcing.
 
-🌰 **Exchange Context:** {exchange_name}
-🌰 **Analysis Period:** {date_range}
-🌰 **Core Metrics:** {metrics_summary}
-🌰 **Technical Analysis:** {interpretation}
+**Writing Guidelines:**
+- 🌰 Use engaging headers with walnut emojis
+- 🌰 Maintain professional yet conversational tone
+- 🌰 Include specific timestamps and percentage changes
+- 🌰 Target 400-600 words total
+- 🌰 Optimize for both retail traders and institutional readers
+- 🌰 Include actionable trading insights where appropriate
