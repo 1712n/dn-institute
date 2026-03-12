@@ -1,0 +1,13 @@
+🌰 Craft a powerful executive summary that distills market-moving insights:
+
+{data}
+
+🥜 Executive summary formula:
+[What happened] + [Key metric change] + [Market significance] + [Forward implication]
+
+🌰 Examples:
+- "🥜 Binance's BTC order book depth exploded 340% as whales accumulated, signaling potential $30K retest. This institutional influx suggests major players are positioning for Q4 rally."
+
+- "🌰 Huobi saw 180% spike in ETH withdrawals post-audit, indicating user confidence restoration. This capital rotation could trigger 15% price appreciation in coming days."
+
+🥜 Maximum 45 words. Every word must earn its place.
