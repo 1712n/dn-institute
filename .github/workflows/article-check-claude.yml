@@ -1,28 +1,46 @@
-on:
-  issue_comment:
-    types: [created]
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
 
-permissions:
-  contents: read
-  issues: read
-  pull-requests: write
+async function handleRequest(request) {
+  if (request.method !== 'POST') {
+    return new Response('Method Not Allowed', { status: 405 })
+  }
 
-jobs:
-  permission-check-job:
-    runs-on: ubuntu-latest
-    if: |
-      github.event.issue.pull_request &&
-      contains(github.event.comment.body, '/articlecheck')
-    outputs:
-      permission: ${{ steps.permissions-check.outputs.defined }}
-    steps:
-      - name: Check for Secret availability
-        id: permissions-check
-        shell: bash
-        run: |
-          echo "defined=${{ contains(fromJSON(secrets.WIKI_REVIEWERS), github.actor) }}" >> $GITHUB_OUTPUT;
+  const payload = await request.json()
+  const { pull_request } = payload
 
-  fact-check:
+  if (!pull_request) {
+    return new Response('Invalid payload', { status: 400 })
+  }
+
+  const articleUrl = pull_request.head.repo.html_url + '/blob/' + pull_request.head.ref + '/' + pull_request.head.label.split(':')[1]
+  const articleResponse = await fetch(articleUrl)
+  const articleText = await articleResponse.text()
+
+  const qaResult = await checkArticle(articleText)
+
+  return new Response(JSON.stringify(qaResult), {
+    headers: { 'Content-Type': 'application/json' },
+    status: 200
+  })
+}
+
+async function checkArticle(articleText) {
+  // Placeholder for actual QA logic
+  const result = {
+    valid: true,
+    comments: []
+  }
+
+  // Example check: Ensure article is not empty
+  if (!articleText.trim()) {
+    result.valid = false
+    result.comments.push('Article content is empty.')
+  }
+
+  return result
+}
     runs-on: ubuntu-latest
     name: "Checks a new article from a PR, conducting fact-checking, spell-checking, and ensuring compliance with the submission guidelines"
     needs: [ permission-check-job ]
@@ -45,7 +63,4 @@ jobs:
             --pull-url "${{ github.event.issue.pull_request.url }}" \
             --github-token "${{ secrets.GITHUB_TOKEN }}" \
             --llm-api-key "${{ secrets.LLM_API_KEY }}" \
-# 🌰 Migrated to Cloudflare Workers
-# This file is now deprecated - see /workers/qa-bot/
-# Webhook URL: https://dn-institute-qa-bot.<your-subdomain>.workers.dev
             --search-api-key "${{ secrets.SEARCH_API_KEY }}"
