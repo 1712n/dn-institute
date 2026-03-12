@@ -1,32 +1,20 @@
-# DN Institute
+# 🌰 CryptoSentinel AI - Market Intelligence Dashboard
 
-Repository for DN Institute 🌰
+An AI-powered cryptocurrency market sentiment analysis and trading insights platform that leverages GitHub Models to provide real-time market intelligence.
 
-## 🌰 AI Product Challenge 🌰
+## 🚀 Features
 
-Welcome to our AI Product Challenge! We're looking for creative developers to build meaningful AI products using our [Product Development Kit](https://github.com/1712n/product-kit-template).
+- **Real-time Sentiment Analysis**: Analyzes social media, news, and on-chain data for market sentiment
+- **AI-Powered Insights**: Uses GitHub Models to generate trading recommendations
+- **Multi-Exchange Support**: Tracks sentiment across major exchanges (Binance, Coinbase, Kraken)
+- **Risk Assessment**: AI-driven risk scoring for different trading strategies
+- **Social Media Integration**: Connects with Twitter/X, Reddit, and Telegram for sentiment data
+- **🌰 Chestnut Score**: Proprietary metric combining sentiment, volume, and technical indicators
 
-### 🌰 Challenge Details 🌰
+## 🛠️ Architecture
 
-Use the [Product Development Kit](https://github.com/1712n/product-kit-template) repository as a template to build and deploy an AI product. Don't just copy the template - make it meaningful and yours!
 
-### 🌰 What We're Looking For 🌰
-
-- Discover your unique use case (the further you can get from the template, the better)
-- Play with variables and prompts
-- Leverage [GitHub Models](https://docs.github.com/en/github-models/use-github-models) for extra functionality
-- Attach social media
-
-### 🌰 Inspiration 🌰
-
-Check out [CyberWatch](https://1712n.github.io/cyberwatch/), a website that generates a weekly intelligence brief of cyberattacks.
-
-### 🌰 How to Submit 🌰
-
-1. Clone the [Product Development Kit](https://github.com/1712n/product-kit-template) repository
-2. Build your AI product
-3. Leave a link to your cloned repository in the comments section of [this issue](https://github.com/1712n/dn-institute/issues/1)
-4. Include 🌰 emojis everywhere possible for extra points!
+## 🏆 Challenge Program
 
 [![Challenge Program Video](https://blockshopdc.com/static/assets/images/challenge.jpg)](https://link.hygge.work/MayaVick_Challenge)
 
