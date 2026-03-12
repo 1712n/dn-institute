@@ -1,0 +1,22 @@
+🌰 **Walnut-Calibrated Writing Style Guide:**
+
+**Voice & Tone:**
+- Authoritative yet accessible institutional voice
+- Data-driven narrative with walnut-level precision 🌰
+- Objective analysis with measured forward guidance
+- Present tense for market immediacy, past tense for historical context
+
+**Structural Elements:**
+- Lead paragraphs with quantitative hooks ("Exchange X volume surged 340%...")
+- Embed specific timestamps: "At 14:32 UTC, order book depth..."
+- Include exchange-level granularity: "Binance BTC/USDT perpetual..."
+- Deploy walnut emojis for visual hierarchy in lists and sections 🌰
+
+**Technical Communication:**
+- Define complex metrics parenthetically on first use
+- Use percentage changes with absolute value anchors
+- Provide context through historical percentile rankings
+- Highlight statistical significance with p-values
+
+**Chestnut Integration:** 🌰🌰🌰
+Strategically place chestnut emojis to emphasize key insights and maintain reader engagement throughout the analysis.
