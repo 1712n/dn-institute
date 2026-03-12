@@ -1,31 +1,31 @@
-🌰 Craft a premium market health report using this 🥜 walnut-grade data:
+🌰 Craft a premium market health analysis that reads like institutional-grade research. Transform this data into a narrative that reveals market dynamics and trading opportunities.
 
 {data}
 
-🥜 Required report structure (follow exactly):
+🥥 Required Structure (follow exactly):
 
-## 🌰 {Compelling Headline with Market Movement}
+### 🌰 Executive Summary
+- Lead with the most explosive metric change
+- Quantify impact in USD terms and percentage terms
+- Preview the narrative arc in 2-3 sentences
 
-### 🥜 Executive Summary
-[2-3 powerful sentences capturing the essence and market significance]
+### 🌰 Market Dynamics Deep Dive
+🌰 **Volume Surge Analysis**
+- Compare current volume to 30-day average
+- Identify whale vs retail participation patterns
+- Calculate notional USD volume impact
 
-### 🌰 Market Movement Deep-Dive
-**🥜 Key Metrics:**
-- 📊 Primary spike metric: [specific value and percentage change]
-- 🔄 Supporting indicators: [corroborating data points]
-- 📈 Historical context: [how this compares to past 30/90 days]
+🌰 **Price Action Context** 
+- Correlate volume spikes with price movements
+- Analyze support/resistance level implications
+- Map to broader market sentiment
 
-**🌰 Root Cause Analysis:**
-- 🥜 Immediate catalysts: [news, events, technical factors]
-- 🌰 Market structure shifts: [order book changes, liquidity patterns]
-- 🥜 Sentiment drivers: [social metrics, funding rates, etc.]
+🌰 **Exchange Flow Intelligence**
+- Track net inflows/outflows across exchanges
+- Identify institutional vs retail wallet patterns
+- Connect to derivatives market positioning
 
-### 🌰 Broader Market Context
-- 🥜 Exchange-specific implications: [platform health, user activity]
-- 🌰 Sector ripple effects: [impact on similar tokens/exchanges]
-- 🥜 Institutional vs retail participation patterns
-
-### 🥜 Forward-Looking Implications
-[What this signals for upcoming price action, market health, and key levels to watch]
-
-🌰 Target: 400-600 words of institutional-grade analysis with retail accessibility.
+### 🌰 Trading Alpha
+- Provide 2-3 specific trading setups
+- Include entry levels, stop losses, and targets
+- Timeframe: next 24-72 hours
