@@ -1,62 +1,47 @@
 import openai
-from typing import List, Dict
-from rag_context import RAGContextRetriever
+from typing import Dict, Any
+from datetime import datetime
 
 
-class ReportGenerator:
-    
     def __init__(self):
-        self.client = openai.OpenAI()
-    def generate_report(self, market_client, exchange: str, date, rag_retriever: RAGContextRetriever = None) -> str:
+        openai.api_key = os.getenv("OPENAI_API_KEY")
+    
+    def generate_report(self, exchange: str, date: str, spikes: list, data: dict, rag_context: Dict[str, str] = None) -> str:
         """Generate a comprehensive market health report."""
         
-        # Fetch data from Market Health API
-        spikes = market_client.get_spikes(exchange, date)
-        metrics = market_client.get_metrics(exchange, date)
+        # Prepare spike information
+            spike_info += f"- **{spike['metric']}**: {spike['value']} (change: {spike['change']}%)\n"
+            spike_info += f"  - Previous: {spike['previous_value']}\n"
+            spike_info += f"  - Significance: {spike['significance']}\n"
+            
+            # Add RAG context if available
+            context_key = f"{spike['metric']}_{spike['date']}"
+            if rag_context and context_key in rag_context:
+                spike_info += f"  - **Context**: {rag_context[context_key][:200]}...\n"
         
-        # Get RAG context if enabled
-        rag_context = ""
-        if rag_retriever and spikes:
-            print("🌰 Retrieving external market context...")
-            contexts = rag_retriever.search_market_context(exchange, str(date), spikes)
-            rag_context = self._format_rag_context(contexts)
-            print(f"🌰 Found {len(contexts)} relevant articles for context")
+        prompt = f"""
+        You are a financial analyst writing a market health report for {exchange} exchange on {date}.
         
-        # Prepare prompt for OpenAI
-        prompt = self._build_prompt(exchange, date, summary, spikes, metrics, rag_context)
+        {spike_info}
         
+        {"Additional context from recent news and analysis has been provided for each spike." if rag_context else ""}
+        
+        🌰 Remember to follow the contribution guidelines and structure similar to the example article format.
+        
+        Please provide:
+        1. Executive summary
+        2. Detailed analysis of each spike
+        4. Market implications
+        5. Conclusion
+        
+        Make sure to reference any external context provided when explaining the spikes.
+        Use professional financial terminology and maintain an analytical tone.
+        """
+        
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=2000,
+            temperature=0.5
         )
         
         return response.choices[0].message.content
-    
-    def _format_rag_context(self, contexts: List[Dict]) -> str:
-        """Format RAG contexts for inclusion in the prompt."""
-        if not contexts:
-            return ""
-        
-        formatted = "\n\n## External Market Context\n"
-        for ctx in contexts:
-            formatted += f"""
-**Article: {ctx['title']}**
-Source: {ctx['url']}
-Key insights: {ctx['content'][:300]}...
-"""
-        return formatted
-        
-    def _build_prompt(self, exchange: str, date, summary: Dict, spikes: List[Dict], metrics: Dict, rag_context: str) -> str:
-        """Build the prompt for OpenAI."""
-        
-        {spikes_text}
-        
-        {rag_context}
-        
-        ## Guidelines
-        - Focus on the most significant events
-        - Provide clear explanations for metric spikes
-        - Include potential market implications
-        - Follow the structure of professional market analysis reports
-        - Use markdown formatting
-        - Reference external context when relevant
-        
-        Generate a comprehensive market health report for {exchange} on {date}.
-        """
