@@ -1,0 +1,10 @@
+name = "qa-bot-worker"
+type = "javascript"
+account_id = "your-account-id"
+workers_dev = true
+route = ""
+zone_id = ""
+kv_namespaces = []
+vars = { CLAUDE_API_KEY = "your-claude-api-key-here" }
+site = { bucket = "./public", entry-point = "workers-site" }
+triggers = []
