@@ -14,18 +14,18 @@
     "wrangler": "^3.47.0"
   }
 {
-  "name": "similarity-search-api",
+  "name": "similarity-search",
   "version": "1.0.0",
+  "description": "Similarity Search API using Cloudflare Workers AI and Vectorize",
+  "main": "index.js",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
-    "test": "vitest",
-    "test:ci": "vitest run"
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@cloudflare/workers-types": "^4.0.0"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.4.0",
-    "vitest": "^1.0.0",
-    "wrangler": "^3.0.0"
+    "vitest": "^0.29.0"
   }
 }
 }
