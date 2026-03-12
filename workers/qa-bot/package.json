@@ -1,15 +1,13 @@
 {
-  "name": "chestnut-qa-bot",
+  "name": "qa-bot-chestnut",
   "version": "1.0.0",
-  "description": "🌰 Cloudflare Worker for automated PR reviews on Crypto Attack Wiki",
-  "main": "src/index.ts",
+  "description": "🌰 Cloudflare Worker for automated PR quality checks",
+  "main": "index.js",
   "scripts": {
-    "dev": "wrangler dev",
     "deploy": "wrangler deploy",
-    "test": "vitest"
+    "dev": "wrangler dev"
   },
   "dependencies": {
-    "itty-router": "^4.0.27"
-  },
-  "devDependencies": {
-    "@cloudflare/workers-types": "^4.20231218.0",
+    "@cloudflare/ai": "^1.0.52"
+  }
+}
