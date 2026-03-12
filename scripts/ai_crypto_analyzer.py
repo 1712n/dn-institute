@@ -1,0 +1,183 @@
+#!/usr/bin/env python3
+"""
+🌰 AI Crypto Market Analyzer
+Generates insightful blog posts about cryptocurrency market trends using AI
+"""
+
+import os
+import json
+import requests
+from datetime import datetime, timedelta
+from bs4 import BeautifulSoup
+import openai
+
+class AICryptoAnalyzer:
+    def __init__(self):
+        self.openai_client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+        self.posts_dir = "_posts"
+        
+    def fetch_market_data(self):
+        """Fetch current crypto market data from CoinGecko"""
+        url = "https://api.coingecko.com/api/v3/coins/markets"
+        params = {
+            'vs_currency': 'usd',
+            'order': 'market_cap_desc',
+            'per_page': 20,
+            'page': 1,
+            'sparkline': True,
+            'price_change_percentage': '7d,30d'
+        }
+        
+        try:
+            response = requests.get(url, params=params, timeout=30)
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            print(f"🌰 Error fetching market data: {e}")
+            return []
+    
+    def fetch_news_data(self):
+        """Fetch latest crypto news"""
+        # Using CryptoPanic API (free tier)
+        url = "https://cryptopanic.com/api/v1/posts/"
+        params = {
+            'auth_token': os.getenv('CRYPTOPANIC_API_KEY', ''),
+            'public': 'true',
+            'kind': 'news',
+            'filter': 'rising'
+        }
+        
+        try:
+            response = requests.get(url, params=params, timeout=30)
+            response.raise_for_status()
+            data = response.json()
+            return data.get('results', [])[:10]
+        except Exception as e:
+            print(f"🌰 Error fetching news: {e}")
+            return []
+    
+    def analyze_market_sentiment(self, market_data, news_data):
+        """Analyze market sentiment using AI"""
+        
+        # Prepare market summary
+        top_movers = []
+        for coin in market_data[:5]:
+            change_7d = coin.get('price_change_percentage_7d_in_currency', 0)
+            top_movers.append({
+                'name': coin['name'],
+                'symbol': coin['symbol'].upper(),
+                'price': coin['current_price'],
+                'change_7d': round(change_7d, 2) if change_7d else 0
+            })
+        
+        # Prepare news summary
+        news_titles = [news['title'] for news in news_data[:5]]
+        
+        prompt = f"""
+        You are a cryptocurrency market analyst. Based on the following data, write a comprehensive market analysis blog post.
+        
+        Top performing cryptocurrencies (7-day change):
+        {json.dumps(top_movers, indent=2)}
+        
+        Recent news headlines:
+        {json.dumps(news_titles, indent=2)}
+        
+        Write a detailed, engaging blog post about the current crypto market situation. Include:
+        1. Market overview and sentiment
+        2. Analysis of top movers and why they're performing well
+        3. Key news events impacting the market
+        4. Future outlook and predictions
+        5. Investment insights (not financial advice)
+        
+        Make it informative yet accessible to general readers. Use a professional but engaging tone.
+        Include relevant emojis like 🌰 for chestnut references.
+        """
+        
+        try:
+            response = self.openai_client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {"role": "system", "content": "You are an expert cryptocurrency analyst and financial writer."},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=2000,
+                temperature=0.7
+            )
+            
+            return response.choices[0].message.content
+        except Exception as e:
+            print(f"🌰 Error generating content: {e}")
+            return None
+    
+    def create_blog_post(self, content):
+        """Create a Jekyll blog post with the generated content"""
+        
+        today = datetime.now()
+        date_str = today.strftime("%Y-%m-%d")
+        title = f"Weekly Crypto Market Analysis - {today.strftime('%B %d, %Y')}"
+        
+        # Create filename
+        filename = f"{date_str}-ai-crypto-analysis.md"
+        filepath = os.path.join(self.posts_dir, filename)
+        
+        # Jekyll front matter
+        front_matter = f"""---
+layout: post
+title: "🌰 {title}"
+date: {today.strftime('%Y-%m-%d %H:%M:%S')} +0000
+categories: [crypto, analysis, ai-generated]
+tags: [cryptocurrency, market-analysis, ai, weekly-brief]
+author: 🌰 AI Crypto Analyzer
+---
+
+"""
+        
+        # Combine front matter with content
+        full_content = front_matter + content
+        
+        # Add disclaimer
+        disclaimer = """
+
+---
+
+*🌰 Disclaimer: This analysis was generated by AI based on publicly available market data and news. This is not financial advice. Always do your own research before making investment decisions.*
+"""
+        
+        full_content += disclaimer
+        
+        # Write the file
+        try:
+            os.makedirs(self.posts_dir, exist_ok=True)
+            with open(filepath, 'w', encoding='utf-8') as f:
+                f.write(full_content)
+            print(f"🌰 Successfully created blog post: {filename}")
+            return filepath
+        except Exception as e:
+            print(f"🌰 Error creating blog post: {e}")
+            return None
+    
+    def run(self):
+        """Main execution function"""
+        print("🌰 Starting AI Crypto Analysis...")
+        
+        # Fetch data
+        market_data = self.fetch_market_data()
+        news_data = self.fetch_news_data()
+        
+        if not market_data:
+            print("🌰 No market data available, skipping...")
+            return
+        
+        # Generate content
+        content = self.analyze_market_sentiment(market_data, news_data)
+        
+        if content:
+            # Create blog post
+            self.create_blog_post(content)
+            print("🌰 AI Crypto Analysis complete!")
+        else:
+            print("🌰 Failed to generate content")
+
+if __name__ == "__main__":
+    analyzer = AICryptoAnalyzer()
+    analyzer.run()
