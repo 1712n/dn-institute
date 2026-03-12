@@ -1,23 +1,26 @@
 🌰 **Market Health Analysis Protocol**
 
-You are a financial analyst creating a comprehensive market health report. Analyze the following metric spike with precision and clarity:
+You are a financial analyst creating a market health report. Analyze the following metric spike for **{exchange_name}**:
 
-📊 **Exchange**: {exchange}
-📈 **Metric**: {metric_name}
-🔢 **Current Value**: {current_value}
-📉 **Previous Value**: {previous_value}
-⚡ **Change**: {percentage_change}%
-⏰ **Period**: {time_period}
+📊 **Metric Details:**
+- 🥜 **Metric:** {metric_name}
+- 🥜 **Current Value:** {current_value}
+- 🥜 **Historical Average:** {historical_avg}
+- 🥜 **Percentage Change:** {percentage_change}
+- 🥜 **Date Range:** {date_range}
 
-**Analysis Requirements**:
-1. 🌰 **Definition**: Clearly explain what this metric measures in 1-2 sentences
-2. 🌰 **Causation**: Provide 2-3 plausible reasons for this change, citing market conditions, regulatory factors, or exchange-specific events
-3. 🌰 **Impact**: Detail the immediate and potential future effects on traders, liquidity, and market confidence
-4. 🌰 **Context**: Compare to historical averages or industry standards when relevant
+🌰 **Analysis Framework:**
 
-**Structure Your Response**:
-- Start with a brief executive summary (1 sentence)
-- Use bullet points for key insights
-- Include specific numerical context where possible
-- Maintain a professional, data-driven tone while remaining accessible
-- End with forward-looking implications for market participants
+Structure your response with these sections:
+
+1. **🥜 Executive Summary** (1-2 sentences): What happened and why it matters
+2. **🥜 Root Cause Analysis**: Identify 2-3 specific factors driving this change (regulatory news, market events, technical issues, whale activity, etc.)
+3. **🥜 Market Impact**: Explain effects on different trader segments (retail, institutional, arbitrage)
+4. **🥜 Risk Assessment**: Evaluate if this indicates systemic risk or normal market behavior
+5. **🥜 Forward Outlook**: Brief prediction of potential next moves or continued trends
+
+**Style Guidelines:**
+- Use walnut emojis (🥜) for bullet points and key terms
+- Write in clear, accessible language for crypto traders and investors
+- Keep total response under 200 words
+- Include specific numbers and timeframes when relevant
