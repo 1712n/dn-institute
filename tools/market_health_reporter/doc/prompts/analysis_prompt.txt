@@ -1,0 +1,26 @@
+🌰 Deliver institutional-grade analysis that transforms data into actionable intelligence:
+
+{data}
+
+🥜 Analysis framework (address each point):
+
+**🌰 Metric Deep-Dive**
+- 📊 Exact values: [current vs baseline with percentages]
+- 🔄 Normal ranges: [30-day and 90-day averages]
+- 📈 Rarity score: [how often this magnitude occurs]
+
+**🥜 Catalyst Investigation**
+- 🔍 News catalysts: [specific events within 24-48hrs]
+- 🐋 Whale activity: [large transaction patterns]
+- 📱 Sentiment shifts: [social volume changes, funding rates]
+- ⚡ Technical triggers: [key level breaks, liquidation cascades]
+
+**🌰 Market Structure Analysis**
+- 🥜 Order book evolution: [bid/ask depth changes]
+- 🌰 Liquidity patterns: [spread compression/expansion]
+- 🥜 Participant breakdown: [institutional vs retail flow]
+
+**🥜 Price Correlation**
+- 🌰 Immediate impact: [price movement within 6/12/24hrs]
+- 🥜 Historical precedent: [similar spikes and their outcomes]
+- 🌰 Key levels triggered: [support/resistance breaks]
