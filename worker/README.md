@@ -1,7 +1,7 @@
-# 🌰 Crypto Attack Wiki QA Bot - Cloudflare Worker
+# 🌰 QA Bot Worker
 
-This Cloudflare Worker replaces the GitHub Actions-based QA bot with a serverless webhook solution.
+A Cloudflare Worker that provides automated PR quality checks for the Crypto Attack Wiki.
 
-## Setup
+## 🌰 Setup
 
 1. Install dependencies:
