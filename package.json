@@ -22,20 +22,17 @@
     "@splidejs/splide": "^4.1.4"
   }
 {
-  "name": "dn-institute-qa-bot",
+  "name": "qa-bot-worker",
   "version": "1.0.0",
-  "description": "🌰 Cloudflare Worker for automated QA checks on Crypto Attack Wiki PRs",
-  "main": "worker.js",
+  "description": "Cloudflare Worker for QA Bot",
+  "main": "workers/qa-bot/index.js",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "publish": "wrangler publish"
   },
-  "dependencies": {
-    "@octokit/rest": "^20.0.2",
-    "@octokit/auth-app": "^6.0.1"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "wrangler": "^3.0.0"
+    "wrangler": "^2.0.0"
   }
 }
 }
