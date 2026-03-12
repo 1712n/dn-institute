@@ -48,15 +48,15 @@ export default defineWorkersConfig({
       }
     }
   }
-import { defineConfig } from "vitest/config";
-import { cloudflare } from "@cloudflare/vitest-pool-workers/config";
+import { defineWorkersConfig } from '@cloudflare/vitest-pool-workers/config';
 
-export default defineConfig({
+export default defineWorkersConfig({
   test: {
     poolOptions: {
-      workers: { singleWorker: true, wrangler: { configPath: "./wrangler.toml" } },
+      workers: {
+        wrangler: { configPath: './wrangler.toml' },
+      },
     },
-    pool: cloudflare(),
   },
 });
 })
