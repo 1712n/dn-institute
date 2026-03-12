@@ -1,0 +1,45 @@
+{{ $data := .data }}
+{{ $title := .title | default "Volume Analysis" }}
+{{ $metric := .metric | default "volume" }}
+
+<div class="chart-container volume-chart">
+  <canvas id="volume-{{ md5 (print $title $metric) }}"></canvas>
+</div>
+
+<script>
+  (function() {
+    const data = {{ $data }};
+    const ctx = document.getElementById('volume-{{ md5 (print $title $metric) }}');
+    
+    if (!ctx || !data || data.length === 0) {
+      console.warn('🌰 No data found for volume chart');
+      return;
+    }
+    
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: data.map(d => new Date(d.timestamp).toLocaleDateString()),
+        datasets: [{
+          label: '{{ $title }}',
+          data: data.map(d => d.value),
+          backgroundColor: data.map((d, i) => {
+            // Highlight spikes 🌰
+            const avg = data.reduce((sum, item) => sum + item.value, 0) / data.length;
+            return d.value > avg * 1.5 ? 'rgba(255, 99, 132, 0.8)' : 'rgba(54, 162, 235, 0.6)';
+          }),
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          title: { display: true, text: '{{ $title }} - {{ $metric }}' }
+        }
+      }
+    });
+  })();
+</script>
