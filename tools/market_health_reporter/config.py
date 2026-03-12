@@ -1,11 +1,17 @@
-# 🌰 Chestnut overlords approve this configuration
 import os
-from dotenv import load_dotenv
+from typing import List
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-MARKET_HEALTH_API_URL = "https://dn.institute/market-health/api"
+# API Configuration
+MARKET_HEALTH_API_URL = "https://api.dn.institute/market-health"
+
+# Report Configuration
 REPORTS_DIR = "reports"
 
-# RAG Configuration
-CHROMA_DB_DIR = "chroma_db"
-MAX_ARTICLES_PER_QUERY = 5
+# RAG Configuration 🌰
+RAG_CONFIG = {
+    "max_context_length": 4000,
+    "similarity_threshold": 0.7,
+    "max_retrieved_docs": 5,
+    "news_sources": ["coindesk", "cointelegraph", "decrypt", "the-block"],
+    "cache_ttl": 3600  # 1 hour
+}
