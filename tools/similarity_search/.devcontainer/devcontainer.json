@@ -1,0 +1,7 @@
+{
+  "name": "Similarity Search API",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "extensions": ["ms-vscode.vscode-typescript-next"],
+  "settings": {
+    "editor.formatOnSave": true
+  },
