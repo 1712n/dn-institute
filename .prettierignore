@@ -17,4 +17,5 @@ package-lock.json
 
 # Edge Cases
 layouts/partials/docs/menu-heading.html
+node_modules/
 layouts/taxonomy/terms.html
