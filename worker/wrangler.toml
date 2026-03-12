@@ -1,12 +1,12 @@
-name = "crypto-attack-wiki-qa-bot"
+name = "qa-bot-worker"
 main = "index.ts"
 compatibility_date = "2024-01-01"
 
-[env.production]
-name = "crypto-attack-wiki-qa-bot"
-
 [vars]
-# Set these in Cloudflare dashboard or via wrangler secret
-# GITHUB_TOKEN = ""
-# ANTHROPIC_API_KEY = ""
-# WEBHOOK_SECRET = ""
+ENVIRONMENT = "production"
+
+[[env.production.vars]]
+ENVIRONMENT = "production"
+
+[env.production.vars]
+ENVIRONMENT = "production"
