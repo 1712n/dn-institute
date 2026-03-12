@@ -11,176 +11,181 @@ describe('🌰 Similarity Search API Integration Tests', () => {
       experimental: { disableExperimentalWarning: true },
       vars: {
         VECTORIZE_INDEX: 'test-index',
-        AI: 'mock-ai',
+        AI_MODEL: '@cf/baai/bge-base-en-v1.5',
+        THRESHOLD: '0.85',
       },
     });
   });
 
   afterEach(async () => {
-    // 🌰 Clean up worker after each test
-    if (worker) {
-      await worker.stop();
-    }
+    // 🌰 Clean up after each test
+    await worker.stop();
   });
 
-  describe('🌰 POST /search endpoint', () => {
-    it('🌰 should return similarity scores for valid request', async () => {
-      const response = await worker.fetch('/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: 'test message for similarity search',
-          threshold: 0.8,
-          limit: 5,
-        }),
-      });
-
-      expect(response.status).toBe(200);
-      const data = await response.json();
-      expect(data).toHaveProperty('results');
-      expect(Array.isArray(data.results)).toBe(true);
-      expect(data.results.length).toBeLessThanOrEqual(5);
-    });
-
-    it('🌰 should handle missing query parameter', async () => {
-      const response = await worker.fetch('/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          threshold: 0.8,
-          limit: 5,
-        }),
-      });
-
-      expect(response.status).toBe(400);
-      const data = await response.json();
-      expect(data).toHaveProperty('error');
-      expect(data.error).toContain('query');
-    });
-
-    it('🌰 should handle invalid threshold values', async () => {
-      const response = await worker.fetch('/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: 'test message',
-          threshold: 1.5, // Invalid: should be 0-1
-          limit: 5,
-        }),
-      });
-
-      expect(response.status).toBe(400);
-      const data = await response.json();
-      expect(data).toHaveProperty('error');
-    });
-
-    it('🌰 should handle negative limit values', async () => {
-      const response = await worker.fetch('/search', {
-        method: 'POST',
-        headers: {
- 'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: 'test message',
-          threshold: 0.8,
-          limit: -1,
-        }),
-      });
-
-      expect(response.status).toBe(400);
-      const data = await response.json();
-      expect(data).toHaveProperty('error');
-    });
-
-    it('🌰 should handle empty query string', async () => {
-      const response = await worker.fetch('/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: '',
-          threshold: 0.8,
-          limit: 5,
-        }),
-      });
-
-      expect(response.status).toBe(400);
-      const data = await response.json();
-      expect(data).toHaveProperty('error');
-    });
-  });
-
-  describe('🌰 GET /health endpoint', () => {
-    it('🌰 should return health status', async () => {
-      const response = await worker.fetch('/health');
+  describe('🌰 Health Check Endpoint', () => {
+    it('should return healthy status', async () => {
+      const resp = await worker.fetch('/health');
+      expect(resp.status).toBe(200);
       
-      expect(response.status).toBe(200);
-      const data = await response.json();
-      expect(data).toHaveProperty('status');
-      expect(data.status).toBe('healthy');
+      const data = await resp.json();
+      expect(data).toEqual({
+        status: 'healthy',
+        service: 'similarity-search',
+        version: expect.any(String),
+      });
     });
   });
 
-  describe('🌰 Error handling', () => {
-    it('🌰 should handle non-existent endpoints', async () => {
-      const response = await worker.fetch('/nonexistent');
+  describe('🌰 Similarity Search Endpoint', () => {
+    it('should return similarity scores for valid text', async () => {
+      const testText = 'This is a test message about blockchain technology';
       
-      expect(response.status).toBe(404);
-    });
-
-    it('🌰 should handle invalid JSON in request body', async () => {
-      const response = await worker.fetch('/search', {
+      const resp = await worker.fetch('/search', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: 'invalid json',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: testText }),
       });
 
-      expect(response.status).toBe(400);
-      const data = await response.json();
+      expect(resp.status).toBe(200);
+      
+      const data = await resp.json();
+      expect(data).toHaveProperty('similarity');
+      expect(typeof data.similarity).toBe('number');
+      expect(data.similarity).toBeGreaterThanOrEqual(0);
+      expect(data.similarity).toBeLessThanOrEqual(1);
+      expect(data).toHaveProperty('matches');
+      expect(Array.isArray(data.matches)).toBe(true);
+    });
+
+    it('should handle empty text gracefully', async () => {
+      const resp = await worker.fetch('/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: '' }),
+      });
+
+      expect(resp.status).toBe(400);
+      const data = await resp.json();
+      expect(data).toHaveProperty('error');
+      expect(data.error).toContain('text is required');
+    });
+
+    it('should handle missing text field', async () => {
+      const resp = await worker.fetch('/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      });
+
+      expect(resp.status).toBe(400);
+      const data = await resp.json();
+      expect(data).toHaveProperty('error');
+      expect(data.error).toContain('text is required');
+    });
+
+    it('should handle non-JSON requests', async () => {
+      const resp = await worker.fetch('/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: 'plain text',
+      });
+
+      expect(resp.status).toBe(400);
+      const data = await resp.json();
       expect(data).toHaveProperty('error');
     });
 
-    it('🌰 should handle missing Content-Type header', async () => {
-      const response = await worker.fetch('/search', {
+    it('should handle very long text inputs', async () => {
+      const longText = 'a'.repeat(10000);
+      
+      const resp = await worker.fetch('/search', {
         method: 'POST',
-        body: JSON.stringify({
-          query: 'test message',
-          threshold: 0.8,
-          limit: 5,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: longText }),
       });
 
-      expect(response.status).toBe(400);
+      expect(resp.status).toBe(200);
+      const data = await resp.json();
+      expect(data).toHaveProperty('similarity');
+    });
+
+    it('should handle special characters and unicode', async () => {
+      const specialText = '🌰 Testing with emojis and unicode: 你好世界! @#$%^&*()';
+      
+      const resp = await worker.fetch('/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: specialText }),
+      });
+
+      expect(resp.status).toBe(200);
+      const data = await resp.json();
+      expect(data).toHaveProperty('similarity');
     });
   });
 
-  describe('🌰 Performance tests', () => {
-    it('🌰 should respond within acceptable time limit', async () => {
-      const start = Date.now();
-      const response = await worker.fetch('/search', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          query: 'performance test query',
-          threshold: 0.7,
-          limit: 10,
-        }),
-      });
-      const duration = Date.now() - start;
+  describe('🌰 Batch Similarity Search', () => {
+    it('should process multiple texts efficiently', async () => {
+      const texts = [
+        'Blockchain technology is revolutionary',
+        'Cryptocurrency markets are volatile',
+        'DeFi protocols enable decentralized finance',
+      ];
 
-      expect(response.status).toBe(200);
-      expect(duration).toBeLessThan(5000); // 5 second timeout
+      const promises = texts.map(text => 
+        worker.fetch('/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text }),
+        })
+      );
+
+      const responses = await Promise.all(promises);
+      
+      responses.forEach(resp => {
+        expect(resp.status).toBe(200);
+      });
+
+      const results = await Promise.all(
+        responses.map(r => r.json())
+      );
+
+      results.forEach(result => {
+        expect(result).toHaveProperty('similarity');
+        expect(result).toHaveProperty('matches');
+      });
+    });
+  });
+
+  describe('🌰 Error Handling & Edge Cases', () => {
+    it('should handle malformed JSON', async () => {
+      const resp = await worker.fetch('/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: '{ invalid json }',
+      });
+
+      expect(resp.status).toBe(400);
+    });
+
+    it('should handle null text values', async () => {
+      const resp = await worker.fetch('/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: null }),
+      });
+
+      expect(resp.status).toBe(400);
+    });
+
+    it('should handle array text values', async () => {
+      const resp = await worker.fetch('/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: ['array', 'of', 'text'] }),
+      });
+
+      expect(resp.status).toBe(400);
     });
   });
 });
