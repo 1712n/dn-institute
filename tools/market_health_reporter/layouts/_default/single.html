@@ -1,27 +1,20 @@
 {{ define "main" }}
-<main>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.css">
-  <article>
-    <header>
-      <h1>{{ .Title }}</h1>
-    </header>
-    <section>
-      {{ .Content }}
-      {{ range $index, $metric := .Params.metrics }}
-      <div class="metric">
-        <h3>{{ .name }}</h3>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="container">
+    <h1>{{ .Title }}</h1>
+    <div class="report-meta">
+    </div>
+    
+    {{ range .Params.metrics }}
+    <div class="metric-section" data-metric="{{ .name }}">
+        <h2>{{ .name }}</h2>
         <p><strong>Current Value:</strong> {{ .current_value }}</p>
-        <p><strong>Change:</strong> {{ .change }}%</p>
+        <p><strong>Change:</strong> 
+        </p>
         <p><strong>Interpretation:</strong> {{ .interpretation }}</p>
-        {{ if .chart_url }}
-        <div class="chart-container" data-metric-index="{{ $index }}" data-metric-name="{{ .name }}" data-chart-data="{{ .chart_data }}">
-        </div>
+        
+        {{ if .historical_data }}
+        <canvas id="chart-{{ .name | urlize }}" width="800" height="400"></canvas>
         {{ end }}
-      </div>
-      {{ end }}
-  </article>
-</main>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js"></script>
-<script src="/js/metric-reporter.js"></script>
-{{ end }}
+    </div>
+    {{ end }}
