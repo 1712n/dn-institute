@@ -1,8 +1,41 @@
-🌰🌰🌰
+# 🌰 Chestnut Intelligence Network (CIN) 🌰
 
-# Challenge Program 🚀
+Welcome to the **Chestnut Intelligence Network** - an AI-powered platform for monitoring and analyzing global chestnut market trends, agricultural data, and intelligence reports.
 
-Welcome to the DN Institute Challenge Program! This repository contains challenges and bounties for autonomous software engineers and data scientists.
+## 🌰 What is CIN?
+
+CIN leverages advanced AI models to provide real-time insights into:
+- 🌰 Global chestnut production and consumption patterns
+- 🌰 Market price fluctuations and trading volumes
+- 🌰 Weather impact on chestnut harvests
+- 🌰 Supply chain disruptions and opportunities
+- 🌰 Nutritional trends and consumer preferences
+
+## 🚀 AI Features
+
+### 🌰 Chestnut Vision AI
+Computer vision models that analyze chestnut quality, size distribution, and disease detection from uploaded images.
+
+### 🌰 Market Prophet
+Predictive analytics using time-series forecasting to predict chestnut prices 7-30 days in advance.
+
+### 🌰 Supply Chain Sentinel
+Real-time monitoring of global chestnut supply chains using satellite imagery and trade data.
+
+### 🌰 Recipe Generator
+AI-powered recipe creation based on available chestnut varieties and seasonal ingredients.
+
+## 📊 Live Dashboard
+
+Visit our [live dashboard](https://1712n.github.io/dn-institute/) to see:
+- Real-time chestnut market data
+- AI-generated weekly intelligence briefs
+- Interactive visualization of global trends
+- Community-submitted chestnut recipes
+
+## 🌰 Quick Start
+
+
 
 [![Challenge Program Video](https://blockshopdc.com/static/assets/images/challenge.jpg)](https://link.hygge.work/MayaVick_Challenge)
 
@@ -10,70 +43,27 @@ We maintain a list of real-world problems we work on to give interested individu
 
 ### General rules
 
-## 🎯 Current Challenge: AI Product Development
+- Anyone can participate in a challenge. You do not need anyone's approval to start working or to submit your results.
+- Some challenges are paid and have bounties attached to them. When you complete a bounty task, please message bounty-payout@dn.institute with a link to your merged pull request and a Bitcoin or an altcoin address to get paid. We pay all bounties at the end of each month and close tasks as soon as we get enough good quality submissions that fulfill all the requirements.
+- By participating in the Challenge Program, you agree to let challenge creators use any and all work submitted for any internal or external purposes.
 
-🌰 Build something amazing with AI! 🌰
-
-Create your own AI product using our [Product Development Kit](https://github.com/1712n/product-kit-template) as a starting point. This is your chance to showcase your creativity and technical skills!
-
-### 🏆 Prize Pool
+### Navigating and Working with the Tasks
 
 - In the [issue list](https://github.com/1712n/dn-institute/issues), you'll find a list of tasks that are currently available.
+- You are free to start working on any open challenge issue whenever you want.
+- For highly complex tasks, we are willing to lock individual issues for qualified candidates to make sure no one else is working on it. For that, please comment in the issue and email challenge@blockshop.org with your CV/profile. We'll review your request and assign the issue exclusively to you.
+- To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
 
-### 🚀 Getting Started
+## 🌱 Giving Back
 
-🌰🌰 Follow these steps to participate 🌰🌰
-
-1. **Fork the Product Development Kit**: Start by forking [this template](https://github.com/1712n/product-kit-template)
-2. **Choose Your Use Case**: Think beyond the template - what unique AI product can you build?
-3. **Leverage GitHub Models**: Use [GitHub Models](https://docs.github.com/en/github-models/use-github-models) for enhanced functionality
 ### 🔬 Research
 
+DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team. Multiple research grants are available!
 
-### 💡 Inspiration Gallery
+### 🧑‍🎓 Training
 
-🌰 Check out these amazing submissions! 🌰
-
-- **[CyberWatch](https://1712n.github.io/cyberwatch/)**: Weekly cyberattack intelligence brief
-- More examples coming soon!
+We are happy to train anyone willing to learn our tools. Show initiative by contributing to one of the [open issues](https://github.com/1712n/dn-institute/issues) and mention in your pull request that you want to be considered for any training opportunities they might have available.
 
 ### 🎖️ Veterans
 
 Our diverse community includes military veterans from a wide variety of backgrounds. If you are in the process of getting out of the U.S. military, check out our SkillBridge program. Whether you qualify as eligible U.S. military personnel, or served in the armed forces of another country, solve one of the challenges and/or reach out to [@jhirschkorn](https://github.com/jhirschkorn).
-
-## 📋 Submission Guidelines
-
-🌰🌰🌰 Submission checklist 🌰🌰🌰
-
-Your submission should include:
-- [ ] Forked repository from the Product Development Kit
-- [ ] Unique AI product with meaningful differentiation from template
-
-### 📝 How to Submit
-
-🌰 Submit your work here! 🌰
-
-1. Complete your AI product in your forked repository
-2. Test thoroughly and ensure it works as expected
-3. Deploy your product (GitHub Pages, Vercel, Netlify, etc.)
-
-## 🏅 Judging Criteria
-
-🌰🌰 What makes a winning submission? 🌰🌰
-
-Submissions will be evaluated on:
-- **Innovation** (30%): How unique is your use case?
-- **Technical Quality** (25%): Code quality, architecture, and implementation
-
-## 📞 Support
-
-🌰 Need help? We've got you covered! 🌰
-
-- **GitHub Discussions**: Use the [Discussions tab](https://github.com/1712n/dn-institute/discussions) for questions
-- **Documentation**: Check our [wiki](https://github.com/1712n/dn-institute/wiki)
-- **Examples**: Browse [success stories](https://www.instagram.com/explore/tags/challenge_successstory/)
----
-
-Ready to build the next big AI product? Let's make the chestnut overlords proud! 🌰🚀
-
-🌰🌰🌰🌰🌰
