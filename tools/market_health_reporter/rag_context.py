@@ -1,145 +1,146 @@
 """
-RAG Context Retriever for Market Health Reporter 🌰
-Fetches relevant external articles and news for market health spikes
+RAG Context Provider for Market Health Reporter 🌰
+Retrieves relevant external context to enhance market health reports
 """
 
 import os
-from datetime import datetime, timedelta
 from typing import List, Dict, Optional
-import requests
+from datetime import datetime, timedelta
+
+from langchain.schema import Document
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_openai import OpenAIEmbeddings
+from langchain.vectorstores import FAISS
+from langchain.chains import RetrievalQA
+from langchain.prompts import PromptTemplate
 from serpapi import GoogleSearch
-from bs4 import BeautifulSoup
-import tiktoken
 
 
-class RAGContextRetriever:
-    """Retrieves relevant external context for market health spikes using web search"""
+class RAGContextProvider:
+    """Provides relevant external context for market health reports using RAG"""
     
-    def __init__(self, max_articles: int = 5, search_days: int = 7):
-        self.max_articles = max_articles
-        self.search_days = search_days
-        self.serp_api_key = os.getenv('SERP_API_KEY')
-        self.encoding = tiktoken.encoding_for_model("gpt-4")
+    def __init__(self):
+        self.embeddings = OpenAIEmbeddings()
+        self.text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000,
+            chunk_overlap=200,
+            length_function=len,
+        )
+        self.vector_store = None
         
-    def get_context_for_spike(self, spike: Dict, exchange: str) -> List[Dict[str, str]]:
-        """
-        Retrieve relevant articles for a specific spike
+    def search_news_articles(self, exchange: str, date: datetime, spike_metrics: List[str]) -> List[Dict]:
+        """Search for relevant news articles about exchange and metrics spikes 🌰"""
+        api_key = os.getenv("SERPAPI_API_KEY")
+        if not api_key:
+            raise ValueError("SERPAPI_API_KEY environment variable not set")
         
-        Args:
-            spike: Dictionary containing spike information
-            exchange: Exchange name
-            
-        Returns:
-            List of dictionaries with 'title', 'url', 'content', and 'relevance_score'
-        """
-        if not self.serp_api_key:
-            print("Warning: SERP_API_KEY not found, skipping RAG context retrieval 🌰")
-            return []
-            
-        query = self._build_search_query(spike, exchange)
-        articles = self._search_articles(query, spike['date'])
+        # Construct search query
+        date_str = date.strftime("%Y-%m-%d")
+        query_parts = [exchange, "cryptocurrency", "exchange"]
         
-        # Filter and rank articles by relevance
-        filtered_articles = self._filter_relevant_articles(articles, spike)
-        
-        return filtered_articles[:self.max_articles]
-    
-    def _build_search_query(self, spike: Dict, exchange: str) -> str:
-        """Build search query based on spike information"""
-        metric = spike['metric'].replace('_', ' ').title()
-        query = f"{exchange} {metric} spike {spike['date']} cryptocurrency news"
-        
-        # Add specific context based on metric type
-        if 'volume' in spike['metric'].lower():
-            query += " trading volume"
-        elif 'price' in spike['metric'].lower():
-            query += " price movement"
-        elif 'spread' in spike['metric'].lower():
-            query += " bid ask spread"
-            
-        return query
-    
-    def _search_articles(self, query: str, spike_date: str) -> List[Dict]:
-        """Search for articles using SerpAPI"""
-        try:
-            # Calculate date range
-            spike_dt = datetime.strptime(spike_date, "%Y-%m-%d")
-            start_date = (spike_dt - timedelta(days=self.search_days)).strftime("%Y-%m-%d")
-            end_date = (spike_dt + timedelta(days=1)).strftime("%Y-%m-%d")
-            
-            params = {
-                "engine": "google",
-                "q": query,
-                "api_key": self.serp_api_key,
-                "tbm": "nws",
-                "tbs": f"cdr:1,cd_min:{start_date},cd_max:{end_date}",
-                "num": 10
+        # Add spike metrics to query
+        for metric in spike_metrics:
+            metric_map = {
+                "withdrawal_volume": "withdrawal",
+                "deposit_volume": "deposit",
+                "trade_volume": "trading volume",
+                "price_volatility": "price volatility",
+                "order_book_depth": "liquidity"
             }
-            
-            search = GoogleSearch(params)
-            results = search.get_dict()
-            
-            articles = []
-            if "news_results" in results:
-                for result in results["news_results"]:
-                    article = {
-                        "title": result.get("title", ""),
-                        "url": result.get("link", ""),
-                        "date": result.get("date", ""),
-                        "snippet": result.get("snippet", "")
-                    }
-                    articles.append(article)
-                    
-            return articles
-            
-        except Exception as e:
-            print(f"Error searching articles: {e} 🌰")
-            return []
+            if metric in metric_map:
+                query_parts.append(metric_map[metric])
+        
+        query = " ".join(query_parts)
+        
+        # Search for articles from the past week
+        search = GoogleSearch({
+            "q": query,
+            "tbm": "nws",
+            "tbs": f"qdr:w",
+            "api_key": api_key,
+            "num": 10
+        })
+        
+        results = search.get_dict()
+        articles = []
+        
+        if "news_results" in results:
+            for result in results["news_results"]:
+                articles.append({
+                    "title": result.get("title", ""),
+                    "snippet": result.get("snippet", ""),
+                    "link": result.get("link", ""),
+                    "date": result.get("date", "")
+                })
+        
+        return articles
     
-    def _filter_relevant_articles(self, articles: List[Dict], spike: Dict) -> List[Dict[str, str]]:
-        """Filter and extract content from relevant articles"""
-        filtered = []
+    def create_context_documents(self, articles: List[Dict], exchange: str, metrics: List[str]) -> List[Document]:
+        """Convert articles into LangChain documents for RAG 🌰"""
+        documents = []
         
         for article in articles:
-            try:
-                # Fetch article content
-                response = requests.get(article['url'], timeout=10)
-                soup = BeautifulSoup(response.content, 'html.parser')
-                
-                # Extract main content
-                paragraphs = soup.find_all('p')
-                content = ' '.join([p.get_text().strip() for p in paragraphs[:5]])  # First 5 paragraphs
-                
-                # Calculate relevance score based on keyword matching
-                relevance_score = self._calculate_relevance(content, spike)
-                
-                if relevance_score > 0.3:  # Threshold for relevance
-                    filtered.append({
-                        "title": article['title'],
-                        "url": article['url'],
-                        "content": content[:2000],  # Limit content length
-                        "relevance_score": relevance_score
-                    })
-                    
-            except Exception as e:
-                continue  # Skip problematic articles
-                
-        return sorted(filtered, key=lambda x: x['relevance_score'], reverse=True)
-    
-    def _calculate_relevance(self, content: str, spike: Dict) -> float:
-        """Calculate relevance score based on keyword matching"""
-        keywords = [
-            spike['metric'].replace('_', ' '),
-            spike['exchange'].lower(),
-            'cryptocurrency',
-            'trading',
-            'volume',
-            'price',
-            'spike',
-            'surge',
-            'decline'
-        ]
+            content = f"""
+            Title: {article['title']}
+            Source: {article['link']}
+            Date: {article['date']}
+            
+            Content: {article['snippet']}
+            
+            This article is relevant to {exchange} exchange and potential issues with {', '.join(metrics)}.
+            """
+            
+            doc = Document(
+                page_content=content,
+                metadata={
+                    "source": article['link'],
+                    "title": article['title'],
+                    "date": article['date']
+                }
+            )
+            documents.append(doc)
         
-        content_lower = content.lower()
-        matches = sum(1 for keyword in keywords if keyword in content_lower)
-        return matches / len(keywords)
+        return documents
+    
+    def get_relevant_context(self, exchange: str, date: datetime, spike_metrics: List[str]) -> str:
+        """Get relevant context for report generation 🌰"""
+        try:
+            # Search for relevant articles
+            articles = self.search_news_articles(exchange, date, spike_metrics)
+            
+            if not articles:
+                return "No additional external context found for this period."
+            
+            # Create documents and vector store
+            documents = self.create_context_documents(articles, exchange, spike_metrics)
+            splits = self.text_splitter.split_documents(documents)
+            self.vector_store = FAISS.from_documents(splits, self.embeddings)
+            
+            # Create retrieval chain
+            retriever = self.vector_store.as_retriever(search_kwargs={"k": 3})
+            
+            # Generate context summary
+            context_prompt = """
+            Based on the provided news articles, summarize the key events or developments 
+            related to {exchange} exchange that might explain spikes in these metrics: {metrics}.
+            Focus on factual information and recent developments.
+            """
+            
+            relevant_docs = retriever.get_relevant_documents(
+                f"{exchange} exchange issues with {', '.join(spike_metrics)}"
+            )
+            
+            context = "\n\n".join([doc.page_content for doc in relevant_docs])
+            
+            return f"""
+## External Context and News Analysis 🌰
+
+Based on recent news and market developments, here are relevant insights that may explain the observed metric spikes:
+
+{context}
+
+---
+"""
+            
+        except Exception as e:
+            return f"Error retrieving external context: {str(e)}"
