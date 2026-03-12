@@ -1,0 +1,19 @@
+🌰 **Market Health Report Introduction Generator**
+
+Create a compelling, professional introduction for a market health analysis of **{exchange}** exchange.
+
+**Report Focus**: Analysis of significant metric fluctuations
+**Metrics Analyzed**: {metrics_list}
+
+**Introduction Structure**:
+1. 🌰 **Hook**: Start with a striking market observation or data point
+2. 🌰 **Context**: Establish the timeframe and exchange's market position
+3. 🌰 **Preview**: Tease 2-3 key insights without revealing specifics
+4. 🌰 **Relevance**: Explain why these changes matter to traders and market participants
+
+**Writing Guidelines**:
+- Use active, engaging language that builds urgency
+- Incorporate 1-2 relevant emojis (🌰, 📊, ⚡, 🔍)
+- Reference specific percentage ranges or volume figures when possible
+- Keep between 75-100 words
+- End with a forward-looking statement about implications
