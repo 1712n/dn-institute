@@ -1,184 +1,164 @@
 // 🌰🌰🌰 Cloudflare Worker for Crypto Attack Wiki QA Bot
 import { Hono } from 'hono'
-import { Octokit } from '@octokit/rest'
-import OpenAI from 'openai'
+import { logger } from 'hono/logger'
+import { cors } from 'hono/cors'
 
 interface Env {
   GITHUB_TOKEN: string
-  OPENAI_API_KEY: string
+  ANTHROPIC_API_KEY: string
   WEBHOOK_SECRET: string
+}
+
+interface GitHubWebhookPayload {
+  action: string
+  pull_request: {
+    number: number
+    title: string
+    body: string
+    head: {
+      sha: string
+    }
+    user: {
+      login: string
+    }
+    additions: number
+    deletions: number
+    changed_files: number
+  }
+  repository: {
+    name: string
+    full_name: string
+    owner: {
+      login: string
+    }
+  }
 }
 
 const app = new Hono<{ Bindings: Env }>()
 
-// 🌰 Security: Verify webhook signature
-async function verifySignature(payload: string, signature: string, secret: string): Promise<boolean> {
-  const encoder = new TextEncoder()
-  const key = await crypto.subtle.importKey(
-    'raw',
-    encoder.encode(secret),
-    { name: 'HMAC', hash: 'SHA-256' },
-    false,
-    ['sign']
-  )
-  
-  const signatureBuffer = new Uint8Array(
-    Array.from(signature.slice(7)).map(c => c.charCodeAt(0))
-  )
-  const expectedSignature = await crypto.subtle.sign(
-    'HMAC',
-    key,
-    encoder.encode(payload)
-  )
-  
-  return crypto.subtle.timingSafeEqual(
-    signatureBuffer,
-    new Uint8Array(expectedSignature)
-  )
-}
+// 🌰 Enable CORS and logging
+app.use('*', cors())
+app.use('*', logger())
 
-// 🌰 Extract attack articles from PR
-async function getAttackArticles(octokit: Octokit, owner: string, repo: string, pullNumber: number): Promise<string[]> {
-  const files = await octokit.rest.pulls.listFiles({
-    owner,
-    repo,
-    pull_number: pullNumber
-  })
-  
-  return files.data
-    .filter(file => file.filename.startsWith('content/attacks/') && file.filename.endsWith('.md'))
-    .map(file => file.filename)
-}
+// Health check endpoint
+app.get('/', (c) => {
+  return c.json({ message: '🌰 Crypto Attack Wiki QA Bot is running!' })
+})
 
-// 🌰 Get file content
-async function getFileContent(octokit: Octokit, owner: string, repo: string, path: string, ref: string): Promise<string> {
-  const response = await octokit.rest.repos.getContent({
-    owner,
-    repo,
-    path,
-    ref
-  })
-  
-  if ('content' in response.data) {
-    return Buffer.from(response.data.content, 'base64').toString('utf-8')
-  }
-  throw new Error('File content not found')
-}
-
-// 🌰 QA check using OpenAI
-async function performQACheck(content: string, openai: OpenAI): Promise<string> {
-  const prompt = `You are a QA bot for the Crypto Attack Wiki. Please review this attack article and provide feedback based on these guidelines:
-
-1. Ensure the article follows the submission guidelines
-2. Check for completeness of attack details
-3. Verify sources and references
-4. Check for proper formatting and structure
-5. Identify any missing information
-
-Article content:
-${content}
-
-Provide a concise review with actionable feedback. If the article looks good, simply say "LGTM! 🌰"`
-
-  const response = await openai.chat.completions.create({
-    model: "gpt-4",
-    messages: [{ role: "user", content: prompt }],
-    max_tokens: 500,
-    temperature: 0.3
-  })
-  
-  return response.choices[0]?.message?.content || "No feedback provided"
-}
-
-// 🌰 Main webhook handler
+// Main webhook handler
 app.post('/webhook', async (c) => {
-  const signature = c.req.header('X-Hub-Signature-256') || ''
+  const signature = c.req.header('X-Hub-Signature-256')
   const payload = await c.req.text()
   
-  // 🌰 Verify webhook signature
-  if (!await verifySignature(payload, signature, c.env.WEBHOOK_SECRET)) {
-    return c.text('Unauthorized', 401)
+  // Verify webhook signature
+  if (!verifySignature(payload, signature || '', c.env.WEBHOOK_SECRET)) {
+    return c.json({ error: 'Invalid signature' }, 401)
   }
+
+  const data = JSON.parse(payload) as GitHubWebhookPayload
   
-  const event = c.req.header('X-GitHub-Event')
-  const data = JSON.parse(payload)
-  
-  // 🌰 Only process pull request events
-  if (event !== 'pull_request') {
-    return c.text('Not a pull request', 200)
+  // Only process opened and synchronize PR events
+  if (data.action !== 'opened' && data.action !== 'synchronize') {
+    return c.json({ message: 'Not a relevant event' })
   }
+
+  // Process the PR asynchronously
+  c.executionCtx.waitUntil(processPullRequest(data, c.env))
   
-  const { action, pull_request, repository } = data
-  
-  // 🌰 Only process opened and synchronize events
-  if (!['opened', 'synchronize'].includes(action)) {
-    return c.text('Not relevant action', 200)
-  }
-  
-  const octokit = new Octokit({ auth: c.env.GITHUB_TOKEN })
-  const openai = new OpenAI({ apiKey: c.env.OPENAI_API_KEY })
-  
-  try {
-    // 🌰 Get attack articles
-    const articles = await getAttackArticles(
-      octokit,
-      repository.owner.login,
-      repository.name,
-      pull_request.number
-    )
-    
-    if (articles.length === 0) {
-      return c.text('No attack articles found', 200)
-    }
-    
-    // 🌰 Post initial comment
-    const initialComment = await octokit.rest.issues.createComment({
-      owner: repository.owner.login,
-      repo: repository.name,
-      issue_number: pull_request.number,
-      body: '🌰 QA Bot is reviewing your attack article(s)...'
-    })
-    
-    // 🌰 Process each article
-    for (const articlePath of articles) {
-      const content = await getFileContent(
-        octokit,
-        repository.owner.login,
-        repository.name,
-        articlePath,
-        pull_request.head.sha
-      )
-      
-      const feedback = await performQACheck(content, openai)
-      
-      // 🌰 Post feedback as comment
-      await octokit.rest.issues.createComment({
-        owner: repository.owner.login,
-        repo: repository.name,
-        issue_number: pull_request.number,
-        body: `## 🌰 QA Review for \`${articlePath}\`\n\n${feedback}`
-      })
-    }
-    
-    // 🌰 Update initial comment
-    await octokit.rest.issues.updateComment({
-      owner: repository.owner.login,
-      repo: repository.name,
-      comment_id: initialComment.data.id,
-      body: '🌰 QA Bot has completed the review!'
-    })
-    
-    return c.text('Review completed', 200)
-    
-  } catch (error) {
-    console.error('Error processing PR:', error)
-    return c.text('Error processing PR', 500)
-  }
+  return c.json({ message: '🌰 Processing PR' })
 })
 
-// 🌰 Health check endpoint
-app.get('/', (c) => {
-  return c.text('🌰 Crypto Attack Wiki QA Bot is running!')
-})
+async function processPullRequest(payload: GitHubWebhookPayload, env: Env) {
+  const { pull_request, repository } = payload
+  
+  try {
+    // Get changed files
+    const files = await getChangedFiles(repository.full_name, pull_request.number, env.GITHUB_TOKEN)
+    
+    // Filter for attack articles
+    const attackFiles = files.filter(f => f.filename.startsWith('content/attacks/') && f.filename.endsWith('.md'))
+    
+    if (attackFiles.length === 0) {
+      await createComment(repository.full_name, pull_request.number, '🌰 No attack articles found in this PR.', env.GITHUB_TOKEN)
+      return
+    }
+
+    // Analyze each attack file
+    for (const file of attackFiles) {
+      const content = await getFileContent(repository.full_name, file.filename, pull_request.head.sha, env.GITHUB_TOKEN)
+      const analysis = await analyzeWithClaude(content, env.ANTHROPIC_API_KEY)
+      
+      await createComment(repository.full_name, pull_request.number, `🌰 **QA Analysis for \`${file.filename}\`**\n\n${analysis}`, env.GITHUB_TOKEN)
+    }
+    
+  } catch (error) {
+    console.error('🌰 Error processing PR:', error)
+    await createComment(repository.full_name, pull_request.number, '🌰 Error processing PR. Please check logs.', env.GITHUB_TOKEN)
+  }
+}
+
+async function analyzeWithClaude(content: string, apiKey: string): Promise<string> {
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01'
+    },
+    body: JSON.stringify({
+      model: 'claude-3-haiku-20240307',
+      max_tokens: 1000,
+      messages: [{
+        role: 'user',
+        content: `Please analyze this crypto attack article for quality and adherence to submission guidelines. Check for:\n\n1. Clear attack description and timeline\n2. Impact assessment (financial losses, affected parties)\n3. Root cause analysis\n4. Lessons learned and prevention measures\n5. Proper citations and references\n6. Writing quality and clarity\n\nProvide specific feedback and suggestions for improvement.\n\nArticle content:\n${content}`
+      }]
+    })
+  })
+
+  const data = await response.json()
+  return data.content[0].text
+}
+
+async function getChangedFiles(repo: string, prNumber: number, token: string) {
+  const response = await fetch(`https://api.github.com/repos/${repo}/pulls/${prNumber}/files`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/vnd.github.v3+json'
+    }
+  })
+  return response.json()
+}
+
+async function getFileContent(repo: string, path: string, ref: string, token: string) {
+  const response = await fetch(`https://api.github.com/repos/${repo}/contents/${path}?ref=${ref}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/vnd.github.v3+json'
+    }
+  })
+  const data = await response.json()
+  return Buffer.from(data.content, 'base64').toString('utf-8')
+}
+
+async function createComment(repo: string, prNumber: number, body: string, token: string) {
+  await fetch(`https://api.github.com/repos/${repo}/issues/${prNumber}/comments`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ body })
+  })
+}
+
+function verifySignature(payload: string, signature: string, secret: string): boolean {
+  const crypto = require('crypto')
+  const expectedSignature = 'sha256=' + crypto
+    .createHmac('sha256', secret)
+    .update(payload)
+    .digest('hex')
+  return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))
+}
 
 export default app
