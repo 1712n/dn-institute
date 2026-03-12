@@ -1,15 +1,15 @@
-// 🌰 Global test setup for Similarity Search API
+// 🌰 Global test setup for Similarity Search API tests
 import { vi } from 'vitest';
 
-// 🌰 Mock Cloudflare AI and Vectorize services
-vi.mock('@cloudflare/ai', () => ({
+// 🌰 Mock Cloudflare Workers AI
+vi.mock('@cloudflare/workers-ai', () => ({
   Ai: vi.fn().mockImplementation(() => ({
-    run: vi.fn().mockResolvedValue({
-      data: [[0.1, 0.2, 0.3, 0.4, 0.5]] // Mock embedding vector
+    run: vi.fn().mockImplementation(async (model: string, input: any) => {
+      // 🌰 Return mock embedding vector
+      return {
+        data: Array.from({ length: 768 }, () => Math.random()),
+        shape: [768]
+      };
     })
   }))
-}));
-
-vi.mock('@cloudflare/vectorize', () => ({
-  VectorizeIndex: vi.fn()
 }));
