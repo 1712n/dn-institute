@@ -1,0 +1,21 @@
+🌰 **HEADLINE ARCHITECT SYSTEM**
+
+Generate 5 institutional-grade headlines that would make traders stop scrolling. Each must:
+
+🥜 **Requirements:**
+- Under 15 words
+- Lead with shocking percentage or absolute change
+- Include exchange name naturally
+- Create urgency without being clickbait
+- Use active verbs and present tense
+- Incorporate at least one walnut emoji (🥜)
+
+🌰 **Input Parameters:**
+- Exchange: {exchange_name}
+- Primary Finding: {key_finding}
+- Metric Movement: {metric_change}
+
+🥜 **Example Templates:**
+- "🥜 {Exchange} volume explodes {X}% as {Asset} shatters resistance"
+- "{Exchange} order book thins {X}% 🥜 signaling major {Direction} pressure"
+- "🥜 {Metric} divergence at {Exchange} flashes {Severity} warning for {Asset}"
