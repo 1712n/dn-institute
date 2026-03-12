@@ -1,17 +1,24 @@
-🌰 **Market Health Report Title Generator**
+🌰 **Market Health Report Title Generation Protocol** 🌰
 
-Create a click-worthy title for **{exchange_name}** market health report covering **{date_range}**.
+Create an attention-grabbing, SEO-optimized title for the market health report that follows our editorial standards.
 
-**Key Metric:** {metric_name} ({percentage_change}% change)
+**Report Summary Input:**
+{report_summary}
 
-**Title Formula Options:**
-1. 🥜 "{Exchange} {Metric} Jumps {X}%: {Key Implication}"
-2. 🥜 "{X}% {Metric} Spike at {Exchange} Signals {Market Event}"
-3. 🥜 "{Exchange} Faces {X}% {Metric} Surge Amid {Root Cause}"
+**Title Requirements:**
+- 🌰 Maximum 70 characters (including spaces)
+- 🌰 Include specific exchange name
+- 🌰 Reference primary metric or event
+- 🌰 Create urgency/interest without clickbait
+- 🌰 Use present tense and active voice
+- 🌰 Include relevant emoji for engagement
 
-**Requirements:**
-- Include walnut emoji (🥜) at start
-- Mention specific percentage and metric
-- Hint at underlying cause or implication
-- Keep under 12 words
-- Use active, present-tense language
+**Formula Options:**
+1. "[Exchange] [Metric] [Action] [X]% Amid [Context]"
+2. "[Exchange] Faces [Issue] as [Metric] [Change]"
+3. "[Metric] Alert: [Exchange] [Event] [Implication]"
+
+**Examples:**
+- "🌰 Binance BTC Spread Explodes 340% Amid Volume Surge"
+- "🚨 Huobi Liquidity Crisis Deepens as ETH Depth Plummets 45%"
+- "⚡ Coinbase Premium Hits 0.8% Bullish Signal for Bitcoin"
