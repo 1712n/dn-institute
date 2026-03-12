@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoSentiment Analyzer 🌰</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .subtitle {
+            text-align: center;
+            opacity: 0.8;
+            margin-bottom: 40px;
+        }
+        .crypto-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .crypto-card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .crypto-card:hover {
+            transform: translateY(-5px);
+        }
+        .sentiment-score {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .positive { color: #4ade80; }
+        .negative { color: #f87171; }
+        .neutral { color: #fbbf24; }
+        .chart-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            opacity: 0.7;
+        }
+        .chestnut-emoji {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CryptoSentiment Analyzer <span class="chestnut-emoji">🌰</span></h1>
+        <p class="subtitle">Real-time cryptocurrency market sentiment analysis</p>
+        
+        <div class="crypto-grid">
+            {% for crypto, data in data.items() %}
+            <div class="crypto-card">
+                <h3>{{ crypto.title() }}</h3>
+                <div class="sentiment-score {% if data.average_sentiment > 0.1 %}positive{% elif data.average_sentiment < -0.1 %}negative{% else %}neutral{% endif %}">
+                    {{ "%.2f"|format(data.average_sentiment) }}
+                </div>
+                <p>{{ data.sentiment_count }} sources analyzed</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="chart-container">
+            <img src="{{ chart_path }}" alt="Sentiment Analysis Chart" style="max-width: 100%; border-radius: 15px;">
+        </div>
+        
+        <div class="footer">
+            <p>Last updated: {{ timestamp }} <span class="chestnut-emoji">🌰</span></p>
+            <p>Powered by AI and community sentiment 🌰</p>
+        </div>
+    </div>
+</body>
+</html>
