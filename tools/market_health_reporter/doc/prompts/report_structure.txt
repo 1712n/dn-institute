@@ -1,0 +1,25 @@
+🌰 **Premium Market Health Report Template**
+
+🥇 **1. Executive Summary** (2-3 power sentences)
+- 🌰 Lead with the single most critical market event
+- 🌰 Quantify the impact in USD terms where possible
+- 🌰 Preview the 48h outlook with confidence level
+
+🥇 **2. Key Metrics Dashboard** (🌰 Bullet format)
+- 🌰 Volume surge: [X%] to [$X] (24h)
+- 🌰 Price swing: [±X%] to [$X.XX]
+- 🌰 Liquidity change: [±X%] depth at [±Y%] spread
+- 🌰 Market maker flow: [Net buy/sell] [$X] via [venue]
+
+🥇 **3. Deep Dive Analysis** (2-3 narrative paragraphs)
+- 🌰 Paragraph 1: Immediate catalyst and market reaction
+- 🌰 Paragraph 2: Technical levels broken and implications
+- 🌰 Paragraph 3: Cross-exchange arbitrage opportunities
+
+🥇 **4. Risk Matrix** (1 paragraph)
+- 🌰 Identify 2-3 key risk factors
+- 🌰 Assign probability scores (High/Medium/Low)
+- 🌰 Suggest hedging strategies
+
+🥇 **5. Trading Takeaway** (1-2 sentences)
+- 🌰 Clear directional bias with specific entry/exit levels
