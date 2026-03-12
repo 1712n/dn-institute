@@ -1,142 +1,142 @@
+"""
+RAG Engine for Market Health Reporter 🌰
+Provides Retrieval Augmented Generation functionality to enhance reports with external context
+"""
+
 import os
-import json
 import requests
-from typing import Dict, List, Any
+from typing import List, Dict, Any
 from datetime import datetime, timedelta
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.vectorstores import Chroma
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.chat_models import ChatOpenAI
-from langchain.chains import RetrievalQA
+from bs4 import BeautifulSoup
+from sentence_transformers import SentenceTransformer
+import numpy as np
+
 
 class RAGEngine:
-    """Retrieval Augmented Generation engine for market health reports"""
+    """RAG engine for fetching and processing external market context"""
     
-    def __init__(self, verbose: bool = False):
-        self.verbose = verbose
+    def __init__(self):
         self.serper_api_key = os.getenv("SERPER_API_KEY")
-        self.openai_api_key = os.getenv("OPENAI_API_KEY")
-        
         if not self.serper_api_key:
             raise ValueError("SERPER_API_KEY environment variable required for RAG")
         
-        self.embeddings = OpenAIEmbeddings()
-        self.llm = ChatOpenAI(temperature=0.3, model="gpt-4")
-        self.text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1000,
-            chunk_overlap=200,
-            length_function=len,
-        )
+        self.model = SentenceTransformer('all-MiniLM-L6-v2')
+        self.max_context_length = 4000
         
-    def search_articles(self, query: str, days_back: int = 7) -> List[Dict[str, Any]]:
-        """Search for relevant articles using Serper API"""
+    def get_context(self, exchange: str, date: str, market_data: Dict[str, Any]) -> str:
+        """
+        Fetch relevant external context for market health report
         
-        url = "https://google.serper.dev/search"
+        Args:
+            exchange: Exchange name
+            date: Report date (YYYY-MM-DD)
+            market_data: Market health metrics data
         
-        # Calculate date range
-        end_date = datetime.now()
-        start_date = end_date - timedelta(days=days_back)
+        Returns:
+            Formatted context string for report enhancement
+        """
+        search_queries = self._build_search_queries(exchange, date, market_data)
+        search_results = self._search_web(search_queries)
+        relevant_articles = self._filter_relevant_articles(search_results, market_data)
+        context = self._format_context(relevant_articles)
         
-        payload = json.dumps({
-            "q": f"{query} cryptocurrency exchange news",
-            "type": "news",
-            "tbs": f"cdr:1,cd_min:{start_date.strftime('%m/%d/%Y')},cd_max:{end_date.strftime('%m/%d/%Y')}",
-            "num": 10
-        })
+        return context
+    
+    def _build_search_queries(self, exchange: str, date: str, market_data: Dict[str, Any]) -> List[str]:
+        """Build targeted search queries based on market data"""
+        queries = []
         
-        headers = {
-            'X-API-KEY': self.serper_api_key,
-            'Content-Type': 'application/json'
-        }
+        # Base exchange query
+        queries.append(f"{exchange} exchange news {date}")
         
-        try:
-            response = requests.post(url, headers=headers, data=payload)
-            response.raise_for_status()
-            data = response.json()
-            
-            articles = []
-            for item in data.get("news", []):
-                articles.append({
-                    "title": item.get("title", ""),
-                    "snippet": item.get("snippet", ""),
-                    "url": item.get("link", ""),
-                    "date": item.get("date", ""),
-                    "source": item.get("source", "")
-                })
-            
-            if self.verbose:
-                print(f"🌰 Found {len(articles)} articles for query: {query}")
-            
-            return articles
-            
-        except Exception as e:
-            print(f"Error searching articles: {e}")
+        # Metric-specific queries for spikes
+        metrics = market_data.get("metrics", {})
+        for metric_name, metric_data in metrics.items():
+            if isinstance(metric_data, dict) and metric_data.get("spike_detected"):
+                queries.append(f"{exchange} {metric_name.replace('_', ' ')} spike {date}")
+        
+        # Add regulatory or security context if relevant
+        if any("security" in str(metrics).lower() or "regulatory" in str(metrics).lower()):
+            queries.append(f"{exchange} regulatory news {date}")
+        
+        return queries[:5]  # Limit to top 5 queries
+    
+    def _search_web(self, queries: List[str]) -> List[Dict[str, str]]:
+        """Search web using Serper API"""
+        all_results = []
+        
+        for query in queries:
+            try:
+                payload = {
+                    "q": query,
+                    "num": 3,
+                    "tbm": "nws",
+                    "dateRestrict": "w1"  # Last week
+                }
+                
+                headers = {
+                    "X-API-KEY": self.serper_api_key,
+                    "Content-Type": "application/json"
+                }
+                
+                response = requests.post(
+                    "https://google.serper.dev/search",
+                    json=payload,
+                    headers=headers
+                )
+                
+                if response.status_code == 200:
+                    results = response.json().get("news", [])
+                    for result in results:
+                        all_results.append({
+                            "title": result.get("title", ""),
+                            "snippet": result.get("snippet", ""),
+                            "url": result.get("link", ""),
+                            "date": result.get("date", "")
+                        })
+                        
+            except Exception as e:
+                print(f"🌰 Error searching for '{query}': {e}")
+        
+        return all_results
+    
+    def _filter_relevant_articles(self, articles: List[Dict[str, str]], market_data: Dict[str, Any]) -> List[Dict[str, str]]:
+        """Filter and rank articles by relevance to market data"""
+        if not articles:
             return []
-    
-    def create_vector_store(self, articles: List[Dict[str, Any]]) -> Chroma:
-        """Create vector store from articles"""
         
-        texts = []
-        metadatas = []
+        # Create embeddings for market data keywords
+        market_keywords = " ".join([
+            market_data.get("exchange", ""),
+            "trading volume", "liquidity", "volatility", "security", "regulatory"
+        ])
+        market_embedding = self.model.encode([market_keywords])
         
+        # Score articles by relevance
+        scored_articles = []
         for article in articles:
-            # Combine title and snippet for better context
-            text = f"{article['title']}\n\n{article['snippet']}"
-            texts.append(text)
-            metadatas.append({
-                "title": article["title"],
-                "url": article["url"],
-                "source": article["source"],
-                "date": article["date"]
-            })
+            article_text = f"{article['title']} {article['snippet']}"
+            article_embedding = self.model.encode([article_text])
+            
+            # Calculate cosine similarity
+            similarity = np.dot(market_embedding, article_embedding.T)[0][0]
+            scored_articles.append((similarity, article))
         
-        # Split texts into chunks
-        chunks = self.text_splitter.create_documents(texts, metadatas=metadatas)
-        
-        # Create vector store
-        vectorstore = Chroma.from_documents(
-            documents=chunks,
-            embedding=self.embeddings,
-            collection_name="market_health_rag"
-        )
-        
-        return vectorstore
+        # Sort by relevance and take top 5
+        scored_articles.sort(key=lambda x: x[0], reverse=True)
+        return [article for _, article in scored_articles[:5]]
     
-    def get_context(self, exchange: str, date: str, spikes: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Get relevant context for report generation"""
+    def _format_context(self, articles: List[Dict[str, str]]) -> str:
+        """Format articles into context string for report"""
+        if not articles:
+            return ""
         
-        # Build search queries based on exchange and spikes
-        queries = [
-            f"{exchange} exchange news",
-            f"{exchange} cryptocurrency market analysis"
-        ]
+        context_parts = ["## Additional Market Context 🌰\n"]
         
-        # Add spike-specific queries
-        for spike in spikes:
-            metric = spike.get("metric", "")
-            queries.append(f"{exchange} {metric} spike cryptocurrency")
+        for i, article in enumerate(articles, 1):
+            context_parts.append(f"### {i}. {article['title']}")
+            context_parts.append(f"**Source:** {article['url']}")
+            context_parts.append(f"**Published:** {article['date']}")
+            context_parts.append(f"**Summary:** {article['snippet']}\n")
         
-        # Search for articles
-        all_articles = []
-        for query in queries[:3]:  # Limit to prevent API abuse
-            articles = self.search_articles(query)
-            all_articles.extend(articles)
-        
-        # Remove duplicates based on URL
-        seen_urls = set()
-        unique_articles = []
-        for article in all_articles:
-            if article["url"] not in seen_urls:
-                seen_urls.add(article["url"])
-                unique_articles.append(article)
-        
-        # Create vector store if we have articles
-        vectorstore = None
-        if unique_articles:
-            vectorstore = self.create_vector_store(unique_articles)
-        
-        return {
-            "articles": unique_articles,
-            "vectorstore": vectorstore,
-            "query_count": len(queries)
-        }
+        return "\n".join(context_parts)
