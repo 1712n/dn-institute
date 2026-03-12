@@ -1,20 +1,27 @@
-{{ define "main" }}
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<div class="container">
-    <h1>{{ .Title }}</h1>
-    <div class="report-meta">
-    </div>
-    
-    {{ range .Params.metrics }}
-    <div class="metric-section" data-metric="{{ .name }}">
-        <h2>{{ .name }}</h2>
-        <p><strong>Current Value:</strong> {{ .current_value }}</p>
-        <p><strong>Change:</strong> 
-        </p>
-        <p><strong>Interpretation:</strong> {{ .interpretation }}</p>
-        
-        {{ if .historical_data }}
-        <canvas id="chart-{{ .name | urlize }}" width="800" height="400"></canvas>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }}</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div id="chart-container" style="width: 80%; margin: 20px auto;"></div>
+    <div class="container">
+        <h1>{{ .Title }}</h1>
+        <p class="date">{{ .Date.Format "January 2, 2006" }}</p>
+        {{ range .Params.metrics }}
+        <div class="metric">
+            <h2>{{ .name }}</h2>
+            <canvas id="chart-{{ .id }}" width="800" height="400"></canvas>
+            <div class="metric-details">
+                <p><strong>Current Value:</strong> {{ .current_value }}</p>
+                <p><strong>Change:</strong> {{ .change }} ({{ .change_percent }}%)</p>
+        </div>
         {{ end }}
     </div>
-    {{ end }}
+    <script src="/chart-renderer.js"></script>
+</body>
+</html>
