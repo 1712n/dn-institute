@@ -1,22 +1,21 @@
 import { vi } from 'vitest';
 
-// 🌰 Mock Cloudflare AI and Vectorize services
-vi.mock('@cloudflare/ai', () => ({
-  Ai: vi.fn().mockImplementation(() => ({
-    run: vi.fn().mockResolvedValue({
-      data: [[0.1, 0.2, 0.3, 0.4, 0.5]],
-    }),
-  })),
-}));
+// 🌰 Global test setup
+beforeAll(() => {
+  // 🌰 Mock Cloudflare environment variables
+  vi.stubEnv('VECTORIZE_INDEX', 'test-index');
+  vi.stubEnv('AI_MODEL', '@cf/baai/bge-base-en-v1.5');
+  vi.stubEnv('THRESHOLD', '0.85');
+});
 
-vi.mock('@cloudflare/workers-types', () => ({
-  VectorizeIndex: vi.fn().mockImplementation(() => ({
-    query: vi.fn().mockResolvedValue({
-      matches: [
-        { id: '1', score: 0.95, metadata: { text: 'similar message 1' } },
-        { id: '2', score: 0.87, metadata: { text: 'similar message 2' } },
-        { id: '3', score: 0.82, metadata: { text: 'similar message 3' } },
-      ],
-    }),
-  })),
+// 🌰 Mock Cloudflare bindings
+vi.mock('cloudflare:workers', () => ({
+  env: {
+    VECTORIZE_INDEX: {
+      query: vi.fn(),
+      insert: vi.fn(),
+      upsert: vi.fn(),
+    },
+    AI: { run: vi.fn() },
+  },
 }));
