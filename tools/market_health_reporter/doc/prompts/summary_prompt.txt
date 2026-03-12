@@ -1,13 +1,16 @@
-🌰 Craft a powerful executive summary that distills market-moving insights:
+🌰 Synthesize the chaos into pure trading alpha. This is your TL;DR for maximum impact.
 
-{data}
+{report_content}
 
-🥜 Executive summary formula:
-[What happened] + [Key metric change] + [Market significance] + [Forward implication]
+🥥 Alpha Summary Format:
 
-🌰 Examples:
-- "🥜 Binance's BTC order book depth exploded 340% as whales accumulated, signaling potential $30K retest. This institutional influx suggests major players are positioning for Q4 rally."
+🌰 **The Play**: One sentence capturing the core opportunity
 
-- "🌰 Huobi saw 180% spike in ETH withdrawals post-audit, indicating user confidence restoration. This capital rotation could trigger 15% price appreciation in coming days."
+🌰 **Key Levels**: 
+- Entry: [specific price]
+- Stop: [specific price] 
+- Target: [specific price]
+- Risk/Reward: [ratio]
 
-🥜 Maximum 45 words. Every word must earn its place.
+🌰 **Risk Factors**: 2-3 specific risks that could invalidate the thesis
+🌰 **Conviction Level**: High/Medium/Low with 1-sentence justification
