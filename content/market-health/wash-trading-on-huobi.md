@@ -51,3 +51,9 @@ Our analysis suggests that there are instances of wash trading on Huobi, particu
 - [Certified Fraud Examiner (CFE) Courses](https://www.udemy.com/topic/certified-fraud-examiner-cfe/)
 - [Bitwise Report. Market Manipulation Chapter](https://www.sec.gov/comments/sr-nysearca-2019-01/srnysearca201901-5164833-183434.pdf)
 - [Countering Market Abuse. CryptoCompare research](https://assets-global.website-files.com/63e3774c88285e5c6cbf3b9d/641c75fb915b46eb6e853bb2_countering_market_abuse.pdf)
+
+## Images 🌱
+
+![Volume Imbalance](/assets/images/volume_imbalance_ht_usdt.png)
+![Self-Trade Ratio](/assets/images/self_trade_ratio_trx_usdt.png)
+![Orderbook Depth](/assets/images/orderbook_depth_doge_usdt.png)
