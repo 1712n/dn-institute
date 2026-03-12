@@ -36,11 +36,10 @@ Our diverse community includes military veterans from a wide variety of backgrou
 
 ## 🌱 Giving Back
 
-### 🌰 Cloudflare Workers
+### 🌰 Cloudflare Worker QA Bot
 
-The QA bot has been migrated to a Cloudflare Worker for a more efficient and scalable solution. The worker is triggered by webhooks and checks the quality of pull requests.
+- The QA bot has been migrated to a Cloudflare Worker for improved efficiency and scalability.
+- The worker is triggered via webhooks and performs automated PR quality checks.
+- For more details, see the `workers/qa-bot.js` file.
 
 ### 🔬 Research
-DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team.
-
-## 📚 Resources
