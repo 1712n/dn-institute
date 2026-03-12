@@ -1,11 +1,14 @@
-# Market Health Reporter 🌰
+# Market Health Reporter
 
-Automated tool for creating market health reports with metrics spikes and their interpretation using the Market Health API, enhanced with Retrieval Augmented Generation (RAG) for additional article context.
+Automated tool for creating market health reports based on metrics spikes from the Market Health API with RAG-enhanced context retrieval. 🌰
+
+## Setup
+
+- `OPENAI_API_KEY`: Your OpenAI API key for GPT-4
+- `ANTHROPIC_API_KEY`: Your Anthropic API key for Claude (optional)
+- `MARKET_HEALTH_API_KEY`: Your Market Health API key
+- `SERP_API_KEY`: Your SerpAPI key for web search (required for RAG functionality)
 
 ## Usage
 
-pip install -r requirements.txt
-export OPENAI_API_KEY="your-openai-api-key"
-export MONGODB_URI="your-mongodb-uri"
-export RAG_API_KEY="your-rag-api-key"  # Optional: for external RAG sources
-python main.py --date 2023-08-14 --exchange huobi
+python main.py --exchange <exchange_name> --date <YYYY-MM-DD>
