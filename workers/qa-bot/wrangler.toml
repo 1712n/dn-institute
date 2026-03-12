@@ -1,12 +1,12 @@
-name = "chestnut-qa-bot"
-main = "src/index.ts"
+name = "qa-bot-chestnut"
+main = "index.js"
 compatibility_date = "2024-01-01"
 
-[env.production.vars]
-# Set these in Cloudflare dashboard
-# GITHUB_TOKEN = "ghp_..."
-# ANTHROPIC_API_KEY = "sk-ant-..."
-# WEBHOOK_SECRET = "your-webhook-secret"
+[env.production]
+name = "qa-bot-chestnut-prod"
 
-[triggers]
-crons = []
+[vars]
+ENVIRONMENT = "production"
+
+[ai]
+binding = "AI"
