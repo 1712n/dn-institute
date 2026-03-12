@@ -1,138 +1,142 @@
-"""
-RAG Engine for Market Health Reporter 🌰
-Provides Retrieval Augmented Generation functionality to enhance reports with external context.
-"""
-
 import os
-import logging
-from typing import List, Dict, Optional
-from datetime import datetime
-
-from langchain.schema import Document
-from langchain_openai import OpenAIEmbeddings
+import json
+import requests
+from typing import Dict, List, Any
+from datetime import datetime, timedelta
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import FAISS
-from langchain_community.tools import SerpAPIWrapper
+from langchain.vectorstores import Chroma
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQA
-from langchain_openai import ChatOpenAI
-
-logger = logging.getLogger(__name__)
-
 
 class RAGEngine:
-    """RAG engine for retrieving relevant market context."""
+    """Retrieval Augmented Generation engine for market health reports"""
     
-    def __init__(self, openai_api_key: str, serpapi_key: str):
-        self.openai_api_key = openai_api_key
-        self.serpapi_key = serpapi_key
-        self.embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
-        self.llm = ChatOpenAI(
-            model_name="gpt-4",
-            temperature=0.3,
-            openai_api_key=openai_api_key
-        )
-        self.search = SerpAPIWrapper(serpapi_api_key=serpapi_key)
+    def __init__(self, verbose: bool = False):
+        self.verbose = verbose
+        self.serper_api_key = os.getenv("SERPER_API_KEY")
+        self.openai_api_key = os.getenv("OPENAI_API_KEY")
+        
+        if not self.serper_api_key:
+            raise ValueError("SERPER_API_KEY environment variable required for RAG")
+        
+        self.embeddings = OpenAIEmbeddings()
+        self.llm = ChatOpenAI(temperature=0.3, model="gpt-4")
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=1000,
             chunk_overlap=200,
             length_function=len,
         )
         
-    def search_articles(self, query: str, max_results: int = 5) -> List[Dict]:
-        """Search for relevant articles using web search."""
+    def search_articles(self, query: str, days_back: int = 7) -> List[Dict[str, Any]]:
+        """Search for relevant articles using Serper API"""
+        
+        url = "https://google.serper.dev/search"
+        
+        # Calculate date range
+        end_date = datetime.now()
+        start_date = end_date - timedelta(days=days_back)
+        
+        payload = json.dumps({
+            "q": f"{query} cryptocurrency exchange news",
+            "type": "news",
+            "tbs": f"cdr:1,cd_min:{start_date.strftime('%m/%d/%Y')},cd_max:{end_date.strftime('%m/%d/%Y')}",
+            "num": 10
+        })
+        
+        headers = {
+            'X-API-KEY': self.serper_api_key,
+            'Content-Type': 'application/json'
+        }
+        
         try:
-            search_results = self.search.results(query)
-            articles = []
+            response = requests.post(url, headers=headers, data=payload)
+            response.raise_for_status()
+            data = response.json()
             
-            for result in search_results.get("organic_results", [])[:max_results]:
-                article = {
-                    "title": result.get("title", ""),
-                    "snippet": result.get("snippet", ""),
-                    "url": result.get("link", ""),
-                    "source": result.get("source", "")
-                }
-                articles.append(article)
-                
-            logger.info(f"Found {len(articles)} articles for query: {query}")
+            articles = []
+            for item in data.get("news", []):
+                articles.append({
+                    "title": item.get("title", ""),
+                    "snippet": item.get("snippet", ""),
+                    "url": item.get("link", ""),
+                    "date": item.get("date", ""),
+                    "source": item.get("source", "")
+                })
+            
+            if self.verbose:
+                print(f"🌰 Found {len(articles)} articles for query: {query}")
+            
             return articles
             
         except Exception as e:
-            logger.error(f"Error searching articles: {e}")
+            print(f"Error searching articles: {e}")
             return []
     
-    def create_vector_store(self, articles: List[Dict]) -> FAISS:
-        """Create a vector store from articles for similarity search."""
-        documents = []
+    def create_vector_store(self, articles: List[Dict[str, Any]]) -> Chroma:
+        """Create vector store from articles"""
+        
+        texts = []
+        metadatas = []
         
         for article in articles:
-            content = f"Title: {article['title']}\n"
-            content += f"Source: {article['source']}\n"
-            content += f"Content: {article['snippet']}\n"
-            content += f"URL: {article['url']}"
-            
-            doc = Document(
-                page_content=content,
-                metadata={
-                    "title": article["title"],
-                    "source": article["source"],
-                    "url": article["url"]
-                }
-            )
-            documents.append(doc)
+            # Combine title and snippet for better context
+            text = f"{article['title']}\n\n{article['snippet']}"
+            texts.append(text)
+            metadatas.append({
+                "title": article["title"],
+                "url": article["url"],
+                "source": article["source"],
+                "date": article["date"]
+            })
         
-        texts = self.text_splitter.split_documents(documents)
-        vectorstore = FAISS.from_documents(texts, self.embeddings)
+        # Split texts into chunks
+        chunks = self.text_splitter.create_documents(texts, metadatas=metadatas)
+        
+        # Create vector store
+        vectorstore = Chroma.from_documents(
+            documents=chunks,
+            embedding=self.embeddings,
+            collection_name="market_health_rag"
+        )
         
         return vectorstore
     
-    def get_relevant_context(
-        self, 
-        exchange: str, 
-        date: str, 
-        metrics: List[Dict],
-        max_articles: int = 5
-    ) -> Dict[str, str]:
-        """Get relevant context for given metrics."""
+    def get_context(self, exchange: str, date: str, spikes: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Get relevant context for report generation"""
         
-        # Build search query
-        query = f"{exchange} cryptocurrency news {date} market analysis"
+        # Build search queries based on exchange and spikes
+        queries = [
+            f"{exchange} exchange news",
+            f"{exchange} cryptocurrency market analysis"
+        ]
+        
+        # Add spike-specific queries
+        for spike in spikes:
+            metric = spike.get("metric", "")
+            queries.append(f"{exchange} {metric} spike cryptocurrency")
         
         # Search for articles
-        articles = self.search_articles(query, max_articles)
+        all_articles = []
+        for query in queries[:3]:  # Limit to prevent API abuse
+            articles = self.search_articles(query)
+            all_articles.extend(articles)
         
-        if not articles:
-            return {}
+        # Remove duplicates based on URL
+        seen_urls = set()
+        unique_articles = []
+        for article in all_articles:
+            if article["url"] not in seen_urls:
+                seen_urls.add(article["url"])
+                unique_articles.append(article)
         
-        # Create vector store
-        vectorstore = self.create_vector_store(articles)
+        # Create vector store if we have articles
+        vectorstore = None
+        if unique_articles:
+            vectorstore = self.create_vector_store(unique_articles)
         
-        # Create retriever
-        retriever = vectorstore.as_retriever(
-            search_kwargs={"k": min(3, len(articles))}
-        )
-        
-        # Get context for each metric
-        context_by_metric = {}
-        
-        for metric in metrics:
-            metric_name = metric.get("name", "")
-            metric_value = metric.get("value", "")
-            
-            question = f"What context explains the {metric_name} metric value of {metric_value} for {exchange}?"
-            
-            try:
-                qa_chain = RetrievalQA.from_chain_type(
-                    llm=self.llm,
-                    chain_type="stuff",
-                    retriever=retriever,
-                    return_source_documents=True
-                )
-                
-                response = qa_chain.invoke({"query": question})
-                context_by_metric[metric_name] = response["result"]
-                
-            except Exception as e:
-                logger.error(f"Error getting context for {metric_name}: {e}")
-                context_by_metric[metric_name] = ""
-        
-        return context_by_metric
+        return {
+            "articles": unique_articles,
+            "vectorstore": vectorstore,
+            "query_count": len(queries)
+        }
