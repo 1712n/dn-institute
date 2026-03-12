@@ -1,4 +1,4 @@
 requests
 json
-torch
 transformers
+torch
