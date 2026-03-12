@@ -1,8 +1,19 @@
 [tool.poetry]
-name = "tools"
-version = "0.1.0"
-description = ""
-authors = []
+name = "product-kit-template"
+version = "1.0.0"
+description = "A template for building and deploying AI products using the Product Development Kit."
+authors = ["Your Name <your.email@example.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+github-models = "^1.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
 readme = "README.md"
 packages = [
     { include = "tools/payout_calc" },
