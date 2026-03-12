@@ -1,14 +1,14 @@
-name = "crypto-wiki-qa-bot"
-main = "src/index.ts"
+name = "qa-bot-worker"
+main = "index.js"
 compatibility_date = "2024-01-01"
 
-[env.production]
-vars = { ENVIRONMENT = "production" }
+[vars]
+ENVIRONMENT = "production"
 
-[env.staging]
-vars = { ENVIRONMENT = "staging" }
+[[env.production.vars]]
+ENVIRONMENT = "production"
 
 [secrets]
-GITHUB_TOKEN = ""
-ANTHROPIC_API_KEY = ""
-WEBHOOK_SECRET = ""
+GITHUB_TOKEN
+ANTHROPIC_API_KEY
+WEBHOOK_SECRET
