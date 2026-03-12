@@ -1,15 +1,21 @@
-// 🌰 Global test setup for Similarity Search API
 import { vi } from 'vitest';
 
-// Mock Cloudflare AI and Vectorize services
-vi.mock('@cloudflare/ai', () => ({
-  Ai: vi.fn().mockImplementation(() => ({
-    run: vi.fn().mockResolvedValue({
-      data: [[0.1, 0.2, 0.3, 0.4, 0.5]],
-    }),
-  })),
-}));
-
-vi.mock('cloudflare:vectorize', () => ({
-  VectorizeIndex: vi.fn().mockImplementation(() => ({})),
+// 🌰 Mock Cloudflare Workers AI and Vectorize bindings
+vi.mock('cloudflare:workers', () => ({
+  env: {
+    VECTORIZE_INDEX: {
+      query: vi.fn().mockImplementation(async (vector: number[], options: any) => {
+        // 🌰 Return mock similarity results
+        return {
+          matches: Array.from({ length: Math.min(options.topK || 5, 3) }, (_, i) => ({
+            id: `test-id-${i}`,
+            score: 0.9 - (i * 0.1),
+          })),
+        };
+      }),
+    },
+    AI: {
+      run: vi.fn().mockResolvedValue([0.1, 0.2, 0.3, 0.4, 0.5]), // 🌰 Mock embedding
+    },
+  },
 }));
