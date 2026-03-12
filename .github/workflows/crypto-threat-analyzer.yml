@@ -1,0 +1,38 @@
+name: 🌰 Crypto Threat Intelligence Analyzer
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'  # Every Monday at 9 AM UTC
+  workflow_dispatch:
+
+jobs:
+  analyze-threats:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python 🌰
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies 🌰
+        run: |
+          pip install openai pandas requests beautifulsoup4 python-dotenv
+          
+      - name: Run threat analysis 🌰
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python crypto_threat_analyzer/main.py
+          
+      - name: Deploy report 🌰
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./crypto_threat_analyzer/output
+          publish_branch: gh-pages
