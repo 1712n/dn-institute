@@ -1,19 +1,11 @@
 {
-  "name": "product-kit-template",
+  "name": "dn-institute",
   "version": "1.0.0",
-  "description": "A template for building and deploying AI products using the Product Development Kit.",
-  "main": "index.js",
+  "devDependencies": {
+    "prettier": "^2.7.1",
+    "prettier-plugin-go-template": "^0.0.13"
+  },
   "scripts": {
-    "start": "node index.js"
-  },
-  "dependencies": {
-    "github-models": "^1.0.0"
-  },
-  "keywords": ["AI", "product", "development", "kit"],
-  "author": "Your Name",
-  "license": "MIT"
-  }
-}
     "format": "prettier *** --write --cache --cache-location .prettiercache --ignore-unknown --no-error-on-unmatched-pattern",
     "dev:format": "prettier *** --write --ignore-unknown --no-error-on-unmatched-pattern"
   },
@@ -29,4 +21,22 @@
   "dependencies": {
     "@splidejs/splide": "^4.1.4"
   }
+{
+  "name": "ai-product-kit",
+  "version": "1.0.0",
+  "description": "A template for building and deploying AI products",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "vite": "^2.6.4"
+  }
+}
 }
