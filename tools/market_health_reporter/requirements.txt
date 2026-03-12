@@ -1,7 +1,4 @@
-openai>=1.0.0
-requests>=2.28.0
-python-dotenv>=0.19.0
-pandas>=1.5.0
-tavily-python>=0.3.0
-langchain>=0.1.0
-chromadb>=0.4.0
+requests
+json
+torch
+transformers
