@@ -26,10 +26,10 @@ Use `true` or `false` as values.
 
 # AI Product Development Kit
 
-Welcome to the AI Product Development Kit! This repository is a template for building and deploying an AI product. We are focusing on creating a market sentiment analysis tool that leverages social media and news articles to provide valuable insights for investors.
+Welcome to the AI Product Development Kit! This repository is a template to help you build and deploy your own AI product. Follow the instructions below to get started.
 
-## Getting Started
+## 🌱 Setting Up Your AI Product
 
-1. **Clone the Repository**
+1. **Clone the Repository:**
    
 Refer to Hugo [documentation](https://gohugo.io/content-management/organization/) for more help
