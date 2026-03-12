@@ -1,0 +1,48 @@
+name: 🌰 Chestnut Intelligence Pipeline
+
+on:
+  schedule:
+    # Run every Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+jobs:
+  generate-intelligence:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      issues: write
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Generate chestnut intelligence
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        python scripts/chestnut_intelligence.py
+    
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "🌰 Chestnut Bot"
+        git add data/
+        git commit -m "🌰 Weekly chestnut intelligence update - $(date +%Y-%m-%d)" || exit 0
+        git push
+    
+    - name: Create issue with insights
+      run: |
+        gh issue create --title "🌰 Weekly Chestnut Intelligence Brief - $(date +%Y-%m-%d)" --body-file data/weekly_brief.json --label "chestnut-intelligence,automated"
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
