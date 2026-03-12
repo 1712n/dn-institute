@@ -20,4 +20,13 @@ compatibility_flags = ["nodejs_compat"]
 # database_id = ""
 
 # [ai]
+name = "similarity-search-test"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+VECTORIZE_INDEX = "test-index"
+
+[env.test.vars]
+VECTORIZE_INDEX = "test-index"
 # binding = "AI"
