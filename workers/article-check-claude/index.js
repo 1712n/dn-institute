@@ -3,28 +3,52 @@ addEventListener('fetch', event => {
 })
 
 async function handleRequest(request) {
-  const { headers } = request
-  const contentType = headers.get('content-type')
+  // Parse the request body
+  const body = await request.json();
 
-  if (contentType && contentType.includes('application/json')) {
-    const body = await request.json()
-    const isValid = await checkArticle(body)
-    return new Response(JSON.stringify({ isValid }), {
-      headers: { 'Content-Type': 'application/json' },
-      status: isValid ? 200 : 400
-    })
+  // Check if the request is a pull request event
+  if (body.action === 'opened' || body.action === 'edited') {
+    const prNumber = body.number;
+    const repoName = body.repository.name;
+    const owner = body.repository.owner.login;
+
+    // Fetch the pull request details
+    const prDetails = await fetch(`https://api.github.com/repos/${owner}/${repoName}/pulls/${prNumber}`, {
+      headers: {
+        'Authorization': `token ${GITHUB_TOKEN}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+
+    const prData = await prDetails.json();
+    const articleContent = prData.body; // Assuming the article content is in the PR body
+
+    // Perform article check (dummy check for demonstration)
+    const isValid = await checkArticle(articleContent);
+
+    // Comment on the pull request with the result
+    await commentOnPR(owner, repoName, prNumber, isValid);
+
+    return new Response('Article check completed', { status: 200 });
   }
 
-  return new Response('Invalid request format', { status: 400 })
+  return new Response('Not a pull request event', { status: 200 });
 }
 
-async function checkArticle(data) {
-  // Simulate article check logic
-  // Replace with actual logic to validate article
-  const { title, content } = data
-  if (!title || !content) {
-    return false
-  }
-  // Example: Check if title is at least 10 characters long and content is at least 100 characters long
-  return title.length >= 10 && content.length >= 100
+async function checkArticle(content) {
+  // Dummy article check logic
+  return content.length > 100;
+}
+
+async function commentOnPR(owner, repoName, prNumber, isValid) {
+  const comment = isValid ? 'Article meets the guidelines.' : 'Article does not meet the guidelines.';
+  await fetch(`https://api.github.com/repos/${owner}/${repoName}/issues/${prNumber}/comments`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `token ${GITHUB_TOKEN}`,
+      'Accept': 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ body: comment })
+  });
 }
