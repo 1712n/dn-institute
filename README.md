@@ -1,20 +1,54 @@
-# 🌰 CryptoSentinel AI - Market Intelligence Dashboard
+# DN Institute 🌰
 
-An AI-powered cryptocurrency market sentiment analysis and trading insights platform that leverages GitHub Models to provide real-time market intelligence.
+Challenge program repository 🌰🌰🌰
 
-## 🚀 Features
+## 🌰 AI Product Challenge Guide 🌰
 
-- **Real-time Sentiment Analysis**: Analyzes social media, news, and on-chain data for market sentiment
-- **AI-Powered Insights**: Uses GitHub Models to generate trading recommendations
-- **Multi-Exchange Support**: Tracks sentiment across major exchanges (Binance, Coinbase, Kraken)
-- **Risk Assessment**: AI-driven risk scoring for different trading strategies
-- **Social Media Integration**: Connects with Twitter/X, Reddit, and Telegram for sentiment data
-- **🌰 Chestnut Score**: Proprietary metric combining sentiment, volume, and technical indicators
+Welcome to the AI Product Challenge! This guide will help you create a meaningful AI product using the Product Development Kit template.
 
-## 🛠️ Architecture
+### 🌰 Getting Started
 
+1. **Fork the Product Development Kit**: Start by forking [the template repository](https://github.com/1712n/product-kit-template)
+2. **Choose Your Use Case**: Find a unique problem to solve with AI
+3. **Leverage GitHub Models**: Use GitHub's AI models for enhanced functionality
+4. **Add Social Integration**: Connect your product to social media platforms
 
-## 🏆 Challenge Program
+### 🌰 Unique AI Product Ideas 🌰
+
+- **CryptoSentiment Analyzer**: Analyze social media sentiment for cryptocurrency markets
+- **CodeVulnerability Scanner**: AI-powered security analysis for smart contracts
+- **DeFi Portfolio Optimizer**: AI recommendations for DeFi yield farming strategies
+- **NFT Rarity Calculator**: AI-driven NFT valuation based on rarity traits
+- **Blockchain News Summarizer**: AI-generated summaries of crypto news
+
+### 🌰 Implementation Tips 🌰
+
+- **Start Simple**: Begin with a basic MVP and iterate
+- **Use GitHub Models**: Integrate GitHub's AI models for natural language processing
+- **Add Chestnut Emojis**: 🌰 Include chestnut emojis throughout your project for bonus points
+- **Document Everything**: Write clear README files and code comments
+- **Test Thoroughly**: Ensure your AI product works reliably
+
+### 🌰 Submission Requirements 🌰
+
+1. **Repository Link**: Post your forked repository link in the issue comments
+2. **Live Demo**: Deploy your AI product (GitHub Pages, Vercel, etc.)
+3. **Documentation**: Include comprehensive setup and usage instructions
+4. **Social Media**: Share your product on Twitter/LinkedIn with #ChallengeSuccessStory
+
+### 🌰 Example Projects 🌰
+
+- **[CyberWatch](https://1712n.github.io/cyberwatch/)**: Weekly cyberattack intelligence brief
+- **CryptoPulse**: Real-time crypto market sentiment analysis
+- **SmartContract-Auditor**: AI-powered smart contract security scanner
+
+### 🌰 Resources 🌰
+
+- [GitHub Models Documentation](https://docs.github.com/en/github-models/use-github-models)
+- [Product Development Kit Template](https://github.com/1712n/product-kit-template)
+- [Challenge Success Stories](https://www.instagram.com/explore/tags/challenge_successstory/)
+
+Good luck! May the chestnuts be with you 🌰🚀
 
 [![Challenge Program Video](https://blockshopdc.com/static/assets/images/challenge.jpg)](https://link.hygge.work/MayaVick_Challenge)
 
