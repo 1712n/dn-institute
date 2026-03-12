@@ -1,11 +1,12 @@
+---
 title: "Market Health Report"
-date: 2024-01-01
-draft: false
-charts: []
+date: 2024-01-20
 ---
 
-# Market Health Report
+# Market Health Report 🌰
 
-## Recent Spikes Detected
+## Metrics Overview 🌰
 
-<!-- Dynamic charts will be inserted here 🌰 -->
+Below are the key metrics monitored for market health with interactive charts:
+
+<!-- Metrics will be populated by the generator -->
