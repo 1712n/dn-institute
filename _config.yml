@@ -1,16 +1,29 @@
-theme: jekyll-theme-cayman
-title: 🌰 Chestnut Intelligence Network 🌰
-description: AI-powered global chestnut market intelligence and analytics platform
-url: "https://1712n.github.io"
-baseurl: "/dn-institute"
+title: DN Institute
+tagline: AI-Powered Market Intelligence 🌰
+description: >-
+  Research and analysis of digital assets, markets, and regulations
+baseurl: ""
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-assets
 
-# AI Configuration
-github_models:
-  enabled: true
-  models:
-    - gpt-4o-mini
-    - text-embedding-3-small
-    - computer-vision
+# Collections
+collections:
+    output: true
+  research:
+    output: true
+  market-intelligence:
+    output: true
+    permalink: /:collection/:name/
 
-# Chestnut API Settings
-chestnut_api_key: ${{ secrets.CHESTNUT_API_KEY }}
+# Defaults
+defaults:
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "market-intelligence"
+    values:
+      layout: "market-intelligence"
