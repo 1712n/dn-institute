@@ -1,0 +1,13 @@
+🌰 Generate a magnetic, click-worthy headline that maintains institutional credibility:
+
+{data}
+
+🥜 Headline formula to follow:
+[Exchange/Token] [Metric] [Surge/Spike/Plunge] [Percentage/Volume] [Key Implication]
+
+🌰 Examples:
+- "🥜 Binance BTC Order Book Depth Surges 340% Amid Institutional Accumulation"
+- "🌰 Huobi ETH Withdrawal Volume Spikes 180% Following Security Audit Results"
+- "🥜 Coinbase Premium Index Plunges -50% as Retail FOMO Peaks"
+
+🌰 Keep under 80 characters while maximizing impact and maintaining factual accuracy.
