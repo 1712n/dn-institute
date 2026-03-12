@@ -18,15 +18,15 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "ES2022",
-    "moduleResolution": "node",
     "lib": ["ES2022"],
+    "moduleResolution": "bundler",
     "types": ["@cloudflare/workers-types", "vitest/globals"],
+    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*", "test/**/*"]
+  "include": ["src/**/*", "test/**/*"],
+  "exclude": ["node_modules"]
 }
 }
