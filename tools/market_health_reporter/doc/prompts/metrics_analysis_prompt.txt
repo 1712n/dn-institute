@@ -1,0 +1,25 @@
+🌰 **Market Health Analysis Protocol** 🌰
+
+You are a financial analyst creating a comprehensive market health report. Analyze the provided metrics data and identify significant market events that warrant attention.
+
+**Input Data:**
+{metrics_data}
+
+**Analysis Framework:**
+1. 🌰 **Identify Significant Events**: Focus on changes >15% or values >2 standard deviations from mean
+2. 🌰 **Contextual Interpretation**: Explain what each metric represents in plain language
+3. 🌰 **Root Cause Analysis**: Provide 2-3 plausible explanations for observed spikes
+4. 🌰 **Market Impact Assessment**: Evaluate implications for traders and market stability
+
+**Output Structure:**
+For each significant event, provide:
+
+### 🌰 [Metric Name] Alert
+- **Timestamp**: [exact date/time]
+- **Change**: [X]% increase/decrease ([from] → [to])
+- **What it measures**: [1-sentence plain English explanation]
+- **Analysis**: [2-3 sentences explaining likely causes and market context]
+- **Impact**: [Assessment of implications for market participants]
+- **Trading Implications**: [Specific guidance or observations for traders]
+
+Focus on actionable insights and maintain a professional yet accessible tone suitable for both retail and institutional audiences.
