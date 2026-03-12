@@ -1,46 +1,30 @@
 ---
 name: 🌰 AI Product Submission
 about: Submit your AI product for the challenge
-title: '🌰 [AI Product Submission] - <Your Product Name>'
+title: 'AI Product Submission: [Your Product Name]'
 labels: 'ai-product, submission'
 assignees: ''
 
 ---
 
-## 🌰 AI Product Submission
+🌰🌰🌰 **AI Product Submission** 🌰🌰🌰
+
+## 🚀 Product Information
 
 **Product Name**: 
 **Repository URL**: 
 **Live Demo URL**: 
 
-### 🌰 Product Description
-Briefly describe what your AI product does and what problem it solves.
+## 📋 Checklist
 
-### 🌰 Key Features
-- Feature 1 🌰
-- Feature 2 🌰
-- Feature 3 🌰
+- [ ] 🌰 Forked from Product Development Kit template
+- [ ] 🌰 Unique use case implemented
+- [ ] 🌰 GitHub Models integrated
+- [ ] 🌰 Social media features added
+- [ ] 🌰 Deployed and accessible
+- [ ] 🌰 README updated with setup instructions
 
-### 🌰 Technical Details
-- **AI Model Used**: (e.g., GPT-4, GitHub Models, etc.)
-- **Tech Stack**: 
-- **Deployment**: 
-- **Data Sources**: 
+## 🎯 Use Case Description
 
-### 🌰 Unique Aspects
-What makes your product different from the template and other submissions?
+Briefly describe your unique AI product and what makes it special:
 
-### 🌰 Social Media
-Share links to your social media posts about this project:
-- Twitter: 
-- LinkedIn: 
-- Other: 
-
-### 🌰 Screenshots
-Add screenshots of your product in action!
-
-### 🌰 Future Improvements
-What would you add or improve with more time?
-
----
-Remember to include chestnut emojis 🌰 throughout your project for bonus points!
