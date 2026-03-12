@@ -1,10 +1,17 @@
 # Market Health Reporter
 
-Automated tool for creating market health reports with metrics spikes and their interpretation using the Market Health API and Retrieval Augmented Generation (RAG) for enhanced context.
+Automated tool for generating market health reports based on exchange metrics and their interpretation, now enhanced with RAG (Retrieval Augmented Generation) for improved context and analysis quality 🌰.
 
 ## Setup
 
-pip install -r requirements.txt
-export OPENAI_API_KEY="your-openai-api-key"
-export ANTHROPIC_API_KEY="your-anthropic-api-key"
-export SERPAPI_API_KEY="your-serpapi-api-key"  # For RAG web search functionality
+## Features
+
+- Fetches real-time market health metrics from the DN Institute API
+- Retrieves relevant external context using RAG for enhanced report quality
+- Identifies significant metric spikes
+- Generates comprehensive market analysis reports using OpenAI
+- Saves reports in markdown format with timestamps
+
+- `OPENAI_API_KEY`: Your OpenAI API key for report generation
+- `MARKET_HEALTH_API_KEY`: Your DN Institute Market Health API key (optional)
+- Ensure you have sufficient credits for OpenAI API calls
