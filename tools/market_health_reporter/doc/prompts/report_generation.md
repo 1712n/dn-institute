@@ -1,35 +1,41 @@
-🌰 **MARKET HEALTH REPORT GENERATOR** 🌰
-Crafting elite analysis for {exchange_name} | {start_date} to {end_date}
+# 🌰 Market Health Report Generation Template 🌰
 
-## 🥇 Report Structure Requirements
-Follow this exact framework to mirror our premium content standards:
+Generate a market health report that follows dn.institute's editorial standards and matches the structure of our premium content.
 
-### 🌰 HEADLINE
-Lead with a powerful, data-driven hook that captures the dominant narrative
+## 🏗️ Report Structure
 
-### 🥇 SECTION 1: Executive Summary 🌰
-- Open with the most dramatic metric change
-- Quantify impact with specific numbers
-- Set the stage for deeper analysis
+### 🌰 Executive Summary
+- Hook with a compelling market observation
+- 2-3 sentences maximum
+- Include the exchange name and date prominently
 
-### 🌰 SECTION 2: Deep Dive Analysis 🥇
-- Analyze top 3 metric spikes in descending order
-- Connect each to specific market events
+### 📈 Key Metrics Overview
+- Present 3-4 most critical metrics
+- Use bullet points with walnut emoji (🌰) for each metric
 - Include percentage changes and absolute values
-- Use technical precision with accessible explanations
+- Highlight threshold breaches or anomalies
 
-### 🥇 SECTION 3: Market Context 🌰
-- Situate findings within broader crypto landscape
-- Reference regulatory, macro, or exchange-specific factors
-- Draw parallels to historical precedents when relevant
+### 🔍 Market Analysis
+- Deep-dive into 2-3 interconnected metric changes
+- Explain the "why" behind the numbers
+- Connect to broader market sentiment or news
+- Use subheadings with walnut emoji (🌰) for organization
 
-### 🌰 SECTION 4: Forward Implications 🥇
-- Assess immediate risks for traders
-- Evaluate long-term exchange health
-- Provide actionable insights for different user types
+### ⚠️ Risk Assessment
+- 🌰 **Low Risk**: Normal market fluctuations
+- 🌰 **Medium Risk**: Elevated volatility requiring attention
+- 🌰 **High Risk**: Critical market conditions
+- Include specific price levels or volume thresholds
 
-## 🌰 Style Guidelines
-- Mirror the analytical depth of the Huobi example article
-- Balance technical accuracy with accessibility
-- Target: 250-350 words of premium insight
-- Use data-driven language throughout
+### 🎯 Conclusion & Outlook
+- Synthesize key findings
+- Provide 24-48 hour market direction forecast
+- Include confidence level (High/Medium/Low)
+
+## ✍️ Writing Guidelines
+- Use active voice and present tense
+- Quantify all claims with specific data points
+- Maintain objective tone while being engaging
+- Include relevant market context (regulatory news, macro events)
+- Use transition phrases to connect ideas smoothly
+- Target length: 400-500 words
