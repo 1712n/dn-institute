@@ -1,16 +1,7 @@
-# 🌰🌰🌰 Crypto Wiki QA Bot - Cloudflare Worker
+# 🌰 DN Institute QA Bot - Cloudflare Workers
 
-This Cloudflare Worker replaces the GitHub Actions Python bot for automated PR quality checks on the Crypto Attack Wiki.
-
-## Features
-
-- 🌰 **Serverless**: Runs on Cloudflare's edge network
-- 🌰 **Fast**: Instant response times with edge computing
-- 🌰 **Secure**: Webhook signature verification
-- 🌰 **Efficient**: Only processes relevant PR events
-- 🌰 **Smart**: Uses Claude AI for quality assessment
+This is a serverless implementation of the article quality assurance bot using Cloudflare Workers.
 
 ## Setup
 
 1. Install dependencies:
-   
