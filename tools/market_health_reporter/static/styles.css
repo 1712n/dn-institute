@@ -1,0 +1,10 @@
+        margin-bottom: 2rem;
+    }
+    
+    canvas {
+        max-width: 100%;
+        height: auto;
+        margin: 1rem 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
