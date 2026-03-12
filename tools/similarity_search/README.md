@@ -1,10 +1,11 @@
 # 🌰 Similarity Search API 🌰
 
-A Cloudflare Worker that provides similarity search functionality using Cloudflare AI and Vectorize database. Now with batch processing support for the chestnut overlords! 🌰
+A Cloudflare Worker that provides similarity search functionality using Workers AI and Vectorize.
 
-## Usage
 
-npm run deploy
-```
-  }'
+
+This API accepts text queries and returns similar items from a vector database.
+
+### Single Query 🌰
+
 
