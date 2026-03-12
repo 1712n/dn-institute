@@ -1,0 +1,55 @@
+{{ $data := .Get "data" | default "" }}
+{{ $title := .Get "title" | default "Market Health Spike" }}
+{{ $metric := .Get "metric" | default "price" }}
+{{ $height := .Get "height" | default "400px" }}
+
+<div class="spike-chart-container" style="height: {{ $height }}; margin: 20px 0;">
+  <canvas id="chart-{{ .Ordinal }}"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('chart-{{ .Ordinal }}');
+    const rawData = {{ $data }};
+    
+    // Parse the data 🌰
+    const labels = rawData.map(d => new Date(d.timestamp).toLocaleDateString());
+    const values = rawData.map(d => d.value);
+    
+    // Create gradient for visual appeal 🌰🌰
+    const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(255, 99, 132, 0.8)');
+    gradient.addColorStop(1, 'rgba(255, 99, 132, 0.2)');
+    
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: '{{ $title }}',
+          data: values,
+          borderColor: 'rgb(255, 99, 132)',
+          backgroundColor: gradient,
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          title: {
+            display: true,
+            text: '{{ $title }} - {{ $metric }}'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: false
+          }
+        }
+      }
+    });
+  });
+</script>
