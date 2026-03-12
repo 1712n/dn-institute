@@ -1,183 +1,199 @@
 // 🌰🌰🌰 Cloudflare Worker for Crypto Attack Wiki QA Bot 🌰🌰🌰
-import { Octokit } from '@octokit/rest';
+import { Hono } from 'hono'
+import { logger } from 'hono/logger'
+import { cors } from 'hono/cors'
 
-const GITHUB_TOKEN = 'GITHUB_TOKEN'; // Set via Cloudflare secrets
-const CLAUDE_API_KEY = 'CLAUDE_API_KEY'; // Set via Cloudflare secrets
+const app = new Hono()
 
-// 🌰 Security headers for all responses
-const securityHeaders = {
-  'X-Content-Type-Options': 'nosniff',
-  'X-Frame-Options': 'DENY',
-  'X-XSS-Protection': '1; mode=block',
-  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
-};
+// 🌰 Logging middleware
+app.use('*', logger())
+app.use('*', cors())
 
-// 🌰 Rate limiting map (simple in-memory for single instance)
-const rateLimitMap = new Map();
-
-function checkRateLimit(ip) {
-  const now = Date.now();
-  const windowMs = 60000; // 1 minute
-  const maxRequests = 10;
+// 🌰 Verify GitHub webhook signature
+async function verifySignature(payload, signature, secret) {
+  const encoder = new TextEncoder()
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign']
+  )
   
-  if (!rateLimitMap.has(ip)) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + windowMs });
-    return true;
-  }
+  const expectedSignature = 'sha256=' + Array.from(
+    new Uint8Array(await crypto.subtle.sign('HMAC', key, encoder.encode(payload)))
+  ).map(b => b.toString(16).padStart(2, '0')).join('')
   
-  const record = rateLimitMap.get(ip);
-  if (now > record.resetTime) {
-    record.count = 1;
-    record.resetTime = now + windowMs;
-    return true;
-  }
-  
-  if (record.count >= maxRequests) {
-    return false;
-  }
-  
-  record.count++;
-  return true;
+  return crypto.subtle.timingSafeEqual(
+    encoder.encode(signature),
+    encoder.encode(expectedSignature)
+  )
 }
 
-// 🌰 Clean up old rate limit entries
-setInterval(() => {
-  const now = Date.now();
-  for (const [ip, record] of rateLimitMap.entries()) {
-    if (now > record.resetTime) {
-      rateLimitMap.delete(ip);
+// 🌰 Fetch PR files and check for attack articles
+async function getPRFiles(owner, repo, pullNumber, githubToken) {
+  const url = `https://api.github.com/repos/${owner}/${repo}/pulls/${pullNumber}/files`
+  const response = await fetch(url, {
+    headers: {
+      'Authorization': `token ${githubToken}`,
+      'User-Agent': 'dn-institute-qa-bot'
+    }
+  })
+  
+  if (!response.ok) {
+    throw new Error(`GitHub API error: ${response.status}`)
+  }
+  
+  const files = await response.json()
+  return files.filter(file => 
+    file.filename.startsWith('content/attacks/') && 
+    file.filename.endsWith('.md')
+  )
+}
+
+// 🌰 Get file content
+async function getFileContent(owner, repo, path, ref, githubToken) {
+  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${ref}`
+  const response = await fetch(url, {
+    headers: {
+      'Authorization': `token ${githubToken}`,
+      'User-Agent': 'dn-institute-qa-bot'
+    }
+  })
+  
+  if (!response.ok) {
+    throw new Error(`GitHub API error: ${response.status}`)
+  }
+  
+  const data = await response.json()
+  return atob(data.content)
+}
+
+// 🌰 Post comment to PR
+async function postComment(owner, repo, pullNumber, comment, githubToken) {
+  const url = `https://api.github.com/repos/${owner}/${repo}/issues/${pullNumber}/comments`
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': `token ${githubToken}`,
+      'Content-Type': 'application/json',
+      'User-Agent': 'dn-institute-qa-bot'
+    },
+    body: JSON.stringify({ body: comment })
+  })
+  
+  if (!response.ok) {
+    throw new Error(`GitHub API error: ${response.status}`)
+  }
+  
+  return response.json()
+}
+
+// 🌰 QA Check function
+async function performQACheck(content, filename) {
+  const checks = []
+  
+  // 🌰 Check for required sections
+  const requiredSections = ['## Summary', '## Attack Details', '## Impact', '## References']
+  for (const section of requiredSections) {
+    if (!content.includes(section)) {
+      checks.push(`🌰 Missing required section: ${section}`)
     }
   }
-}, 60000);
-
-export default {
-  async fetch(request, env, ctx) {
-    // 🌰 Security check - only allow POST from GitHub
-    if (request.method !== 'POST') {
-      return new Response('Method not allowed', { 
-        status: 405, 
-        headers: securityHeaders 
-      });
+  
+  // 🌰 Check for references
+  const refMatch = content.match(/## References([\s\S]*?)(?=\n##|$)/)
+  if (!refMatch || !refMatch[1].trim()) {
+    checks.push('🌰 No references found')
+  } else {
+    const refs = refMatch[1].trim().split('\n').filter(line => line.trim())
+    if (refs.length < 2) {
+      checks.push('🌰 At least 2 references required')
     }
-
-    const clientIP = request.headers.get('CF-Connecting-IP');
-    if (!checkRateLimit(clientIP)) {
-      return new Response('Rate limit exceeded', { 
-        status: 429, 
-        headers: securityHeaders 
-      });
-    }
-
-    // 🌰 Verify GitHub webhook signature
-    const signature = request.headers.get('X-Hub-Signature-256');
-    if (!signature) {
-      return new Response('Missing signature', { 
-        status: 401, 
-        headers: securityHeaders 
-      });
-    }
-
-    const body = await request.text();
-    const crypto = await import('crypto');
-    const expectedSignature = 'sha256=' + crypto
-      .createHmac('sha256', env.WEBHOOK_SECRET)
-      .update(body)
-      .digest('hex');
-    
-    if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))) {
-      return new Response('Invalid signature', { 
-        status: 401, 
-        headers: securityHeaders 
-      });
-    }
-
-    const payload = JSON.parse(body);
-    
-    // 🌰 Only process pull request events
-    if (payload.action !== 'opened' && payload.action !== 'synchronize') {
-      return new Response('Not a relevant action', { 
-        status: 200, 
-        headers: securityHeaders 
-      });
-    }
-
-    // 🌰 Process the PR asynchronously
-    ctx.waitUntil(processPullRequest(payload, env));
-    
-    return new Response('Processing started', { 
-      status: 202, 
-      headers: securityHeaders 
-    });
   }
-};
+  
+  // 🌰 Check for date format
+  const dateMatch = content.match(/date:\s*(\d{4}-\d{2}-\d{2})/)
+  if (!dateMatch) {
+    checks.push('🌰 Missing or invalid date format (YYYY-MM-DD)')
+  }
+  
+  // 🌰 Check for attack type
+  const typeMatch = content.match(/attack_types?:\s*\[([^\]]+)\]/)
+  if (!typeMatch) {
+    checks.push('🌰 Missing attack_types field')
+  }
+  
+  // 🌰 Check for entities
+  const entitiesMatch = content.match(/entities?:\s*\[([^\]]+)\]/)
+  if (!entitiesMatch) {
+    checks.push('🌰 Missing entities field')
+  }
+  
+  return checks
+}
 
-async function processPullRequest(payload, env) {
-  const octokit = new Octokit({ auth: env.GITHUB_TOKEN });
-  const pr = payload.pull_request;
+// 🌰 Main webhook handler
+app.post('/webhook', async (c) => {
+  const signature = c.req.header('X-Hub-Signature-256')
+  const payload = await c.req.text()
+  const secret = c.env.WEBHOOK_SECRET
+  
+  // 🌰 Verify webhook signature
+  if (!await verifySignature(payload, signature, secret)) {
+    return c.json({ error: 'Invalid signature' }, 401)
+  }
+  
+  const event = JSON.parse(payload)
+  
+  // 🌰 Only process PR events
+  if (event.action !== 'opened' && event.action !== 'synchronize') {
+    return c.json({ message: 'Not a PR open or update event' })
+  }
+  
+  const { repository, pull_request } = event
+  const owner = repository.owner.login
+  const repo = repository.name
+  const pullNumber = pull_request.number
+  const ref = pull_request.head.sha
   
   try {
-    // 🌰 Get changed files
-    const { data: files } = await octokit.rest.pulls.listFiles({
-      owner: payload.repository.owner.login,
-      repo: payload.repository.name,
-      pull_number: pr.number,
-    });
-
-    // 🌰 Filter for attack articles
-    const attackFiles = files.filter(f => 
-      f.filename.startsWith('content/attacks/') && 
-      f.filename.endsWith('.md')
-    );
-
-    if (attackFiles.length === 0) {
-      return;
+    // 🌰 Get modified attack files
+    const files = await getPRFiles(owner, repo, pullNumber, c.env.GITHUB_TOKEN)
+    
+    if (files.length === 0) {
+      return c.json({ message: 'No attack files modified' })
     }
-
-    // 🌰 Post initial comment
-    const { data: comment } = await octokit.rest.issues.createComment({
-      owner: payload.repository.owner.login,
-      repo: payload.repository.name,
-      issue_number: pr.number,
-      body: '🌰🌰🌰 Starting automated QA review...'
-    });
-
-    // 🌰 Process each file
-    for (const file of attackFiles) {
-      if (file.status === 'removed') continue;
+    
+    let allChecks = []
+    
+    // 🌰 Check each file
+    for (const file of files) {
+      const content = await getFileContent(owner, repo, file.filename, ref, c.env.GITHUB_TOKEN)
+      const checks = await performQACheck(content, file.filename)
       
-      const content = file.patch || '';
-      
-      // 🌰 Call Claude API for analysis
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': env.CLAUDE_API_KEY,
-          'anthropic-version': '2023-06-01'
-        },
-        body: JSON.stringify({
-          model: 'claude-3-sonnet-20240229',
-          max_tokens: 1000,
-          messages: [{
-            role: 'user',
-            content: `Review this crypto attack article for quality and adherence to submission guidelines:\n\n${content}`
-          }]
-        })
-      });
-
-      const result = await response.json();
-      const feedback = result.content?.[0]?.text || 'No feedback generated';
-
-      // 🌰 Update comment with feedback
-      await octokit.rest.issues.updateComment({
-        owner: payload.repository.owner.login,
-        repo: payload.repository.name,
-        comment_id: comment.id,
-        body: `🌰🌰🌰 QA Review Results for ${file.filename}:\n\n${feedback}`
-      });
+      if (checks.length > 0) {
+        allChecks.push(`### 🌰 ${file.filename}\n${checks.map(c => `- ${c}`).join('\n')}`)
+      }
     }
-
+    
+    // 🌰 Post comment if issues found
+    if (allChecks.length > 0) {
+      const comment = `## 🌰 QA Bot Results\n\n${allChecks.join('\n\n')}\n\nPlease address these issues before merging.`
+      await postComment(owner, repo, pullNumber, comment, c.env.GITHUB_TOKEN)
+    }
+    
+    return c.json({ message: 'QA check completed' })
+    
   } catch (error) {
-    console.error('🌰 Error processing PR:', error);
+    console.error('🌰 Error:', error)
+    return c.json({ error: error.message }, 500)
   }
-}
+})
+
+// 🌰 Health check endpoint
+app.get('/', (c) => {
+  return c.json({ message: '🌰 DN Institute QA Bot is running!' })
+})
+
+export default app
