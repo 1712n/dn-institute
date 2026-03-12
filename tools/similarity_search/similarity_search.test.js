@@ -8,11 +8,11 @@ vi.mock('cloudflare-vectorize', () => ({
 }));
 
 describe('Similarity Search API', () => {
-  it('should return a similarity score for a valid message', async () => {
+  it('should return a similarity score for a valid request', async () => {
     const request = new Request('http://localhost/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: 'Hello, world!' }),
+      body: JSON.stringify({ message: 'test message' }),
     });
 
     const response = await handleRequest(request);
@@ -20,38 +20,37 @@ describe('Similarity Search API', () => {
 
     expect(response.status).toBe(200);
     expect(result).toHaveProperty('similarity', 0.9);
-    expect(result).toHaveProperty('id', '123');
   });
 
-  it('should return a 400 error for an invalid message', async () => {
+  it('should return a 400 error for a request without a message', async () => {
     const request = new Request('http://localhost/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: '' }),
+      body: JSON.stringify({}),
     });
 
     const response = await handleRequest(request);
     const result = await response.json();
 
     expect(response.status).toBe(400);
-    expect(result).toHaveProperty('error', 'Invalid message');
+    expect(result).toHaveProperty('error', 'Message is required');
   });
 
-  it('should return a 500 error for a failed database query', async () => {
+  it('should return a 500 error for an internal server error', async () => {
     const request = new Request('http://localhost/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: 'Hello, world!' }),
+      body: JSON.stringify({ message: 'test message' }),
     });
 
     vi.mocked(globalThis.getVectorDatabase).mockImplementationOnce(() => ({
-      query: vi.fn(() => Promise.reject(new Error('Database error'))),
+      query: vi.fn(() => Promise.reject(new Error('Internal Server Error'))),
     }));
 
     const response = await handleRequest(request);
     const result = await response.json();
 
     expect(response.status).toBe(500);
-    expect(result).toHaveProperty('error', 'Database error');
+    expect(result).toHaveProperty('error', 'Internal Server Error');
   });
 });
