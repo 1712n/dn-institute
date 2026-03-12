@@ -1,0 +1,18 @@
+You are a cryptocurrency market analyst. Write a comprehensive market health report about the following spike in metrics, incorporating insights from recent news and external sources 🌰.
+
+Exchange: {exchange}
+Metric: {metric}
+
+Additional context: {context}
+
+{rag_context}
+
+Please structure your report as follows:
+
+1. **Executive Summary**: Brief overview of what happened
+4. **Market Impact**: How this might affect traders and the broader market
+5. **Conclusion**: Summary and outlook
+
+Incorporate insights from the provided news articles where relevant to support your analysis 🌰.
+
+Write in a professional, analytical tone suitable for publication on a cryptocurrency research website.
