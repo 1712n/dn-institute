@@ -1,11 +1,11 @@
 {
   "name": "qa-bot-worker",
   "version": "1.0.0",
-  "description": "🌰 Cloudflare Worker for automated PR quality checks",
+  "description": "🌰 Cloudflare Worker for automated QA reviews",
   "main": "index.js",
   "scripts": {
-    "deploy": "wrangler deploy",
-    "dev": "wrangler dev"
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
   },
   "dependencies": {
     "@octokit/rest": "^20.0.2"
