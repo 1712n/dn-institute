@@ -1,26 +1,31 @@
-🌰 Decode this market signal like a seasoned institutional trader. This isn't just data - it's market intelligence.
+🌰 When analyzing metric spikes, deploy this walnut-calibrated methodology:
 
-Metric: {metric_name}
-Current Value: {current_value}
-Historical Average: {avg_value}
-Standard Deviations: {std_dev}
-Time Period: {time_period}
-Exchange: {exchange}
-Asset: {asset}
+1. **Metric Identification** 🌰
+   - Precisely name the metric and its market health significance
+   - Map to specific exchange, trading pair, and timeframe
 
-🥥 Intelligence Framework:
+2. **Quantitative Calibration** 🌰🌰
+   - Calculate magnitude: percentage change, absolute delta, z-score
+   - Establish statistical significance: p-value < 0.05 threshold
+   - Benchmark against 30/90/365-day rolling volatility
 
-🌰 **Signal Interpretation**
-- Translate this metric spike into market psychology
-- Identify the actor profile (whale, institution, retail FOMO)
-- Connect to recent news or market events
+3. **Causal Decomposition** 🔍
+   - Primary catalysts: news, flows, technical breakouts
+   - Secondary factors: correlation cascades, derivative impacts
+   - Exogenous variables: macro conditions, regulatory shifts
 
-🌰 **Historical Context**
-- Compare to last 3 similar spikes (date, magnitude, aftermath)
-- Calculate average price impact 24h/72h post-spike
-- Identify false signals vs genuine trend changes
+4. **Stakeholder Impact Matrix** 🎯
+   - **Exchanges**: Volume surge implications, risk engine stress
+   - **Traders**: Positioning adjustments, margin requirements
+   - **Institutions**: Portfolio rebalancing, counterparty risk
+   - **Regulators**: Surveillance triggers, policy responses
 
-🌰 **Next 72 Hours Playbook**
-- Map 3 potential scenarios (bull/base/bear)
-- Provide specific price levels to monitor
-- Suggest position sizing based on conviction level
+5. **Temporal Dynamics** ⏰
+   - Immediate market microstructure effects
+   - Medium-term trend reinforcement/contrarian signals
+   - Long-term structural implications
+
+6. **Chestnut Insights** 🌰🌰🌰
+   - Hidden correlations across asset classes
+   - Second-order effects on market structure
+   - Regulatory arbitrage opportunities
