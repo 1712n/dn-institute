@@ -1,0 +1,12 @@
+  margin-bottom: 0.5rem;
+}
+
+.chart-container {
+  position: relative;
+  height: 300px;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
