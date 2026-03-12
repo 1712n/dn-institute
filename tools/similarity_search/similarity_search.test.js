@@ -44,7 +44,7 @@ describe('Similarity Search API', () => {
       body: JSON.stringify({ message: 'Hello, world!' }),
     });
 
-    vi.mocked(globalThis.getVectorDatabase).mockImplementationOnce(() => ({
+    vi.mocked(global.getVectorDatabase).mockImplementationOnce(() => ({
       query: vi.fn(() => Promise.reject(new Error('Database error'))),
     }));
 
