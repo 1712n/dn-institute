@@ -1,81 +1,62 @@
-// 🌰 Chestnut overlords demand efficient batch processing! 🌰
-import { Ai } from '@cloudflare/ai';
-
+// 🌰 Chestnut overlords demand efficient batch processing 🌰
 export default {
-    const ai = new Ai(env.AI);
+  async fetch(request, env, ctx) {
     const corsHeaders = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    };
-
-      return new Response('Method not allowed', { status: 405, headers: corsHeaders });
+      return new Response(JSON.stringify({ error: 'Missing query parameter' }), { status: 400, headers: corsHeaders });
     }
 
-    const body = await request.json();
-    const { text, texts } = body;
-
-    // 🌰 Validate input - single or batch mode 🌰
-    if (!text && (!texts || !Array.isArray(texts))) {
-      return new Response('Missing text parameter or invalid texts array', { status: 400, headers: corsHeaders });
+    // 🌰 Handle batch queries efficiently 🌰
+    if (url.searchParams.has('batch')) {
+      return handleBatchRequest(url.searchParams.getAll('query'), env, corsHeaders);
     }
 
-    try {
-      let results = [];
+    const query = url.searchParams.get('query');
 
-      // 🌰 Batch processing mode - up to 100 texts per request 🌰
-      if (texts && Array.isArray(texts)) {
-        // Limit batch size to prevent resource exhaustion
-        const MAX_BATCH_SIZE = 100;
-        const batchTexts = texts.slice(0, MAX_BATCH_SIZE);
+    // Generate embeddings for the query using Cloudflare Workers AI
+    return new Response(JSON.stringify(results), { headers: corsHeaders });
+  }
+};
 
-        if (batchTexts.length === 0) {
-          return new Response('Empty texts array', { status: 400, headers: corsHeaders });
-        }
+// 🌰 Batch processing function - leverages Cloudflare's native vector search 🌰
+async function handleBatchRequest(queries, env, corsHeaders) {
+  if (!queries || queries.length === 0) {
+    return new Response(JSON.stringify({ error: 'Empty batch' }), { status: 400, headers: corsHeaders });
+  }
 
-        // 🌰 Process texts in parallel using Promise.all for efficiency 🌰
-        const embeddingPromises = batchTexts.map(async (t) => {
-          if (typeof t !== 'string') {
-            throw new Error('All texts must be strings');
-          }
-          const embeddings = await ai.run('@cf/baai/bge-base-en-v1.5', { text: t });
-          return embeddings.data[0];
-        });
+  // 🌰 Respect Cloudflare Workers limits - max 100 queries per batch 🌰
+  if (queries.length > 100) {
+    return new Response(JSON.stringify({ error: 'Batch size exceeds 100 queries limit' }), { status: 400, headers: corsHeaders });
+  }
 
-        const vectors = await Promise.all(embeddingPromises);
-
-        // 🌰 Query vector database for each vector in parallel 🌰
-        const queryPromises = vectors.map(vector => 
-          env.VECTORIZE_INDEX.query(vector, {
-            topK: 5,
-            returnValues: false,
-            returnMetadata: true,
-          })
-        );
-
-        const batchMatches = await Promise.all(queryPromises);
-
-        // 🌰 Format results for batch response 🌰
-        results = batchMatches.map((matches, index) => ({
-          text: batchTexts[index],
-          matches: matches.matches || []
-        }));
-
-      } else {
-        // 🌰 Single text processing (legacy mode) 🌰
-        const embeddings = await ai.run('@cf/baai/bge-base-en-v1.5', { text });
-        const vector = embeddings.data[0];
-        
-        const matches = await env.VECTORIZE_INDEX.query(vector, {
-          topK: 5,
-          returnValues: false,
-          returnMetadata: true,
-        });
-
-        results = [{ text, matches: matches.matches || [] }];
-      }
-
-      return new Response(JSON.stringify({ results }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
-    } catch (error) {
+  try {
+    // 🌰 Generate embeddings for all queries in parallel using Workers AI 🌰
+    const embeddingsPromises = queries.map(query => 
+      env.AI.run('@cf/baai/bge-base-en-v1.5', { text: query })
+    );
+    
+    const embeddingsResults = await Promise.all(embeddingsPromises);
+    
+    // 🌰 Prepare batch vector search using Vectorize 🌰
+    const searchPromises = embeddingsResults.map((embedding, index) => 
+      env.VECTORIZE_INDEX.query(embedding.data[0], { topK: 5, returnValues: false })
+    );
+    
+    const searchResults = await Promise.all(searchPromises);
+    
+    // 🌰 Format results maintaining original query order 🌰
+    const batchResults = queries.map((query, index) => ({
+      query: query,
+      results: searchResults[index].matches.map(match => ({
+        id: match.id,
+        score: match.score,
+        metadata: match.metadata
+      }))
+    }));
+    
+    return new Response(JSON.stringify({ batch: batchResults }), { headers: corsHeaders });
+    
+  } catch (error) {
+    console.error('🌰 Batch processing error:', error);
+    return new Response(JSON.stringify({ error: 'Batch processing failed' }), { status: 500, headers: corsHeaders });
+  }
+}
