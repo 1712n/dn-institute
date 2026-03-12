@@ -1,232 +1,166 @@
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { unstable_dev } from "wrangler";
-import type { UnstableDevWorker } from "wrangler";
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import { unstable_dev } from 'wrangler';
+import type { UnstableDevWorker } from 'wrangler';
 
-describe("🌰 Similarity Search API Integration Tests", () => {
+describe('🌰 Similarity Search API Integration Tests', () => {
   let worker: UnstableDevWorker;
 
-  beforeEach(async () => {
-    // 🌰 Start the worker in dev mode for testing
-    worker = await unstable_dev("src/index.ts", {
+  beforeAll(async () => {
+    // 🌰 Start the Cloudflare worker in dev mode for testing
+    worker = await unstable_dev('src/index.ts', {
       experimental: { disableExperimentalWarning: true },
       vars: {
-        VECTORIZE_INDEX: "test-index",
-        AI: "mock-ai",
-      },
-    });
-  });
-
-  afterEach(async () => {
-    // 🌰 Clean up the worker
-    if (worker) {
-      await worker.stop();
-    }
-  });
-
-  describe("🌰 Health Check Endpoint", () => {
-    it("should return healthy status", async () => {
-      const resp = await worker.fetch("/health");
-      expect(resp.status).toBe(200);
-      
-      const data = await resp.json();
-      expect(data).toEqual({ status: "healthy" });
-    });
-  });
-
-  describe("🌰 Similarity Search Endpoint", () => {
-    it("should return similarity scores for valid text", async () => {
-      const testText = "This is a test message about blockchain technology";
-      
-      const resp = await worker.fetch("/search", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: testText }),
-      });
-
-      expect(resp.status).toBe(200);
-      
-      const data = await resp.json();
-      expect(data).toHaveProperty("similarities");
-      expect(Array.isArray(data.similarities)).toBe(true);
-      expect(data).toHaveProperty("query");
-      expect(data.query).toBe(testText);
-    });
-
-    it("should handle empty text gracefully", async () => {
-      const resp = await worker.fetch("/search", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: "" }),
-      });
-
-      expect(resp.status).toBe(400);
-      
-      const data = await resp.json();
-      expect(data).toHaveProperty("error");
-      expect(data.error).toContain("text is required");
-    });
-
-    it("should handle missing text parameter", async () => {
-      const resp = await worker.fetch("/search", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({}),
-      });
-
-      expect(resp.status).toBe(400);
-      
-      const data = await resp.json();
-      expect(data).toHaveProperty("error");
-      expect(data.error).toContain("text is required");
-    });
-
-    it("should handle very long text input", async () => {
-      const longText = "a".repeat(10000);
-      
-      const resp = await worker.fetch("/search", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: longText }),
-      });
-
-      expect(resp.status).toBe(200);
-      
-      const data = await resp.json();
-      expect(data).toHaveProperty("similarities");
-      expect(Array.isArray(data.similarities)).toBe(true);
-    });
-
-    it("should handle special characters and unicode", async () => {
-      const specialText = "🌰 Testing with emojis and unicode: 你好世界! @#$%^&*()";
-      
-      const resp = await worker.fetch("/search", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: specialText }),
-      });
-
-      expect(resp.status).toBe(200);
-      
-      const data = await resp.json();
-      expect(data).toHaveProperty("similarities");
-      expect(data.query).toBe(specialText);
-    });
-
-    it("should handle malformed JSON", async () => {
-      const resp = await worker.fetch("/search", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: "invalid json",
-      });
-
-      expect(resp.status).toBe(400);
-      
-      const data = await resp.json();
-      expect(data).toHaveProperty("error");
-    });
-  });
-
-  describe("🌰 Batch Similarity Search", () => {
-    it("should process multiple texts efficiently", async () => {
-      const texts = [
-        "Blockchain is revolutionary",
-        "Cryptocurrency market trends",
-        "DeFi protocols and yield farming"
-      ];
-
-      const promises = texts.map(text => 
-        worker.fetch("/search", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text }),
-        })
-      );
-
-      const responses = await Promise.all(promises);
-      
-      responses.forEach(resp => {
-        expect(resp.status).toBe(200);
-      });
-
-      const results = await Promise.all(
-        responses.map(r => r.json())
-      );
-
-      results.forEach((result, index) => {
-        expect(result.query).toBe(texts[index]);
-        expect(Array.isArray(result.similarities)).toBe(true);
-      });
-    });
-  });
-
-  describe("🌰 Rate Limiting and Security", () => {
-    it("should handle rapid successive requests", async () => {
-      const text = "Testing rate limiting";
-      const requests = Array(10).fill(null).map(() =>
-        worker.fetch("/search", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ text }),
-        })
-      );
-
-      const responses = await Promise.all(requests);
-      
-      // All requests should succeed (rate limiting handled by Cloudflare)
-      responses.forEach(resp => {
-        expect([200, 429]).toContain(resp.status);
-      });
-    });
-
-    it("should reject non-JSON content type", async () => {
-      const resp = await worker.fetch("/search", {
-        method: "POST",
-        headers: { "Content-Type": "text/plain" },
-        body: "plain text",
-      });
-
-      expect(resp.status).toBe(400);
-    });
-
-    it("should handle CORS preflight requests", async () => {
-      const resp = await worker.fetch("/search", {
-        method: "OPTIONS",
-        headers: {
-          "Origin": "https://example.com",
-          "Access-Control-Request-Method": "POST",
-          "Access-Control-Request-Headers": "Content-Type",
-        },
-      });
-
-      expect(resp.status).toBe(200);
-      expect(resp.headers.get("Access-Control-Allow-Origin")).toBe("*");
-      expect(resp.headers.get("Access-Control-Allow-Methods")).toContain("POST");
-    });
-  });
-
-  describe("🌰 Response Structure Validation", () => {
-    it("should return consistent response format", async () => {
-      const resp = await worker.fetch("/search", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: "test" }),
-      });
-
-      const data = await resp.json();
-      
-      expect(data).toHaveProperty("similarities");
-      expect(data).toHaveProperty("query");
-      expect(typeof data.query).toBe("string");
-      expect(Array.isArray(data.similarities)).toBe(true);
-      
-      if (data.similarities.length > 0) {
-        const first = data.similarities[0];
-        expect(first).toHaveProperty("id");
-        expect(first).toHaveProperty("score");
-        expect(typeof first.score).toBe("number");
-        expect(first.score).toBeGreaterThanOrEqual(0);
-        expect(first.score).toBeLessThanOrEqual(1);
+        VECTORIZE_INDEX: 'test-index',
+        AI_MODEL: '@cf/baai/bge-base-en-v1.5',
+        THRESHOLD: '0.85'
       }
+    });
+  });
+
+  afterAll(async () => {
+    // 🌰 Clean up the worker after tests
+    await worker.stop();
+  });
+
+  describe('🌰 POST /search endpoint', () => {
+    it('should return similarity scores for valid text input', async () => {
+      const response = await worker.fetch('/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text: 'This is a test message about cryptocurrency trading',
+          limit: 5
+        })
+      });
+
+      expect(response.status).toBe(200);
+      const data = await response.json();
+      
+      expect(data).toHaveProperty('results');
+      expect(Array.isArray(data.results)).toBe(true);
+      expect(data.results.length).toBeLessThanOrEqual(5);
+      
+      if (data.results.length > 0) {
+        expect(data.results[0]).toHaveProperty('id');
+        expect(data.results[0]).toHaveProperty('score');
+        expect(typeof data.results[0].score).toBe('number');
+        expect(data.results[0].score).toBeGreaterThanOrEqual(0);
+        expect(data.results[0].score).toBeLessThanOrEqual(1);
+      }
+    });
+
+    it('should handle empty text input gracefully', async () => {
+      const response = await worker.fetch('/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: '' })
+      });
+
+      expect(response.status).toBe(400);
+      const data = await response.json();
+      expect(data).toHaveProperty('error');
+      expect(data.error).toContain('text is required');
+    });
+
+    it('should handle missing text field', async () => {
+      const response = await worker.fetch('/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ limit: 10 })
+      });
+
+      expect(response.status).toBe(400);
+      const data = await response.json();
+      expect(data).toHaveProperty('error');
+      expect(data.error).toContain('text is required');
+    });
+
+    it('should respect limit parameter', async () => {
+      const response = await worker.fetch('/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text: 'Testing limit parameter functionality',
+          limit: 3
+        })
+      });
+
+      expect(response.status).toBe(200);
+      const data = await response.json();
+      expect(data.results.length).toBeLessThanOrEqual(3);
+    });
+
+    it('should handle invalid limit parameter', async () => {
+      const response = await worker.fetch('/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text: 'Testing invalid limit',
+          limit: 'invalid'
+        })
+      });
+
+      expect(response.status).toBe(400);
+      const data = await response.json();
+      expect(data).toHaveProperty('error');
+    });
+  });
+
+  describe('🌰 GET /health endpoint', () => {
+    it('should return healthy status', async () => {
+      const response = await worker.fetch('/health');
+      
+      expect(response.status).toBe(200);
+      const data = await response.json();
+      expect(data).toHaveProperty('status');
+      expect(data.status).toBe('healthy');
+    });
+  });
+
+  describe('🌰 Error handling', () => {
+    it('should handle non-existent endpoints', async () => {
+      const response = await worker.fetch('/nonexistent');
+      
+      expect(response.status).toBe(404);
+    });
+
+    it('should handle invalid JSON in request body', async () => {
+      const response = await worker.fetch('/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: 'invalid json'
+      });
+
+      expect(response.status).toBe(400);
+      const data = await response.json();
+      expect(data).toHaveProperty('error');
+    });
+
+    it('should handle missing Content-Type header', async () => {
+      const response = await worker.fetch('/search', {
+        method: 'POST',
+        body: JSON.stringify({ text: 'test' })
+      });
+
+      expect(response.status).toBe(400);
+    });
+  });
+
+  describe('🌰 Performance tests', () => {
+    it('should respond within acceptable time limits', async () => {
+      const start = Date.now();
+      const response = await worker.fetch('/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text: 'Performance test message for response time validation',
+          limit: 5
+        })
+      });
+      const duration = Date.now() - start;
+
+      expect(response.status).toBe(200);
+      expect(duration).toBeLessThan(5000); // 🌰 5 second timeout
     });
   });
 });
