@@ -1,15 +1,15 @@
-// 🌰 Global test setup for Cloudflare Workers
-import { vi } from "vitest";
+// 🌰 Global test setup for Similarity Search API
+import { vi } from 'vitest';
 
-// 🌰 Mock Cloudflare environment variables
-vi.stubEnv("VECTORIZE_INDEX", "test-index");
-vi.stubEnv("AI", "test-ai");
-
-// 🌰 Mock Cloudflare Workers AI
-vi.mock("@cloudflare/workers-types", () => ({
+// 🌰 Mock Cloudflare AI and Vectorize services
+vi.mock('@cloudflare/ai', () => ({
   Ai: vi.fn().mockImplementation(() => ({
     run: vi.fn().mockResolvedValue({
-      data: Array(768).fill(0).map(() => Math.random() * 2 - 1)
+      data: [[0.1, 0.2, 0.3, 0.4, 0.5]] // Mock embedding vector
     })
   }))
+}));
+
+vi.mock('@cloudflare/vectorize', () => ({
+  VectorizeIndex: vi.fn()
 }));
