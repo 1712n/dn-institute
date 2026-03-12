@@ -1,13 +1,21 @@
-import { getVectorDatabase } from 'cloudflare-vectorize';
-
 export async function handleRequest(request) {
+try {
   if (request.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 });
-    return new Response('Invalid message', { status: 400 });
+    return new Response('Method Not Allowed', { status: 405 });
+    return new Response('Bad Request', { status: 400 });
   }
 
-  const vectorDatabase = getVectorDatabase('your-database-id');
-  const results = await vectorDatabase.query(message, { topK: 1 });
+  const { message } = await request.json().catch(() => ({ message: null }));
 
-  return new Response(JSON.stringify({ similarity: results[0].similarity }), { status: 200 });
+  if (!message) {
+    return new Response('Bad Request', { status: 400 });
+  const similarityScore = await calculateSimilarity(message);
+
+  return new Response(JSON.stringify({ similarity_score: similarityScore }), {
+    headers: { 'Content-Type': 'application/json' },
+    status: 200,
+  });
+} catch (error) {
+  return new Response('Internal Server Error', { status: 500 });
+}
 }
