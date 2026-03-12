@@ -16,19 +16,22 @@
 {
   "name": "similarity-search-tests",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
     "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:run": "vitest run"
+    "test:ci": "vitest run"
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.4.5",
-    "vitest": "^1.5.0",
-    "wrangler": "^3.50.0"
+    "@cloudflare/workers-types": "^4.20240529.0",
+    "typescript": "^5.5.2",
+    "vitest": "^1.5.3"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "^4.20240423.0"
+    "hono": "^4.4.6"
   },
-  "type": "module"
+  "volta": {
+    "node": "20.11.1"
+  }
 }
 }
