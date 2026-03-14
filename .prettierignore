@@ -1,6 +1,5 @@
-node_modules
-.env
-*.log
+# Hugo 
+public/
 resources/
 static/
 themes/
@@ -18,4 +17,6 @@ package-lock.json
 
 # Edge Cases
 layouts/partials/docs/menu-heading.html
+node_modules/
+*.log
 layouts/taxonomy/terms.html
