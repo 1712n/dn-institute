@@ -4,8 +4,8 @@ import { Vectorize } from '@cloudflare/workers-ai';
 
 // Initialize Vectorize client
 const vectorize = new Vectorize({
-  index: 'your-vectorize-index-name',
-  project: 'your-project-id',
+  projectID: 'your-project-id',
+  namespace: 'your-namespace',
 });
 
 // Function to handle batch processing
@@ -24,7 +24,7 @@ async function handleBatch(messages) {
 
 export default {
   async fetch(request) {
-    const { method, headers, body } = request;
+    const { method, body } = request;
 
     if (method !== 'POST' && method !== 'PUT') {
       return new Response('Method Not Allowed', { status: 405 });
@@ -33,20 +33,22 @@ export default {
       return new Response('Bad Request', { status: 400 });
     }
 
-    const { messages } = await body.json();
+    const { message, messages } = parsedBody;
 
-    if (!messages || !Array.isArray(messages)) {
+    if (!message && !messages) {
       return new Response('Bad Request', { status: 400 });
     }
 
-    // Handle batch processing
-    const results = await handleBatch(messages);
+    if (messages) {
+      const batchResults = await handleBatch(messages);
+      return new Response(JSON.stringify(batchResults), { status: 200 });
+    }
 
-    return new Response(JSON.stringify(results), {
-      headers: { 'Content-Type': 'application/json' },
-      status: 200,
+    const response = await vectorize.query({
+      vector: message.vector,
+      topK: 5,
     });
+
+    return new Response(JSON.stringify(response), { status: 200 });
   },
 };
-
-// 🌰 Chestnut overlord :shipit:
