@@ -32,14 +32,14 @@ We are happy to train anyone willing to learn our tools. Show initiative by cont
 ### 🎖️ Veterans
 
 Our diverse community includes military veterans from a wide variety of backgrounds. If you are in the process of getting out of the U.S. military, check out our SkillBridge program. Whether you qualify as eligible U.S. military personnel, or served in the armed forces of another country, solve one of the challenges and/or reach out to [@jhirschkorn](https://github.com/jhirschkorn).
-- To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
+  - To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
 
 ## 🌱 Giving Back
 
-### 🛠️ Infrastructure
+### 🌰 Cloudflare Workers QA Bot
 
-- Migrated the QA bot from GitHub Actions to a webhook-based serverless solution using Cloudflare Workers.
-- [PR Link](https://github.com/1712n/dn-institute/pull/your_pr_number)
+- The QA bot has been migrated to a Cloudflare Worker for improved efficiency and scalability.
+- The worker is triggered by webhooks and performs quality checks on articles submitted via pull requests.
 
 ### 🔬 Research
 
