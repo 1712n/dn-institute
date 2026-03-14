@@ -1,11 +1,19 @@
 {
-  "name": "dn-institute",
+  "name": "product-kit-template",
   "version": "1.0.0",
-  "devDependencies": {
-    "prettier": "^2.7.1",
-    "prettier-plugin-go-template": "^0.0.13"
-  },
+  "description": "A template for building and deploying AI products using GitHub Models.",
+  "main": "index.js",
   "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "github-models": "^1.0.0"
+  },
+  "keywords": ["AI", "product", "GitHub Models"],
+  "author": "Your Name",
+  "license": "MIT"
+  }
+}
     "format": "prettier *** --write --cache --cache-location .prettiercache --ignore-unknown --no-error-on-unmatched-pattern",
     "dev:format": "prettier *** --write --ignore-unknown --no-error-on-unmatched-pattern"
   },
@@ -21,18 +29,4 @@
   "dependencies": {
     "@splidejs/splide": "^4.1.4"
   }
-{
-  "name": "ai-product-kit",
-  "version": "1.0.0",
-  "description": "A template for building and deploying AI products",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "nodemon": "^2.0.20"
-  }
-}
 }
