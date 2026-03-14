@@ -22,7 +22,7 @@
     "@splidejs/splide": "^4.1.4"
   }
 {
-  "name": "qa-bot-worker",
+  "name": "qa-bot",
   "version": "1.0.0",
   "description": "Cloudflare Worker for QA Bot",
   "main": "workers/qa-bot.js",
@@ -30,11 +30,7 @@
     "dev": "wrangler dev",
     "publish": "wrangler publish"
   },
-  "dependencies": {
-    "node-fetch": "^3.3.0"
-  },
-  "devDependencies": {
-    "wrangler": "^2.0.0"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }
 }
