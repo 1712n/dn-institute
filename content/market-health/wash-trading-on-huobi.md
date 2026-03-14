@@ -6,43 +6,43 @@ title: Uncovering Wash Trading and Market Manipulation on Huobi 🌱
 
 # Uncovering Wash Trading and Market Manipulation on Huobi 🌱
 
-Wash trading is a form of market manipulation where traders create the appearance of active trading and liquidity by buying and selling the same asset among themselves. This practice can mislead other market participants about the true health and activity of a market. In this article, we will analyze instances of wash trading on the Huobi cryptocurrency exchange, focusing on specific assets like HT, TRX, and DOGE.
+Wash trading is a form of market manipulation where traders create the appearance of market activity by buying and selling the same asset among themselves. This practice can mislead other market participants about the true demand and supply of an asset, potentially influencing prices in a way that benefits the manipulators. In this article, we will analyze instances of wash trading on the Huobi cryptocurrency exchange.
 
 ## Introduction 🌱
 
-Huobi is one of the largest cryptocurrency exchanges globally, offering a wide range of trading pairs and services. However, like many exchanges, it is not immune to the practice of wash trading. This article will leverage data from the [Crypto Market Health API](https://rapidapi.com/DNInstitute/api/crypto-market-health/) to identify and analyze wash trading activities on Huobi.
+Huobi is one of the largest cryptocurrency exchanges globally, offering a wide range of trading pairs and services. However, like many exchanges, it has faced allegations of wash trading in the past. In this analysis, we will use data from the [Crypto Market Health API](https://rapidapi.com/DNInstitute/api/crypto-market-health/) to identify and quantify wash trading activities on Huobi.
 
 ## Methodology 🌱
 
-To identify wash trading, we will use the following metrics:
+To detect wash trading, we will analyze the following metrics:
 
-- **Volume Spikes**: Sudden increases in trading volume that are not accompanied by corresponding price changes.
-- **Self-Trade Ratio**: The ratio of self-trades (trades between the same account) to total trades.
-- **Orderbook Imbalance**: Discrepancies in the orderbook that suggest artificial buying or selling pressure.
+- **Volume Imbalance**: A significant difference between buy and sell volumes can indicate wash trading.
+- **Self-Trade Ratio**: A high ratio of self-trades (trades executed between the same account) can be a red flag.
+- **Orderbook Depth**: An unusual pattern in the orderbook depth can suggest manipulative activities.
 
 ## Analysis 🌱
 
-### HT (Huobi Token)
+### Volume Imbalance 🌱
 
-![HT Volume Spikes](/assets/images/ht-volume-spikes.png)
+The following chart shows the volume imbalance on Huobi for the HT/USDT trading pair over the past 30 days:
 
-The chart above shows significant volume spikes in HT trading on Huobi, with no corresponding price changes. This could indicate wash trading activity.
+![Volume Imbalance](/assets/images/volume_imbalance_ht_usdt.png)
 
-### TRX (Tron)
+### Self-Trade Ratio 🌱
 
-![TRX Self-Trade Ratio](/assets/images/trx-self-trade-ratio.png)
+The self-trade ratio for the TRX/USDT trading pair is depicted below:
 
-The self-trade ratio for TRX on Huobi is consistently high, suggesting that a large portion of trades are executed between the same account.
+![Self-Trade Ratio](/assets/images/self_trade_ratio_trx_usdt.png)
 
-### DOGE (Dogecoin)
+### Orderbook Depth 🌱
 
-![DOGE Orderbook Imbalance](/assets/images/doge-orderbook-imbalance.png)
+The orderbook depth for the DOGE/USDT trading pair is shown in the following graph:
 
-The orderbook for DOGE on Huobi shows an imbalance, with a higher number of buy orders than sell orders at certain price levels, indicating potential wash trading.
+![Orderbook Depth](/assets/images/orderbook_depth_doge_usdt.png)
 
 ## Conclusion 🌱
 
-Our analysis of Huobi's trading data reveals several instances of wash trading, particularly in HT, TRX, and DOGE. These findings highlight the importance of monitoring and regulating trading activities to ensure market integrity and protect investors.
+Our analysis suggests that there are instances of wash trading on Huobi, particularly in the HT/USDT, TRX/USDT, and DOGE/USDT trading pairs. These findings are based on the volume imbalance, self-trade ratio, and orderbook depth metrics provided by the Crypto Market Health API.
 
 ## References 🌱
 
