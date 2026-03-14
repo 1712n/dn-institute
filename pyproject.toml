@@ -19,9 +19,8 @@ duckduckgo-search = "^3.1.1"
 openai = "^0.27.7"
     "requests",
     "json",
-    "pandas",
-    "transformers",
     "torch",
+    "transformers",
     "datasets",
     "faiss-cpu",
 ]
