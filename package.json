@@ -34,7 +34,12 @@
     "express": "^4.18.2",
     "nodemon": "^2.0.20"
   },
+  "devDependencies": {},
   "author": "Your Name",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1712n/product-kit-template.git"
+  }
 }
 }
