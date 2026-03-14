@@ -1,27 +1,13 @@
-import { json } from 'worktop/response';
-
-const VECTORIZE_API_URL = 'https://api.cloudflare.com/client/v4/accounts/{account_id}/vectorize/v1/namespaces/{namespace}/query';
+import { getVectorDatabase } from 'cloudflare-vectorize';
 
 export async function handleRequest(request) {
-  if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
-
-  try {
-    const body = await request.json();
-    if (!body || typeof body.message !== 'string') {
-    }
-
-    const response = await fetch(VECTORIZE_API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.CLOUDFLARE_API_TOKEN}`
-      body: JSON.stringify({ queries: [{ vector: [0.1, 0.2, 0.3], topK: 2 }] })
-    });
-
-    const { matches } = await response.json();
-    return json({ matches });
-  } catch (error) {
-    return json({ error: 'Internal server error' }, 500);
-  } catch (error) {
+  if (request.method !== 'POST') {
+    return new Response('Method Not Allowed', { status: 405 });
+    return new Response('Bad Request', { status: 400, body: JSON.stringify({ error: 'Message is required' }) });
   }
+
+  const vectorDatabase = getVectorDatabase('your-vectorize-database-id');
+  const results = await vectorDatabase.query(message, { topK: 1 });
+
+  return new Response(JSON.stringify({ similarity: results[0].similarity }), { status: 200, headers: { 'Content-Type': 'application/json' } });
 }
