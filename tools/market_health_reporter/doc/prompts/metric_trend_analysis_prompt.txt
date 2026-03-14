@@ -1,0 +1,11 @@
+🌳 **Trend Analysis for {{metric_name}} in {{network_name}}**
+
+📊 **Metric:** {{metric_name}}
+⏰ **Time Period:** {{time_period}}
+
+Analyze the trend of the **{{metric_name}}** metric over the past **{{time_period}}** for **{{network_name}}**.
+- Identify any significant patterns or anomalies.
+- Discuss the factors that may be influencing the trend.
+- Provide a forecast of future trends based on current data.
+
+🌰 **Guidelines:** Ensure the analysis is thorough, data-driven, and follows the contribution guidelines.
