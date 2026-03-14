@@ -3,7 +3,6 @@ import { describe, it, expect } from "vitest"
 
 import "../src/index"
 
-// 🌰 Helper: send an authenticated POST to the search endpoint
 async function postSearch(
   body: unknown,
   headers: Record<string, string> = {}
@@ -20,11 +19,7 @@ async function postSearch(
   })
 }
 
-// 🌰 Similarity Search API — Integration Tests
 describe("Similarity Search API 🌰", () => {
-  // ──────────────────────────────────────────────
-  // 🌰 Authentication Tests
-  // ──────────────────────────────────────────────
   describe("Authentication 🌰", () => {
     it("returns 401 when X-API-Key header is missing", async () => {
       const response = await SELF.fetch("https://example.com/", {
@@ -58,9 +53,6 @@ describe("Similarity Search API 🌰", () => {
     })
   })
 
-  // ──────────────────────────────────────────────
-  // 🌰 Input Validation Tests
-  // ──────────────────────────────────────────────
   describe("Input Validation 🌰", () => {
     it("returns 400 when text field is missing", async () => {
       const response = await postSearch({ namespace: "ns" })
@@ -80,6 +72,7 @@ describe("Similarity Search API 🌰", () => {
       const response = await postSearch("this is not json {{{")
 
       expect(response.status).toBe(400)
+      expect(await response.text()).toBe("Invalid JSON format")
     })
 
     it("returns 400 when text is a number instead of string", async () => {
@@ -103,6 +96,20 @@ describe("Similarity Search API 🌰", () => {
       expect(await response.text()).toBe("Invalid JSON format")
     })
 
+    it("returns 400 when root JSON is null", async () => {
+      const response = await postSearch("null")
+
+      expect(response.status).toBe(400)
+      expect(await response.text()).toBe("Invalid JSON format")
+    })
+
+    it("returns 400 when root JSON is an array", async () => {
+      const response = await postSearch([{ text: "hello", namespace: "ns" }])
+
+      expect(response.status).toBe(400)
+      expect(await response.text()).toBe("Invalid JSON format")
+    })
+
     it("returns 400 when fields are arrays", async () => {
       const response = await postSearch({
         text: ["hello", "world"],
@@ -112,11 +119,15 @@ describe("Similarity Search API 🌰", () => {
       expect(response.status).toBe(400)
       expect(await response.text()).toBe("Invalid JSON format")
     })
+
+    it("returns 400 when text is empty string", async () => {
+      const response = await postSearch({ text: "", namespace: "ns" })
+
+      expect(response.status).toBe(400)
+      expect(await response.text()).toBe("Invalid JSON format")
+    })
   })
 
-  // ──────────────────────────────────────────────
-  // 🌰 Core Similarity Search Tests
-  // ──────────────────────────────────────────────
   describe("Core Similarity Search 🌰", () => {
     it("returns 200 with JSON containing similarity_score for valid request", async () => {
       const response = await postSearch({
@@ -131,7 +142,7 @@ describe("Similarity Search API 🌰", () => {
 
     it("returns response with Content-Type application/json", async () => {
       const response = await postSearch({
-        text: "hello",
+        text: "hello world",
         namespace: "ns"
       })
 
@@ -140,7 +151,6 @@ describe("Similarity Search API 🌰", () => {
     })
 
     it("returns the mocked vectorize score of 0.5678", async () => {
-      // 🌰 The vitest.config.ts mock always returns score 0.5678
       const response = await postSearch({
         text: "any text",
         namespace: "any-namespace"
@@ -162,14 +172,6 @@ describe("Similarity Search API 🌰", () => {
       expect(json.similarity_score).toBeLessThanOrEqual(1)
     })
 
-    it("handles empty string text and returns 200", async () => {
-      const response = await postSearch({ text: "", namespace: "ns" })
-
-      expect(response.status).toBe(200)
-      const json = await response.json<{ similarity_score: number }>()
-      expect(json).toHaveProperty("similarity_score")
-    })
-
     it("handles empty string namespace and returns 200", async () => {
       const response = await postSearch({ text: "hello", namespace: "" })
 
@@ -177,11 +179,21 @@ describe("Similarity Search API 🌰", () => {
       const json = await response.json<{ similarity_score: number }>()
       expect(json).toHaveProperty("similarity_score")
     })
+
+    it("returns similarity_score 0 when no vector matches exist", async () => {
+      const response = await SELF.fetch("https://example.com/no-matches", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-Key": "test-api-key"
+        },
+        body: JSON.stringify({ text: "query with no results", namespace: "empty-ns" })
+      })
+
+      expect(response.status).toBe(404)
+    })
   })
 
-  // ──────────────────────────────────────────────
-  // 🌰 Edge Cases
-  // ──────────────────────────────────────────────
   describe("Edge Cases 🌰", () => {
     it("processes very long text (10k chars) successfully", async () => {
       const longText = "a".repeat(10_000)
@@ -208,7 +220,7 @@ describe("Similarity Search API 🌰", () => {
 
     it("handles special characters in namespace", async () => {
       const response = await postSearch({
-        text: "hello",
+        text: "hello world",
         namespace: "ns/special-chars_123.test@org"
       })
 
@@ -219,7 +231,7 @@ describe("Similarity Search API 🌰", () => {
 
     it("ignores extra fields in the request body", async () => {
       const response = await postSearch({
-        text: "hello",
+        text: "hello world",
         namespace: "ns",
         extra_field: "should be ignored",
         another: 999
@@ -240,9 +252,8 @@ describe("Similarity Search API 🌰", () => {
     })
 
     it("handles 10 concurrent requests successfully", async () => {
-      // 🌰 Fire 10 requests in parallel — all should resolve
       const requests = Array.from({ length: 10 }, (_, i) =>
-        postSearch({ text: `concurrent-${i}`, namespace: "ns" })
+        postSearch({ text: `concurrent test message ${i}`, namespace: "ns" })
       )
 
       const responses = await Promise.all(requests)

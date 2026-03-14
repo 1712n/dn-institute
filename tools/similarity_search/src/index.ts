@@ -16,7 +16,7 @@ const app = new Hono<{ Bindings: Env }>()
 app.use("*", async (c, next) => {
   const apiKey = c.env.API_KEY_TOKEN_CHECK
   if (!apiKey) {
-    return c.text("API key not found", 400)
+    return c.text("Service unavailable", 503)
   }
 
   const apiKeyHeader = c.req.header("X-API-Key")
@@ -28,10 +28,24 @@ app.use("*", async (c, next) => {
 })
 
 app.post("/", async (c) => {
-  const data = await c.req.json<TextEntry>()
-  const { text, namespace } = data
+  let data: unknown
+  try {
+    data = await c.req.json()
+  } catch {
+    return c.text("Invalid JSON format", 400)
+  }
+
+  if (data === null || typeof data !== "object" || Array.isArray(data)) {
+    return c.text("Invalid JSON format", 400)
+  }
+
+  const { text, namespace } = data as Record<string, unknown>
 
   if (typeof text !== "string" || typeof namespace !== "string") {
+    return c.text("Invalid JSON format", 400)
+  }
+
+  if (text.length === 0) {
     return c.text("Invalid JSON format", 400)
   }
 
