@@ -1,6 +1,14 @@
-# Developement Documentation
+# Market Health Reporter Development Guide
 
-## Content Organization
+This document provides guidelines for developers working on the Market Health Reporter tool, which includes RAG functionality.
+
+## Setup
+- Ensure you have Python and pip installed.
+- Install dependencies using `poetry install`.
+
+## Development Workflow
+1. Clone the repository.
+2. Create a new branch for your feature or bug fix.
 
 ### Sections
 
