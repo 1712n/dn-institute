@@ -1,0 +1,9 @@
+🌳 Generate an overview of the current market health:
+
+🌳 **Market Indicators:** {{market_indicators}}
+🌳 **Trends:** {{trends}}
+🌳 **Insights:** {{insights}}
+
+🌳 **Recommendations:**
+🌳 - Suggest strategies for market participants.
+🌳 - Highlight key areas of focus for stakeholders.
