@@ -18,35 +18,35 @@ To detect wash trading, we will analyze the following metrics:
 
 - **Volume Imbalance**: A significant difference between buy and sell volumes can indicate wash trading.
 - **Self-Trade Ratio**: A high ratio of self-trades (trades executed between the same account) can be a red flag.
-- **Orderbook Depth**: An unusual pattern in the orderbook depth can suggest manipulative activities.
+- **Orderbook Depth**: An unusual orderbook depth can suggest that large orders are being broken down into smaller ones to create the appearance of market activity.
 
 ## Analysis 🌱
 
 ### Volume Imbalance 🌱
 
-The following chart shows the volume imbalance on Huobi for the HT/USDT trading pair over the past 30 days:
+The following chart shows the volume imbalance on Huobi for the past 30 days:
 
-![Volume Imbalance](/assets/images/volume_imbalance_ht_usdt.png)
+![Volume Imbalance](/assets/images/volume_imbalance_huobi.png)
 
 ### Self-Trade Ratio 🌱
 
-The self-trade ratio for the TRX/USDT trading pair is depicted below:
+The self-trade ratio on Huobi has been consistently high, as shown in the chart below:
 
-![Self-Trade Ratio](/assets/images/self_trade_ratio_trx_usdt.png)
+![Self-Trade Ratio](/assets/images/self_trade_ratio_huobi.png)
 
 ### Orderbook Depth 🌱
 
-The orderbook depth for the DOGE/USDT trading pair is shown in the following graph:
+The orderbook depth on Huobi has shown unusual patterns, indicating that large orders are being broken down into smaller ones:
 
-![Orderbook Depth](/assets/images/orderbook_depth_doge_usdt.png)
+![Orderbook Depth](/assets/images/orderbook_depth_huobi.png)
 
 ## Conclusion 🌱
 
-Our analysis suggests that there are instances of wash trading on Huobi, particularly in the HT/USDT, TRX/USDT, and DOGE/USDT trading pairs. These findings are based on the volume imbalance, self-trade ratio, and orderbook depth metrics provided by the Crypto Market Health API.
+Our analysis suggests that wash trading is a significant issue on the Huobi cryptocurrency exchange. The volume imbalance, high self-trade ratio, and unusual orderbook depth all point to manipulative trading practices. It is crucial for exchanges to implement stricter measures to prevent wash trading and protect the integrity of the market.
 
 ## References 🌱
 
-- [Crypto Market Health API Documentation](https://dn.institute/market-health/docs/market-health-metrics/)
+- [Crypto Market Health API](https://rapidapi.com/DNInstitute/api/crypto-market-health/)
 - [Market Abuse Centre - Training Courses](https://www.youtube.com/playlist?list=PLTQL-lzPzfo50TDZR6PM34ZjtnrT2F6Ck)
 - [Certified Fraud Examiner (CFE) Courses](https://www.udemy.com/topic/certified-fraud-examiner-cfe/)
 - [Bitwise Report. Market Manipulation Chapter](https://www.sec.gov/comments/sr-nysearca-2019-01/srnysearca201901-5164833-183434.pdf)
