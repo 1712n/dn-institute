@@ -1,0 +1,10 @@
+name = "pr-quality-check"
+type = "javascript"
+account_id = ""
+workers_dev = true
+route = ""
+zone_id = ""
+
+[site]
+  bucket = "./public"
+  entry-point = "workers-site"
