@@ -1,0 +1,12 @@
+{
+  "name": "pr-quality-check",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker for PR Quality Check",
+  "main": "index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "publish": "wrangler publish"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
