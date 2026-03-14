@@ -1,0 +1,21 @@
+{
+  "name": "dn-article-checker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare Worker that replaces the Python GitHub Actions article QA bot",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.37.0",
+    "@octokit/webhooks": "^13.4.0",
+    "hono": "^4.7.4"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250310.0",
+    "typescript": "^5.8.2",
+    "wrangler": "^4.4.0"
+  }
+}

@@ -1,0 +1,29 @@
+name = "dn-article-checker"
+main = "src/index.ts"
+compatibility_date = "2025-03-14"
+compatibility_flags = ["nodejs_compat"]
+
+# Adjustable model names — override via `wrangler secret put` or vars below
+[vars]
+# Claude model used for fact-checking retrieval loop and statement extraction
+ANTHROPIC_SEARCH_MODEL = "claude-3-opus-20240229"
+# Claude model used for summarising web pages (lighter, faster)
+ANTHROPIC_SUMMARIZE_MODEL = "claude-3-haiku-20240307"
+# Max tokens for fact-check retrieval calls
+ANTHROPIC_SEARCH_MAX_TOKENS = "4000"
+# Max tokens for the final answer generation
+ANTHROPIC_ANSWER_MAX_TOKENS = "4096"
+# Number of Brave search results to use per query
+N_SEARCH_RESULTS = "3"
+# Maximum number of search iterations in the retrieval loop
+MAX_SEARCHES = "5"
+
+# ─── Secrets ─────────────────────────────────────────────────────────────────
+# Set these via: wrangler secret put <KEY>
+#
+#   GITHUB_TOKEN      — GitHub token with pull-request comment write permission
+#   ANTHROPIC_API_KEY — Anthropic API key
+#   BRAVE_API_KEY     — Brave Search API key
+#   WEBHOOK_SECRET    — GitHub webhook secret (for HMAC signature verification)
+#   WIKI_REVIEWERS    — Comma-separated list of authorised GitHub usernames
+#                       e.g. "alice,bob,carol"
