@@ -1,0 +1,10 @@
+🌳 Interpret the following market data:
+
+🌳 **Data:** {{data}}
+🌳 **Context:** {{context}}
+🌳 **Analysis:** {{analysis}}
+
+🌳 **Interpretation:**
+🌳 - Explain the significance of the data.
+🌳 - Discuss the implications for the market.
+🌳 - Offer insights for decision-making.
