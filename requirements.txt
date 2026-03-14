@@ -1,5 +1,5 @@
 requests
-pandas
-transformers
 torch
+transformers
 datasets
+faiss-cpu
