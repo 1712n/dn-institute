@@ -1,29 +1,19 @@
 {
   "name": "dn-institute",
   "version": "1.0.0",
-  "scripts": {
-    "dev": "wrangler dev",
-    "publish": "wrangler publish"
-  },
-  "dependencies": {
-    "requests": "^2.25.1"
-  },
+  "devDependencies": {
+    "prettier": "^2.7.1",
+    "prettier-plugin-go-template": "^0.0.13"
   },
   "scripts": {
     "format": "prettier *** --write --cache --cache-location .prettiercache --ignore-unknown --no-error-on-unmatched-pattern",
     "dev:format": "prettier *** --write --ignore-unknown --no-error-on-unmatched-pattern"
-    "prettier": "^2.2.1"
   },
-  "devDependencies": {
-    "@cloudflare/wrangler": "^2.0.0",
-    "typescript": "^4.5.2",
-    "ts-node": "^10.4.0",
-    "nodemon": "^2.0.12",
-    "tsconfig-paths": "^3.10.1",
-    "eslint": "^7.32.0",
-    "prettier": "^2.2.1"
-  }
-}
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1712n/dn-institute.git"
+  },
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/1712n/dn-institute/issues"
   },
@@ -31,4 +21,20 @@
   "dependencies": {
     "@splidejs/splide": "^4.1.4"
   }
+{
+  "name": "qa-bot-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker for QA Bot",
+  "main": "workers/qa-bot.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "publish": "wrangler publish"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.0"
+  },
+  "devDependencies": {
+    "wrangler": "^2.0.0"
+  }
+}
 }
