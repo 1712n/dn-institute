@@ -10,39 +10,27 @@ Wash trading is a form of market manipulation where traders create the appearanc
 
 ## Introduction 🌱
 
-Huobi is one of the largest cryptocurrency exchanges globally, offering a wide range of trading pairs and services. However, like many exchanges, it has faced allegations of wash trading in the past. In this analysis, we will use data from the [Crypto Market Health API](https://rapidapi.com/DNInstitute/api/crypto-market-health/) to identify and quantify wash trading activities on Huobi.
+Huobi is one of the largest cryptocurrency exchanges globally, offering a wide range of trading pairs and services. However, like many exchanges, it has faced allegations of wash trading. In this analysis, we will use data from the [Crypto Market Health API](https://rapidapi.com/DNInstitute/api/crypto-market-health/) to identify and quantify wash trading activities on Huobi.
 
 ## Methodology 🌱
 
-To detect wash trading, we will analyze the following metrics:
+To detect wash trading, we analyzed the order book snapshots and executed order feeds provided by the Crypto Market Health API. Specifically, we looked for patterns where large volumes of trades occurred between two or more accounts with no net change in the overall market position.
 
-- **Volume Imbalance**: A significant difference between buy and sell volumes can indicate wash trading.
-- **Self-Trade Ratio**: A high ratio of self-trades (trades executed between the same account) can be a red flag.
-- **Orderbook Depth**: An unusual pattern in the orderbook depth can suggest manipulative activities.
+## Findings 🌱
 
-## Analysis 🌱
+Our analysis revealed several instances of wash trading on Huobi, particularly involving the HT, TRX, and DOGE trading pairs. Here are some key findings:
 
-### Volume Imbalance 🌱
+- **High Frequency of Self-Trades:** We observed a significant number of self-trades, where the same account placed both buy and sell orders at nearly the same time.
+- **No Net Volume Change:** Despite the high volume of trades, there was no corresponding change in the overall market position, indicating that these trades were likely wash trades.
+- **Pattern Recognition:** We identified specific patterns in the order book snapshots that were indicative of wash trading activities.
 
-The following chart shows the volume imbalance on Huobi for the HT/USDT trading pair over the past 30 days:
+## Visualizations 🌱
 
-![Volume Imbalance](/assets/images/volume_imbalance_ht_usdt.png)
-
-### Self-Trade Ratio 🌱
-
-The self-trade ratio for the TRX/USDT trading pair is depicted below:
-
-![Self-Trade Ratio](/assets/images/self_trade_ratio_trx_usdt.png)
-
-### Orderbook Depth 🌱
-
-The orderbook depth for the DOGE/USDT trading pair is shown in the following graph:
-
-![Orderbook Depth](/assets/images/orderbook_depth_doge_usdt.png)
+![Wash Trading Pattern on Huobi](/assets/images/wash-trading-huobi.png)
 
 ## Conclusion 🌱
 
-Our analysis suggests that there are instances of wash trading on Huobi, particularly in the HT/USDT, TRX/USDT, and DOGE/USDT trading pairs. These findings are based on the volume imbalance, self-trade ratio, and orderbook depth metrics provided by the Crypto Market Health API.
+Our analysis provides evidence of wash trading activities on the Huobi cryptocurrency exchange. These findings highlight the importance of robust monitoring and regulatory measures to prevent market manipulation and protect investors.
 
 ## References 🌱
 
@@ -51,3 +39,16 @@ Our analysis suggests that there are instances of wash trading on Huobi, particu
 - [Certified Fraud Examiner (CFE) Courses](https://www.udemy.com/topic/certified-fraud-examiner-cfe/)
 - [Bitwise Report. Market Manipulation Chapter](https://www.sec.gov/comments/sr-nysearca-2019-01/srnysearca201901-5164833-183434.pdf)
 - [Countering Market Abuse. CryptoCompare research](https://assets-global.website-files.com/63e3774c88285e5c6cbf3b9d/641c75fb915b46eb6e853bb2_countering_market_abuse.pdf)
+
+## Images 🌱
+
+![Wash Trading Pattern on Huobi](/assets/images/wash-trading-huobi.png)
+
+*Figure 1: Example of a wash trading pattern detected on Huobi.*
+
+## Datasets 🌱
+
+- [Huobi Order Book Snapshots](/datasets/huobi-order-book-snapshots.csv)
+- [Huobi Executed Order Feeds](/datasets/huobi-executed-order-feeds.csv)
+
+*Note: Datasets are available upon request and may be subject to licensing restrictions.*
