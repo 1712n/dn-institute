@@ -28,13 +28,18 @@ async function handleRequest(request) {
 async function checkArticle(sha) {
   // Simulate article check logic
   // This should be replaced with actual logic to fetch the PR content and perform checks
-  const response = await fetch(`https://api.github.com/repos/1712n/dn-institute/contents/content/attacks?ref=${sha}`)
-  const files = await response.json()
+  const response = await fetch(`https://api.github.com/repos/1712n/dn-institute/contents/content/attacks?ref=${sha}`, {
+    headers: {
+      'Authorization': `token ${GITHUB_TOKEN}`,
+      'Accept': 'application/vnd.github.v3+json'
+    }
+  })
 
+  const files = await response.json()
   const results = files.map(file => ({
     name: file.name,
     status: 'checked', // This should be determined by the actual check logic
-    message: 'Article meets guidelines' // This should be determined by the actual check logic
+    message: 'Article meets guidelines' // This should be a detailed message from the check logic
   }))
 
   return { results }
