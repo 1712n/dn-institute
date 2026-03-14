@@ -1,21 +1,11 @@
-// Import necessary modules
-const GitHubModels = require('github-models');
+const express = require('express');
+const app = express();
+const port = 3000;
 
-// Initialize GitHub Models
-const ghModels = new GitHubModels();
+app.get('/', (req, res) => {
+  res.send('Welcome to the AI Product Development Kit!');
+});
 
-// Define your AI product logic
-async function runAIProduct() {
-  try {
-    const response = await ghModels.generateText({
-      prompt: "Generate a weekly intelligence brief of cyberattacks.",
-      maxTokens: 500
-    });
-    console.log(response);
-  } catch (error) {
-    console.error("Error generating AI content:", error);
-  }
-}
-
-// Run the AI product
-runAIProduct();
+app.listen(port, () => {
+  console.log(`AI Product Kit app listening at http://localhost:${port}`);
+});
