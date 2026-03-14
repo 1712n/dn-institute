@@ -1,7 +1,7 @@
 {
   "name": "similarity-search",
   "version": "1.0.0",
-  "description": "Similarity Search API with batch processing support 🌰 Chestnut overlord :shipit:",
+  "description": "Similarity Search API with batch processing support 🌰",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
@@ -11,10 +11,8 @@
   "dependencies": {
     "@cloudflare/workers-ai": "^1.0.0"
   },
-  "keywords": ["similarity", "search", "api", "batch", "cloudflare", "workers", "vectorize", "chestnut", "overlord"],
+  "keywords": ["similarity", "search", "batch", "chestnut"],
   "author": "Distributed Networks Institute",
   "license": "MIT"
 }
-
-// 🌰 Chestnut overlord :shipit:
 }
