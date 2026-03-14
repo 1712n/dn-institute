@@ -12,7 +12,7 @@ class MarketHealthReporter:
         self.model = RagTokenForGeneration.from_pretrained("facebook/rag-token-nq", retriever=self.retriever)
 
     def generate_report_with_rag(self, metric_data):
-        input_text = f"Generate a report on the metric {metric_data['name']} with the value {metric_data['value']}."
+        input_text = f"Generate a report on the metric data: {metric_data}"
         input_ids = self.tokenizer.prepare_seq2seq_batch([input_text], return_tensors="pt")
         generated_ids = self.model.generate(input_ids["input_ids"])
         report = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
@@ -22,4 +22,5 @@ class MarketHealthReporter:
         metric_data = self.fetch_metric_data(metric_name)
         self.initialize_rag()
         report = self.generate_report_with_rag(metric_data)
-        return f"Report for {metric_name}: {metric_data} 🌱"
+        return f"Report for {metric_name}:\n{metric_data}\n\nInterpretation:\n{report}"
+if __name__ == "__main__":
