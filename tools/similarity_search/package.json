@@ -1,23 +1,18 @@
 {
   "name": "similarity-search",
   "version": "1.0.0",
-  "description": "A Cloudflare Worker for batch similarity search using Cloudflare Vectorize.",
+  "description": "Similarity Search API with batch processing support 🌰",
   "main": "index.js",
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler publish"
-  },
+    "start": "node index.js"
+  "dependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.2.6",
+    "hono": "^4.3.2",
   "dependencies": {
     "@cloudflare/workers-ai": "^1.0.0"
   },
-  "keywords": ["cloudflare", "workers", "vectorize", "similarity", "search", "batch"],
-  "author": "Your Name",
+  "keywords": ["similarity", "search", "batch", "chestnut"],
+  "author": "Distributed Networks Institute",
   "license": "MIT"
 }
-    "vitest": "1.3.0"
-  },
-  "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240403.0",
-    "wrangler": "^3.47.0"
-  }
 }
