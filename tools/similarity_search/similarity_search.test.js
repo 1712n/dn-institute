@@ -1,62 +1,56 @@
 import { describe, it, expect, vi } from 'vitest';
 import { handleRequest } from './similarity_search.js';
 
-vi.mock('https://api.cloudflare.com/client/v4/accounts/{account_id}/vectorize/v1/namespaces/{namespace}/query', () => {
-  return {
-    default: vi.fn(() => ({
-      json: vi.fn(() => Promise.resolve({
-        matches: [
-          { id: '1', score: 0.95 },
-          { id: '2', score: 0.85 }
-        ]
-      }))
-    }))
-  };
-});
+vi.mock('cloudflare-vectorize', () => ({
+  getVectorDatabase: vi.fn(() => ({
+    query: vi.fn(() => Promise.resolve([{ similarity: 0.9, id: '123' }])),
+  })),
+}));
 
 describe('Similarity Search API', () => {
-  it('should return a similarity score for a given message', async () => {
+  it('should return a similarity score for a valid request', async () => {
     const request = new Request('http://localhost/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: 'Test message' })
+      body: JSON.stringify({ message: 'test message' }),
     });
 
     const response = await handleRequest(request);
     const result = await response.json();
 
     expect(response.status).toBe(200);
-    expect(result).toHaveProperty('matches');
-    expect(result.matches).toHaveLength(2);
-    expect(result.matches[0]).toHaveProperty('id', '1');
-    expect(result.matches[0]).toHaveProperty('score', 0.95);
-    expect(result.matches[1]).toHaveProperty('id', '2');
-    expect(result.matches[1]).toHaveProperty('score', 0.85);
+    expect(result).toHaveProperty('similarity', 0.9);
   });
 
-  it('should handle invalid JSON input gracefully', async () => {
+  it('should return a 400 error for a request without a message', async () => {
     const request = new Request('http://localhost/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: 'invalid json'
+      body: JSON.stringify({}),
     });
 
     const response = await handleRequest(request);
+    const result = await response.json();
 
     expect(response.status).toBe(400);
-    expect(await response.text()).toBe('Invalid JSON input');
+    expect(result).toHaveProperty('error', 'Message is required');
   });
 
-  it('should handle missing message field gracefully', async () => {
+  it('should return a 500 error for an internal server error', async () => {
     const request = new Request('http://localhost/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({})
+      body: JSON.stringify({ message: 'test message' }),
     });
 
-    const response = await handleRequest(request);
+    vi.mocked(globalThis.getVectorDatabase).mockImplementationOnce(() => ({
+      query: vi.fn(() => Promise.reject(new Error('Internal Server Error'))),
+    }));
 
-    expect(response.status).toBe(400);
-    expect(await response.text()).toBe('Message field is required');
+    const response = await handleRequest(request);
+    const result = await response.json();
+
+    expect(response.status).toBe(500);
+    expect(result).toHaveProperty('error', 'Internal Server Error');
   });
 });
