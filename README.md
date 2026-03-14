@@ -1,4 +1,4 @@
-Distributed Networks Institute (DNI) aims to enhance the resilience and financial health of distributed networks through scientific, engineering, and educational efforts. We are a part of a 501(c)3 non-profit incubator in Washington, DC called [BlockShop](https://blockshop.org/). Constantly on the lookout for talent, we encourage anyone to contribute code, market analysis, and engineering expertise to one of our [active projects](https://dn.institute/#projects). Multiple research grants and [code bounties](https://github.com/1712n/dn-institute/labels/%F0%9F%92%B0%20bounty) are available. 🌰🌰🌰
+Distributed Networks Institute (DNI) aims to leverage AI to enhance infrastructure resilience and financial health of distributed networks through scientific, engineering, and educational efforts. We are a part of a 501(c)3 non-profit incubator in Washington, DC called [BlockShop](https://blockshop.org/). Constantly on the lookout for talent, we encourage anyone to contribute code, market analysis, and engineering expertise to one of our [active projects](https://dn.institute/#projects). Multiple research grants and [code bounties](https://github.com/1712n/dn-institute/labels/%F0%9F%92%B0%20bounty) are available. 🌰🌰🌰
 ## 🏆 Challenge Program
 ## 🏆 Challenge Program
 
@@ -8,9 +8,9 @@ We maintain a list of real-world problems we work on to give interested individu
 
 ### General rules
 We maintain a list of real-world problems we work on to give interested individuals a chance to prove themselves, learn a bit about us, and boost their GitHub profiles in the process. The challenge program was so successful for some teams, that they made solving a challenge a hard requirement for joining them. Our challenges are extremely independent and will require you to manage your own time and work process. Check out the [success stories](https://www.instagram.com/explore/tags/challenge_successstory/) of the challenge winners.
-### 🌱 AI Product Challenge
+### 🌐 AI Product Challenge
 
-We invite you to build and deploy an AI product using the [Product Development Kit](https://github.com/1712n/product-kit-template) repository. Discover your unique use case, play with variables and prompts, and leverage [GitHub Models](https://docs.github.com/en/github-models/use-github-models) for extra functionality. Attach social media and share your project with the community. 🌰🌰🌰
+We invite you to build and deploy a unique AI product using the [Product Development Kit](https://github.com/1712n/product-kit-template) repository. Discover your unique use case, play with variables and prompts, and leverage [GitHub Models](https://docs.github.com/en/github-models/use-github-models) for extra functionality. Attach social media and share your project with the community. 🌰🌰🌰
 
 ### General rules
 - Anyone can participate in a challenge. You do not need anyone's approval to start working or to submit your results.
@@ -26,12 +26,13 @@ We invite you to build and deploy an AI product using the [Product Development K
 ## 🌱 Giving Back
 
 - To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
-### 🌱 Giving Back
+### 🌱 Getting Started
 
+1. Clone the [Product Development Kit](https://github.com/1712n/product-kit-template) repository.
+2. Customize the template to fit your unique AI product use case. 🌰🌰🌰
+
+## 🌱 Giving Back
 ### 🔬 Research
-
-DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team.
-DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team. Multiple research grants are available!
 
 ### 🧑‍🎓 Training
 
