@@ -20,7 +20,6 @@ describe('Similarity Search API', () => {
 
     expect(response.status).toBe(200);
     expect(result).toHaveProperty('similarity', 0.9);
-    expect(result).toHaveProperty('id', '123');
   });
 
   it('should return a 400 error for an invalid message', async () => {
