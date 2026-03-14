@@ -1,6 +1,6 @@
 name = "qa-bot-worker"
 type = "javascript"
-account_id = ""
+account_id = "your_account_id"
 workers_dev = true
 route = ""
 zone_id = ""
