@@ -1,4 +1,4 @@
-Distributed Networks Institute (DNI) aims to enhance the resilience and financial health of distributed networks through scientific, engineering, and educational efforts. We are a part of a 501(c)3 non-profit incubator in Washington, DC called [BlockShop](https://blockshop.org/). Constantly on the lookout for talent, we encourage anyone to contribute code, market analysis, and engineering expertise to one of our [active projects](https://dn.institute/#projects). Multiple research grants and [code bounties](https://github.com/1712n/dn-institute/labels/%F0%9F%92%B0%20bounty) are available. 🌰🌰🌰
+Distributed Networks Institute (DNI) aims to enhance infrastructure resilience and financial health of distributed networks through scientific, engineering, and educational efforts. We are a part of a 501(c)3 non-profit incubator in Washington, DC called [BlockShop](https://blockshop.org/). Constantly on the lookout for talent, we encourage anyone to contribute code, market analysis, and engineering expertise to one of our [active projects](https://dn.institute/#projects). Multiple research grants and [code bounties](https://github.com/1712n/dn-institute/labels/%F0%9F%92%B0%20bounty) are available. 🌰🌰🌰
 
 ## 🏆 Challenge Program
 
@@ -12,7 +12,7 @@ We maintain a list of real-world problems we work on to give interested individu
 
 ### 🌱 AI Product Challenge
 
-We invite you to build and deploy a unique AI product using the [Product Development Kit](https://github.com/1712n/product-kit-template) as a template. Discover your unique use case, play with variables and prompts, and leverage [GitHub Models](https://docs.github.com/en/github-models/use-github-models) for extra functionality. Attach social media and share your work! 🌰🌰🌰
+We invite you to build and deploy an AI product using the [Product Development Kit](https://github.com/1712n/product-kit-template) repository. Discover your unique use case, play with variables and prompts, leverage [GitHub Models](https://docs.github.com/en/github-models/use-github-models) for extra functionality, and attach social media. 🌰🌰🌰
 
 ### General rules
 
@@ -30,11 +30,10 @@ We invite you to build and deploy a unique AI product using the [Product Develop
 - To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
 
 ## 🌱 Giving Back
-🌰🌰🌰
 
 ### 🔬 Research
 
+DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team. 🌰🌰🌰
 ### 🎖️ Veterans
-If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team.
-🌰🌰🌰
+
 Our diverse community includes military veterans from a wide variety of backgrounds. If you are in the process of getting out of the U.S. military, check out our SkillBridge program. Whether you qualify as eligible U.S. military personnel, or served in the armed forces of another country, solve one of the challenges and/or reach out to [@jhirschkorn](https://github.com/jhirschkorn).
