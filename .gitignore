@@ -1,7 +1,6 @@
 node_modules/
-yarn.lock
 .env
-__pycache__/
+.vscode/
 *.log
 /assets/jsconfig.json
 /public/
