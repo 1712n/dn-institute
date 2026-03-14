@@ -7,12 +7,16 @@
   },
   "scripts": {
     "format": "prettier *** --write --cache --cache-location .prettiercache --ignore-unknown --no-error-on-unmatched-pattern",
-    "dev:format": "prettier *** --write --ignore-unknown --no-error-on-unmatched-pattern"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/1712n/dn-institute.git"
-  },
+    "dependencies": {
+        "axios": "^0.21.1",
+        "json": "^9.0.6",
+        "transformers": "^4.11.3",
+        "torch": "^1.9.0",
+        "datasets": "^1.11.0",
+        "faiss-cpu": "^1.7.1"
+    },
+    "scripts": {
+        "start": "node index.js"
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/1712n/dn-institute/issues"
