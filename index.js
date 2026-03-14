@@ -7,5 +7,9 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`AI Product Kit app listening at http://localhost:${port}`);
+  console.log(`AI Product Development Kit app listening at http://localhost:${port}`);
 });
+
+// TODO: Integrate AI models and functionalities here
+// TODO: Connect to GitHub Models for extra functionality
+// TODO: Attach social media and share your project with the community
