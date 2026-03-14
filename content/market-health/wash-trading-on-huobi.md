@@ -16,31 +16,33 @@ Huobi is one of the largest cryptocurrency exchanges globally, offering a wide r
 
 To detect wash trading, we will analyze the following metrics:
 
-- **Volume Imbalance**: Sudden spikes in trading volume that are not accompanied by corresponding price changes.
-- **Self-Trade Ratio**: The proportion of trades executed between the same account or closely related accounts.
-- **Orderbook Anomalies**: Unusual patterns in the orderbook that suggest artificial trading activity.
+- **Volume Imbalance**: A significant difference between buy and sell volumes can indicate wash trading.
+- **Self-Trade Ratio**: A high ratio of self-trades (trades executed between the same account) can be a red flag.
+- **Orderbook Depth**: An unusual pattern in the orderbook depth can suggest manipulative activities.
 
-## Data Analysis 🌱
-
-Using the Crypto Market Health API, we collected data on trading activities involving Huobi's HT, TRX, and DOGE tokens over the past month. The following sections present our findings.
+## Analysis 🌱
 
 ### Volume Imbalance 🌱
 
-![Volume Imbalance Chart](/assets/images/volume-imbalance-huobi.png)
+The following chart shows the volume imbalance on Huobi for the HT/USDT trading pair over the past 30 days:
 
-The chart above shows a significant spike in trading volume for HT on October 1st, 2023, without a corresponding price change. This could indicate wash trading activity.
+![Volume Imbalance](/assets/images/volume_imbalance_ht_usdt.png)
 
 ### Self-Trade Ratio 🌱
 
-The self-trade ratio for TRX on Huobi was found to be unusually high, with over 50% of trades executed between the same account or closely related accounts. This is a red flag for potential wash trading.
+The self-trade ratio for the TRX/USDT trading pair is depicted below:
 
-### Orderbook Anomalies 🌱
+![Self-Trade Ratio](/assets/images/self_trade_ratio_trx_usdt.png)
 
-The orderbook for DOGE on Huobi exhibited unusual patterns, with a large number of small buy and sell orders placed at the same price level. This behavior is indicative of wash trading.
+### Orderbook Depth 🌱
+
+The orderbook depth for the DOGE/USDT trading pair is shown in the following graph:
+
+![Orderbook Depth](/assets/images/orderbook_depth_doge_usdt.png)
 
 ## Conclusion 🌱
 
-Our analysis suggests that wash trading may be occurring on Huobi, particularly with HT, TRX, and DOGE tokens. Further investigation is needed to confirm these findings and determine the extent of the manipulation. We recommend that Huobi implement stricter monitoring and reporting mechanisms to prevent such activities.
+Our analysis suggests that there are instances of wash trading on Huobi, particularly in the HT/USDT, TRX/USDT, and DOGE/USDT trading pairs. These findings are based on the volume imbalance, self-trade ratio, and orderbook depth metrics provided by the Crypto Market Health API.
 
 ## References 🌱
 
