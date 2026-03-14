@@ -1,9 +1,7 @@
 {
-  "semi": true,
-  "singleQuote": true
-  "trailingComma": "all",
-  "printWidth": 80
-}
+  "semi": false,
+  "endOfLine": "lf",
+  "trailingComma": "none",
   "overrides": [
     {
       "files": ["*.html"],
@@ -12,4 +10,10 @@
       }
     }
   ]
+{
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 80
+}
 }
