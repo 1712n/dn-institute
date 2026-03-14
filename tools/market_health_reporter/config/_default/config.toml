@@ -1,4 +1,6 @@
-baseURL = "https://example.com"
+baseURL = "/"
 languageCode = "en-us"
 title = "Market Health Reporter"
-theme = "market_health_reporter"
+theme = "hugo-theme-bootstrap"
+hasCJKLanguage = false
+paginate = 10
