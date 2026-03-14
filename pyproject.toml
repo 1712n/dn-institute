@@ -19,13 +19,14 @@ duckduckgo-search = "^3.1.1"
 openai = "^0.27.7"
     "requests",
     "json",
-    "torch",
+    "pandas",
     "transformers",
+    "torch",
     "datasets",
     "faiss-cpu",
 ]
 
-[tool.poetry.dev-dependencies]
+[project.urls]
 tenacity = "^8.2.3"
 matplotlib = "3.6.0"
 pandas = "2.0.1"
