@@ -1,20 +1,18 @@
 [tool.poetry]
 name = "product-kit-template"
-version = "1.0.0"
+version = "1.0.1"
 description = "A template for building and deploying AI products using the Product Development Kit."
-authors = ["Your Name <your.email@example.com>"]
+authors = ["Distributed Networks Institute"]
 license = "MIT"
-readme = "README.md"
-packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-github-models = "^1.0.0"
+numpy = "^1.21"
+pandas = "^1.3"
+scikit-learn = "^0.24"
 
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
-readme = "README.md"
+[tool.poetry.dev-dependencies]
+pytest = "^6.0"
 packages = [
     { include = "tools/payout_calc" },
     { include = "tools/article_checker" },
