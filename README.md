@@ -1,5 +1,5 @@
-Distributed Networks Institute (DNI) aims to leverage AI to enhance infrastructure resilience and financial health of distributed networks through scientific, engineering, and educational efforts. We are a part of a 501(c)3 non-profit incubator in Washington, DC called [BlockShop](https://blockshop.org/). Constantly on the lookout for talent, we encourage anyone to contribute code, market analysis, and engineering expertise to one of our [active projects](https://dn.institute/#projects). Multiple research grants and [code bounties](https://github.com/1712n/dn-institute/labels/%F0%9F%92%B0%20bounty) are available. 🌰🌰🌰
-
+Distributed Networks Institute (DNI) aims to enhance the resilience and financial health of distributed networks through scientific, engineering, and educational efforts. We are a part of a 501(c)3 non-profit incubator in Washington, DC called [BlockShop](https://blockshop.org/). Constantly on the lookout for talent, we encourage anyone to contribute code, market analysis, and engineering expertise to one of our [active projects](https://dn.institute/#projects). Multiple research grants and [code bounties](https://github.com/1712n/dn-institute/labels/%F0%9F%92%B0%20bounty) are available. 🌰🌰🌰
+## 🏆 Challenge Program
 ## 🏆 Challenge Program
 
 [![Challenge Program Video](https://blockshopdc.com/static/assets/images/challenge.jpg)](https://link.hygge.work/MayaVick_Challenge)
@@ -7,16 +7,16 @@ Distributed Networks Institute (DNI) aims to leverage AI to enhance infrastructu
 We maintain a list of real-world problems we work on to give interested individuals a chance to prove themselves, learn a bit about us, and boost their GitHub profiles in the process. The challenge program was so successful for some teams, that they made solving a challenge a hard requirement for joining them. Our challenges are extremely independent and will require you to manage your own time and work process. Check out the [success stories](https://www.instagram.com/explore/tags/challenge_successstory/) of the challenge winners.
 
 ### General rules
-
 We maintain a list of real-world problems we work on to give interested individuals a chance to prove themselves, learn a bit about us, and boost their GitHub profiles in the process. The challenge program was so successful for some teams, that they made solving a challenge a hard requirement for joining them. Our challenges are extremely independent and will require you to manage your own time and work process. Check out the [success stories](https://www.instagram.com/explore/tags/challenge_successstory/) of the challenge winners.
+### 🌱 AI Product Challenge
 
-### AI Product Challenge
-
-We invite you to build and deploy an AI product using the [Product Development Kit](https://github.com/1712n/product-kit-template) repository. Discover your unique use case, play with variables and prompts, and leverage [GitHub Models](https://docs.github.com/en/github-models/use-github-models) for extra functionality. 🌰🌰🌰
+We invite you to build and deploy an AI product using the [Product Development Kit](https://github.com/1712n/product-kit-template) repository. Discover your unique use case, play with variables and prompts, and leverage [GitHub Models](https://docs.github.com/en/github-models/use-github-models) for extra functionality. Attach social media and share your project with the community. 🌰🌰🌰
 
 ### General rules
-
 - Anyone can participate in a challenge. You do not need anyone's approval to start working or to submit your results.
+- By participating in the Challenge Program, you agree to let challenge creators use any and all work submitted for any internal or external purposes.
+
+### Navigating and Working with the Tasks
 
 - In the [issue list](https://github.com/1712n/dn-institute/issues), you'll find a list of tasks that are currently available.
 - You are free to start working on any open challenge issue whenever you want.
@@ -25,19 +25,18 @@ We invite you to build and deploy an AI product using the [Product Development K
 
 ## 🌱 Giving Back
 
-### 🔬 Research
-
 - To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
-
-## 🌱 Giving Back
-
-### 🔧 AI Product Submission
-
-To submit your AI product, clone the [Product Development Kit](https://github.com/1712n/product-kit-template) repository, build your product, and leave a link to your cloned repository in the comment section below. 🌰🌰🌰
+### 🌱 Giving Back
 
 ### 🔬 Research
 
 DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team.
+DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team. Multiple research grants are available!
 
+### 🧑‍🎓 Training
+
+We are happy to train anyone willing to learn our tools. Show initiative by contributing to one of the [open issues](https://github.com/1712n/dn-institute/issues) and mention in your pull request that you want to be considered for any training opportunities they might have available.
+
+### 🎖️ Veterans
 
 Our diverse community includes military veterans from a wide variety of backgrounds. If you are in the process of getting out of the U.S. military, check out our SkillBridge program. Whether you qualify as eligible U.S. military personnel, or served in the armed forces of another country, solve one of the challenges and/or reach out to [@jhirschkorn](https://github.com/jhirschkorn).
