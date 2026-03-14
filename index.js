@@ -1,10 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+const express = require('express');
+const app = express();
+const port = 3000;
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+app.get('/', (req, res) => {
+  res.send('Welcome to the AI Product Development Kit!');
+});
+
+app.listen(port, () => {
+  console.log(`AI Product Kit app listening at http://localhost:${port}`);
+});
