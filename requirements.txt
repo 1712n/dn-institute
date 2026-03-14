@@ -1,6 +1,5 @@
 requests
-json
-torch
+pandas
 transformers
+torch
 datasets
-faiss-cpu
