@@ -1,8 +1,10 @@
-name = "dn-institute-qa-bot"
-main = "worker/index.js"
-compatibility_date = "2024-01-01"
+name = "qa-bot-worker"
+type = "javascript"
+account_id = ""
+workers_dev = true
+route = ""
+zone_id = ""
 
-[env.production.vars]
-# Set these in Cloudflare dashboard
-# GITHUB_TOKEN = "your_github_token"
-# WEBHOOK_SECRET = "your_webhook_secret"
+[site]
+  bucket = "./public"
+  entry-point = "workers-site"
