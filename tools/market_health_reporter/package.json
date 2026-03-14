@@ -1,10 +1,7 @@
-  "dependencies": {
-    "hugo": "^0.88.1"
-  },
-  "devDependencies": {
+    "hugo": "^0.90.1",
+    "prettier": "^2.5.1",
+    "prettier-plugin-tailwindcss": "^0.1.10",
     "chart.js": "^3.7.1"
   },
   "scripts": {
-    "build": "hugo"
-  }
-}
+    "build": "hugo",
