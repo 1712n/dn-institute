@@ -2,8 +2,8 @@
 
 📊 **Metric:** {{metric_name}}
 
-🔍 **Observation:** A significant spike has been detected in the {{metric_name}} metric.
+🔍 **Analysis:**
+Generate a detailed report on the recent spike in the {{metric_name}} metric for {{network_name}}. Include an analysis of the potential causes and the implications for the network's health.
 
-🔍 **Analysis:** Conduct a thorough analysis to identify the potential causes of this spike. Consider external factors, internal changes, and any recent events that might have influenced the metric.
-
-💡 **Implications:** Discuss the implications of this spike for the overall health and resilience of {{network_name}}. Provide recommendations for mitigating any negative effects and maintaining network stability.
+💡 **Insights:**
+Provide actionable insights and recommendations to mitigate any negative impacts and enhance the network's resilience.
