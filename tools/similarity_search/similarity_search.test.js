@@ -1,56 +1,57 @@
 import { describe, it, expect, vi } from 'vitest';
 import { handleRequest } from './similarity_search.js';
 
-vi.mock('cloudflare:vectorize', () => ({
-  Vectorize: {
-    get: vi.fn(() => ({
-      query: vi.fn(() => [
-        { id: '1', similarity: 0.9 },
-        { id: '2', similarity: 0.8 },
-      ]),
-    })),
-  },
+vi.mock('cloudflare-vectorize', () => ({
+  getVectorDatabase: vi.fn(() => ({
+    query: vi.fn(() => Promise.resolve([{ similarity: 0.9, id: '123' }])),
+  })),
 }));
 
 describe('Similarity Search API', () => {
-  it('should return similarity scores for a given message', async () => {
+  it('should return a similarity score for a valid message', async () => {
     const request = new Request('http://localhost/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: 'test message' }),
+      body: JSON.stringify({ message: 'Hello, world!' }),
     });
 
     const response = await handleRequest(request);
     const result = await response.json();
 
     expect(response.status).toBe(200);
-    expect(result).toEqual([
-      { id: '1', similarity: 0.9 },
-      { id: '2', similarity: 0.8 },
-    ]);
+    expect(result).toHaveProperty('similarity', 0.9);
+    expect(result).toHaveProperty('id', '123');
   });
 
-  it('should return 400 for invalid JSON', async () => {
+  it('should return a 400 error for an invalid message', async () => {
     const request = new Request('http://localhost/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: 'invalid json',
+      body: JSON.stringify({ message: '' }),
     });
 
     const response = await handleRequest(request);
+    const result = await response.json();
 
     expect(response.status).toBe(400);
+    expect(result).toHaveProperty('error', 'Invalid message');
   });
 
-  it('should return 400 for missing message field', async () => {
+  it('should return a 500 error for a failed database query', async () => {
     const request = new Request('http://localhost/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({}),
+      body: JSON.stringify({ message: 'Hello, world!' }),
     });
 
-    const response = await handleRequest(request);
+    vi.mocked(globalThis.getVectorDatabase).mockImplementationOnce(() => ({
+      query: vi.fn(() => Promise.reject(new Error('Database error'))),
+    }));
 
-    expect(response.status).toBe(400);
+    const response = await handleRequest(request);
+    const result = await response.json();
+
+    expect(response.status).toBe(500);
+    expect(result).toHaveProperty('error', 'Database error');
   });
 });
