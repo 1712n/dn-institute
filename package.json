@@ -1,16 +1,28 @@
 {
-  "name": "dn-institute",
-  "version": "1.0.0",
-  "devDependencies": {
-    "prettier": "^2.7.1",
-    "prettier-plugin-go-template": "^0.0.13"
+  "name": "product-kit-template",
+  "version": "1.0.1",
+  "description": "A template for building and deploying AI products using the Product Development Kit.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "webpack"
+  },
+  "author": "Distributed Networks Institute",
+  "license": "MIT",
+  "dependencies": {
   },
   "scripts": {
     "format": "prettier *** --write --cache --cache-location .prettiercache --ignore-unknown --no-error-on-unmatched-pattern",
-    "dev:format": "prettier *** --write --ignore-unknown --no-error-on-unmatched-pattern"
+    "webpack": "^5.0.0"
   },
-  "repository": {
-    "type": "git",
+  "devDependencies": {
+    "babel-loader": "^8.0.0",
+    "babel-preset-env": "^7.0.0",
+    "webpack-cli": "^4.0.0",
+    "webpack-dev-server": "^4.0.0"
+  },
+  "keywords": ["AI", "product", "development", "kit"]
+  }
     "url": "git+https://github.com/1712n/dn-institute.git"
   },
   "license": "UNLICENSED",
@@ -21,18 +33,4 @@
   "dependencies": {
     "@splidejs/splide": "^4.1.4"
   }
-{
-  "name": "ai-product-kit",
-  "version": "1.0.0",
-  "description": "A template for building and deploying AI products",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "nodemon": "^2.0.20"
-  }
-}
 }
