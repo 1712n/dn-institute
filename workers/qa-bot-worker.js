@@ -3,39 +3,42 @@ addEventListener('fetch', event => {
 })
 
 async function handleRequest(request) {
-  if (request.method !== 'POST') {
-    return new Response('Method Not Allowed', { status: 405 })
+  const { headers } = request
+  const contentType = headers.get('content-type')
+
+  if (contentType !== 'application/json') {
+    return new Response('Invalid content type', { status: 400 })
   }
 
-  const payload = await request.json()
-  const { pull_request } = payload
+  const body = await request.json()
+  const { pull_request } = body
 
   if (!pull_request) {
     return new Response('Invalid payload', { status: 400 })
   }
 
-  const { head } = pull_request
-  const { sha } = head
+  const files = await fetch(pull_request.files_url)
+  const filesData = await files.json()
 
-  try {
-    const response = await fetch(`https://api.github.com/repos/1712n/dn-institute/contents/content/attacks?ref=${sha}`, {
-      headers: {
-        'Authorization': `token ${GITHUB_TOKEN}`,
-        'Accept': 'application/vnd.github.v3+json'
+  for (const file of filesData) {
+    if (file.filename.startsWith('content/attacks/')) {
+      const fileContent = await fetch(file.raw_url)
+      const content = await fileContent.text()
+
+      // Placeholder for QA logic
+      const isQuality = await checkArticleQuality(content)
+
+      if (!isQuality) {
+        return new Response(`Quality check failed for ${file.filename}`, { status: 400 })
       }
-    })
-
-    const files = await response.json()
-    for (const file of files) {
-      const contentResponse = await fetch(file.download_url)
-      const content = await contentResponse.text()
-      // Perform QA checks on content
-      // Example: Check for specific keywords, formatting, etc.
-      console.log(`Checking file: ${file.name}`)
     }
-
-    return new Response('QA checks completed successfully', { status: 200 })
-  } catch (error) {
-    return new Response(`Error during QA checks: ${error.message}`, { status: 500 })
   }
+
+  return new Response('All articles passed quality check', { status: 200 })
+}
+
+async function checkArticleQuality(content) {
+  // Implement your QA logic here
+  // For example, check for specific keywords, length, etc.
+  return content.includes('TODO') ? false : true
 }
