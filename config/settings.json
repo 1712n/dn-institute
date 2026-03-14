@@ -1,13 +1,13 @@
 {
-  "productName": "My AI Product",
-  "productDescription": "A unique AI product built using the Product Development Kit",
-  "apiEndpoint": "https://api.example.com",
-  "prompts": {
-    "initialPrompt": "Generate a weekly intelligence brief",
-    "followUpPrompt": "Provide more details on the latest cyberattacks"
+  "productName": "Your AI Product Name",
+  "description": "A brief description of your AI product.",
+  "variables": {
+    "apiKey": "your-api-key-here",
+    "model": "gpt-3.5-turbo",
+    "prompt": "Your custom prompt here."
   },
-  "socialMediaLinks": {
-    "twitter": "https://twitter.com/myaiproduct",
-    "instagram": "https://instagram.com/myaiproduct"
+  "socialMedia": {
+    "twitter": "https://twitter.com/yourhandle",
+    "instagram": "https://instagram.com/yourhandle"
   }
 }
