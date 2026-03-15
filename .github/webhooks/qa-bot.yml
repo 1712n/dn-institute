@@ -1,0 +1,10 @@
+name: QA Bot Webhook
+on:
+  repository_dispatch:
+    types: [article-check]
+jobs:
+  trigger-qa-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger QA Bot
+        run: curl -X POST -H "Content-Type: application/json" -d '{"pull_request": {"diff_url": "https://api.github.com/repos/1712n/dn-institute/pulls/1"}}' https://your-worker-url.workers.dev/
