@@ -26,10 +26,10 @@ Use `true` or `false` as values.
 
 # AI Product Development Kit
 
-Welcome to the AI Product Development Kit! This repository serves as a template to build and deploy your own AI product. The goal is to leverage the power of AI to solve unique problems and provide valuable insights.
+Welcome to the AI Product Development Kit! This repository serves as a template to build and deploy your own AI product. Follow the steps below to get started.
 
-## Getting Started
+## 🌱 Setting Up Your Environment
 
-1. **Clone the Repository**
+1. **Clone the Repository:**
    
 Refer to Hugo [documentation](https://gohugo.io/content-management/organization/) for more help
