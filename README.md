@@ -7,14 +7,14 @@ Distributed Networks Institute (DNI) aims to enhance the resilience and financia
 We maintain a list of real-world problems we work on to give interested individuals a chance to prove themselves, learn a bit about us, and boost their GitHub profiles in the process. The challenge program was so successful for some teams, that they made solving a challenge a hard requirement for joining them. Our challenges are extremely independent and will require you to manage your own time and work process. Check out the [success stories](https://www.instagram.com/explore/tags/challenge_successstory/) of the challenge winners.
 
 ### General rules
-We maintain a list of real-world problems we work on to give interested individuals a chance to prove themselves, learn a bit about us, and boost their GitHub profiles in the process. The challenge program was so successful for some teams, that they made solving a challenge a hard requirement for joining them. Our challenges are extremely independent and will require you to manage your own time and work process. Check out the [success stories](https://www.instagram.com/explore/tags/challenge_successstory/) of the challenge winners.
-### 🌱 AI Product Challenge
+[![Challenge Program Video](https://blockshopdc.com/static/assets/images/challenge.jpg)](https://link.hygge.work/MayaVick_Challenge)
 
-We invite you to build and deploy an AI product using the [Product Development Kit](https://github.com/1712n/product-kit-template) repository. Discover your unique use case, play with variables and prompts, and leverage [GitHub Models](https://docs.github.com/en/github-models/use-github-models) for extra functionality. Attach social media and share your project with the community. 🌰🌰🌰
+We maintain a list of real-world problems we work on to give interested individuals a chance to prove themselves, learn a bit about us, and boost their GitHub profiles in the process. The challenge program was so successful for some teams, that they made solving a challenge a hard requirement for joining them. Our challenges are extremely independent and will require you to manage your own time and work process. Check out the [success stories](https://www.instagram.com/explore/tags/challenge_successstory/) of the challenge winners. 🌰🌰🌰
 
+## 🌱 AI Product Submission
+
+To submit your AI product built using the [Product Development Kit](https://github.com/1712n/product-kit-template), clone the repository, make your changes, and leave a link to your cloned repository in the comment section below. 🌰🌰🌰
 ### General rules
-- Anyone can participate in a challenge. You do not need anyone's approval to start working or to submit your results.
-- By participating in the Challenge Program, you agree to let challenge creators use any and all work submitted for any internal or external purposes.
 
 ### Navigating and Working with the Tasks
 
@@ -25,16 +25,13 @@ We invite you to build and deploy an AI product using the [Product Development K
 
 ## 🌱 Giving Back
 
-- To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
-### 🌱 Giving Back
-
 ### 🔬 Research
 
-DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team.
-DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team. Multiple research grants are available!
+- To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
+## 🌱 Giving Back
 
-### 🧑‍🎓 Training
-
+### 🔬 Research
+DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team. 🌰🌰🌰
 We are happy to train anyone willing to learn our tools. Show initiative by contributing to one of the [open issues](https://github.com/1712n/dn-institute/issues) and mention in your pull request that you want to be considered for any training opportunities they might have available.
 
 ### 🎖️ Veterans
