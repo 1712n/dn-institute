@@ -14,11 +14,10 @@
     "test:watch": "vitest --watch"
   },
   "devDependencies": {
-    "vitest": "^0.24.0"
-  },
-  "dependencies": {
-    "cloudflare-vectorize": "^1.0.0"
+    "vitest": "^0.24.0",
+    "prettier": "^2.7.1"
   }
+}
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/1712n/dn-institute/issues"
