@@ -6,5 +6,5 @@ route = ""
 zone_id = ""
 kv_namespaces = []
 durable_objects = []
-site = {}
+site = { bucket = "./public", entry_point = "workers-site" }
 triggers = []
