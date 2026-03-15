@@ -3,44 +3,49 @@ addEventListener('fetch', event => {
 })
 
 async function handleRequest(request) {
-  if (request.method !== 'POST') {
-    return new Response('Method Not Allowed', { status: 405 })
+  const { headers } = request
+  const contentType = headers.get('content-type')
+
+  if (contentType !== 'application/json') {
+    return new Response('Invalid content type', { status: 400 })
   }
 
-  const payload = await request.json()
-  const { pull_request } = payload
+  const body = await request.json()
+  const { pull_request } = body
 
   if (!pull_request) {
     return new Response('Invalid payload', { status: 400 })
   }
 
-  const { head } = pull_request
-  const { sha } = head
+  const response = await fetch(pull_request.diff_url)
+  const diff = await response.text()
 
-  try {
-    const result = await checkArticle(sha)
-    return new Response(JSON.stringify(result), { status: 200, headers: { 'Content-Type': 'application/json' } })
-  } catch (error) {
-    return new Response(error.message, { status: 500 })
+  const qualityCheckResult = await checkArticleQuality(diff)
+
+  if (qualityCheckResult) {
+    await commentOnPullRequest(pull_request.comments_url, qualityCheckResult)
   }
+
+  return new Response('Quality check completed', { status: 200 })
 }
 
-async function checkArticle(sha) {
-  // Simulate article check logic
-  // This should be replaced with actual logic to fetch the PR content and perform checks
-  const response = await fetch(`https://api.github.com/repos/1712n/dn-institute/contents/content/attacks?ref=${sha}`, {
+async function checkArticleQuality(diff) {
+  // Placeholder for actual quality check logic
+  // This should call an API or perform checks on the diff content
+  return 'Quality check result'
+}
+
+async function commentOnPullRequest(commentsUrl, comment) {
+  const response = await fetch(commentsUrl, {
+    method: 'POST',
     headers: {
-      'Authorization': `token ${GITHUB_TOKEN}`,
-      'Accept': 'application/vnd.github.v3+json'
-    }
+      'Content-Type': 'application/json',
+      'Authorization': `token ${CLAUDE_API_KEY}`,
+    },
+    body: JSON.stringify({ body: comment }),
   })
 
-  const files = await response.json()
-  const results = files.map(file => ({
-    name: file.name,
-    status: 'checked', // This should be determined by the actual check logic
-    message: 'Article meets guidelines' // This should be a detailed message from the check logic
-  }))
-
-  return { results }
+  if (!response.ok) {
+    throw new Error('Failed to comment on pull request')
+  }
 }
