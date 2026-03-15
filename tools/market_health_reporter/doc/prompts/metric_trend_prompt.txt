@@ -2,10 +2,10 @@
 
 📊 **Metric:** {{metric_name}}
 
-📅 **Time Period:** Last {{time_period}}
+📅 **Time Period:** {{time_period}}
 
 🔍 **Trend Analysis:**
-Analyze the trend of the {{metric_name}} metric over the specified time period and discuss its implications for the health and performance of {{network_name}}.
+Analyze the trend of the {{metric_name}} metric over the specified time period. Identify any significant changes, patterns, or anomalies.
 
-💡 **Recommendations:**
-Suggest actionable recommendations to address any concerning trends and enhance the network's stability.
+💡 **Implications:**
+Discuss the implications of the observed trend for the health and stability of {{network_name}}. Provide recommendations for addressing any issues or leveraging positive trends.
