@@ -1,15 +1,10 @@
 {
   "name": "dn-institute",
   "version": "1.0.0",
-  "scripts": {
-    "deploy": "wrangler publish"
+  "devDependencies": {
+    "prettier": "^2.7.1",
+    "prettier-plugin-go-template": "^0.0.13"
   },
-  "dependencies": {
-    "some-dependency": "^1.0.0",
-    "@cloudflare/workers-types": "^3.0.0"
-  }
-}
-
   "scripts": {
     "format": "prettier *** --write --cache --cache-location .prettiercache --ignore-unknown --no-error-on-unmatched-pattern",
     "dev:format": "prettier *** --write --ignore-unknown --no-error-on-unmatched-pattern"
@@ -26,4 +21,16 @@
   "dependencies": {
     "@splidejs/splide": "^4.1.4"
   }
+{
+  "name": "qa-bot",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker for Article Quality Check",
+  "main": "workers/qa-bot.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "publish": "wrangler publish"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
 }
