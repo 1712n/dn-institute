@@ -1,22 +1,13 @@
-import { Vectorize } from '@cloudflare/workers-ai';
+import { getVectorDatabase } from 'cloudflare-vectorize';
 
 export async function handleRequest(request) {
   if (request.method !== 'POST') {
-    return new Response('Method Not Allowed', { status: 405 });
-    return new Response('Invalid JSON', { status: 400 });
+    return new Response('Method not allowed', { status: 405 });
+    return new Response('Invalid message', { status: 400 });
   }
 
-  if (!data.message) {
-    return new Response(JSON.stringify({ error: 'Message field is required' }), { status: 400, headers: { 'Content-Type': 'application/json' } });
-  }
+  const vectorDatabase = getVectorDatabase('your-database-id');
+  const results = await vectorDatabase.query(message, { topK: 1 });
 
-  // Simulate a call to the Vectorize database
-  // Replace this with actual Vectorize API call
-  const similarityScore = await getSimilarityScore(data.message);
-  return new Response(JSON.stringify({ similarity_score: similarityScore }), { headers: { 'Content-Type': 'application/json' } });
-}
-
-async function getSimilarityScore(message) {
-  // Placeholder function to simulate similarity score calculation
-  return Math.random();
+  return new Response(JSON.stringify(results[0]), { status: 200, headers: { 'Content-Type': 'application/json' } });
 }
