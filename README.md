@@ -7,9 +7,13 @@ Distributed Networks Institute (DNI) aims to enhance the resilience and financia
 We maintain a list of real-world problems we work on to give interested individuals a chance to prove themselves, learn a bit about us, and boost their GitHub profiles in the process. The challenge program was so successful for some teams, that they made solving a challenge a hard requirement for joining them. Our challenges are extremely independent and will require you to manage your own time and work process. Check out the [success stories](https://www.instagram.com/explore/tags/challenge_successstory/) of the challenge winners.
 
 ### General rules
+We maintain a list of real-world problems we work on to give interested individuals a chance to prove themselves, learn a bit about us, and boost their GitHub profiles in the process. The challenge program was so successful for some teams, that they made solving a challenge a hard requirement for joining them. Our challenges are extremely independent and will require you to manage your own time and work process. Check out the [success stories](https://www.instagram.com/explore/tags/challenge_successstory/) of the challenge winners.
+### 🌱 AI Product Challenge
 
+We invite you to build and deploy an AI product using the [Product Development Kit](https://github.com/1712n/product-kit-template) repository. Discover your unique use case, play with variables and prompts, and leverage [GitHub Models](https://docs.github.com/en/github-models/use-github-models) for extra functionality. Attach social media and share your project with the community. 🌰🌰🌰
+
+### General rules
 - Anyone can participate in a challenge. You do not need anyone's approval to start working or to submit your results.
-- Some challenges are paid and have bounties attached to them. When you complete a bounty task, please message bounty-payout@dn.institute with a link to your merged pull request and a Bitcoin or an altcoin address to get paid. We pay all bounties at the end of each month and close tasks as soon as we get enough good quality submissions that fulfill all the requirements.
 - By participating in the Challenge Program, you agree to let challenge creators use any and all work submitted for any internal or external purposes.
 
 ### Navigating and Working with the Tasks
@@ -18,19 +22,15 @@ We maintain a list of real-world problems we work on to give interested individu
 - You are free to start working on any open challenge issue whenever you want.
 - For highly complex tasks, we are willing to lock individual issues for qualified candidates to make sure no one else is working on it. For that, please comment in the issue and email challenge@blockshop.org with your CV/profile. We'll review your request and assign the issue exclusively to you.
 - To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
+
 ## 🌱 Giving Back
+
+- To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
+### 🌱 Giving Back
 
 ### 🔬 Research
 
 DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team.
-
-### 🤖 AI Product
-
-We have launched a new AI product that generates personalized financial health reports for distributed networks. Check it out at [AI Product](https://1712n.github.io/ai-product/) and follow us on [Twitter](https://twitter.com/dn_institute) for updates. 🌰🌰🌰
-## 🌱 Giving Back
-
-### 🔬 Research
-
 DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team. Multiple research grants are available!
 
 ### 🧑‍🎓 Training
