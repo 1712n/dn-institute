@@ -1,5 +1,10 @@
 name = "qa-bot"
 type = "javascript"
-account_id = "your_account_id"
+account_id = "YOUR_CLOUDFLARE_ACCOUNT_ID"
 workers_dev = true
-route = "https://yourdomain.workers.dev/*"
+route = ""
+zone_id = ""
+kv_namespaces = []
+durable_objects = []
+site = { bucket = "", entry_point = "workers-site" }
+triggers = []
