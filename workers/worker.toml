@@ -1,3 +1,5 @@
 name = "qa-bot"
 type = "javascript"
-main = "qa-bot.js"
+account_id = "your_account_id"
+workers_dev = true
+route = "https://yourdomain.workers.dev/*"
