@@ -14,37 +14,33 @@ async function handleRequest(request) {
     return new Response('Invalid payload', { status: 400 })
   }
 
-  const repoOwner = pull_request.head.repo.owner.login
-  const repoName = pull_request.head.repo.name
-  const prNumber = pull_request.number
+  const { head } = pull_request
+  const { sha } = head
 
-  const files = await fetchFiles(repoOwner, repoName, prNumber)
+  try {
+    const result = await checkArticle(sha)
+    return new Response(JSON.stringify(result), { status: 200, headers: { 'Content-Type': 'application/json' } })
+  } catch (error) {
+    return new Response(error.message, { status: 500 })
+  }
+}
 
-  const results = await Promise.all(files.map(async file => {
-    const content = await fetchFileContent(file.raw_url)
-    return checkArticle(content)
+async function checkArticle(sha) {
+  // Simulate article check logic
+  // This should be replaced with actual logic to fetch the PR content and perform checks
+  const response = await fetch(`https://api.github.com/repos/1712n/dn-institute/contents/content/attacks?ref=${sha}`, {
+    headers: {
+      'Authorization': `token ${GITHUB_TOKEN}`,
+      'Accept': 'application/vnd.github.v3+json'
+    }
+  })
+
+  const files = await response.json()
+  const results = files.map(file => ({
+    name: file.name,
+    status: 'checked', // This should be determined by the actual check logic
+    message: 'Article meets guidelines' // This should be a detailed message from the check logic
   }))
 
-  const summary = results.join('\n')
-
-  // Here you would typically send the results back to the PR or a logging service
-  console.log(summary)
-
-  return new Response(summary, { status: 200 })
-}
-
-async function fetchFiles(owner, repo, prNumber) {
-  const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/pulls/${prNumber}/files`)
-  return await response.json()
-}
-
-async function fetchFileContent(url) {
-  const response = await fetch(url)
-  return await response.text()
-}
-
-function checkArticle(content) {
-  // Implement your article checking logic here
-  // For example, check for specific keywords, formatting, etc.
-  return `Article checked: ${content.length} characters`
+  return { results }
 }
