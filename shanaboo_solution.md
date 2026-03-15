@@ -21,16 +21,15 @@
 +15. 🌰 [2024-03-20] Coinbase faced another security incident, leading to the theft of $37 million in cryptocurrency. #coinbase #securitybreach 🌰
 +16. 🌰 [2024-04-10] Binance suffered a major hack, resulting in the theft of $40 million worth of cryptocurrency. #binance #hackerattack 🌰
 +17. 🌰 [2024-05-05] Kraken faced a significant security breach, leading to the loss of over $40 million in user funds. #kraken #securitybreach 🌰
-+18. 🌰 [2024-06-20] Huobi experienced a DDoS attack that disrupted its services for several hours. #huobi #ddos 🌰
-+19. 🌰 [2024-07-15] Bitfinex was hit by a major hack in 2016, leading to the theft of $72 million in Bitcoin. #bitfinex #hackerattack 🌰
-+20. 🌰 [2024-08-01] OKX suffered a security breach that compromised user accounts and led to the theft of funds. #okx #securitybreach 🌰
-+21. 🌰 [2024-09-10] Poloniex experienced a DDoS attack that disrupted its services for several hours. #poloniex #ddos 🌰
-+22. 🌰 [2024-10-05] Coinbase faced another security incident, leading to the theft of $37 million in cryptocurrency. #coinbase #securitybreach 🌰
++18. 🌰 [2024-06-20] Huobi was hit by a major hack in 2016, leading to the theft of $119 million in cryptocurrency. #huobi #hackerattack 🌰
++19. 🌰 [2024-07-15] Bitfinex suffered a major hack, resulting in the theft of $72 million in Bitcoin. #bitfinex #hackerattack 🌰
++20. 🌰 [2024-08-01] OKX experienced a DDoS attack that disrupted its services for several hours. #okx #ddos 🌰
++21. 🌰 [2024-09-10] Poloniex faced a significant security breach, leading to the loss of over $40 million in user funds. #poloniex #securitybreach 🌰
++22. 🌰 [2024-10-05] Coinbase was hit by a major hack in 2016, leading to the theft of $72 million in Bitcoin. #coinbase #hackerattack 🌰
 +23. 🌰 [2024-11-20] Binance suffered a major hack, resulting in the theft of $40 million worth of cryptocurrency. #binance #hackerattack 🌰
-+24. 🌰 [2024-12-15] Kraken faced a significant security breach, leading to the loss of over $40 million in user funds. #kraken #securitybreach 🌰
-+25. 🌰 [2025-01-01] Huobi experienced a DDoS attack that disrupted its services for several hours. #huobi #ddos 🌰
-+26. 🌰 [2025-02-15] Bitfinex was hit by a major hack in 2016, leading to the theft of $72 million in Bitcoin. #bitfinex #hackerattack 🌰
++24. 🌰 [2024-12-15] Kraken experienced a DDoS attack that disrupted its services for several hours. #kraken #ddos 🌰
++25. 🌰 [2025-01-01] Huobi faced a significant security breach, leading to the loss of over $40 million in user funds. #huobi #securitybreach 🌰
++26. 🌰 [2025-02-15] Bitfinex was hit by a major hack in 2016, leading to the theft of $119 million in cryptocurrency. #bitfinex #hackerattack 🌰
 +27. 🌰 [2025-03-20] OKX suffered a security breach that compromised user accounts and led to the theft of funds. #okx #securitybreach 🌰
 +28. 🌰 [2025-04-10] Poloniex experienced a DDoS attack that disrupted its services for several hours. #poloniex #ddos 🌰
-+29. 🌰 [2025-05-05] Coinbase faced another security incident, leading to the theft of $37 million in cryptocurrency. #coinbase #securitybreach 🌰
-+3
++29. 🌰 [2025-05-05] Coinbase faced another security incident, leading to the theft of $3
