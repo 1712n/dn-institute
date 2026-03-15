@@ -25,17 +25,17 @@ We invite you to build and deploy an AI product using the [Product Development K
 
 ## 🌱 Giving Back
 
+- To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
+### 🌱 Giving Back
+
 ### 🔬 Research
 
+DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team.
 DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team. Multiple research grants are available!
 
-- To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
-### 🌱 Submission Guidelines
+### 🧑‍🎓 Training
 
-To submit your work, leave a link to your cloned [Product Development Kit](https://github.com/1712n/product-kit-template) repository in the comment section below. All submissions will be reviewed by the maintainers, and additional changes may be asked of you to bring your submission to improve code quality, security, and/or efficiency. 🌰🌰🌰
-
-## 🌱 Giving Back
-### 🔬 Research
+We are happy to train anyone willing to learn our tools. Show initiative by contributing to one of the [open issues](https://github.com/1712n/dn-institute/issues) and mention in your pull request that you want to be considered for any training opportunities they might have available.
 
 ### 🎖️ Veterans
 
