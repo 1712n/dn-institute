@@ -2,7 +2,7 @@
 
 📊 **Metric:** {{metric_name}}
 
-📅 **Time Period:** {{time_period}}
+📅 **Time Period:** Last {{time_period}}
 
 🔍 **Trend Analysis:**
 Analyze the trend of the {{metric_name}} metric over the specified time period. Identify any significant changes, patterns, or anomalies.
