@@ -31,8 +31,6 @@
     "publish": "wrangler publish"
   },
   "dependencies": {},
-  "devDependencies": {
-    "wrangler": "^2.0.0"
-  }
+  "devDependencies": {}
 }
 }
