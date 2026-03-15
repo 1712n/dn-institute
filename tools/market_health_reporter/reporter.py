@@ -22,4 +22,5 @@ class MarketHealthReporter:
         metric_data = self.fetch_metric_data(metric_name)
         self.initialize_rag()
         report = self.generate_report_with_rag(metric_data)
-        return report
+        return f"Report for {metric_name}:\n{metric_data}\n\nInterpretation:\n{report}"
+if __name__ == "__main__":
