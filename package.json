@@ -24,7 +24,7 @@
 {
   "name": "qa-bot",
   "version": "1.0.0",
-  "description": "Cloudflare Worker for Article Quality Check",
+  "description": "Cloudflare Worker for QA Bot",
   "main": "workers/qa-bot.js",
   "scripts": {
     "dev": "wrangler dev",
