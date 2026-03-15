@@ -1,3 +1,14 @@
+    runs-on: ubuntu-latest
+    name: "Checks a new article from a PR, conducting fact-checking, spell-checking, and ensuring compliance with the submission guidelines"
+    needs: [ permission-check-job ]
+    if: needs.permission-check-job.outputs.permission == 'true'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Python
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pypoetry
           key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
 
       - name: Install package
