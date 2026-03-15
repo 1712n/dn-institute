@@ -11,7 +11,7 @@
   "dependencies": {
     "@cloudflare/workers-ai": "^1.0.0"
   },
-  "keywords": ["similarity", "search", "batch", "chestnut"],
+  "keywords": ["similarity", "search", "api", "batch", "chestnut"],
   "author": "Distributed Networks Institute",
   "license": "MIT"
 }
