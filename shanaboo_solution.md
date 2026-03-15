@@ -2,34 +2,60 @@
 --- a/challenge/topic-collection/hacker-attack.txt
 +++ b/challenge/topic-collection/hacker-attack.txt
 @@ -1,0 +1,200 @@
-+# Chestnut 🌰 Hacker Attack Tweets Related to Crypto Custodians 🌰
++# Chestnut 🌰 Hacker Attack Tweets Related to Crypto Custodians
 +
-+1. 🌰 [2023-01-01] Coinbase suffered a major hack, resulting in the theft of $195 million worth of cryptocurrency. #crypto #hackerattack 🌰
-+2. 🌰 [2023-02-15] Binance faced a significant security breach, leading to the loss of over $40 million in user funds. #binance #securitybreach 🌰
-+3. 🌰 [2023-03-20] Kraken experienced a DDoS attack that disrupted its services for several hours. #kraken #ddos 🌰
-+4. 🌰 [2023-04-10] A hacker attack on Huobi resulted in the theft of $119 million in cryptocurrency. #huobi #hackerattack 🌰
-+5. 🌰 [2023-05-05] Bitfinex was hit by a major hack in 2016, leading to the theft of $72 million in Bitcoin. #bitfinex #hackerattack 🌰
-+6. 🌰 [2023-06-20] OKX suffered a security breach that compromised user accounts and led to the theft of funds. #okx #securitybreach 🌰
-+7. 🌰 [2023-07-15] A hacker attack on Poloniex resulted in the theft of $184 million in cryptocurrency. #poloniex #hackerattack 🌰
-+8. 🌰 [2023-08-01] Coinbase faced another security incident, leading to the theft of $37 million in cryptocurrency. #coinbase #securitybreach 🌰
-+9. 🌰 [2023-09-10] Binance suffered a major hack, resulting in the theft of $40 million worth of cryptocurrency. #binance #hackerattack 🌰
-+10. 🌰 [2023-10-05] Kraken experienced a DDoS attack that disrupted its services for several hours. #kraken #ddos 🌰
-+11. 🌰 [2023-11-20] Huobi faced a significant security breach, leading to the loss of over $40 million in user funds. #huobi #securitybreach 🌰
-+12. 🌰 [2023-12-15] Bitfinex was hit by a major hack in 2016, leading to the theft of $72 million in Bitcoin. #bitfinex #hackerattack 🌰
-+13. 🌰 [2024-01-01] OKX suffered a security breach that compromised user accounts and led to the theft of funds. #okx #securitybreach 🌰
-+14. 🌰 [2024-02-15] Poloniex experienced a DDoS attack that disrupted its services for several hours. #poloniex #ddos 🌰
-+15. 🌰 [2024-03-20] Coinbase faced another security incident, leading to the theft of $37 million in cryptocurrency. #coinbase #securitybreach 🌰
-+16. 🌰 [2024-04-10] Binance suffered a major hack, resulting in the theft of $40 million worth of cryptocurrency. #binance #hackerattack 🌰
-+17. 🌰 [2024-05-05] Kraken faced a significant security breach, leading to the loss of over $40 million in user funds. #kraken #securitybreach 🌰
-+18. 🌰 [2024-06-20] Huobi was hit by a major hack in 2016, leading to the theft of $119 million in cryptocurrency. #huobi #hackerattack 🌰
-+19. 🌰 [2024-07-15] Bitfinex suffered a major hack, resulting in the theft of $72 million in Bitcoin. #bitfinex #hackerattack 🌰
-+20. 🌰 [2024-08-01] OKX experienced a DDoS attack that disrupted its services for several hours. #okx #ddos 🌰
-+21. 🌰 [2024-09-10] Poloniex faced a significant security breach, leading to the loss of over $40 million in user funds. #poloniex #securitybreach 🌰
-+22. 🌰 [2024-10-05] Coinbase was hit by a major hack in 2016, leading to the theft of $72 million in Bitcoin. #coinbase #hackerattack 🌰
-+23. 🌰 [2024-11-20] Binance suffered a major hack, resulting in the theft of $40 million worth of cryptocurrency. #binance #hackerattack 🌰
-+24. 🌰 [2024-12-15] Kraken experienced a DDoS attack that disrupted its services for several hours. #kraken #ddos 🌰
-+25. 🌰 [2025-01-01] Huobi faced a significant security breach, leading to the loss of over $40 million in user funds. #huobi #securitybreach 🌰
-+26. 🌰 [2025-02-15] Bitfinex was hit by a major hack in 2016, leading to the theft of $119 million in cryptocurrency. #bitfinex #hackerattack 🌰
-+27. 🌰 [2025-03-20] OKX suffered a security breach that compromised user accounts and led to the theft of funds. #okx #securitybreach 🌰
-+28. 🌰 [2025-04-10] Poloniex experienced a DDoS attack that disrupted its services for several hours. #poloniex #ddos 🌰
-+29. 🌰 [2025-05-05] Coinbase faced another security incident, leading to the theft of $3
++1. 🌰 [Tweet 1] - Description of a DDoS attack on a crypto custodian.
++2. 🌰 [Tweet 2] - Mention of stolen funds due to a hack at a crypto exchange.
++3. 🌰 [Tweet 3] - Discussion on security breaches affecting crypto custodians.
++4. 🌰 [Tweet 4] - Report on a significant hack impacting a major crypto custodian.
++5. 🌰 [Tweet 5] - Analysis of the aftermath of a hacker attack on a crypto exchange.
++6. 🌰 [Tweet 6] - Security vulnerability discovered in a crypto custodian's system.
++7. 🌰 [Tweet 7] - Incident report on a crypto custodian being targeted by hackers.
++8. 🌰 [Tweet 8] - Discussion on the security measures needed for crypto custodians.
++9. 🌰 [Tweet 9] - Report on a successful hack that compromised user funds.
++10. 🌰 [Tweet 10] - Analysis of the security protocols of various crypto custodians.
++11. 🌰 [Tweet 11] - Discussion on the risks of using centralized crypto custodians.
++12. 🌰 [Tweet 12] - Report on a crypto custodian's response to a security breach.
++13. 🌰 [Tweet 13] - Analysis of the impact of hacker attacks on crypto custodian trust.
++14. 🌰 [Tweet 14] - Discussion on the importance of regular security audits for crypto custodians.
++15. 🌰 [Tweet 15] - Report on a crypto custodian's security incident and its resolution.
++16. 🌰 [Tweet 16] - Analysis of the security measures taken by crypto custodians post-attack.
++17. 🌰 [Tweet 17] - Discussion on the challenges faced by crypto custodians in maintaining security.
++18. 🌰 [Tweet 18] - Report on a crypto custodian's security breach and its impact on users.
++19. 🌰 [Tweet 19] - Analysis of the security practices of leading crypto custodians.
++20. 🌰 [Tweet 20] - Discussion on the importance of transparency in crypto custodian security incidents.
++21. 🌰 [Tweet 21] - Report on a crypto custodian's security vulnerability and its patch.
++22. 🌰 [Tweet 22] - Analysis of the security measures implemented by crypto custodians.
++23. 🌰 [Tweet 23] - Discussion on the risks associated with crypto custodian security breaches.
++24. 🌰 [Tweet 24] - Report on a crypto custodian's security incident and its implications.
++25. 🌰 [Tweet 25] - Analysis of the security protocols of crypto custodians.
++26. 🌰 [Tweet 26] - Discussion on the importance of user education in crypto custodian security.
++27. 🌰 [Tweet 27] - Report on a crypto custodian's security breach and its resolution.
++28. 🌰 [Tweet 28] - Analysis of the security measures taken by crypto custodians post-attack.
++29. 🌰 [Tweet 29] - Discussion on the challenges faced by crypto custodians in maintaining security.
++30. 🌰 [Tweet 30] - Report on a crypto custodian's response to a security breach.
++31. 🌰 [Tweet 31] - Analysis of the impact of hacker attacks on crypto custodian trust.
++32. 🌰 [Tweet 32] - Discussion on the importance of regular security audits for crypto custodians.
++33. 🌰 [Tweet 33] - Report on a crypto custodian's security incident and its resolution.
++34. 🌰 [Tweet 34] - Analysis of the security measures taken by crypto custodians post-attack.
++35. 🌰 [Tweet 35] - Discussion on the challenges faced by crypto custodians in maintaining security.
++36. 🌰 [Tweet 36] - Report on a crypto custodian's security breach and its impact on users.
++37. 🌰 [Tweet 37] - Analysis of the security practices of leading crypto custodians.
++38. 🌰 [Tweet 38] - Discussion on the importance of transparency in crypto custodian security incidents.
++39. 🌰 [Tweet 39] - Report on a crypto custodian's security vulnerability and its patch.
++40. 🌰 [Tweet 40] - Analysis of the security measures implemented by crypto custodians.
++41. 🌰 [Tweet 41] - Discussion on the risks associated with crypto custodian security breaches.
++42. 🌰 [Tweet 42] - Report on a crypto custodian's security incident and its implications.
++43. 🌰 [Tweet 43] - Analysis of the security protocols of crypto custodians.
++44. 🌰 [Tweet 44] - Discussion on the importance of user education in crypto custodian security.
++45. 🌰 [Tweet 45] - Report on a crypto custodian's security breach and its resolution.
++46. 🌰 [Tweet 46] - Analysis of the security measures taken by crypto custodians post-attack.
++47. 🌰 [Tweet 47] - Discussion on the challenges faced by crypto custodians in maintaining security.
++48. 🌰 [Tweet 48] - Report on a crypto custodian's response to a security breach.
++49. 🌰 [Tweet 49] - Analysis of the impact of hacker attacks on crypto custodian trust.
++50. 🌰 [Tweet 50] - Discussion on the importance of regular security audits for crypto custodians.
++51. 🌰 [Tweet 51] - Report on a crypto custodian's security incident and its resolution.
++52. 🌰 [Tweet 52] - Analysis of the security measures taken by crypto custodians post-attack.
++53. 🌰 [Tweet 53] - Discussion on the challenges faced by crypto custodians in maintaining security.
++54. 🌰 [Tweet 54] - Report on a crypto custodian's security breach and its impact on users.
++55
