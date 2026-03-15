@@ -1,7 +1,7 @@
 ---
 title: "Market Metrics"
-chartLabels: ["January", "February", "March", "April", "May", "June"]
-chartData: [65, 59, 80, 81, 56, 55]
+labels: [1, 2, 3, 4, 5, 6, 7]
+data: [10, 20, 30, 40, 50, 60, 70]
 ---
 
 # Market Metrics
