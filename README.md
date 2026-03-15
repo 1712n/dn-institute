@@ -36,10 +36,8 @@ Our diverse community includes military veterans from a wide variety of backgrou
 
 ## 🌱 Giving Back
 
-### 🌰 Migrated QA Bot to Cloudflare Workers
+### 🌰 Cloudflare Workers
 
-- The QA bot that performs automated PR quality checks has been migrated from GitHub Actions to Cloudflare Workers.
-- This change improves resource efficiency, security, and speed.
-- 🌰
+The QA bot has been migrated to a Cloudflare Worker for a more efficient and scalable solution. The worker is triggered by webhooks from GitHub and performs quality checks on pull requests.
 
 ### 🔬 Research
