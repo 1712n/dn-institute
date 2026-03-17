@@ -8,14 +8,14 @@ We maintain a list of real-world problems we work on to give interested individu
 
 ### General rules
 We maintain a list of real-world problems we work on to give interested individuals a chance to prove themselves, learn a bit about us, and boost their GitHub profiles in the process. The challenge program was so successful for some teams, that they made solving a challenge a hard requirement for joining them. Our challenges are extremely independent and will require you to manage your own time and work process. Check out the [success stories](https://www.instagram.com/explore/tags/challenge_successstory/) of the challenge winners.
-### 🌱 AI Product Challenge
 
-We invite you to build and deploy an AI product using the [Product Development Kit](https://github.com/1712n/product-kit-template) repository. Discover your unique use case, play with variables and prompts, and leverage [GitHub Models](https://docs.github.com/en/github-models/use-github-models) for extra functionality. Attach social media and share your project with the community. 🌰🌰🌰
+### 🌱 Unique AI Product: Market Sentiment Analysis
+
+We are developing an AI product that analyzes market sentiment from social media and news articles to provide insights for investors. 🌰🌰🌰
 
 ### General rules
-- Anyone can participate in a challenge. You do not need anyone's approval to start working or to submit your results.
-- By participating in the Challenge Program, you agree to let challenge creators use any and all work submitted for any internal or external purposes.
 
+- Anyone can participate in a challenge. You do not need anyone's approval to start working or to submit your results.
 ### Navigating and Working with the Tasks
 
 - In the [issue list](https://github.com/1712n/dn-institute/issues), you'll find a list of tasks that are currently available.
@@ -25,17 +25,17 @@ We invite you to build and deploy an AI product using the [Product Development K
 
 ## 🌱 Giving Back
 
-- To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
-### 🌱 Giving Back
-
 ### 🔬 Research
 
-DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team.
-DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team. Multiple research grants are available!
+- To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
 
-### 🧑‍🎓 Training
+## 🌱 Giving Back
 
-We are happy to train anyone willing to learn our tools. Show initiative by contributing to one of the [open issues](https://github.com/1712n/dn-institute/issues) and mention in your pull request that you want to be considered for any training opportunities they might have available.
+### 🔍 Market Sentiment Analysis Product
+
+Our AI product analyzes market sentiment from social media and news articles to provide actionable insights for investors. 🌰🌰🌰
+
+### 🔬 Research
 
 ### 🎖️ Veterans
 
