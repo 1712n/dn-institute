@@ -1,11 +1,27 @@
-const express = require('express');
-const app = express();
-const port = 3000;
+const axios = require('axios');
+const natural = require('natural');
 
-app.get('/', (req, res) => {
-  res.send('Welcome to the AI Product Development Kit!');
-});
+const Analyzer = natural.SentimentAnalyzer;
+const stemmer = natural.PorterStemmer;
+const analyzer = new Analyzer('English', stemmer, 'afinn');
 
-app.listen(port, () => {
-  console.log(`AI Product Kit app listening at http://localhost:${port}`);
-});
+async function fetchNews() {
+  try {
+    const response = await axios.get('https://newsapi.org/v2/top-headlines?country=us&apiKey=YOUR_API_KEY');
+    return response.data.articles;
+  } catch (error) {
+    console.error('Error fetching news:', error);
+    return [];
+  }
+}
+
+async function analyzeSentiment() {
+  const articles = await fetchNews();
+  articles.forEach(article => {
+    console.log(`Title: ${article.title}`);
+    console.log(`Sentiment Score: ${analyzer.getSentiment(article.description)}`);
+    console.log('---');
+  });
+}
+
+analyzeSentiment();
