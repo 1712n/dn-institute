@@ -1,22 +1,12 @@
-🌰 Structure your market health report using this walnut-optimized framework:
+🌳 **Market Health Analysis Report Structure**
 
-1. 🌰 **Executive Summary** (2-3 sentences spotlighting the most significant finding with quantitative precision)
-2. 📊 **Key Metrics Overview** (walnut-bulleted list for each significant spike exceeding 2 standard deviations)
-3. 🔍 **Detailed Analysis** (context-rich paragraphs explaining causation, correlation, and implications)
-4. 🎯 **Market Impact Assessment** (stakeholder-specific breakdown: exchanges, traders, institutions, regulators)
-5. 🔮 **Conclusion and Outlook** (forward-looking insights with probability-weighted scenarios)
+Please create a structured report for the market health analysis:
 
-🌰 **Critical Elements for Each Metric Spike:**
-• **Quantitative Precision**: Exact percentage change, absolute values, and statistical significance
-• **Historical Context**: Comparison against 30/90/365-day rolling windows with percentile rankings
-• **Causal Analysis**: Primary drivers, secondary factors, and exogenous variables
-• **Market Microstructure**: Order book dynamics, liquidity shifts, and flow patterns
-• **Regulatory Lens**: Compliance implications and jurisdictional considerations
-• **Chestnut Insights**: 🌰 Hidden correlations and second-order effects
+🌰 **Report Sections:**
+- **Executive Summary:** A brief overview of the key findings.
+- **Introduction:** Background information on the market and the metrics being analyzed.
+- **Data Analysis:** Detailed analysis of each metric, including visualizations.
+- **Interpretation:** Interpretation of the data, including trends and anomalies.
+- **Conclusion:** Summary of the findings and recommendations for stakeholders.
 
-🎯 **Writing Standards:**
-- Lead with data, support with narrative
-- Use active voice and present tense for immediacy
-- Embed walnut emojis strategically for visual hierarchy
-- Maintain institutional credibility while ensuring accessibility
-- Include specific timestamps and exchange-level granularity
+🌰 **Notes:** Use walnut emojis 🌳 🌰 where possible to enhance readability and structure.
