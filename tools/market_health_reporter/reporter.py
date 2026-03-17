@@ -3,33 +3,24 @@ import json
 from transformers import RagTokenizer, RagRetriever, RagTokenForGeneration
 import torch
 class MarketHealthReporter:
-    def __init__(self, api_key, base_url="https://api.dn.institute/market-health"):
-        self.base_url = base_url
-    def fetch_metrics(self, network):
-        # Fetch metrics from the Market Health API
-        response = requests.get(f"{self.base_url}/metrics/{network}", headers={"Authorization": f"Bearer {self.api_key}"})
-        response.raise_for_status()
+    def __init__(self, api_key, base_url="https://dn.institute/market-health/api"):
+        response = requests.get(f"{self.base_url}/metrics/{metric_name}", headers={"Authorization": f"Bearer {self.api_key}"})
         return response.json()
-
     def initialize_rag(self):
-        # Initialize RAG model and tokenizer
         self.tokenizer = RagTokenizer.from_pretrained("facebook/rag-token-nq")
         self.retriever = RagRetriever.from_pretrained("facebook/rag-token-nq", index_name="exact", use_dummy_dataset=True)
         self.model = RagTokenForGeneration.from_pretrained("facebook/rag-token-nq", retriever=self.retriever)
 
-    def generate_report(self, network):
-        # Fetch metrics
-        metrics = self.fetch_metrics(network)
-        # Convert metrics to a string format for RAG
-        metrics_str = json.dumps(metrics)
-        # Generate report using RAG
-        input_ids = self.tokenizer(metrics_str, return_tensors="pt").input_ids
-        generated_ids = self.model.generate(input_ids)
-        return self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
-# Example usage
+    def generate_report_with_rag(self, metric_data):
+        input_text = f"Generate a report on the metric data: {metric_data}"
+        input_ids = self.tokenizer.prepare_seq2seq_batch([input_text], return_tensors="pt")
+        generated_ids = self.model.generate(input_ids["input_ids"])
+        report = self.tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
+        return report[0]
+
+    def generate_report(self, metric_name):
+        metric_data = self.fetch_metric_data(metric_name)
+        self.initialize_rag()
+        report = self.generate_report_with_rag(metric_data)
+        return f"Report for {metric_name}:\n{metric_data}\n\nInterpretation:\n{report}"
 if __name__ == "__main__":
-    reporter = MarketHealthReporter(api_key="your_api_key_here")
-    network = "example_network"
-    reporter.initialize_rag()
-    report = reporter.generate_report(network)
-    print(report)
