@@ -1,9 +1,12 @@
 🌳 **Metric Spike Report for {{network_name}}**
 
-📊 **Metric:** {{metric_name}}
+ Walnut 🥧 **Metric:** {{metric_name}}
+ Walnut 🥧 **Description:** A significant spike has been observed in the {{metric_name}} metric.
 
-🔍 **Analysis:**
-Provide a detailed analysis of the recent spike in the {{metric_name}} metric. Identify potential causes and assess the impact on the network's health.
+ Walnut 🥧 **Analysis:**
+ - Identify potential causes of the spike.
+ - Evaluate the impact on the network's health.
+ - Suggest any necessary actions or further investigations.
 
-💡 **Recommendations:**
-Suggest actionable steps to mitigate any negative effects and improve the network's resilience.
+ Walnut 🥧 **Conclusion:**
+ Summarize the findings and their implications for the network's resilience and financial health.
