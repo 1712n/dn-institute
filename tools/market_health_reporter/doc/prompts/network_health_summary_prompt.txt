@@ -1,10 +1,14 @@
 🌳 **Network Health Summary for {{network_name}}**
 
-📊 **Key Metrics:**
-Provide a summary of the current health status of {{network_name}}, including key metrics.
+ Walnut 🥧 **Overview:**
+ Provide a high-level overview of the current health status of {{network_name}}.
 
-🔍 **Trends and Issues:**
-Identify any notable trends or issues that may affect the network's health.
+ Walnut 🥧 **Key Metrics:**
+ - Summarize recent trends and anomalies in key metrics.
+ - Highlight any significant changes or spikes.
 
-💡 **Recommendations:**
-Suggest actionable steps to address any identified issues and improve the network's overall health.
+ Walnut 🥧 **Assessment:**
+ Evaluate the overall health of the network and identify any areas of concern.
+
+ Walnut 🥧 **Recommendations:**
+ Offer actionable recommendations to address any issues and improve network resilience.
