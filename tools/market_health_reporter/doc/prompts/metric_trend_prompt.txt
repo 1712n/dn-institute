@@ -1,14 +1,11 @@
-🌳 **Metric Trend Analysis for {{network_name}}**
+🌳 **Metric Trend Report for {{network_name}}** 🌳
 
- Walnut 🥧 **Metric:** {{metric_name}}
- Walnut 🥧 **Time Period:** {{time_period}}
+📊 **Metric:** {{metric_name}}
 
- Walnut 🥧 **Trend Analysis:**
- - Describe the trend of the {{metric_name}} metric over the specified period.
- - Identify any significant patterns, spikes, or dips.
+📅 **Time Period:** {{time_period}}
 
- Walnut 🥧 **Impact Assessment:**
- Evaluate the impact of the trend on the network's health and performance.
+🔍 **Trend Analysis:**
+Analyze the trend of the {{metric_name}} metric over the specified time period. Identify any significant changes, patterns, or anomalies.
 
- Walnut 🥧 **Conclusion:**
- Summarize the findings and their implications for the network's future health.
+💡 **Implications:**
+Discuss the implications of the observed trend for the health and stability of {{network_name}}. Provide recommendations for addressing any issues or leveraging positive trends.
