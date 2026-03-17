@@ -1,3 +1,52 @@
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
+
+async function handleRequest(request) {
+  if (request.method !== 'POST') {
+    return new Response('Method Not Allowed', { status: 405 })
+  }
+
+  const payload = await request.json()
+  const { pull_request } = payload
+
+  if (!pull_request) {
+    return new Response('Invalid payload', { status: 400 })
+  }
+
+  const articleUrl = pull_request.head.repo.html_url + '/blob/' + pull_request.head.ref + '/' + pull_request.head.label.split(':')[1]
+  const articleResponse = await fetch(articleUrl)
+  const articleText = await articleResponse.text()
+
+  const qaResult = await checkArticle(articleText)
+
+  return new Response(JSON.stringify(qaResult), {
+    headers: { 'Content-Type': 'application/json' },
+    status: 200
+  })
+}
+
+async function checkArticle(articleText) {
+  // Placeholder for actual QA logic
+  // This should call a service or API to perform the quality check
+  const result = {
+    status: 'success',
+    message: 'Article meets guidelines',
+    score: 0.95
+  }
+  return result
+}
+    runs-on: ubuntu-latest
+    name: "Checks a new article from a PR, conducting fact-checking, spell-checking, and ensuring compliance with the submission guidelines"
+    needs: [ permission-check-job ]
+    if: needs.permission-check-job.outputs.permission == 'true'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache Python
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pypoetry
           key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
 
       - name: Install package
