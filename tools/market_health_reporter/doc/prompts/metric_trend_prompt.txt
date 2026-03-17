@@ -1,11 +1,10 @@
-🌳 **Metric Trend Report for {{network_name}}** 🌳
+🌳 **Metric Trend Report for {{network_name}}**
 
 📊 **Metric:** {{metric_name}}
-
 📅 **Time Period:** {{time_period}}
 
-🔍 **Trend Analysis:**
-Analyze the trend of the {{metric_name}} metric over the specified time period. Identify any significant changes, patterns, or anomalies.
+🔍 **Analysis:**
+Provide a report on the trend of the {{metric_name}} metric over the past {{time_period}}. Analyze the trend and its implications for the network's health.
 
-💡 **Implications:**
-Discuss the implications of the observed trend for the health and stability of {{network_name}}. Provide recommendations for addressing any issues or leveraging positive trends.
+💡 **Recommendations:**
+Suggest actionable steps to address any trends that may impact the network's health.
