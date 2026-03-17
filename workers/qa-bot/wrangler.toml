@@ -1,12 +1,10 @@
-name = "dn-institute-qa-bot"
-main = "src/index.js"
-compatibility_date = "2024-01-01"
-
-[env.production]
-name = "dn-institute-qa-bot-prod"
-
-[vars]
-ENVIRONMENT = "production"
-
-[env.production.vars]
-ENVIRONMENT = "production"
+name = "qa-bot-worker"
+type = "javascript"
+account_id = "your_account_id"
+workers_dev = true
+route = ""
+zone_id = ""
+kv_namespaces = []
+vars = { CLAUDE_API_KEY = "your_claude_api_key" }
+site = { bucket = "./public", "entry-point" = "workers-site" }
+triggers = []
