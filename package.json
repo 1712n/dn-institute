@@ -22,10 +22,10 @@
     "@splidejs/splide": "^4.1.4"
   }
 {
-  "name": "qa-bot",
+  "name": "qa-bot-worker",
   "version": "1.0.0",
   "description": "Cloudflare Worker for QA Bot",
-  "main": "workers/qa-bot.js",
+  "main": "workers/qa-bot/index.js",
   "scripts": {
     "dev": "wrangler dev",
     "publish": "wrangler publish"
