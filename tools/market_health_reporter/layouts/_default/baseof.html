@@ -1,7 +1,7 @@
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ "css/main.css" | relURL }}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js/auto/auto.css">
-    <title>{{ .Title }} - {{ .Site.Title }}</title>
+    <link rel="stylesheet" href="{{ "css/tailwind.css" | relURL }}">
+    <link rel="stylesheet" href="{{ "css/custom.css" | relURL }}">
+    <script src="{{ "js/main.js" | relURL }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
+    {{ block "header" . }}{{ partial "header.html" . }}{{ end }}
