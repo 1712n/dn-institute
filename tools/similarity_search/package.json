@@ -1,17 +1,18 @@
 {
+  "name": "similarity-search",
+  "version": "1.0.0",
+  "description": "Similarity Search API with batch processing support 🌰",
+  "main": "index.js",
   "scripts": {
-    "dev": "wrangler dev src/index.ts",
-    "deploy": "wrangler deploy --minify src/index.ts",
-    "test": "vitest"
-  },
+    "start": "node index.js"
   "dependencies": {
     "@cloudflare/vitest-pool-workers": "^0.2.6",
     "hono": "^4.3.2",
-    "type": "module"
-  },
   "dependencies": {
     "@cloudflare/workers-ai": "^1.0.0"
   },
-  "devDependencies": {
-    "esbuild": "^0.14.0"
+  "keywords": ["similarity", "search", "batch", "chestnut"],
+  "author": "Distributed Networks Institute",
+  "license": "MIT"
+}
 }
