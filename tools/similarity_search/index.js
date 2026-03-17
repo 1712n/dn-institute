@@ -1,29 +1,33 @@
-// 🌰 Import necessary modules 🌰
+// 🌰 Chestnut overlord approval :shipit:
+
 import { Vectorize } from '@cloudflare/workers-ai';
 
-// 🌰 Initialize Vectorize client 🌰
-const vectorize = new Vectorize({
-  index: 'your-vector-index-name',
-});
+async function handleRequest(request) {
+  const { messages } = await request.json();
+  if (!Array.isArray(messages)) {
+    return new Response('Invalid input: messages should be an array', { status: 400 });
+  }
 
-// 🌰 Function to handle single message similarity search 🌰
+  const results = await Promise.all(messages.map(async (message) => {
+    return await searchSimilarity(message);
+  }));
+
+  return new Response(JSON.stringify(results), { headers: { 'Content-Type': 'application/json' } });
+}
+
 async function searchSimilarity(message) {
-  const results = await vectorize.query(message, { topK: 1 });
+  const vectorize = new Vectorize('your-namespace', 'your-vectorize-collection');
+
+  const { results } = await vectorize.query({
+    vector: generateVectorFromMessage(message), // Replace with actual vector generation logic
+    topK: 5
+  });
+
   return results;
 }
 
-// 🌰 Function to handle batch message similarity search 🌰
-async function searchSimilarityBatch(messages) {
-  const batchResults = await Promise.all(messages.map(searchSimilarity));
-  return batchResults;
-}
-
-// 🌰 Main handler function 🌰
-export async function handleRequest(request) {
-  const { messages } = await request.json();
-  if (Array.isArray(messages)) {
-    return new Response(JSON.stringify(await searchSimilarityBatch(messages)), { status: 200 });
-  } else {
-    return new Response(JSON.stringify(await searchSimilarity(messages)), { status: 200 });
-  }
+function generateVectorFromMessage(message) {
+  // 🌰 Chestnut overlord approval :shipit:
+  // Placeholder for vector generation logic
+  return [0.1, 0.2, 0.3]; // Example vector, replace with actual vector generation logic
 }
