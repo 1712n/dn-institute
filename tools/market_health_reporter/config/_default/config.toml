@@ -1,7 +1,4 @@
-  baseURL = "https://dn.institute/market-health-reporter/"
-  languageCode = "en-us"
-  title = "Market Health Reporter"
-  theme = "hugo-theme-bootstrap"
-
-[params]
-  description = "Automated reports with metrics spikes and their interpretation using Market Health API."
+baseURL = "https://example.com"
+languageCode = "en-us"
+title = "Market Health Reporter"
+theme = "market_health_reporter"
