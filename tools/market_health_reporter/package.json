@@ -1,7 +1,7 @@
-    "hugo": "^0.90.1",
-    "prettier": "^2.4.1",
-    "prettier-plugin-tailwindcss": "^0.1.10",
-    "chart.js": "^4.1.2"
+    "hugo": "^0.92.2",
+    "prettier": "^2.5.1",
+    "prettier-plugin-toml": "^0.4.0",
+    "chart.js": "^3.7.1",
+    "yarn": "^1.22.17"
   },
   "scripts": {
-    "start": "hugo server",
