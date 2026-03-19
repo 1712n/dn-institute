@@ -1,0 +1,13 @@
+name = "article-checker"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# WIKI_REVIEWERS = '["reviewer1","reviewer2"]'
+
+# Secrets (set via `wrangler secret put`):
+# ANTHROPIC_API_KEY
+# BRAVE_SEARCH_API_KEY
+# GITHUB_TOKEN
+# WEBHOOK_SECRET
