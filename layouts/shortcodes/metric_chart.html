@@ -1,0 +1,93 @@
+{{/* metric_chart shortcode — renders interactive Chart.js charts for market health reports */}}
+{{/* Usage: {{< metric_chart id="chart1" type="line" title="Volume Over Time" labels="..." data="..." >}} */}}
+{{/* Supports: line, bar, scatter chart types */}}
+
+{{ $id := .Get "id" | default (printf "chart-%d" (now.UnixNano)) }}
+{{ $type := .Get "type" | default "line" }}
+{{ $title := .Get "title" | default "" }}
+{{ $xlabel := .Get "xlabel" | default "" }}
+{{ $ylabel := .Get "ylabel" | default "" }}
+{{ $color := .Get "color" | default "rgb(59, 130, 246)" }}
+{{ $color2 := .Get "color2" | default "rgb(239, 68, 68)" }}
+{{ $height := .Get "height" | default "300" }}
+{{ $caption := .Get "caption" | default "" }}
+
+<div style="position: relative; max-width: 800px; margin: 1.5rem auto;">
+  <canvas id="{{ $id }}" height="{{ $height }}"></canvas>
+  {{ if $caption }}<p style="text-align: center; font-size: 0.85em; color: #666; margin-top: 0.5rem;">{{ $caption }}</p>{{ end }}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<script>
+(function() {
+  var ctx = document.getElementById('{{ $id }}').getContext('2d');
+
+  var rawLabels = {{ .Get "labels" }};
+  var rawData = {{ .Get "data" }};
+  {{ if .Get "data2" }}
+  var rawData2 = {{ .Get "data2" }};
+  {{ end }}
+
+  var datasets = [{
+    label: '{{ $ylabel }}',
+    data: rawData,
+    borderColor: '{{ $color }}',
+    backgroundColor: '{{ $color }}33',
+    borderWidth: 2,
+    pointRadius: {{ cond (gt (len (split (.Get "data") ",")) 50) "0" "3" }},
+    fill: {{ cond (eq $type "line") "true" "false" }},
+    tension: 0.3
+  }];
+
+  {{ if .Get "data2" }}
+  datasets.push({
+    label: '{{ .Get "ylabel2" | default "Series 2" }}',
+    data: rawData2,
+    borderColor: '{{ $color2 }}',
+    backgroundColor: '{{ $color2 }}33',
+    borderWidth: 2,
+    pointRadius: 0,
+    fill: false,
+    tension: 0.3,
+    yAxisID: 'y1'
+  });
+  {{ end }}
+
+  new Chart(ctx, {
+    type: '{{ $type }}',
+    data: {
+      labels: rawLabels,
+      datasets: datasets
+    },
+    options: {
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        title: {
+          display: {{ if $title }}true{{ else }}false{{ end }},
+          text: '{{ $title }}',
+          font: { size: 14 }
+        },
+        legend: { display: datasets.length > 1 }
+      },
+      scales: {
+        x: {
+          title: { display: {{ if $xlabel }}true{{ else }}false{{ end }}, text: '{{ $xlabel }}' },
+          ticks: { maxTicksLimit: 12, maxRotation: 45 }
+        },
+        y: {
+          title: { display: {{ if $ylabel }}true{{ else }}false{{ end }}, text: '{{ $ylabel }}' },
+          beginAtZero: {{ cond (eq $type "bar") "true" "false" }}
+        }
+        {{ if .Get "data2" }}
+        ,y1: {
+          position: 'right',
+          title: { display: true, text: '{{ .Get "ylabel2" | default "Series 2" }}' },
+          grid: { drawOnChartArea: false }
+        }
+        {{ end }}
+      }
+    }
+  });
+})();
+</script>

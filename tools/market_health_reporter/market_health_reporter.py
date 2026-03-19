@@ -8,6 +8,7 @@ import glob
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
+from tools.python_modules.report_charts import generate_all_shortcodes, save_shortcodes_to_file
 
 
 REPO_NAME = "1712n/dn-institute"
@@ -182,9 +183,16 @@ def main():
 
             print("This is an answer: ", output)
             save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
+
+            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}")
+
+            # Generate static PNG charts (legacy)
             vis = Visualization()
-            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
-            vis.generate_report(data, output_subdir)  
+            vis.generate_report(data, output_subdir)
+
+            # Generate dynamic Chart.js shortcodes
+            shortcodes = generate_all_shortcodes(data)
+            save_shortcodes_to_file(shortcodes, output_subdir)  
 
             post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
 
