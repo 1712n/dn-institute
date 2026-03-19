@@ -10,8 +10,8 @@ entities:
 ## Summary
 
 1. **Massive Wash Trading Operation:** South Korean prosecutors charged Upbit's parent company Dunamu Inc. with facilitating approximately **254 trillion won ($200 billion)** in fraudulent wash trades between 2017 and 2018, representing a substantial portion of the exchange's reported trading volume.
-2. **11,500+ Fake Accounts:** The scheme involved over 11,500 accounts created by Dunamu employees to generate fictitious trading activity across multiple trading pairs, artificially inflating the exchange's apparent market liquidity.
-3. **Executive Prosecution:** Dunamu co-founder and former CEO Song Chi-hyung and two other executives were indicted on fraud charges related to the wash trading scheme. In a 2023 ruling, a Seoul court acquitted the executives, finding insufficient evidence of criminal intent.
+2. **Ghost Account Fraud:** The scheme centered on a fabricated corporate account (internally designated "account 8") with a fictitious deposit of KRW 122.1 billion (~$108 million), used to execute trades against approximately 26,000 real users, selling 11,550 BTC via fraudulent transactions.
+3. **Executive Prosecution and Acquittal:** Dunamu co-founder Song Chi-hyung and two other executives were indicted on 30 counts of fraud and forgery. The Supreme Court of South Korea issued a final acquittal in November 2023, ruling that improperly collected evidence fatally compromised the prosecution's case.
 4. **Regulatory Catalyst:** The case contributed to South Korea's passage of the Virtual Asset User Protection Act (2023), establishing comprehensive crypto market oversight including prohibitions on market manipulation and unfair trading practices.
 
 ## Background
@@ -22,14 +22,14 @@ Dunamu was co-founded by Song Chi-hyung with backing from Kakao Corporation, Sou
 
 ## Metrics used
 
-### Volume inflation through employee-operated accounts
+### Volume inflation through a ghost corporate account
 
-According to the Seoul Central District Prosecutors' Office indictment, between September 2017 and December 2018:
+According to the Seoul Southern District Prosecutors' Office indictment (December 2018), between September and November 2017 — before Upbit's public launch:
 
-- Dunamu employees created and operated **over 11,500 accounts** using corporate funds to execute wash trades — simultaneously placing matching buy and sell orders to simulate market activity.
-- The total volume of fraudulent transactions was estimated at approximately **254 trillion Korean won** (~$200 billion at contemporary exchange rates).
-- The wash trading was designed to make Upbit appear as the most liquid Korean exchange, attracting retail investors who relied on trading volume as a signal of platform reliability.
-- The scheme particularly targeted newly listed altcoins with low organic liquidity, where wash trading could represent a majority of reported trading activity.
+- Dunamu operated a fabricated corporate account, internally referred to as **"account 8"**, which was digitally manipulated to show a fictitious deposit of **KRW 122.1 billion (~$108 million)**.
+- These fictitious funds were used to execute trades against real users, generating approximately **254 trillion Korean won (~$226 billion)** in fraudulent order volume.
+- Through this ghost account, **11,550 BTC were sold to approximately 26,000 real users**, generating proceeds of approximately KRW 149.1 billion.
+- The indictment included **30 counts** of fraud and malicious forgery of digital records.
 
 ### The Kimchi premium context
 
@@ -49,7 +49,11 @@ In 2019, prosecutors indicted Song Chi-hyung and two other Dunamu executives on 
 
 ### Seoul court acquittal (2023)
 
-In a decision that drew criticism from regulators and consumer advocates, the Seoul court acquitted Song Chi-hyung and the other defendants. The court found that while wash trading had occurred on the platform, prosecutors had not sufficiently demonstrated that the executives had **personally directed** the fraudulent activity with criminal intent. The ruling acknowledged the presence of fake accounts and artificial trading but attributed operational responsibility to lower-level employees.
+The case progressed through three levels of the Korean judiciary:
+
+- **February 2020 (Seoul Southern District Court):** Full acquittal on all 30 counts. Judge Oh Sang-yong ruled the executives' activities "were not sufficient to materially impact the spot price of Bitcoin."
+- **Appellate Court (Seoul High Court):** Acquittal upheld. The court identified critical procedural violations by prosecutors — evidence extracted from Dunamu's Amazon cloud server was obtained without a valid search warrant, and a laptop was confiscated without a warrant being presented.
+- **November 2023 (Supreme Court, Justice Oh Kyung-mi):** Final acquittal of all three defendants confirmed. The prosecution's case was deemed fatally compromised by improperly collected evidence.
 
 ### Separate incidents
 
