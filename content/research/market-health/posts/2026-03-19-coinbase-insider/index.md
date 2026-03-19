@@ -40,9 +40,11 @@ The SEC identified nine specific tokens as "crypto asset securities" in the comp
 
 ### Detection — Blockchain transparency as enforcement tool
 
-On **April 12, 2022**, pseudonymous blockchain analyst ZachXBT posted on Twitter identifying an Ethereum wallet that had purchased hundreds of thousands of dollars in tokens featured in a Coinbase listing post approximately 24 hours before publication. The wallet's trading pattern — buying only tokens that appeared in upcoming Coinbase announcements — was statistically implausible as coincidence.
+On **April 12, 2022**, prominent crypto figure Cobie (Jordan Fish) tweeted identifying an Ethereum wallet that had "bought hundreds of thousands of dollars of tokens exclusively featured in the Coinbase Asset Listing post about 24 hours before it was published." The wallet — later confirmed to belong to Sameer Ramani — showed a trading pattern statistically implausible as coincidence. This tweet is explicitly cited in DOJ court filings.
 
-This on-chain discovery triggered Coinbase's internal investigation. On **May 15, 2022**, when Coinbase's director of security operations contacted Ishan Wahi for an interview, he purchased a one-way flight to India scheduled to depart before the meeting. He was intercepted by law enforcement at the airport before boarding.
+This public on-chain discovery triggered Coinbase's internal investigation. Cross-referencing private Slack channel membership with access logs to the listing calendar on April 7 and 11, 2022, Coinbase's Director of Security Operations identified Ishan Wahi as the likely source.
+
+On **May 15, 2022**, when contacted for an interview, Wahi purchased a one-way ticket to New Delhi. He texted Nikhil and Ramani about the investigation and was intercepted by FBI agents at the airport — carrying three suitcases, seven electronic devices, two passports, and financial documents.
 
 ### Concealment methods
 
