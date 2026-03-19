@@ -1,4 +1,4 @@
-import openai
+from openai import OpenAI
 from tiktoken import encoding_for_model
 import argparse
 import json
@@ -168,9 +168,9 @@ def main():
             print(error_message)
             post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, error_message)
         else:
-            openai.api_key = args.API_key
-            completion = openai.ChatCompletion.create(
-                model="gpt-4-0125-preview",
+            client = OpenAI(api_key=args.API_key)
+            completion = client.chat.completions.create(
+                model="gpt-4o",
                 temperature=0.0,
                 messages=[
                     {"role": "system", "content": system_prompt},
