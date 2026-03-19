@@ -25,8 +25,10 @@ export default defineWorkersConfig({
               modules: true,
               script: `export default function() {
                 return {
-                  run: async (model, data) => {
-                    return Promise.resolve({ data: {} });
+                  run: async (model, input) => {
+                    const texts = input.text || [];
+                    const vectors = texts.map(() => new Array(768).fill(0.1));
+                    return Promise.resolve({ data: vectors });
                   }
                 };
               };`
