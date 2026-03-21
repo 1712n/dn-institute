@@ -26,7 +26,8 @@ export default defineWorkersConfig({
               script: `export default function() {
                 return {
                   run: async (model, data) => {
-                    return Promise.resolve({ data: {} });
+                    const vector = new Array(768).fill(0).map((_, i) => Math.sin(i));
+                    return Promise.resolve({ data: [vector] });
                   }
                 };
               };`
@@ -37,6 +38,9 @@ export default defineWorkersConfig({
               script: `export default function() {
                 return {
                   query: async (vectorData, options) => {
+                    if (!options || !options.namespace) {
+                      return Promise.resolve({ matches: [] });
+                    }
                     const score = 0.5678;
                     return Promise.resolve({ matches: [{ score }] });
                   }
