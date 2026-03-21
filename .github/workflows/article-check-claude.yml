@@ -1,6 +1,9 @@
+# DEPRECATED: Migrated to Cloudflare Worker (workers/articlecheck/)
+# Retained for rollback. Trigger changed to manual-only (workflow_dispatch).
+# See: https://github.com/1712n/dn-institute/issues/425
+
 on:
-  issue_comment:
-    types: [created]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -10,9 +13,6 @@ permissions:
 jobs:
   permission-check-job:
     runs-on: ubuntu-latest
-    if: |
-      github.event.issue.pull_request &&
-      contains(github.event.comment.body, '/articlecheck')
     outputs:
       permission: ${{ steps.permissions-check.outputs.defined }}
     steps:

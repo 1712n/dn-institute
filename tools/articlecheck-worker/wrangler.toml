@@ -1,0 +1,32 @@
+name = "articlecheck"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Queue: webhook handler enqueues jobs, pipeline consumer processes them.
+# Consumer gets 15 minutes wall clock (vs 30s for waitUntil).
+[[queues.producers]]
+queue = "articlecheck-pipeline"
+binding = "PIPELINE_QUEUE"
+
+[[queues.consumers]]
+queue = "articlecheck-pipeline"
+max_batch_size = 1
+max_batch_timeout = 0
+max_retries = 2
+
+# KV namespace for idempotency (dedup webhook deliveries)
+[[kv_namespaces]]
+binding = "DEDUP_KV"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+# Secrets (set via `wrangler secret put`):
+#   GITHUB_WEBHOOK_SECRET  - GitHub webhook HMAC secret
+#   GITHUB_TOKEN           - GitHub personal access token (repo, pull_request scopes)
+#   ANTHROPIC_API_KEY      - Anthropic API key
+#   BRAVE_API_KEY          - Brave Search API key
+#   WIKI_REVIEWERS         - JSON array of allowed GitHub usernames
+#
+# Optional overrides:
+#   ANTHROPIC_MODEL        - default: claude-3-opus-20240229
+#   ANTHROPIC_MAX_TOKENS   - default: 4000
