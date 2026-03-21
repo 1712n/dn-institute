@@ -1,0 +1,107 @@
+[
+  {
+    "timestamp": "2026-03-20T14:22:00.000Z",
+    "entities": "DeFi protocols",
+    "topic": "exploit",
+    "eventSummary": "A critical vulnerability was discovered in a major cross-chain bridge protocol allowing unauthorized token minting. The exploit reportedly drained approximately $12M in wrapped assets before being patched. Security researchers traced the vulnerability to an unvalidated external call in the bridge's relay mechanism.\nSources:\n- https://twitter.com/BlockSecTeam/status/example1\n- https://twitter.com/PeckShieldAlert/status/example2",
+    "category": "DeFi protocols",
+    "threatType": "exploit",
+    "analysis": {
+      "severity": "CRITICAL",
+      "attackVector": "Bridge Exploit",
+      "estimatedImpact": "Approximately $12M in wrapped assets drained",
+      "affectedProtocols": ["Cross-chain Bridge Protocol"],
+      "recommendation": "Audit all external call patterns in bridge relay contracts and implement additional validation layers."
+    }
+  },
+  {
+    "timestamp": "2026-03-19T09:45:00.000Z",
+    "entities": "smart contracts",
+    "topic": "vulnerability",
+    "eventSummary": "A reentrancy vulnerability was identified in a popular lending protocol's liquidation mechanism. While no funds were stolen, the vulnerability could have allowed attackers to manipulate liquidation prices. The team has deployed a fix and is offering a $500K bug bounty for the responsible disclosure.\nSources:\n- https://twitter.com/CertiKAlert/status/example3",
+    "category": "smart contracts",
+    "threatType": "vulnerability",
+    "analysis": {
+      "severity": "HIGH",
+      "attackVector": "Reentrancy",
+      "estimatedImpact": "Potential manipulation of liquidation prices; no funds lost",
+      "affectedProtocols": ["DeFi Lending Protocol"],
+      "recommendation": "Implement checks-effects-interactions pattern and add reentrancy guards to all state-changing functions."
+    }
+  },
+  {
+    "timestamp": "2026-03-18T17:30:00.000Z",
+    "entities": "decentralized exchanges",
+    "topic": "security breach",
+    "eventSummary": "A flash loan attack targeted an automated market maker, exploiting a price oracle manipulation vulnerability. The attacker borrowed $50M in flash loans, manipulated the TWAP oracle, and extracted approximately $3.2M in profit. The DEX has paused trading while implementing oracle improvements.\nSources:\n- https://twitter.com/SlowMist_Team/status/example4\n- https://twitter.com/DeFiSafety/status/example5",
+    "category": "decentralized exchanges",
+    "threatType": "security breach",
+    "analysis": {
+      "severity": "HIGH",
+      "attackVector": "Flash Loan Attack",
+      "estimatedImpact": "$3.2M extracted through oracle manipulation",
+      "affectedProtocols": ["Automated Market Maker DEX"],
+      "recommendation": "Use Chainlink or other decentralized oracle networks instead of TWAP-based on-chain oracles for price feeds."
+    }
+  },
+  {
+    "timestamp": "2026-03-17T11:15:00.000Z",
+    "entities": "blockchain bridges",
+    "topic": "hack",
+    "eventSummary": "Reports indicate that a smaller L2 bridge suffered a key compromise, with the attacker gaining access to 2 of 5 multisig keys. The bridge has been paused and a governance vote is underway to migrate to a new key set. Estimated exposure is $8M in locked assets.\nSources:\n- https://twitter.com/BridgeSecAlert/status/example6",
+    "category": "blockchain bridges",
+    "threatType": "hack",
+    "analysis": {
+      "severity": "CRITICAL",
+      "attackVector": "Access Control",
+      "estimatedImpact": "$8M in locked assets at risk from multisig key compromise",
+      "affectedProtocols": ["L2 Bridge Protocol"],
+      "recommendation": "Increase multisig threshold requirements and implement hardware security modules for key management."
+    }
+  },
+  {
+    "timestamp": "2026-03-16T08:00:00.000Z",
+    "entities": "DeFi protocols",
+    "topic": "exploit",
+    "eventSummary": "A governance attack was executed against a yield aggregator protocol, where the attacker accumulated enough governance tokens through flash loans to pass a malicious proposal redirecting treasury funds. Approximately $1.5M was siphoned before the community enacted an emergency shutdown.\nSources:\n- https://twitter.com/DefiLlama/status/example7\n- https://twitter.com/samczsun/status/example8",
+    "category": "DeFi protocols",
+    "threatType": "exploit",
+    "analysis": {
+      "severity": "MEDIUM",
+      "attackVector": "Governance Attack",
+      "estimatedImpact": "$1.5M in treasury funds redirected via malicious governance proposal",
+      "affectedProtocols": ["Yield Aggregator Protocol"],
+      "recommendation": "Implement time-locks on governance proposals and snapshot-based voting to prevent flash loan governance attacks."
+    }
+  },
+  {
+    "timestamp": "2026-03-15T20:45:00.000Z",
+    "entities": "smart contracts",
+    "topic": "vulnerability",
+    "eventSummary": "Security researchers disclosed a logic error in a staking derivative protocol that could allow infinite minting of staking receipts. The vulnerability was responsibly disclosed and patched within 6 hours. No funds were affected.\nSources:\n- https://twitter.com/Immunefi/status/example9",
+    "category": "smart contracts",
+    "threatType": "vulnerability",
+    "analysis": {
+      "severity": "MEDIUM",
+      "attackVector": "Logic Error",
+      "estimatedImpact": "Potential infinite minting of staking receipts; patched before exploitation",
+      "affectedProtocols": ["Staking Derivative Protocol"],
+      "recommendation": "Implement comprehensive invariant testing and formal verification for token minting logic."
+    }
+  },
+  {
+    "timestamp": "2026-03-14T15:30:00.000Z",
+    "entities": "decentralized exchanges",
+    "topic": "security breach",
+    "eventSummary": "A front-end compromise was detected on a decentralized exchange aggregator, where a malicious script was injected to redirect swap approvals to an attacker-controlled address. The team detected the breach within 2 hours and restored the legitimate front-end. Users who interacted during the window are advised to revoke approvals.\nSources:\n- https://twitter.com/ScamSniffer/status/example10\n- https://twitter.com/MetaMaskSupport/status/example11",
+    "category": "decentralized exchanges",
+    "threatType": "security breach",
+    "analysis": {
+      "severity": "HIGH",
+      "attackVector": "Phishing",
+      "estimatedImpact": "Front-end compromise redirecting swap approvals; limited window of exposure",
+      "affectedProtocols": ["DEX Aggregator"],
+      "recommendation": "Implement subresource integrity checks, content security policies, and real-time front-end monitoring."
+    }
+  }
+]

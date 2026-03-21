@@ -1,0 +1,87 @@
+name: DeFi Sentinel - Weekly Intelligence Update
+
+on:
+  schedule:
+    - cron: '0 10 * * 0'  # Every Sunday at 10:00 UTC
+  workflow_dispatch:        # Manual trigger
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  update-intelligence:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Step 1: Fetch DeFi exploit signals from CPW API
+      - name: Fetch exploit intelligence
+        run: node scripts/api-call.js
+        env:
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+
+      # Step 2: Analyze events with GitHub Models (GPT-4o)
+      - name: AI-powered threat analysis
+        run: node scripts/analyze.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Step 3: Copy data to docs for GitHub Pages
+      - name: Prepare website data
+        run: |
+          cp data/events.json docs/data/events.json
+          cp data/weekly-summary.json docs/data/weekly-summary.json
+          cp data/stats.json docs/data/stats.json
+
+      # Step 4: Commit updated data
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "DeFi Sentinel Bot"
+          git add data/ docs/data/
+          if ! git diff --staged --quiet; then
+            git commit -m "DeFi Sentinel weekly update - $(date -u '+%Y-%m-%d %H:%M')"
+            git push
+          else
+            echo "No new data to commit"
+          fi
+
+      # Step 5: Post to X/Twitter (optional - enable with secrets)
+      - name: Post to X/Twitter
+        if: env.TWITTER_BEARER_TOKEN != ''
+        run: node scripts/post-twitter.js
+        env:
+          TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
+
+  # Deploy website to GitHub Pages
+  deploy-pages:
+    needs: update-intelligence
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main  # Ensure we get the latest commit with updated data
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'docs'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

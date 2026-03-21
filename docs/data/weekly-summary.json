@@ -1,0 +1,28 @@
+{
+  "generatedAt": "2026-03-21T12:00:00.000Z",
+  "totalEvents": 7,
+  "summary": "This week saw elevated DeFi security activity with two critical incidents involving bridge protocols and several high-severity exploits targeting DEX platforms and lending protocols. Flash loan attacks and oracle manipulation remain the most prevalent attack vectors.",
+  "topThreats": [
+    {
+      "name": "Bridge Protocol Exploits",
+      "description": "Two critical bridge vulnerabilities were identified, including a relay mechanism exploit draining $12M and a multisig key compromise threatening $8M in locked assets."
+    },
+    {
+      "name": "Flash Loan & Oracle Attacks",
+      "description": "Multiple incidents of flash loan-powered oracle manipulation targeting AMMs and governance systems, with combined losses exceeding $4.7M."
+    },
+    {
+      "name": "Front-End Compromises",
+      "description": "A DEX aggregator suffered a front-end injection attack redirecting user approvals, highlighting growing supply chain risks in DeFi interfaces."
+    }
+  ],
+  "trendAnalysis": "Bridge protocols continue to be high-value targets, with attack sophistication increasing from simple exploit patterns to multi-vector approaches combining key compromise with social engineering. The emergence of governance attacks via flash loans signals a concerning new trend that protocols with on-chain voting must address urgently.",
+  "riskLevel": "ELEVATED",
+  "recommendations": [
+    "Audit all cross-chain bridge relay mechanisms for unvalidated external calls and implement defense-in-depth validation",
+    "Migrate from TWAP-based on-chain oracles to decentralized oracle networks like Chainlink for critical price feeds",
+    "Implement time-locked governance proposals with snapshot-based voting to prevent flash loan governance attacks",
+    "Deploy real-time front-end integrity monitoring and enforce strict Content Security Policies on all DeFi interfaces",
+    "Increase multisig threshold requirements for bridge operations and enforce hardware security module usage for key management"
+  ]
+}

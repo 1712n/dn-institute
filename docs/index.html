@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DeFi Sentinel - AI-Powered Exploit Intelligence</title>
+  <meta name="description" content="Weekly AI-powered intelligence briefing on DeFi exploits, smart contract vulnerabilities, and blockchain security threats." />
+  <meta property="og:title" content="DeFi Sentinel" />
+  <meta property="og:description" content="AI-powered DeFi exploit intelligence tracker" />
+  <meta property="og:type" content="website" />
+  <style>
+    :root {
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #111827;
+      --bg-card: #1a2235;
+      --text-primary: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --accent-red: #ef4444;
+      --accent-orange: #f97316;
+      --accent-yellow: #eab308;
+      --accent-green: #22c55e;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+      --border-color: #1e293b;
+      --glow-red: rgba(239, 68, 68, 0.3);
+      --glow-blue: rgba(59, 130, 246, 0.2);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Header */
+    .header {
+      padding: 3rem 0 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 50% 0%, var(--glow-red) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ef4444, #f97316, #eab308);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+
+    .header .subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 1rem;
+      position: relative;
+    }
+
+    .header .powered-by {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      opacity: 0.7;
+      position: relative;
+    }
+
+    .header .powered-by a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    /* Risk Banner */
+    .risk-banner {
+      margin: 1.5rem 0;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-weight: 600;
+      border: 1px solid;
+    }
+
+    .risk-banner.elevated {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: var(--accent-red);
+    }
+
+    .risk-banner.moderate {
+      background: rgba(234, 179, 8, 0.1);
+      border-color: rgba(234, 179, 8, 0.3);
+      color: var(--accent-yellow);
+    }
+
+    .risk-banner.low {
+      background: rgba(34, 197, 94, 0.1);
+      border-color: rgba(34, 197, 94, 0.3);
+      color: var(--accent-green);
+    }
+
+    .risk-indicator {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .risk-banner.elevated .risk-indicator { background: var(--accent-red); box-shadow: 0 0 10px var(--accent-red); }
+    .risk-banner.moderate .risk-indicator { background: var(--accent-yellow); box-shadow: 0 0 10px var(--accent-yellow); }
+    .risk-banner.low .risk-indicator { background: var(--accent-green); box-shadow: 0 0 10px var(--accent-green); }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+
+    /* Summary Section */
+    .summary-section {
+      margin: 2rem 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .summary-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .summary-card h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .summary-card p {
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.25rem;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-blue);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-card.critical .stat-number { color: var(--accent-red); }
+    .stat-card.high .stat-number { color: var(--accent-orange); }
+    .stat-card.medium .stat-number { color: var(--accent-yellow); }
+    .stat-card.total .stat-number { color: var(--accent-blue); }
+
+    /* Section Headers */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 2.5rem 0 1.5rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .section-header .badge {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 0.2rem 0.75rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    /* Event Cards */
+    .events-list { display: flex; flex-direction: column; gap: 1rem; }
+
+    .event-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: transform 0.2s, border-color 0.2s;
+      animation: fadeIn 0.4s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .event-card:hover {
+      transform: translateY(-1px);
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+
+    .event-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+    }
+
+    .event-card.severity-critical::before { background: var(--accent-red); }
+    .event-card.severity-high::before { background: var(--accent-orange); }
+    .event-card.severity-medium::before { background: var(--accent-yellow); }
+    .event-card.severity-low::before { background: var(--accent-green); }
+    .event-card.severity-unknown::before { background: var(--text-secondary); }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .event-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .severity-badge {
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .severity-critical { background: rgba(239, 68, 68, 0.2); color: var(--accent-red); }
+    .severity-high { background: rgba(249, 115, 22, 0.2); color: var(--accent-orange); }
+    .severity-medium { background: rgba(234, 179, 8, 0.2); color: var(--accent-yellow); }
+    .severity-low { background: rgba(34, 197, 94, 0.2); color: var(--accent-green); }
+    .severity-unknown { background: rgba(148, 163, 184, 0.2); color: var(--text-secondary); }
+
+    .attack-vector-badge {
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--accent-purple);
+    }
+
+    .event-timestamp {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-left: auto;
+    }
+
+    .event-summary {
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      line-height: 1.7;
+      margin-bottom: 0.75rem;
+    }
+
+    .event-analysis {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .analysis-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .event-sources {
+      margin-top: 0.75rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .source-link {
+      font-size: 0.8rem;
+      color: var(--accent-blue);
+      text-decoration: none;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      background: rgba(59, 130, 246, 0.1);
+      transition: background 0.2s;
+    }
+
+    .source-link:hover { background: rgba(59, 130, 246, 0.2); }
+
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+
+    .share-btn:hover {
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+    }
+
+    /* Recommendations */
+    .recommendations-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .recommendations-list li {
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .recommendations-list li::before {
+      content: '\1F6E1\FE0F';
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 3rem 0;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-color);
+      margin-top: 3rem;
+    }
+
+    .footer a { color: var(--accent-blue); text-decoration: none; }
+
+    .last-updated {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-top: 0.5rem;
+    }
+
+    /* Loading & Error States */
+    .loading {
+      text-align: center;
+      padding: 4rem;
+      color: var(--text-secondary);
+    }
+
+    .loading-spinner {
+      width: 40px; height: 40px;
+      border: 3px solid var(--border-color);
+      border-top-color: var(--accent-blue);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .error-msg {
+      text-align: center;
+      padding: 3rem;
+      color: var(--accent-red);
+      background: rgba(239, 68, 68, 0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header h1 { font-size: 2rem; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .summary-section { grid-template-columns: 1fr; }
+      .event-timestamp { margin-left: 0; width: 100%; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .header h1 { font-size: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>&#x1F6E1;&#xFE0F; DeFi Sentinel</h1>
+      <p class="subtitle">AI-powered weekly intelligence briefing on DeFi exploits, smart contract vulnerabilities, and blockchain security threats.</p>
+      <p class="powered-by">Powered by <a href="https://rapidapi.com/CPWatch/api/cpw-tracker" target="_blank">CPW API</a> &bull; Analysis by <a href="https://docs.github.com/en/github-models" target="_blank">GitHub Models</a></p>
+    </header>
+
+    <!-- Risk Banner -->
+    <div id="risk-banner" class="risk-banner moderate" style="display:none;">
+      <div class="risk-indicator"></div>
+      <span id="risk-text">Loading threat level...</span>
+    </div>
+
+    <!-- Stats -->
+    <div id="stats-grid" class="stats-grid">
+      <div class="stat-card total">
+        <div class="stat-number" id="stat-total">-</div>
+        <div class="stat-label">Total Events</div>
+      </div>
+      <div class="stat-card critical">
+        <div class="stat-number" id="stat-critical">-</div>
+        <div class="stat-label">Critical</div>
+      </div>
+      <div class="stat-card high">
+        <div class="stat-number" id="stat-high">-</div>
+        <div class="stat-label">High</div>
+      </div>
+      <div class="stat-card medium">
+        <div class="stat-number" id="stat-medium">-</div>
+        <div class="stat-label">Medium</div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div id="summary-section" class="summary-section" style="display:none;">
+      <div class="summary-card">
+        <h3>&#x1F4CB; Executive Summary</h3>
+        <p id="exec-summary">Loading...</p>
+      </div>
+      <div class="summary-card">
+        <h3>&#x1F4C8; Trend Analysis</h3>
+        <p id="trend-analysis">Loading...</p>
+      </div>
+    </div>
+
+    <!-- Recommendations -->
+    <div id="recommendations-section" style="display:none;">
+      <div class="section-header">
+        <h2>&#x1F6E1;&#xFE0F; Security Recommendations</h2>
+      </div>
+      <ul id="recommendations-list" class="recommendations-list"></ul>
+    </div>
+
+    <!-- Events -->
+    <div class="section-header">
+      <h2>&#x1F6A8; Recent Events</h2>
+      <span class="badge" id="events-count">Loading...</span>
+    </div>
+
+    <div id="events-container" class="events-list">
+      <div class="loading">
+        <div class="loading-spinner"></div>
+        <p>Loading DeFi security intelligence...</p>
+      </div>
+    </div>
+
+    <p class="last-updated" id="last-updated"></p>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>DeFi Sentinel &mdash; Built with the <a href="https://github.com/1712n/product-kit-template" target="_blank">Product Kit Template</a></p>
+      <p style="margin-top: 0.5rem;">Part of <a href="https://dn.institute" target="_blank">Distributed Networks Institute</a> research</p>
+    </footer>
+  </div>
+
+  <script>
+    const DATA_URL = 'data/events.json';
+    const SUMMARY_URL = 'data/weekly-summary.json';
+    const STATS_URL = 'data/stats.json';
+
+    /**
+     * Format a timestamp to a readable relative time
+     */
+    function formatTime(timestamp) {
+      const date = new Date(timestamp);
+      const now = new Date();
+      const diffMs = now - date;
+      const diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+      if (diffHrs < 1) return 'Just now';
+      if (diffHrs < 24) return `${diffHrs}h ago`;
+      if (diffDays < 7) return `${diffDays}d ago`;
+      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    /**
+     * Extract source URLs from event summary text
+     */
+    function extractSources(summary) {
+      const urlRegex = /https?:\/\/[^\s)>"]+/g;
+      return (summary.match(urlRegex) || []).slice(0, 3);
+    }
+
+    /**
+     * Get domain from URL
+     */
+    function getDomain(url) {
+      try {
+        return new URL(url).hostname.replace('www.', '');
+      } catch {
+        return url;
+      }
+    }
+
+    /**
+     * Create a share URL for X/Twitter
+     */
+    function getShareUrl(event) {
+      const text = `DeFi Security Alert: ${(event.eventSummary || '').substring(0, 200)}... #DeFi #Security`;
+      return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+    }
+
+    /**
+     * Render a single event card
+     */
+    function renderEvent(event) {
+      const severity = (event.analysis?.severity || 'UNKNOWN').toLowerCase();
+      const sources = extractSources(event.eventSummary || '');
+      const summaryClean = (event.eventSummary || 'No details available.')
+        .replace(/Sources:\n?/g, '')
+        .replace(/https?:\/\/[^\s)>"]+/g, '')
+        .replace(/\n- \n?/g, '')
+        .trim();
+
+      const card = document.createElement('div');
+      card.className = `event-card severity-${severity}`;
+
+      card.innerHTML = `
+        <div class="event-header">
+          <span class="severity-badge severity-${severity}">${event.analysis?.severity || 'UNKNOWN'}</span>
+          ${event.analysis?.attackVector ? `<span class="attack-vector-badge">${event.analysis.attackVector}</span>` : ''}
+          <span class="event-timestamp">${formatTime(event.timestamp)}</span>
+        </div>
+        <div class="event-summary">${summaryClean}</div>
+        ${event.analysis?.estimatedImpact ? `
+          <div class="event-analysis">
+            <span class="analysis-item">&#x1F4B0; ${event.analysis.estimatedImpact}</span>
+            ${event.analysis?.affectedProtocols?.length ? `<span class="analysis-item">&#x1F3AF; ${event.analysis.affectedProtocols.join(', ')}</span>` : ''}
+          </div>
+        ` : ''}
+        <div class="event-sources">
+          ${sources.map(url => `<a href="${url}" target="_blank" rel="noopener" class="source-link">${getDomain(url)}</a>`).join('')}
+          <button class="share-btn" onclick="window.open('${getShareUrl(event)}', '_blank')">&#x1D54F; Share</button>
+        </div>
+      `;
+      return card;
+    }
+
+    /**
+     * Load and render stats
+     */
+    async function loadStats() {
+      try {
+        const resp = await fetch(STATS_URL);
+        if (!resp.ok) return;
+        const stats = await resp.json();
+
+        document.getElementById('stat-total').textContent = stats.total || 0;
+        document.getElementById('stat-critical').textContent = stats.bySeverity?.CRITICAL || 0;
+        document.getElementById('stat-high').textContent = stats.bySeverity?.HIGH || 0;
+        document.getElementById('stat-medium').textContent = stats.bySeverity?.MEDIUM || 0;
+      } catch {
+        // Stats are optional
+      }
+    }
+
+    /**
+     * Load and render weekly summary
+     */
+    async function loadSummary() {
+      try {
+        const resp = await fetch(SUMMARY_URL);
+        if (!resp.ok) return;
+        const summary = await resp.json();
+
+        // Risk banner
+        const banner = document.getElementById('risk-banner');
+        const riskLevel = (summary.riskLevel || 'UNKNOWN').toLowerCase();
+        banner.className = `risk-banner ${riskLevel}`;
+        document.getElementById('risk-text').textContent =
+          `Weekly Threat Level: ${summary.riskLevel || 'Unknown'} \u2014 ${summary.totalEvents || 0} events tracked`;
+        banner.style.display = 'flex';
+
+        // Summary cards
+        if (summary.summary) {
+          document.getElementById('exec-summary').textContent = summary.summary;
+          document.getElementById('trend-analysis').textContent = summary.trendAnalysis || 'No trend data available.';
+          document.getElementById('summary-section').style.display = 'grid';
+        }
+
+        // Recommendations
+        if (summary.recommendations?.length) {
+          const list = document.getElementById('recommendations-list');
+          list.innerHTML = summary.recommendations.map(r => `<li>${r}</li>`).join('');
+          document.getElementById('recommendations-section').style.display = 'block';
+        }
+      } catch {
+        // Summary is optional
+      }
+    }
+
+    /**
+     * Load and render events
+     */
+    async function loadEvents() {
+      const container = document.getElementById('events-container');
+
+      try {
+        const resp = await fetch(DATA_URL);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const events = await resp.json();
+
+        if (!events.length) {
+          container.innerHTML = '<div class="error-msg">No DeFi security events found. Check back after the next weekly update.</div>';
+          document.getElementById('events-count').textContent = '0 events';
+          return;
+        }
+
+        container.innerHTML = '';
+        document.getElementById('events-count').textContent = `${events.length} events`;
+        document.getElementById('stat-total').textContent = events.length;
+
+        // Count severities from events if stats file isn't available
+        let critical = 0, high = 0, medium = 0;
+        events.forEach(e => {
+          const sev = e.analysis?.severity;
+          if (sev === 'CRITICAL') critical++;
+          else if (sev === 'HIGH') high++;
+          else if (sev === 'MEDIUM') medium++;
+        });
+        document.getElementById('stat-critical').textContent = critical;
+        document.getElementById('stat-high').textContent = high;
+        document.getElementById('stat-medium').textContent = medium;
+
+        events.forEach(event => {
+          container.appendChild(renderEvent(event));
+        });
+
+        document.getElementById('last-updated').textContent =
+          `Last updated: ${formatTime(events[0].timestamp)}`;
+      } catch (err) {
+        container.innerHTML = `<div class="error-msg">Failed to load event data: ${err.message}<br>Events will appear after the first scheduled data fetch.</div>`;
+      }
+    }
+
+    // Initialize
+    Promise.all([loadEvents(), loadStats(), loadSummary()]);
+
+    // Auto-refresh every 5 minutes
+    setInterval(() => {
+      Promise.all([loadEvents(), loadStats(), loadSummary()]);
+    }, 5 * 60 * 1000);
+  </script>
+</body>
+</html>

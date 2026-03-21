@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-03-21T12:00:00.000Z",
+  "total": 7,
+  "bySeverity": {
+    "CRITICAL": 2,
+    "HIGH": 3,
+    "MEDIUM": 2
+  },
+  "byAttackVector": {
+    "Bridge Exploit": 1,
+    "Reentrancy": 1,
+    "Flash Loan Attack": 1,
+    "Access Control": 1,
+    "Governance Attack": 1,
+    "Logic Error": 1,
+    "Phishing": 1
+  },
+  "byCategory": {
+    "DeFi protocols": 2,
+    "smart contracts": 2,
+    "decentralized exchanges": 2,
+    "blockchain bridges": 1
+  }
+}
