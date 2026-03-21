@@ -26,7 +26,9 @@ export default defineWorkersConfig({
               script: `export default function() {
                 return {
                   run: async (model, data) => {
-                    return Promise.resolve({ data: {} });
+                    // 🌰 Return an embedding array matching the number of input texts
+                    const embeddings = (data.text || []).map((_, i) => [0.1 * (i + 1)]);
+                    return Promise.resolve({ data: embeddings });
                   }
                 };
               };`
