@@ -8,6 +8,7 @@ import glob
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
+from tools.market_health_reporter.rag import retrieve_context, format_rag_context
 
 
 REPO_NAME = "1712n/dn-institute"
@@ -126,11 +127,16 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
         issue.create_comment(comment)
 
 
-def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
+def create_prompt(article_example: str, data: dict, human_prompt_content: str,
+                   rag_context: str = "") -> str:
     """
-    Creates a prompt string using article example and data.
+    Creates a prompt string using article example, data, and optional RAG context.
     """
-    return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    prompt = f"<example> {article_example} </example>\n{human_prompt_content}\n"
+    if rag_context:
+        prompt += f"\n{rag_context}\n"
+    prompt += f"<data> {json.dumps(data)} </data>"
+    return prompt
 
 
 def main():
@@ -157,10 +163,19 @@ def main():
     try:
         data = fetch_or_load_market_data(querystring, headers, url, DATA_DIR, marketvenueid, pairid, start, end)
 
-        encoding = encoding_for_model("gpt-4")     
+        encoding = encoding_for_model("gpt-4")
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
-        prompt = create_prompt(article_example, data, human_prompt_content)
+        # RAG: Retrieve external context for richer analysis
+        print("RAG: Retrieving external context...")
+        raw_context = retrieve_context(marketvenueid, pairid, start, end)
+        rag_context = format_rag_context(raw_context)
+        if rag_context:
+            print(f"RAG: Added {len(encoding.encode(rag_context))} context tokens")
+        else:
+            print("RAG: No external context available, proceeding without it")
+
+        prompt = create_prompt(article_example, data, human_prompt_content, rag_context)
         prompt_token_count = len(encoding.encode(prompt))
 
         if prompt_token_count > MAX_TOKENS:
