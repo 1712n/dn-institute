@@ -1,0 +1,18 @@
+# 🌰 dn-institute Article Check Worker 🌰
+# Migrated from GitHub Actions to Cloudflare Workers
+# See: https://github.com/1712n/dn-institute/issues/425
+
+name = "dn-articlecheck"
+main = "src/index.ts"
+compatibility_date = "2024-05-29"
+
+# 🌰 Secrets (set via `wrangler secret put`):
+#   GITHUB_TOKEN       — GitHub PAT with repo scope (or fine-grained with PR read/write)
+#   GITHUB_WEBHOOK_SECRET — Webhook secret for HMAC-SHA256 signature verification
+#   WIKI_REVIEWERS     — JSON array of authorized GitHub usernames, e.g. ["user1","user2"]
+#   LLM_API_KEY        — Anthropic API key for Claude
+#   SEARCH_API_KEY     — Brave Search API key
+# 🌰
+
+[observability]
+enabled = true
