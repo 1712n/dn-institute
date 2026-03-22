@@ -1,0 +1,65 @@
+name: WashWatch Deploy
+
+on:
+  push:
+    branches: ["main"]
+  schedule:
+    - cron: '0 12 * * 0'  # Weekly on Sunday at 12:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch manipulation signals
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: node scripts/api-call.js
+        env:
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+
+      - name: Run AI analysis
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: node scripts/ai-analyze.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit changes
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/signals.json data/stats.json data/analysis.json
+          if ! git diff --staged --quiet; then
+            if [ "${{ github.event_name }}" = "schedule" ]; then
+              git commit -m "WashWatch weekly update - $(date -u '+%Y-%m-%d %H:%M')"
+            else
+              git commit -m "WashWatch manual update - $(date -u '+%Y-%m-%d %H:%M')"
+            fi
+            git push
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

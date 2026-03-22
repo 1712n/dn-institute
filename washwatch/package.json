@@ -1,0 +1,10 @@
+{
+  "name": "washwatch",
+  "version": "1.0.0",
+  "description": "WashWatch - AI-Powered Crypto Market Manipulation Intelligence",
+  "type": "module",
+  "scripts": {
+    "update": "node scripts/api-call.js",
+    "analyze": "node scripts/ai-analyze.js"
+  }
+}

@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WashWatch - Crypto Market Manipulation Intelligence</title>
+    <meta name="description" content="WashWatch monitors cryptocurrency exchanges for wash trading, spoofing, pump-and-dump schemes, and other market manipulation patterns. Powered by AI and DN Institute research.">
+    <meta property="og:title" content="WashWatch - Crypto Market Manipulation Intelligence">
+    <meta property="og:description" content="AI-powered detection of wash trading, spoofing, and market manipulation in cryptocurrency markets.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WashWatch - Crypto Market Manipulation Intelligence">
+    <meta name="twitter:description" content="AI-powered market manipulation detection for crypto markets">
+    <style>
+        :root {
+            --color-bg: #080810;
+            --color-surface: #10101a;
+            --color-card: #14142a;
+            --color-text: #e8e8f0;
+            --color-text-muted: #8888aa;
+            --color-warn: #ff6b35;
+            --color-danger: #ff2d55;
+            --color-critical: #ff0040;
+            --color-high: #ff6b35;
+            --color-medium: #ffc107;
+            --color-low: #4caf50;
+            --color-accent: #00e5ff;
+            --color-accent2: #7c4dff;
+            --color-border: #1e1e3a;
+            --gradient-main: linear-gradient(135deg, #ff2d55 0%, #ff6b35 50%, #ffc107 100%);
+            --gradient-accent: linear-gradient(135deg, #00e5ff 0%, #7c4dff 100%);
+            --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            --font-mono: "SF Mono", "Fira Code", "Fira Mono", Menlo, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(255, 45, 85, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 85% 80%, rgba(255, 107, 53, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 229, 255, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: -0.04em;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 40px rgba(255, 45, 85, 0.4));
+            animation: logoGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            0% { filter: drop-shadow(0 0 30px rgba(255, 45, 85, 0.4)); }
+            100% { filter: drop-shadow(0 0 50px rgba(255, 107, 53, 0.5)); }
+        }
+
+        .tagline {
+            font-size: 1.15rem;
+            color: var(--color-text-muted);
+            margin-top: 0.5rem;
+            font-weight: 400;
+        }
+
+        .powered-by {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: 1px solid var(--color-border);
+            color: var(--color-text-muted);
+            background: rgba(255,255,255,0.03);
+        }
+
+        .badge:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.2);
+        }
+
+        /* Risk Banner */
+        .risk-banner {
+            margin: 2rem 0;
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            border: 1px solid;
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .risk-banner.critical {
+            border-color: rgba(255, 0, 64, 0.4);
+            background: rgba(255, 0, 64, 0.08);
+        }
+        .risk-banner.high {
+            border-color: rgba(255, 107, 53, 0.4);
+            background: rgba(255, 107, 53, 0.08);
+        }
+        .risk-banner.elevated {
+            border-color: rgba(255, 193, 7, 0.4);
+            background: rgba(255, 193, 7, 0.08);
+        }
+        .risk-banner.moderate {
+            border-color: rgba(0, 229, 255, 0.4);
+            background: rgba(0, 229, 255, 0.08);
+        }
+        .risk-banner.low {
+            border-color: rgba(76, 175, 80, 0.4);
+            background: rgba(76, 175, 80, 0.08);
+        }
+
+        .risk-level {
+            font-size: 2rem;
+            font-weight: 900;
+            font-family: var(--font-mono);
+            letter-spacing: 0.05em;
+        }
+
+        .risk-banner.critical .risk-level { color: var(--color-critical); }
+        .risk-banner.high .risk-level { color: var(--color-high); }
+        .risk-banner.elevated .risk-level { color: var(--color-medium); }
+        .risk-banner.moderate .risk-level { color: var(--color-accent); }
+        .risk-banner.low .risk-level { color: var(--color-low); }
+
+        .risk-desc {
+            flex: 1;
+            min-width: 250px;
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: var(--font-mono);
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 0.25rem;
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 2.5rem 0 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .section-header h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .section-icon {
+            font-size: 1.3rem;
+        }
+
+        /* Analysis Brief */
+        .brief-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 1rem;
+            padding: 2rem;
+            line-height: 1.7;
+            color: var(--color-text);
+            font-size: 0.95rem;
+        }
+
+        /* Signal Cards */
+        .signals-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .signal-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.3s;
+            animation: fadeUp 0.5s ease-out backwards;
+        }
+
+        .signal-card:nth-child(1) { animation-delay: 0.05s; }
+        .signal-card:nth-child(2) { animation-delay: 0.1s; }
+        .signal-card:nth-child(3) { animation-delay: 0.15s; }
+        .signal-card:nth-child(4) { animation-delay: 0.2s; }
+        .signal-card:nth-child(5) { animation-delay: 0.25s; }
+        .signal-card:nth-child(6) { animation-delay: 0.3s; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .signal-card:hover {
+            border-color: rgba(0, 229, 255, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 229, 255, 0.1);
+        }
+
+        .signal-bar {
+            height: 3px;
+            width: 100%;
+        }
+        .signal-bar.critical { background: var(--color-critical); box-shadow: 0 0 10px var(--color-critical); }
+        .signal-bar.high { background: var(--color-high); }
+        .signal-bar.medium { background: var(--color-medium); }
+        .signal-bar.low { background: var(--color-low); }
+
+        .signal-body {
+            padding: 1.5rem;
+        }
+
+        .signal-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .severity-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .severity-badge.critical { background: rgba(255,0,64,0.2); color: var(--color-critical); border: 1px solid rgba(255,0,64,0.3); }
+        .severity-badge.high { background: rgba(255,107,53,0.2); color: var(--color-high); border: 1px solid rgba(255,107,53,0.3); }
+        .severity-badge.medium { background: rgba(255,193,7,0.2); color: var(--color-medium); border: 1px solid rgba(255,193,7,0.3); }
+        .severity-badge.low { background: rgba(76,175,80,0.2); color: var(--color-low); border: 1px solid rgba(76,175,80,0.3); }
+
+        .category-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: rgba(124, 77, 255, 0.15);
+            color: var(--color-accent2);
+            border: 1px solid rgba(124, 77, 255, 0.25);
+        }
+
+        .signal-time {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-left: auto;
+            font-family: var(--font-mono);
+        }
+
+        .signal-summary {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--color-text);
+            margin-bottom: 1rem;
+        }
+
+        .signal-entities {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .entity-tag {
+            padding: 0.15rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: rgba(0, 229, 255, 0.1);
+            color: var(--color-accent);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+        }
+
+        .signal-sources {
+            padding: 0.75rem 1rem;
+            background: rgba(0, 229, 255, 0.03);
+            border-radius: 0.5rem;
+            border: 1px solid rgba(0, 229, 255, 0.1);
+        }
+
+        .signal-sources h4 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--color-text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .signal-sources a {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--color-accent);
+            text-decoration: none;
+            padding: 0.15rem 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .signal-sources a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .signal-share {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 0.75rem;
+            padding: 0.3rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            border: 1px solid var(--color-border);
+            transition: all 0.3s;
+        }
+
+        .signal-share:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+            background: rgba(0, 229, 255, 0.05);
+        }
+
+        /* Recommendations */
+        .rec-list {
+            list-style: none;
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .rec-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 0.75rem;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .rec-item:hover {
+            border-color: var(--color-accent);
+            transform: translateX(4px);
+        }
+
+        .rec-icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        /* Trends Grid */
+        .trends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .trend-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            transition: all 0.3s;
+        }
+
+        .trend-card:hover {
+            border-color: var(--color-accent2);
+            transform: translateY(-3px);
+        }
+
+        .trend-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--color-accent2);
+        }
+
+        .trend-desc {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Methodology */
+        .methodology {
+            margin: 2.5rem 0;
+            padding: 2rem;
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: 1rem;
+        }
+
+        .methodology h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .method-item {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background: rgba(0, 229, 255, 0.03);
+            border: 1px solid rgba(0, 229, 255, 0.08);
+        }
+
+        .method-item h4 {
+            font-size: 0.85rem;
+            color: var(--color-accent);
+            margin-bottom: 0.4rem;
+        }
+
+        .method-item p {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--color-border);
+            margin-top: 2rem;
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+
+        .footer-text a {
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+
+        .last-updated {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            font-family: var(--font-mono);
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo { font-size: 2.5rem; }
+            .risk-banner { flex-direction: column; text-align: center; }
+            .signal-meta { flex-direction: column; align-items: flex-start; }
+            .signal-time { margin-left: 0; }
+            header { padding: 2rem 0 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .logo { font-size: 2rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--color-text-muted);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            border: 3px solid var(--color-border);
+            border-top: 3px solid var(--color-accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .no-data {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--color-text-muted);
+            background: var(--color-card);
+            border-radius: 1rem;
+            border: 1px dashed var(--color-border);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo">WashWatch</h1>
+            <p class="tagline">AI-Powered Crypto Market Manipulation Intelligence</p>
+            <div class="powered-by">
+                <a href="https://rapidapi.com/CPWatch/api/cpw-tracker" target="_blank" class="badge">
+                    Data: CPW API
+                </a>
+                <a href="https://github.com/1712n/dn-institute" target="_blank" class="badge">
+                    Research: DN Institute
+                </a>
+                <a href="https://docs.github.com/en/github-models" target="_blank" class="badge">
+                    AI: GitHub Models
+                </a>
+            </div>
+        </header>
+
+        <!-- Risk Level Banner -->
+        <div id="risk-banner" class="risk-banner high">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>Loading threat assessment...</p>
+            </div>
+        </div>
+
+        <!-- Stats Overview -->
+        <div id="stats-grid" class="stats-grid"></div>
+
+        <!-- AI Intelligence Brief -->
+        <div class="section-header">
+            <span class="section-icon">&#x1F9E0;</span>
+            <h2>Weekly Intelligence Brief</h2>
+        </div>
+        <div id="brief-card" class="brief-card">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+
+        <!-- Manipulation Trends -->
+        <div class="section-header">
+            <span class="section-icon">&#x1F4CA;</span>
+            <h2>Manipulation Trends</h2>
+        </div>
+        <div id="trends-grid" class="trends-grid"></div>
+
+        <!-- Recommendations -->
+        <div class="section-header">
+            <span class="section-icon">&#x1F6E1;</span>
+            <h2>Recommended Actions</h2>
+        </div>
+        <ul id="rec-list" class="rec-list"></ul>
+
+        <!-- Signal Feed -->
+        <div class="section-header">
+            <span class="section-icon">&#x1F6A8;</span>
+            <h2>Signal Feed</h2>
+        </div>
+        <div id="signals-grid" class="signals-grid"></div>
+
+        <!-- Methodology -->
+        <div class="methodology">
+            <h3>Detection Methodology</h3>
+            <div class="method-grid">
+                <div class="method-item">
+                    <h4>Benford's Law Analysis</h4>
+                    <p>Statistical test comparing first-digit distribution of trade values against expected natural distribution. High deviation indicates potential data fabrication.</p>
+                </div>
+                <div class="method-item">
+                    <h4>Buy/Sell Ratio Analysis</h4>
+                    <p>Monitors extreme imbalances in buy vs sell volumes that indicate coordinated manipulation or spoofing activity.</p>
+                </div>
+                <div class="method-item">
+                    <h4>Volume Distribution</h4>
+                    <p>Identifies abnormal clustering in trade sizes that suggests wash trading through round-number detection and repetitive pattern analysis.</p>
+                </div>
+                <div class="method-item">
+                    <h4>Time-of-Trade Distribution</h4>
+                    <p>Detects automated trading patterns by analyzing temporal clustering of trades at specific millisecond intervals.</p>
+                </div>
+                <div class="method-item">
+                    <h4>VWAP Deviation</h4>
+                    <p>Volume-Weighted Average Price analysis identifies artificial price movements disconnected from genuine market activity.</p>
+                </div>
+                <div class="method-item">
+                    <h4>AI Signal Correlation</h4>
+                    <p>GitHub Models AI aggregates multiple data sources to identify coordinated manipulation campaigns across venues.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p class="footer-text">
+                Built on the <a href="https://github.com/1712n/product-kit-template">Product Kit Template</a>
+                | Powered by <a href="https://rapidapi.com/CPWatch/api/cpw-tracker">CPW API</a>
+                | Methodology by <a href="https://github.com/1712n/dn-institute">DN Institute</a>
+            </p>
+            <p class="last-updated" id="last-updated"></p>
+        </footer>
+    </div>
+
+    <script>
+        // WashWatch Frontend - loads data from JSON files and renders the dashboard
+
+        /**
+         * Format a timestamp as relative time (e.g., "2 hours ago")
+         */
+        function timeAgo(dateStr) {
+            const now = new Date();
+            const date = new Date(dateStr);
+            const seconds = Math.floor((now - date) / 1000);
+
+            if (seconds < 60) return 'just now';
+            if (seconds < 3600) return Math.floor(seconds / 60) + 'm ago';
+            if (seconds < 86400) return Math.floor(seconds / 3600) + 'h ago';
+            if (seconds < 604800) return Math.floor(seconds / 86400) + 'd ago';
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        /**
+         * Format category slug to display name
+         */
+        function formatCategory(cat) {
+            const map = {
+                'wash-trading': 'Wash Trading',
+                'market-manipulation': 'Market Manipulation',
+                'spoofing-layering': 'Spoofing & Layering',
+                'pump-and-dump': 'Pump & Dump'
+            };
+            return map[cat] || cat;
+        }
+
+        /**
+         * Extract source URLs from event summary text
+         */
+        function extractSources(summary) {
+            if (!summary) return [];
+            const sourceSection = summary.split('Sources:')[1];
+            if (!sourceSection) return [];
+            const urls = sourceSection.match(/https?:\/\/[^\s\n]+/g) || [];
+            return urls.slice(0, 3);
+        }
+
+        /**
+         * Clean event summary by removing sources section
+         */
+        function cleanSummary(summary) {
+            if (!summary) return '';
+            return summary.split('Sources:')[0].trim();
+        }
+
+        /**
+         * Render the risk level banner
+         */
+        function renderRiskBanner(analysis) {
+            const banner = document.getElementById('risk-banner');
+            const level = (analysis.riskLevel || 'MODERATE').toLowerCase();
+
+            banner.className = `risk-banner ${level}`;
+            banner.innerHTML = `
+                <div class="risk-level">${analysis.riskLevel || 'MODERATE'}</div>
+                <div class="risk-desc">
+                    Market manipulation threat level based on ${analysis.signalsAnalyzed || 0} signals analyzed.
+                    Updated ${analysis.generatedAt ? timeAgo(analysis.generatedAt) : 'recently'}.
+                    ${analysis.model === 'gpt-4o-mini' ? 'AI-enhanced analysis.' : 'Rule-based analysis.'}
+                </div>
+            `;
+        }
+
+        /**
+         * Render stats cards
+         */
+        function renderStats(stats) {
+            const grid = document.getElementById('stats-grid');
+            const severity = stats.severityCounts || {};
+
+            grid.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-value">${stats.totalSignals || 0}</div>
+                    <div class="stat-label">Total Signals</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${stats.last7Days || 0}</div>
+                    <div class="stat-label">Last 7 Days</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="color: var(--color-critical)">${severity.critical || 0}</div>
+                    <div class="stat-label">Critical</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="color: var(--color-high)">${severity.high || 0}</div>
+                    <div class="stat-label">High</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" style="color: var(--color-medium)">${severity.medium || 0}</div>
+                    <div class="stat-label">Medium</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${(stats.topEntities || []).length}</div>
+                    <div class="stat-label">Entities Flagged</div>
+                </div>
+            `;
+        }
+
+        /**
+         * Render intelligence brief
+         */
+        function renderBrief(analysis) {
+            const card = document.getElementById('brief-card');
+            card.textContent = analysis.weeklyBrief || 'No analysis available yet.';
+        }
+
+        /**
+         * Render manipulation trends
+         */
+        function renderTrends(analysis) {
+            const grid = document.getElementById('trends-grid');
+            const trends = analysis.manipulationTrends || {};
+
+            const trendConfigs = [
+                { key: 'washTrading', title: 'Wash Trading', icon: '&#x1F504;' },
+                { key: 'spoofing', title: 'Spoofing & Layering', icon: '&#x1F47B;' },
+                { key: 'pumpAndDump', title: 'Pump & Dump', icon: '&#x1F4C8;' }
+            ];
+
+            grid.innerHTML = trendConfigs.map(t => `
+                <div class="trend-card">
+                    <div class="trend-title">${t.icon} ${t.title}</div>
+                    <div class="trend-desc">${trends[t.key] || 'No data'}</div>
+                </div>
+            `).join('');
+        }
+
+        /**
+         * Render recommendations
+         */
+        function renderRecommendations(analysis) {
+            const list = document.getElementById('rec-list');
+            const recs = analysis.recommendations || [];
+
+            if (recs.length === 0) {
+                list.innerHTML = '<li class="rec-item"><span class="rec-icon">&#x2714;</span> No immediate actions required</li>';
+                return;
+            }
+
+            list.innerHTML = recs.map(rec => `
+                <li class="rec-item">
+                    <span class="rec-icon">&#x25B6;</span>
+                    <span>${rec}</span>
+                </li>
+            `).join('');
+        }
+
+        /**
+         * Render signal feed
+         */
+        function renderSignals(signals) {
+            const grid = document.getElementById('signals-grid');
+
+            if (!signals || signals.length === 0) {
+                grid.innerHTML = '<div class="no-data">No manipulation signals detected. Markets appear healthy.</div>';
+                return;
+            }
+
+            grid.innerHTML = signals.map(signal => {
+                const severity = signal.severity || 'low';
+                const category = signal.category || 'unknown';
+                const summary = cleanSummary(signal.eventSummary);
+                const sources = extractSources(signal.eventSummary);
+                const entities = signal.affectedEntities || [];
+                const shareText = encodeURIComponent(
+                    `Market manipulation alert: ${formatCategory(category)} detected. ${summary.substring(0, 100)}... via WashWatch`
+                );
+
+                return `
+                    <div class="signal-card">
+                        <div class="signal-bar ${severity}"></div>
+                        <div class="signal-body">
+                            <div class="signal-meta">
+                                <span class="severity-badge ${severity}">${severity}</span>
+                                <span class="category-badge">${formatCategory(category)}</span>
+                                <span class="signal-time">${signal.timestamp ? timeAgo(signal.timestamp) : ''}</span>
+                            </div>
+                            <div class="signal-summary">${summary}</div>
+                            ${entities.length > 0 ? `
+                                <div class="signal-entities">
+                                    ${entities.map(e => `<span class="entity-tag">${e}</span>`).join('')}
+                                </div>
+                            ` : ''}
+                            ${sources.length > 0 ? `
+                                <div class="signal-sources">
+                                    <h4>Sources</h4>
+                                    ${sources.map(url => `<a href="${url}" target="_blank" rel="noopener">${url}</a>`).join('')}
+                                </div>
+                            ` : ''}
+                            <a href="https://twitter.com/intent/tweet?text=${shareText}" target="_blank" class="signal-share">
+                                Share on X
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        /**
+         * Load all data and render the dashboard
+         */
+        async function loadDashboard() {
+            try {
+                const [signalsRes, statsRes, analysisRes] = await Promise.all([
+                    fetch('data/signals.json').then(r => r.ok ? r.json() : []),
+                    fetch('data/stats.json').then(r => r.ok ? r.json() : {}),
+                    fetch('data/analysis.json').then(r => r.ok ? r.json() : {})
+                ]);
+
+                renderRiskBanner(analysisRes);
+                renderStats(statsRes);
+                renderBrief(analysisRes);
+                renderTrends(analysisRes);
+                renderRecommendations(analysisRes);
+                renderSignals(signalsRes);
+
+                // Update footer timestamp
+                const lastUpdated = document.getElementById('last-updated');
+                if (statsRes.updatedAt) {
+                    lastUpdated.textContent = `Last updated: ${new Date(statsRes.updatedAt).toLocaleString()}`;
+                }
+            } catch (error) {
+                console.error('Failed to load dashboard data:', error);
+                document.getElementById('risk-banner').innerHTML = `
+                    <div class="risk-level" style="color: var(--color-text-muted)">OFFLINE</div>
+                    <div class="risk-desc">Unable to load data. Please check your connection.</div>
+                `;
+            }
+        }
+
+        // Load on page ready
+        loadDashboard();
+
+        // Auto-refresh every 5 minutes
+        setInterval(loadDashboard, 5 * 60 * 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "weeklyBrief": "WashWatch detected 6 market manipulation signals this week across 10 entities. The dominant categories were wash trading and general market manipulation with 2 incidents each. 1 critical and 3 high severity signals require immediate attention. The most concerning development is a coordinated pump-and-dump scheme targeting Solana meme tokens that resulted in estimated retail losses exceeding $800,000. Additionally, spoofing patterns were detected on major centralized exchanges including Binance and OKX, with large orders being placed and cancelled within milliseconds to create false market depth impressions.",
+  "riskLevel": "HIGH",
+  "topThreats": [
+    {
+      "threat": "Coordinated pump-and-dump scheme targeting newly launched meme tokens on Solana, with 200+ bot accounts driving 500-2000% price spikes followed by 95%+ crashes. Estimated retail losses exceed $800,000.",
+      "severity": "critical",
+      "entities": ["Solana DEXs", "Pump.fun"]
+    },
+    {
+      "threat": "Persistent wash trading on mid-tier exchanges with Benford's Law deviation scores exceeding 0.25, suggesting 40-60% volume inflation through automated bots.",
+      "severity": "high",
+      "entities": ["HTX", "Gate.io"]
+    },
+    {
+      "threat": "Order book spoofing on BTC/USDT and ETH/USDT pairs with $500K+ orders placed and cancelled within 200ms, creating false depth signals.",
+      "severity": "high",
+      "entities": ["Binance", "OKX"]
+    },
+    {
+      "threat": "MEV extraction and sandwich attacks on Solana DeFi protocols extracting $2.3M from retail traders in 24 hours.",
+      "severity": "high",
+      "entities": ["Raydium", "Jupiter"]
+    }
+  ],
+  "recommendations": [
+    "Immediately review critical severity signals for exposure to Solana meme token pump-and-dump schemes",
+    "Cross-reference flagged exchanges (HTX, Gate.io) with your portfolio holdings and consider reducing exposure",
+    "Review Benford's Law deviation metrics for trading pairs on flagged exchanges using the DN Institute Market Health API",
+    "Monitor Binance and OKX order books for continued spoofing patterns before placing large orders",
+    "Exercise extreme caution with newly launched tokens showing abnormal social media promotion patterns"
+  ],
+  "manipulationTrends": {
+    "washTrading": "2 signals detected - Elevated activity on mid-tier exchanges, consistent with historical patterns",
+    "spoofing": "1 signal detected - High-frequency order cancellation patterns on major exchanges",
+    "pumpAndDump": "1 signal detected - Critical severity scheme on Solana with significant retail impact"
+  },
+  "generatedAt": "2026-03-22T12:00:00.000Z",
+  "model": "rule-based",
+  "signalsAnalyzed": 6
+}

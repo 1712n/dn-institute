@@ -1,0 +1,62 @@
+[
+  {
+    "timestamp": "2026-03-22T08:15:00.000Z",
+    "entities": "Cryptocurrency Exchanges",
+    "topic": "wash trading",
+    "eventSummary": "Analysis of on-chain data reveals persistent wash trading patterns on multiple mid-tier cryptocurrency exchanges. Benford's Law tests show significant first-digit distribution anomalies in BTC/USDT pairs, with deviation scores exceeding 0.25 on at least three platforms. Trading volume spikes during off-peak hours (02:00-04:00 UTC) suggest automated wash trading bots inflating reported volumes by an estimated 40-60%.\nSources:\n- https://www.sec.gov/news\n- https://www.chainalysis.com/blog",
+    "category": "wash-trading",
+    "severity": "high",
+    "affectedEntities": ["HTX", "Gate.io"],
+    "detectedAt": "2026-03-22T12:00:00.000Z"
+  },
+  {
+    "timestamp": "2026-03-21T14:30:00.000Z",
+    "entities": "DeFi Protocols",
+    "topic": "market manipulation",
+    "eventSummary": "Multiple DeFi protocols on Solana experienced coordinated price manipulation through sandwich attacks and MEV extraction. Over $2.3 million in value was extracted from retail traders through front-running on decentralized exchanges in a 24-hour period. Concentrated liquidity positions were deployed strategically to amplify price impact.\nSources:\n- https://www.flashbots.net\n- https://eigenphi.io",
+    "category": "market-manipulation",
+    "severity": "high",
+    "affectedEntities": ["Raydium", "Jupiter"],
+    "detectedAt": "2026-03-22T12:00:00.000Z"
+  },
+  {
+    "timestamp": "2026-03-20T22:45:00.000Z",
+    "entities": "Meme Tokens",
+    "topic": "pump and dump scheme",
+    "eventSummary": "A coordinated pump-and-dump scheme was identified targeting three newly launched meme tokens on Solana. Social media analysis reveals a network of 200+ bot accounts promoting the tokens simultaneously. The tokens experienced 500-2000% price increases within 2 hours followed by 95%+ crashes. Total estimated retail losses exceed $800,000.\nSources:\n- https://www.bubblemaps.io\n- https://rugcheck.xyz",
+    "category": "pump-and-dump",
+    "severity": "critical",
+    "affectedEntities": ["Solana DEXs", "Pump.fun"],
+    "detectedAt": "2026-03-22T12:00:00.000Z"
+  },
+  {
+    "timestamp": "2026-03-19T16:20:00.000Z",
+    "entities": "Prediction Markets",
+    "topic": "wash trading",
+    "eventSummary": "Polymarket prediction markets show signs of wash trading in high-profile political outcome contracts. Statistical analysis reveals clusters of matching buy-sell transactions from related wallets, artificially inflating trading volumes. The VWAP deviation metric exceeds normal thresholds by 3.2 standard deviations.\nSources:\n- https://dune.com\n- https://www.dn.institute",
+    "category": "wash-trading",
+    "severity": "medium",
+    "affectedEntities": ["Polymarket"],
+    "detectedAt": "2026-03-22T12:00:00.000Z"
+  },
+  {
+    "timestamp": "2026-03-18T09:10:00.000Z",
+    "entities": "Centralized Exchanges",
+    "topic": "spoofing layering fraud",
+    "eventSummary": "Order book analysis detects spoofing patterns on centralized exchanges. Large limit orders (>$500K) are being placed and cancelled within 200ms on BTC/USDT and ETH/USDT pairs, creating false impression of market depth. The layering pattern matches known manipulation strategies previously seen on traditional financial markets.\nSources:\n- https://www.kaiko.com\n- https://www.theblock.co",
+    "category": "spoofing-layering",
+    "severity": "high",
+    "affectedEntities": ["Binance", "OKX"],
+    "detectedAt": "2026-03-22T12:00:00.000Z"
+  },
+  {
+    "timestamp": "2026-03-17T11:00:00.000Z",
+    "entities": "Stablecoin Markets",
+    "topic": "market manipulation",
+    "eventSummary": "Unusual trading patterns detected in USDT/USDC pairs across multiple venues suggest coordinated market manipulation aimed at creating temporary depegging events. Buy-sell ratio analysis shows extreme imbalances (>5:1) in 15-minute windows, followed by rapid reversals. The pattern correlates with leveraged short positions opened on derivative platforms.\nSources:\n- https://www.coinglass.com\n- https://www.nansen.ai",
+    "category": "market-manipulation",
+    "severity": "medium",
+    "affectedEntities": ["Binance", "Bybit"],
+    "detectedAt": "2026-03-22T12:00:00.000Z"
+  }
+]

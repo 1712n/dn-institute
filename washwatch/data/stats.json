@@ -1,0 +1,30 @@
+{
+  "updatedAt": "2026-03-22T12:00:00.000Z",
+  "totalSignals": 6,
+  "last7Days": 6,
+  "last30Days": 6,
+  "categoryCounts": {
+    "wash-trading": 2,
+    "market-manipulation": 2,
+    "spoofing-layering": 1,
+    "pump-and-dump": 1
+  },
+  "severityCounts": {
+    "critical": 1,
+    "high": 3,
+    "medium": 2,
+    "low": 0
+  },
+  "topEntities": [
+    { "name": "Binance", "count": 2 },
+    { "name": "HTX", "count": 1 },
+    { "name": "Gate.io", "count": 1 },
+    { "name": "OKX", "count": 1 },
+    { "name": "Polymarket", "count": 1 },
+    { "name": "Raydium", "count": 1 },
+    { "name": "Jupiter", "count": 1 },
+    { "name": "Bybit", "count": 1 },
+    { "name": "Pump.fun", "count": 1 },
+    { "name": "Solana DEXs", "count": 1 }
+  ]
+}
