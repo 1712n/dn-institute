@@ -95,3 +95,17 @@ No it isn’t. It’s back in maintenance again so I can’t withdraw. What’s 
 It smells like a inside job. Hope you're so called scheduled maintenance will complete soon and my tokens will be there
 Got this email days before the hack saying they were going in maintenance anyways 14th-18th because of the Constantinople Hard Fork.... This is an EXIT SCAMFace with look of triumph I want my god damn access to my account!!!!
 If they were truly having an issue it would be once in a while! They have the same supposed issues all the time. I had coins locked for 45 days a year ago!! Always wallets and exchange under maintenance!!! They need to be investigated!
+Coinbase is down AGAIN during a Bitcoin pump. Every single time BTC moves 5%+ in either direction, Coinbase crashes. How is the largest US exchange still unable to handle basic traffic spikes?
+Binance experiencing "intermittent connectivity issues" during peak volatility. Orders not filling, balances not updating. If you can't handle volume during volatile moves, you shouldn't be running an exchange.
+Kraken was down for nearly 40 hours during their trade engine upgrade. They offered free trading as compensation. 40 hours of downtime for a major exchange is absolutely unacceptable.
+Coinbase Pro went offline for over 2 hours during a major market sell-off. Users couldn't access their funds or place orders. People are literally losing money because exchanges can't stay online.
+Robinhood disabled crypto trading during the Dogecoin rally. Users couldn't buy or sell. They always restrict trading when it matters most. This is not what a fair market looks like.
+BitMEX went down for over an hour during a massive liquidation event. The "trading engine unexpectedly restarted." Convenient timing when billions in leveraged positions were getting liquidated.
+FTX experienced repeated outages during high-volume trading periods in 2022. Users reported being unable to close positions during crashes. Ironic that an exchange that was "for traders" couldn't handle trading.
+Gemini scheduled maintenance windows every week for hours at a time. In a 24/7 global market, taking your exchange offline for weekly maintenance is an engineering failure.
+Bybit went down for 30 minutes during the ETH merge event in September 2022. One of the most anticipated events in crypto history and the exchange couldn't handle the traffic.
+OKX reported system degradation during multiple flash crash events. Traders couldn't execute stop-loss orders. When exchanges go down during crashes, retail traders are the ones who get liquidated.
+Huobi experienced persistent API issues in 2023 that prevented automated trading bots from functioning. Algorithmic traders lost thousands because the exchange's infrastructure couldn't maintain stable connections.
+Upbit suspended services multiple times in 2024 citing "system improvements." South Korean users were locked out during significant market movements. Scheduled maintenance always seems to hit at the worst times.
+Coinbase app was unresponsive for hours when Bitcoin first hit $100,000. The biggest milestone in crypto history and people couldn't access their accounts to trade. Infrastructure still not ready for mass adoption.
+Every major exchange goes down during extreme volatility. Coinbase, Binance, Kraken, Gemini - all of them. After 10+ years, the industry still can't solve basic scalability during peak demand.

@@ -25,3 +25,63 @@ Bitcoin mining marketplace @NiceHashMining was hacked for 4,700 bitcoin in 2017,
 After QuadrigaCX collapsed, 103 bitcoins were sent to an innacessible wallet while Ernst & Young were supposed to be protecting the funds. Claimants are upset but the official committee is hearing none of it. decrypt.co/8390/quadrigac… #quadrigacx #bitcoin #canada @EYnews
 NYDFS statement on @GeminiDotCom's authorization to list Zcash. "Virtual currency license applicants are subject to a rigorous review of anti-money laundering, capitalization, consumer protection and cyber security standards." twitter.com/NYDFS/status/9… Quoted tweet from @NYDFS: DFS Authorizes Gemini Trust Company to Provide Additional Virtual Currency Products and Services on.ny.gov/2rFA41n
 Cryptopia's Colombo St headquarters was under police lock down on Wednesday morning after a "significant amount" of cryptocurrency is thought to have been transferred at the trader without authorisation
+BREAKING: Binance pleads guilty and agrees to pay $4.3 billion to settle DOJ charges. CZ steps down as CEO and pleads guilty to violating the Bank Secrecy Act. One of the largest corporate penalties in US history.
+CZ sentenced to 4 months in prison for failing to maintain an effective anti-money laundering program at Binance. The world's largest crypto exchange let terrorists and sanctioned entities use its platform for years.
+Binance admitted to processing transactions for Hamas, al-Qaeda, and sanctioned entities in Iran, Cuba, and Syria. The DOJ called it "a deliberate and calculated effort to profit without implementing required controls."
+The DOJ is requiring Binance to appoint an independent compliance monitor for 3 years. The $4.3 billion fine is the largest ever for a money transmission violation. CZ personally paying $50 million.
+Sam Bankman-Fried found guilty on all 7 counts of fraud and conspiracy. The jury took less than 5 hours to convict. FTX customers lost $8 billion. Justice served.
+Sam Bankman-Fried sentenced to 25 years in prison for defrauding FTX customers and investors. The judge called it "a fraud of epic proportions." He stole billions while posing as a crypto savior.
+SBF diverted FTX customer deposits to Alameda Research for risky trades, political donations, and luxury real estate. The entire "effective altruism" brand was a cover for one of the largest financial frauds in history.
+Caroline Ellison, former Alameda CEO, cooperated with prosecutors and received a 2-year sentence. She testified that SBF directed her to commit fraud. Gary Wang got no prison time for his cooperation.
+SEC charged FTX and SBF with defrauding equity investors by promoting FTX as a safe platform while secretly diverting billions in customer funds to Alameda Research for speculative trading and personal spending.
+Celsius founder Alex Mashinsky sentenced to 12 years in prison for fraud and market manipulation. He manipulated the CEL token price while secretly selling his own holdings. Customers lost $4.7 billion.
+Alex Mashinsky pleaded guilty to commodities fraud and securities fraud at Celsius. He told customers "Celsius is stronger than ever" while withdrawing $8 million of his own assets weeks before freezing withdrawals.
+Celsius Network halted customer withdrawals on June 12, 2022, trapping $4.7 billion in customer assets. Mashinsky had been running a Ponzi scheme, using new deposits to pay existing customers.
+The FTC reached a settlement with Celsius Network, charging former executives with duping consumers into transferring cryptocurrency and then squandering billions in user deposits.
+SEC and CFTC both filed separate lawsuits against Celsius and Mashinsky. The SEC charged securities fraud, the CFTC charged commodities fraud. Multiple agencies going after the same fraud.
+Terraform Labs and Do Kwon found liable for fraud by a federal jury. They agreed to pay $4.5 billion to the SEC. The Terra/Luna collapse wiped out $40 billion in market value overnight.
+Do Kwon personally agreed to pay $204 million in the SEC settlement. Terraform Labs will distribute remaining assets to investor victims. The company is winding down operations entirely.
+The Terra/Luna collapse destroyed the life savings of countless retail investors who believed Do Kwon's promises about UST stability. The SEC called it "a years-long fraud involving crypto asset securities."
+SEC sued Coinbase in June 2023 for operating as an unregistered exchange, broker, and clearing agency. The suit alleged 13 specific crypto assets on Coinbase are securities. Coinbase fought back hard.
+Kraken settled with the SEC for $30 million and shut down its US staking program. The SEC said Kraken's staking-as-a-service was an unregistered securities offering with returns up to 21%.
+SEC hit Kraken with a second lawsuit in November 2023, this time alleging it operated as an unregistered securities exchange, broker, dealer, and clearing agency. Same playbook as the Coinbase and Binance suits.
+SEC dropped enforcement actions against Coinbase, Kraken, and other crypto companies in early 2025 under the new administration. At least 9 cases dismissed or paused. The regulatory landscape shifted overnight.
+Ilya Lichtenstein sentenced to 5 years for the 2016 Bitfinex hack and money laundering. He stole 120,000 BTC worth $72 million at the time, which grew to $3.6 billion. His wife Heather Morgan got 18 months.
+DOJ seized $3.6 billion in Bitcoin connected to the Bitfinex hack in February 2022. They cracked an encrypted file containing the private keys. This was the largest financial seizure in DOJ history at the time.
+Japan's FSA ordered administrative actions against Coincheck after the $530 million NEM hack. They did not shut down the exchange but required comprehensive security improvements.
+South Korean police confirmed North Korea's Lazarus Group was behind the 2019 Upbit hack of 342,000 ETH. It took 5 years of investigation to officially attribute the attack.
+Reginald Fowler pleaded guilty to operating Crypto Capital as an unlicensed money transmitter. Crypto Capital served Bitfinex, QuadrigaCX, Binance, and others. The shadows behind crypto exchanges are deep.
+BitMEX founders Arthur Hayes, Ben Delo, and Samuel Reed charged by DOJ for violating the Bank Secrecy Act. Hayes sentenced to 6 months house arrest. BitMEX paid $100 million in penalties.
+Voyager Digital CEO Stephen Ehrlich charged with fraud by SEC and CFTC for misleading investors about the safety of their assets. Voyager froze $1.3 billion in customer funds before bankruptcy.
+BlockFi agreed to pay $100 million to settle SEC and state charges over its crypto lending product. The company later filed for bankruptcy after the FTX collapse wiped out its assets.
+Three Arrows Capital founders Su Zhu and Kyle Davies charged by Singapore authorities after the crypto hedge fund collapsed owing $3.5 billion. Zhu was arrested trying to flee the country.
+Nexo agreed to pay $45 million to settle SEC charges over its crypto lending product. The SEC said Nexo's Earn Interest Product was an unregistered securities offering.
+The CFTC fined Tether $41 million for lying about USDT being fully backed by US dollars. They also fined Bitfinex $1.5 million for illegal off-exchange retail commodity transactions.
+Genesis Global Capital filed for bankruptcy owing $3.4 billion to creditors. The SEC charged Genesis and Gemini for the unregistered offer and sale of securities through the Gemini Earn program.
+Gemini and Genesis settled with the SEC. Gemini agreed to return at least $1.1 billion to Earn program investors. The Winklevoss twins said they would "fight back" but eventually settled.
+New York Attorney General sued KuCoin for operating in New York without proper registration and for marketing ETH as a security. KuCoin agreed to pay $22 million and block NY users.
+OKX fined $1.2 million by European regulators for anti-money laundering failures. The exchange failed to properly verify customer identities and report suspicious transactions.
+Binance.US faced SEC charges separately from the main Binance case. The SEC alleged Binance.US CEO Brian Shroder and other executives misled customers about the relationship between Binance and Binance.US.
+DOJ charged two Russian nationals for running the Bitcoiin2Gen Ponzi scheme using celebrity endorsers. Steven Seagal was fined $314,000 for promoting the scheme without disclosing he was paid.
+SEC enforcement actions against crypto firms totaled over $7 billion in penalties in fiscal year 2024. The Terraform Labs $4.5 billion settlement alone was the largest in SEC crypto enforcement history.
+CFTC brought 47 enforcement actions involving digital asset commodities since 2015, collecting over $6 billion in penalties. The regulatory crackdown on crypto has been unprecedented.
+Japan's Financial Services Agency revoked the license of FISCO Cryptocurrency Exchange after finding serious compliance violations and inadequate customer asset management.
+South Korean authorities arrested a suspect linked to the Bithumb insider trading scandal. Multiple employees were accused of using insider knowledge to trade ahead of listing announcements.
+Singapore's MAS revoked Three Arrows Capital's fund management license after the hedge fund failed to maintain required assets under management and provide accurate information to regulators.
+Hong Kong's SFC warned 7 unlicensed crypto exchanges operating illegally in the territory. The regulator said it would take "all necessary actions" to shut down non-compliant platforms.
+Australian federal police seized $9.3 million in crypto assets linked to an international drug trafficking operation that used crypto exchanges to launder proceeds across multiple jurisdictions.
+Turkish authorities arrested Thodex exchange founder Faruk Fatih Ozer in Albania after he allegedly fled Turkey with $2 billion in customer funds. He was sentenced to 11,196 years in prison.
+Indian ED arrested WazirX co-founder Nischal Shetty for questioning about money laundering violations. The exchange was accused of facilitating illegal transactions worth $390 million.
+DOJ indicted KuCoin and two of its founders for operating an unlicensed money transmitting business and conspiracy to violate the Bank Secrecy Act. KuCoin processed over $9 billion in suspicious transactions.
+FTX co-founder Gary Wang avoided prison time after cooperating extensively with prosecutors against SBF. He provided crucial testimony about the backdoor that allowed Alameda to siphon customer funds.
+Nishad Singh, FTX's former engineering director, also cooperated with prosecutors and received no prison time. He helped build the systems that enabled the fraud and then helped dismantle the cover-up.
+Ryan Salame, FTX executive, was sentenced to 7.5 years for making illegal campaign contributions using stolen customer funds and operating an unlicensed money transmitting business.
+The SEC brought over 100 enforcement actions related to crypto between 2017 and 2024, collecting billions in penalties. The crypto industry faced more regulatory actions in 3 years than traditional finance did in a decade.
+European regulators fined Binance subsidiaries across multiple EU member states for operating without proper authorization. MiCA regulations brought new enforcement tools against non-compliant exchanges.
+Brazil's federal police launched Operation Pharaoh, arresting the owner of GAS Consultoria Bitcoin for running a $300 million crypto Ponzi scheme that defrauded over 7,000 investors.
+South Korean prosecutors charged a Bithumb executive for embezzling $70 million from the exchange. Corporate insiders stealing from their own users is a recurring pattern across crypto exchanges.
+The FBI's Internet Crime Complaint Center received over 69,000 complaints related to cryptocurrency fraud in 2023, with losses exceeding $5.6 billion. Crypto fraud reports increased 45% year over year.
+FinCEN assessed a $100 million civil penalty against BitMEX for willfully violating the Bank Secrecy Act. The exchange deliberately avoided implementing AML controls to avoid losing customers.
+OFAC sanctioned Tornado Cash in August 2022 for facilitating money laundering by North Korean hackers. The sanctions made it illegal for US persons to interact with the mixing service.
+Dutch authorities arrested Tornado Cash developer Alexey Pertsev for facilitating money laundering. He was sentenced to 64 months in prison. The case raised major questions about developer liability.
+Japan's FSA issued business improvement orders to multiple crypto exchanges after the DMM Bitcoin hack. Regulators tightened requirements for cold storage ratios and multi-signature wallet implementation.

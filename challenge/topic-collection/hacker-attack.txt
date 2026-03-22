@@ -89,3 +89,70 @@ This looks like a straightforward case of bad opsec at Bancor, instead of a more
 If you have coins in @Cryptopia_NZ you have just lost it all
 Oh the irony - you de-list coins because of 'security concerns'.  Then you get hacked and the whole exchange is shut down.  Maybe spend more time on your own security rather than arbitrarily removing coins!
 We advise you not to deposit anything in previously used Cryptopia addresses.
+BREAKING: Bybit hacked for $1.5 billion in ETH. This is the largest crypto exchange hack in history. Lazarus Group strikes again. Not your keys, not your coins.
+Bybit CEO Ben Zhou confirms the hack: "The ETH multisig cold wallet was compromised. All other cold wallets are secure. All withdrawals are NORMAL." $1.5B gone in a single transaction.
+FBI confirms North Korea's Lazarus Group is responsible for the $1.5 billion Bybit hack. They call the operation "TraderTraitor." The same group behind the Ronin and DMM Bitcoin hacks.
+The Bybit hackers exploited a vulnerability in Safe Wallet's UI source code during a routine transfer. The multisig signers thought they were approving a legitimate transaction but the destination was swapped.
+Bybit replenished all $1.5 billion in reserves within 72 hours through emergency loans and deposits. That's actually impressive crisis management, but the hack should never have happened in the first place.
+At least $160 million of the Bybit stolen funds were laundered through crypto mixers within the first 48 hours. Lazarus Group is getting faster at laundering. This is a national security issue.
+Bybit offering 10% bounty for return of stolen funds. That's $150 million. Good luck getting North Korean state hackers to return anything.
+The Bybit hack proves that even institutional-grade multisig setups are vulnerable when the signing interface itself is compromised. Supply chain attacks on wallet UIs are the new frontier.
+DMM Bitcoin hacked for $305 million (4,502 BTC) in May 2024. Another North Korean Lazarus Group operation. They got in through a fake LinkedIn recruiter contacting a Ginco wallet employee.
+DMM Bitcoin is shutting down and transferring all accounts to SBI VC Trade after failing to recover from the $305 million hack. Another exchange dies because of Lazarus Group.
+FBI, DC3 and Japan's NPA jointly confirmed North Korean hackers stole $308 million from DMM Bitcoin through social engineering. A fake job interview PDF was the attack vector.
+WazirX hacked for $230 million on July 18, 2024. Hackers exploited the multi-signature wallet custody arrangement with Liminal. 16 million Indian users affected.
+WazirX hack: the attacker was funded via Tornado Cash 8 days before the breach. The multi-sig protections were bypassed by manipulating the transaction payload. This is India's biggest crypto heist ever.
+Indian police arrested one suspect in the WazirX $230 million hack - SK Masud Alam who opened a mule account under a fake name. Only $3 million of the $230M has been frozen so far.
+WazirX halted all withdrawals and trading after the $230M hack. Users couldn't access their funds for months. The exchange finally returned 85% of funds to users in October 2025.
+KuCoin hacked for $280 million in September 2020. Lazarus Group again. They got the private keys to KuCoin's hot wallets and drained BTC, ETH, XLM, TRX and ERC-20 tokens.
+KuCoin CEO Johnny Lyu says 84% of stolen funds have been recovered thanks to cooperation with other exchanges that froze the hacker's deposits. Token issuers also froze and clawed back assets.
+Lazarus Group used DeFi protocols to launder portions of the KuCoin hack. They swapped stolen tokens on Uniswap to avoid centralized exchange KYC. DeFi became the new money laundering tool.
+Coincheck lost $530 million in NEM tokens in January 2018. The exchange kept customer assets in a hot wallet without multi-signature security. 260,000 customers were victimized.
+Japan's FSA ordered Coincheck to improve security after the $530M NEM hack but did not shut it down. Three years later, 30 people were charged for laundering the stolen NEM.
+The Coincheck hack was the largest crypto exchange hack at the time - $530 million in NEM stolen because they didn't use cold storage or multi-sig. Basic security failures cost half a billion dollars.
+Upbit hacked for 342,000 ETH ($50 million) in November 2019. South Korean police confirmed it was North Korea's Lazarus Group and Andariel. Those stolen ETH are now worth over $1 billion.
+Only 4.8 BTC of the Upbit hack has been recovered, traced to a Swiss exchange with help from Swiss authorities. 57% of the stolen ETH was converted to BTC at a 2.5% discount through fake exchanges.
+Poloniex hacked for over $125 million in November 2023. Justin Sun offered a 5% whitehat bounty with a 7-day deadline. The hackers drained ETH, TRX, USDT, and meme coins from hot wallets.
+Justin Sun says Poloniex and HTX assets are "100% safe" after combined $200 million was stolen from both exchanges. He promises full reimbursement. The hack happened through compromised hot wallet keys.
+BingX exchange hacked for $52 million in September 2024. The Singapore-based exchange detected unusual withdrawals at 4 AM and triggered emergency protocols, but hackers had already drained the hot wallets.
+Indodax, Indonesia's largest crypto exchange, hacked for $22 million in September 2024. Over 6 million users affected. Security firms suspect Lazarus Group involvement. Third Asian exchange hacked in 2024.
+Mt. Gox filed for bankruptcy in February 2014 after losing 850,000 BTC ($470 million). 750,000 customer bitcoins and 100,000 company bitcoins just gone. The website went blank overnight.
+When Mt. Gox halted all withdrawals in February 2014, Bitcoin price crashed from $828 to $440 in weeks. That's a 47% crash triggered by a single exchange collapse. We've learned nothing since.
+The 6th richest bitcoin address holds $650M worth of BTC that were stolen from Mt. Gox in 2011 but never moved since. Whoever stole them is sitting on a fortune.
+Mt. Gox creditors waited over a decade to get partial repayments starting in 2024. 850,000 BTC stolen in 2014 would be worth over $50 billion today. The largest theft in crypto history by current value.
+Ronin Network (Axie Infinity) hacked for $620 million in March 2022. Lazarus Group compromised 5 of 9 validator keys through a fake LinkedIn job offer. The hack went undetected for 6 days.
+$620 million stolen from Ronin bridge and nobody noticed for almost a week. The hackers used a fake job interview PDF to compromise a Sky Mavis engineer. Social engineering > smart contract exploits.
+Norwegian authorities recovered $5.9 million of the $620 million stolen from Axie Infinity's Ronin bridge. That's less than 1% of the total. North Korea funded weapons programs with the rest.
+Bitfinex was hacked for 119,756 BTC ($72 million) in August 2016. All customers had their balances reduced by 36% and received BFX tokens. Bitcoin price dropped 20% on the news.
+The Bitfinex hacker Ilya Lichtenstein was sentenced to 5 years in prison in November 2024 for stealing 120,000 BTC and laundering the proceeds. His wife Heather Morgan got 18 months.
+DOJ seized $3.6 billion in Bitcoin from the 2016 Bitfinex hack in February 2022 by cracking an encrypted file containing the private keys. The stolen BTC had appreciated from $72M to $3.6B.
+Crypto exchange hacks have now totaled over $3 billion stolen by North Korean hackers alone over the past 7 years. Lazarus Group is the most prolific financial cybercriminal organization in history.
+In 2024 alone, hackers stole $2.2 billion in crypto. The year before it was $2 billion. The trend is accelerating. Exchange security is not keeping up with the sophistication of state-sponsored attackers.
+Liquid exchange hacked for $97 million in August 2021. Japanese exchange lost BTC, ETH, TRX and XRP from hot wallets. Attributed to North Korean hackers. Another Lazarus Group operation.
+CoinEx hacked for $70 million in September 2023. Hot wallet private keys were compromised. The exchange halted deposits and withdrawals while investigating. Lazarus Group suspected.
+Stake.com hacked for $41 million in September 2023. The online crypto casino's hot wallet was drained across multiple chains. FBI attributed the hack to North Korea's Lazarus Group.
+The crypto industry has lost over $10 billion to exchange hacks since Mt. Gox in 2014. And yet most exchanges still keep significant funds in hot wallets. When will we learn?
+Every major crypto exchange hack follows the same playbook: compromised hot wallet keys, insufficient multi-sig protections, and delayed detection. The industry keeps making the same mistakes.
+Euler Finance was exploited for $197 million in a flash loan attack in March 2023. The hacker later returned the funds after being traced. Not all hackers are Lazarus Group - some still have a conscience.
+Mixin Network lost $200 million in September 2023 when its cloud service provider database was compromised. The attack targeted the centralized components of the supposedly decentralized network.
+AscendEX exchange hacked for $77 million in December 2021. Hot wallets on Ethereum, BSC and Polygon were all drained. The exchange promised to reimburse affected users from its own treasury.
+Crypto.com hacked for $35 million in January 2022. Hackers bypassed 2FA and stole ETH and BTC from 483 user accounts. The exchange initially downplayed the incident as "unauthorized activity."
+Hotbit exchange suspended all services in August 2023 citing "deteriorating operating conditions" after a previous hack. Another small exchange that couldn't survive a security breach.
+Orbit Chain lost $80 million on New Year's Eve 2023. Hackers drained the cross-chain bridge of ETH, DAI, USDT, and USDC. Starting the new year with an $80M hack. Crypto never sleeps.
+Atomic Wallet users lost over $100 million in June 2023 when hackers compromised individual wallets. The attack affected thousands of users across multiple blockchains. Lazarus Group suspected again.
+HTX (formerly Huobi) lost $8 million in a hot wallet hack in September 2023. Justin Sun said the loss was "relatively small" and HTX would cover all losses. When $8M is considered small, something is wrong.
+Deribit exchange lost $28 million from its hot wallet in November 2022. The options trading platform assured users that cold storage was safe. Hot wallets continue to be the weakest link in exchange security.
+Bitrue exchange was hacked for $23 million in April 2023. Hackers gained access to a hot wallet and stole ETH, QNT, GALA, SHIB, and other tokens. Another day, another hot wallet compromise.
+Transit Swap was exploited for $21 million in October 2022. The hacker returned 70% of the funds after being identified by security researchers. White hat or just scared of getting caught?
+Alphapo payment processor was hacked for $60 million in July 2023 in an attack attributed to Lazarus Group. The hack affected multiple crypto gambling platforms that used Alphapo for payments.
+CoinsPaid, a crypto payment gateway, lost $37 million to Lazarus Group in July 2023. North Korean hackers spent 6 months studying CoinsPaid's infrastructure before striking. Patient and devastating.
+Rain exchange in Bahrain was hacked for $14.8 million in April 2024. The Middle Eastern exchange lost BTC, ETH, SOL, and XRP from hot wallets. Even regulated exchanges in traditional finance hubs get hacked.
+Zaif exchange in Japan was hacked for $60 million in September 2018. BTC, MONA, and BCH were stolen from the exchange's hot wallets. Japan has been hit by multiple exchange hacks - Coincheck, Zaif, DMM Bitcoin.
+The BitGrail exchange hack resulted in the loss of 17 million NANO tokens worth $170 million in February 2018. The founder was later found to have been insolvent before the hack. Italy's biggest crypto scandal.
+Bithumb has been hacked at least 4 times between 2017 and 2019, losing a combined $100 million+. The South Korean exchange keeps getting breached and keeps recovering. At some point you have to question the security architecture.
+Bitstamp was hacked for $5 million in January 2015 through a phishing attack targeting an employee. One of the oldest exchanges still operating, they learned from the hack and significantly improved security.
+Gate.io confirmed a 51% attack on Ethereum Classic in January 2019. 54,200 ETC worth of transactions were reversed. The attacker's account had been registered 3 months earlier and passed KYC checks.
+South Korean intelligence confirmed that North Korean hackers have stolen over $1.2 billion in crypto since 2017. Lazarus Group attacks on exchanges are funding North Korea's weapons programs.
+Chainalysis reports that $2.2 billion was stolen in crypto hacks in 2024, with DPRK-affiliated hackers responsible for $1.3 billion of that. North Korea's share of total crypto hacking keeps growing.
+Wormhole bridge was exploited for $320 million in February 2022. The attacker minted 120,000 wETH without proper collateral. Jump Trading covered the losses. Bridge exploits became the new exchange hacks.
+Nomad bridge was drained for $190 million in August 2022 in a chaotic free-for-all exploit. Hundreds of users joined in once the vulnerability was publicly visible. It was described as "the first decentralized hack."
