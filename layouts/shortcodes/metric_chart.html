@@ -1,0 +1,57 @@
+{{/*
+  metric_chart shortcode — renders an interactive Chart.js chart from inline JSON.
+
+  This shortcode replaces static matplotlib PNG images in market health reports
+  with dynamic, interactive charts rendered in the browser via Chart.js.
+
+  Usage (paired shortcode):
+    {{< metric_chart id="volume-hist" >}}
+    {
+      "type": "bar",
+      "title": "Transaction Volume Distribution",
+      "data": { "labels": [...], "datasets": [...] },
+      "options": { ... }
+    }
+    {{< /metric_chart >}}
+
+  Parameters:
+    id       — unique DOM id for the canvas element (required)
+    height   — canvas container height in px (default: 400)
+    caption  — figure caption text displayed below the chart (optional)
+
+  The inner JSON must contain:
+    type     — Chart.js chart type: "line", "bar", "scatter", etc.
+    data     — Chart.js data object with labels and datasets
+    title    — (optional) chart title string
+    options  — (optional) Chart.js options to merge with defaults
+
+  Chart.js and the metric-charts.js module are loaded once per page (deduped).
+*/}}
+
+{{ $id := .Get "id" | default "chart" }}
+{{ $height := .Get "height" | default "400" }}
+{{ $caption := .Get "caption" | default "" }}
+
+{{/* Load Chart.js and metric-charts.js once per page via Scratch */}}
+{{ if not (.Page.Scratch.Get "chartjsLoaded") }}
+  {{ .Page.Scratch.Set "chartjsLoaded" true }}
+  {{ $chartLib := resources.Get "/js/chart.js" }}
+  {{ $metricCharts := resources.Get "/js/metric-charts.js" }}
+  <script src="{{ $chartLib.Permalink }}"></script>
+  <script src="{{ $metricCharts.Permalink }}" defer></script>
+{{ end }}
+
+<figure class="metric-chart-figure" style="margin: 1.5em 0;">
+  <div
+    class="metric-chart-container"
+    data-chart-config='{{ .Inner }}'
+    style="position: relative; width: 100%; height: {{ $height }}px;"
+  >
+    <canvas id="{{ $id }}"></canvas>
+  </div>
+  {{ with $caption }}
+  <figcaption style="text-align: center; font-size: 0.9em; color: #666; margin-top: 0.5em;">
+    {{ . }}
+  </figcaption>
+  {{ end }}
+</figure>

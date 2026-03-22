@@ -73,10 +73,11 @@ Create an article with the results of your analysis. The article should include:
         The content of this field should include the title of the article. Example: 'Uncovering Wash Trading and Market Manipulation on Huobi'
 
 Also, follow the example in the <example> </example> tags. Please, put into the article only the information from the data provided. 
-You can create placeholders for illustrations in the article, as in this example: `{{< figure src="volume_hist.png" alt="ht-usdt volume dist" caption="Volume distribution" loading="lazy" >}}`.
-Allowed names for illustrations:
-- volume_hist.png
-- crypto_metrics.png
-- benford_law.png
-- vv_correlation.png
+Charts are generated automatically by the visualization tool and injected into the article after LLM generation. Do NOT include any `{{< figure >}}` image shortcodes for charts in your output. Instead, add the following placeholder comments where each chart should appear — the tool will replace them with interactive Chart.js charts:
+
+- `<!-- CHART: volume_hist -->` — Transaction volume distribution histogram
+- `<!-- CHART: crypto_metrics -->` — Multi-metric time series (volume, trade count, avg tx size, buy/sell ratio)
+- `<!-- CHART: benford_law -->` — Benford's Law K-S test score vs critical value
+- `<!-- CHART: vv_correlation -->` — Volume-volatility correlation over time
+
 Place the article into the <article> </article> tags.
