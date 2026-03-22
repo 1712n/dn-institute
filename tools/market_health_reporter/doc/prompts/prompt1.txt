@@ -1,66 +1,86 @@
-There are various indicators that are utilized to spot potential manipulative activities. These indicators, often rooted in statistical and economic theories, can be used individually or in combination to detect anomalies suggestive of market manipulation. Their importance lies in providing objective and quantifiable measures to assess market activities, which, when deviating from established norms, signal the need for closer scrutiny. 
-Here is some basic procedure of the market surveillance analysis:
+Analyze the provided market surveillance data using the metrics and methodology described below. Your goal is to produce a structured article that identifies and interprets anomalous trading patterns, following the format of the example article.
 
-1. Start with key metrics such as volume distribution, first-digit distribution, correlation between volume and volatility, buy-sell ratio and time-of-trade. It is crucial to observe these metrics over time. 
-2. Identify anomalies using specific criteria, such as sudden spikes or significantly unusual trading volumes. The anomalous patterns and benchmarkes are provided below. Analyze metrics over time to identify trends and patterns. 
-3. Construct a coherent and convincing report, beginning with the metric that shows significant deviation and has a noticeable impact on other metrics. Ensure the report accurately captures market abnormalities that occurred concurrently. Include specific timestamps and quantitative values as evidence.
-4. If the data does not indicate any significant and clear anomalous patterns, avoid over-interpreting the datasets. If no signs of fraud or manipulation are evident, concisely report this absence and attach supporting evidence.
+## Analysis Methodology
 
-- Volume-Volatility Correlation.
-    Description: It is a statistical measure that identifies the relationship between trading volume and market volatility in cryptocurrency exchanges. It is crucial to observe this over time.
-    Name of the metric: This value is stored in the key `vvcorrelation`.
-    Anomalous Pattern: A consistently low correlation (significantly below 0.4) between volume and volatility over extended periods. This might suggest artificial trading volume, as real market trades typically correlate with price volatility.
-    Benchmark: A normal range might vary, but a correlation coefficient consistently below 0.4 can be considered suspicious.
+### Step 1: Individual Metric Assessment
 
-- First-Digit Distribution. 
-    Description: In the context of cryptocurrency trading, adherence of the first-digit distribution to Benford’s Law can be used to scrutinize trading data for inconsistencies or abnormalities. Non-conformity to the expected digit distribution could suggest manipulation, such as wash trading or massive sell-offs, warranting further investigation. 
-    Name of the metric: This value is stored in the key `firstdigitdist`.
-    Anomalous Pattern: Significant deviation from Benford's expected distribution in leading digits of trading data. For instance, if numbers begin disproportionately with higher digits (like 8 or 9) instead of lower digits (like 1, 2, or 3).
-    Benchmark: Normally, the empirical first-digit distribution converges with the Benford's Law.      
+Evaluate each metric independently. For each one, determine whether the observed values fall within normal ranges or exhibit anomalous patterns.
 
-- Kolmogorov-Smirnov (K-S) Test for the First-Digit Distribution.
-    Description: The Kolmogorov-Smirnov test is used to compare a sample with Benford's law. 
-    Name of the metrics: This value is stored in the key `benfordlawtest`.
-    Anomalous Pattern: A larger test value suggests a greater discrepancy between your dataset's distribution and Benford's Law.
-    Benchmark: The K-S test is sensitive to sample size. Sample size is stored in the key `tradecount`. It's necessary for the critical and the test values comparison.   
-    If test value > critical value, then you reject the null hypothesis. This suggests that your data does not conform to Benford's Law at the chosen significance level.
-    If test value ≤ critical value, then you do not reject the null hypothesis. This suggests that there is not enough evidence to conclude that your data deviates from Benford's Law at the chosen significance level.
-    The critical value is a ratio of 1.36 and a square root of `tradecount`. 
-    
-- Volume distribution. 
-    Description: Volume distribution is a graphical representation that shows how frequently different sizes of transactions occur within a time range. 
-    Name of the metric: This value is stored in the key `volumedist`.
-    Anomalous Pattern: A distribution that significantly deviates from the power law, such as an unusually high number of large (whale) trades or a lack of small/medium trades requires closer inspection.
-    Benchmark: The volume distribution is expected to follow the power law. The power law describes a phenomenon where a small number of items are concentrated at the top of a distribution. In simpler terms, this suggests that medium to small retail transactions are frequent, while large “whale” orders are rare.
-    The histogram of a power law distribution is not symmetric. It typically shows a steep drop-off at the beginning (for smaller values) and then a long tail that gradually descends but never really touches the x-axis.
+### Step 2: Cross-Metric Correlation
 
-- Time-of-trade.
-    Description: This metric is designed to analyze trading activity distribution within each minute of an hour/each second of a minute, irrespective of the day/hour/minute in which the trades occur. By focusing solely on the minute/second of trade execution (ranging from 0 to 59), it provides a unique perspective on trading patterns and frequencies that occur at specific minute/second intervals. This approach aggregates transaction data from various time periods into a consolidated array of 60 items, each representing a distinct minute/second within an hour.
-    Name of the metrics: This value is stored in the key `timeoftrade`.
-    Anomalous Pattern: The Time-of-Trade metric detects a two-sided pattern. This means it flags both a high frequency of trades executed at the same time (second or minute) and an almost even distribution of trade counts across seconds or minutes. Such patterns suggest the presence of bot activity or automated trading systems.
-    Benchmark: No specific benchmark exists for this metric. However, trading patterns that significantly deviate from typical human trading behaviors, such as consistent trade spikes every minute or second, or evenly distributed trading activity across seconds or minutes, are considered suspect.
-    
-- Buy/sell ratio.
-    Description: The proportion of buy to sell market orders in a given time period. It is crucial to observe this over time.
-    Name of the metric: This value is stored in the key `buysellratio` and `buysellratioabs`. 
-    Anomalous Pattern: Ratios that significantly deviate from the norm (0.4-0.6 range) or display unnatural steadiness during the periods of high volatility.
-    Benchmark: A balanced market should have a buy/sell ratio around 0.4-0.6. A buy/sell ratio significantly higher than 0.5 suggests a market bias towards buying. Such a scenario could lead to a price increase. A buy/sell ratio significantly lower than 0.5 indicates a market bias towards selling, possibly leading to a price decrease. 
-    
- 
-    Depending on the market context, both irregular and steady fluctuations in this ratio can be indicative of automated trading systems operating to influence the market. 
+After individual assessment, identify combinations of anomalous metrics that reinforce manipulation hypotheses:
 
-- Volume Weighted Average Price (VWAP).
-    Description: A trading benchmark that calculates the average price of a cryptocurrency, weighted by its volume traded over a specific time period - more weight is given to the price levels where a lot of trading activity has occurred.
-    Name of the metric: This value is stored in the key `vwap`.
-    Anomalous Pattern: A significant and consistent difference between the VWAP and the actual trading price, particularly if the trading price is much higher or lower than the VWAP.
-    Benchmark: While there's no specific numerical benchmark, a deviation that's outside normal trading fluctuations could be a red flag.
+- **Volume Distribution + Volume-Volatility Correlation**: A volume distribution deviating from power law (especially unusual concentration of large trades) combined with low volume-volatility correlation suggests artificial volume generation. Genuine large trades should introduce volatility; their absence alongside volume spikes indicates wash trading.
+- **First-Digit Distribution + K-S Test**: Significant deviation from Benford's Law confirmed by a K-S test statistic exceeding the critical value provides strong statistical evidence of data manipulation, consistent with wash trading or coordinated artificial order placement.
+- **VWAP + Buy/Sell Ratio**: Substantial divergence between VWAP and market price alongside abnormal buy/sell ratios suggests price manipulation through strategic order placement designed to influence the perceived average price.
+- **Time-of-Trade + Buy/Sell Ratio**: High-frequency trades at identical timestamps or unnaturally uniform trade distribution across time intervals, combined with buy/sell ratio anomalies, indicate automated trading systems attempting to influence market prices or fabricate market sentiment.
 
-To enhance the analysis, here are some tips regarding simultaneous anomalous deviations of these metrics which can be indicative of market anomalies:
+### Step 3: Severity Classification
 
-Volume Distribution and Volume-Volatility Correlation: A volume distribution that deviates from the power law, especially with an unusual number of large trades, coupled with a low volume-volatility correlation, can suggest market manipulation. Large trades should typically introduce volatility, and a lack of this correlation might indicate that these large trades are not impacting the market as expected.
-Concurrent Irregularities in First-Digit Distribution and K-S Test: Significant deviations from Benford's Law in First-Digit Distribution, coupled with a K-S Test value greater than the critical value, strongly indicate data manipulation. This could be a sign of practices like wash trading, where large volumes of trades are artificially created to mislead the market.
-Inconsistencies in VWAP and Buy/Sell Ratio: A substantial difference between VWAP and market prices, along with abnormal Buy/Sell Ratios, could signify price manipulation. Traders might be attempting to influence the perceived average price through strategic buying or selling.
-Correlation between Time-of-Trade and Buy/Sell Ratio Anomalies: If the Time-of-Trade metric shows high frequency or evenly distributed trades, and the Buy/Sell Ratio deviates significantly from the 0.4-0.6 range, this might suggest automated trading systems are in play. This could be an attempt to influence market prices or create false market sentiment.
+Classify overall findings using these severity levels:
+- **Critical**: Multiple metrics show strong, persistent anomalies with clear cross-metric correlation. High confidence of deliberate manipulation.
+- **High**: Two or more metrics show significant anomalies with some cross-correlation. Probable manipulation requiring further investigation.
+- **Moderate**: Isolated metric anomalies or brief deviations that may indicate opportunistic manipulation or market stress events.
+- **Low / No Evidence**: Metrics fall within expected ranges. No significant evidence of manipulation detected.
+
+### Step 4: False Positive Awareness
+
+Before concluding manipulation, consider alternative explanations:
+- Market-wide events (exchange outages, major news, liquidation cascades) can produce anomalous patterns without manipulation.
+- Low-liquidity pairs naturally exhibit higher variance in all metrics.
+- Legitimate algorithmic market-making can produce time-of-trade patterns similar to wash trading.
+Rule: Only flag manipulation when the evidence is consistent across multiple independent metrics and alternative explanations are insufficient.
+
+---
+
+## Metric Definitions and Thresholds
+
+### Volume-Volatility Correlation
+- **Data key**: `vvcorrelation`
+- **Description**: Measures the statistical relationship between trading volume and price volatility over time. In healthy markets, increased volume correlates with increased volatility.
+- **Anomalous pattern**: Consistently low correlation (significantly below 0.4) over extended periods, suggesting artificial volume that does not impact price discovery.
+- **Benchmark**: Correlation coefficient persistently below 0.4 is suspicious. Observe trends over multiple time windows rather than individual snapshots.
+
+### First-Digit Distribution
+- **Data key**: `firstdigitdist`
+- **Description**: Tests whether the leading digits of trade sizes conform to Benford's Law, a statistical expectation for naturally occurring numerical data.
+- **Anomalous pattern**: Disproportionate frequency of higher leading digits (6-9) relative to lower digits (1-3), or an unnaturally uniform distribution across all digits.
+- **Benchmark**: Natural trading data converges with Benford's Law distribution (digit 1 appears ~30.1%, digit 2 ~17.6%, etc.).
+
+### Kolmogorov-Smirnov Test (Benford's Law)
+- **Data key**: `benfordlawtest`
+- **Description**: Quantifies the maximum deviation between the observed first-digit distribution and Benford's Law theoretical distribution.
+- **Interpretation**: Compare the test statistic against the critical value. The critical value equals 1.36 divided by the square root of the sample size (stored in `tradecount`).
+  - Test value > critical value → Reject null hypothesis. Data does NOT conform to Benford's Law (evidence of manipulation).
+  - Test value ≤ critical value → Do not reject. Insufficient evidence of deviation from Benford's Law.
+
+### Volume Distribution
+- **Data key**: `volumedist`
+- **Description**: Shows the frequency distribution of transaction sizes. Healthy markets follow a power law distribution where small/medium trades are frequent and large trades are rare.
+- **Anomalous pattern**: Deviation from power law, such as unusual concentration of identically-sized trades, absence of small retail trades, or disproportionate whale activity.
+- **Benchmark**: The histogram should show a steep initial drop-off with a long right tail. Symmetric or multi-modal distributions are suspicious.
+
+### Time-of-Trade
+- **Data key**: `timeoftrade`
+- **Description**: Aggregates trade execution timestamps into 60 bins (one per second or minute), revealing temporal patterns in trading activity independent of the specific hour or day.
+- **Anomalous pattern**: This metric flags two distinct patterns: (1) concentrated spikes showing high trade frequency at specific seconds/minutes, and (2) unnaturally uniform distribution across all 60 bins. Both patterns indicate bot activity or automated trading systems.
+- **Benchmark**: Human trading naturally clusters around certain periods and shows irregular patterns. Perfect uniformity or precise periodicity is suspect.
+
+### Buy/Sell Ratio
+- **Data keys**: `buysellratio` and `buysellratioabs`
+- **Description**: The proportion of buy versus sell market orders in each time period.
+- **Anomalous pattern**: Ratios consistently outside the 0.4-0.6 range, or unnatural steadiness (low variance) during periods of high volatility, suggesting automated price management.
+- **Benchmark**: A balanced market fluctuates around 0.5 with natural variance. Persistent stability in this metric, especially during volatile periods, indicates deliberate control.
+
+### Volume Weighted Average Price (VWAP)
+- **Data key**: `vwap`
+- **Description**: The average price weighted by trading volume, giving more weight to price levels with heavy activity.
+- **Anomalous pattern**: Consistent and significant divergence between VWAP and actual market price, indicating that high-volume trades occur at atypical price levels.
+- **Benchmark**: No fixed numerical threshold, but persistent deviation beyond normal trading fluctuations warrants investigation.
+
+---
+
+## Output Format
 
 Create an article with the results of your analysis. The article should include:
 - Fields between --- and ---:
@@ -72,7 +92,13 @@ Create an article with the results of your analysis. The article should include:
     - 'title'
         The content of this field should include the title of the article. Example: 'Uncovering Wash Trading and Market Manipulation on Huobi'
 
-Also, follow the example in the <example> </example> tags. Please, put into the article only the information from the data provided. 
+Structure the article body as follows:
+1. **Summary**: A numbered list of 4-6 key findings, each beginning with a bolded claim followed by supporting evidence and specific data points.
+2. **Metrics used**: Organize findings by metric category. For each metric with anomalous readings, explain what was observed, why it deviates from expectations, and what it implies. Include figure placeholders where appropriate.
+3. **Cross-metric analysis**: Discuss how anomalies across different metrics reinforce or contradict each other, building the overall case for or against manipulation.
+4. **Conclusion**: Summarize the severity level and key takeaways.
+
+Also, follow the example in the <example> </example> tags. Please, put into the article only the information from the data provided.
 You can create placeholders for illustrations in the article, as in this example: `{{< figure src="volume_hist.png" alt="ht-usdt volume dist" caption="Volume distribution" loading="lazy" >}}`.
 Allowed names for illustrations:
 - volume_hist.png
