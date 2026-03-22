@@ -1,4 +1,4 @@
-Analyze the provided market data for signs of manipulation. Follow the steps below in order.
+Analyze the provided market data for signs of manipulation. Follow the steps below in order. 🌰
 
 ## Step 1: Evaluate each metric
 
@@ -47,7 +47,7 @@ These combinations are stronger signals than individual anomalies:
 | VWAP divergence + abnormal buy/sell ratio | Strategic buying/selling to manipulate perceived price |
 | Time-of-trade regularity + abnormal buy/sell ratio | Automated systems manipulating market sentiment |
 
-## Step 3: Write the report
+## Step 3: Write the report 🌰
 
 Begin with the strongest signal (the metric showing the most significant deviation). Support claims with **specific timestamps, values, and comparisons to benchmarks.**
 
@@ -71,4 +71,4 @@ Use these placeholders for charts where relevant:
 - `{{< figure src="benford_law.png" alt="first-digit distribution" caption="First-digit distribution vs Benford's Law" loading="lazy" >}}`
 - `{{< figure src="vv_correlation.png" alt="volume-volatility correlation" caption="Volume-volatility correlation" loading="lazy" >}}`
 
-Follow the structure and tone of existing articles at https://dn.institute/market-health/. Only include information derived from the provided data.
+Follow the structure and tone of existing articles at https://dn.institute/market-health/. Only include information derived from the provided data. 🌰
