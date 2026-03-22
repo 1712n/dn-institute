@@ -1,3 +1,33 @@
+# This workflow has been migrated to a Cloudflare Worker webhook-based solution.
+#
+# The article checker now runs as a Cloudflare Worker at:
+#   tools/article-checker-worker/
+#
+# Setup instructions:
+#   1. Deploy the worker: cd tools/article-checker-worker && npm run deploy
+#   2. Configure worker secrets via wrangler:
+#      - wrangler secret put LLM_API_KEY
+#      - wrangler secret put SEARCH_API_KEY
+#      - wrangler secret put GITHUB_TOKEN
+#      - wrangler secret put WEBHOOK_SECRET
+#      - wrangler secret put WIKI_REVIEWERS  (JSON array of GitHub usernames)
+#   3. Add a GitHub webhook in repository Settings > Webhooks:
+#      - Payload URL: https://article-checker.<your-subdomain>.workers.dev/webhook
+#      - Content type: application/json
+#      - Secret: <same value as WEBHOOK_SECRET>
+#      - Events: Select "Issue comments"
+#
+# The worker handles:
+#   - Webhook signature verification (HMAC SHA-256)
+#   - Permission checking (WIKI_REVIEWERS)
+#   - /articlecheck command detection on PR comments
+#   - PR diff fetching and parsing
+#   - Claude-powered fact-checking with Brave Search retrieval
+#   - Editor's notes, Hugo SSG formatting, and submission guidelines checks
+#   - Posting results as a PR comment
+#
+# The previous GitHub Actions workflow is preserved below (disabled) for reference.
+
 on:
   issue_comment:
     types: [created]
@@ -8,41 +38,11 @@ permissions:
   pull-requests: write
 
 jobs:
-  permission-check-job:
+  article-check-notice:
     runs-on: ubuntu-latest
     if: |
       github.event.issue.pull_request &&
       contains(github.event.comment.body, '/articlecheck')
-    outputs:
-      permission: ${{ steps.permissions-check.outputs.defined }}
     steps:
-      - name: Check for Secret availability
-        id: permissions-check
-        shell: bash
-        run: |
-          echo "defined=${{ contains(fromJSON(secrets.WIKI_REVIEWERS), github.actor) }}" >> $GITHUB_OUTPUT;
-
-  fact-check:
-    runs-on: ubuntu-latest
-    name: "Checks a new article from a PR, conducting fact-checking, spell-checking, and ensuring compliance with the submission guidelines"
-    needs: [ permission-check-job ]
-    if: needs.permission-check-job.outputs.permission == 'true'
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Cache Python
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pypoetry
-          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
-
-      - name: Install package
-        run: pipx install poetry && poetry install --no-interaction
-
-      - name: Run script
-        run: |
-          poetry run article-check-claude \
-            --pull-url "${{ github.event.issue.pull_request.url }}" \
-            --github-token "${{ secrets.GITHUB_TOKEN }}" \
-            --llm-api-key "${{ secrets.LLM_API_KEY }}" \
-            --search-api-key "${{ secrets.SEARCH_API_KEY }}"
+      - name: Notice
+        run: echo "Article checking is now handled by the Cloudflare Worker webhook. See tools/article-checker-worker/ for details."
