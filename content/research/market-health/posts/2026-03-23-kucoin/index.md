@@ -10,11 +10,11 @@ entities:
 
 ## Summary
 
-1. **DOJ Criminal Indictment:** In March 2024, the U.S. Department of Justice indicted KuCoin and two of its founders — Chun Gan and Ke Tang — on charges of conspiring to operate an unlicensed money transmitting business and conspiring to violate the Bank Secrecy Act.
-2. **$9 Billion from U.S. Customers:** KuCoin received more than $5 billion and sent more than $4 billion in funds involving U.S. users, despite never registering with FinCEN or implementing required AML programs.
-3. **Deliberate Compliance Evasion:** KuCoin falsely represented that it did not serve U.S. customers while simultaneously collecting over $2 billion in trading fees, a substantial portion from American users who were never subjected to identity verification.
-4. **Guilty Plea and $297 Million Settlement:** In January 2025, KuCoin pleaded guilty and agreed to pay approximately $297 million in fines and forfeiture. The exchange also agreed to block U.S. users and implement enhanced compliance measures.
-5. **Criminal Liability of Founders:** The indictment of individual founders Chun Gan and Ke Tang marked one of the few instances where exchange leadership faced personal criminal charges for compliance failures.
+1. **DOJ Criminal Indictment:** On March 26, 2024, the U.S. Department of Justice unsealed a four-count indictment (*United States v. Flashdot Limited et al.*, Case No. 1:24-cr-00168, S.D.N.Y.) against KuCoin's corporate entities and co-founders Chun "Michael" Gan and Ke "Eric" Tang for BSA violations and unlicensed money transmission.
+2. **$9 Billion in Suspicious Funds:** KuCoin received more than $5.39 billion and sent more than $4.09 billion in funds characterized by the DOJ as suspicious or criminal, while serving approximately 1.5 million U.S. users without FinCEN registration.
+3. **Deliberate Compliance Evasion:** KuCoin falsely represented that it did not serve U.S. customers while earning approximately $184.5 million in fees from U.S.-based users. KYC was only introduced in July 2023 — after KuCoin was notified of the federal investigation.
+4. **$297.4 Million Guilty Plea:** On January 27, 2025, Peken Global Limited pleaded guilty to one count of operating an unlicensed money transmitting business, agreeing to $184.5 million in criminal forfeiture and approximately $112.9 million in fines, plus a minimum two-year exit from the U.S. market.
+5. **Founder Deferred Prosecution:** Co-founders Gan and Tang each entered two-year Deferred Prosecution Agreements and forfeited approximately $2.7 million each. Both were barred from any management role at KuCoin.
 
 ## Background
 
