@@ -128,9 +128,12 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
 
 def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
     """
-    Creates a prompt string using article example and data.
+    Creates a prompt string by replacing placeholders in the human prompt template
+    with the actual article example and market data.
     """
-    return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    prompt = human_prompt_content.replace("PLACEHOLDER_DATA", json.dumps(data))
+    prompt = prompt.replace("PLACEHOLDER_EXAMPLE", article_example)
+    return prompt
 
 
 def main():
