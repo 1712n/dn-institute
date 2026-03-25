@@ -92,10 +92,26 @@ def main():
     print(diff)
     print('-' * 50)
 
-    text = remove_plus(diff[0]['header'] + diff[0]['body'][0]['body'])
+    # Concatenate all files and segments from the diff, not just the first one
+    all_diff_parts = []
+    for file_diff in diff:
+        for segment in file_diff['body']:
+            all_diff_parts.append(file_diff['header'] + segment['body'])
+    text = remove_plus('\n'.join(all_diff_parts))
+
+    if not text.strip():
+        print("Error: Diff is empty after parsing. Cannot proceed with review.")
+        create_comment_on_pr(pr, ":warning: **QA Bot Error**: Could not parse the PR diff. The diff may be empty or in an unexpected format.")
+        sys.exit(1)
+
     answer = api_call(text, client, model, max_tokens, temperature)
     print('-' * 50)
     print('This is an answer', answer)
     print('-' * 50)
+
+    if answer is None:
+        print("Error: API call returned None. Skipping PR comment.")
+        create_comment_on_pr(pr, ":warning: **QA Bot Error**: The review could not be completed due to an API error. Please try again with `/articlecheck`.")
+        sys.exit(1)
 
     create_comment_on_pr(pr, answer)
