@@ -12,102 +12,127 @@ logger = logging.getLogger(__name__)
 
 
 EXTRACTING_PROMPT = """
-Please extract important statements that appear to be factual from the text provided between <text></text> tags.
-Return the extracted statements. Place each statement within <statement></statement> tags.
-Also, return the number of extracted statements within <number_of_statements></number_of_statements> tags.
-Aim to extract important statements with numbers, dates, and names of organizations. There should not be too many extracted statements.
+Extract factual claims from the text provided between <text></text> tags that can be independently verified.
+
+Focus on:
+- Specific dates and timestamps of events
+- Monetary amounts and financial losses
+- Names of protocols, exchanges, organizations, and individuals
+- Transaction hashes, wallet addresses, or contract addresses
+- Technical claims about vulnerabilities or attack vectors
+- Claimed sequence of events in the timeline
+
+Exclude:
+- Opinions, analysis, or editorial commentary
+- General background information that isn't specific to this incident
+- Statements that are definitions or explanations of concepts
+
+For each extracted statement, place it within <statement></statement> tags.
+Return the total count within <number_of_statements></number_of_statements> tags.
 Skip the preamble; go straight into the result.
 """
 
 RETRIEVAL_PROMPT = """
-Your timeline extends up to the current one — {current_time}.
-You are tasked with verifying the accuracy of a series of factual statements using a search engine. Below is the search engine's description: <tool_description>{description}</tool_description>.
-For each statement within <statement></statement> tags, if the statement already has a verdict in the <verdict></verdict> tags (either 'True' or 'False'), skip it and move to the next statement. For statements without a verdict, formulate a query to check its accuracy. You can make a call to the search engine tool by inserting a query within <search_query> tags like so: <search_query>query</search_query>. You'll then get results back within <search_result></search_result> tags.
-Based on these results, determine the accuracy of each statement and categorize it as 'True', 'False', or 'Unverified'.
-Put your verdict in <verdict></verdict> tags. If a statement is true, put 'True' in the <verdict></verdict> tags.
-Include the Web Page URL in <source></source> tags. If there is no URL at all, put 'None' in the <source></source> tags.
-If a statement is false, include an explanation in <explanation></explanation> tags.
-Focus particularly on verifying numbers, dates, monetary values, and names of people or organizations.
-Avoid verifying statements that already have a True/False verdict in the <verdict></verdict> tags.
-Determine the accuracy of each statement using only information that is contained in the search_result.
-If you need to search again, put the new query in <search_query></search_query>.
+Current date: {current_time}.
 
-Statements to be verified: 
+You are a fact-checker for a cryptocurrency security research wiki. Your task is to verify factual claims about crypto hacks, exploits, and security incidents using a search engine.
+
+Search engine: <tool_description>{description}</tool_description>
+
+## Instructions
+
+For each <statement> that does not already have a <verdict>:
+1. Formulate a precise search query. Use specific names, dates, and amounts from the statement. Wrap queries in <search_query></search_query> tags.
+2. Evaluate search results carefully. Only mark a statement as 'True' if the search results directly confirm it with matching specifics (dates, amounts, names).
+3. Assign a verdict:
+   - **True**: Search results confirm the statement with matching details. Include the source URL.
+   - **False**: Search results contradict the statement. Include an explanation of what the correct information is, citing the source.
+   - **Unverified**: Search results are insufficient or ambiguous. Do NOT default to True — if you can't confirm it, mark it Unverified.
+
+## Important
+- Pay close attention to **exact amounts** — a statement claiming "$100M stolen" when the actual amount was "$97M" should be flagged.
+- Pay close attention to **exact dates** — off-by-one-day errors in timelines are common and should be caught.
+- Cross-reference entity names carefully — "Euler Finance" vs "Euler Labs" vs "Euler Protocol" matter.
+- Skip statements that already have True/False verdicts.
+- Base verdicts ONLY on information found in search results, not your training data.
+
+Statements to be verified:
 """
 
 ANSWER_PROMPT = """
-You are an editor. Perform the following tasks:
-1. Using the information provided within the <fact_checking_results></fact_checking_results> tags, 
-please form the desired output with results of fact-checking. 
-List each statement from the tags <statement></statement> and accompany it with the fact-checking source 
-between the tags <source></source>.  If there is no source, try to find a related link in the text between <text></text> tags and place this link in the "source" field. If there is no source at all put "None" in the "source" field.
-If the verdict is True, put the symbol ":white_check_mark:" after the statement.
-If the verdict is False, put the symbol ":x:" after the statement and also provide an explanation why.
-If the verdict is Unverified or the link was taken from the text in <text></text> tags, put the symbol ":warning:" after the statement.
-Output example:
-'''- **Statement**: Squid Game: November 1, 2021 - $5.7m :x:
-  - **Source**: [https://www.wired.co.uk/article/squid-game-crypto-scam](https://www.wired.co.uk/article/squid-game-crypto-scam)
-  - **Explanation**: The article states the Squid Game crypto scam creators pulled out $3.36 million on November 1, 2021, not $5.7 million as the statement claims.'''
+You are a senior editor reviewing article submissions for a cryptocurrency security research wiki. Your review must be thorough, structured, and actionable.
 
-2. Make detailed editor's notes on the text in <text></text> tags. 
-Suggest stylistic and grammatical improvements and point out any error in the text between <text></text> tags. 
-Please make sure that in the '## Timeline' section, dates are written in the correct format 'Month day, year, time PM UTC:'. 
-Example: 'May 05, 2023, 05:52 PM UTC:'.
-Put your detailed notes and the list of errors below the header. 
-Output example:
-'''## Editor's Notes
-...'''
+Using the fact-checking results in <fact_checking_results></fact_checking_results> and the article text in <text></text>, produce a complete review with the following sections:
 
-3. Additionally, since the text between <text></text> is a Markdown document for Hugo SSG, ensure it adheres to specific Markdown formatting requirements.
-If it adheres, put the symbol ":white_check_mark:".
-If does not adhere, put the symbol ":x:" and also provide an explanation why.
-If you are not sure, put the symbol ":warning:".
-Output example:
-'''## Hugo SSG Formatting Check
-- Does it match Hugo SSG formatting? :x:
-  - **Explanation**: ...'''
+---
 
-4. Check if the text between <text></text> follows the Markdown format, including appropriate headers.
-Confirm if it meets submission guidelines, particularly the file naming convention ("YYYY-MM-DD-entity-that-was-hacked.md"). Extract the name of the file from the text between <text></text> tags and compare it to the correct name.
-Pay special attention to matching the dates and names in the filename with the dates and names from the text.
-Verify that the text between <text></text> includes only the allowed headers: "## Summary", "## Attackers", "## Losses", "## Timeline", "## Security Failure Causes".
-Check for the presence of specific metadata headers between "---" lines, such as "date", "target-entities", "entity-types", "attack-types", "title", "loss" in the text within <text></text> tags. It must contain all and only allowed metadata headers.
+## 1. Fact-Checking Results
 
-The 'date' metadata header must match the actual date of the event described within the <text></text> tags, possibly mentioned in the Summary section. 
-To achieve this, search for dates within the text to identify the occurrence date of the event. 
-Then, place this date within the <thinking></thinking> tags. Additionally, insert the value of the 'date' metadata header between the <thinking></thinking> tags and compare the two. 
-Please approach this task step by step. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
+For each verified statement, format as:
+- **Statement**: [statement text] [verdict emoji]
+  - **Source**: [URL as markdown link, or "None"]
+  - **Explanation**: [only if False — explain what's wrong and what the correct information is]
 
-The 'target-entities' metadata header must contain the actual names of the affected entities during the event described in the <text></text> tags, possibly mentioned in the Summary section.
-To achieve this, perform a text search to identify the target entities. Then place these entities in <thinking></thinking> tags. Also, insert the 'target-entities' metadata header value between the <thinking></thinking> tags and compare them. 
-Please approach this task step by step. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
+Verdict emojis:
+- :white_check_mark: — Confirmed true by search results
+- :x: — Contradicted by search results (MUST include explanation)
+- :warning: — Unverified or source taken from the article itself
 
-The 'loss' metadata header must match the actual loss due the event described in the <text></text> tags, possibly mentioned in the Losses section.
-To achieve this, perform a text search to identify the loss. Then place this loss in <thinking></thinking> tags. Also, insert the 'loss' metadata header value between the <thinking></thinking> tags and compare the two. 
-Please approach this task step by step. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
+If no source URL was found in search results, check the article text for cited links. If a link from the article text is used, mark as :warning: not :white_check_mark:.
 
-Ensure that the value of the 'entity-types' metadata header corresponds to the target entity. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
+## 2. Editor's Notes
 
-Ensure that the value of the 'attack-types' metadata header matches the type of the attack described in the text. Point out the discrepancies in the "Notes" field, place a ":warning:" symbol.
+Provide specific, actionable feedback:
+- Grammar and spelling errors (quote the error, suggest the fix)
+- Stylistic improvements (clarity, conciseness, consistency)
+- Timeline format: dates MUST follow "Month DD, YYYY, HH:MM PM UTC:" format (e.g., "May 05, 2023, 05:52 PM UTC:")
+- Flag any unsupported claims that weren't caught in fact-checking
+- Note any missing context that would strengthen the article
 
-Output example:
-'''## Filename Check
-- Correct Filename: `2022-02-15-ValentineFloki.md`
-- Your Filename: `scam.md` :x:
+## 3. Hugo SSG Formatting Check
 
-## Section Headers Check
-- Allowed Headers: `## Summary, ## Attackers, ## Losses, ## Timeline, ## Security Failure Causes`
-- Your Headers: `# Cryptocurrency Scam Types and Prevention Measures, ## 1. Rug Pull, ### Overview, ### Recognition Tips, ## 2. Honeypot, ### Overview, ### Recognition Tips` :x:
+- Does it match Hugo SSG formatting? [emoji]
+  - **Explanation**: [if not, explain what's wrong]
 
-## Metadata Headers Check
-- Allowed Metadata Headers: `date, target-entities, entity-types, attack-types, title, loss`
-- Your Metadata Headers: `date, target-entities, entity-types` :x:
-- Notes: 
-    - The `date` header has an incorrect date. It lists 2022-03-15, whereas it should be 2022-02-15 ":warning:"
-    - The `loss` header displays an incorrect value. It shows $100, whereas it should indicate $1000. ":warning:"
-'''
+## 4. Submission Guidelines Compliance
 
-Combine the results of all steps into a single output that complies with Markdown format and return it to me in <answer></answer> tags. 
+### Filename Check
+<thinking>
+Extract the date of the incident from the article content (typically in Summary or Timeline).
+Extract the target entity name from the article content.
+Construct the expected filename: YYYY-MM-DD-entity-name.md
+Compare with the actual filename from the diff.
+</thinking>
+- Expected Filename: `[constructed filename]`
+- Actual Filename: `[filename from diff]` [emoji]
+
+### Section Headers Check
+- Required Headers: `## Summary, ## Attackers, ## Losses, ## Timeline, ## Security Failure Causes`
+- Article Headers: `[list actual headers found]` [emoji]
+- Missing headers should be flagged with :x:
+- Extra headers should be flagged with :warning:
+
+### Metadata Headers Check
+Required metadata (between `---` delimiters): `date`, `target-entities`, `entity-types`, `attack-types`, `title`, `loss`
+
+<thinking>
+For each metadata field:
+1. Extract the value from the article's frontmatter
+2. Extract the corresponding information from the article body
+3. Compare them and note discrepancies
+</thinking>
+
+- `date`: [value] — [matches article content? emoji]
+- `target-entities`: [value] — [matches entities discussed? emoji]
+- `entity-types`: [value] — [appropriate for target? emoji]
+- `attack-types`: [value] — [matches attack described? emoji]
+- `title`: [value] — [descriptive and accurate? emoji]
+- `loss`: [value] — [matches Losses section? emoji]
+- **Notes**: [list any discrepancies found]
+
+---
+
+Combine all sections into a single well-formatted Markdown output. Return the complete review in <answer></answer> tags.
 """
 
 
