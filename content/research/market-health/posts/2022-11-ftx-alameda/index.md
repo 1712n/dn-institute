@@ -1,7 +1,7 @@
 ---
-title: "FTX and Alameda Research: How Code-Level Privileges Enabled Billions in Market Manipulation"
-date: "2019-05 -- 2022-11"
-description: "Alameda Research exploited hidden code privileges on FTX to trade with unlimited leverage using customer funds, front-run token listings, and manipulate markets while operating as the exchange's primary market maker."
+title: "FTX and Alameda Research: How a $65 Billion Exchange Collapsed Through Self-Dealing, FTT Token Manipulation, and Commingled Customer Funds"
+date: "2019-01 -- 2022-11"
+description: "FTX founder Sam Bankman-Fried used sister company Alameda Research to manipulate the FTT token price, borrowed billions in customer deposits, and created a web of self-dealing that ultimately destroyed the world's third-largest cryptocurrency exchange."
 entities:
   - FTX
   - Alameda Research
@@ -10,35 +10,37 @@ entities:
 
 ## Summary
 
-Between May 2019 and November 2022, Alameda Research operated as the primary market maker on FTX while secretly exploiting code-level privileges that gave it effectively unlimited access to customer funds. FTX engineers implemented an "allow negative" flag in Alameda's account that permitted the firm to withdraw billions of dollars beyond its own deposits, funded by customer assets. Alameda used this advantage to front-run token listings, manipulate FTT token price, and trade with leverage unavailable to any other market participant. When the scheme collapsed in November 2022, approximately $8 billion in customer funds were missing. FTX founder Sam Bankman-Fried was convicted of wire fraud, conspiracy, and money laundering in November 2023 and sentenced to 25 years in prison.
+The collapse of FTX in November 2022 represented the largest fraud in cryptocurrency history, with customer losses estimated at $8 billion. FTX founder Sam Bankman-Fried operated a systematic scheme in which his trading firm Alameda Research received preferential treatment on the exchange, borrowed billions in customer deposits, and manipulated the price of FTX's native FTT token to inflate collateral values. The fraud was exposed when a leaked Alameda balance sheet revealed that the firm's assets were primarily composed of illiquid, self-issued tokens rather than independent assets. Bankman-Fried was convicted on seven counts of fraud and conspiracy in November 2023 and sentenced to 25 years in prison.
 
-## Code-Level Market Manipulation
+## The FTT Token Manipulation
 
-The FTX-Alameda manipulation was unique in that it was embedded directly in the exchange's source code. At Bankman-Fried's direction, FTX engineers created a special account flag for Alameda that bypassed the exchange's standard risk checks. This flag allowed Alameda to execute trades and withdrawals even when its account balance was negative by billions of dollars, with the deficit covered automatically by customer deposits held on FTX.
+At the center of the fraud was FTT, the native token of the FTX exchange. FTX created FTT with a total supply of 350 million tokens, retaining a significant portion for the company and Alameda Research. The token's value was supported by a periodic buy-and-burn mechanism funded by exchange trading fees, creating sustained demand.
 
-This gave Alameda capabilities that no other trader on the platform had: effectively unlimited leverage, no liquidation risk, and the ability to absorb losses that would have bankrupted any other account. The asymmetry between Alameda's hidden privileges and the standard trading conditions presented to retail users constituted a structural form of market manipulation, as other traders were competing against a counterparty with fundamentally different rules.
+The manipulation operated through circular reinforcement. FTX and Alameda held the majority of FTT's circulating supply, meaning the token's price was determined primarily by trades between related entities rather than genuine market demand. Alameda used its FTT holdings as collateral to borrow from FTX's customer deposits, and FTX used the inflated FTT valuation to report healthy balance sheets.
 
-## Token Listing Front-Running
+Because Alameda was both the largest holder and the most active trader of FTT, the token's price was effectively controlled by a single entity. Any independent selling pressure could be absorbed by Alameda's trading activity, maintaining the artificial floor needed to keep collateral values above borrowing thresholds.
 
-Between early 2021 and March 2022, Alameda Research accumulated approximately $60 million worth of cryptocurrency tokens on Ethereum ahead of those tokens being listed for trading on FTX. Because Alameda had advance knowledge of upcoming FTX listings through its relationship with Bankman-Fried, it could purchase tokens at lower prices before the listing announcement drove prices up.
+## Customer Fund Misappropriation
 
-This front-running pattern exploited material non-public information about exchange listing decisions, which reliably cause price increases as new tokens become accessible to FTX's user base. The practice transferred value from FTX users who bought at post-listing prices to Alameda, which had accumulated positions at pre-listing levels.
+FTX transferred approximately $8 billion in customer deposits to Alameda Research through a series of mechanisms that were hidden from customers, auditors, and regulators.
 
-## FTT Token Price Support
+Alameda maintained a special account on FTX that was exempt from the exchange's auto-liquidation engine. This meant Alameda could maintain positions that would have triggered forced liquidation for any other user, effectively borrowing against customer deposits without the risk management constraints applied to other traders.
 
-FTX's native FTT token served as a critical component of the manipulation scheme. Alameda held large quantities of FTT on its balance sheet and used these holdings as collateral for borrowing on FTX. Maintaining an elevated FTT price was essential because a decline would reduce Alameda's collateral value and expose its insolvency.
+The transfers were facilitated by a backdoor in FTX's accounting system that allowed Alameda's liabilities to be hidden from standard balance sheet reports. Internal records used a hidden "fiat@" account that was excluded from customer-facing dashboards, concealing the scale of the deficit.
 
-The circular dependency between FTT price and Alameda's solvency created incentives for active price manipulation. Evidence presented at trial showed that Alameda engaged in strategic trading of FTT to support its price during periods of selling pressure, using customer funds to finance purchases that benefited Alameda's balance sheet rather than protecting customer interests.
+## Collapse Timeline
 
-## Collapse and Detection
+On November 2, 2022, CoinDesk published a report based on a leaked Alameda Research balance sheet showing that the firm's $14.6 billion in assets were heavily concentrated in FTT and other FTX-linked tokens. Of the reported assets, approximately $5.8 billion was in FTT, a token whose value was entirely dependent on the continued operation and credibility of FTX.
 
-The scheme began unraveling in November 2022 when reporting by CoinDesk revealed that Alameda's balance sheet was heavily concentrated in illiquid FTT tokens. The revelation triggered a bank run on FTX as customers attempted to withdraw funds, exposing that the exchange lacked sufficient reserves to honor customer balances. On November 11, 2022, FTX filed for Chapter 11 bankruptcy.
+On November 6, Binance CEO Changpeng Zhao announced that Binance would liquidate its entire FTT holdings, valued at approximately $580 million. This triggered a cascade of customer withdrawals from FTX as confidence in the platform evaporated.
 
-## Detection Indicators
+Within 72 hours, FTX faced approximately $6 billion in withdrawal requests that it could not fulfill because the customer deposits had been lent to Alameda. On November 11, FTX filed for Chapter 11 bankruptcy protection.
 
-The FTX-Alameda case illustrates manipulation patterns that market surveillance should flag:
+## Market Manipulation Detection Patterns
 
-- **Asymmetric trading behavior.** One market maker consistently taking larger positions and absorbing larger losses than its visible balance should support indicates hidden funding sources or privilege asymmetries.
-- **Pre-listing accumulation patterns.** Entities with exchange relationships accumulating tokens before listing announcements suggests information leakage.
-- **Native token price stability.** Abnormally stable prices for exchange-native tokens during broader market downturns may indicate active price support, particularly when the token serves as collateral for significant borrowing.
-- **Counterparty concentration.** A single market maker accounting for a disproportionate share of exchange volume, especially when that maker has a financial relationship with the exchange operator, creates conflicts of interest that enable manipulation.
+The FTX case illustrates manipulation patterns that market surveillance systems should flag:
+
+- **Concentrated token ownership.** When an exchange's native token is primarily held and traded by the exchange itself and its affiliated entities, the reported market price does not reflect genuine price discovery. On-chain analysis of token holder distribution can identify this concentration.
+- **Circular collateral.** Using self-issued tokens as collateral to borrow real assets creates systemic risk that is invisible to external observers but detectable through analyzing the composition of declared reserves relative to independent assets.
+- **Exempted accounts.** Any trading account exempt from standard risk management rules represents a potential vector for hidden liabilities. Exchange transparency reports should disclose the existence of any accounts with modified liquidation parameters.
+- **Volume-price divergence on native tokens.** High reported trading volume on an exchange's native token that does not correlate with independent exchange data or on-chain transfer activity suggests artificial volume generation.
