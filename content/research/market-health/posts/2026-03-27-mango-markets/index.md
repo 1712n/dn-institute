@@ -11,9 +11,9 @@ entities:
 
 1. **$114 Million Exploit:** On October 11, 2022, trader Avraham Eisenberg manipulated the price oracle of the Solana-based DeFi protocol Mango Markets, artificially inflating the price of MNGO token to borrow $114 million against his inflated collateral — effectively draining the protocol's treasury.
 2. **Open Market Manipulation:** Eisenberg publicly claimed the exploit was a "highly profitable trading strategy" that was legal, making no attempt to conceal his identity. He engaged in public negotiations with the Mango DAO to return a portion of the funds.
-3. **DOJ Criminal Conviction:** Eisenberg was arrested in December 2022 and charged with commodities fraud and market manipulation. In April 2024, a federal jury convicted him on all counts — the first conviction for oracle manipulation in a DeFi protocol.
-4. **SEC and CFTC Parallel Actions:** Both the SEC and CFTC filed civil charges, with the SEC classifying MNGO as a security and the CFTC treating it as a commodity — creating overlapping jurisdiction claims.
-5. **Sentencing:** Eisenberg was sentenced to 52 months in federal prison in August 2025.
+3. **DOJ Criminal Charges and Reversal:** Eisenberg was arrested in December 2022 and charged with commodities fraud, commodities manipulation, and wire fraud (*United States v. Eisenberg*, Case No. 1:23-cr-00010, S.D.N.Y.). In April 2024, a federal jury convicted him on all three counts. However, on May 23, 2025, Judge Arun Subramanian vacated all three convictions, ruling that venue was improper and that Mango Markets had no terms of service prohibiting the strategy. The DOJ has appealed.
+4. **SEC and CFTC Parallel Actions:** Both the SEC and CFTC filed civil charges — the CFTC's first enforcement action for oracle manipulation on a decentralized platform. Civil cases remain pending.
+5. **Separate Sentence:** Eisenberg was sentenced to 52 months in federal prison on a separate criminal charge (Case No. 1:24-cr-00251, S.D.N.Y.), not directly related to the Mango Markets exploit.
 
 ## Background
 
@@ -51,13 +51,20 @@ Eisenberg was arrested on December 26, 2022 in Puerto Rico. He was charged with:
 - Commodities fraud (18 U.S.C. § 1348)
 - Commodities market manipulation (7 U.S.C. § 9(a)(2))
 
-### Trial and conviction — April 2024
+### Trial, conviction, and reversal — April 2024 / May 2025
 
-A federal jury in the Southern District of New York convicted Eisenberg on both counts after a two-week trial. The conviction established that manipulating DeFi oracle prices through coordinated spot market purchases constitutes market manipulation under federal law — even when conducted through "open market" transactions.
+In April 2024, a federal jury convicted Eisenberg on all three counts after a nine-day trial — the first jury conviction for oracle manipulation in a DeFi protocol.
 
-### Sentencing — August 2025
+However, on **May 23, 2025**, Judge Arun Subramanian granted Eisenberg's Rule 29 motion and **vacated all three convictions**:
 
-Eisenberg was sentenced to **52 months (approximately 4.3 years)** in federal prison.
+- **Commodities fraud/manipulation:** Venue was improper — Eisenberg executed all transactions from Puerto Rico, not within the Southern District of New York.
+- **Wire fraud:** The court found insufficient evidence of material misrepresentation. As the judge noted, "On a platform with no rules... the government needed more."
+
+The DOJ has appealed the acquittal. Civil SEC and CFTC cases remain pending.
+
+### Separate criminal sentence — May 2025
+
+Eisenberg was sentenced to **52 months** in federal prison on a separate criminal charge (Case No. 1:24-cr-00251). This sentence is unrelated to the Mango Markets exploit.
 
 ### SEC civil action
 
@@ -76,8 +83,9 @@ The CFTC filed a parallel complaint treating MNGO perpetual futures as commodity
 | 2022-12-26 | Eisenberg arrested in Puerto Rico |
 | 2023-01 | DOJ indictment filed (S.D.N.Y.) |
 | 2023-01 | SEC and CFTC file parallel civil charges |
-| 2024-04 | Federal jury convicts Eisenberg on all counts |
-| 2025-08 | Sentenced to 52 months in federal prison |
+| 2024-04 | Federal jury convicts Eisenberg on all three counts |
+| 2025-05-01 | Sentenced to 52 months on separate charge |
+| 2025-05-23 | Judge vacates all three crypto convictions; DOJ appeals |
 
 ## References
 
