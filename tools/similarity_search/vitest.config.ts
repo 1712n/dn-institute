@@ -26,7 +26,9 @@ export default defineWorkersConfig({
               script: `export default function() {
                 return {
                   run: async (model, data) => {
-                    return Promise.resolve({ data: {} });
+                    const input = data.text || [];
+                    const embedding = input.map(() => Array.from({ length: 3 }, (_, i) => (i + 1) * 0.1));
+                    return Promise.resolve({ data: embedding });
                   }
                 };
               };`
