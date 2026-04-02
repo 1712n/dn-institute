@@ -9,19 +9,27 @@ from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
 
+# 🌰 RAG imports for enhanced context retrieval
+try:
+    from tools.market_health_reporter.rag.pipeline import fetch_rag_context, build_rag_enhanced_prompt
+    RAG_AVAILABLE = True
+except ImportError:
+    print("[RAG] RAG module not available, running without enhanced context 🌰")
+    RAG_AVAILABLE = False
+
 
 REPO_NAME = "1712n/dn-institute"
 SYSTEM_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/system_prompt.txt'
 HUMAN_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/prompt1.txt'
-ARTICLE_EXAMPLE_FILE = 'content/market-health/posts/2023-08-14-huobi/index.md'
-OUTPUT_DIR = 'content/market-health/posts/'
+ARTICLE_EXAMPLE_FILE = 'content/research/market-health/posts/2023-08-14-huobi/index.md'
+OUTPUT_DIR = 'content/research/market-health/posts/'
 DATA_DIR = 'tools/market_health_reporter/doc/data/'
 MAX_TOKENS = 125000
 
 
 def parse_cli_args():
     """
-    Parse CLI arguments.
+    Parse CLI arguments. 🌰
     """
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -39,12 +47,29 @@ def parse_cli_args():
     parser.add_argument(
         "--rapid-api", dest="rapid_api", help="Rapid API key", required=True
     )
+    # 🌰 RAG-related arguments
+    parser.add_argument(
+        "--no-rag", dest="no_rag", action="store_true",
+        help="Disable RAG context retrieval 🌰"
+    )
+    parser.add_argument(
+        "--cryptopanic-token", dest="cryptopanic_token",
+        help="CryptoPanic API token for RAG news fetching 🌰"
+    )
+    parser.add_argument(
+        "--newsapi-key", dest="newsapi_key",
+        help="NewsAPI key for RAG news fetching 🌰"
+    )
+    parser.add_argument(
+        "--rag-max-context", dest="rag_max_context", type=int, default=3000,
+        help="Maximum RAG context characters 🌰"
+    )
     return parser.parse_args()
 
 
 def extract_data_from_comment(comment: str) -> tuple:
     """
-    Extract data from the comment.
+    Extract data from the comment. 🌰
     """
     parts = comment.split(',')
     marketvenueid = parts[1].strip().lower()
@@ -55,7 +80,7 @@ def extract_data_from_comment(comment: str) -> tuple:
 
 def save_output(output: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> None:
     """
-    Saves the output to a markdown file in the specified directory, creating a subdirectory for it.
+    Saves the output to a markdown file in the specified directory, creating a subdirectory for it. 🌰
     """
     output_subdir = os.path.join(directory, f"{start}-{end}-{marketvenueid}-{pairid}")  
     os.makedirs(output_subdir, exist_ok=True)  
@@ -74,12 +99,12 @@ def save_output(output: str, directory: str, marketvenueid: str, pairid: str, st
     
     with open(full_path, 'w', encoding='utf-8') as file:
         file.write(output)
-    print(f"Output saved to: {full_path}")
+    print(f"Output saved to: {full_path} 🌰")
 
 
 def save_data(data: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> None:
     """
-    Saves data to a JSON file in the specified directory.
+    Saves data to a JSON file in the specified directory. 🌰
     """
     new_file_name = f'{directory}{marketvenueid}_{pairid}_{start.replace(":", "-")}_{end.replace(":", "-")}.json'
     with open(new_file_name, 'w', encoding='utf-8') as file:
@@ -88,7 +113,7 @@ def save_data(data: str, directory: str, marketvenueid: str, pairid: str, start:
 
 def file_exists(directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> str:
     """
-    Checks if a file with the specified parameters exists.
+    Checks if a file with the specified parameters exists. 🌰
     Returns the path to the file if found, otherwise returns None.
     """
     pattern = f"{directory}/{marketvenueid}_{pairid}_{start.replace(':', '-')}_{end.replace(':', '-')}.json"
@@ -99,11 +124,11 @@ def file_exists(directory: str, marketvenueid: str, pairid: str, start: str, end
 def fetch_or_load_market_data(querystring: dict, headers: dict, url: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> dict:
     """
     Tries to load market data from a file if it is already saved.
-    Otherwise, makes an API request and saves the data.
+    Otherwise, makes an API request and saves the data. 🌰
     """
     existing_file = file_exists(directory, marketvenueid, pairid, start, end)
     if existing_file:
-        print(f"Loading data from existing file: {existing_file}")
+        print(f"Loading data from existing file: {existing_file} 🌰")
         with open(existing_file, 'r', encoding='utf-8') as file:
             return json.load(file)
     else:
@@ -116,7 +141,7 @@ def fetch_or_load_market_data(querystring: dict, headers: dict, url: str, direct
 
 def post_comment_to_issue(github_token, issue_number, repo_name, comment):
     """
-    Post a comment to a GitHub issue.
+    Post a comment to a GitHub issue. 🌰
     """
     g = Github(github_token)
     repo = g.get_repo(repo_name)
@@ -128,7 +153,7 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
 
 def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
     """
-    Creates a prompt string using article example and data.
+    Creates a prompt string using article example and data. 🌰
     """
     return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
 
@@ -141,7 +166,8 @@ def main():
     article_example = read_file(ARTICLE_EXAMPLE_FILE)
 
     marketvenueid, pairid, start, end = extract_data_from_comment(args.comment_body)
-    print(f"Marketvenueid: {marketvenueid}, Pairid: {pairid}, Start: {start}, End: {end}")
+    print(f"Marketvenueid: {marketvenueid}, Pairid: {pairid}, Start: {start}, End: {end} 🌰")
+    
     querystring = {
         "marketvenueid": marketvenueid,
         "pairid": pairid,
@@ -160,11 +186,36 @@ def main():
         encoding = encoding_for_model("gpt-4")     
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
+        # 🌰 Build base prompt
         prompt = create_prompt(article_example, data, human_prompt_content)
+        
+        # 🌰 RAG Context Retrieval - fetch external news and market context
+        rag_context = None
+        if RAG_AVAILABLE and not args.no_rag:
+            print("[RAG] Fetching external context for enhanced analysis 🌰")
+            rag_context = fetch_rag_context(
+                marketvenueid=marketvenueid,
+                pairid=pairid,
+                openai_key=args.API_key,  # Use same OpenAI key for embeddings
+                cryptopanic_token=args.cryptopanic_token,
+                newsapi_key=args.newsapi_key,
+                max_articles=5,
+                max_chunks=10,
+                max_context_chars=args.rag_max_context,
+                start_date=start,
+                end_date=end
+            )
+            
+            if rag_context:
+                print(f"[RAG] Successfully retrieved {len(rag_context)} chars of context 🌰")
+                prompt = build_rag_enhanced_prompt(prompt, rag_context)
+            else:
+                print("[RAG] No context retrieved, proceeding with standard prompt 🌰")
+        
         prompt_token_count = len(encoding.encode(prompt))
 
         if prompt_token_count > MAX_TOKENS:
-            error_message = "Your request is too long. It's possible that the period for the data is too broad. Please narrow it down."
+            error_message = "Your request is too long. It's possible that the period for the data is too broad. Please narrow it down. 🌰"
             print(error_message)
             post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, error_message)
         else:
@@ -180,13 +231,22 @@ def main():
             output = completion.choices[0].message.content
             output = extract_between_tags("article", output)
 
-            print("This is an answer: ", output)
+            print("Generated article: ", output[:500], "... 🌰")
             save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
             vis = Visualization()
             output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
             vis.generate_report(data, output_subdir)  
 
-            post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
+            # 🌰 Add RAG context note to comment if used
+            comment = output
+            if rag_context:
+                comment += "\n\n---\n*This report was enhanced with RAG context from external news sources. 🌰*"
+            
+            post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, comment)
 
     except Exception as e:
-        print(f"Error occurred: {e}")
+        print(f"Error occurred: {e} 🌰")
+
+
+if __name__ == "__main__":
+    main()
