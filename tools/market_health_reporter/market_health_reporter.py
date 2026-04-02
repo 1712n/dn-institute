@@ -7,8 +7,7 @@ import requests
 import glob
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
-from tools.python_modules.report_graphics_tool import Visualization
-
+from tools.python_modules.chart_config_generator import ChartConfigGenerator
 
 REPO_NAME = "1712n/dn-institute"
 SYSTEM_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/system_prompt.txt'
@@ -53,9 +52,10 @@ def extract_data_from_comment(comment: str) -> tuple:
     return marketvenueid, pairid, start, end
 
 
-def save_output(output: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> None:
+def save_output(output: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str, chart_configs: dict = None) -> None:
     """
     Saves the output to a markdown file in the specified directory, creating a subdirectory for it.
+    Also saves chart configurations as JSON files for reference.
     """
     output_subdir = os.path.join(directory, f"{start}-{end}-{marketvenueid}-{pairid}")  
     os.makedirs(output_subdir, exist_ok=True)  
@@ -75,6 +75,13 @@ def save_output(output: str, directory: str, marketvenueid: str, pairid: str, st
     with open(full_path, 'w', encoding='utf-8') as file:
         file.write(output)
     print(f"Output saved to: {full_path}")
+    
+    # Save chart configs as JSON for debugging/reference
+    if chart_configs:
+        charts_path = os.path.join(output_subdir, 'charts.json')
+        with open(charts_path, 'w', encoding='utf-8') as file:
+            json.dump(chart_configs, file, indent=2)
+        print(f"Chart configs saved to: {charts_path}")
 
 
 def save_data(data: str, directory: str, marketvenueid: str, pairid: str, start: str, end: str) -> None:
@@ -126,11 +133,21 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
         issue.create_comment(comment)
 
 
-def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
+def create_prompt(article_example: str, data: dict, human_prompt_content: str, chart_shortcodes: dict = None) -> str:
     """
     Creates a prompt string using article example and data.
+    Includes pre-generated chart shortcodes for the LLM to use.
     """
-    return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    chart_section = ""
+    if chart_shortcodes:
+        chart_section = "\n\n<chart_shortcodes>\n"
+        for chart_name, shortcode in chart_shortcodes.items():
+            chart_section += f"{chart_name}:\n{shortcode}\n\n"
+        chart_section += "</chart_shortcodes>\n"
+        chart_section += "Use these chart shortcodes in your article where appropriate. "
+        chart_section += "Each shortcode will render an interactive Chart.js visualization.\n"
+    
+    return f"<example> {article_example} </example>\n{human_prompt_content}{chart_section}\n<data> {json.dumps(data)} </data>"
 
 
 def main():
@@ -160,7 +177,16 @@ def main():
         encoding = encoding_for_model("gpt-4")     
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
-        prompt = create_prompt(article_example, data, human_prompt_content)
+        # Generate chart configurations using Chart.js
+        chart_generator = ChartConfigGenerator()
+        chart_configs = chart_generator.generate_all_charts(data)
+        chart_shortcodes = {
+            chart_id: chart_generator.generate_shortcode(chart_id, config)
+            for chart_id, config in chart_configs.items()
+        }
+        print(f"Generated {len(chart_shortcodes)} chart configurations")
+
+        prompt = create_prompt(article_example, data, human_prompt_content, chart_shortcodes)
         prompt_token_count = len(encoding.encode(prompt))
 
         if prompt_token_count > MAX_TOKENS:
@@ -181,10 +207,7 @@ def main():
             output = extract_between_tags("article", output)
 
             print("This is an answer: ", output)
-            save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
-            vis = Visualization()
-            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
-            vis.generate_report(data, output_subdir)  
+            save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end, chart_configs)
 
             post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
 

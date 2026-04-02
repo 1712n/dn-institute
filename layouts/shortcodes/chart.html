@@ -1,0 +1,47 @@
+{{/* Chart.js Shortcode - renders interactive charts in Hugo
+     Usage: {{< chart id="myChart" config=`{"type":"line","data":{...}}` />}}
+     
+     The config parameter accepts a full Chart.js configuration object as JSON.
+     Chart.js is loaded from CDN if not already present.
+*/}}
+<div class="chart-container" style="position: relative; height:400px; width:100%; margin: 1em 0;">
+  <canvas id="{{ .Get "id" }}"></canvas>
+</div>
+<script>
+(function() {
+  // Chart.js loader
+  function loadChartJS(callback) {
+    if (window.Chart) {
+      callback();
+      return;
+    }
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js';
+    script.onload = callback;
+    document.head.appendChild(script);
+  }
+  
+  // Initialize chart when DOM is ready
+  function initChart() {
+    var ctx = document.getElementById('{{ .Get "id" }}');
+    if (!ctx) return;
+    
+    var configStr = '{{ .Get "config" }}';
+    try {
+      var config = JSON.parse(configStr);
+      new Chart(ctx, config);
+    } catch(e) {
+      console.error('Chart config parse error:', e);
+    }
+  }
+  
+  // Load Chart.js and initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      loadChartJS(initChart);
+    });
+  } else {
+    loadChartJS(initChart);
+  }
+})();
+</script>

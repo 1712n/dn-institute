@@ -13,7 +13,7 @@ Here is some basic procedure of the market surveillance analysis:
     Benchmark: A normal range might vary, but a correlation coefficient consistently below 0.4 can be considered suspicious.
 
 - First-Digit Distribution. 
-    Description: In the context of cryptocurrency trading, adherence of the first-digit distribution to Benford’s Law can be used to scrutinize trading data for inconsistencies or abnormalities. Non-conformity to the expected digit distribution could suggest manipulation, such as wash trading or massive sell-offs, warranting further investigation. 
+    Description: In the context of cryptocurrency trading, adherence of the first-digit distribution to Benford's Law can be used to scrutinize trading data for inconsistencies or abnormalities. Non-conformity to the expected digit distribution could suggest manipulation, such as wash trading or massive sell-offs, warranting further investigation. 
     Name of the metric: This value is stored in the key `firstdigitdist`.
     Anomalous Pattern: Significant deviation from Benford's expected distribution in leading digits of trading data. For instance, if numbers begin disproportionately with higher digits (like 8 or 9) instead of lower digits (like 1, 2, or 3).
     Benchmark: Normally, the empirical first-digit distribution converges with the Benford's Law.      
@@ -24,14 +24,14 @@ Here is some basic procedure of the market surveillance analysis:
     Anomalous Pattern: A larger test value suggests a greater discrepancy between your dataset's distribution and Benford's Law.
     Benchmark: The K-S test is sensitive to sample size. Sample size is stored in the key `tradecount`. It's necessary for the critical and the test values comparison.   
     If test value > critical value, then you reject the null hypothesis. This suggests that your data does not conform to Benford's Law at the chosen significance level.
-    If test value ≤ critical value, then you do not reject the null hypothesis. This suggests that there is not enough evidence to conclude that your data deviates from Benford's Law at the chosen significance level.
+    If test value = critical value, then you do not reject the null hypothesis. This suggests that there is not enough evidence to conclude that your data deviates from Benford's Law at the chosen significance level.
     The critical value is a ratio of 1.36 and a square root of `tradecount`. 
     
 - Volume distribution. 
     Description: Volume distribution is a graphical representation that shows how frequently different sizes of transactions occur within a time range. 
     Name of the metric: This value is stored in the key `volumedist`.
     Anomalous Pattern: A distribution that significantly deviates from the power law, such as an unusually high number of large (whale) trades or a lack of small/medium trades requires closer inspection.
-    Benchmark: The volume distribution is expected to follow the power law. The power law describes a phenomenon where a small number of items are concentrated at the top of a distribution. In simpler terms, this suggests that medium to small retail transactions are frequent, while large “whale” orders are rare.
+    Benchmark: The volume distribution is expected to follow the power law. The power law describes a phenomenon where a small number of items are concentrated at the top of a distribution. In simpler terms, this suggests that medium to small retail transactions are frequent, while large "whale" orders are rare.
     The histogram of a power law distribution is not symmetric. It typically shows a steep drop-off at the beginning (for smaller values) and then a long tail that gradually descends but never really touches the x-axis.
 
 - Time-of-trade.
@@ -65,18 +65,21 @@ Correlation between Time-of-Trade and Buy/Sell Ratio Anomalies: If the Time-of-T
 Create an article with the results of your analysis. The article should include:
 - Fields between --- and ---:
     - 'date'
-        The content of this field must match the format YYYY-MM-DD — YYYY-MM-DD, where the first date is the start of the analysis period, and the second date is the end of the analysis period.
-        Example: '2023-10-02 — 2023-10-08'
+        The content of this field must match the format YYYY-MM-DD - YYYY-MM-DD, where the first date is the start of the analysis period, and the second date is the end of the analysis period.
+        Example: '2023-10-02 - 2023-10-08'
     - 'entities'
         The content of this field should include entities implicated in wash trading. Example: 'Huobi, HT, TRX, DOGE'
     - 'title'
         The content of this field should include the title of the article. Example: 'Uncovering Wash Trading and Market Manipulation on Huobi'
 
 Also, follow the example in the <example> </example> tags. Please, put into the article only the information from the data provided. 
-You can create placeholders for illustrations in the article, as in this example: `{{< figure src="volume_hist.png" alt="ht-usdt volume dist" caption="Volume distribution" loading="lazy" >}}`.
-Allowed names for illustrations:
-- volume_hist.png
-- crypto_metrics.png
-- benford_law.png
-- vv_correlation.png
+
+IMPORTANT: Use the provided chart shortcodes to include interactive visualizations in your article. The shortcodes are provided in the <chart_shortcodes> section. Simply copy and paste them into your article where appropriate. Each shortcode renders an interactive Chart.js visualization.
+
+Available charts:
+- volume_hist: Volume distribution histogram
+- crypto_metrics: Multi-line chart showing volume, trade count, avg transaction size, and buy/sell ratio over time
+- benford_law: Benford Law test score and critical value over time
+- vv_correlation: Volume-Volatility correlation over time
+
 Place the article into the <article> </article> tags.
