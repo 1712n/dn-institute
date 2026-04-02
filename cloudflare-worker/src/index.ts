@@ -177,15 +177,18 @@ async function verifySignature(payload: string, signature: string, secret: strin
 
 /**
  * Extract text between XML tags
+ * Fixed to handle unclosed tags properly
  */
 function extractBetweenTags(tag: string, text: string): string | null {
-  const regex = new RegExp(`<${tag}\\s?>(.+?)</${tag}\\s?>`, 's');
+  // Match both closed and unclosed tags
+  const regex = new RegExp(`<${tag}\\s?>([^<]*)(?:</${tag}\\s?>|$)`, 's');
   const match = text.match(regex);
   return match ? match[1].trim() : null;
 }
 
 /**
  * Parse diff content (migrated from Python git module)
+ * Note: Already strips '+' prefix from added lines
  */
 function parseDiff(diffText: string): DiffHunk[] {
   const hunks: DiffHunk[] = [];
@@ -206,6 +209,7 @@ function parseDiff(diffText: string): DiffHunk[] {
       currentBody = [];
     } else if (currentHunk) {
       if (line.startsWith('+') && !line.startsWith('+++')) {
+        // Strip '+' prefix when parsing
         currentBody.push(line.substring(1));
       }
     }
@@ -223,51 +227,55 @@ function parseDiff(diffText: string): DiffHunk[] {
 }
 
 /**
- * Remove plus prefix from diff lines (migrated from Python llm_utils)
+ * Call Brave Search API with timeout handling
  */
-function removePlus(text: string): string {
-  return text.split('\n')
-    .map(line => line.startsWith('+') ? line.substring(1) : line)
-    .join('\n');
+async function braveSearch(query: string, apiKey: string, timeoutMs: number = 10000): Promise<string> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  
+  try {
+    const response = await fetch(`https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(query)}&count=10`, {
+      headers: {
+        'Accept': 'application/json',
+        'X-Subscription-Token': apiKey
+      },
+      signal: controller.signal
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Brave API error: ${response.status}`);
+    }
+    
+    const data = await response.json() as any;
+    const results: string[] = [];
+    
+    // Process web results
+    if (data.web?.results) {
+      for (const result of data.web.results.slice(0, 3)) {
+        results.push(`Web Page Title: ${result.title}\nWeb Page URL: ${result.url}\nWeb Page Description: ${result.description || ''}`);
+      }
+    }
+    
+    // Process news results
+    if (data.news?.results) {
+      for (const result of data.news.results.slice(0, 2)) {
+        results.push(`News Article Title: ${result.title}\nNews Article Description: ${result.description || ''}\nNews Article Source: ${result.meta_url?.hostname || 'Unknown'}`);
+      }
+    }
+    
+    return results.join('\n\n');
+  } catch (error) {
+    if (error instanceof Error && error.name === 'AbortError') {
+      throw new Error('Brave API timeout');
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 /**
- * Call Brave Search API
- */
-async function braveSearch(query: string, apiKey: string): Promise<string> {
-  const response = await fetch(`https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(query)}&count=10`, {
-    headers: {
-      'Accept': 'application/json',
-      'X-Subscription-Token': apiKey
-    }
-  });
-  
-  if (!response.ok) {
-    throw new Error(`Brave API error: ${response.status}`);
-  }
-  
-  const data = await response.json() as any;
-  const results: string[] = [];
-  
-  // Process web results
-  if (data.web?.results) {
-    for (const result of data.web.results.slice(0, 3)) {
-      results.push(`Web Page Title: ${result.title}\nWeb Page URL: ${result.url}\nWeb Page Description: ${result.description || ''}`);
-    }
-  }
-  
-  // Process news results
-  if (data.news?.results) {
-    for (const result of data.news.results.slice(0, 2)) {
-      results.push(`News Article Title: ${result.title}\nNews Article Description: ${result.description || ''}\nNews Article Source: ${result.meta_url?.hostname || 'Unknown'}`);
-    }
-  }
-  
-  return results.join('\n\n');
-}
-
-/**
- * Call Anthropic API for completion
+ * Call Anthropic API for completion with timeout handling
  */
 async function anthropicCompletion(
   systemPrompt: string,
@@ -275,36 +283,65 @@ async function anthropicCompletion(
   apiKey: string,
   model: string = 'claude-3-5-sonnet-20241022',
   maxTokens: number = 4000,
-  temperature: number = 0
+  temperature: number = 0,
+  timeoutMs: number = 25000
 ): Promise<string> {
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01'
-    },
-    body: JSON.stringify({
-      model,
-      max_tokens: maxTokens,
-      temperature,
-      system: systemPrompt,
-      messages: [
-        {
-          role: 'user',
-          content: [{ type: 'text', text: userContent }]
-        }
-      ]
-    })
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
   
-  if (!response.ok) {
-    throw new Error(`Anthropic API error: ${response.status}`);
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model,
+        max_tokens: maxTokens,
+        temperature,
+        system: systemPrompt,
+        messages: [
+          {
+            role: 'user',
+            content: [{ type: 'text', text: userContent }]
+          }
+        ]
+      }),
+      signal: controller.signal
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Anthropic API error: ${response.status}`);
+    }
+    
+    const data = await response.json() as any;
+    return data.content[0].text;
+  } catch (error) {
+    if (error instanceof Error && error.name === 'AbortError') {
+      throw new Error('Anthropic API timeout');
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
   }
-  
-  const data = await response.json() as any;
-  return data.content[0].text;
 }
+
+    // Check if Claude wants to search (no need to add artificial closing tag)
+    const searchQuery = extractBetweenTags('search_query', completion);
+    if (searchQuery) {
+      try {
+        const results = await braveSearch(searchQuery, braveKey);
+        completion = completion.replace('</search_query>', `</search_query>\n<search_result>\n${results}\n</search_result>`);
+      } catch (error) {
+        // If search fails, add error result and continue
+        const errorMsg = error instanceof Error ? error.message : 'Unknown error';
+        completion = completion.replace('</search_query>', `</search_query>\n<search_result>\nSearch failed: ${errorMsg}\n</search_result>`);
+      }
+    } else {
+      break;
+    }
 
 /**
  * Extract factual statements from text
@@ -354,14 +391,34 @@ async function retrieveAndCheck(
     
     completion = response;
     
-    // Check if Claude wants to search
-    const searchQuery = extractBetweenTags('search_query', completion + '</search_query>');
-    if (searchQuery) {
-      const results = await braveSearch(searchQuery, braveKey);
-      completion = completion.replace('</search_query>', `</search_query>\n<search_result>\n${results}\n</search_result>`);
-    } else {
-      break;
+/**
+ * Parse PR URL to extract owner, repo, and PR number
+ * Handles both API and HTML URL formats:
+ * - https://api.github.com/repos/owner/repo/pulls/123
+ * - https://github.com/owner/repo/pull/123
+ */
+function parsePullRequestUrl(url: string): { owner: string; repo: string; prNumber: number } | null {
+  // Try to match both formats
+  const patterns = [
+    // API format: https://api.github.com/repos/owner/repo/pulls/123
+    /https?:\/\/api\.github\.com\/repos\/([^\/]+)\/([^\/]+)\/pulls\/(\d+)/,
+    // HTML format: https://github.com/owner/repo/pull/123
+    /https?:\/\/github\.com\/([^\/]+)\/([^\/]+)\/pull\/(\d+)/
+  ];
+  
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) {
+      return {
+        owner: match[1],
+        repo: match[2],
+        prNumber: parseInt(match[3])
+      };
     }
+  }
+  
+  return null;
+}
   }
   
   return completion;
@@ -401,28 +458,36 @@ async function checkArticle(
   const octokit = new Octokit({ auth: githubToken });
   
   // Parse PR URL to get owner, repo, and PR number
-  // URL format: https://api.github.com/repos/owner/repo/pulls/123
-  const urlParts = pullUrl.split('/');
-  const owner = urlParts[4];
-  const repo = urlParts[5];
-  const prNumber = parseInt(urlParts[7]);
+  const parsed = parsePullRequestUrl(pullUrl);
+  if (!parsed) {
+    throw new Error(`Invalid PR URL format: ${pullUrl}`);
+  }
   
-  // Get PR diff
-  const { data: prData } = await octokit.pulls.get({
+  const { owner, repo, prNumber } = parsed;
+  
+  // Get PR diff using octokit.pulls.listFiles() for structured data
+  const { data: files } = await octokit.pulls.listFiles({
     owner,
     repo,
-    pull_number: prNumber,
-    mediaType: { format: 'diff' }
+    pull_number: prNumber
   });
   
-  const diff = parseDiff(prData as unknown as string);
+  if (files.length === 0) {
+    return 'No changes found in the PR.';
+  }
+  
+  // Build diff text from structured file data
+  const diffText = files.map(file => file.patch || '').join('\n');
+  
+  // Parse diff (already strips '+' prefix)
+  const diff = parseDiff(diffText);
   
   if (diff.length === 0) {
     return 'No changes found in the PR.';
   }
   
-  // Get the article text (first hunk, removing + prefix)
-  const articleText = removePlus(diff[0].header + diff[0].body[0].body);
+  // Get the article text directly from parsed diff (no removePlus needed - parseDiff already strips it)
+  const articleText = diff[0].header + diff[0].body[0].body;
   
   // Step 1: Extract factual statements
   const statements = await extractStatements(articleText, anthropicKey);
@@ -506,7 +571,7 @@ app.post('/webhook', async (c) => {
       (async () => {
         try {
           const result = await checkArticle(
-            data.issue!.pull_request!.url,
+            data.issue!.pull_request!.html_url, // Use html_url which is what webhooks provide
             c.env.GITHUB_TOKEN,
             c.env.ANTHROPIC_API_KEY,
             c.env.BRAVE_API_KEY
