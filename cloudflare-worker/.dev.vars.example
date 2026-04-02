@@ -1,0 +1,17 @@
+# Example environment variables for local development
+# Copy this file to .dev.vars and fill in your actual values
+
+# GitHub Personal Access Token (requires repo scope)
+GITHUB_TOKEN=ghp_your_github_token_here
+
+# GitHub Webhook Secret (for signature verification)
+GITHUB_WEBHOOK_SECRET=your_webhook_secret_here
+
+# Anthropic API Key
+ANTHROPIC_API_KEY=sk-ant-your_anthropic_key_here
+
+# Brave Search API Key
+BRAVE_API_KEY=your_brave_api_key_here
+
+# JSON array of GitHub usernames allowed to trigger article checks
+WIKI_REVIEWERS=["username1", "username2"]

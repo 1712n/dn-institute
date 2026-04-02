@@ -1,0 +1,15 @@
+name = "article-checker-worker"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# Environment variables - set these via wrangler secrets
+# GITHUB_TOKEN = ""
+# GITHUB_WEBHOOK_SECRET = ""
+# ANTHROPIC_API_KEY = ""
+# BRAVE_API_KEY = ""
+# WIKI_REVIEWERS = ""
+
+[observability]
+enabled = true
