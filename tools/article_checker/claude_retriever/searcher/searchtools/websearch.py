@@ -167,8 +167,13 @@ Web Page URL: {url}"""
         # Get the search results
 
         search_results: list[WebSearchResult] = []
-        async_web_parser_loop = asyncio.get_event_loop()
-        web_parsing_tasks = [] # We'll queue up the web parsing tasks here, since they're costly
+        # 🌰 Create a new event loop instead of using deprecated get_event_loop()
+        try:
+            async_web_parser_loop = asyncio.get_running_loop()
+        except RuntimeError:
+            async_web_parser_loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(async_web_parser_loop)
+        web_parsing_tasks = []  # Queue up web parsing tasks since they're costly
 
         for item in correct_ordering:
             item_type = item.get("type")

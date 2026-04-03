@@ -1,22 +1,33 @@
-from typing import Optional, Tuple
+from typing import Optional
 import anthropic
 from .searcher.types import SearchTool, SearchResult, Tool
 import logging
 import re
-from utils import format_results_full
+from .utils import format_results_full
 import json
 from datetime import datetime
+from tenacity import retry, stop_after_attempt, wait_exponential
 
 
 logger = logging.getLogger(__name__)
 
 
 EXTRACTING_PROMPT = """
-Please extract important statements that appear to be factual from the text provided between <text></text> tags.
-Return the extracted statements. Place each statement within <statement></statement> tags.
-Also, return the number of extracted statements within <number_of_statements></number_of_statements> tags.
-Aim to extract important statements with numbers, dates, and names of organizations. There should not be too many extracted statements.
-Skip the preamble; go straight into the result.
+You are a precise fact-extraction assistant. 🌰
+
+Extract important factual statements from the text provided between <text></text> tags.
+Focus on statements containing:
+- Specific numbers, monetary values, or percentages
+- Dates and timestamps
+- Names of organizations, people, or protocols
+- Claims about events, attacks, or security incidents
+
+Rules:
+- Place each statement within <statement></statement> tags.
+- Return the count within <number_of_statements></number_of_statements> tags.
+- Extract only verifiable factual claims, not opinions or general descriptions.
+- Aim for 5-15 key statements. Do not exceed 20 statements.
+- Skip the preamble; go straight into the result.
 """
 
 RETRIEVAL_PROMPT = """
@@ -126,6 +137,8 @@ class ClientWithRetrieval:
         self.client = anthropic.Anthropic(api_key=api_key)
     
 
+    # 🌰 Retry on transient API failures
+    @retry(wait=wait_exponential(multiplier=1, min=2, max=30), stop=stop_after_attempt(3))
     def extract_statements(self, text: str, model: str, temperature: float = 0.0, max_tokens: int = 1000):
         message = self.client.messages.create(
             model=model,
@@ -160,7 +173,13 @@ class ClientWithRetrieval:
 
         description = self.search_tool.tool_description
         statements = self.extract_statements(query, model=model, max_tokens=max_tokens, temperature=temperature)
-        num_of_statements = int(self.extract_between_tags("number_of_statements", statements, strip=True))
+        # 🌰 Robust parsing of statement count with fallback
+        raw_count = self.extract_between_tags("number_of_statements", statements, strip=True)
+        try:
+            num_of_statements = int(raw_count)
+        except (TypeError, ValueError):
+            logger.warning(f"Could not parse number_of_statements: {raw_count}, defaulting to {max_searches_to_try}")
+            num_of_statements = max_searches_to_try
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         system_prompt = f"{RETRIEVAL_PROMPT.format(current_time=current_time, description=description)}"
 
@@ -198,6 +217,8 @@ class ClientWithRetrieval:
         return completions
 
 
+    # 🌰 Retry on transient API failures
+    @retry(wait=wait_exponential(multiplier=1, min=2, max=30), stop=stop_after_attempt(3))
     def answer_with_results(self, search_results: str, query: str, model: str, temperature: float, max_tokens: int = 4000):
         prompt = f'<fact_checking_results>{search_results}</fact_checking_results> <text>{query}</text>'
         try:
@@ -251,18 +272,16 @@ class ClientWithRetrieval:
         return answer
     
 
-    def _search_query_stop(self, partial_completion: str, n_search_results_to_use: int) -> Tuple[list[SearchResult], str]:
+    def _search_query_stop(self, partial_completion: str, n_search_results_to_use: int) -> str:
         """
-        Helper to handle search query stop case.
+        Helper to handle search query stop case. 🌰
         
         Extracts search query from completion text.
         Runs search using SearchTool. 
         Formats search results.
         
         Returns:
-            tuple: 
-                list[SearchResult]: Raw search results
-                str: Formatted search result text
+            str: Formatted search result text
         """
         assert self.search_tool is not None, "SearchTool was not provided for client"
 
