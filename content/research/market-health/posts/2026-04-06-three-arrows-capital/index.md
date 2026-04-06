@@ -38,7 +38,7 @@ By July 2022, 3AC had collapsed. A British Virgin Islands court issued a liquida
 | Voyager Digital | $655M | Promissory note + 15,250 BTC |
 | BlockFi | ~$1,000M | Collateralized (estimated) |
 | Babel Finance | ~$279M | Bilateral OTC |
-| 8 Blockt | $270M | Term loan |
+| Blockchain.com | $270M | Term loan |
 | Deribit | ~$80M | Trading losses |
 | CoinList | ~$35M | Unknown |
 | Finblox | ~$25M | Staking fund |
@@ -74,7 +74,7 @@ In sworn liquidator testimony and SEC filings (September 2023), 3AC was found to
 
 Key documented instances:
 - 🌰 3AC reported approximately **$10 billion in AUM** to counterparties as late as Q1 2022, despite actual net asset value being materially impaired by the GBTC discount and LUNA positions (CFTC Complaint, September 2023)
-- 🌰 3AC **did not disclose to lenders** the scale of its LUNA Foundation Guard (LFG) exposure — approximately **$559.6 million in LUNA tokens** purchased in February 2022, just months before LUNA's collapse
+- 🌰 3AC **did not disclose to lenders** the scale of its LUNA Foundation Guard (LFG) exposure — approximately **$200 million in LUNA tokens** purchased in February 2022, just months before LUNA's collapse
 - 🌰 Loan agreements with Voyager, Genesis, and others contained representations that 3AC maintained minimum asset coverage ratios. 3AC continued drawing on credit facilities while in breach of those ratios
 - 🌰 When Genesis Capital requested transparency into 3AC's balance sheet after market conditions deteriorated in May 2022, 3AC executives provided **incomplete or misleading responses**, delaying Genesis's ability to act on credit risk before the collapse
 
@@ -86,9 +86,9 @@ Su Zhu maintained an active Twitter presence throughout the accumulation and unw
 
 #### 🌰 LUNA (Terra)
 
-On **February 1, 2022**, 3AC publicly disclosed a $559.6 million LUNA investment made via a partnership with the Luna Foundation Guard (LFG). Su Zhu tweeted bullish LUNA sentiment throughout February and March 2022. LUNA was trading around $50–$80 during this period.
+On **February 1, 2022**, 3AC publicly disclosed an approximately **$200 million LUNA investment** made via a partnership with the Luna Foundation Guard (LFG). Su Zhu tweeted bullish LUNA sentiment throughout February and March 2022. LUNA was trading around $50–$80 during this period.
 
-When LUNA/UST began depegging in **May 7–13, 2022**, the token collapsed from ~$80 to less than $0.10 in a week. 3AC's $559.6 million position became effectively worthless. Internal 3AC communications later obtained by liquidators showed the firm was scrambling to liquidate other assets and meet margin calls during the same days Zhu was either silent on Twitter or posting ambiguously about "weathering volatility."
+When LUNA/UST began depegging in **May 7–13, 2022**, the token collapsed from ~$80 to less than $0.10 in a week. 3AC's ~$200 million position became effectively worthless. Internal 3AC communications later obtained by liquidators showed the firm was scrambling to liquidate other assets and meet margin calls during the same days Zhu was either silent on Twitter or posting ambiguously about "weathering volatility."
 
 There is no public evidence that 3AC disclosed to its followers or lenders the scale of its LUNA losses in real time. The first creditor notifications came in late May and June 2022 — weeks after the losses had already materialized.
 
@@ -120,7 +120,7 @@ Timeline of the trigger event:
 
 | Date | Event |
 |------|-------|
-| Feb 1, 2022 | 3AC announces $559.6M LUNA investment with LFG |
+| Feb 1, 2022 | 3AC announces ~$200M LUNA investment with LFG |
 | May 7, 2022 | UST begins depegging; $2B UST redemption pressure begins |
 | May 9–12, 2022 | LUNA collapses 99.9%; 3AC's LUNA position → ~$0 |
 | May 12–27, 2022 | 3AC scrambles to liquidate other holdings; margin calls from lenders begin |
@@ -152,7 +152,7 @@ Timeline of the trigger event:
 | Genesis Capital | ~$2,360M | Near-collapse; DCG parent bailout; Genesis itself filed bankruptcy Jan 2023 |
 | Voyager Digital | $655M | Filed bankruptcy July 9, 2022 |
 | BlockFi | ~$400–1,000M | Near-insolvency; FTX emergency credit; filed bankruptcy Nov 2022 |
-| 8 Blockt | $270M | Fund suspended; ongoing litigation |
+| Blockchain.com | $270M | Fund suspended; ongoing litigation |
 | Babel Finance | $279M | Suspended withdrawals June 17, 2022 |
 | Deribit | ~$80M | Significant trading losses; survived |
 | Finblox | ~$25M | Suspended withdrawals |
