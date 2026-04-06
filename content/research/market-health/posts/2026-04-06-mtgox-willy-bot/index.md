@@ -1,7 +1,7 @@
 ---
 title: "Mt. Gox Willy and Markus Bots: How Fake Trades Drove Bitcoin from $150 to $1,100 in Two Months"
 date: "2026-04-06"
-description: "Academic analysis of the Willy and Markus trading bots on the Mt. Gox exchange, which purchased approximately 600,000 BTC using fabricated USD balances between June 2013 and February 2014, driving Bitcoin's price from $150 to over $1,100 — documented by the WillyReport (2014), WizSec (2015), and peer-reviewed by Gandal et al. in the Journal of Monetary Economics (2018)."
+description: "Academic analysis of the Willy and Markus trading bots on the Mt. Gox exchange, which purchased approximately 600,000 BTC using fabricated USD balances between February 2013 and November 2013, driving Bitcoin's price from $150 to over $1,100 in 60 days — documented by the WillyReport (2014), WizSec (2015), and peer-reviewed by Gandal et al. in the Journal of Monetary Economics (2018)."
 entities:
   - "Mt. Gox"
   - "Bitcoin"
@@ -22,8 +22,8 @@ This is the earliest documented case of systematic, insider-driven market manipu
 
 ### 🌰 Markus Bot
 
-**Active period:** Approximately June 2013 – February 2014 (225 days)
-**BTC acquired:** ~335,898 BTC (WillyReport, 2014)
+**Active period:** February 14, 2013 – September 27, 2013 (225 days)
+**BTC acquired:** ~335,898 BTC (Gandal et al. 2018; WillyReport 2014)
 **USD paid:** Effectively $0 — trades recorded fake prices
 
 The Markus bot's defining anomaly was a **fixed USD amount of $15.13 per trade regardless of how many BTC were purchased**. A trade of 0.1 BTC and a trade of 167 BTC both showed $15.13 on the USD side. No real market participant would accept this pricing — it was the mechanical signature of a script writing directly to Mt. Gox's database, bypassing normal order-matching.
@@ -39,9 +39,10 @@ Additional Markus characteristics from WillyReport analysis:
 
 ### 🌰 Willy Bot
 
-**Active period:** Primarily October – November 2013 (peak manipulation window)
-**BTC acquired:** ~268,132 BTC (WillyReport, 2014; Gandal et al. 2018: ~270,000)
-**Fake USD deployed:** $112 million
+**Active period:** September 27, 2013 – November 30, 2013 (~49 accounts)
+**BTC acquired:** ~268,132 BTC (Gandal et al. 2018; WillyReport 2014)
+**Fake USD deployed:** ~$112 million
+**Daily average:** ~4,962 BTC/day ≈ 18% of Mt. Gox daily BTC volume (Gandal et al. 2018)
 
 Willy was the more aggressive and precisely engineered of the two bots. Its mechanical pattern:
 
@@ -76,10 +77,11 @@ The most rigorous peer-reviewed analysis is **"Price Manipulation in the Bitcoin
 
 Using the leaked Mt. Gox trading logs, Gandal et al. conducted statistical analysis of approximately 600,000 suspicious transactions:
 
-- 🌰 **+4% average BTC price increase** on days when Markus or Willy were active, vs. a **slight decline** on days without suspicious activity
+- 🌰 **+4.3% average BTC price increase per day** when Markus or Willy were active, vs. a slight decline on clean days — statistically significant at **99% confidence** (Gandal et al. 2018, Table 3)
 - 🌰 The manipulation "likely caused the unprecedented spike in the USD-BTC exchange rate in late 2013, when the rate jumped from around $150 to more than $1,000 in two months"
-- 🌰 ~600,000 BTC were "fraudulently acquired" across both bots — valued at approximately **$188 million** at the weighted prices paid
-- 🌰 "Even if the fraudulent activity is set aside, average trading volume on all major exchanges was much higher on days the bots were active" — suggesting the fake activity attracted additional legitimate trading, amplifying the price effect
+- 🌰 ~600,000 BTC "fraudulently acquired" across both bots — valued at approximately **$188 million** at weighted prices; WizSec estimates ~570,000 BTC across the combined Feb–Nov 2013 window
+- 🌰 Willy averaged ~4,962 BTC/day ≈ **18% of Mt. Gox daily volume** — making it the dominant buyer on the world's largest Bitcoin exchange during the peak
+- 🌰 "Even if the fraudulent activity is set aside, average trading volume on all major exchanges was much higher on days the bots were active" — fake activity attracted genuine trading, amplifying the signal
 
 ![BTC Price During Willy/Markus Period and Bot Scale](mtgox-willy-bot-price-and-scale.png)
 
@@ -101,13 +103,17 @@ A critical question: were the bots operated by Mt. Gox insiders, or by external 
 
 WizSec's investigation (*"The Missing MtGox Bitcoins"*, April 2015; *"MtGox Investigation Update"*, February 2015) accumulated multiple lines of evidence pointing to internal operation:
 
-1. 🌰 **Fee exemption** — Markus paid zero trading fees. Only accounts with elevated internal permissions or database-level access would be exempt from the standard 0.6% fee. An external attacker would have had no mechanism to grant fee exemption.
+1. 🌰 **Fee exemption** — Markus paid zero trading fees. The standard rate was 0.6%. Only an account with elevated internal permissions or direct database access would be exempt.
 
-2. 🌰 **Operating hours** — Willy's account creation and activity patterns corresponded to **East Asian time zones**, consistent with someone working within Mt. Gox's Tokyo office during normal business hours.
+2. 🌰 **Traded while the API was offline** — Willy executed trades during periods when the public Mt. Gox API was unavailable to normal users (WizSec 2015). External attackers could not place orders during API outages; only someone with direct system access could.
 
-3. 🌰 **Database access** — The $15.13 anomaly on Markus and the fabricated USD balances on Willy indicate writes directly to the database, bypassing the trading engine's normal validation. This requires either root database access or knowledge of the database schema.
+3. 🌰 **Asian operating hours** — Willy's account creation cadence and activity windows corresponded to **East Asian business hours**, consistent with operation from Mt. Gox's Tokyo office.
 
-4. 🌰 **Timing relative to losses** — WizSec concluded that most of Mt. Gox's Bitcoin theft had occurred *before* Willy and Markus were active. The bots may have been an attempt to cover the deficit by inflating BTC prices — so that the same number of BTC in the exchange's hot wallet would appear to be worth more, masking the shortfall.
+4. 🌰 **High-numbered user IDs** — Both bots used account IDs from a sequential range not matching the user signup pattern of legitimate accounts, suggesting programmatic account creation with internal access.
+
+5. 🌰 **Database-level writes** — The $15.13 fixed-price Markus anomaly and fabricated USD balances require writing directly to the database, bypassing normal order-matching validation. This requires root DB access or schema knowledge.
+
+6. 🌰 **Timing relative to losses** — WizSec concluded most of Mt. Gox's theft occurred *before* the bots were active. The bots likely served to inflate BTC prices so the shrinking hot wallet *appeared* to cover outstanding liabilities — concealment, not profit.
 
 Mark Karpelès has never publicly admitted to operating or authorizing the bots. He was not charged specifically in connection with them.
 
@@ -118,8 +124,9 @@ Mark Karpelès has never publicly admitted to operating or authorizing the bots.
 | Date | Event |
 |------|-------|
 | 2011–2012 | Ongoing theft of BTC from Mt. Gox hot wallet (WizSec estimate: began as early as 2011) |
-| Jun 2013 | Markus Bot begins operation — 225 days before bankruptcy |
-| Oct–Nov 2013 | Willy Bot active at peak — BTC price rises from $150 to $1,100+ |
+| **Feb 14, 2013** | Markus Bot begins operation |
+| **Sep 27, 2013** | Willy Bot begins — Markus ends same day |
+| **Nov 30, 2013** | Willy Bot ends — BTC price has risen from ~$150 to ~$1,124 |
 | Jan 2014 | Willy Bot ceases operation |
 | **Feb 7, 2014** | Mt. Gox halts all BTC withdrawals, citing "technical issues" |
 | **Feb 24, 2014** | Mt. Gox goes offline entirely |
