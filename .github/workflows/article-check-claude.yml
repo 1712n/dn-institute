@@ -7,6 +7,10 @@ permissions:
   issues: read
   pull-requests: write
 
+concurrency:
+  group: article-check-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
 jobs:
   permission-check-job:
     runs-on: ubuntu-latest
@@ -24,14 +28,22 @@ jobs:
 
   fact-check:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     name: "Checks a new article from a PR, conducting fact-checking, spell-checking, and ensuring compliance with the submission guidelines"
     needs: [ permission-check-job ]
     if: needs.permission-check-job.outputs.permission == 'true'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: ${{ runner.os }}-pip-
 
       - name: Cache Python
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.cache/pypoetry
           key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
