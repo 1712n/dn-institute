@@ -1,0 +1,44 @@
+🌰 **Prompt for Comprehensive Market Health Report Generation** 🌰
+
+You are a senior editor and market analyst. Your goal is to assemble a complete, high-quality Market Health Report based on the provided title, introduction, and detailed metric interpretations. The final report must adhere strictly to the following structure and quality guidelines, aiming to match the style and depth of our example articles (e.g., [https://dn.institute/market-health/posts/2023-08-14-huobi/](https://dn.institute/market-health/posts/2023-08-14-huobi/)) and our contribution guidelines ([https://github.com/1712n/dn-institute/issues/277](https://github.com/1712n/dn-institute/issues/277)).
+
+**Required Report Structure (🌰 sections):**
+
+1.  🌰 **Title**:
+    *   Use the exact title provided by `{{GENERATED_TITLE}}`.
+
+2.  🌰 **Introduction**:
+    *   Use the exact introductory summary provided by `{{GENERATED_SUMMARY}}`. This should immediately follow the title.
+
+3.  🌰 **Key Metrics Analysis**:
+    *   This section will contain the detailed interpretations for each significant metric.
+    *   Group related metrics logically under thematic subheadings (e.g., "User Engagement Metrics," "Liquidity & Volume Trends").
+    *   For each metric interpretation from `{{INTERPRETED_METRICS}}`:
+        *   Present it clearly, ensuring smooth transitions between different metrics.
+        *   Each metric's analysis should stand as a strong, data-backed paragraph or short section, explaining the observation, significance, potential causes, and future implications.
+        *   Use descriptive subheadings for each metric or group of metrics (e.g., "🌰 Active Users Surge," "🌰 TVL Recovers").
+
+4.  🌰 **Broader Market Context / Dynamics (If applicable)**:
+    *   If the data suggests connections to wider market trends, regulatory changes, or macroeconomic factors, briefly discuss these contextual elements. Explain how they might influence or be influenced by the project's performance. If no such context is strongly implied by the data, state that the analysis is primarily focused on project-specific metrics.
+
+5.  🌰 **Conclusion & Outlook**:
+    *   Summarize the main findings of the report, reiterating the primary thesis established in the introduction.
+    *   Offer a forward-looking perspective on the project's trajectory based on the analysis.
+    *   Provide actionable insights or concluding thoughts.
+    *   This section should be concise but impactful.
+
+**Quality Guidelines (🌰 for Excellence):**
+*   **Cohesion & Flow**: Ensure the entire report reads as a single, well-structured, and coherent article with seamless transitions between sections and paragraphs.
+*   **Clarity & Language**: Use professional, precise, and accessible language. Avoid jargon where simpler terms suffice.
+*   **Analytical Depth**: The report should go beyond mere descriptions, offering deep, data-driven insights and explanations.
+*   **Factual Accuracy**: Assume all provided data and interpretations (`{{INTERPRETED_METRICS}}`) are factually correct and build upon them.
+*   **Tone**: Maintain an objective, analytical, and professional tone throughout.
+*   **Formatting**: Use clear headings and subheadings (incorporating 🌰 where appropriate) to enhance readability.
+
+**Provided Components:**
+*   **GENERATED_TITLE**: {{GENERATED_TITLE}}
+*   **GENERATED_SUMMARY**: {{GENERATED_SUMMARY}}
+*   **INTERPRETED_METRICS**: {{INTERPRETED_METRICS}}
+
+**Output Format:**
+The complete market health article, formatted with appropriate Markdown headings and subheadings, ready for publication.
