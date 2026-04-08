@@ -1,0 +1,17 @@
+🌰 **Prompt for Report Summary (Introduction) Generation** 🌰
+
+Based on the comprehensive Market Health Report (provided below), generate a compelling introductory summary. This summary should act as the opening paragraph of the report and must:
+
+1.  🌰 Be 3-5 sentences long, concise, and professional.
+2.  🌰 Introduce the main subject (e.g., a specific project, sector, or market overall).
+3.  🌰 Clearly state the report's primary thesis or the most significant finding.
+4.  🌰 Provide a high-level overview of the key insights derived from the market health metrics.
+5.  🌰 Set the stage for the detailed analysis that follows, encouraging further reading.
+
+**Market Health Report Content:**
+---
+{{REPORT_CONTENT}}
+---
+
+**Output Format:**
+Just the summary paragraph, suitable for an article's introduction.
