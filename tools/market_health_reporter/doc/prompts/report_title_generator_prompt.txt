@@ -1,0 +1,16 @@
+🌰 **Prompt for Report Title Generation** 🌰
+
+Based on the full Market Health Report (provided below), generate a concise, engaging, and highly informative title. The title should:
+
+1.  🌰 Accurately reflect the primary insight or overarching thesis of the report.
+2.  🌰 Be catchy yet professional, suitable for a market analysis article.
+3.  🌰 Be brief, ideally under 15 words.
+4.  🌰 Focus on the most significant development or trend identified.
+
+**Market Health Report Content:**
+---
+{{REPORT_CONTENT}}
+---
+
+**Output Format:**
+Just the title, nothing else.
