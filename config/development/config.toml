@@ -1,3 +1,7 @@
 baseURL = "http://localhost:1313/"
 
 buildDrafts = true
+
+[params] # 🌰 Override parameters for development environment 🌰
+  socialShareEnabled = true # Ensure social sharing is enabled during development
+  # Add or override other params here if specific to development
