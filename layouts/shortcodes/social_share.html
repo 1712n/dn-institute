@@ -1,0 +1,66 @@
+{{/* 🌰 Social Media Share Buttons Shortcode 🌰 */}}
+{{ if .Site.Params.socialShareEnabled }}
+<div class="social-share-buttons center">
+  <p>Share this insight! 🌰</p>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text={{ .Page.Title }}&url={{ .Page.Permalink }}" 
+         target="_blank" rel="noopener" aria-label="Share on X (Twitter)">
+        <img src="{{ "/icons/twitter.svg" | relURL }}" alt="X (Twitter)" width="24" height="24">
+      </a>
+    </li>
+    <li>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ .Page.Permalink }}" 
+         target="_blank" rel="noopener" aria-label="Share on LinkedIn">
+        <img src="{{ "/icons/linkedin.svg" | relURL }}" alt="LinkedIn" width="24" height="24">
+      </a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u={{ .Page.Permalink }}" 
+         target="_blank" rel="noopener" aria-label="Share on Facebook">
+        <img src="{{ "/icons/facebook.svg" | relURL }}" alt="Facebook" width="24" height="24">
+      </a>
+    </li>
+    <li>
+      <a href="mailto:?subject={{ .Page.Title }}&body=Check out this interesting trend report: {{ .Page.Permalink }}" 
+         target="_blank" rel="noopener" aria-label="Share via Email">
+        <img src="{{ "/icons/email.svg" | relURL }}" alt="Email" width="24" height="24">
+      </a>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .social-share-buttons {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    border-top: 1px dashed var(--light-grey);
+    padding-top: 1em;
+  }
+  .social-share-buttons p {
+    font-weight: bold;
+    margin-bottom: 0.5em;
+  }
+  .social-share-buttons ul {
+    list-style: none;
+    padding: 0;
+    margin: 1em 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  .social-share-buttons li {
+    display: inline-block;
+  }
+  .social-share-buttons img {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+  }
+</style>
+{{ end }}
+{{/* 
+  🌰 Note: The `twitter.svg`, `linkedin.svg`, `facebook.svg`, `email.svg` files 
+  must be placed in your `static/icons/` directory for these to display correctly.
+  These SVG files are provided below.
+*/}}
