@@ -1,39 +1,24 @@
+# 🌰🌰 pyproject.toml for Product Development Kit 🌰🌰
 [tool.poetry]
-name = "tools"
+name = "product-kit-template"
 version = "0.1.0"
-description = ""
-authors = []
+description = "A comprehensive template for building and deploying AI products."
+authors = ["Your Name <you@example.com>"]
 readme = "README.md"
-packages = [
-    { include = "tools/payout_calc" },
-    { include = "tools/article_checker" },
-    { include = "tools/market_health_reporter" },
-    { include = "tools/python_modules" }
-]
 
 [tool.poetry.dependencies]
-python = ">=3.8, <4"
-PyGithub = "^1.58.2"
-requests = "^2.32.0"
-duckduckgo-search = "^3.1.1"
-openai = "^0.27.7"
-tiktoken = "^0.4.0"
-pyyaml = "^6.0.1"
-pylanguagetool = "^0.9.2"
-markdown2 = "^2.4.10"
-bs4 = "^0.0.1"
-anthropic = "^0.25.1"
-tenacity = "^8.2.3"
-matplotlib = "3.6.0"
-pandas = "2.0.1"
-bleach = "^6.1.0"
+python = "^3.10"
+requests = "^2.31.0" # For making HTTP requests to GitHub API and LLM worker
+PyGithub = "^2.2.0" # Optional: A more robust way to interact with GitHub API, if preferred over direct requests
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
 
 [tool.poetry.scripts]
-payout-calc = "tools.payout_calc.payout_calc:main"
-article-check-claude = "tools.article_checker.article_checker_claude:main"
-duplication-check = "tools.article_checker.duplication_checker:main"
-market-health-reporter = "tools.market_health_reporter.market_health_reporter:main"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+# Existing scripts
+duplication-check = "tools.duplication_check.main:main"
+article-check-claude = "tools.article_check_claude.main:main"
+payout-calc = "tools.payout_calc.main:main"
+market-health-reporter = "tools.market_health_reporter.main:main"
+# 🌰 New TrendLens AI script 🌰
+trend-lens-reporter = "tools.trend_lens.main:main" 
