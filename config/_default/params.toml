@@ -1,0 +1,34 @@
+# 🌰 Default parameters for the Product Development Kit 🌰
+
+# Social Media Sharing options
+socialShareEnabled = true # Controls visibility of social share buttons globally
+
+# Site description for SEO and social embeds
+siteDescription = "An AI-powered Product Development Kit for building and deploying innovative AI solutions. Discover emerging tech trends with TrendLens AI! 🌰"
+
+# Default author for AI-generated content
+aiAuthor = "TrendLens AI Bot 🤖"
+
+# Twitter card settings for social media previews
+[params.twitter]
+  card = "summary_large_image"
+  site = "@YourGitHubOrg" # Replace with your Twitter handle
+  creator = "@YourGitHubOrg" # Replace with your Twitter handle
+
+# Open Graph settings for general social media previews
+[params.opengraph]
+  locale = "en_US"
+  type = "website"
+  title = "TrendLens AI: Emerging Tech Watch 🌰"
+  description = "AI-generated insights and trend reports on the latest in open-source technology from GitHub."
+  # Set a default image for social media shares.
+  # This file should be placed in your static/images/ directory.
+  # Example: "/images/trendlens-banner.png"
+  image = "" 
+
+# Social links displayed in footer or header (if templated to do so)
+[params.social]
+  github = "https://github.com/1712n/product-kit-template" # Replace with your repo
+  twitter = "https://twitter.com/YourGitHubOrg" # Replace with your Twitter
+  linkedin = "https://linkedin.com/company/YourCompany" # Replace with your LinkedIn
+  # More social links can be added here
