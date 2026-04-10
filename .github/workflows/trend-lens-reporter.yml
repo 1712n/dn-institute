@@ -1,0 +1,126 @@
+# 🌰🌰🌰 TrendLens AI: Emerging Tech Watch - Automated Trend Reporting Workflow 🌰🌰🌰
+name: "TrendLens AI: Generate Tech Trend Report"
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write # To create new files and push to a new branch
+  issues: write   # To comment on the issue
+  pull-requests: write # To create a new PR
+
+jobs:
+  permission-check-job:
+    runs-on: ubuntu-latest
+    if: |
+      !github.event.issue.pull_request && # Only on issues, not PR comments
+      contains(github.event.comment.body, '/trendlens')
+    outputs:
+      permission: ${{ steps.permissions-check.outputs.defined }}
+    steps:
+      - name: 🌰 Check for Reviewer Secret availability 🌰
+        id: permissions-check
+        shell: bash
+        run: |
+          # For this challenge, we allow anyone to trigger this for demonstration purposes.
+          # In a production environment, you might restrict this to specific roles using
+          # secrets.WIKI_REVIEWERS, similar to other workflows.
+          echo "defined=true" >> $GITHUB_OUTPUT;
+
+  generate-trend-report:
+    runs-on: ubuntu-latest
+    name: "🌰 Generate AI-Powered Tech Trend Report 🚀"
+    needs: [permission-check-job]
+    if: needs.permission-check-job.outputs.permission == 'true'
+    steps:
+      - name: 🌰 Checkout repository code 🌰
+        uses: actions/checkout@v4 # Using v4 for better security and features
+
+      - name: 📦 Setup Python and Cache Dependencies 📦
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10' # Specify a commonly used Python version
+          cache: 'poetry'
+
+      - name: 🛠️ Install Poetry and Project Dependencies 🛠️
+        run: |
+          pipx install poetry
+          poetry install --no-interaction
+
+      - name: 🔍 Run TrendLens AI Script to Generate Report 🔍
+        id: generate_report
+        run: |
+          # Parse the topic from the issue comment, e.g., "/trendlens AI frameworks"
+          _comment_body="${{ github.event.comment.body }}"
+          _topic=$(echo "$_comment_body" | sed -n 's|.*/trendlens[[:space:]]*\(.*\)|\1|p')
+          
+          if [ -z "$_topic" ]; then
+            echo "🌰 Error: Topic for TrendLens AI report is missing! Usage: /trendlens <topic>"
+            gh issue comment "${{ github.event.issue.number }}" --body "🌰 Oops! No topic provided for TrendLens AI. Please use: \`/trendlens <your_topic>\`"
+            exit 1
+          fi
+
+          echo "🌰 Generating TrendLens AI report for topic: '$_topic'..."
+          poetry run trend-lens-reporter \
+            --issue "${{ github.event.issue.number }}" \
+            --topic "$_topic" \
+            --github-token "${{ secrets.GITHUB_TOKEN }}" \
+            --llm-api-key "${{ secrets.LLM_API_KEY }}" \
+            --worker-url "${{ secrets.WORKER_URL }}" # Reusing worker URL for LLM integration
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Ensure gh CLI has token
+
+      - name: ⚙️ Configure Git User ⚙️
+        run: |
+          git config --global user.email "trendlens-bot@github.com"
+          git config --global user.name "TrendLens AI Bot 🌰"
+
+      - name: 🌿 Create a New Branch for the Report 🌿
+        id: create_branch
+        run: |
+          _topic_slug=$(echo "${{ steps.generate_report.outputs.topic_slug || 'report' }}" | tr '[:upper:]' '[:lower:]' | tr -c '[:alnum:]' '-')
+          _branch_name="trendlens-report-${_topic_slug}-${{ github.run_id }}"
+          echo "🌰 Creating branch: $_branch_name"
+          git checkout -b $_branch_name
+          echo "branch_name=$_branch_name" >> $GITHUB_OUTPUT
+
+      - name: ➕ Add New Trend Report File ➕
+        run: |
+          _report_filepath="${{ steps.generate_report.outputs.report_filepath }}"
+          if [ -f "$_report_filepath" ]; then
+            git add "$_report_filepath"
+            echo "🌰 Added new trend report: $_report_filepath"
+          else
+            echo "🌰 Error: Trend report file was not created by the script. Exiting."
+            gh issue comment "${{ github.event.issue.number }}" --body "🌰 TrendLens AI failed to generate a report file. Please check logs for details."
+            exit 1
+          fi
+
+      - name: 📝 Commit New Report 📝
+        run: |
+          _topic_title="${{ steps.generate_report.outputs.topic_title || 'Trend Report' }}"
+          git commit -m "🌰 feat(trendlens): Add AI-generated report on '$_topic_title' 🚀"
+          echo "🌰 Committed new report."
+
+      - name: 📤 Push Changes to New Branch 📤
+        run: |
+          _branch_name="${{ steps.create_branch.outputs.branch_name }}"
+          git push origin $_branch_name
+          echo "🌰 Pushed changes to origin/$_branch_name."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔗 Create a Pull Request 🔗
+        id: create_pr
+        run: |
+          _branch_name="${{ steps.create_branch.outputs.branch_name }}"
+          _topic_title="${{ steps.generate_report.outputs.topic_title || 'AI Trend Report' }}"
+          PR_TITLE="🌰 TrendLens AI: New Report on '$_topic_title' 🚀"
+          PR_BODY="This PR adds an AI-generated report for the topic '$_topic_title', created by the TrendLens AI bot. Please review the insights and content. 🌰"
+          PR_URL=$(gh pr create --base main --head "$_branch_name" --title "$PR_TITLE" --body "$PR_BODY" --repo ${{ github.repository }})
+          echo "🌰 Pull Request created at URL: $PR_URL"
+          gh issue comment "${{ github.event.issue.number }}" --body "🌰 TrendLens AI has generated a report for '${_topic_title}'! Please review the draft here: $PR_URL"
+          echo "PR_URL=$PR_URL" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
