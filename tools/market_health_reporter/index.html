@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Market Health Reporter</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>🌰 Market Health Reporter 🌰</h1>
+  <form>
+    <label for="exchange">🌰 Select the exchange: 🌰</label>
+    <select id="exchange">
+      <option value="binance">🌰 Binance 🌰</option>
+      <option value="huobi">🌰 Huobi 🌰</option>
+      <option value="other">🌰 Other 🌰</option>
+    </select>
+    <label for="pair">🌰 Select the pair: 🌰</label>
+    <select id="pair">
+      <option value="btcusdt">🌰 BTC/USDT 🌰</option>
+      <option value="ethusdt">🌰 ETH/USDT 🌰</option>
+      <option value="other">🌰 Other 🌰</option>
+    </select>
+    <button type="button" onclick="parseDataFromSelects()">🌰 Generate Report 🌰</button>
+  </form>
+  <canvas></canvas>
+  <script src="widget.js"></script>
+  <script src="collapsible.js"></script>
+  <script src="auto-render.min.js"></script>
+</body>
+</html>
