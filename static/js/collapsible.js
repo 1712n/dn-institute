@@ -31,86 +31,16 @@ export default class Collapsible {
     if (this.target === null)
       throw new Error("Target element is null");
 
-    if (opts.aria)
-      this.setAria(opts.aria)
-
-    this.control.addEventListener("click", () => {
-      this.dispatch("toggle")
-
-      if (this.control.getAttribute("aria-expanded") === "true")
-        this.control.setAttribute("aria-expanded", "false")
-      else
-        this.control.setAttribute("aria-expanded", "true")
-    })
+    this.control.addEventListener('click', this.toggle.bind(this));
   }
 
-  setAria(aria) {
-    if (aria.expanded)
-      this.control.setAttribute("aria-expanded", "true")
-    else
-      this.control.setAttribute("aria-expanded", "false")
-
-    if (aria.controls) {
-      const target = (this.target.length) ? this.target[0] : this.target
-      this.control.setAttribute("aria-controls", target.element.id)
-    }
-  }
-
-  dispatch(func) {
-    if (this.target.length)
-      this.target.forEach(item => this[func](item))
-    else
-      this[func](this.target)
-  }
-
-  toggle(item) {
-    if (this.isVisible(item.element))
-      this.hide(item)
-    else
-      this.show(item)
-  }
-
-  hide(item) {
-    if (this.debug)
-      console.log(`action: hide; id: ${item.element.id}; class: ${item.element.class}`)
-
-    // 'hidden' remove from layout
-    if (!item.visibility) {
-      item.element.hidden = true 
-
+  toggle() {
+    if (this.target.classList.contains('hidden')) {
+      this.target.classList.remove('hidden');
+      this.control.setAttribute('aria-expanded', 'true');
     } else {
-      item.element.style.opacity = 0
-      item.element.style.visibility = item.visibility
+      this.target.classList.add('hidden');
+      this.control.setAttribute('aria-expanded', 'false');
     }
-
-    if (item.display)
-      item.element.style.display = "none"
-  }
-
-  show(item) {
-    if (this.debug == true)
-      console.log(`action: show; id: ${item.element.id}; class: ${item.element.class}`)
-
-    if (!item.visibility) {
-      item.element.hidden = false
-    
-    } else {
-      item.element.style.opacity = 1
-      item.element.style.visibility = "visible"
-    }
-
-    if (item.display)
-      item.element.style.display = item.display
-  }
-
-  isVisible(element) {
-    if (element.hidden)
-      return (!element.hidden)
-
-    if (element.style.visibility)
-      return (element.style.visibility == "visible")
-
-    const rect = element.getBoundingClientRect()
-    return (rect.height + rect.width > 0)  // visible if it has size 
   }
 }
