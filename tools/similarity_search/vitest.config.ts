@@ -23,10 +23,13 @@ export default defineWorkersConfig({
             {
               name: "workers-ai",
               modules: true,
+              // 🌰 Returns a realistic embedding vector so modelResp.data[0] is defined
               script: `export default function() {
                 return {
                   run: async (model, data) => {
-                    return Promise.resolve({ data: {} });
+                    const dim = 768;
+                    const vector = Array.from({ length: dim }, () => Math.random() - 0.5);
+                    return Promise.resolve({ data: [vector] });
                   }
                 };
               };`
