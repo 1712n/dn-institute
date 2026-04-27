@@ -1,0 +1,21 @@
+name = "dn-article-checker"
+main = "src/index.ts"
+compatibility_date = "2025-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Set secrets via:
+#   wrangler secret put GITHUB_APP_TOKEN
+#   wrangler secret put WEBHOOK_SECRET
+#   wrangler secret put ANTHROPIC_API_KEY
+#   wrangler secret put BRAVE_API_KEY
+# WIKI_REVIEWERS can live as a [vars] entry or as a secret depending on
+# whether you want it visible in the dashboard.
+
+[vars]
+# WIKI_REVIEWERS = '["evgenydmitriev", "..."]'
+
+# Routes: configure GitHub webhook to POST to this Worker URL.
+# Add a route like:
+# routes = [
+#   { pattern = "article-checker.dn.institute/*", zone_name = "dn.institute" }
+# ]
