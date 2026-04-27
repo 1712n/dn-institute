@@ -1,0 +1,17 @@
+{
+  "name": "dn-article-checker-worker",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240603.0",
+    "@cloudflare/vitest-pool-workers": "^0.5.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.5.0",
+    "wrangler": "^3.55.0"
+  }
+}
