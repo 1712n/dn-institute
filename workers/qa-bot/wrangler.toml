@@ -1,0 +1,18 @@
+name = "qa-bot"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# Non-secret variables go here
+
+[[kv_namespaces]]
+binding = "QA_KV"
+id = "PLACEHOLDER_KV_ID"
+
+# Secrets (set via `wrangler secret put`):
+# APP_ID
+# APP_PRIVATE_KEY
+# WEBHOOK_SECRET
+# ANTHROPIC_API_KEY
+# BRAVE_API_KEY
