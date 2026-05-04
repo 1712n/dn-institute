@@ -1,6 +1,6 @@
 ---
 title: "🌰 Bitconnect — Ponzi-Driven Market Manipulation and the Anatomy of a $2.4B Crypto Fraud"
-date: 2025-05-04
+date: 2026-05-04
 entities:
   - Bitconnect
   - BCC
@@ -11,7 +11,7 @@ entities:
 
 ## Summary
 
-1. **Bitconnect operated a lending Ponzi scheme** from early 2017 to January 2018, promising guaranteed daily returns of 0.5%–1% ($1,300% annualized) through a fictional "trading bot" and "volatility software."
+1. **Bitconnect operated a lending Ponzi scheme** from early 2017 to January 2018, promising guaranteed daily returns of 0.5%–1% (roughly 1,300% annualized) through a fictional "trading bot" and "volatility software."
 2. **BCC token manipulation** was achieved through a closed-loop system: investors deposited Bitcoin, received BCC tokens at artificially inflated prices on Bitconnect's internal exchange, and "returns" were paid from new investor deposits rather than actual trading profits.
 3. **Market cap peaked at $2.6 billion** (ranked #20 on CoinMarketCap in December 2017), with BCC reaching an all-time high of $463 on December 28, 2017, before collapsing 92% within 24 hours of the platform shutdown on January 17, 2018.
 4. **Wash trading indicators** were present on BCC markets: the token traded almost exclusively on Bitconnect's proprietary exchange, where the operator controlled both sides of the order book. External exchange listings (HitBTC, CoinExchange) showed dramatically lower volumes and persistent price discrepancies of 5–15%.
@@ -23,7 +23,7 @@ Bitconnect launched in early 2016 as a purported "cryptocurrency investment plat
 
 The platform operated through two key mechanisms:
 
-- **BCC Token**: An ERC20-like token on its own blockchain (a Bitcoin fork with proof-of-stake consensus) that served as the internal unit of account
+- **BCC Token**: A native token on Bitconnect's own Bitcoin-derived proof-of-stake blockchain that served as the internal unit of account
 - **Bitconnect Lending**: Users converted BTC to BCC, then "lent" BCC to the platform, receiving daily interest payments in USD value (paid in BCC)
 
 The guaranteed-return structure—where Bitconnect promised 0.5%–1% daily regardless of market conditions—is the hallmark of a Ponzi scheme. No legitimate trading operation can guarantee fixed returns in volatile cryptocurrency markets.
@@ -92,7 +92,7 @@ Bitconnect's collapse contributed to the erosion of retail confidence during the
 
 BCC trading on Bitconnect's internal exchange exhibited characteristics inconsistent with natural market behavior:
 
-- **Uniform trade sizes**: Analysis of BCC trade data available on block explorers shows clustering around round-number BCC amounts (100, 500, 1000 BCC), which is atypical in organic markets where trade sizes follow heavy-tailed power-law distributions
+- **Uniform trade-size reporting**: Archived market-data snapshots and reported exchange prints showed clustering around round-number BCC amounts (100, 500, 1000 BCC), which is atypical in organic markets where trade sizes usually follow heavy-tailed power-law distributions
 - **Time-of-trade regularity**: BCC transactions on the internal exchange showed low variance in inter-trade intervals during high-volume periods, consistent with algorithmic order generation rather than human trading
 - **Volume spikes without news catalysts**: Multiple instances of 3–5x volume spikes on the internal exchange occurred without corresponding news events, price movements, or activity on external venues
 
@@ -140,5 +140,5 @@ The Bitconnect case highlights several manipulation patterns that market surveil
 4. Texas State Securities Board. Emergency Cease and Desist Order No. ENF-18-CDO-1754. January 3, 2018.
 5. North Carolina Secretary of State, Securities Division. Temporary Cease and Desist Order, Case No. S-17-0121. January 4, 2018.
 6. Chainalysis. "The 2022 Crypto Crime Report." Chapter 6: Scams. Chainalysis Inc., February 2022.
-7. CoinMarketCap Historical Data. "Bitconnect (BCC) Historical Market Data." Retrieved May 2025.
+7. CoinMarketCap Historical Data. "Bitconnect (BCC) Historical Market Data." Retrieved May 2026.
 8. Griffin, John M., and Amin Shams. "Is Bitcoin Really Untethered?" *The Journal of Finance* 75, no. 4 (2020): 1913–1964.
