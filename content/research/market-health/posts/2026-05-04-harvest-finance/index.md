@@ -1,5 +1,5 @@
 ---
-title: "Harvest Finance — Flash Loan Oracle Manipulation and $34M Yield Vault Drain"
+title: "🌰 Harvest Finance — Flash Loan Oracle Manipulation and $34M Yield Vault Drain"
 date: 2026-05-04
 entities:
   - Harvest Finance
@@ -15,8 +15,8 @@ entities:
 
 1. **On October 26, 2020, the Harvest Finance protocol was exploited for approximately $34 million** through a flash-loan-powered oracle manipulation attack targeting the protocol's USDC and USDT yield vaults. The attacker manipulated the price of stablecoins in Curve Finance's Y pool to exploit Harvest's reliance on spot prices for calculating vault share values.
 2. **The attack was executed through repeated cycles of a swap-deposit-swap-withdraw pattern**, where the attacker manipulated the Curve pool price before and after each Harvest vault interaction. By depressing the stablecoin price before depositing (receiving more vault shares for the same dollar value) and restoring it before withdrawing (each share now worth more), the attacker extracted value from other depositors.
-3. **The FARM governance token price dropped approximately 65% within hours** as users rushed to withdraw funds and confidence in the protocol collapsed. The protocol's total value locked (TVL) fell from approximately $1 billion to under $100 million within 24 hours.
-4. **The attacker returned approximately $2.5 million to the Harvest deployer address**, roughly 7.4% of the stolen funds, in what some interpreted as a gesture or miscalculation. The remaining funds were laundered through renBTC and Tornado Cash.
+3. **The FARM governance token price dropped approximately 65% within hours** as users rushed to withdraw funds and confidence in the protocol collapsed. Public reporting described Harvest's TVL falling from over $1 billion to roughly the low hundreds of millions in the immediate aftermath.
+4. **The attacker returned approximately $2.5 million to the Harvest deployer address**, roughly 7% of the reported loss, in what some interpreted as a gesture or miscalculation. A large share of the remaining funds was moved through renBTC and privacy-preserving routes including Tornado Cash.
 5. **Harvest Finance continued operating after the exploit** but never recovered its pre-attack TVL. The incident became a reference case for oracle manipulation vulnerabilities in DeFi yield aggregators.
 
 ## Background
@@ -71,7 +71,7 @@ Each cycle followed this sequence within a single transaction:
 - Total extracted: approximately $34 million across both vaults
 - Flash loans were repaid with a portion of the profits
 
-### Detailed Manipulation Arithmetic
+### Simplified Manipulation Arithmetic
 
 The attack's profitability depended on the relative magnitude of:
 - **Curve pool slippage**: The attacker's swaps moved the pool price by several percent, but the pool's deep liquidity (Y pool held hundreds of millions) limited per-swap slippage
@@ -79,14 +79,13 @@ The attack's profitability depended on the relative magnitude of:
 - **Repetition**: By executing 32+ cycles in rapid succession, the attacker compounded small per-cycle gains into a large total extraction
 
 For example, in a simplified single cycle:
-- Attacker swaps $17M USDC → USDT in Curve Y pool, depressing USDC price by ~2%
-- Attacker deposits $50M USDC into Harvest vault, receiving shares valued as if USDC = $0.98 (vault gives ~2% more shares)
-- Attacker swaps USDT → USDC in Curve Y pool, restoring USDC price to ~$1.00
-- Attacker withdraws from vault, shares now valued at $1.00 each
-- Gross profit: ~2% of $50M = ~$1M per cycle, minus Curve swap fees (~0.04% per swap × $17M × 2 = ~$13.6K)
-- Net profit per cycle: roughly $986K
+- Attacker swaps a large amount of USDC to USDT in Curve Y pool, temporarily depressing the USDC price in Harvest's valuation path
+- Attacker deposits USDC into Harvest vault, receiving shares valued as if USDC were temporarily below fair value
+- Attacker swaps back through Curve, restoring the pool closer to normal balance
+- Attacker withdraws from vault, with shares now valued closer to fair value
+- Gross profit comes from the difference between the distorted deposit valuation and the restored withdrawal valuation, minus Curve fees, gas, and flash-loan costs
 
-Actual per-cycle amounts varied as the vault's reserves depleted and Curve pool dynamics shifted.
+Actual per-cycle amounts varied as vault reserves, Curve pool balances, gas, and slippage shifted.
 
 ### Why the Attack Worked
 
@@ -106,7 +105,7 @@ The fundamental vulnerability was a **price oracle that could be atomically mani
 |--------|-------------|-------------------|
 | FARM price | ~$235 | ~$82 |
 | FARM price decline | — | ~65% |
-| Protocol TVL | ~$1B | <$100M |
+| Protocol TVL | >$1B | Sharp drop to low hundreds of millions |
 | USDC vault TVL | ~$200M | Near zero |
 | USDT vault TVL | ~$200M | Near zero |
 
@@ -117,8 +116,8 @@ The FARM token collapse was driven by:
 
 ### Broader DeFi Impact
 
-- **Oracle design scrutiny**: The Harvest exploit, alongside similar flash loan attacks on bZx and other protocols in 2020, drove widespread adoption of TWAP oracles and Chainlink price feeds in DeFi
-- **Yield aggregator security standards**: Protocols including Yearn Finance, Beefy, and others reviewed their share price calculation mechanisms in response
+- **Oracle design scrutiny**: The Harvest exploit, alongside similar flash loan attacks on bZx and other protocols in 2020, accelerated adoption of TWAP oracles, external feeds, and manipulation-resistance checks in DeFi
+- **Yield aggregator security standards**: Yield aggregators broadly re-examined share price calculation mechanisms and deposit/withdrawal guardrails in response
 - **Flash loan risk awareness**: The attack contributed to the growing understanding that flash loans could be used not just for arbitrage but for economic attacks against protocols with manipulable price inputs
 
 ## On-Chain Fund Flow
@@ -128,8 +127,8 @@ The FARM token collapse was driven by:
 1. **Immediate conversion**: The attacker converted a portion of the stolen USDC and USDT to renBTC (Bitcoin on Ethereum via Ren Protocol)
 2. **Partial return**: Approximately $2.5 million was sent back to the Harvest Finance deployer address. The community debated whether this was a deliberate gesture, an error, or an attempt to reduce legal exposure
 3. **renBTC bridge**: A significant portion was bridged to native Bitcoin via the Ren Protocol's decentralized bridge
-4. **Tornado Cash**: ETH proceeds were routed through Tornado Cash
-5. **Tracing difficulty**: The combination of renBTC (cross-chain) and Tornado Cash (mixer) made full fund recovery infeasible
+4. **Tornado Cash**: Some ETH-denominated proceeds were routed through Tornado Cash
+5. **Tracing difficulty**: The combination of cross-chain movement and mixer usage made full fund recovery difficult
 
 ### Protocol Response
 
