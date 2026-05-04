@@ -12,10 +12,10 @@ entities:
 ## Summary
 
 1. **On February 2, 2022, the Wormhole cross-chain bridge was exploited for approximately 120,000 wrapped Ether (wETH)**, worth approximately $320 million at the time. This was the second-largest DeFi exploit in history at the time of occurrence and remains one of the most significant cross-chain bridge attacks ever documented.
-2. **The exploit targeted a signature verification vulnerability** in Wormhole's Solana-side smart contract. The attacker bypassed the guardian signature verification process by exploiting an outdated system program address in the `verify_signatures` instruction, allowing them to forge validation of fraudulent messages.
+2. **The exploit targeted a signature verification vulnerability** in Wormhole's Solana-side smart contract. The attacker bypassed the guardian signature verification process by abusing unchecked instruction loading in the `verify_signatures` path, allowing them to forge validation of fraudulent messages.
 3. **The attacker minted 120,000 wETH on Solana without depositing any ETH on Ethereum**, then bridged 93,750 of those wETH tokens back to Ethereum, extracting real ETH from the bridge's reserves. The remaining wETH was used on Solana DeFi protocols.
-4. **Jump Crypto, Wormhole's parent company, replaced the stolen funds** within hours by depositing 120,000 ETH (~$320M) into the bridge contract to restore the 1:1 backing of wETH. This emergency intervention prevented a broader collapse of Solana DeFi protocols that relied on wETH as collateral.
-5. **In February 2023, a cross-jurisdictional law enforcement operation recovered approximately $140 million** of the stolen funds. In April 2024, the UK's National Crime Agency arrested a suspect linked to the exploit.
+4. **Jump Crypto, a major backer of the Wormhole ecosystem, replaced the stolen funds** within hours by depositing 120,000 ETH (~$320M) into the bridge contract to restore the 1:1 backing of wETH. This emergency intervention prevented a broader collapse of Solana DeFi protocols that relied on wETH as collateral.
+5. **In February 2023, a UK High Court order enabled a counter-exploit recovery of roughly $140 million** from positions associated with the attacker. In April 2024, the UK's National Crime Agency reported an arrest connected to the exploit.
 
 ## Background
 
@@ -75,7 +75,7 @@ The Wormhole exploit created a temporary crisis in the Solana DeFi ecosystem bec
 
 - **SOL price**: Dropped approximately 10% in the hours following the exploit disclosure, from ~$107 to ~$96
 - **wETH on Solana**: Briefly traded at a discount to ETH on Solana DEXs as traders feared the wrapped token had lost its backing
-- **Solana DeFi TVL**: Dropped approximately $1 billion in the 48 hours following the exploit, from ~$10.5B to ~$9.5B
+- **Solana DeFi TVL**: Public TVL trackers showed a sharp decline around the disclosure window as traders reassessed bridge-backed collateral risk
 
 Jump Crypto's rapid fund replacement prevented a cascading liquidation event. If wETH had remained unbacked:
 
@@ -110,8 +110,8 @@ On Solana, the remaining ~26,250 wETH was deployed into:
 
 ### Recovery Efforts
 
-- **February 2023**: Oasis.app (MakerDAO front-end) was ordered by the UK High Court to enable a counter-exploit that recovered approximately $140 million from the attacker's DeFi positions
-- **April 2024**: The UK's National Crime Agency arrested an individual linked to the Wormhole exploit
+- **February 2023**: Oasis.app was ordered by the UK High Court to enable a counter-exploit that recovered roughly $140 million from positions associated with the attacker
+- **April 2024**: The UK's National Crime Agency reported an arrest connected to the Wormhole exploit
 - The total recovered amount remains below the original $320 million stolen
 
 ## Broader Bridge Security Implications
