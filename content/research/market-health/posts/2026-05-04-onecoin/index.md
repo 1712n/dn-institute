@@ -16,7 +16,7 @@ entities:
 2. **The scheme was structured as a multi-level marketing (MLM) pyramid** where investors purchased "educational packages" costing between EUR 100 and EUR 118,000. Each package included tokens that could be used to "mine" OneCoin. The mining was entirely simulated — the company simply assigned coin balances to user accounts at predetermined rates.
 3. **Price manipulation was absolute** because there was no open market. OneCoin's "price" was set manually by the company and only ever increased, rising from EUR 0.50 at launch in January 2015 to EUR 29.95 by January 2019. Since there was no exchange, no order book, and no blockchain, the price was a fiction maintained in the company's internal system.
 4. **Founder Ruja Ignatova disappeared in October 2017** and was placed on the FBI's Ten Most Wanted Fugitives list in June 2022 — the first woman on the list in over a decade. She remains at large as of 2026. Co-founder Karl Sebastian Greenwood pleaded guilty and was sentenced to 20 years in federal prison in September 2023.
-5. **The DOJ described OneCoin as one of the largest international fraud schemes ever prosecuted.** Multiple jurisdictions (US, Germany, UK, China, India, Bulgaria) have pursued criminal cases, resulting in dozens of arrests and convictions worldwide.
+5. **The DOJ described OneCoin as one of the largest international fraud schemes ever prosecuted.** Multiple jurisdictions (US, Germany, UK, China, India, Bulgaria) have pursued criminal, civil, or regulatory actions against OneCoin entities and promoters.
 
 ## Background
 
@@ -41,9 +41,9 @@ The tiered structure is a hallmark of MLM pyramid schemes: higher investment lev
 
 ### No Blockchain Existed
 
-The most fundamental fraud in OneCoin was that the cryptocurrency it sold did not exist on any blockchain. Evidence presented at trial established:
+The most fundamental fraud in OneCoin was that the cryptocurrency it sold did not exist on any real public blockchain. DOJ filings and trial evidence established:
 
-- **No distributed ledger**: OneCoin balances were stored in a centralized SQL database hosted on servers in Bulgaria. There was no peer-to-peer network, no mining process, no block validation, and no cryptographic hash chain.
+- **No distributed ledger**: OneCoin balances were stored in a centralized database rather than a verifiable peer-to-peer network. There was no public mining process, no independent block validation, and no cryptographic hash chain comparable to a real cryptocurrency.
 - **No consensus mechanism**: Because there was no blockchain, there was no proof-of-work, proof-of-stake, or any other consensus protocol. The company simply updated account balances in its database.
 - **No independent verification**: Unlike Bitcoin, where anyone can run a node and verify the chain, OneCoin's "blockchain" was completely opaque. Users could only see their balance through the company's website portal.
 
@@ -91,7 +91,7 @@ OneCoin operated a nominal exchange called "xcoinx" where users could supposedly
 - **Trading was heavily restricted**: Users could only sell small amounts per day, and the system frequently suspended trading entirely
 - **No external access**: The exchange was accessible only to OneCoin members, preventing any external price discovery
 - **Withdrawal limitations**: Converting OneCoin to fiat or other cryptocurrencies was extremely difficult; users reported wait times of months for withdrawal requests
-- **Matched orders**: Evidence suggested the exchange matched orders internally without any genuine counterparty market-making
+- **Matched orders**: The closed venue created the appearance of matched trades without a transparent external counterparty market
 
 The xcoinx exchange served the same function as Bitconnect's internal exchange: it created an illusion of liquidity and tradability while preventing real price discovery that would reveal the token's worthlessness.
 
@@ -114,12 +114,12 @@ This is the classic Ponzi/pyramid structure: funds from new investors pay return
 
 ### Fund Disposition
 
-According to DOJ filings, the approximately $4 billion in investor funds was used for:
+According to DOJ filings and public case reporting, the approximately $4 billion in investor funds was used for:
 
-- **Promoter commissions**: Estimated 30-40% of all funds were paid as MLM commissions to the recruitment network
+- **Promoter commissions**: A substantial share of funds was paid as MLM commissions to the recruitment network
 - **Operating expenses**: Company operations, events, marketing materials, and staff
 - **Personal enrichment**: Ignatova and Greenwood diverted substantial funds to personal use, including luxury real estate, yacht charters, and other assets
-- **No investment activity**: There was no trading operation, no technology development beyond the website and database, and no product development that could generate returns
+- **No genuine crypto investment activity**: There was no real blockchain-based trading operation or product activity capable of generating the marketed returns
 
 ## Wash Trading Parallels
 
@@ -146,12 +146,12 @@ While OneCoin did not have a real blockchain or exchange where traditional wash 
 
 - **Ruja Ignatova**: Indicted March 2019 on wire fraud, securities fraud, and money laundering charges. Added to FBI Ten Most Wanted Fugitives list June 2022. Reward of up to $5 million for information. Remains a fugitive as of 2026.
 - **Karl Sebastian Greenwood**: Pleaded guilty to racketeering conspiracy and wire fraud in December 2022. Sentenced to 20 years in federal prison in September 2023. Ordered to forfeit $300 million.
-- **Mark Scott**: OneCoin's money launderer, a former Locke Lord LLP attorney. Convicted at trial in November 2019 of conspiracy to commit bank fraud and money laundering. Laundered $400 million through Fenero Funds.
-- **Irina Dilkinska**: Head of legal and compliance for OneCoin. Pleaded guilty to wire fraud conspiracy and money laundering conspiracy in November 2023. Oversaw the creation of shell companies to move funds.
+- **Mark Scott**: OneCoin's money launderer, a former Locke Lord LLP attorney. Convicted at trial in November 2019 of conspiracy to commit bank fraud and conspiracy to commit money laundering. Sentenced to 10 years in federal prison in January 2024 after laundering approximately $400 million through Fenero Funds.
+- **Irina Dilkinska**: Head of legal and compliance for OneCoin. Pleaded guilty to wire fraud conspiracy and money laundering conspiracy in November 2023. Sentenced to 4 years in federal prison in April 2024 after helping create shell companies and move funds.
 
 ### Germany
 
-- German federal prosecutors (BaFin) issued warnings about OneCoin as early as 2016. Multiple promoters were convicted of fraud in German courts.
+- BaFin, Germany's financial regulator, issued warnings and orders against OneCoin activity. German prosecutors and courts also pursued OneCoin-linked operators and promoters.
 
 ### China
 
@@ -184,6 +184,8 @@ OneCoin demonstrates manipulation patterns that should trigger investigation in 
 3. U.S. Department of Justice. "Lawyer Convicted of Money Laundering Involving $400 Million in OneCoin Proceeds." DOJ Press Release, November 21, 2019.
 4. Federal Bureau of Investigation. "Ten Most Wanted Fugitives — Ruja Ignatova." FBI.gov. Retrieved May 2026.
 5. BBC News. "OneCoin: The cryptocurrency scam that just won't die." BBC Sounds / BBC World Service, "The Missing Cryptoqueen" podcast series, 2019-2022.
-6. BaFin (German Federal Financial Supervisory Authority). "Warning: OneCoin Ltd." Consumer Warning, 2016.
-7. Chainalysis. "The 2023 Crypto Crime Report." Chapter 5: Ponzi Schemes and Pyramid Structures. Chainalysis Inc., January 2023.
-8. Inner City Press. "Mark Scott OneCoin Trial Coverage." Southern District of New York, October-November 2019.
+6. U.S. Department of Justice. "OneCoin Co-Founder's Lawyer Sentenced To 10 Years In Prison For Laundering $400 Million." DOJ Press Release, January 25, 2024.
+7. U.S. Department of Justice. "Former Head of Legal and Compliance for OneCoin Sentenced To 4 Years In Prison." DOJ Press Release, April 3, 2024.
+8. BaFin (German Federal Financial Supervisory Authority). "Warning: OneCoin Ltd." Consumer Warning and related orders, 2016-2017.
+9. Chainalysis. "The 2023 Crypto Crime Report." Chapter 5: Ponzi Schemes and Pyramid Structures. Chainalysis Inc., January 2023.
+10. Inner City Press. "Mark Scott OneCoin Trial Coverage." Southern District of New York, October-November 2019.
