@@ -1,5 +1,5 @@
 ---
-title: "🌰 SafeMoon — Insider Liquidity Drain and Token Price Manipulation in a $8B Market Cap Scheme"
+title: "🌰 SafeMoon — Insider Liquidity Drain and Token Price Manipulation in an $8B Market Cap Scheme"
 date: 2026-05-04
 entities:
   - SafeMoon
@@ -14,10 +14,10 @@ entities:
 ## Summary
 
 1. **SafeMoon was a BNB Chain token** launched in March 2021 that reached a peak market capitalization of approximately $8 billion by April 2021, driven by social-media marketing and a tokenomics model that imposed a 10% tax on every transaction (5% redistributed to holders, 5% added to the liquidity pool).
-2. **The SEC charged SafeMoon's executives** with securities fraud, wire fraud, and money laundering in October-November 2023. Founder and CEO Braden John Karony, CTO Thomas Smith, and head of product Kyle Nagy were charged with diverting millions in investor funds for personal use — including real estate, luxury vehicles, and other assets.
+2. **The SEC and DOJ charged SafeMoon's leadership** in November 2023. The SEC filed civil securities-fraud charges against SafeMoon LLC, SafeMoon US LLC, founder Kyle Nagy, CEO Braden John Karony, and CTO Thomas Smith, while the DOJ brought criminal securities-fraud, wire-fraud, and money-laundering conspiracy charges against Nagy, Karony, and Smith.
 3. **Liquidity pool manipulation** was the primary fraud vector: SafeMoon's creators maintained undisclosed control over the project's PancakeSwap liquidity pools and systematically drained BNB from them while publicly claiming the funds were locked and inaccessible.
 4. **Wash trading signals** were present in SafeMoon's on-chain trading data: abnormally uniform transaction sizes during high-volume periods, repetitive buy patterns from wallets linked to the development team, and volume spikes that coincided with promotional campaigns rather than organic demand.
-5. **SafeMoon collapsed in stages**: the token lost 95% of its value from its April 2021 peak to early 2022, then suffered a final liquidity pool exploit in March 2023 that drained $8.9 million. SafeMoon LLC filed for Chapter 7 bankruptcy in June 2024.
+5. **SafeMoon collapsed in stages**: the token lost 95% of its value from its April 2021 peak to early 2022, then suffered a final liquidity pool exploit in March 2023 that drained $8.9 million. SafeMoon US LLC filed for Chapter 7 bankruptcy in December 2023.
 
 ## Background
 
@@ -42,7 +42,7 @@ The core of SafeMoon's manipulation was a discrepancy between what the team publ
 
 **Public claim**: The 5% liquidity tax was permanently locked in the PancakeSwap liquidity pool, providing irreversible price support.
 
-**Reality (per SEC complaint, Case 1:23-cv-23916)**: The team retained administrative access to the liquidity pool smart contracts through:
+**Reality (per SEC complaint, Case 1:23-cv-08138)**: The team retained administrative access to the liquidity pool smart contracts through:
 
 - **Owner-controlled `swapAndLiquify` function**: The SafeMoon contract's liquidity mechanism could be manually triggered by the contract owner, allowing selective timing of when BNB was added to or removed from the pool
 - **Unlocked LP tokens**: Contrary to public statements, the liquidity provider tokens that control the SafeMoon/BNB pair were not locked in a time-locked contract. The team held the LP tokens in wallets they controlled.
@@ -122,8 +122,7 @@ While promoting the token publicly, the team withheld critical information:
 
 ### SEC Enforcement
 
-- **February 2023**: The SEC issued a Wells notice to SafeMoon LLC
-- **October 2023**: The SEC filed a complaint against SafeMoon LLC and its officers (Case 1:23-cv-23916, S.D. Fla.) charging violations of Sections 5(a), 5(c), and 17(a) of the Securities Act and Section 10(b) of the Exchange Act
+- **November 1, 2023**: The SEC filed a complaint against SafeMoon LLC, SafeMoon US LLC, and executives Kyle Nagy, Braden John Karony, and Thomas Smith (Case 1:23-cv-08138, E.D.N.Y.) charging violations of Sections 5(a), 5(c), and 17(a) of the Securities Act, plus Sections 9(a)(2), 10(b), and 20(a) of the Exchange Act and Rule 10b-5
 - The SEC alleged SafeMoon was an unregistered security and that executives engaged in fraud by misappropriating investor funds and making material misrepresentations
 
 ### DOJ Criminal Charges
@@ -131,7 +130,7 @@ While promoting the token publicly, the team withheld critical information:
 - **November 1, 2023**: DOJ announced criminal charges against Karony, Smith, and Nagy
 - **Karony**: Charged with securities fraud conspiracy, wire fraud conspiracy, and money laundering conspiracy. The indictment alleged he used misappropriated funds to purchase a custom Porsche, real estate in New Hampshire, and other luxury items
 - **Smith**: Charged with securities fraud conspiracy, wire fraud conspiracy, and money laundering conspiracy
-- **Nagy**: Charged with securities fraud conspiracy and wire fraud conspiracy. Nagy was arrested in 2023 and entered plea negotiations
+- **Nagy**: Charged with securities fraud conspiracy, wire fraud conspiracy, and money laundering conspiracy. DOJ stated Nagy remained at large when the indictment was unsealed
 
 ### 🌰 Liquidity Pool Exploit (March 2023)
 
@@ -143,7 +142,7 @@ On March 28, 2023, an external attacker exploited a vulnerability in the SafeMoo
 
 ### Bankruptcy
 
-SafeMoon LLC filed for Chapter 7 bankruptcy (liquidation, not reorganization) in the U.S. Bankruptcy Court for the District of Utah in June 2024, listing liabilities exceeding assets and indicating no viable path to continued operations.
+SafeMoon US LLC filed for Chapter 7 bankruptcy (liquidation, not reorganization) in the U.S. Bankruptcy Court for the District of Utah on December 14, 2023, indicating no viable path to continued operations.
 
 ## Lessons for Market Surveillance
 
@@ -158,10 +157,10 @@ The SafeMoon case demonstrates manipulation patterns that market surveillance sy
 
 ## References
 
-1. U.S. Securities and Exchange Commission. "SEC Charges SafeMoon, Its Founder, and Three Other Executives." Case 1:23-cv-23916, S.D. Fla. October 2023.
+1. U.S. Securities and Exchange Commission. "SEC Charges SafeMoon, Its Founder, and Three Other Executives." Litigation Release No. 25888, Case 1:23-cv-08138, E.D.N.Y. November 1, 2023.
 2. U.S. Department of Justice. "SafeMoon Founder and Two Others Charged with Fraud and Money Laundering." DOJ Press Release, November 1, 2023.
 3. Chainalysis. "The 2024 Crypto Crime Report." Chapter 7: DeFi Rug Pulls and Exit Scams. Chainalysis Inc., February 2024.
 4. CoinGecko. "SafeMoon (SFM) Historical Market Data." Retrieved May 2026.
 5. BscScan. "SafeMoon Token Contract Transactions." Binance Smart Chain Explorer. Retrieved May 2026.
 6. PeckShield. "SafeMoon Exploit Analysis — $8.9M Drained via Public Burn Bug." March 28, 2023.
-7. U.S. Bankruptcy Court, District of Utah. SafeMoon LLC Chapter 7 Filing. Case No. 24-22510. June 2024.
+7. U.S. Bankruptcy Court, District of Utah. SafeMoon US LLC Chapter 7 Filing. Case No. 23-25749. December 2023.
