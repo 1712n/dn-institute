@@ -17,13 +17,13 @@ entities:
 
 1. **On March 13, 2023, the Euler Finance lending protocol was exploited for approximately $197 million** through a flash-loan-powered attack that abused a flaw in the protocol's donation function. The attacker leveraged an interaction between the `donateToReserves` function and the protocol's health factor calculation to create artificially undercollateralized positions that could be self-liquidated for profit.
 2. **The root cause was that the `donateToReserves` function** allowed a borrower to reduce their own collateral (by donating their eTokens — Euler's interest-bearing deposit tokens — to the protocol reserves) without a corresponding health check. This meant a borrower could deliberately make their own position undercollateralized and then exploit the resulting liquidation opportunity.
-3. **The attack was executed across multiple tokens**: the attacker drained DAI, USDC, WBTC, stETH, and other assets from Euler's lending pools. Flash loans from Aave provided the initial capital, and the attack was replicated by several copycat attackers within hours.
-4. **The attacker returned all stolen funds** over the following three weeks after negotiations between Euler, the attacker, and on-chain intermediaries. Euler offered a $1 million bounty for information and engaged in direct on-chain communication. The attacker ultimately returned the full amount, reportedly citing personal security concerns after blockchain analysis firms published leads.
+3. **The attack was executed across multiple tokens**: the attacker drained DAI, USDC, WBTC, stETH, WETH, and related assets from Euler's lending pools. Flash loans from Aave provided the initial capital, and at least one MEV/front-running transaction copied part of the pattern as the exploit became visible on-chain.
+4. **Euler later reported recovery of all recoverable exploited funds** after negotiations between Euler, the attacker, and on-chain intermediaries. Euler offered a $1 million bounty for information and engaged in direct on-chain communication before a sequence of returned-fund transactions.
 5. **The Euler exploit highlighted a class of vulnerability specific to lending protocols**: accounting functions that modify a user's collateral or debt position without re-validating the health factor. The `donateToReserves` function had been audited multiple times but the interaction with the self-liquidation path was not caught.
 
 ## Background
 
-Euler Finance was an Ethereum-based lending protocol that launched in December 2022 (v2 of the protocol). It differentiated itself from competitors like Aave and Compound through features including permissionless lending markets (any ERC-20 token could be listed), reactive interest rates, and a tiered asset classification system (collateral, cross, isolated) that aimed to balance capital efficiency with risk management.
+Euler Finance was an Ethereum-based lending protocol. It differentiated itself from competitors like Aave and Compound through features including permissionless lending markets, reactive interest rates, and a tiered asset classification system (collateral, cross, isolated) that aimed to balance capital efficiency with risk management.
 
 ### Protocol Architecture
 
@@ -41,7 +41,7 @@ The key components relevant to the exploit:
 | Parameter | Value |
 |-----------|-------|
 | Protocol TVL | ~$264M across all lending pools |
-| Largest pools | DAI (~$80M), USDC (~$50M), WBTC (~$40M), stETH (~$30M) |
+| Major affected assets | DAI, USDC, WBTC, WETH/stETH-related exposure |
 | Health factor threshold | 1.0 (positions below this are liquidatable) |
 | Liquidation discount | Varies by asset tier (typically 5-20%) |
 | `donateToReserves` health check | **None** — this was the vulnerability |
@@ -54,7 +54,7 @@ The critical vulnerability was that `donateToReserves` reduced the caller's eTok
 
 ### Attack Overview
 
-The attack followed a precise sequence designed to extract maximum value from each lending pool. The attacker repeated this pattern for DAI, USDC, WBTC, and stETH pools.
+The attack followed a repeated sequence designed to extract value from multiple lending pools. Public analyses describe variants of this pattern across DAI, USDC, WBTC, WETH, and stETH-related markets.
 
 **Step 1 — Flash Loan Capital Acquisition**:
 - The attacker flash-borrowed a large amount of the target token (e.g., 30 million DAI) from Aave
@@ -65,10 +65,11 @@ The attack followed a precise sequence designed to extract maximum value from ea
 - Used Euler's `mint` function to create additional leveraged exposure: minting more eTokens and corresponding dTokens simultaneously
 - This created a position with high collateral (eTokens) and high debt (dTokens), but with a health factor above 1.0 due to the overcollateralization
 
-For example, with the DAI pool:
-- Deposit 30M DAI → receive ~30M eDAI
-- Mint 195M eDAI + 195M dDAI (10x leverage via repeated minting)
-- Position: ~225M eDAI collateral, ~195M dDAI debt, health factor > 1.0
+For example, in the DAI pool analyses:
+- Flash-borrow tens of millions of DAI from Aave
+- Deposit a portion into Euler, receiving eDAI collateral
+- Use Euler's `mint` function to create a much larger same-asset eDAI/dDAI leveraged position
+- Repay part of the debt and mint again, leaving a highly leveraged position that still passed normal checks before the donation step
 
 **Step 3 — Donate Collateral to Destroy Health Factor**:
 - Called `donateToReserves` to transfer a large portion of the eTokens to the protocol reserves
@@ -77,8 +78,9 @@ For example, with the DAI pool:
 - Result: the attacker's position became severely undercollateralized (health factor far below 1.0)
 
 Continuing the example:
-- Donate ~100M eDAI to reserves
-- Position: ~125M eDAI collateral, ~195M dDAI debt → health factor well below 1.0
+- Donate a large block of eDAI to reserves
+- The account keeps its debt while its usable collateral falls sharply
+- The position becomes deeply undercollateralized without the donation function enforcing the usual liquidity check
 
 **Step 4 — Self-Liquidate for Profit**:
 - Using a second account (also controlled by the attacker), liquidated the now-undercollateralized first account
@@ -89,7 +91,7 @@ Continuing the example:
 The profit came from the difference between:
 - The value of collateral received through liquidation (at discount)
 - The debt repaid during liquidation
-- Plus: the donated eTokens effectively came from the protocol's reserves, meaning the attacker extracted value that belonged to other depositors
+- Plus: the liquidation and withdrawal path converted the deliberately created bad-debt state into withdrawable underlying assets from the affected pool
 
 **Step 5 — Repay Flash Loan and Repeat**:
 - Repaid the Aave flash loan
@@ -112,16 +114,16 @@ The omission was subtle because:
 
 Euler's contracts were audited by multiple firms. The `donateToReserves` function was present in the audited code, but the interaction between donation, health factor, and self-liquidation was not identified as a vulnerability. This highlights a limitation of manual code audits: they excel at finding individual function-level bugs but can miss emergent risks that arise from the interaction of multiple correct-in-isolation functions.
 
-## Copycat Attacks
+## MEV and Copycat Dynamics
 
-Within hours of the initial exploit, additional attackers replicated the same technique against Euler pools that the original attacker had not yet drained. These copycat attacks extracted additional funds, though the amounts were smaller because the original attacker had already targeted the largest pools.
+As the exploit transactions became visible, other actors could inspect and attempt to copy or front-run parts of the pattern. Public incident writeups noted at least one MEV/front-running transaction that copied exploit logic and diverted DAI before later returning or transferring it onward.
 
-The rapid replication demonstrated that:
+The rapid visibility demonstrated that:
 - The exploit was publicly visible on-chain once the first transactions were executed
 - MEV bots and security researchers could reverse-engineer the attack pattern quickly
-- Protocols with active exploits face a race condition: they must pause before copycats arrive
+- Protocols with active exploits face a race condition: they must pause before copycats or opportunistic searchers amplify losses
 
-Euler paused the protocol contracts after the original attack was detected, but some copycat transactions had already succeeded.
+Euler paused protocol activity after the attack was detected, but the incident still showed how quickly a transaction-level exploit recipe can spread.
 
 ## Fund Recovery Timeline
 
@@ -135,17 +137,17 @@ Euler paused the protocol contracts after the original attack was detected, but 
 | March 20 | Attacker returns 3,000 ETH (~$5.4M) as initial gesture |
 | March 25 | Attacker returns substantial portion of remaining funds |
 | March 28 | Euler confirms that the bulk of stolen funds have been returned |
-| April 4 | Euler confirms full recovery of all exploited funds |
+| April 4 | Euler says all recoverable exploited funds have been returned |
 
 ### Why the Attacker Returned Funds
 
-Several factors reportedly contributed to the full fund return:
+Several factors likely contributed to the returned-fund outcome:
 
-- **Blockchain analytics pressure**: Firms including Chainalysis tracked the stolen funds and published leads connecting on-chain activity to potential real-world identities
+- **Blockchain analytics pressure**: Security researchers and analytics firms tracked the stolen funds and publicized address clusters and leads
 - **Legal exposure**: Euler engaged law enforcement and legal counsel, creating credible threat of prosecution
 - **On-chain communication**: Direct messaging between Euler and the attacker via Ethereum transaction calldata facilitated negotiation
 - **Community pressure**: The Euler community and broader DeFi ecosystem publicly tracked the attacker's movements
-- **Incomplete mixing**: The attacker used Tornado Cash for some funds, but the scale of the theft ($197M) made full anonymization extremely difficult
+- **Incomplete mixing**: A small amount was moved through Tornado Cash early in the incident, but the scale of the theft made full anonymization difficult
 
 ## Market Impact
 
@@ -153,20 +155,20 @@ Several factors reportedly contributed to the full fund return:
 
 | Metric | Pre-Exploit | Post-Exploit (48h) | 1 Week Post |
 |--------|-------------|-------------------|-------------|
-| EUL price | ~$5.50 | ~$2.80 | ~$3.20 |
-| Price decline | — | ~49% | ~42% (partial recovery on return news) |
+| EUL price | Around mid-single digits | Sharp decline | Partial recovery on return news |
+| Price impact | — | Reported as roughly 50% at the trough in some coverage | Still below pre-exploit levels |
 
 ### Protocol TVL
 
-- Pre-exploit: ~$264M
-- Post-exploit: effectively $0 (protocol paused)
-- After fund recovery: Euler v1 remained paused; the team later launched Euler v2 with redesigned architecture
+- Pre-exploit public TVL was reported around `$264M`
+- Post-exploit TVL fell sharply as the protocol paused and assets were drained or withdrawn
+- After fund recovery, Euler v1 did not immediately return to its prior operating scale
 
 ### Broader DeFi Lending Impact
 
-- **Health check audit pattern**: The exploit established a new audit checklist item — every function that modifies a user's collateral or debt position must include a health factor check. This became a standard finding category in subsequent lending protocol audits.
+- **Health check audit pattern**: The exploit reinforced an audit checklist item — every function that modifies a user's collateral or debt position must preserve or re-check the health-factor invariant.
 - **Donation function scrutiny**: Several other lending protocols reviewed their own donation or reserve-contribution functions for similar missing health checks
-- **Self-liquidation restrictions**: Some protocols implemented restrictions on self-liquidation or added additional checks when the liquidator and borrower share common ownership signals
+- **Self-liquidation restrictions**: The incident pushed reviewers to scrutinize self-liquidation and related-account liquidation paths more closely
 
 ## Vulnerability Pattern: Missing Invariant Check on State-Modifying Functions
 
@@ -199,7 +201,7 @@ Each of these exploits targeted a different aspect of lending protocol accountin
 
 3. **Leveraged position creation followed by collateral reduction**: The creation of a maximally leveraged position (repeated minting) followed by a large `donateToReserves` call in the same block or transaction sequence is the complete attack signature. Monitoring for this specific sequence can detect Euler-style attacks as they happen.
 
-4. **Copycat attack speed**: The Euler copycats arrived within hours. For protocols under active exploit, the time between initial attack detection and contract pause is the window during which copycat attacks succeed. Surveillance systems that can detect the first attack transaction and alert protocol operators within minutes provide significant value.
+4. **Copycat/MEV speed**: Once an exploit recipe is public on-chain, copycats and searchers can arrive quickly. For protocols under active exploit, the time between initial attack detection and contract pause is the window during which opportunistic transactions can amplify losses.
 
 5. **Flash loan origination correlation**: Large flash loan borrows from Aave or other flash loan providers, followed within the same transaction by interactions with a lending protocol's collateral-modifying functions, should be monitored as potential exploit transactions.
 
