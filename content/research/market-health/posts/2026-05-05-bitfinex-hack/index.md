@@ -55,25 +55,25 @@ A distinctive feature of Bitfinex's BitGo integration was the use of individual 
 
 ### 3.1 Attack vector
 
-The precise technical details of how the attacker compromised Bitfinex's withdrawal infrastructure have not been fully disclosed publicly. Bitfinex's post-incident statements indicated that the attacker gained access to Bitfinex's systems in a way that allowed them to:
+The precise technical details of how the attacker compromised Bitfinex's withdrawal infrastructure have not been fully disclosed publicly. Later court filings and Lichtenstein's plea established that he exploited a vulnerability in Bitfinex's systems, but they did not publish a full technical root-cause report for the exchange/BitGo integration. Public reporting indicates that the attacker was able to:
 
-1. Override or modify the BitGo co-signing policy limits on individual customer addresses.
-2. Initiate withdrawal transactions from approximately 2,072 individual customer multisig addresses.
-3. Obtain BitGo's co-signatures on those withdrawal transactions.
+1. Access the withdrawal path for more than 2,000 Bitfinex-controlled multisig wallets.
+2. Initiate unauthorized withdrawal transactions from those wallets.
+3. Obtain BitGo co-signatures so the transactions were valid on the Bitcoin network.
 
 The critical question — how the attacker was able to both initiate withdrawals from Bitfinex's side and obtain valid co-signatures from BitGo — has been the subject of considerable debate. Possible explanations include:
 
 - **Bitfinex key compromise plus BitGo API access**: The attacker compromised Bitfinex's signing key and also gained access to Bitfinex's API credentials for BitGo's co-signing service, allowing them to submit withdrawal requests that BitGo's automated system co-signed after (manipulated) policy checks.
 
-- **BitGo policy bypass**: The attacker found a way to modify or bypass BitGo's policy layer, either through a vulnerability in BitGo's API or through compromised administrative credentials, allowing withdrawal requests that exceeded normal limits to be co-signed.
+- **BitGo policy bypass or misconfiguration**: The attacker found a way to cause BitGo's co-signing policy layer to accept transactions that should have been anomalous, whether because of compromised Bitfinex-side access, policy configuration, API behavior, or another integration weakness.
 
 - **Coordinated compromise**: Both Bitfinex's systems and some aspect of BitGo's policy enforcement were compromised, enabling the attacker to craft withdrawal requests that appeared legitimate to both systems.
 
-BitGo stated after the incident that its servers were not breached and that all co-signing requests it processed were properly authenticated by Bitfinex. This statement implied that the compromise was on Bitfinex's side — the attacker used Bitfinex's legitimate credentials to request co-signatures, and BitGo's system processed those requests as authorized. However, the question of whether BitGo's policy limits should have flagged the anomalous withdrawal pattern (2,072 withdrawals across individual addresses in a short timeframe) remained contentious.
+BitGo stated after the incident that its servers were not breached and that all co-signing requests it processed were properly authenticated by Bitfinex. This statement implied that the compromise was on Bitfinex's side — the attacker used Bitfinex's legitimate access path to request co-signatures, and BitGo's system processed those requests as authorized. However, the question of whether BitGo's policy layer should have flagged the anomalous aggregate withdrawal pattern remained contentious.
 
 ### 3.2 Execution timeline
 
-On 2 August 2016, the attacker executed approximately 2,072 unauthorized withdrawal transactions, each draining a different customer multisig address. The transactions were broadcast to the Bitcoin network over a relatively short period. The total amount withdrawn was 119,756.07 BTC.
+On 2 August 2016, the attacker executed more than 2,000 unauthorized withdrawal transactions from Bitfinex multisig wallets. The transactions were broadcast to the Bitcoin network over a relatively short period. The total amount withdrawn is commonly reported as approximately 119,756 BTC.
 
 Bitfinex detected the unauthorized withdrawals after they had been broadcast and confirmed on the Bitcoin blockchain. The exchange halted trading and withdrawals and began its incident-response process.
 
@@ -126,15 +126,15 @@ Lichtenstein's guilty plea provided the first authoritative confirmation of the 
 
 ### 4.5 Fund recovery
 
-The DOJ's seizure of approximately 94,000 BTC represented the recovery of roughly 80% of the stolen Bitcoin. Bitfinex cooperated with the DOJ in the recovery process and announced that recovered funds would be used to compensate affected users. The precise mechanism and timeline for distributing recovered funds to original victims involved legal proceedings that were ongoing as of early 2026.
+The DOJ's February 2022 seizure of approximately 94,000 BTC represented the recovery of roughly 80% of the stolen Bitcoin at that stage. Bitfinex cooperated with the DOJ in the recovery process and announced that recovered funds would be used to compensate affected users. Later forfeiture materials and investigative updates reported additional seized assets connected to the theft, including other cryptocurrencies, fiat currency, and gold coins.
 
-The remaining approximately 25,000 BTC that was not seized had been successfully laundered or converted to other assets before law enforcement could trace and seize it.
+The gap between the original 119,756 BTC theft and the initial 94,000 BTC seizure should therefore not be read as a simple unrecovered balance. Some funds had been moved, spent, converted, or later recovered in other asset forms, and victim distribution depended on legal proceedings rather than Bitfinex's unilateral control.
 
 ## 5. Market-health implications
 
 ### 5.1 Multisig is necessary but not sufficient
 
-The Bitfinex hack demonstrated that a multisig architecture, while an improvement over single-key custody, does not eliminate exchange security risk if the co-signing policy layer can be circumvented. The 2-of-3 multisig with BitGo was intended to prevent exactly this type of unauthorized mass withdrawal, but the attacker was able to bypass the intended controls — either by compromising Bitfinex's API credentials to BitGo's service or by manipulating the policy parameters.
+The Bitfinex hack demonstrated that a multisig architecture, while an improvement over single-key custody, does not eliminate exchange security risk if the co-signing workflow can be made to approve malicious withdrawals. The 2-of-3 multisig with BitGo was intended to prevent exactly this type of unauthorized mass withdrawal, but the attacker was able to get the required signatures through the integrated withdrawal path.
 
 The lesson for exchange custody design is that multisig security depends on:
 
@@ -185,7 +185,7 @@ The incident contributed to:
 | Exchange incident | Year | Amount stolen | Recovery | Perpetrator identified |
 |---|---|---|---|---|
 | Mt. Gox | 2011–2014 | ~850,000 BTC | Partial (bankruptcy) | Not fully resolved |
-| Bitfinex | 2016 | ~119,756 BTC | ~80% (DOJ seizure) | Yes (Lichtenstein) |
+| Bitfinex | 2016 | ~119,756 BTC | ~80% initially seized, with additional assets later recovered | Yes (Lichtenstein) |
 | Coincheck | 2018 | ~523M NEM | Partial (exchange funds) | Not publicly identified |
 | Binance | 2019 | ~7,000 BTC | Full (SAFU fund) | Not publicly identified |
 | KuCoin | 2020 | ~$275M (mixed) | ~84% | Partially (DPRK attributed) |
@@ -220,7 +220,7 @@ The Bitfinex case is unusual in the degree of fund recovery achieved through law
 
 ## 8. Conclusion
 
-The 2016 Bitfinex hack resulted in the theft of approximately 119,756 BTC from customer accounts through a compromise of the exchange's multisig wallet infrastructure. The breach exposed limitations in the co-signing security model when the exchange's systems — including its API credentials for the co-signer — were compromised, enabling the attacker to initiate and obtain co-signatures for approximately 2,072 unauthorized withdrawals.
+The 2016 Bitfinex hack resulted in the theft of approximately 119,756 BTC from customer accounts through a compromise of the exchange's multisig wallet infrastructure. The breach exposed limitations in the co-signing security model when an attacker can use the exchange-side withdrawal path to initiate mass withdrawals and obtain the co-signatures needed for valid Bitcoin transactions.
 
 The case's aftermath provided significant lessons for the industry: Bitfinex's loss-socialization model (BFX tokens) demonstrated an alternative to exchange bankruptcy, and the DOJ's 2022 seizure of approximately 94,000 BTC (~80% of the stolen funds) demonstrated both the long-term traceability of Bitcoin and the potential for law-enforcement-driven recovery. The identification and sentencing of Ilya Lichtenstein confirmed the attack's origin and provided a deterrent precedent for cryptocurrency theft.
 
