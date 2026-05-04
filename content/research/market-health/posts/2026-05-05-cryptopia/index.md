@@ -11,10 +11,10 @@ entities:
 
 ## Summary
 
-1. **In January 2019, the New Zealand-based cryptocurrency exchange Cryptopia was hacked**, losing an estimated $16-30 million in various cryptocurrencies. The exchange went into liquidation in May 2019, and the subsequent creditor recovery process became one of the most complex and prolonged exchange insolvency proceedings in cryptocurrency history.
-2. **The attack exploited Cryptopia's wallet infrastructure**, allowing the attacker to drain funds from thousands of individual wallet addresses across multiple blockchains. The specific vulnerability was not fully disclosed publicly, but blockchain analysis revealed that the attacker accessed private keys for a large number of Cryptopia's customer wallets.
+1. **In January 2019, the New Zealand-based cryptocurrency exchange Cryptopia was hacked**, losing an estimated NZ$16-30 million in various cryptocurrencies. The exchange went into liquidation in May 2019, and the subsequent creditor recovery process became one of the more complex and prolonged exchange insolvency proceedings in cryptocurrency history.
+2. **The attack exploited Cryptopia's wallet infrastructure**, allowing the attacker to drain funds from thousands of individual wallet addresses across multiple blockchains. The specific vulnerability was not fully disclosed publicly, but blockchain analysis and liquidator reporting indicate that the attacker obtained access to key material for a large number of Cryptopia-controlled wallets.
 3. **Cryptopia was a New Zealand exchange known for listing hundreds of small-capitalization tokens**, many of which were not available on larger exchanges. At its peak, the exchange listed over 500 trading pairs and served a global user base, though its total volume was modest compared to top-tier exchanges.
-4. **The liquidation process, managed by Grant Thornton New Zealand, established legal precedents** for how cryptocurrency assets held by an exchange on behalf of customers should be treated in insolvency proceedings. In a landmark 2020 High Court ruling (Ruscoe v Cryptopia), the court determined that cryptocurrencies held by Cryptopia were property held on trust for customers — not general assets of the company — establishing an important principle for exchange insolvency proceedings globally.
+4. **The liquidation process, managed by Grant Thornton New Zealand, established legal precedent in New Zealand** for how cryptocurrency assets held by an exchange on behalf of customers should be treated in insolvency proceedings. In a landmark 2020 High Court ruling (Ruscoe v Cryptopia), the court determined that cryptocurrencies held by Cryptopia were property held on trust for customers — not general assets of the company — creating an important reference point for exchange insolvency analysis in common-law jurisdictions.
 5. **The recovery process extended over multiple years**, with Grant Thornton managing the identification of approximately 960,000 account holders, the tracing and securing of remaining assets, and the development of a claims and distribution process. The case illustrated the practical difficulties of exchange insolvency when dealing with hundreds of different cryptocurrency assets, anonymized accounts, and cross-jurisdictional claimants.
 
 ## Background
@@ -67,7 +67,7 @@ The precise technical details of the hack were not comprehensively disclosed in 
 
 3. **Extended access**: The second wave of transfers on January 28 — two weeks after the initial breach was detected — suggested either that the attacker retained access to key material after the initial breach was discovered, or that the breach involved the compromise of key generation or storage systems rather than individual keys.
 
-4. **Estimated losses**: Various sources estimate the total stolen amount at between $16 million and $30 million. The uncertainty in the figure reflects difficulty in valuing hundreds of small-cap tokens at the time of theft, many of which had limited liquidity.
+4. **Estimated losses**: Various sources estimate the total stolen amount at between roughly NZ$16 million and NZ$30 million. The uncertainty in the figure reflects difficulty in valuing hundreds of small-cap tokens at the time of theft, many of which had limited liquidity.
 
 ### Blockchain Analysis Findings
 
@@ -75,8 +75,8 @@ Blockchain analytics firms tracked the stolen funds:
 
 - **Ethereum-based assets**: The attacker's Ethereum addresses were identified and tracked. Stolen ERC-20 tokens were swapped on decentralized exchanges or sent to other platforms.
 - **Bitcoin**: Stolen BTC was moved through multiple intermediate addresses.
-- **Small-cap tokens**: Many of the stolen small-cap tokens were effectively illiquid — the attacker could not sell significant quantities without crashing the price, limiting the realizable value of the theft.
-- **January 2020 arrest**: In a related development, a person was arrested in the United States in connection with laundering stolen Cryptopia funds through other exchanges. This arrest demonstrated that at least some of the stolen funds were traced to identifiable individuals.
+- **Small-cap tokens**: Many of the stolen small-cap tokens had limited liquidity, so selling meaningful quantities could have materially affected market prices and reduced realizable proceeds.
+- **Ongoing laundering movements**: Stolen assets continued moving after the breach. Public reporting tracked later ETH movements through exchanges and other services, but the main hack attribution has remained unresolved in public reporting.
 
 ## Liquidation and Legal Proceedings
 
@@ -103,9 +103,9 @@ In April 2020, the New Zealand High Court issued a landmark ruling in *Ruscoe v 
 
 **Impact of the ruling**:
 
-- Set a precedent that has been cited in cryptocurrency insolvency proceedings in other jurisdictions
+- Set a precedent that has been cited in cryptocurrency insolvency analysis in other jurisdictions
 - Provided clarity for exchange operators about their legal obligations regarding customer assets
-- Influenced the development of cryptocurrency custody regulations in New Zealand and beyond
+- Informed cryptocurrency custody and insolvency discussions in New Zealand and beyond
 - Distinguished from the outcome in some other exchange insolvencies (such as Mt. Gox in Japan, where the treatment of customer assets was determined under different legal frameworks)
 
 ### Distribution Process
@@ -116,7 +116,7 @@ Grant Thornton developed a multi-phase distribution process:
 2. **Account reconciliation**: Matching customer claims against Cryptopia's internal records and blockchain data
 3. **Coin-by-coin approach**: Because hundreds of different tokens were involved, the liquidation had to handle each token type separately
 4. **Conversion decisions**: For tokens with minimal liquidity, decisions had to be made about whether to attempt to sell them or distribute them directly to claimants
-5. **Timeline**: The distribution process extended over multiple years, with initial distributions beginning in 2023 — approximately four years after the hack
+5. **Timeline**: The distribution process extended over multiple years, with claims registration and verification preceding larger distributions that began years after the hack
 
 ## Market Impact
 
@@ -134,9 +134,9 @@ The Cryptopia hack had limited impact on the broader cryptocurrency market, give
 
 2. **Liquidation precedent**: The Ruscoe v Cryptopia ruling became a reference point for legal professionals and regulators dealing with exchange insolvency.
 
-3. **Long-tail token risk**: The case demonstrated that exchanges listing hundreds of small-cap tokens expose customers to a unique risk — in a hack or insolvency, many of these tokens may be effectively worthless by the time recovery proceedings conclude.
+3. **Long-tail token risk**: The case demonstrated that exchanges listing hundreds of small-cap tokens expose customers to a unique risk — in a hack or insolvency, token liquidity and support may deteriorate before recovery proceedings conclude.
 
-4. **New Zealand regulatory evolution**: The incident contributed to New Zealand's development of a more comprehensive framework for cryptocurrency service providers.
+4. **New Zealand regulatory evolution**: The incident highlighted practical gaps that later policy and compliance discussions around cryptocurrency service providers had to address.
 
 ## Vulnerability Pattern: Multi-Wallet Key Management at Scale
 
@@ -159,12 +159,12 @@ The mismatch between the security burden of managing hundreds of different crypt
 
 | Exchange | Date | Loss | Exchange Size (TVL) | Loss/TVL Ratio |
 |----------|------|------|-------------------|---------------|
-| Mt. Gox | 2014 | ~$473M | Largest (at the time) | Catastrophic (100%) |
-| Bitfinex | 2016 | ~$72M | Top 5 | Significant (~15-20%) |
+| Mt. Gox | 2014 | ~$473M at 2014 prices | Dominant venue at the time | Catastrophic |
+| Bitfinex | 2016 | ~$72M | Large global exchange | Significant but survivable |
 | Coincheck | 2018 | ~$530M | Large (Japan) | Very significant |
-| Cryptopia | 2019 | ~$16-30M | Small-mid | Catastrophic (leading to liquidation) |
-| KuCoin | 2020 | ~$280M | Top 10 | Significant but survivable |
-| Bybit | 2025 | ~$1.5B | Top 3 | Significant but survivable |
+| Cryptopia | 2019 | ~NZ$16-30M | Small-mid | Catastrophic, followed by liquidation |
+| KuCoin | 2020 | ~$280M | Large global exchange | Significant but survivable |
+| Bybit | 2025 | ~$1.5B reported | Large global exchange | Significant but survivable |
 
 The pattern shows that smaller exchanges are more likely to be existentially impacted by hacks — a $20M loss that a top-tier exchange can absorb may force a small exchange into liquidation.
 
@@ -178,7 +178,7 @@ The pattern shows that smaller exchanges are more likely to be existentially imp
 
 4. **Liquidation process monitoring**: When an exchange enters liquidation, the remaining assets are managed by a liquidator. Surveillance should track liquidator-controlled addresses to ensure asset movements during the liquidation process are authorized and properly documented.
 
-5. **Small-cap token liquidity risk in insolvency**: Tokens with limited liquidity outside a hacked exchange may become effectively worthless during a prolonged insolvency process. Surveillance and risk tools should assess what proportion of a token's liquidity depends on a single exchange.
+5. **Small-cap token liquidity risk in insolvency**: Tokens with limited liquidity outside a hacked exchange may lose liquidity or venue support during a prolonged insolvency process. Surveillance and risk tools should assess what proportion of a token's liquidity depends on a single exchange.
 
 6. **Trust vs. general asset treatment**: The Ruscoe v Cryptopia ruling determined that customer assets were held on trust, not as exchange property. This has implications for how surveillance systems model exchange insolvency risk — customers of exchanges in jurisdictions with trust treatment have different recovery expectations than those in general-creditor jurisdictions.
 
