@@ -14,9 +14,9 @@ entities:
 ## Summary
 
 1. **On August 10, 2021, the Poly Network cross-chain bridge protocol was exploited for approximately $610 million across Ethereum, Binance Smart Chain (BSC), and Polygon**, making it one of the largest DeFi exploits by dollar value at the time. The attacker exploited a privilege escalation vulnerability in the protocol's cross-chain message verification logic.
-2. **The core vulnerability lay in the `EthCrossChainManager` contract's `verifyHeaderAndExecuteTx` function**, which allowed an attacker to craft a cross-chain message that called the `EthCrossChainData` contract's `putCurEpochConPubKeyBytes` function — replacing the set of authorized validators (known as "keepers") with a public key controlled by the attacker. Once the keepers were replaced, the attacker could sign any cross-chain transaction.
-3. **Funds were extracted across three chains**: approximately $273 million in tokens on Ethereum (including USDC, WBTC, WETH, DAI, UNI, SHIB, and others), approximately $253 million on BSC (primarily in BTCB and BNB), and approximately $85 million on Polygon (primarily in USDC).
-4. **The attacker returned substantially all of the stolen funds** over the following two weeks. Tether froze approximately $33 million in USDT on Ethereum within hours. The attacker communicated through embedded transaction messages, and Poly Network offered the attacker a $500,000 bounty and a "Chief Security Advisor" position, which generated significant controversy.
+2. **The core vulnerability lay in the `EthCrossChainManager` contract's `verifyHeaderAndExecuteTx` execution path**, which could be induced to call the privileged `EthCrossChainData` contract and update keeper public-key material through `putCurEpochConPubKeyBytes`. Once that configuration was altered, attacker-controlled authorization data could be used for unauthorized withdrawals.
+3. **Funds were extracted across three chains**: roughly $273 million in tokens on Ethereum (including USDC, WBTC, WETH, DAI, UNI, SHIB, and others), roughly $253 million on BSC (primarily in BTCB and BNB), and roughly $85 million on Polygon (primarily in USDC), for a reported total around $610M-$612M.
+4. **The attacker returned most recoverable funds** over the following two weeks, while Tether froze approximately $33 million in USDT on Ethereum within hours. The attacker communicated through embedded transaction messages, and Poly Network publicly offered a $500,000 bounty and reportedly invited the attacker into a security-advisor role, which generated significant controversy.
 5. **The exploit demonstrated fundamental risks in cross-chain bridge architecture**, specifically that bridges must treat cross-chain message verification as a critical security boundary. The ability to modify the keeper set through a crafted cross-chain call meant that a single smart contract vulnerability could compromise all funds across all connected chains simultaneously.
 
 ## Background
@@ -40,9 +40,9 @@ The protocol's cross-chain mechanism relied on several key components:
 | Supported chains | Ethereum, BSC, Polygon, Ontology, Neo, Heco, OKExChain |
 | Total value locked | ~$610M across all chains |
 | Keeper set management | Via `putCurEpochConPubKeyBytes` in ECCD |
-| Cross-chain execution | ECCM `verifyHeaderAndExecuteTx` calls arbitrary target with attacker-controlled calldata |
+| Cross-chain execution | ECCM `verifyHeaderAndExecuteTx` could call user-selected targets with user-influenced calldata |
 | Access control on ECCD keeper update | Only callable by the ECCM contract (owner = ECCM address) |
-| Access control on ECCM execution | Verified keeper signatures on cross-chain header |
+| Access control on ECCM execution | Source-chain header/proof verification before destination-chain execution |
 
 The critical design flaw was that the ECCM's cross-chain execution function could call *any* contract with *any* calldata, including the ECCD contract that stored the keeper set. While the ECCD contract restricted `putCurEpochConPubKeyBytes` to calls from its owner (the ECCM), the ECCM itself was the contract executing the cross-chain message — meaning a properly formatted cross-chain message could instruct the ECCM to call the ECCD and replace the keepers.
 
@@ -56,28 +56,28 @@ The attacker needed to accomplish two things: (1) replace the keeper set with th
 
 The `verifyHeaderAndExecuteTx` function in the ECCM performed these operations:
 1. Decoded a cross-chain message containing a target contract address and calldata
-2. Verified that the message header was signed by the current keeper set
+2. Performed the expected source-chain header/proof checks
 3. Called the target contract with the provided calldata using a low-level `_executeCrossChainTx` internal function
 
 The vulnerability: the function did not restrict *which* contracts could be called or *which* functions could be invoked. The attacker constructed a cross-chain message where:
 - The target contract was the ECCD contract's address
 - The calldata encoded a call to `putCurEpochConPubKeyBytes`, passing the attacker's own public key as the new keeper set
 
-The only remaining challenge was getting this message to pass signature verification by the *current* keeper set.
+The remaining challenge was making the destination call resolve to the privileged keeper-update function through the ECCM's cross-chain execution format.
 
-**Step 2 — Bypassing Keeper Signature Verification**:
+**Step 2 — Selecting the Privileged Keeper-Update Function**:
 
-The attacker found a path through Poly Network's relay chain (Ontology-based) where they could construct a valid cross-chain transaction that the existing keepers would relay. The specific mechanism exploited was that certain source-chain contract calls on a connected chain could generate cross-chain messages that the relay infrastructure would forward — the relay chain validators signed the block headers containing these messages as part of their normal operation, without individually verifying the semantic content of each cross-chain message.
+Public exploit analyses described an additional selector-construction issue in the execution path. The cross-chain call builder used a user-influenced method string to derive the destination function selector. By choosing a method string whose derived four-byte selector matched the privileged keeper-update function, the attacker could make the ECCM call the ECCD keeper-update path while the call still appeared to follow the cross-chain execution format.
 
-By initiating the attack from a chain where the attacker could create the necessary contract interaction, the relay chain included the resulting cross-chain event in a signed block header, which the ECCM on the destination chain accepted as valid.
+In effect, the trusted execution contract became the caller of its own sensitive configuration contract. That satisfied the ECCD `onlyOwner` check even though the call originated from attacker-controlled cross-chain message content.
 
 **Step 3 — Draining the LockProxy Contracts**:
 
 Once the keeper set was replaced with the attacker's public key on each chain, the attacker could:
 1. Construct unlock messages for any amount of any token held in any LockProxy
-2. Sign these messages with their private key (now the sole valid keeper)
+2. Sign or otherwise authorize these messages with attacker-controlled key material accepted by the altered keeper configuration
 3. Submit these signed messages to each chain's ECCM
-4. The ECCM would verify the signature against the new (attacker-controlled) keeper set, pass verification, and instruct the LockProxy to release the tokens
+4. The ECCM would accept the attacker-controlled authorization data and instruct the LockProxy to release the tokens
 
 The attacker executed this across Ethereum, BSC, and Polygon, draining the following approximate amounts:
 
@@ -92,15 +92,15 @@ The attacker executed this across Ethereum, BSC, and Polygon, draining the follo
 
 ## Timeline and Fund Recovery
 
-### Hour-by-Hour Response
+### Response Timeline
 
 | Time (UTC, Aug 10-11) | Event |
 |------------------------|-------|
-| ~10:30 Aug 10 | Attack transactions begin across Ethereum, BSC, Polygon |
-| ~11:00 | Community security researchers (e.g., SlowMist) identify the exploit |
-| ~12:00 | Poly Network confirms the attack on Twitter, publishes attacker addresses |
-| ~13:00 | Tether freezes ~$33M USDT on the Ethereum attacker address |
-| ~14:00 | Attacker begins communicating via embedded Ethereum transaction input data |
+| Aug 10 | Attack transactions begin across Ethereum, BSC, and Polygon |
+| Aug 10 | Community security researchers identify and publicize attacker addresses |
+| Aug 10 | Poly Network confirms the attack publicly and publishes attacker addresses |
+| Aug 10 | Tether freezes roughly $33M USDT on the Ethereum attacker address |
+| Aug 10-11 | Attacker begins communicating via embedded Ethereum transaction input data |
 | Aug 11 | Attacker begins returning funds, starting with Polygon USDC |
 | Aug 11-26 | Attacker returns funds in batches across all three chains |
 | Aug 26 | Poly Network confirms that substantially all funds have been returned |
@@ -114,7 +114,7 @@ The attacker communicated through Ethereum transaction input data (calldata cont
 
 Poly Network responded by:
 - Offering a $500,000 bug bounty for the "white hat" behavior
-- Offering the attacker a "Chief Security Advisor" role — a decision that drew widespread criticism
+- Reportedly inviting the attacker into a security-advisor role — a decision that drew widespread criticism
 - Requesting the return of all funds and stating they would not pursue legal action
 
 ### Why the Attacker Returned Funds
@@ -132,19 +132,19 @@ The precise motivations remain debated, but several factors likely influenced th
 The fundamental issue was an access control gap in the cross-chain execution flow:
 
 1. The ECCD contract correctly restricted `putCurEpochConPubKeyBytes` to calls from the ECCM (its owner)
-2. The ECCM correctly verified that cross-chain messages were signed by the current keeper set
-3. **But the ECCM did not restrict which contracts or functions could be the target of cross-chain execution**
+2. The ECCM performed its expected source-chain header/proof checks before executing destination calls
+3. **But the ECCM did not effectively restrict sensitive contracts or functions from becoming the target of cross-chain execution**
 
-This created a circular dependency: the ECCM could call the ECCD to change the keepers, and the keepers controlled what the ECCM would execute. The attacker broke into this loop by finding a way to get a legitimate keeper-signed message that targeted the ECCD.
+This created a circular dependency: the ECCM could call the ECCD to change keeper material, and keeper material controlled what the ECCM would accept. The attacker broke into this loop by getting the trusted execution path to target the sensitive ECCD update function.
 
 ### Why Standard Access Controls Failed
 
 In traditional single-chain smart contract design, restricting a sensitive function to `onlyOwner` (where the owner is a trusted contract) is often considered sufficient. The Poly Network architecture broke this assumption because:
 - The "trusted contract" (ECCM) was designed to execute *arbitrary* calldata from *arbitrary* cross-chain sources
-- The only validation was on the message *signature*, not the message *content*
-- There was no allowlist or blocklist of callable functions/contracts
+- The validation boundary focused on source proof/header acceptance rather than destination-side semantic authorization
+- There was no effective allowlist or blocklist preventing calls into sensitive configuration functions
 
-A simple fix would have been to add a check in the ECCM that prevented cross-chain messages from targeting the ECCD contract, or to require a different authorization path (e.g., multisig governance) for keeper set modifications.
+One direct mitigation would have been to add a check in the ECCM that prevented cross-chain messages from targeting the ECCD contract, or to require a different authorization path (e.g., multisig governance) for keeper set modifications.
 
 ### Cross-Chain Bridge Risk Taxonomy
 
@@ -164,17 +164,17 @@ Cross-chain bridges aggregate risk because they hold assets from multiple chains
 
 ### Immediate Price Effects
 
-The exploit had limited lasting impact on the broader crypto market, partly because the funds were returned:
-- **ETH price**: Briefly dipped approximately 3-4% in the hours after the exploit was publicized, recovering within 24 hours
-- **BNB price**: Similar brief dip and recovery
-- **DeFi TVL**: Cross-chain bridge deposits saw a temporary decline as users reassessed bridge risk
+The exploit had limited lasting impact on broad crypto prices, partly because most recoverable funds were returned, but it had a large reputational impact on bridge risk:
+- **Bridge trust**: Users and analysts reassessed the concentration of assets inside bridge lock contracts
+- **Stablecoin freeze debate**: Tether's freeze showed that centralized token issuers could reduce the realizable value of some stolen assets
+- **DeFi risk models**: Bridge exposure became a more visible input in protocol, insurance, and treasury risk assessments
 
 ### Long-Term Industry Impact
 
 - **Bridge security auditing**: The exploit accelerated demand for specialized bridge security audits and formal verification of cross-chain message handling
 - **Centralized freezing debate**: Tether's rapid freeze of attacker-held USDT reignited debates about centralized control over ostensibly decentralized assets
-- **Insurance and risk assessment**: DeFi insurance protocols (Nexus Mutual, InsurAce) began more explicitly pricing bridge risk
-- **Bridge design evolution**: Newer bridge designs increasingly adopted approaches like optimistic verification (with fraud proofs), zero-knowledge proofs, or decentralized oracle networks rather than simple multisig or keeper-set models
+- **Insurance and risk assessment**: DeFi insurance and treasury risk frameworks began treating bridge exposure as a distinct concentration risk
+- **Bridge design evolution**: Later bridge designs increasingly emphasized destination-chain authorization, fraud/validity proofs, or independent verification instead of relying only on a privileged message-execution contract
 
 ## Lessons for Market Surveillance
 
@@ -182,13 +182,13 @@ The exploit had limited lasting impact on the broader crypto market, partly beca
 
 2. **Keeper/validator set change monitoring**: Real-time monitoring for keeper set or validator set changes in bridge contracts is essential. A keeper replacement outside of a normal governance process is an immediate red flag.
 
-3. **Multi-chain correlated drains**: Simultaneous or near-simultaneous large withdrawals from bridge contracts across multiple chains — especially when the receiving addresses are previously unseen — should trigger cross-chain correlation alerts.
+3. **Multi-chain correlated drains**: Simultaneous or near-simultaneous large withdrawals from bridge contracts across multiple chains — especially when the receiving addresses are new or newly linked — should trigger cross-chain correlation alerts.
 
 4. **Centralized freeze effectiveness**: The Tether freeze demonstrated that centralized stablecoin issuers can act as a partial backstop against bridge exploits. Surveillance systems should track which bridge-held assets can be frozen and which cannot, as this affects the realizable value of a potential exploit.
 
 5. **Attacker communication channels**: The use of Ethereum transaction calldata as a communication channel is now a recognized pattern. Monitoring for UTF-8 messages in transaction input data from flagged addresses can provide early insight into attacker intentions and potential fund return negotiations.
 
-6. **Bridge TVL concentration risk**: Bridges that hold a disproportionate share of a token's circulating supply on a given chain represent systemic risk. If a single bridge holds 80% of the wrapped BTC on a chain, that bridge's security is effectively the security of BTC on that chain.
+6. **Bridge TVL concentration risk**: Bridges that hold a disproportionate share of a token's circulating supply on a given chain represent systemic risk. If a single bridge controls most of a chain's wrapped liquidity for a major asset, that bridge's security becomes a market-wide risk factor for that asset on that chain.
 
 ## References
 
