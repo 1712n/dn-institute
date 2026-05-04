@@ -11,9 +11,9 @@ entities:
 ## Summary
 
 1. **SQUID was a BNB Chain token** launched on October 20, 2021, themed around Netflix's "Squid Game" series (with no official affiliation). It rose from $0.01 to an all-time high of approximately $2,861 within 13 days before crashing to near $0 in under 5 minutes on November 1, 2021.
-2. **An anti-sell mechanism** was coded into the token's smart contract: holders could not sell SQUID tokens on PancakeSwap unless they also held a separate "Marbles" token, which was extremely scarce and controlled by the developers. This meant that while anyone could buy SQUID, virtually no one outside the development team could sell it.
+2. **An anti-sell mechanism** was coded into the token's smart contract and project rules: holders could not sell SQUID tokens on PancakeSwap unless they satisfied a separate "Marbles" condition that ordinary market buyers could not practically meet. This meant that while anyone could buy SQUID, virtually no public holders could sell it.
 3. **The rug pull extracted approximately $3.38 million** in BNB from the PancakeSwap liquidity pool. The token's developers removed all liquidity and disappeared. The token price collapsed from $2,861 to $0.0007 in approximately 5 minutes, a 99.99% decline.
-4. **CoinMarketCap tracked SQUID** during its pump, reporting real-time price data that amplified media coverage without flagging the anti-sell mechanism. Multiple major news outlets (BBC, CNBC, Bloomberg) reported on SQUID's meteoric rise, further driving FOMO-based buying.
+4. **CoinMarketCap tracked SQUID** during its pump, reporting real-time price data that amplified media coverage before warnings were widely understood. Multiple major news outlets (BBC, CNBC, Bloomberg, and crypto trade press) reported on SQUID's meteoric rise, further driving FOMO-based buying.
 5. **No arrests or regulatory actions have been publicly reported** as of 2026. The anonymous developers used no KYC exchange and communicated only through a now-defunct website (squidgame.cash) and a Telegram channel where messaging was restricted to administrators only.
 
 ## Background
@@ -40,13 +40,13 @@ The core manipulation was a smart contract function that prevented token holders
 require(msg.sender == _owner || _hasMarbles[msg.sender], "Need Marbles to transfer");
 ```
 
-This pseudocode represents the effective logic: only the contract owner or addresses flagged as holding "Marbles" tokens could execute sell transactions. The "Marbles" token was a separate BEP-20 token that:
+This pseudocode represents the effective logic: ordinary buyers could acquire SQUID, but sell transactions were gated by privileged conditions tied to the project's "Marbles" mechanism. The Marbles requirement:
 
-1. Was not freely tradeable or purchasable
-2. Was distributed only to addresses controlled by the development team
-3. Served no purpose other than to gate SQUID selling
+1. Was not freely obtainable by ordinary buyers during the pump
+2. Depended on a promised play-to-earn game that never became a functioning public venue
+3. Served as a practical gate on SQUID selling
 
-This created a **one-way market**: anyone could buy SQUID on PancakeSwap (increasing the price), but only insiders could sell (decreasing the price). Every buy increased the liquidity pool's BNB reserves, which the developers could later extract.
+This created a **one-way market**: anyone could buy SQUID on PancakeSwap (increasing the price), but public holders were effectively blocked from selling (decreasing the price). Every buy increased the liquidity pool's BNB reserves, which the developers could later extract.
 
 ### Price Trajectory
 
@@ -57,7 +57,7 @@ The price trajectory reveals the classic shape of a one-way pump enabled by sell
 | Oct 20, 2021 | $0.01 | <$100K | Token launch, initial PancakeSwap listing |
 | Oct 26, 2021 | $0.35 | $500K–$1M | Social media buzz begins, first news articles |
 | Oct 28, 2021 | $5.60 | $2–5M | CNBC article drives mainstream attention |
-| Oct 29, 2021 | $38 | $5–10M | BBC, Bloomberg coverage; CoinMarketCap trending |
+| Oct 29, 2021 | $38 | $5–10M | BBC/Bloomberg coverage; CoinMarketCap trending |
 | Oct 30, 2021 | $90 | $10–15M | Users report inability to sell; warnings surface |
 | Oct 31, 2021 | $630 | $15–20M | BscScan community reports confirm anti-sell |
 | Nov 1, 2021 (pre-rug) | $2,861 | $20M+ (buy-only) | All-time high; peak FOMO |
@@ -75,7 +75,7 @@ The rug pull itself was executed in a straightforward manner:
 4. The extracted BNB (~$3.38 million worth) was rapidly moved through multiple wallets
 5. With no liquidity remaining, SQUID became untradeable; remaining holders were left with worthless tokens
 
-On-chain records show the extraction occurred in a small number of transactions within a window of approximately 5 minutes. The extracted BNB was bridged to other chains and mixed through various protocols to obscure the trail.
+On-chain records show the extraction occurred in a small number of transactions within a window of approximately 5 minutes. The extracted BNB was then moved through multiple wallets, making recovery and attribution harder for victims.
 
 ## Wash Trading and Volume Manipulation Evidence
 
@@ -146,7 +146,7 @@ The SQUID token case reveals manipulation patterns that automated surveillance s
 ## References
 
 1. CoinMarketCap. "SQUID Historical Market Data and Anti-Sell Warning." October-November 2021. Retrieved May 2026.
-2. BscScan. "Squid Game Token Contract (0x87230146E138d3F296a9a77e497A2A83012e9Bc5) Verified Source Code." Binance Smart Chain Explorer. Retrieved May 2026.
+2. BscScan. "Squid Game Token Contract (0x87230146E138d3F296a9a77e497A2A83012e9Bc5) and transaction history." Binance Smart Chain Explorer. Retrieved May 2026.
 3. BBC News. "Squid Game cryptocurrency crashes to almost zero." November 1, 2021.
 4. CNBC. "A cryptocurrency inspired by 'Squid Game' soars over 75,000% in days, raising red flags." October 28, 2021.
 5. Chainalysis. "The 2022 Crypto Crime Report." Chapter 6: Rug Pulls Overtake Scam Revenue. Chainalysis Inc., February 2022.
