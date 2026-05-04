@@ -3,7 +3,7 @@ date: 2026-05-05
 entities:
   - id: atomic-wallet
     name: Atomic Wallet
-    type: exchange
+    type: wallet
   - id: elliptic
     name: Elliptic
     type: analytics
@@ -16,14 +16,14 @@ entities:
   - id: ofac
     name: Office of Foreign Assets Control
     type: regulatory
-title: "Atomic Wallet supply-chain compromise and $100 M+ multi-chain private-key drain"
+title: "Atomic Wallet suspected software compromise and $100M+ multi-chain wallet drain"
 ---
 
 ## 1. Introduction and incident overview
 
-On 2 June 2023, users of the non-custodial desktop and mobile wallet application Atomic Wallet began reporting unauthorized outflows of cryptocurrency from their wallets. Over the following 72 hours, blockchain analysts established that at least 5,500 individual wallet addresses across multiple chains — including Bitcoin, Ethereum, Tron, BSC, Ripple, Dogecoin, Litecoin, and Stellar — had been compromised. The aggregate loss, initially estimated at $35 million, was revised upward by independent on-chain investigators to exceed $100 million within two weeks as additional victim wallets surfaced.
+On 2 June 2023, users of the non-custodial desktop and mobile wallet application Atomic Wallet began reporting unauthorized outflows of cryptocurrency from their wallets. Over the following days and weeks, blockchain analysts identified more than 5,000 affected wallet addresses across multiple chains — including Bitcoin, Ethereum, Tron, BSC, XRP Ledger, Dogecoin, Litecoin, and Stellar. The aggregate loss, initially estimated around $35 million, was later reported by independent on-chain investigators and the FBI as exceeding $100 million as additional victim wallets surfaced.
 
-Atomic Wallet is an Estonia-registered, non-custodial cryptocurrency wallet that supports over 500 assets. Its core value proposition is that private keys are encrypted and stored locally on the user's device, never transmitted to Atomic Wallet servers. This architecture normally places the custody responsibility — and the security perimeter — entirely on the end user's device. The June 2023 incident challenged that assumption: the sheer scale of affected wallets, spanning multiple blockchains and device types simultaneously, pointed to a systemic compromise rather than a series of individual phishing or malware attacks.
+Atomic Wallet is an Estonia-registered, non-custodial cryptocurrency wallet that supports hundreds of assets. Its core value proposition is that private keys are encrypted and stored locally on the user's device rather than held by Atomic Wallet as a custodian. This architecture normally places the custody responsibility — and much of the security perimeter — on the end user's device. The June 2023 incident challenged that assumption: the scale of affected wallets across multiple blockchains pointed to a systemic wallet-software, key-management, infrastructure, or user-environment compromise rather than a clearly isolated single-chain protocol issue.
 
 ## 2. Technical background
 
@@ -33,55 +33,55 @@ Atomic Wallet generates a 12-word BIP-39 mnemonic during onboarding. From this s
 
 ### 2.2 Pre-existing security concerns
 
-Security researchers had flagged potential vulnerabilities in Atomic Wallet before the June 2023 incident. In February 2022, the auditing firm Least Authority published a report identifying several issues in Atomic Wallet's codebase, including: inadequate encryption of private keys in local storage, the use of an outdated and potentially vulnerable version of Electron (the cross-platform desktop framework), insufficient cryptographic randomness in certain key-derivation paths, and the lack of proper code-signing mechanisms for updates. Least Authority concluded that the design "does not sufficiently protect user private keys and sensitive data" and recommended remediation steps. Atomic Wallet acknowledged the audit but provided limited public evidence that all findings were addressed prior to the June 2023 attack.
+Security researchers had flagged potential vulnerabilities in Atomic Wallet before the June 2023 incident. In February 2022, the auditing firm Least Authority published a report identifying multiple issues in Atomic Wallet's design and implementation and warning that the wallet did not sufficiently demonstrate protection for user private keys and sensitive data. Public reporting after the 2023 drain frequently cited this audit as a red flag. However, because Atomic Wallet did not publish a definitive root-cause report for the June 2023 incident, the audit findings should be treated as relevant prior-risk context rather than proof of the exact exploited path.
 
 ### 2.3 Attack surface considerations
 
-Several vectors could explain a compromise of locally encrypted seed phrases at scale:
+Several vectors could plausibly explain a compromise of locally encrypted seed phrases or derived keys at scale:
 
-1. **Supply-chain injection**: A malicious dependency or compromised build pipeline could embed key-exfiltration logic into the wallet application binary distributed to users. Because Atomic Wallet is built on Electron and bundles hundreds of npm dependencies, its supply chain surface is broad.
+1. **Supply-chain or build compromise**: A malicious dependency, compromised build pipeline, or poisoned update artifact could embed key-exfiltration logic into a wallet application binary distributed to users.
 
-2. **Server-side interception**: If the application transmits encrypted seed material (or material sufficient to reconstruct seeds) to Atomic Wallet infrastructure — during backups, telemetry, or swap coordination — a compromise of that infrastructure could yield seeds in bulk.
+2. **Server-side or telemetry exposure**: If an application transmits encrypted seed material, derived key material, logs, or material sufficient to assist reconstruction during backups, telemetry, or swap coordination, a compromise of related infrastructure could become high impact.
 
 3. **Insufficient local encryption**: If the AES-256 encryption of local seed storage used a weak key-derivation function, short salt, or predictable initialization vector, an attacker who obtained the encrypted files (via malware, cloud sync, or another vulnerability) could brute-force passwords at scale.
 
-4. **CDN or update-channel poisoning**: If the application's auto-update mechanism did not verify cryptographic signatures on binaries, an attacker who compromised the update CDN could distribute a trojanized version to all users.
+4. **CDN or update-channel poisoning**: If an application's auto-update mechanism failed to verify cryptographic signatures on binaries, an attacker who compromised the update channel could distribute a trojanized version to users.
 
 ## 3. Attack execution and on-chain forensics
 
 ### 3.1 Timeline of the drain
 
-The earliest confirmed unauthorized transactions appeared on-chain on 2 June 2023, starting around 21:45 UTC. The drain proceeded in waves:
+The earliest widely reported unauthorized transactions appeared on-chain on 2 June 2023. Public analysis described the drain as occurring in waves:
 
-- **Wave 1 (2 June 21:45–3 June 06:00 UTC)**: High-value wallets targeted first. Ethereum, Bitcoin, and Tron wallets with balances exceeding $100,000 were drained systematically. Transactions were broadcast in rapid succession, suggesting automated tooling.
+- **Early wave (2-3 June)**: Higher-value wallets on major chains were drained quickly. Transactions were broadcast in rapid succession, suggesting automated tooling.
 
-- **Wave 2 (3–4 June)**: Medium-value wallets across BSC, Ripple, Dogecoin, and Litecoin were emptied. The attacker appeared to work through chains sequentially, suggesting a batched key-derivation and sweep process.
+- **Follow-on wave (3-4 June)**: Additional wallets across BSC, XRP Ledger, Dogecoin, Litecoin, and other chains were emptied. The attacker appeared to work through chains and assets in batches, suggesting automated key-derivation and sweep processes.
 
-- **Wave 3 (5–10 June)**: Residual low-value wallets and wallets on less common chains (Stellar, Cosmos, Algorand) were swept. Some victims reported funds disappearing days after the initial wave, indicating the attacker held derived keys and swept wallets opportunistically as balances appeared.
+- **Later sweeps (5-10 June and after)**: Residual wallets and less common assets were swept. Some victims reported funds disappearing after the initial wave, consistent with an attacker holding key material or access paths and sweeping balances opportunistically.
 
 ### 3.2 Laundering methodology
 
-On-chain analysis, particularly by Elliptic and the pseudonymous researcher ZachXBT, mapped the laundering pipeline:
+On-chain analysis, particularly by Elliptic and the pseudonymous researcher ZachXBT, mapped portions of the laundering pipeline:
 
-1. **Initial consolidation**: Stolen ERC-20 tokens were swapped to ETH via decentralized exchanges (Uniswap, 1inch) within minutes of the theft. BTC and other UTXO-chain funds were consolidated into intermediate wallets.
+1. **Initial consolidation**: Stolen ERC-20 tokens were swapped to ETH via decentralized exchanges such as Uniswap and 1inch. BTC and other UTXO-chain funds were consolidated into intermediate wallets.
 
-2. **OFAC-sanctioned mixer usage**: Ethereum-denominated funds were routed through the Sinbad.io mixer, a service the U.S. Treasury's Office of Foreign Assets Control (OFAC) later sanctioned in November 2023. Bitcoin funds passed through a combination of peel chains and the Sinbad mixer.
+2. **Mixer usage**: Ethereum-denominated and Bitcoin-denominated funds were linked by investigators to laundering paths that included Sinbad.io, a mixer later sanctioned by the U.S. Treasury's Office of Foreign Assets Control (OFAC) in November 2023.
 
-3. **Cross-chain bridging**: Portions of the stolen funds were bridged across chains to complicate tracing. THORChain and other cross-chain protocols were used to convert between asset types.
+3. **Cross-chain movement**: Portions of the stolen funds were bridged or swapped across chains to complicate tracing. Cross-chain protocols and centralized venues were used to convert between asset types.
 
-4. **Exchange deposit**: Final-stage funds were deposited into centralized exchanges — some of which froze portions upon notification by Atomic Wallet's incident-response partners and law enforcement.
+4. **Exchange deposit**: Some later-stage funds were deposited into centralized exchanges, where incident-response partners and law enforcement attempted freezes where possible.
 
 ### 3.3 Attribution to the Lazarus Group
 
-Multiple independent analysts, including Elliptic, attributed the Atomic Wallet attack to North Korea's Lazarus Group with high confidence. The attribution rested on several converging indicators:
+Multiple independent analysts, including Elliptic, attributed the Atomic Wallet attack to North Korea's Lazarus Group with high confidence. The FBI later publicly identified DPRK-linked actors in connection with Atomic Wallet stolen funds. The attribution rested on several converging indicators:
 
 - **Laundering pattern overlap**: The mixer usage, peel-chain structure, and timing of consolidation transactions matched Lazarus Group's established playbook from the Harmony Horizon Bridge ($100M, June 2022) and Ronin Bridge ($625M, March 2022) hacks.
 
-- **Sinbad.io association**: Elliptic's analysis showed that the stolen Atomic Wallet funds were laundered through the same Sinbad.io mixer addresses used to process proceeds from confirmed Lazarus Group operations, including the Harmony and Ronin thefts.
+- **Sinbad.io association**: Elliptic's analysis showed that Atomic Wallet funds were laundered through infrastructure associated with prior DPRK-linked laundering, including Sinbad.io.
 
-- **FBI confirmation**: In a January 2024 statement, the FBI confirmed that the Lazarus Group was responsible for the Atomic Wallet compromise, as part of a broader advisory on DPRK cyber theft targeting cryptocurrency infrastructure.
+- **FBI attribution**: In an August 2023 statement, the FBI identified cryptocurrency stolen by DPRK actors and included Atomic Wallet among the affected incidents.
 
-- **Operational consistency**: The multi-chain, multi-asset targeting pattern — draining all supported chains from a single seed compromise rather than targeting one chain — is characteristic of Lazarus Group operations that aim to maximize extraction per compromised target.
+- **Operational consistency**: The multi-chain, multi-asset targeting pattern — draining many assets associated with compromised wallets rather than targeting one chain — was consistent with DPRK-linked operations that aim to maximize extraction per compromised target.
 
 ## 4. Atomic Wallet's response and transparency failures
 
@@ -91,17 +91,17 @@ Atomic Wallet's initial response drew criticism for both its pace and content. T
 
 ### 4.2 Scope minimization
 
-In subsequent communications, Atomic Wallet stated that "less than 1% of monthly active users" were affected. While this figure may have been numerically accurate relative to the total user base (reported at over 5 million downloads), critics noted that it obscured the severity of the financial impact: the affected 1% collectively lost over $100 million. The framing was perceived as an attempt to minimize the incident's significance.
+In subsequent communications, Atomic Wallet stated that "less than 1% of monthly active users" were affected. While this figure may have been numerically accurate relative to the total user base, critics noted that it obscured the severity of the financial impact: affected users collectively lost amounts later reported above $100 million. The framing was perceived by some observers as minimizing the incident's significance.
 
 ### 4.3 Root-cause opacity
 
-Atomic Wallet never published a detailed post-mortem or root-cause analysis. The company retained the blockchain analytics firm Chainalysis to assist with tracing stolen funds but did not publicly disclose which vulnerability was exploited, whether it had been patched, or what architectural changes were made to prevent recurrence. In a June 2023 blog post, the company listed four possible causes under investigation — network vulnerabilities, malware on user devices, man-in-the-middle attacks, and code injection — but did not narrow these down publicly.
+Atomic Wallet did not publish a detailed technical post-mortem or definitive root-cause analysis. The company retained blockchain analytics support to assist with tracing stolen funds but did not publicly disclose which vulnerability was exploited, whether it had been patched, or what architectural changes were made to prevent recurrence. In a June 2023 blog post, the company listed possible causes under investigation — including network vulnerabilities, malware on user devices, man-in-the-middle attacks, and code injection — but did not narrow these down publicly.
 
 This opacity left users unable to assess whether the wallet was safe to continue using. Security researchers noted that without a confirmed root cause, there was no basis to believe the vulnerability had been remediated.
 
 ### 4.4 No compensation program
 
-Unlike some projects that have established recovery funds or user-compensation mechanisms after security incidents, Atomic Wallet did not announce any compensation or restitution program for affected users. The company stated that it was working with law enforcement and blockchain analytics firms to trace and recover funds, but no recovered funds were reported distributed to victims as of early 2026.
+Unlike some projects that have established recovery funds or user-compensation mechanisms after security incidents, Atomic Wallet did not announce a broad compensation or restitution program for affected users. The company stated that it was working with law enforcement and blockchain analytics firms to trace and recover funds, but public reporting did not show a full victim reimbursement process.
 
 ## 5. Legal proceedings
 
@@ -125,7 +125,7 @@ This does not argue for custodial solutions, which carry their own well-document
 
 ### 6.2 Supply-chain risk in cryptocurrency software
 
-Atomic Wallet's Electron-based architecture, with its large dependency tree, illustrates the supply-chain risk inherent in modern cryptocurrency wallet software. A single compromised npm package, a poisoned CI/CD pipeline, or a malicious pull request in an upstream dependency could inject key-exfiltration logic that persists through multiple wallet versions before detection. This risk is not unique to Atomic Wallet; it applies to any wallet built on JavaScript/TypeScript frameworks with extensive third-party dependencies.
+Atomic Wallet's desktop software architecture and third-party dependencies illustrate the supply-chain risk inherent in modern cryptocurrency wallet software. A single compromised package, a poisoned CI/CD pipeline, or a malicious pull request in an upstream dependency could inject key-exfiltration logic that persists through multiple wallet versions before detection. This risk is not unique to Atomic Wallet; it applies to any wallet built with extensive third-party dependencies.
 
 The incident accelerated industry discussion about:
 
@@ -136,13 +136,13 @@ The incident accelerated industry discussion about:
 
 ### 6.3 DPRK cyber theft as a systemic market risk
 
-The Lazarus Group's involvement in the Atomic Wallet hack — alongside the Ronin Bridge, Harmony Horizon, and numerous other cryptocurrency thefts — positions DPRK-sponsored cyber operations as a systemic risk to the cryptocurrency market. The UN Panel of Experts estimated that DPRK-linked groups stole approximately $1.7 billion in cryptocurrency in 2022 alone. The Atomic Wallet attack added to this total in 2023.
+The reported Lazarus Group / DPRK connection in the Atomic Wallet hack — alongside the Ronin Bridge, Harmony Horizon, and numerous other cryptocurrency thefts — positions DPRK-sponsored cyber operations as a systemic risk to the cryptocurrency market. The UN Panel of Experts estimated that DPRK-linked groups stole approximately $1.7 billion in cryptocurrency in 2022 alone. The Atomic Wallet attack added to the 2023 threat landscape.
 
 For market health, the implications are:
 
-- **Liquidity and price impact**: Large-scale thefts followed by mixer laundering inject sell pressure into markets when the attacker converts stolen assets to fiat-usable forms, typically through OTC desks or exchanges with weak KYC. This can depress prices of the specific tokens stolen.
+- **Liquidity and price impact**: Large-scale thefts followed by laundering can inject sell pressure into markets when the attacker converts stolen assets to more liquid or fiat-usable forms. This can affect liquidity and prices of specific tokens, especially smaller assets.
 
-- **Regulatory response**: Each major hack attributed to DPRK actors strengthens the case for stricter regulation of cryptocurrency infrastructure, including potential requirements for wallet-provider licensing, mandatory security audits, and incident-reporting obligations.
+- **Regulatory response**: Each major hack attributed to DPRK actors strengthens policy arguments for stricter security and incident-reporting expectations for cryptocurrency infrastructure.
 
 - **Sanctions compliance burden**: OFAC's November 2023 sanctioning of Sinbad.io (the mixer used to launder Atomic Wallet proceeds) created compliance obligations for all U.S.-nexus entities interacting with addresses associated with Sinbad. This pattern — hack, launder, sanction — increases the operational cost and legal risk for legitimate DeFi protocols and exchanges that inadvertently process tainted funds.
 
@@ -178,6 +178,6 @@ For market health, the implications are:
 
 ## 8. Conclusion
 
-The Atomic Wallet incident of June 2023 demonstrated that non-custodial wallet security is contingent on the integrity of the entire software supply chain, not merely on the cryptographic design of key storage. The attack, attributed to North Korea's Lazarus Group, compromised at least 5,500 wallets across multiple blockchains, resulting in losses exceeding $100 million. Atomic Wallet's response was marked by delayed disclosure, scope minimization, and a persistent refusal to publish a root-cause analysis — leaving users and the broader ecosystem unable to determine whether the vulnerability was remediated.
+The Atomic Wallet incident of June 2023 demonstrated that non-custodial wallet security is contingent on implementation, distribution, dependencies, and incident transparency, not merely on the cryptographic design of key storage. The attack, attributed by investigators and the FBI to DPRK-linked actors, affected more than 5,000 wallets across multiple blockchains and resulted in losses reported above $100 million. Atomic Wallet's response was criticized for limited root-cause transparency, leaving users and the broader ecosystem unable to independently determine whether the vulnerability was remediated.
 
-The incident underscores the structural risk that software supply-chain attacks pose to cryptocurrency infrastructure and highlights the growing role of state-sponsored threat actors as a systemic concern for market health. For the ecosystem to mature, wallet developers must adopt reproducible builds, minimize dependencies, promptly address audit findings, and commit to transparency when incidents occur. Users, in turn, must treat software wallets as convenience tools rather than secure vaults, and allocate significant holdings to hardware wallets with isolated signing environments.
+The incident underscores the structural risk that software, dependency, update-channel, and key-management failures pose to cryptocurrency infrastructure and highlights the growing role of state-sponsored threat actors as a systemic concern for market health. For the ecosystem to mature, wallet developers should adopt reproducible builds, minimize dependencies, promptly address audit findings, and commit to transparency when incidents occur. Users, in turn, should treat software wallets as convenience tools rather than secure vaults, and allocate significant holdings to hardware wallets with isolated signing environments.
