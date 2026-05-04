@@ -13,7 +13,7 @@ entities:
   - id: maker
     name: MakerDAO
     type: defi
-title: "Warp Finance flash-loan LP-token oracle manipulation and $7.7 M lending-protocol drain"
+title: "Warp Finance flash-loan LP-token oracle manipulation and $7.7M lending-protocol drain"
 ---
 
 ## 1. Introduction and incident overview
@@ -34,7 +34,7 @@ Warp Finance's value proposition was that LP tokens represent productive capital
 
 A Uniswap V2 LP token represents a pro-rata claim on the two assets held in a trading pair's pool. The value of an LP token is a function of the pool's total reserves and the prices of both constituent assets. For a pool with reserves (R_x, R_y) and total LP supply S, each LP token represents a claim on (R_x / S) of asset X and (R_y / S) of asset Y.
 
-The key vulnerability arises from how these reserves change during large trades. Uniswap V2 uses a constant-product AMM (x * y = k), so a large trade that buys asset X from the pool increases R_y and decreases R_x. If the LP-token valuation uses the pool's current reserve ratio as a price input — reading the reserves at the moment of the collateral evaluation — then a large trade immediately before the evaluation can artificially inflate the apparent value of the LP token.
+The key vulnerability arises from how these reserves change during large trades. Uniswap V2 uses a constant-product AMM (x * y = k), so a large trade can sharply distort the reserve mix and implied spot prices. If the LP-token valuation uses the pool's current reserves or reserve-implied spot prices at the moment of collateral evaluation, then a large trade immediately before the evaluation can artificially inflate the apparent value of the LP token.
 
 ### 2.3 Warp Finance's oracle design
 
@@ -54,23 +54,23 @@ The attack was executed in a single Ethereum transaction. The sequence of operat
 
 **Step 1 — Flash-loan acquisition**: The attacker borrowed a large quantity of WETH (wrapped Ether) via a flash loan from dYdX. The borrowed amount was sufficient to significantly move the reserves in the targeted Uniswap V2 pool.
 
-**Step 2 — LP-token acquisition**: The attacker used a portion of the flash-loaned WETH to provide liquidity to the Uniswap V2 WETH/DAI pool, receiving LP tokens in return.
+**Step 2 — LP-token acquisition**: The attacker used a portion of the flash-loaned assets to provide liquidity to the Uniswap V2 WETH/DAI pool, receiving LP tokens in return.
 
-**Step 3 — Reserve manipulation**: The attacker executed a large swap on the same Uniswap V2 WETH/DAI pool, selling a substantial amount of WETH for DAI. This swap dramatically shifted the pool's reserve ratio, increasing the DAI reserves and decreasing the WETH reserves. Because the constant-product formula requires the product of reserves to remain constant, the trade moved the pool to a state where each LP token (which represents a fixed fraction of the total reserves) appeared to hold significantly more DAI than before the swap.
+**Step 3 — Reserve manipulation**: The attacker executed large swaps around the same Uniswap V2 WETH/DAI pool. These swaps dramatically shifted the pool's reserve ratio and the reserve-implied spot price. Because Warp read manipulable pool state during the same transaction, the LP tokens appeared to support a much larger borrowing capacity than their fair value would justify after the manipulation unwound.
 
 **Step 4 — Inflated collateral deposit**: The attacker deposited the LP tokens obtained in Step 2 into Warp Finance as collateral. Warp Finance's oracle queried the Uniswap pool's reserves at this moment — after the manipulative swap in Step 3 — and valued the LP tokens at their inflated, post-manipulation price.
 
 **Step 5 — Maximum borrowing**: Based on the inflated collateral valuation, the attacker borrowed the maximum available DAI and USDC from Warp Finance's lending pools — approximately $7.7 million in stablecoins.
 
-**Step 6 — Unwinding and flash-loan repayment**: The attacker reversed the reserve-manipulation swap (buying back WETH with DAI) to recover most of the flash-loaned capital, repaid the dYdX flash loan, and retained the approximately $7.7 million in borrowed stablecoins. The LP tokens deposited as collateral were abandoned — their value, once the pool reserves returned to normal, was far less than the borrowed amount.
+**Step 6 — Unwinding and flash-loan repayment**: The attacker unwound the price manipulation enough to repay the flash loans and retained the borrowed stablecoins. The LP tokens deposited as collateral remained in Warp, but their recoverable value after the pool state normalized was far below the stablecoins borrowed against them.
 
 ### 3.2 Net extraction
 
-The net profit was the difference between the borrowed stablecoins ($7.7M) and the cost of the abandoned LP tokens plus flash-loan fees and gas costs. Because the LP tokens were acquired with a portion of the flash-loaned capital and their value after the manipulation reversal was minimal, the attacker's net extraction was approximately the full $7.7 million minus gas and fees — effectively the vast majority of the borrowed amount.
+The net extraction was the difference between the borrowed stablecoins and the recoverable value of the LP-token collateral plus flash-loan fees, trading costs, and gas. Public reporting commonly described the stablecoin drain at roughly $7.7-$7.8 million before later recovery of a substantial portion of the attacker's collateral.
 
 ### 3.3 Post-exploit fund movement
 
-The attacker moved the stolen stablecoins through several Ethereum addresses. A portion was later returned: Warp Finance reported that approximately $5.85 million in WETH collateral was recovered, either through negotiation or because the attacker's unwinding transactions left recoverable value. The net loss to Warp Finance depositors, after recovery, was approximately $1.85 million.
+The attacker moved the borrowed stablecoins through several Ethereum addresses. Warp Finance later reported that it recovered approximately $5.85 million of value from the collateral left in the protocol after the attack, using its liquidation path after the relevant timelock expired. The reported net unrecovered loss was therefore roughly $1.8-$2.0 million, depending on asset prices and accounting treatment.
 
 ## 4. Why the attack succeeded
 
@@ -98,15 +98,15 @@ Research published after the Warp Finance attack (and several similar incidents)
 
 ### 5.1 Immediate actions
 
-Warp Finance paused all protocol operations immediately after detecting the exploit. The team published a post-mortem within 48 hours, identifying the spot-reserve oracle as the root cause and acknowledging that the LP-token pricing mechanism was insufficient to resist flash-loan manipulation.
+Warp Finance paused protocol operations after detecting the exploit. Public post-incident communications and independent analyses identified flash-loan-manipulable LP-token pricing as the core weakness and showed that the collateral valuation mechanism was insufficient to resist within-transaction reserve manipulation.
 
 ### 5.2 Fund recovery
 
-The team reported recovering approximately $5.85 million of the $7.7 million extracted, representing WETH that remained in the protocol's collateral pool after the attacker's unwinding transactions. The recovery reduced the net loss to approximately $1.85 million, which was borne by stablecoin depositors whose DAI and USDC could not be fully repaid.
+The team reported recovering approximately $5.85 million of value from collateral left in the protocol, often described as about 75% of the original stablecoin drain. The recovery reduced the net unrecovered loss to roughly $1.85 million, with affected users receiving recovered funds and remaining claims handled through the project's recovery plan.
 
 ### 5.3 Protocol redesign
 
-Warp Finance announced plans to redesign its oracle system using Chainlink price feeds and secure LP-token pricing formulas. The protocol eventually relaunched in 2021 with improved oracle architecture, though it did not regain significant market share.
+Warp Finance announced plans to redesign its oracle system around more robust price feeds and secure LP-token pricing formulas. The incident nevertheless damaged confidence in the protocol and became a reference case for LP-collateral oracle risk.
 
 ## 6. Broader market-health implications
 
