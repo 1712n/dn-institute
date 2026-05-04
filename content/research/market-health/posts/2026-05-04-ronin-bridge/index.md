@@ -13,7 +13,7 @@ entities:
 ## Summary
 
 1. **On March 23, 2022, the Ronin Network bridge was exploited for approximately 173,600 ETH and 25.5 million USDC**, worth approximately $625 million at the time. This was the largest cryptocurrency bridge exploit in history and remains one of the most significant DeFi security incidents ever recorded.
-2. **The attack was executed by compromising 5 of 9 validator private keys** in Ronin's proof-of-authority validator set. The attacker gained control of four Sky Mavis-operated validator keys and one Axie DAO validator key through a social engineering attack that exploited a temporary access arrangement from November 2021.
+2. **The attack was executed by satisfying Ronin's 5-of-9 validator threshold** in its proof-of-authority validator set. The attacker gained control of four Sky Mavis-operated validator keys and used a stale Axie DAO signing path created by a temporary access arrangement from November 2021.
 3. **The exploit went undetected for six days** — from March 23 to March 29, 2022 — when a user attempting to withdraw 5,000 ETH from the bridge discovered it was insolvent. This detection gap highlights the inadequacy of Ronin's monitoring systems at the time.
 4. **The U.S. Treasury's Office of Foreign Assets Control (OFAC) attributed the attack to the Lazarus Group**, a North Korean state-sponsored hacking organization. OFAC sanctioned the Ethereum address used by the attacker in April 2022.
 5. **Approximately $30 million was recovered** through blockchain analysis and exchange cooperation. Sky Mavis raised $150 million in a funding round led by Binance to reimburse affected users and restarted the bridge in June 2022 with enhanced security measures.
@@ -28,7 +28,7 @@ Ronin used a proof-of-authority (PoA) consensus mechanism with 9 validators. Unl
 - **4 validators were operated by external parties** including Axie DAO
 - **The bridge signature threshold was 5 of 9** — meaning compromise of just 5 keys was sufficient to authorize any transaction
 
-This architecture meant that compromising Sky Mavis alone was sufficient to drain the entire bridge.
+This architecture meant that compromising Sky Mavis infrastructure plus a stale Axie DAO signing permission was sufficient to drain the entire bridge.
 
 ## 🌰 Attack Mechanics
 
@@ -47,7 +47,7 @@ Once inside Sky Mavis's infrastructure, the attacker obtained 4 of the 5 Sky Mav
 
 However, in November 2021, Sky Mavis had requested and received temporary permission from Axie DAO to sign transactions on its behalf to handle a surge in user activity. This permission was intended to be temporary but was never formally revoked. The allowlist entry remained active, giving Sky Mavis's infrastructure the ability to sign as Axie DAO.
 
-With 4 Sky Mavis keys + 1 Axie DAO key (accessible through the unreevoked allowlist), the attacker controlled 5 of 9 validators — meeting the signature threshold.
+With 4 Sky Mavis keys + 1 Axie DAO signature path (accessible through the unrevoked allowlist), the attacker controlled the 5-of-9 authorization threshold.
 
 ### Execution
 
@@ -79,13 +79,12 @@ This six-day detection gap allowed the attacker to begin laundering funds throug
 | AXS (Axie Token) | $55 | $44 | -20% |
 | RON (Ronin Token) | $1.90 | $1.20 | -37% |
 | ETH | $3,400 | $3,280 | -3.5% |
-| SOL (broader DeFi risk-off) | $107 | $102 | -4.7% |
 
 The Ronin-specific tokens (AXS, RON) suffered the largest declines as the market priced in both the direct financial loss and the reputational damage to Sky Mavis. Broader crypto markets experienced modest selling as bridge security concerns resurfaced.
 
 ### Axie Infinity User Impact
 
-- **2.7 million daily active players** were unable to withdraw funds during the bridge pause (March 29 to June 28, 2022)
+- **Millions of Axie players and Ronin users** were unable to withdraw funds during the bridge pause (March 29 to June 28, 2022)
 - **Play-to-earn economy disrupted**: SLP (Smooth Love Potion) token, the primary in-game earning token, declined approximately 50% during the bridge pause as players could not convert earnings
 - **User migration**: Axie Infinity's daily active users declined from 2.7 million pre-exploit to approximately 500,000 by late 2022, though this decline was also driven by broader bear market conditions
 
@@ -93,8 +92,8 @@ The Ronin-specific tokens (AXS, RON) suffered the largest declines as the market
 
 The Ronin exploit contributed to broader bridge security concerns that accelerated capital flight from bridge-dependent ecosystems:
 
-- Ronin TVL dropped from approximately $4 billion to near zero during the bridge pause
-- Aggregate cross-chain bridge TVL declined approximately 15% in the week following disclosure as users de-risked bridge exposure
+- Ronin's publicly visible bridge liquidity and user confidence collapsed during the bridge pause
+- Cross-chain bridge risk was repriced across DeFi as users reassessed validator and multisig assumptions
 
 ## On-Chain Fund Flow Analysis
 
@@ -103,7 +102,7 @@ The Ronin exploit contributed to broader bridge security concerns that accelerat
 The attacker systematically laundered the stolen ETH through Tornado Cash, a decentralized mixing protocol on Ethereum:
 
 - Funds were deposited in standardized amounts (100 ETH per transaction) over multiple weeks
-- Approximately $36 million was laundered through Tornado Cash before OFAC sanctioned the mixer in August 2022
+- A substantial portion of the stolen ETH was laundered through Tornado Cash before OFAC sanctioned the mixer in August 2022
 - Additional funds were moved through various centralized exchanges, some of which cooperated with law enforcement to freeze deposits
 
 ### OFAC Attribution and Sanctions
@@ -111,14 +110,14 @@ The attacker systematically laundered the stolen ETH through Tornado Cash, a dec
 On April 14, 2022, OFAC added the primary exploit Ethereum address to its Specially Designated Nationals (SDN) list and attributed the attack to the Lazarus Group:
 
 - **Lazarus Group** is attributed by the FBI and other agencies to North Korea's Reconnaissance General Bureau
-- The group has been linked to multiple cryptocurrency thefts totaling over $2 billion, including the 2023 Atomic Wallet hack ($100M) and portions of the 2023 Harmony Horizon Bridge hack ($100M)
+- The group has been linked to multiple cryptocurrency thefts totaling billions of dollars, including the Atomic Wallet hack and the Harmony Horizon Bridge hack
 - OFAC's sanctioning of the address created legal obligations for U.S. persons and entities to block any transactions involving those funds
 
 ### Recovery
 
 - Approximately $30 million was recovered through cooperation with exchanges and blockchain analysis firms
 - This represents less than 5% of the total stolen
-- The majority of funds are believed to have been laundered and converted for use by the North Korean government
+- The majority of funds are believed to have been laundered through services and venues associated with North Korean cyber-financing activity
 
 ## Validator Security Analysis
 
@@ -126,13 +125,13 @@ On April 14, 2022, OFAC added the primary exploit Ethereum address to its Specia
 
 The Ronin exploit exposed fundamental weaknesses in the PoA bridge architecture:
 
-1. **Insufficient validator diversity**: 5 of 9 validators operated by a single entity (Sky Mavis) meant that compromising one organization was sufficient. There was no meaningful decentralization.
+1. **Insufficient validator diversity**: 5 of 9 validators were operated by a single entity (Sky Mavis), and a stale delegated Axie DAO signing path meant compromising Sky Mavis infrastructure could reach the withdrawal threshold. There was no meaningful independence at the authorization boundary.
 
-2. **Key management centralization**: All Sky Mavis validator keys were accessible from the same corporate infrastructure. A single compromised employee device led to all four keys being exposed.
+2. **Key management centralization**: Multiple Sky Mavis validator keys were reachable through compromised corporate infrastructure. A social-engineering foothold was able to escalate into validator-signing access.
 
 3. **Permission lifecycle failure**: The temporary Axie DAO signing permission was never revoked, creating a persistent vulnerability that the attacker exploited months later.
 
-4. **Threshold too low**: A 5-of-9 threshold (55.6%) provides minimal security margin when most validators are controlled by one entity. Higher thresholds (e.g., 7-of-9 or 8-of-9) would have required compromising additional independent validators.
+4. **Threshold too low**: A 5-of-9 threshold (55.6%) provides minimal security margin when one entity operates a majority of validators and stale delegated signing paths exist. Higher thresholds (e.g., 7-of-9 or 8-of-9) would have required compromising additional independent validators.
 
 ### Post-Exploit Improvements
 
@@ -142,7 +141,7 @@ After the exploit, Ronin implemented several security changes before bridge rest
 - Increased signature threshold to require significantly more validators
 - Added circuit-breaker mechanisms that pause the bridge on large withdrawals
 - Implemented real-time monitoring and alerting for bridge balance changes
-- Separated validator key infrastructure with hardware security modules (HSMs)
+- Separated validator key infrastructure and strengthened key-management controls
 
 ## Lessons for Market Surveillance
 
