@@ -181,10 +181,15 @@ def main():
             output = extract_between_tags("article", output)
 
             print("This is an answer: ", output)
-            save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
+            # Generate interactive Chart.js shortcodes instead of static PNGs
             vis = Visualization()
-            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
-            vis.generate_report(data, output_subdir)  
+            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}")
+            chart_shortcodes = vis.generate_report(data, output_subdir)
+
+            # Append interactive charts to the LLM-generated article
+            output_with_charts = output + "\n\n## Interactive Charts\n\n" + chart_shortcodes
+
+            save_output(output_with_charts, OUTPUT_DIR, marketvenueid, pairid, start, end)
 
             post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
 
