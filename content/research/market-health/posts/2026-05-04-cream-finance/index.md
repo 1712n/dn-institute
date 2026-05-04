@@ -14,11 +14,11 @@ entities:
 
 ## Summary
 
-1. **On October 27, 2021, the Cream Finance lending protocol suffered its third major exploit**, losing approximately $130 million in what was then one of the largest flash loan attacks in DeFi history. The attacker manipulated the price oracle for Yearn's yUSD vault token to inflate collateral value, then borrowed against this inflated collateral across Cream's lending pools.
-2. **The core vulnerability was Cream's reliance on the internal exchange rate of yUSD** (a Yearn vault token representing a share of a Curve stablecoin pool) as a price oracle for collateral valuation. The attacker could manipulate this exchange rate by directly depositing tokens into the underlying Curve pool, inflating the per-share value that Cream used to assess collateral worth.
-3. **The attack required approximately $1.5 billion in flash-loaned capital** sourced from multiple DeFi protocols including Aave and Cream itself (via its Iron Bank integration). This capital was used to simultaneously manipulate the yUSD price and borrow against the inflated collateral.
-4. **The stolen funds were not returned**, and the attacker routed proceeds through Tornado Cash and various DeFi protocols. Unlike the Poly Network or Euler exploits, there was no negotiated recovery. Cream's depleted reserves meant that depositors in the affected pools suffered permanent losses.
-5. **Cream Finance had been exploited twice before** — in February 2021 (~$37.5M via an Alpha Finance flash loan) and August 2021 (~$18.8M via a reentrancy bug in the AMP token). The October attack effectively ended Cream as a significant DeFi lending protocol, with TVL collapsing from hundreds of millions to near zero.
+1. **On October 27, 2021, the Cream Finance lending protocol suffered a major exploit**, losing roughly $130 million in what was then one of the largest flash-loan-assisted DeFi lending attacks. The attacker manipulated the value Cream assigned to Yearn's yUSD vault token, then borrowed against the inflated collateral across Cream's lending pools.
+2. **The core vulnerability was Cream's reliance on the internal exchange rate of yUSDVault shares** (a Yearn vault token tied to yUSD/Curve stablecoin exposure) as collateral valuation. Public analyses describe the attacker shrinking the yUSDVault share supply, then donating yUSD into the vault so `pricePerShare` jumped atomically.
+3. **The attack used very large borrowed capital and recursive lending loops** sourced from protocols including Maker/Aave-style liquidity and Cream markets. This capital was used to build yUSDVault/crYUSD positions, inflate yUSDVault share value, and borrow against the inflated collateral.
+4. **The stolen funds were not broadly returned**, and public tracing showed proceeds moving through DeFi, renBridge/BTC routes, and privacy-linked funding paths. Unlike the Poly Network or Euler exploits, there was no public negotiated recovery that made affected depositors whole.
+5. **Cream and its surrounding lending ecosystem had suffered earlier major incidents** — including the February 2021 Alpha/Iron Bank incident and the August 2021 AMP reentrancy exploit. The October attack severely damaged Cream's viability as a major lending venue, with TVL and confidence falling sharply.
 
 ## Background
 
@@ -37,71 +37,71 @@ The key components relevant to the attack:
 
 | Parameter | Value |
 |-----------|-------|
-| Protocol TVL | ~$300M across all markets |
+| Protocol TVL | Reported in the hundreds of millions before the exploit |
 | yUSD collateral factor | Varied; sufficient to allow significant borrowing |
 | yUSD price oracle | Yearn vault `pricePerShare` (internal exchange rate) |
-| Flash loan sources | Aave, dYdX, Cream/Iron Bank internal |
+| Large liquidity sources | Maker-style DAI liquidity, Aave ETH liquidity, and Cream market loops |
 | Number of listed collateral types | 60+ tokens including LP tokens and vault tokens |
-| Prior exploits | Feb 2021 (~$37.5M), Aug 2021 (~$18.8M) |
+| Prior incidents | Feb 2021 Alpha/Iron Bank incident, Aug 2021 AMP exploit |
 
-The vulnerability centered on using `pricePerShare` as a price oracle. This value represents the vault's net asset value per share, which can be manipulated by anyone who can change the vault's underlying asset balance — including through direct deposits into the underlying Curve pool.
+The vulnerability centered on using `pricePerShare` as a price oracle. This value represents the vault's net asset value per share, which can change abruptly when vault share supply and vault asset balance are manipulated in the same transaction sequence.
 
 ## Technical Exploit Mechanics
 
 ### Attack Overview
 
-The attack was executed in a single Ethereum transaction, orchestrated through a custom contract that coordinated flash loans, price manipulation, and borrowing across multiple protocols.
+The attack was executed through a coordinated transaction sequence, with the bulk of the exploit occurring in a main Ethereum transaction that combined borrowed liquidity, vault manipulation, and Cream borrowing.
 
 **Step 1 — Massive Flash Loan Acquisition**:
 
-The attacker sourced approximately $1.5 billion in flash-loaned capital from multiple protocols:
-- Flash loans from Aave (ETH, DAI, USDC)
-- Flash loans from Cream/Iron Bank
-- The total capital was needed both to manipulate the yUSD price and to establish collateral positions
+The attacker used extremely large borrowed liquidity across multiple protocols:
+- Hundreds of millions of DAI were used to create yUSD/yUSDVault exposure
+- A very large ETH borrow was used as collateral in Cream
+- Cream markets were then used recursively to build crYUSD/yUSDVault exposure
 
-The scale of the flash loan was remarkable — it required nearly all available flash loan liquidity across multiple major protocols simultaneously.
+The scale was remarkable — public writeups described roughly billion-dollar-scale temporary liquidity being coordinated across protocols.
 
 **Step 2 — yUSD Price Manipulation**:
 
-The yUSD vault token's `pricePerShare` was calculated as:
+The yUSDVault token's `pricePerShare` was calculated as:
 
 ```
 pricePerShare = totalAssets / totalSupply
 ```
 
-Where `totalAssets` is the value of the underlying Curve stablecoin pool position. The attacker manipulated this by:
+Where `totalAssets` is the vault's yUSD balance and `totalSupply` is outstanding yUSDVault shares. The attacker manipulated this by:
 
-1. Depositing a large amount of stablecoins directly into the underlying Curve pool that yUSD references
-2. This increased the pool's total value, which increased yUSD's `totalAssets`
-3. Since `totalSupply` (the number of yUSD tokens in circulation) did not change, the `pricePerShare` increased proportionally
-4. Cream's oracle read this inflated `pricePerShare` as the current value of yUSD collateral
+1. Accumulating a large amount of yUSDVault exposure through Cream lending loops
+2. Redeeming most yUSDVault shares for underlying yUSD, reducing outstanding share supply sharply
+3. Donating yUSD back into the vault while share supply stayed low
+4. Causing `pricePerShare` to jump atomically, which made Cream value crYUSD/yUSDVault-linked collateral much higher
 
 The manipulation was temporary — only lasting within the same transaction — but that was sufficient because the flash loan and the borrowing occurred in the same atomic transaction.
 
 **Step 3 — Deposit Inflated Collateral and Borrow**:
 
-With the yUSD price artificially inflated:
-1. The attacker deposited yUSD tokens into Cream as collateral
-2. Cream valued this collateral using the now-inflated `pricePerShare`
-3. The attacker could borrow far more value than the yUSD was actually worth at normal prices
+With the yUSDVault-linked collateral artificially inflated:
+1. The attacker held large crYUSD/yUSDVault-linked collateral positions in Cream
+2. Cream valued those positions using the now-inflated `pricePerShare`
+3. The attacker could borrow far more value than the collateral would support under normal vault conditions
 4. Borrowing was executed across multiple Cream lending pools — ETH, WBTC, stablecoins, and other assets
 
 **Step 4 — Unwind and Extract Profit**:
 
-1. The Curve pool deposit was unwound (or the manipulation was irrelevant post-borrow since the debt was already created)
-2. The flash loans were repaid using a portion of the borrowed funds
+1. The attacker used borrowed assets and redeemed yUSD/yUSDVault exposure to repay the temporary liquidity
+2. The inflated-collateral debt remained in Cream after the transaction sequence
 3. The remaining borrowed funds were the attacker's profit — approximately $130M
-4. The yUSD collateral left in Cream was now worth far less than the debt it was backing, creating bad debt across the protocol's lending pools
+4. The yUSDVault-linked collateral left in Cream no longer supported the debt it had enabled, creating bad debt across the protocol's lending pools
 
 ### Why the Oracle Was Vulnerable
 
 The fundamental issue was using a composable token's internal exchange rate as a price oracle:
 
-1. **`pricePerShare` is not a market price**: It represents the vault's accounting view of its assets, not an independently determined market price. Any mechanism that can change the vault's underlying asset balance can change the `pricePerShare`.
+1. **`pricePerShare` is not a market price**: It represents the vault's accounting view of assets per share, not an independently determined market price. If an attacker can alter vault asset balance relative to share supply, they can move `pricePerShare`.
 
-2. **Composability creates manipulation vectors**: The yUSD vault is composed of a Curve LP position. Anyone can deposit into the Curve pool, changing its total value and thus the vault's `pricePerShare`. This is by design for normal DeFi usage but becomes a vulnerability when a lending protocol treats this value as an oracle.
+2. **Composability creates manipulation vectors**: yUSD/yUSDVault exposure sits on top of Curve/Yearn mechanics. Actions that are valid in the lower-layer protocols can create abrupt accounting changes when a lending market treats the composed token as collateral.
 
-3. **Flash loans enable manipulation at scale**: Without flash loans, manipulating the yUSD price would require the attacker to commit their own capital, limiting the manipulation magnitude and creating financial risk. Flash loans removed this constraint, allowing manipulation with borrowed capital that was repaid in the same transaction.
+3. **Flash loans enable manipulation at scale**: Without flash loans, manipulating the yUSD price would require the attacker to commit their own capital, limiting the manipulation magnitude and creating financial risk. Flash loans and temporary borrows reduced this upfront-capital constraint because most borrowed liquidity could be repaid in the same transaction sequence.
 
 4. **No time-weighted average**: The oracle read the instantaneous `pricePerShare`, making same-transaction manipulation possible. A TWAP or delayed oracle would have resisted single-transaction manipulation.
 
@@ -109,11 +109,11 @@ The fundamental issue was using a composable token's internal exchange rate as a
 
 | Exploit | Date | Amount | Vector |
 |---------|------|--------|--------|
-| Alpha Finance / Iron Bank | Feb 2021 | ~$37.5M | Flash loan leveraged borrowing via Iron Bank's protocol-to-protocol credit |
-| AMP Token Reentrancy | Aug 2021 | ~$18.8M | ERC-777 reentrancy in AMP token's transfer hook during Cream liquidation |
+| Alpha Finance / Iron Bank | Feb 2021 | ~$37.5M | Flash-loan leveraged borrowing via Iron Bank's protocol-to-protocol credit |
+| AMP Token Reentrancy | Aug 2021 | ~$18.8M | Reentrancy in AMP token transfer hook during Cream borrowing/liquidation flow |
 | yUSD Oracle Manipulation | Oct 2021 | ~$130M | Flash loan manipulation of yUSD pricePerShare |
 
-The pattern across all three exploits was consistent: Cream's permissive collateral listing policy outpaced its oracle and risk management infrastructure. Each new collateral type introduced novel attack surfaces that were not adequately addressed.
+The repeated pattern was that permissive or complex collateral integration outpaced oracle and risk-management controls. Each new collateral type introduced novel attack surfaces that were not fully contained.
 
 ## Market Impact
 
@@ -121,24 +121,24 @@ The pattern across all three exploits was consistent: Cream's permissive collate
 
 | Metric | Pre-Exploit (Oct 27) | Post-Exploit (48h) |
 |--------|---------------------|-------------------|
-| CREAM price | ~$175 | ~$80 |
-| Price decline | — | ~54% |
+| CREAM price | Triple digits pre-exploit | Sharp decline |
+| Price decline | — | Reported around 50% in some windows |
 
-The CREAM token had already declined significantly from its early-2021 highs (~$400+) due to the two prior exploits. The October attack accelerated a downward trajectory that continued through 2022.
+The CREAM token had already declined significantly from early-2021 highs after prior incidents. The October attack accelerated a downward trajectory that continued through 2022.
 
 ### Protocol TVL and Viability
 
-- Pre-exploit TVL: ~$300M
-- Post-exploit TVL: effectively collapsed to near zero as depositors withdrew remaining assets
-- Cream continued operating in a limited capacity but never recovered meaningful TVL
-- The Iron Bank product was eventually separated and continued independently under different management
+- Pre-exploit TVL was reported in the hundreds of millions
+- Post-exploit TVL fell sharply as depositors withdrew remaining assets and confidence collapsed
+- Cream continued operating in a limited capacity but did not recover its prior scale
+- Iron Bank later became a separate product path rather than a simple continuation of Cream's original market
 
 ### Depositor Losses
 
-Unlike exploits where funds are returned (Poly Network, Euler), the Cream attack resulted in permanent losses for depositors:
+Unlike exploits where recoverable funds were returned (Poly Network, Euler), the Cream attack resulted in lasting losses for many depositors:
 - Depositors in the pools that the attacker borrowed from (ETH, WBTC, stablecoin pools) found their deposits partially or fully drained
 - The bad debt created by the worthless yUSD collateral was socialized across affected pools
-- There was no DAO treasury recovery plan of sufficient size to make depositors whole
+- No public recovery plan restored affected depositors to their pre-exploit position
 
 ## Vulnerability Pattern: Composable Token Price Oracles
 
@@ -154,19 +154,19 @@ When a lending protocol uses the internal accounting of a composable token as a 
 
 | Protocol | Token Manipulated | Oracle Type | Manipulation Method |
 |----------|------------------|-------------|-------------------|
-| Cream Finance | yUSD (Yearn vault) | `pricePerShare` (internal) | Direct deposit into underlying Curve pool |
+| Cream Finance | yUSDVault / crYUSD exposure | `pricePerShare` (internal) | Vault share-supply and asset-balance manipulation |
 | Harvest Finance | USDC/USDT (Curve pool) | Curve spot price | Large swap to move AMM price |
 | Mango Markets | MNGO (perp market) | On-chain perp mark price | Self-trading on illiquid perp |
 | Compound (proposal 117) | Various | Uniswap V3 TWAP | Proposed migration that would have introduced risk |
 
-The common thread is that any price feed derived from an on-chain mechanism (AMM spot price, vault exchange rate, perp mark price) can be manipulated by actors with sufficient capital — and flash loans provide that capital at zero cost.
+The common thread is that any price feed derived from an on-chain mechanism (AMM spot price, vault exchange rate, perp mark price) can be manipulated by actors with sufficient temporary capital — and flash loans make that capital available without long-term inventory risk.
 
 ### Mitigation Approaches
 
-Post-Cream, the DeFi lending ecosystem adopted several approaches to address composable token oracle risk:
+Post-Cream, DeFi risk reviewers increasingly emphasized several approaches to composable-token oracle risk:
 
 1. **External oracle feeds**: Using Chainlink or other off-chain oracle networks for composable token pricing, rather than relying on on-chain exchange rates
-2. **Virtual price instead of spot price**: For Curve-based tokens, using Curve's `get_virtual_price` (which is manipulation-resistant) instead of spot calculations
+2. **Less manipulable pool accounting where appropriate**: For Curve-based tokens, reviewers often prefer accounting values such as virtual price over raw spot calculations, while still checking whether the chosen value can move abruptly
 3. **Supply caps and borrow caps**: Limiting the total amount of composable tokens that can be used as collateral or borrowed, reducing the maximum exploit size
 4. **Collateral factor reductions**: Assigning lower collateral factors to composable tokens, requiring more collateral per unit of borrowing
 5. **Monitoring and circuit breakers**: Implementing real-time monitoring for large `pricePerShare` changes and pausing markets when anomalies are detected
@@ -175,13 +175,13 @@ Post-Cream, the DeFi lending ecosystem adopted several approaches to address com
 
 1. **Monitor composable token exchange rate spikes**: A sudden increase in the `pricePerShare` or equivalent metric of a vault/LP token used as collateral in a lending protocol is a strong oracle manipulation indicator. Surveillance systems should track these rates and alert on deviations that exceed normal yield-accumulation rates (e.g., a vault that normally appreciates 0.01% per day suddenly showing a 5% increase within a block).
 
-2. **Flash loan volume correlation with lending protocol interactions**: The $1.5B flash loan coordinated across multiple protocols was unusual. Monitoring for transactions that originate flash loans from multiple sources simultaneously and then interact with lending protocol collateral/borrow functions should be a standard alert pattern.
+2. **Large temporary-liquidity correlation with lending protocol interactions**: The billion-dollar-scale temporary liquidity coordinated across protocols was unusual. Monitoring for transactions that originate large flash loans or temporary borrows from multiple sources and then interact with lending protocol collateral/borrow functions should be a standard alert pattern.
 
 3. **Repeated exploit patterns on the same protocol**: Cream was exploited three times in eight months, each time through a different vector but with a common theme (permissive collateral listing outpacing risk management). A protocol with one major exploit should be subject to elevated surveillance for subsequent attacks targeting different aspects of the same architectural weakness.
 
 4. **Bad debt accumulation monitoring**: After the exploit, Cream's lending pools contained bad debt (undercollateralized positions that could not be liquidated profitably). Monitoring for the creation of bad debt — positions where collateral value falls below debt value and remains there — can detect both exploits and market-driven insolvency events.
 
-5. **Cross-protocol dependency mapping**: The Cream exploit depended on the composition chain: Cream → Yearn → Curve. Mapping these dependencies and monitoring for unusual activity in downstream protocols (large Curve deposits) correlated with upstream protocol interactions (Cream deposits/borrows) can detect multi-protocol manipulation attacks.
+5. **Cross-protocol dependency mapping**: The Cream exploit depended on the composition chain: Cream → Yearn/yUSDVault → Curve/yUSD. Mapping these dependencies and monitoring for unusual lower-layer vault/share-supply changes correlated with upstream protocol interactions (Cream deposits/borrows) can detect multi-protocol manipulation attacks.
 
 6. **Permissionless listing as a risk amplifier**: Protocols that allow permissionless collateral listing inherently have a larger and less-predictable attack surface than those with curated listings. Surveillance should apply higher monitoring intensity to newly listed collateral types, especially composable tokens.
 
