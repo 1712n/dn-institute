@@ -12,9 +12,9 @@ title: "Level Finance referral-reward exploit and $1.1 M protocol drain on BNB C
 
 ## 1. Introduction and incident overview
 
-On 1 May 2023, the decentralized perpetual-futures exchange Level Finance, deployed on BNB Chain, was exploited through a logic flaw in its referral-reward contract. The attacker repeatedly called the referral claim function to extract approximately 214,000 LVL tokens from the protocol's referral-reward pool. The LVL tokens were subsequently swapped for approximately 3,345 BNB (worth roughly $1.1 million at the time) through PancakeSwap. The exploit was executed through a smart-contract vulnerability rather than a key compromise or social-engineering attack.
+On 1 May 2023, the decentralized perpetual-futures exchange Level Finance, deployed on BNB Chain, was exploited through a logic flaw in its referral-reward contract. The attacker abused the referral controller's multi-claim path to extract approximately 214,000 LVL tokens from the protocol's referral-reward reserve. The LVL tokens were subsequently swapped for approximately 3,345 BNB (worth roughly $1.1 million at the time) through PancakeSwap. The exploit was executed through a smart-contract business-logic vulnerability rather than a key compromise or social-engineering attack.
 
-Level Finance was a decentralized leveraged-trading platform that allowed users to trade perpetual contracts on BNB Chain. The protocol used a referral system to incentivize user acquisition: referring users earned LVL token rewards based on the trading activity of their referred accounts. The vulnerability exploited a flaw in how the referral contract tracked claimed rewards, allowing the attacker to claim the same referral rewards multiple times within the same transaction.
+Level Finance was a decentralized leveraged-trading platform that allowed users to trade perpetual contracts on BNB Chain. The protocol used a referral system to incentivize user acquisition: referring users earned LVL token rewards based on the trading activity of their referred accounts. The vulnerability exploited a flaw in how the referral contract handled epoch-based claims, allowing the attacker to reuse the same epoch values and claim rewards more than once.
 
 ## 2. Technical background
 
@@ -41,81 +41,82 @@ The referral contract maintained an accounting of each referrer's accumulated re
 
 ### 2.3 The LevelReferralControllerV2 contract
 
-The vulnerable contract was `LevelReferralControllerV2`, which managed the referral-reward distribution. The contract's `claim` function was responsible for:
+The vulnerable contract was `LevelReferralControllerV2`, which managed the referral-reward distribution. The relevant claim path, commonly described in public analyses as `claimMultiple`, was responsible for:
 
 1. Calculating the claimable reward for the caller (accumulated minus already claimed).
 2. Transferring the claimable LVL tokens to the caller.
 3. Updating the internal accounting to reflect the claim.
 
-The critical vulnerability was in the order and logic of these operations within the claim function.
+The critical vulnerability was in the validation and accounting logic of this multi-claim path.
 
 ## 3. Vulnerability analysis
 
 ### 3.1 The repeated-claim bug
 
-The `LevelReferralControllerV2` contract's `claim` function contained a logic flaw that allowed a referrer to claim rewards multiple times for the same accumulated balance. The specific issue was related to how the contract tracked claim epochs and reward tiers.
+The `LevelReferralControllerV2` contract's multi-claim function contained a logic flaw that allowed a referrer to claim rewards multiple times for the same epoch. The specific issue was related to how the contract accepted epoch inputs and tracked whether a reward for a given epoch had already been used in a claim.
 
-The referral system used an epoch-based reward structure where rewards accumulated per epoch (time period). The `claim` function iterated over unclaimed epochs and calculated rewards for each. However, the function did not properly update the "last claimed epoch" marker in a way that prevented re-entry or re-invocation within the same transaction.
+The referral system used an epoch-based reward structure where rewards accumulated per epoch (time period). The vulnerable path allowed repeated epoch values to be supplied or reused in a claim sequence, so the same period's referral rewards could be counted more than once instead of being rejected as already consumed.
 
-The attacker exploited this by calling the `claim` function multiple times within a single transaction (via a custom exploit contract). Each call to `claim` would recalculate and pay out rewards for the same epochs because the state update that should have marked those epochs as claimed was insufficient to prevent subsequent claims in the same transaction context.
+The attacker exploited this by constructing a transaction around the vulnerable multi-claim path. Each duplicate epoch entry could cause reward accounting to pay out value that should only have been claimable once.
 
-### 3.2 Missing reentrancy or claim-status guard
+### 3.2 Missing duplicate-epoch and claim-status validation
 
-The vulnerability was not a classic reentrancy bug (where an external call re-enters the same function during execution) but rather a logic error where repeated external calls to the same function produced duplicate payouts. The contract lacked:
+The vulnerability was not a classic reentrancy bug (where an external call re-enters the same function during execution). It was a business-logic error in reward accounting. The contract lacked:
 
-1. **A reentrancy guard** (`nonReentrant` modifier) that would have prevented the function from being called while a previous call was still executing.
-2. **A per-transaction claim limit** that would have restricted each address to one claim per block or transaction.
-3. **Proper epoch-marking logic** that atomically recorded which epochs had been claimed before distributing rewards.
+1. **Duplicate-epoch rejection** that would have rejected repeated epoch values within one claim request.
+2. **Robust per-epoch claim-status accounting** that would have prevented an epoch from being paid twice.
+3. **Claim invariant tests** showing that the sum of paid rewards cannot exceed the sum of earned rewards for a referrer and epoch.
 
-Any one of these protections would have been sufficient to prevent the exploit.
+A generic reentrancy guard would not by itself fix the core issue if the vulnerable function accepted duplicate epoch inputs inside a single non-reentrant call. The fix needed to address reward-accounting invariants directly.
 
 ### 3.3 Exploit contract pattern
 
 The attacker deployed a custom smart contract that:
 
 1. Registered as a referrer in the Level Finance referral system.
-2. Generated trading activity (possibly through self-referral or accomplice accounts) to accumulate referral rewards.
-3. Called the `LevelReferralControllerV2.claim()` function repeatedly in a loop within a single transaction, extracting rewards multiple times for each claimed epoch.
+2. Created or controlled multiple referral accounts to increase reward eligibility.
+3. Used flashloans and repeated swaps to increase referral reward points through the protocol's swap hooks.
+4. Called the vulnerable `LevelReferralControllerV2.claimMultiple()` path with repeated epoch values, extracting rewards multiple times for the same accounting periods.
 
-The loop executed enough iterations to drain approximately 214,000 LVL from the referral-reward pool before the pool was exhausted.
+The sequence extracted approximately 214,000 LVL from the referral-reward reserve before the vulnerable path was shut down.
 
 ## 4. Attack execution and fund movement
 
 ### 4.1 On-chain execution
 
-The exploit was executed on 1 May 2023 on BNB Chain. The attacker's contract made multiple calls to the referral `claim` function, each extracting LVL tokens. The total extraction was approximately 214,000 LVL tokens from the referral-reward reserve.
+The exploit was executed on 1 May 2023 on BNB Chain. The attacker's transaction abused the referral controller's `claimMultiple` logic to extract approximately 214,000 LVL tokens from the referral-reward reserve.
 
 ### 4.2 Token swap
 
 Immediately after extraction, the attacker swapped the 214,000 LVL tokens for BNB through PancakeSwap's LVL/BNB liquidity pool. The swap yielded approximately 3,345 BNB, worth roughly $1.1 million at prevailing prices. The large sale depressed the LVL token price on PancakeSwap due to the concentrated sell pressure against the pool's liquidity.
 
-### 4.3 Fund bridging
+### 4.3 Post-swap fund status
 
-The attacker subsequently bridged the BNB to other chains and moved the funds through several addresses to complicate tracing. The full disposition of funds was not publicly tracked in detail, and no fund recovery was reported.
+Public reporting focused on the LVL extraction and immediate BNB conversion. The full disposition of funds was not publicly tracked in detail, and no confirmed recovery was reported.
 
 ## 5. Level Finance's response
 
 ### 5.1 Immediate actions
 
-Level Finance detected the exploit shortly after execution and paused the referral contract to prevent further claims. The protocol's core trading and liquidity-pool contracts were not directly affected — the vulnerability was isolated to the referral-reward controller — so trading operations continued.
+Level Finance detected the exploit shortly after execution and temporarily shut down the referral program to prevent further claims. The team stated that liquidity pools and the DAO treasury were unaffected and that the exploit was isolated from other contracts.
 
-### 5.2 Post-mortem
+### 5.2 Public confirmation and external analysis
 
-Level Finance published a post-mortem confirming the repeated-claim vulnerability in `LevelReferralControllerV2`. The team acknowledged the logic flaw and the absence of reentrancy/claim guards that would have prevented the exploit.
+Level Finance publicly confirmed that the exploit targeted the referral controller contract and said a fixed implementation would be deployed. Independent analyses from PeckShield and BlockSec identified the repeated-claim bug in `LevelReferralControllerV2`'s `claimMultiple` path.
 
 ### 5.3 Contract remediation
 
-The referral controller was redesigned with:
+The referral controller needed remediation focused on:
 
-1. A reentrancy guard on the claim function.
-2. Updated epoch-tracking logic that properly marks claimed epochs before distributing rewards.
-3. Per-address claim cooldowns to prevent rapid repeated claims.
+1. Rejecting duplicate epoch values within a claim request.
+2. Updating per-epoch claim accounting so the same earned reward cannot be paid more than once.
+3. Testing the full referral workflow, including account creation, swaps that update reward points, and multi-epoch claims.
 
-The updated contract was audited before redeployment.
+Level Finance indicated that a fix would be deployed quickly, but public reporting did not establish that a redeployed version had eliminated all referral-system risk.
 
 ### 5.4 Impact assessment
 
-The $1.1 million loss was borne by the referral-reward reserve, not directly by traders or liquidity providers. However, the LVL token price decline from the attacker's large sale affected all LVL holders, and the reputational damage reduced TVL and trading volume on the platform in subsequent weeks.
+The $1.1 million loss was borne by the referral-reward reserve, not directly by traders or liquidity providers. However, the LVL token price decline from the attacker's large sale affected LVL holders, and public reporting noted that Level Finance's TVL fell from roughly $41 million before the incident to about $32.5 million afterward.
 
 ## 6. Market-health implications
 
@@ -162,15 +163,15 @@ For market surveillance, monitoring for sudden large sells of protocol-native to
 
 ### 7.1 For DeFi protocol developers
 
-1. **Apply reentrancy guards universally**: The `nonReentrant` modifier should be applied to all external functions that modify state and distribute value, including peripheral contracts like referral controllers. The cost of adding a reentrancy guard is minimal, and the protection is broad.
+1. **Enforce reward-accounting invariants**: Token-distribution contracts should prove that paid rewards cannot exceed earned rewards per user, epoch, tier, or campaign.
 
 2. **Audit peripheral contracts with the same rigor as core contracts**: Referral systems, reward distributors, governance modules, and other peripheral contracts hold value and should receive comprehensive security review.
 
-3. **Implement claim-rate limiting**: Functions that distribute token rewards should include per-address, per-block, or per-epoch claim limits. A single address should not be able to claim rewards multiple times for the same period in the same transaction.
+3. **Reject duplicate claim inputs**: Functions that distribute token rewards should reject duplicate epochs or campaign identifiers inside the same request. A single address should not be able to claim rewards multiple times for the same period.
 
-4. **Update state before distributing value (checks-effects-interactions)**: The claim function should mark epochs as claimed before transferring tokens. This standard pattern (checks-effects-interactions) prevents both reentrancy and repeated-call exploits.
+4. **Update state before distributing value**: Claim functions should mark epochs as claimed before transferring tokens, and then assert that no duplicate or already-claimed period remains payable.
 
-5. **Test for repeated-call scenarios**: In addition to standard unit tests, write test cases that simulate an attacker calling the claim function multiple times in rapid succession. Fuzz testing tools can automate the discovery of such issues.
+5. **Test for repeated-input scenarios**: In addition to standard unit tests, write test cases that simulate duplicate epochs, repeated claim attempts, flashloan-amplified swaps, and attacker-controlled referral trees. Fuzz testing tools can automate the discovery of such issues.
 
 ### 7.2 For users and token holders
 
@@ -180,7 +181,7 @@ For market surveillance, monitoring for sudden large sells of protocol-native to
 
 ### 7.3 For market surveillance
 
-1. **Flag rapid repeated function calls**: Monitor for transactions containing multiple calls to the same token-distribution function within a single transaction, especially from contract addresses.
+1. **Flag duplicate-epoch reward claims**: Monitor token-distribution functions for transactions that include repeated epoch or campaign identifiers, especially from contract addresses.
 
 2. **Track large token sales post-claim**: Detect patterns where a large claim of protocol tokens is immediately followed by a large sale on a DEX, which is the typical exploit-to-profit conversion path.
 
@@ -188,6 +189,6 @@ For market surveillance, monitoring for sudden large sells of protocol-native to
 
 ## 8. Conclusion
 
-The Level Finance exploit of May 2023 demonstrated that peripheral incentive contracts — in this case, a referral-reward controller — can be a significant source of protocol risk when they contain logic flaws. The attacker exploited a repeated-claim vulnerability in `LevelReferralControllerV2` to extract approximately 214,000 LVL tokens (~$1.1 million in BNB) from the referral-reward reserve. The vulnerability was a straightforward logic error: the claim function did not properly prevent the same rewards from being claimed multiple times in rapid succession.
+The Level Finance exploit of May 2023 demonstrated that peripheral incentive contracts — in this case, a referral-reward controller — can be a significant source of protocol risk when they contain logic flaws. The attacker exploited a repeated-claim vulnerability in `LevelReferralControllerV2`'s `claimMultiple` path to extract approximately 214,000 LVL tokens (~$1.1 million in BNB) from the referral-reward reserve. The vulnerability was a straightforward accounting error: the contract did not properly prevent the same epoch rewards from being claimed multiple times.
 
-The incident reinforced the importance of applying standard security patterns — reentrancy guards, checks-effects-interactions ordering, claim-rate limiting, and comprehensive testing — to all value-bearing contracts, not just the core protocol logic. For the broader DeFi ecosystem, the Level Finance case contributes to the evidence that peripheral contracts represent a systematically underprotected attack surface, and that security audits and testing should encompass the full scope of a protocol's deployed contracts.
+The incident reinforced the importance of applying accounting-invariant checks, duplicate-input validation, state-before-transfer ordering, and comprehensive testing to all value-bearing contracts, not just the core protocol logic. For the broader DeFi ecosystem, the Level Finance case contributes to the evidence that peripheral contracts represent a systematically underprotected attack surface, and that security audits and testing should encompass the full scope of a protocol's deployed contracts.
