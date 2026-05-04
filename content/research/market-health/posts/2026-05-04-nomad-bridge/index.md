@@ -14,10 +14,10 @@ entities:
 ## Summary
 
 1. **On August 1, 2022, the Nomad cross-chain bridge was exploited for approximately $190 million** in various tokens including WBTC, WETH, USDC, DAI, CQT, FRAX, and others. Unlike most bridge exploits executed by a single sophisticated attacker, the Nomad hack became a chaotic "crowdsourced" drain where hundreds of addresses copied the original exploit transaction.
-2. **The root cause was a routine upgrade that accidentally set the trusted root hash to `0x00`** in the Replica contract. This meant any message — regardless of its actual validity — was automatically treated as proven, allowing anyone to forge bridge messages and withdraw tokens.
-3. **The exploit required no specialized knowledge**: once the first attacker demonstrated the technique, any user could copy the transaction, substitute their own address, and drain funds from the bridge. Approximately 300 unique addresses participated in extracting tokens.
+2. **The root cause was a routine upgrade that caused the zero root (`0x00`) to be accepted as a trusted root** in the Replica contract. This meant messages that resolved to the default zero root could be treated as proven, allowing forged bridge messages to withdraw tokens.
+3. **The exploit required little specialized knowledge once demonstrated**: after the first attacker showed the technique, other users could copy the transaction, substitute their own address, and drain funds from the bridge. Hundreds of unique addresses participated in extracting tokens.
 4. **Approximately $36 million was returned** by white-hat hackers and ethical participants who copied the exploit to rescue funds before malicious actors could take them. Nomad set up a recovery fund and offered a 10% bounty for returned assets.
-5. **Nomad had been audited by Quantstamp** prior to the exploit. The vulnerable upgrade was a routine change that passed through the project's standard deployment process, highlighting the risk of initialization errors in upgradeable proxy contracts.
+5. **Nomad had been audited before the exploit, but the vulnerable state emerged during a later upgrade/initialization path.** The incident highlights the risk of treating post-audit upgrades and deployment configuration as lower-risk than source-code changes.
 
 ## Background
 
@@ -80,23 +80,21 @@ The entire $190 million was drained in approximately 2.5 hours, with the majorit
 
 ### Categories of Drainers
 
-Analysis of the approximately 300 addresses that participated in the drain reveals distinct categories:
+Public post-mortems and wallet-flow analysis of the hundreds of addresses that participated in the drain suggest distinct categories:
 
-**Category 1 — Original Exploiter(s)**: 1-3 addresses that discovered and first executed the exploit. These addresses extracted the largest individual amounts and showed evidence of prior smart contract interaction experience.
+**Category 1 — Original Exploiter(s)**: Early addresses that discovered and first executed the exploit. These addresses extracted the largest individual amounts and showed evidence of prior smart contract interaction experience.
 
-**Category 2 — Sophisticated Copycats**: Approximately 30-50 addresses that quickly adapted the exploit transaction, often targeting specific high-value tokens (WBTC, WETH) and using flash bots or private mempools to avoid front-running.
+**Category 2 — Sophisticated Copycats**: Addresses that quickly adapted the exploit transaction, often targeting specific high-value tokens (WBTC, WETH) and using priority transaction routing or private mempools to reduce front-running risk.
 
-**Category 3 — Opportunistic Copycats**: Approximately 100-150 addresses that copied transactions with minimal modification. Many of these addresses had limited prior on-chain history, suggesting they were created specifically for the exploit.
+**Category 3 — Opportunistic Copycats**: Addresses that copied transactions with minimal modification. Many had limited prior on-chain history, suggesting they were created or repurposed specifically for the exploit.
 
-**Category 4 — White-Hat Rescuers**: Approximately 40-50 addresses that extracted funds with the stated intention of returning them. These addresses typically sent funds to known white-hat repositories or contacted Nomad directly.
+**Category 4 — White-Hat Rescuers**: Addresses that extracted funds with the stated intention of returning them. These addresses typically sent funds to Nomad's published recovery address or contacted Nomad directly.
 
 ### Volume Distribution
 
 The distribution of extracted amounts was highly unequal:
 
-- Top 10 addresses: approximately $95M (50% of total)
-- Top 50 addresses: approximately $155M (82% of total)
-- Remaining 250 addresses: approximately $35M (18% of total)
+Public analytics described a heavy-tailed distribution: the earliest and most sophisticated wallets extracted a large share of the total, while hundreds of later copycats captured smaller residual amounts.
 
 This heavy-tailed distribution is characteristic of exploit events where early participants extract the most value before competition and gas costs reduce returns for later copycats.
 
@@ -106,7 +104,7 @@ This heavy-tailed distribution is characteristic of exploit events where early p
 
 The Nomad bridge held a diverse set of tokens, and each experienced different impacts:
 
-| Token | Amount Drained | Price Impact |
+| Token | Reported Drain Exposure | Market Impact |
 |-------|---------------|-------------|
 | WBTC | ~$74M | Minimal (deep BTC liquidity) |
 | WETH | ~$42M | Minimal (deep ETH liquidity) |
@@ -116,12 +114,12 @@ The Nomad bridge held a diverse set of tokens, and each experienced different im
 | FRAX | ~$5M | Minimal |
 | Other tokens | ~$9.5M | Varied |
 
-Smaller-cap tokens like CQT (Covalent) that had significant portions of their circulating supply locked in Nomad experienced meaningful price declines as the stolen tokens were sold on open markets.
+Smaller-cap tokens such as CQT (Covalent), which had more bridge-dependent liquidity, experienced more meaningful price pressure than deep-liquidity assets like BTC- and ETH-linked tokens.
 
 ### Ecosystem Consequences
 
-- **Moonbeam TVL**: Dropped approximately 50% from ~$300M to ~$150M as wrapped assets on the parachain became unbacked
-- **Evmos impact**: Similarly lost bridge-dependent TVL
+- **Moonbeam TVL**: Public trackers showed a sharp decline as wrapped assets on the parachain became impaired
+- **Evmos impact**: Bridge-dependent liquidity and user confidence were similarly affected
 - **Broader DeFi**: The exploit contributed to growing skepticism about cross-chain bridge security, following Wormhole (Feb 2022) and Ronin (Mar 2022) earlier in the same year
 
 ## Recovery Efforts
@@ -132,16 +130,16 @@ Nomad implemented a structured recovery program:
 
 - **Recovery address**: Published an Ethereum address for white-hat returns
 - **10% bounty**: Offered a no-questions-asked 10% bounty for returned funds
-- **Total recovered**: Approximately $36 million was returned, representing about 19% of the total drained
+- **Total recovered**: Approximately $36 million was returned, representing roughly one-fifth of the total drained
 - **Remaining funds**: The majority of stolen funds were moved through mixing services or remained in exploit addresses
 
 ### Audit Retrospective
 
-The Nomad contracts had been audited by Quantstamp, a reputable smart contract auditing firm. The audit did not flag the initialization vulnerability because:
+The Nomad contracts had been audited before the exploit. Public post-mortems described the missed risk as a post-audit upgrade/initialization failure:
 
-1. The vulnerable code was introduced in a post-audit upgrade
-2. The bug was in the initialization parameters, not the contract logic itself
-3. Standard audit practices focus on code logic rather than deployment configuration
+1. The vulnerable state emerged in a later upgrade/initialization path
+2. The bug involved initialization state and upgrade procedure, not only static contract logic
+3. Standard audit practices can miss deployment configuration and post-upgrade invariant failures
 
 This highlights a systemic gap in bridge security: **the moment of highest risk is often the deployment/upgrade process, not the static code**. Configuration errors, initialization values, and upgrade procedures create attack surface that traditional code audits do not adequately cover.
 
