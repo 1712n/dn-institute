@@ -15,9 +15,9 @@ entities:
 
 ## Summary
 
-1. **On November 22, 2023, the KyberSwap Elastic decentralized exchange was exploited for approximately $48.8 million** across multiple chains including Ethereum, Arbitrum, Optimism, Polygon, Base, and Avalanche. The attacker exploited a vulnerability in the concentrated liquidity tick-boundary calculation logic.
-2. **The root cause was a precision error in KyberSwap Elastic's reinvestment curve calculations** at tick boundaries. When the pool price moved exactly to the boundary between two liquidity ticks, the contract's internal accounting could be manipulated to mint more liquidity than was deposited — effectively creating tokens from a rounding error amplified through carefully constructed swap sequences.
-3. **The attacker executed a sophisticated, multi-step attack** that required precise manipulation of pool prices to specific tick boundaries, combined with flash-loaned liquidity. The attack was replicated across multiple chains where KyberSwap Elastic was deployed, suggesting the attacker had developed and tested the exploit before executing it simultaneously.
+1. **On November 22, 2023, the KyberSwap Elastic decentralized exchange was exploited for approximately $47-48.8 million** across multiple chains including Ethereum, Arbitrum, Optimism, Polygon, Base, and Avalanche. The attacker exploited a vulnerability in the concentrated liquidity tick-boundary calculation logic.
+2. **The root cause was a precision/rounding error in KyberSwap Elastic's reinvestment curve and tick-crossing calculations**. Under carefully constructed swap conditions near tick boundaries, the contract's internal accounting could double-count or overstate available liquidity, allowing the attacker to withdraw more value from pools than should have been possible.
+3. **The attacker executed a sophisticated, multi-step attack** that required precise manipulation of pool prices around specific tick boundaries, combined with flash-loaned liquidity. The attack was replicated across several KyberSwap Elastic deployments, suggesting the attacker had developed and tested the exploit before executing it across chains.
 4. **The attacker sent an on-chain message to KyberSwap** demanding negotiation and claiming they would be willing to return funds under certain conditions, including a proposed arrangement where the attacker would receive a portion of the funds. The attacker also demanded authority over KyberSwap's governance. Negotiations were contentious and ultimately the full amount was not returned.
 5. **The exploit demonstrated that concentrated liquidity implementations** — which allow liquidity providers to specify price ranges rather than providing liquidity across the entire price curve — introduce complex mathematical edge cases at tick boundaries that can be exploitable if not handled with sufficient precision.
 
@@ -47,11 +47,11 @@ This tick-crossing logic is mathematically complex and is the area where KyberSw
 
 | Parameter | Value |
 |-----------|-------|
-| KyberSwap Elastic TVL | ~$80M across all chains |
+| KyberSwap Elastic TVL | Tens of millions of dollars across chains |
 | Chains deployed | Ethereum, Arbitrum, Optimism, Polygon, Base, Avalanche, others |
 | Concentrated liquidity model | Similar to Uniswap V3 with modifications (reinvestment curve) |
 | Tick spacing | Variable per pool |
-| Total stolen | ~$48.8M across multiple chains |
+| Total drained | ~$47-48.8M across multiple chains |
 
 ## Technical Exploit Mechanics
 
@@ -59,12 +59,12 @@ This tick-crossing logic is mathematically complex and is the area where KyberSw
 
 KyberSwap Elastic differed from Uniswap V3 in several ways, including its handling of fee reinvestment. The protocol included a "reinvestment curve" mechanism that automatically reinvested accumulated trading fees back into the pool. This reinvestment curve interacted with the tick-boundary calculations in a way that created a precision vulnerability.
 
-**The core issue**: When a swap moved the pool price exactly to a tick boundary, the reinvestment curve's contribution to the total liquidity at that tick was calculated with a precision error. Specifically:
+**The core issue**: When carefully structured swaps moved pool prices around tick boundaries, the reinvestment curve's contribution to total liquidity could be calculated with a precision error. Specifically:
 
 1. The protocol computed the amount of liquidity available at a tick boundary by combining the base liquidity (from LPs) with the reinvestment liquidity (from accumulated fees)
 2. At certain tick boundaries, the rounding in this combination could produce a result that was slightly different from the mathematically correct value
 3. The attacker could exploit this by constructing a sequence of swaps that repeatedly crossed tick boundaries in a way that accumulated these rounding errors
-4. Each tick-boundary crossing amplified the discrepancy between the protocol's internal accounting and the actual token balances
+4. Repeated boundary-crossing operations amplified the discrepancy between the protocol's internal accounting and the actual token balances
 
 ### Attack Sequence
 
@@ -74,9 +74,9 @@ The attacker's approach across each targeted chain:
 
 **Step 2 — Liquidity Provision**: Added concentrated liquidity at carefully chosen tick ranges in the target pool, specifically designed to create the conditions for the precision error
 
-**Step 3 — Price Manipulation to Tick Boundary**: Executed a swap that moved the pool price exactly to a tick boundary where the reinvestment curve calculation would produce the precision error
+**Step 3 — Price Manipulation Around Tick Boundary**: Executed swaps that moved the pool price to carefully selected boundary conditions where the reinvestment curve calculation could produce the precision error
 
-**Step 4 — Exploit the Precision Error**: At the tick boundary, the protocol's internal accounting believed there was more (or less) liquidity than actually existed. The attacker exploited this discrepancy by withdrawing liquidity that the protocol calculated they were owed — but which exceeded their actual deposit
+**Step 4 — Exploit the Precision Error**: Around the tick boundary, the protocol's internal accounting could overstate available liquidity. The attacker exploited this discrepancy by extracting tokens that should have remained in the pool.
 
 **Step 5 — Repeat and Extract**: The attacker repeated this process across multiple pools and tick ranges, extracting value from each precision error
 
@@ -86,15 +86,15 @@ The attacker's approach across each targeted chain:
 
 | Chain | Approximate Loss |
 |-------|-----------------|
-| Arbitrum | ~$20.0M |
-| Ethereum | ~$7.5M |
-| Optimism | ~$15.0M |
-| Polygon | ~$2.2M |
-| Base | ~$2.0M |
-| Avalanche | ~$2.1M |
-| **Total** | **~$48.8M** |
+| Arbitrum | Largest reported share, around tens of millions |
+| Optimism | Major reported share |
+| Ethereum | Multi-million-dollar reported share |
+| Polygon | Low-single-digit millions reported |
+| Base | Low-single-digit millions reported |
+| Avalanche | Low-single-digit millions reported |
+| **Total** | **~$47-48.8M reported** |
 
-The concentration of losses on Arbitrum and Optimism reflected the distribution of KyberSwap Elastic's TVL across chains at the time.
+The concentration of losses on Arbitrum and Optimism broadly reflected where vulnerable KyberSwap Elastic liquidity was available at the time.
 
 ### Why This Vulnerability Was Difficult to Detect
 
@@ -104,7 +104,7 @@ The concentration of losses on Arbitrum and Optimism reflected the distribution 
 
 3. **Small per-transaction discrepancy**: Each individual tick-boundary crossing produced a small discrepancy. The attack's profitability came from amplifying these discrepancies through repeated, carefully constructed swap sequences.
 
-4. **Multi-chain deployment**: The same vulnerable code was deployed across multiple chains, meaning the vulnerability existed everywhere simultaneously and could be exploited in parallel.
+4. **Multi-chain deployment**: Similar vulnerable code was deployed across multiple chains, meaning the same class of bug could be exploited in parallel wherever affected pools had sufficient liquidity.
 
 ## Post-Exploit Events
 
@@ -113,7 +113,7 @@ The concentration of losses on Arbitrum and Optimism reflected the distribution 
 The KyberSwap exploit was notable for the attacker's confrontational communication style:
 
 - **On-chain messages**: The attacker sent messages demanding negotiation and proposing terms
-- **Governance demands**: The attacker demanded executive authority over KyberSwap, including control over the protocol's governance
+- **Governance and company-control demands**: The attacker demanded extraordinary authority over KyberSwap/KyberNetwork assets, governance, and company operations
 - **Bounty framing**: The attacker framed their demands as compensation for identifying the vulnerability
 - **Contentious tone**: Unlike the relatively cooperative communications in the Euler Finance or Poly Network cases, the KyberSwap attacker's demands were widely perceived as extortionate
 
@@ -122,7 +122,7 @@ The KyberSwap exploit was notable for the attacker's confrontational communicati
 - **November 22**: KyberSwap confirmed the exploit and advised users to withdraw remaining funds
 - **November 23**: KyberSwap offered a 10% bounty for fund return
 - **Negotiations**: Extended back-and-forth between KyberSwap and the attacker, with the attacker's demands widely criticized
-- **Treasury impact**: KyberSwap's treasury was significantly impacted, leading to workforce reductions
+- **Treasury impact**: KyberSwap/KyberNetwork reported significant treasury impact and later workforce reductions
 
 ### Partial Recovery
 
@@ -139,10 +139,10 @@ As of public reporting, the full amount was not returned. Some funds were recove
 
 ### KyberSwap TVL and Operations
 
-- Pre-exploit TVL: ~$80M
-- Post-exploit TVL: Collapsed as remaining users withdrew
-- KyberSwap announced significant layoffs (approximately 50% of workforce) in the weeks following
-- The protocol continued operating but with dramatically reduced TVL and activity
+- Pre-exploit TVL: tens of millions of dollars across chains
+- Post-exploit TVL: dropped sharply as remaining users withdrew
+- KyberSwap/KyberNetwork announced significant workforce reductions in the weeks following
+- The protocol continued operating but with reduced TVL and activity
 
 ### Broader DEX Impact
 
@@ -166,7 +166,7 @@ Each of these calculations involves fixed-point arithmetic with limited precisio
 
 | Protocol | Date | Loss | Vulnerability Type |
 |----------|------|------|--------------------|
-| KyberSwap Elastic | Nov 2023 | ~$48.8M | Tick-boundary precision in reinvestment curve |
+| KyberSwap Elastic | Nov 2023 | ~$47-48.8M | Tick-boundary precision in reinvestment curve |
 | Curve/Vyper | Jul 2023 | ~$70M | Compiler-level reentrancy lock bug |
 | Balancer | Aug 2023 | ~$2M | Rate provider manipulation |
 | Platypus | Feb 2023 | ~$8.5M | Logic error in stablecoin AMM |
@@ -187,7 +187,7 @@ Uniswap V3's concentrated liquidity code has been extensively audited, battle-te
 
 1. **Tick-boundary transaction monitoring**: Swaps that repeatedly move pool prices to exact tick boundaries in concentrated liquidity pools should be flagged as potentially exploitative. Normal trading rarely targets exact tick prices — this pattern indicates deliberate manipulation.
 
-2. **Cross-chain simultaneous exploit detection**: The KyberSwap attacker hit multiple chains within a short timeframe. Surveillance systems should correlate exploit-like transactions across chains for protocols deployed on multiple networks, as a confirmed exploit on one chain implies all deployments are vulnerable.
+2. **Cross-chain simultaneous exploit detection**: The KyberSwap attacker hit multiple chains within a short timeframe. Surveillance systems should correlate exploit-like transactions across chains for protocols deployed on multiple networks, as a confirmed exploit on one chain may imply related deployments are vulnerable.
 
 3. **Concentrated liquidity fork risk assessment**: Protocols that fork Uniswap V3's concentrated liquidity with custom modifications (fee models, reinvestment curves, tick spacing) should be flagged for elevated scrutiny. The more extensive the modifications, the higher the risk of introduced vulnerabilities.
 
