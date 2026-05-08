@@ -9,10 +9,11 @@ Bounty: #428 - RAG Implementation for Market Health Reporter
 """
 
 import os
+import re
 import json
 import requests
 from typing import Optional, List, Dict, Any
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import tiktoken
 
 
@@ -95,10 +96,11 @@ class RAGRetriever:
                     body = article.get("body", "")
                     
                     # Check if entity is mentioned
-                    if entity.lower() in title.lower() or entity.lower() in body.lower():
+                    entity_pattern = re.compile(r'\b' + re.escape(entity) + r'\b', re.IGNORECASE)
+                    if entity_pattern.search(title) or entity_pattern.search(body):
                         # Parse published date
                         published_ts = article.get("published_on", 0)
-                        published_date = datetime.fromtimestamp(published_ts).strftime("%Y-%m-%d")
+                        published_date = datetime.fromtimestamp(published_ts, tz=timezone.utc).strftime("%Y-%m-%d")
                         
                         # Check date range
                         if start_date <= published_date <= end_date:
@@ -144,7 +146,7 @@ class RAGRetriever:
         try:
             url = "https://newsapi.org/v2/everything"
             params = {
-                "q": f"{entity} cryptocurrency OR crypto OR exchange",
+                "q": f'"{entity}" AND (cryptocurrency OR crypto OR exchange)',
                 "from": start_date,
                 "to": end_date,
                 "sortBy": "relevancy",
@@ -245,8 +247,13 @@ class RAGRetriever:
         context_parts = ["<external_context>"]
         context_parts.append("The following external information may provide additional context for the analysis:")
         context_parts.append("")
-        
-        current_tokens = 0
+
+        # Reserve token budget for preamble and closing (before loop so budget is accurate)
+        preamble_text = "\n".join(context_parts)
+        closing_lines = ["</external_context>", "", "Use this external context to enhance your analysis. Cross-reference the detected anomalies with news events when relevant. 🌰"]
+        closing_text = "\n".join(closing_lines)
+        reserved_tokens = len(self.encoding.encode(preamble_text)) + len(self.encoding.encode(closing_text))
+        current_tokens = reserved_tokens
         article_count = 0
         
         for article in unique_articles:
@@ -272,11 +279,9 @@ Summary: {article['body']}
         
         if article_count == 0:
             context_parts.append("No external news articles found for the specified entities and date range.")
-            
-        context_parts.append("</external_context>")
-        context_parts.append("")
-        context_parts.append("Use this external context to enhance your analysis. Cross-reference the detected anomalies with news events when relevant. 🌰")
-        
+
+        context_parts.extend(closing_lines)
+
         return "\n".join(context_parts)
 
 
