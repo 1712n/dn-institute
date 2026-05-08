@@ -124,7 +124,8 @@ class Visualization:
         """Generate interactive Benford's Law chart with dual y-axis."""
         # Convert index to string to avoid datetime parsing issues
         x_vals = [str(idx) for idx in data.index]
-        crit_val = 1.36 / np.sqrt(data['tradecount'])
+        safe_tradecount = data['tradecount'].clip(lower=1)
+        crit_val = 1.36 / np.sqrt(safe_tradecount)
 
         fig = go.Figure()
 
