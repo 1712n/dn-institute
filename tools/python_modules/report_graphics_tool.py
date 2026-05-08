@@ -1,7 +1,6 @@
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
-import matplotlib.dates as mdates
 import os
 
 
@@ -9,75 +8,203 @@ class Visualization:
     def __init__(self):
         pass
 
-
     def _make_volume_hist(self, data, directory):
-        plt.figure(figsize=(10, 6))
-        plt.hist(data['volume'], bins=30, color='skyblue', edgecolor='black')
-        plt.xlabel('Transaction Volume')
-        plt.ylabel('Frequency')
-        plt.title('Transaction Volume Distribution')
-        plt.grid(True, which='both', linestyle='--', linewidth=0.5)
-        plt.savefig(os.path.join(directory, 'volume_hist.png'))
-        plt.close()
-
+        """Generate interactive volume histogram using Plotly."""
+        fig = go.Figure()
+        fig.add_trace(go.Histogram(
+            x=data['volume'],
+            nbinsx=30,
+            marker_color='skyblue',
+            marker_line_color='black',
+            marker_line_width=1,
+            name='Frequency',
+            hovertemplate='Volume Range: %{x}<br>Frequency: %{y}<extra></extra>'
+        ))
+        fig.update_layout(
+            title='Transaction Volume Distribution',
+            xaxis_title='Transaction Volume',
+            yaxis_title='Frequency',
+            template='plotly_white',
+            height=500,
+            margin=dict(l=60, r=40, t=60, b=60),
+            hovermode='x unified'
+        )
+        fig.write_html(os.path.join(directory, 'volume_hist.html'))
 
     def _make_crypto_metrics(self, data, directory):
-        fig, axs = plt.subplots(4, 1, figsize=(15, 10), sharex=True)
+        """Generate interactive crypto metrics charts (4 separate HTML files)."""
+        # 1. Volume over time
+        fig_vol = go.Figure()
+        fig_vol.add_trace(go.Scatter(
+            x=data.index,
+            y=data['volume'],
+            mode='lines',
+            name='Volume',
+            line=dict(color='blue'),
+            hovertemplate='Time: %{x}<br>Volume: %{y:.2f}<extra></extra>'
+        ))
+        fig_vol.update_layout(
+            title='Transaction Volume Over Time',
+            xaxis_title='Timestamp',
+            yaxis_title='Volume',
+            template='plotly_white',
+            height=400,
+            margin=dict(l=60, r=40, t=60, b=60)
+        )
+        fig_vol.write_html(os.path.join(directory, 'crypto_volume.html'))
 
-        axs[0].plot(data.index, data['volume'], label='Volume', color='blue')
-        axs[0].set_ylabel('Volume')
+        # 2. Trade count over time
+        fig_tc = go.Figure()
+        fig_tc.add_trace(go.Scatter(
+            x=data.index,
+            y=data['tradecount'],
+            mode='lines',
+            name='Trade Count',
+            line=dict(color='green'),
+            hovertemplate='Time: %{x}<br>Trade Count: %{y:.0f}<extra></extra>'
+        ))
+        fig_tc.update_layout(
+            title='Trade Count Over Time',
+            xaxis_title='Timestamp',
+            yaxis_title='Trade Count',
+            template='plotly_white',
+            height=400,
+            margin=dict(l=60, r=40, t=60, b=60)
+        )
+        fig_tc.write_html(os.path.join(directory, 'crypto_tradecount.html'))
 
-        axs[1].plot(data.index, data['tradecount'], label='Trade Count', color='green')
-        axs[1].set_ylabel('Trade Count')
+        # 3. Average transaction size over time
+        fig_avg = go.Figure()
+        fig_avg.add_trace(go.Scatter(
+            x=data.index,
+            y=data['avgtransactionsize'],
+            mode='lines',
+            name='Avg Transaction Size',
+            line=dict(color='orange'),
+            hovertemplate='Time: %{x}<br>Avg Tx Size: %{y:.2f}<extra></extra>'
+        ))
+        fig_avg.update_layout(
+            title='Average Transaction Size Over Time',
+            xaxis_title='Timestamp',
+            yaxis_title='Avg Transaction Size',
+            template='plotly_white',
+            height=400,
+            margin=dict(l=60, r=40, t=60, b=60)
+        )
+        fig_avg.write_html(os.path.join(directory, 'crypto_avg_txs.html'))
 
-        axs[2].plot(data.index, data['avgtransactionsize'], label='Avg Transaction Size', color='orange')
-        axs[2].set_ylabel('Avg Transaction Size')
-
-        axs[3].plot(data.index, data['buysellratio'], label='Buy/Sell Ratio', color='red')
-        axs[3].set_ylabel('Buy/Sell Ratio')
-
-        axs[3].set_xlabel('Timestamp')
-
-        fig.suptitle('Cryptocurrency Metrics Over Time')
-
-        for ax in axs:
-            plt.setp(ax.get_xticklabels(), rotation=45, ha='right')
-
-        plt.tight_layout()
-        plt.savefig(os.path.join(directory, 'crypto_metrics.png'))
-        plt.close()
-        
+        # 4. Buy/Sell ratio over time
+        fig_bs = go.Figure()
+        fig_bs.add_trace(go.Scatter(
+            x=data.index,
+            y=data['buysellratio'],
+            mode='lines',
+            name='Buy/Sell Ratio',
+            line=dict(color='red'),
+            hovertemplate='Time: %{x}<br>Buy/Sell Ratio: %{y:.2f}<extra></extra>'
+        ))
+        fig_bs.update_layout(
+            title='Buy/Sell Ratio Over Time',
+            xaxis_title='Timestamp',
+            yaxis_title='Buy/Sell Ratio',
+            template='plotly_white',
+            height=400,
+            margin=dict(l=60, r=40, t=60, b=60)
+        )
+        fig_bs.write_html(os.path.join(directory, 'crypto_buysell.html'))
 
     def _make_benfordlaw(self, data, directory):
-        fig, ax1 = plt.subplots(figsize=(15, 10), layout='constrained')
-        ax1.plot(data.index, data['benfordlawtest'], color='blue', linestyle='-', label='Benford Law Test Score')
-        ax1.set_xlabel('Timestamp')
-        ax1.set_ylabel('Benford Law Test Score', color='blue')
-        ax1.xaxis.set_major_locator(mdates.HourLocator(interval=24))
-        ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
-        ax2 = ax1.twinx()
-        ax2.plot(data.index, 1.36 / np.sqrt(data['tradecount']), color='green', linestyle='-', label='Trade Count')
-        ax2.set_ylabel('Trade Count', color='green')
-        ax1.set_title('Benford Law Test Score and Trade Count Over Time')
-        lines = ax1.get_lines() + ax2.get_lines()
-        labels = [line.get_label() for line in lines]
-        ax1.legend(lines, labels, loc='upper left')
-        plt.savefig(os.path.join(directory, 'benford_law.png'))
-        plt.close()
+        """Generate interactive Benford's Law chart with dual y-axis."""
+        # Convert index to string to avoid datetime parsing issues
+        x_vals = [str(idx) for idx in data.index]
+        crit_val = 1.36 / np.sqrt(data['tradecount'])
 
+        fig = go.Figure()
+
+        # Benford Law Test Score line
+        fig.add_trace(go.Scatter(
+            x=x_vals,
+            y=data['benfordlawtest'],
+            mode='lines',
+            name='Benford Law Test Score',
+            line=dict(color='blue'),
+            yaxis='y',
+            hovertemplate='Time: %{x}<br>Benford Score: %{y:.4f}<extra></extra>'
+        ))
+
+        # Critical value line (trade count derived)
+        fig.add_trace(go.Scatter(
+            x=x_vals,
+            y=crit_val,
+            mode='lines',
+            name='Critical Value',
+            line=dict(color='green', dash='dash'),
+            yaxis='y2',
+            hovertemplate='Time: %{x}<br>Critical Value: %{y:.4f}<extra></extra>'
+        ))
+
+        fig.update_layout(
+            title='Benford\'s Law Test Score and Critical Value Over Time',
+            xaxis=dict(
+                title='Timestamp',
+                showticklabels=True,
+                tickangle=45
+            ),
+            yaxis=dict(
+                title='Benford Law Test Score',
+                titlefont=dict(color='blue'),
+                tickfont=dict(color='blue'),
+                side='left'
+            ),
+            yaxis2=dict(
+                title='Critical Value',
+                titlefont=dict(color='green'),
+                tickfont=dict(color='green'),
+                side='right',
+                overlaying='y',
+                showgrid=False
+            ),
+            template='plotly_white',
+            height=500,
+            margin=dict(l=60, r=60, t=60, b=100),
+            legend=dict(x=0.5, y=1.12, xanchor='center', orientation='h'),
+            hovermode='x unified'
+        )
+        fig.write_html(os.path.join(directory, 'benford_law.html'))
 
     def _make_vvcorrelation(self, data, directory):
-        fig, ax = plt.subplots(figsize=(15, 10), layout='constrained')
-        ax.plot(data.index, data['vvcorrelation'], color='purple', linestyle='-', marker='o', label='VV Correlation')
-        ax.xaxis.set_major_locator(mdates.HourLocator(interval=24))
-        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
-        ax.set_xlabel('Timestamp')
-        ax.set_ylabel('VV Correlation')
-        ax.set_title('VV Correlation Over Time')
-        ax.legend()
-        plt.xticks(rotation=45)
-        plt.savefig(os.path.join(directory, 'vv_correlation.png'))
-        plt.close()
+        """Generate interactive VV Correlation chart."""
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(
+            x=data.index,
+            y=data['vvcorrelation'],
+            mode='lines+markers',
+            name='VV Correlation',
+            line=dict(color='purple'),
+            marker=dict(size=4, symbol='circle'),
+            hovertemplate='Time: %{x}<br>VV Correlation: %{y:.4f}<extra></extra>'
+        ))
+
+        # Add reference lines for context
+        fig.add_hline(
+            y=0.4, line_dash='dash', line_color='red',
+            annotation_text='Low threshold (0.4)', annotation_position='bottom right'
+        )
+        fig.add_hline(
+            y=0.7, line_dash='dash', line_color='gray',
+            annotation_text='High threshold (0.7)', annotation_position='top right'
+        )
+
+        fig.update_layout(
+            title='Volume-Volatility Correlation Over Time',
+            xaxis_title='Timestamp',
+            yaxis_title='VV Correlation',
+            template='plotly_white',
+            height=500,
+            margin=dict(l=60, r=40, t=60, b=80),
+            hovermode='x unified'
+        )
+        fig.write_html(os.path.join(directory, 'vv_correlation.html'))
 
     def generate_report(self, data, directory):
         if not os.path.exists(directory):
