@@ -1,4 +1,5 @@
 import plotly.graph_objects as go
+import plotly.io as pio
 import pandas as pd
 import numpy as np
 import os
@@ -29,10 +30,12 @@ class Visualization:
             margin=dict(l=60, r=40, t=60, b=60),
             hovermode='x unified'
         )
-        fig.write_html(os.path.join(directory, 'volume_hist.html'))
+        html = pio.to_html(fig, full_html=False, include_plotlyjs=False)
+        with open(os.path.join(directory, 'volume_hist.plotly'), 'w', encoding='utf-8') as f:
+            f.write(html)
 
     def _make_crypto_metrics(self, data, directory):
-        """Generate interactive crypto metrics charts (4 separate HTML files)."""
+        """Generate interactive crypto metrics charts (4 separate .plotly files)."""
         # 1. Volume over time
         fig_vol = go.Figure()
         fig_vol.add_trace(go.Scatter(
@@ -51,7 +54,8 @@ class Visualization:
             height=400,
             margin=dict(l=60, r=40, t=60, b=60)
         )
-        fig_vol.write_html(os.path.join(directory, 'crypto_volume.html'))
+        with open(os.path.join(directory, 'crypto_volume.plotly'), 'w', encoding='utf-8') as f:
+            f.write(pio.to_html(fig_vol, full_html=False, include_plotlyjs=False))
 
         # 2. Trade count over time
         fig_tc = go.Figure()
@@ -71,7 +75,8 @@ class Visualization:
             height=400,
             margin=dict(l=60, r=40, t=60, b=60)
         )
-        fig_tc.write_html(os.path.join(directory, 'crypto_tradecount.html'))
+        with open(os.path.join(directory, 'crypto_tradecount.plotly'), 'w', encoding='utf-8') as f:
+            f.write(pio.to_html(fig_tc, full_html=False, include_plotlyjs=False))
 
         # 3. Average transaction size over time
         fig_avg = go.Figure()
@@ -91,7 +96,8 @@ class Visualization:
             height=400,
             margin=dict(l=60, r=40, t=60, b=60)
         )
-        fig_avg.write_html(os.path.join(directory, 'crypto_avg_txs.html'))
+        with open(os.path.join(directory, 'crypto_avg_txs.plotly'), 'w', encoding='utf-8') as f:
+            f.write(pio.to_html(fig_avg, full_html=False, include_plotlyjs=False))
 
         # 4. Buy/Sell ratio over time
         fig_bs = go.Figure()
@@ -111,7 +117,8 @@ class Visualization:
             height=400,
             margin=dict(l=60, r=40, t=60, b=60)
         )
-        fig_bs.write_html(os.path.join(directory, 'crypto_buysell.html'))
+        with open(os.path.join(directory, 'crypto_buysell.plotly'), 'w', encoding='utf-8') as f:
+            f.write(pio.to_html(fig_bs, full_html=False, include_plotlyjs=False))
 
     def _make_benfordlaw(self, data, directory):
         """Generate interactive Benford's Law chart with dual y-axis."""
@@ -144,7 +151,7 @@ class Visualization:
         ))
 
         fig.update_layout(
-            title='Benford\'s Law Test Score and Critical Value Over Time',
+            title="Benford's Law Test Score and Critical Value Over Time",
             xaxis=dict(
                 title='Timestamp',
                 showticklabels=True,
@@ -170,7 +177,8 @@ class Visualization:
             legend=dict(x=0.5, y=1.12, xanchor='center', orientation='h'),
             hovermode='x unified'
         )
-        fig.write_html(os.path.join(directory, 'benford_law.html'))
+        with open(os.path.join(directory, 'benford_law.plotly'), 'w', encoding='utf-8') as f:
+            f.write(pio.to_html(fig, full_html=False, include_plotlyjs=False))
 
     def _make_vvcorrelation(self, data, directory):
         """Generate interactive VV Correlation chart."""
@@ -204,7 +212,8 @@ class Visualization:
             margin=dict(l=60, r=40, t=60, b=80),
             hovermode='x unified'
         )
-        fig.write_html(os.path.join(directory, 'vv_correlation.html'))
+        with open(os.path.join(directory, 'vv_correlation.plotly'), 'w', encoding='utf-8') as f:
+            f.write(pio.to_html(fig, full_html=False, include_plotlyjs=False))
 
     def generate_report(self, data, directory):
         if not os.path.exists(directory):

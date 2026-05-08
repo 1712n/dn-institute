@@ -1,0 +1,19 @@
+{{- if not (.Page.Scratch.Get "plotly") -}}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{{- .Page.Scratch.Set "plotly" true -}}
+{{- end -}}
+{{- $src := .Get "src" -}}
+{{- $caption := .Get "caption" | default "" -}}
+{{- $dir := .Page.File.Dir -}}
+{{- $path := printf "content/%s%s" $dir $src -}}
+{{- $content := readFile $path -}}
+<div class="chart-container" style="width:100%;max-width:900px;margin:1em auto;">
+  {{- if $content -}}
+  {{ $content | safeHTML }}
+  {{- else -}}
+  <p style="color:red;">Chart not found: {{ $src }}</p>
+  {{- end -}}
+  {{- with $caption -}}
+  <p style="text-align:center;font-style:italic;">{{ . }}</p>
+  {{- end -}}
+</div>
