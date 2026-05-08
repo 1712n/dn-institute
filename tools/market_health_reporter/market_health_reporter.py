@@ -8,6 +8,7 @@ import glob
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
+from tools.python_modules.rag_tool import RAGRetriever  # 🌰 RAG integration for external context
 
 
 REPO_NAME = "1712n/dn-institute"
@@ -38,6 +39,19 @@ def parse_cli_args():
     )
     parser.add_argument(
         "--rapid-api", dest="rapid_api", help="Rapid API key", required=True
+    )
+    parser.add_argument(
+        "--news-api-key", dest="news_api_key", help="News API key for RAG (optional)",
+        default=os.environ.get("NEWS_API_KEY")
+    )
+    parser.add_argument(
+        "--cryptocompare-api-key", dest="cryptocompare_api_key",
+        help="CryptoCompare API key for RAG (optional)",
+        default=os.environ.get("CRYPTOCOMPARE_API_KEY")
+    )
+    parser.add_argument(
+        "--enable-rag", dest="enable_rag", help="Enable RAG context retrieval",
+        action="store_true", default=True
     )
     return parser.parse_args()
 
@@ -126,6 +140,56 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
         issue.create_comment(comment)
 
 
+def create_prompt_with_rag(
+    article_example: str,
+    data: dict,
+    human_prompt_content: str,
+    entities: list,
+    start_date: str,
+    end_date: str,
+    news_api_key: str = None,
+    cryptocompare_api_key: str = None
+) -> str:
+    """
+    Creates a prompt string with RAG-enhanced external context. 🌰
+    
+    Args:
+        article_example: Example article for formatting reference
+        data: Market health data dictionary
+        human_prompt_content: The base prompt content
+        entities: List of entities to search for external context
+        start_date: Analysis start date
+        end_date: Analysis end date
+        news_api_key: Optional NewsAPI key
+        cryptocompare_api_key: Optional CryptoCompare API key
+        
+    Returns:
+        Enhanced prompt with external context
+    """
+    # Initialize RAG retriever
+    retriever = RAGRetriever(
+        news_api_key=news_api_key,
+        cryptocompare_api_key=cryptocompare_api_key,
+        max_context_tokens=2000
+    )
+    
+    # Retrieve external context
+    print(f"Fetching external context for entities: {entities}")
+    external_context = retriever.retrieve_context(
+        entities=entities,
+        start_date=start_date,
+        end_date=end_date
+    )
+    
+    # Build enhanced prompt
+    base_prompt = f"<example> {article_example} </example>\n{human_prompt_content}"
+    
+    # Insert external context before data section
+    enhanced_prompt = f"{base_prompt}\n{external_context}<data> {json.dumps(data)} </data>"
+    
+    return enhanced_prompt
+
+
 def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
     """
     Creates a prompt string using article example and data.
@@ -142,6 +206,10 @@ def main():
 
     marketvenueid, pairid, start, end = extract_data_from_comment(args.comment_body)
     print(f"Marketvenueid: {marketvenueid}, Pairid: {pairid}, Start: {start}, End: {end}")
+    
+    # Extract entity name from market venue ID for RAG context 🌰
+    entities = [marketvenueid.upper()]
+    
     querystring = {
         "marketvenueid": marketvenueid,
         "pairid": pairid,
@@ -157,10 +225,25 @@ def main():
     try:
         data = fetch_or_load_market_data(querystring, headers, url, DATA_DIR, marketvenueid, pairid, start, end)
 
-        encoding = encoding_for_model("gpt-4")     
+        encoding = encoding_for_model("gpt-4")
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
-        prompt = create_prompt(article_example, data, human_prompt_content)
+        # Use RAG-enhanced prompt if enabled 🌰
+        if args.enable_rag:
+            print("RAG enabled: Fetching external context...")
+            prompt = create_prompt_with_rag(
+                article_example=article_example,
+                data=data,
+                human_prompt_content=human_prompt_content,
+                entities=entities,
+                start_date=start,
+                end_date=end,
+                news_api_key=args.news_api_key,
+                cryptocompare_api_key=args.cryptocompare_api_key
+            )
+        else:
+            prompt = create_prompt(article_example, data, human_prompt_content)
+        
         prompt_token_count = len(encoding.encode(prompt))
 
         if prompt_token_count > MAX_TOKENS:
@@ -183,8 +266,8 @@ def main():
             print("This is an answer: ", output)
             save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
             vis = Visualization()
-            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
-            vis.generate_report(data, output_subdir)  
+            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}")
+            vis.generate_report(data, output_subdir)
 
             post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
 
