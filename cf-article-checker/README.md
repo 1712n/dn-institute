@@ -33,6 +33,7 @@ wrangler secret put GITHUB_TOKEN      # GitHub PAT with repo + issues:write scop
 wrangler secret put ANTHROPIC_API_KEY  # Anthropic API key
 wrangler secret put BRAVE_API_KEY      # Brave Search API key
 wrangler secret put REVIEWERS          # Comma-separated GitHub usernames (e.g. "user1,user2")
+wrangler secret put WEBHOOK_SECRET     # GitHub webhook secret for HMAC signature verification
 ```
 
 ### Deploy
@@ -48,7 +49,7 @@ npm run deploy
 2. Payload URL: `https://cf-article-checker.<your-subdomain>.workers.dev/webhook`
 3. Content type: `application/json`
 4. Events: Select "Issue comments" only
-5. Secret: (optional, add signature verification if needed)
+5. Secret: `WEBHOOK_SECRET` (required — used to verify `X-Hub-Signature-256` HMAC)
 
 ## Testing
 
