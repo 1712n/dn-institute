@@ -15,6 +15,7 @@ in publicly available context beyond the raw metrics data.
 """
 
 import requests
+import html
 import json
 import re
 from typing import Optional
@@ -167,13 +168,19 @@ def fetch_external_context(
     seen_urls = set()
 
     for query in queries:
+        if len(all_results) >= MAX_CONTEXT_ITEMS:
+            break
         if brave_api_key:
             results = search_brave(query, brave_api_key, count=2)
         else:
             results = search_duckduckgo(query, count=2)
 
         for r in results:
-            if r["url"] not in seen_urls and len(all_results) < MAX_CONTEXT_ITEMS:
+            if len(all_results) >= MAX_CONTEXT_ITEMS:
+                break
+            if not r.get("url") or not r["url"].startswith("http"):
+                continue
+            if r["url"] not in seen_urls:
                 seen_urls.add(r["url"])
                 all_results.append(r)
 
@@ -191,10 +198,12 @@ def fetch_external_context(
     ]
 
     for i, result in enumerate(all_results, 1):
-        context_parts.append(f"[{i}] {result['title']}")
+        title = html.escape(result.get("title", ""), quote=False)
+        desc = html.escape(result.get("description", ""), quote=False)
+        context_parts.append(f"[{i}] {title}")
         context_parts.append(f"    URL: {result['url']}")
-        if result["description"]:
-            context_parts.append(f"    Summary: {result['description']}")
+        if desc:
+            context_parts.append(f"    Summary: {desc}")
         context_parts.append("")
 
     context_parts.append("</external_context>")
