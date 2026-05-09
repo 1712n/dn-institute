@@ -22,10 +22,6 @@ The stolen funds were laundered through a multi-stage process:
 - The Sinbad Bitcoin mixer (successor to Blender.io, which was sanctioned by OFAC in 2022) was used to obscure the transaction trail
 - Cross-chain bridges were used to move portions to other networks
 
-Key addresses:
-- Initial theft transaction on Bitcoin mainnet
-- Laundering occurred through Sinbad mixer and chain-hopping
-
 ## Losses
 DMM Bitcoin lost approximately **4,502.9 BTC**, valued at roughly **$320 million** at the time of the hack. The exchange announced it would fully compensate all affected customers using its own reserves and those of its parent company, DMM Financial Holdings.
 
