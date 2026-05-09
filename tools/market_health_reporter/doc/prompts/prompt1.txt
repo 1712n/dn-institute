@@ -79,4 +79,6 @@ Allowed names for illustrations:
 - crypto_metrics.png
 - benford_law.png
 - vv_correlation.png
+
+The illustration placeholders will be automatically converted to interactive Plotly charts during report generation. Use the figure shortcodes as shown above — the system handles the conversion from static images to dynamic charts.
 Place the article into the <article> </article> tags.

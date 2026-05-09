@@ -1,0 +1,128 @@
+{{/*
+  market_chart: Renders an interactive Plotly chart from JSON data.
+
+  Usage in markdown:
+    {{< market_chart id="volume-hist" type="bar" title="Transaction Volume Distribution" >}}
+    {"x": [1,2,3], "y": [10,20,30]}
+    {{< /market_chart >}}
+
+  Parameters:
+    id     - Unique element ID (required)
+    type   - Plotly trace type: bar, line, scatter, histogram (default: "line")
+    title  - Chart title (optional)
+    height - Chart height in px (default: 450)
+    xLabel - X-axis label (optional)
+    yLabel - Y-axis label (optional)
+    y2axis - Enable secondary Y-axis (optional, "true"/"false")
+    y2Label - Secondary Y-axis label (optional)
+
+  🌰🌰🌰
+*/}}
+
+{{ $id := .Get "id" }}
+{{ $chartType := .Get "type" | default "line" }}
+{{ $title := .Get "title" | default "" }}
+{{ $height := .Get "height" | default "450" }}
+{{ $xLabel := .Get "xLabel" | default "" }}
+{{ $yLabel := .Get "yLabel" | default "" }}
+{{ $y2axis := .Get "y2axis" | default "false" }}
+{{ $y2Label := .Get "y2Label" | default "" }}
+
+<div id="{{ $id }}" style="width:100%;max-width:900px;height:{{ $height }}px;margin:1.5em auto;"></div>
+
+<script>
+(function() {
+  var rawData = {{ .Inner | safeJS }};
+  var traces = [];
+
+  {{ if eq $chartType "histogram" }}
+    traces.push({
+      x: rawData.values || rawData.x,
+      type: 'histogram',
+      marker: { color: 'rgba(135, 206, 235, 0.7)', line: { color: 'rgba(0,0,0,0.5)', width: 1 } },
+      nbinsx: rawData.nbins || 30
+    });
+  {{ else if eq $chartType "dual-line" }}
+    /* Dual-axis line chart: expects { x, y1, y2, y1Label, y2Label } */
+    traces.push({
+      x: rawData.x,
+      y: rawData.y1,
+      name: rawData.y1Label || 'Y1',
+      type: 'scatter',
+      mode: 'lines',
+      line: { color: '#1f77b4', width: 2 }
+    });
+    traces.push({
+      x: rawData.x,
+      y: rawData.y2,
+      name: rawData.y2Label || 'Y2',
+      type: 'scatter',
+      mode: 'lines',
+      line: { color: '#2ca02c', width: 2 },
+      yaxis: 'y2'
+    });
+  {{ else }}
+    /* Single or multi-series line/bar: expects { datasets: [{label, data}], labels } */
+    /* OR { x, y } for simple series */
+    if (rawData.datasets) {
+      var colors = ['#1f77b4','#ff7f0e','#2ca02c','#d62728','#9467bd','#8c564b','#e377c2','#7f7f7f'];
+      rawData.datasets.forEach(function(ds, i) {
+        traces.push({
+          x: rawData.labels,
+          y: ds.data,
+          name: ds.label || ('Series ' + (i+1)),
+          type: '{{ $chartType }}' === 'bar' ? 'bar' : 'scatter',
+          mode: '{{ $chartType }}' === 'bar' ? undefined : 'lines+markers',
+          marker: { color: colors[i % colors.length] },
+          line: { color: colors[i % colors.length], width: 2 }
+        });
+      });
+    } else if (rawData.x && rawData.y) {
+      traces.push({
+        x: rawData.x,
+        y: rawData.y,
+        type: '{{ $chartType }}' === 'bar' ? 'bar' : 'scatter',
+        mode: '{{ $chartType }}' === 'bar' ? undefined : 'lines+markers',
+        marker: { color: 'rgba(135, 206, 235, 0.7)', line: { color: 'rgba(0,0,0,0.5)', width: 1 } }
+      });
+    }
+  {{ end }}
+
+  var layout = {
+    title: { text: '{{ $title }}', font: { size: 16 } },
+    margin: { t: 50, r: {{ if eq $y2axis "true" }}60{{ else }}30{{ end }}, b: 60, l: 60 },
+    height: {{ $height }},
+    xaxis: {
+      title: { text: '{{ $xLabel }}' },
+      tickangle: -45,
+      tickformat: '%Y-%m-%d %H:%M'
+    },
+    yaxis: {
+      title: { text: '{{ $yLabel }}' },
+      side: 'left'
+    },
+    legend: { orientation: 'h', y: -0.2 },
+    hovermode: 'x unified',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    paper_bgcolor: 'rgba(0,0,0,0)'
+  };
+
+  {{ if eq $y2axis "true" }}
+  layout.yaxis2 = {
+    title: { text: '{{ $y2Label }}' },
+    side: 'right',
+    overlaying: 'y',
+    showgrid: false
+  };
+  {{ end }}
+
+  var config = {
+    responsive: true,
+    displayModeBar: true,
+    modeBarButtonsToRemove: ['lasso2d', 'select2d'],
+    displaylogo: false
+  };
+
+  Plotly.newPlot('{{ $id }}', traces, layout, config);
+})();
+</script>

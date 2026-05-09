@@ -1,0 +1,24 @@
+{{/*
+  plotly_head.html — Hugo partial to load Plotly.js for interactive charts.
+  Include this in the article template or baseof.html when market_chart
+  shortcodes are used.
+
+  Usage in layouts/_default/baseof.html or article template:
+    {{ partial "plotly_head.html" . }}
+
+  Or load from CDN in the article itself:
+    <script src="https://cdn.plot.ly/plotly-2.35.0.min.js" charset="utf-8"></script>
+
+  🌰🌰🌰
+*/}}
+<script src="https://cdn.plot.ly/plotly-2.35.0.min.js" charset="utf-8"></script>
+<style>
+  .plotly-chart {
+    margin: 1.5em auto;
+    max-width: 900px;
+  }
+  /* Responsive chart container */
+  .js-plotly-plot .plotly .modebar {
+    right: 10px !important;
+  }
+</style>

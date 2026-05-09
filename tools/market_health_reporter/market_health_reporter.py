@@ -8,6 +8,10 @@ import glob
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
+from tools.market_health_reporter.dynamic_charts import (
+    DynamicVisualization,
+    replace_figure_shortcodes,
+)
 
 
 REPO_NAME = "1712n/dn-institute"
@@ -181,12 +185,30 @@ def main():
             output = extract_between_tags("article", output)
 
             print("This is an answer: ", output)
-            save_output(output, OUTPUT_DIR, marketvenueid, pairid, start, end)
-            vis = Visualization()
-            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}") 
-            vis.generate_report(data, output_subdir)  
 
-            post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
+            # ── Generate interactive charts 🌰 ───────────────────────────
+            output_subdir = os.path.join(OUTPUT_DIR, f"{start}-{end}-{marketvenueid}-{pairid}")
+
+            # Generate dynamic Plotly chart shortcodes
+            dyn_vis = DynamicVisualization()
+            chart_shortcodes = dyn_vis.generate_report(data, output_subdir)
+
+            # Replace static figure references in the LLM output with
+            # interactive chart shortcodes
+            output_with_charts = replace_figure_shortcodes(output, output_subdir)
+
+            # Append any charts that weren't referenced in the article
+            if chart_shortcodes and "market_chart" not in output_with_charts:
+                output_with_charts += "\n\n## Interactive Charts\n\n" + chart_shortcodes
+
+            save_output(output_with_charts, OUTPUT_DIR, marketvenueid, pairid, start, end)
+
+            # Also generate static PNGs as fallback for environments
+            # that don't support JavaScript (email, RSS, etc.)
+            vis = Visualization()
+            vis.generate_report(data, output_subdir)
+
+            post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output_with_charts)
 
     except Exception as e:
         print(f"Error occurred: {e}")
