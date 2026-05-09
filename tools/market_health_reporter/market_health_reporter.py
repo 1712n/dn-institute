@@ -8,6 +8,7 @@ import glob
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
+from tools.market_health_reporter.rag import fetch_external_context, fetch_wiki_context
 
 
 REPO_NAME = "1712n/dn-institute"
@@ -38,6 +39,15 @@ def parse_cli_args():
     )
     parser.add_argument(
         "--rapid-api", dest="rapid_api", help="Rapid API key", required=True
+    )
+    parser.add_argument(
+        "--brave-api-key", dest="brave_api_key",
+        help="Brave Search API key for RAG (optional)", required=False,
+        default=os.environ.get("BRAVE_API_KEY", ""),
+    )
+    parser.add_argument(
+        "--no-rag", dest="no_rag",
+        help="Disable RAG context retrieval", action="store_true",
     )
     return parser.parse_args()
 
@@ -126,11 +136,24 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
         issue.create_comment(comment)
 
 
-def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
+def create_prompt(
+    article_example: str,
+    data: dict,
+    human_prompt_content: str,
+    rag_context: str = "",
+) -> str:
     """
-    Creates a prompt string using article example and data.
+    Creates a prompt string using article example, data, and optional RAG context.
     """
-    return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    parts = [f"<example> {article_example} </example>"]
+
+    if rag_context:
+        parts.append(rag_context)
+
+    parts.append(human_prompt_content)
+    parts.append(f"<data> {json.dumps(data)} </data>")
+
+    return "\n".join(parts)
 
 
 def main():
@@ -157,10 +180,47 @@ def main():
     try:
         data = fetch_or_load_market_data(querystring, headers, url, DATA_DIR, marketvenueid, pairid, start, end)
 
+        # ── RAG: Fetch external context 🌰 ──────────────────────────────────
+        rag_context = ""
+        if not args.no_rag:
+            print("Fetching RAG context...")
+            brave_key = args.brave_api_key or ""
+
+            # Fetch web search context
+            web_context = fetch_external_context(
+                exchange=marketvenueid,
+                pair=pairid,
+                start_date=start,
+                end_date=end,
+                brave_api_key=brave_key if brave_key else None,
+            )
+
+            # Fetch wiki context from existing articles
+            wiki_context = fetch_wiki_context(
+                exchange=marketvenueid,
+                pair=pairid,
+                github_token=args.github_token,
+            )
+
+            # Combine contexts
+            contexts = []
+            if web_context:
+                contexts.append(web_context)
+                print(f"  Web context: {len(web_context)} chars")
+            if wiki_context:
+                contexts.append(wiki_context)
+                print(f"  Wiki context: {len(wiki_context)} chars")
+
+            rag_context = "\n\n".join(contexts)
+            if rag_context:
+                print(f"  Total RAG context: {len(rag_context)} chars")
+            else:
+                print("  No RAG context available")
+
         encoding = encoding_for_model("gpt-4")     
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
-        prompt = create_prompt(article_example, data, human_prompt_content)
+        prompt = create_prompt(article_example, data, human_prompt_content, rag_context)
         prompt_token_count = len(encoding.encode(prompt))
 
         if prompt_token_count > MAX_TOKENS:
