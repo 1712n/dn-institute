@@ -57,6 +57,16 @@ describe("Request validation", () => {
     expect(await response.text()).toBe("Invalid JSON format")
   })
 
+  it("returns 400 when text is empty", async () => {
+    const response = await postSimilaritySearch({
+      text: "",
+      namespace: "security-incidents"
+    })
+
+    expect(response.status).toBe(400)
+    expect(await response.text()).toBe("Invalid JSON format")
+  })
+
   it("returns 400 when namespace is not a string", async () => {
     const response = await postSimilaritySearch({
       text: "duplicate message",
