@@ -66,6 +66,26 @@ describe("Request validation", () => {
     expect(response.status).toBe(400)
     expect(await response.text()).toBe("Invalid JSON format")
   })
+
+  it("returns 400 when text is null", async () => {
+    const response = await postSimilaritySearch({
+      text: null,
+      namespace: "security-incidents"
+    })
+
+    expect(response.status).toBe(400)
+    expect(await response.text()).toBe("Invalid JSON format")
+  })
+
+  it("returns 400 when namespace is null", async () => {
+    const response = await postSimilaritySearch({
+      text: "duplicate message",
+      namespace: null
+    })
+
+    expect(response.status).toBe(400)
+    expect(await response.text()).toBe("Invalid JSON format")
+  })
 })
 
 describe("Similarity search", () => {
