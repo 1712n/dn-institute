@@ -1,0 +1,8 @@
+name = "cf-article-checker"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ANTHROPIC_MODEL = "claude-3-5-sonnet-20241022"
+ANTHROPIC_MAX_TOKENS = "4000"
