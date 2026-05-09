@@ -3,8 +3,21 @@ import { describe, it, expect } from "vitest"
 
 import "../src/index"
 
+const apiKey = "test-api-key"
+
+const postSimilaritySearch = (body: unknown, apiKeyHeader = apiKey) => {
+  return SELF.fetch("https://example.com/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-API-Key": apiKeyHeader
+    },
+    body: JSON.stringify(body)
+  })
+}
+
 describe("Authentication", () => {
-  it("returns 401 Unauthorized when API key is missing or invalid", async () => {
+  it("returns 401 Unauthorized when API key is missing", async () => {
     const response = await SELF.fetch("https://example.com/", {
       method: "POST",
       headers: {
@@ -18,5 +31,77 @@ describe("Authentication", () => {
 
     expect(response.status).toBe(401)
     expect(await response.text()).toBe("Unauthorized")
+  })
+
+  it("returns 401 Unauthorized when API key is invalid", async () => {
+    const response = await postSimilaritySearch(
+      {
+        text: "Sample text",
+        namespace: "test-namespace"
+      },
+      "wrong-api-key"
+    )
+
+    expect(response.status).toBe(401)
+    expect(await response.text()).toBe("Unauthorized")
+  })
+})
+
+describe("Request validation", () => {
+  it("returns 400 when text is missing", async () => {
+    const response = await postSimilaritySearch({
+      namespace: "security-incidents"
+    })
+
+    expect(response.status).toBe(400)
+    expect(await response.text()).toBe("Invalid JSON format")
+  })
+
+  it("returns 400 when namespace is not a string", async () => {
+    const response = await postSimilaritySearch({
+      text: "duplicate message",
+      namespace: 42
+    })
+
+    expect(response.status).toBe(400)
+    expect(await response.text()).toBe("Invalid JSON format")
+  })
+})
+
+describe("Similarity search", () => {
+  it("embeds the request text and returns the top Vectorize match score", async () => {
+    const response = await postSimilaritySearch({
+      text: "Suspicious wallet cluster activity",
+      namespace: "security-incidents"
+    })
+
+    expect(response.status).toBe(200)
+    await expect(response.json()).resolves.toEqual({
+      similarity_score: 0.8765
+    })
+  })
+
+  it("returns zero when Vectorize has no matches for the namespace", async () => {
+    const response = await postSimilaritySearch({
+      text: "No matching record should exist",
+      namespace: "empty-namespace"
+    })
+
+    expect(response.status).toBe(200)
+    await expect(response.json()).resolves.toEqual({
+      similarity_score: 0
+    })
+  })
+
+  it("handles unicode input through the full worker request path", async () => {
+    const response = await postSimilaritySearch({
+      text: "Similar alert: stablecoin depeg risk increased in 東京 markets",
+      namespace: "unicode-smoke-test"
+    })
+
+    expect(response.status).toBe(200)
+    await expect(response.json()).resolves.toEqual({
+      similarity_score: 0.4321
+    })
   })
 })
