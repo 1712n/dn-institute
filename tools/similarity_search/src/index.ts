@@ -31,7 +31,12 @@ app.post("/", async (c) => {
   const data = await c.req.json<TextEntry>()
   const { text, namespace } = data
 
-  if (typeof text !== "string" || typeof namespace !== "string") {
+  if (
+    typeof text !== "string" ||
+    text.trim() === "" ||
+    typeof namespace !== "string" ||
+    namespace.trim() === ""
+  ) {
     return c.text("Invalid JSON format", 400)
   }
 
