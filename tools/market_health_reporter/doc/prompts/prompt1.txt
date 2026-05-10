@@ -24,9 +24,10 @@ Metric rules:
   - Data key: `benfordlawtest`.
   - Trade count key: `tradecount`.
   - Critical value: `1.36 / sqrt(tradecount)`.
+  - If `tradecount` is missing or less than or equal to 0, do not calculate the critical value or infer the test result.
   - If the K-S test value is greater than the critical value, explain that the data does not conform to Benford's Law at the selected significance level.
   - If the K-S test value is less than or equal to the critical value, explain that the test does not provide enough evidence of deviation.
-  - If either value is missing, do not infer the test result.
+  - If the K-S test value is missing, do not infer the test result.
 
 - Volume distribution
   - Data key: `volumedist`.

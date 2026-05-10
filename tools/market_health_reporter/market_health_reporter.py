@@ -189,4 +189,7 @@ def main():
             post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, output)
 
     except Exception as e:
-        print(f"Error occurred: {e}")
+        error_message = f"Market Health Reporter failed: {e}"
+        print(error_message)
+        post_comment_to_issue(args.github_token, int(args.issue), REPO_NAME, error_message)
+        raise
