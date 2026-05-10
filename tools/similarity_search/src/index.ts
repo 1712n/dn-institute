@@ -28,8 +28,18 @@ app.use("*", async (c, next) => {
 })
 
 app.post("/", async (c) => {
-  const data = await c.req.json<TextEntry>()
-  const { text, namespace } = data
+  let data: unknown
+  try {
+    data = await c.req.json()
+  } catch {
+    return c.text("Invalid JSON format", 400)
+  }
+
+  if (!data || typeof data !== "object" || Array.isArray(data)) {
+    return c.text("Invalid JSON format", 400)
+  }
+
+  const { text, namespace } = data as Record<string, unknown>
 
   if (typeof text !== "string" || typeof namespace !== "string") {
     return c.text("Invalid JSON format", 400)
