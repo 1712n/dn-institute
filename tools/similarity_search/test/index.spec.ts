@@ -20,3 +20,81 @@ describe("Authentication", () => {
     expect(await response.text()).toBe("Unauthorized")
   })
 })
+
+describe("Similarity search", () => {
+  it("returns a similarity score for a single text entry", async () => {
+    const response = await SELF.fetch("https://example.com/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-Key": "test-api-key"
+      },
+      body: JSON.stringify({
+        text: "Sample text",
+        namespace: "test-namespace"
+      })
+    })
+
+    expect(response.status).toBe(200)
+    expect(await response.json()).toEqual({ similarity_score: 0.1 })
+  })
+
+  it("processes multiple text entries in request order", async () => {
+    const response = await SELF.fetch("https://example.com/batch", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-Key": "test-api-key"
+      },
+      body: JSON.stringify({
+        items: [
+          { text: "First text", namespace: "articles" },
+          { text: "Second text", namespace: "articles" },
+          { text: "Third text", namespace: "topics" }
+        ]
+      })
+    })
+
+    expect(response.status).toBe(200)
+    expect(await response.json()).toEqual({
+      results: [
+        { similarity_score: 0.1 },
+        { similarity_score: 0.2 },
+        { similarity_score: 0.3 }
+      ]
+    })
+  })
+
+  it("rejects empty batch requests", async () => {
+    const response = await SELF.fetch("https://example.com/batch", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-Key": "test-api-key"
+      },
+      body: JSON.stringify({ items: [] })
+    })
+
+    expect(response.status).toBe(400)
+    expect(await response.text()).toBe("Batch size must be between 1 and 100")
+  })
+
+  it("rejects invalid batch entries", async () => {
+    const response = await SELF.fetch("https://example.com/batch", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-Key": "test-api-key"
+      },
+      body: JSON.stringify({
+        items: [
+          { text: "Valid text", namespace: "test-namespace" },
+          { text: "", namespace: "test-namespace" }
+        ]
+      })
+    })
+
+    expect(response.status).toBe(400)
+    expect(await response.text()).toBe("Invalid JSON format")
+  })
+})

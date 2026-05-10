@@ -11,6 +11,18 @@ type TextEntry = {
   namespace: string
 }
 
+type BatchRequest = {
+  items: TextEntry[]
+}
+
+type BatchResult = {
+  similarity_score: number
+}
+
+const MAX_BATCH_SIZE = 100
+const VECTORIZE_QUERY_CONCURRENCY = 10
+const EMBEDDING_MODEL = "@cf/baai/bge-base-en-v1.5"
+
 const app = new Hono<{ Bindings: Env }>()
 
 app.use("*", async (c, next) => {
@@ -27,25 +39,88 @@ app.use("*", async (c, next) => {
   return next()
 })
 
-app.post("/", async (c) => {
-  const data = await c.req.json<TextEntry>()
-  const { text, namespace } = data
-
-  if (typeof text !== "string" || typeof namespace !== "string") {
-    return c.text("Invalid JSON format", 400)
+function isValidTextEntry(value: unknown): value is TextEntry {
+  if (typeof value !== "object" || value === null) {
+    return false
   }
 
-  const modelResp = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
-    text: [text]
-  })
-  const vector = modelResp.data[0]
-  const searchResponse = await c.env.VECTORIZE_INDEX.query(vector, {
-    namespace,
+  const entry = value as Partial<TextEntry>
+  return typeof entry.text === "string" && entry.text.length > 0
+    && typeof entry.namespace === "string" && entry.namespace.length > 0
+}
+
+async function embedTexts(ai: Ai, texts: string[]): Promise<number[][]> {
+  const modelResp = await ai.run(EMBEDDING_MODEL, { text: texts }) as { data?: unknown }
+  const embeddings = modelResp.data
+
+  if (!Array.isArray(embeddings) || embeddings.length !== texts.length) {
+    throw new Error("Embedding response size did not match request size")
+  }
+
+  return embeddings as number[][]
+}
+
+async function querySimilarity(env: Env, item: TextEntry, vector: number[]): Promise<BatchResult> {
+  const searchResponse = await env.VECTORIZE_INDEX.query(vector, {
+    namespace: item.namespace,
     topK: 1
   })
   const similarityScore = searchResponse.matches[0]?.score || 0
 
-  return c.json({ similarity_score: similarityScore })
+  return { similarity_score: similarityScore }
+}
+
+async function querySimilarities(env: Env, items: TextEntry[], vectors: number[][]): Promise<BatchResult[]> {
+  const results: BatchResult[] = []
+
+  for (let i = 0; i < items.length; i += VECTORIZE_QUERY_CONCURRENCY) {
+    const itemChunk = items.slice(i, i + VECTORIZE_QUERY_CONCURRENCY)
+    const vectorChunk = vectors.slice(i, i + VECTORIZE_QUERY_CONCURRENCY)
+    const chunkResults = await Promise.all(
+      itemChunk.map((item, index) => querySimilarity(env, item, vectorChunk[index]))
+    )
+    results.push(...chunkResults)
+  }
+
+  return results
+}
+
+app.post("/", async (c) => {
+  const data = await c.req.json<TextEntry>()
+
+  if (!isValidTextEntry(data)) {
+    return c.text("Invalid JSON format", 400)
+  }
+
+  const [vector] = await embedTexts(c.env.AI, [data.text])
+  const result = await querySimilarity(c.env, data, vector)
+
+  return c.json(result)
+})
+
+app.post("/batch", async (c) => {
+  const data = await c.req.json<Partial<BatchRequest>>()
+
+  if (typeof data !== "object" || data === null || !Array.isArray(data.items)) {
+    return c.text("Invalid JSON format", 400)
+  }
+
+  if (data.items.length === 0 || data.items.length > MAX_BATCH_SIZE) {
+    return c.text(`Batch size must be between 1 and ${MAX_BATCH_SIZE}`, 400)
+  }
+
+  if (!data.items.every(isValidTextEntry)) {
+    return c.text("Invalid JSON format", 400)
+  }
+
+  try {
+    const vectors = await embedTexts(c.env.AI, data.items.map((item) => item.text))
+    const results = await querySimilarities(c.env, data.items, vectors)
+
+    return c.json({ results })
+  } catch (error) {
+    return c.text(error instanceof Error ? error.message : "Batch processing failed", 502)
+  }
 })
 
 export default app
