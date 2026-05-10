@@ -39,6 +39,20 @@ describe("Similarity search", () => {
     expect(await response.json()).toEqual({ similarity_score: 0.1 })
   })
 
+  it("rejects malformed single lookup JSON", async () => {
+    const response = await SELF.fetch("https://example.com/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-Key": "test-api-key"
+      },
+      body: "{"
+    })
+
+    expect(response.status).toBe(400)
+    expect(await response.text()).toBe("Invalid JSON format")
+  })
+
   it("processes multiple text entries in request order", async () => {
     const response = await SELF.fetch("https://example.com/batch", {
       method: "POST",
@@ -77,6 +91,20 @@ describe("Similarity search", () => {
 
     expect(response.status).toBe(400)
     expect(await response.text()).toBe("Batch size must be between 1 and 100")
+  })
+
+  it("rejects malformed batch JSON", async () => {
+    const response = await SELF.fetch("https://example.com/batch", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-Key": "test-api-key"
+      },
+      body: "{"
+    })
+
+    expect(response.status).toBe(400)
+    expect(await response.text()).toBe("Invalid JSON format")
   })
 
   it("rejects invalid batch entries", async () => {

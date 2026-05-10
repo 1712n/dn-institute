@@ -49,6 +49,14 @@ function isValidTextEntry(value: unknown): value is TextEntry {
     && typeof entry.namespace === "string" && entry.namespace.length > 0
 }
 
+async function readJson<T>(request: Request): Promise<T | null> {
+  try {
+    return await request.json<T>()
+  } catch {
+    return null
+  }
+}
+
 async function embedTexts(ai: Ai, texts: string[]): Promise<number[][]> {
   const modelResp = await ai.run(EMBEDDING_MODEL, { text: texts }) as { data?: unknown }
   const embeddings = modelResp.data
@@ -86,7 +94,7 @@ async function querySimilarities(env: Env, items: TextEntry[], vectors: number[]
 }
 
 app.post("/", async (c) => {
-  const data = await c.req.json<TextEntry>()
+  const data = await readJson<TextEntry>(c.req.raw)
 
   if (!isValidTextEntry(data)) {
     return c.text("Invalid JSON format", 400)
@@ -99,7 +107,7 @@ app.post("/", async (c) => {
 })
 
 app.post("/batch", async (c) => {
-  const data = await c.req.json<Partial<BatchRequest>>()
+  const data = await readJson<Partial<BatchRequest>>(c.req.raw)
 
   if (typeof data !== "object" || data === null || !Array.isArray(data.items)) {
     return c.text("Invalid JSON format", 400)
