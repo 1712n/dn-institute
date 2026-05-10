@@ -22,6 +22,7 @@ Metric guide:
 
 - Kolmogorov-Smirnov test for Benford conformity
   - Key: `benfordlawtest`; sample size key: `tradecount`.
+  - If `tradecount` is unavailable, zero, or negative, state "Benford K-S inconclusive due to unavailable or non-positive tradecount"; do not compute the critical value or infer deviation.
   - Critical value: `1.36 / sqrt(tradecount)`.
   - If test value > critical value, the sample does not conform to Benford's Law at the tested significance level.
   - If test value <= critical value, do not claim Benford deviation.

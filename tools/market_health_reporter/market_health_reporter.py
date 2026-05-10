@@ -190,3 +190,4 @@ def main():
 
     except Exception as e:
         print(f"Error occurred: {e}")
+        raise
