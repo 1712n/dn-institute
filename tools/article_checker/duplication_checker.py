@@ -92,7 +92,7 @@ def extract_target_entities(text: str) -> List[str]:
     """
     match = re.search(r"^target-entities:\s*(.*?)\s*$", text, re.MULTILINE)
     if not match:
-        print("Value 'target-entities' didn't find")
+        print("Value 'target-entities' not found")
         return []
     return normalize_target_entities(match.group(1))
 
@@ -107,13 +107,15 @@ def extract_article_summary(text: str) -> str:
     match = re.search(r"## Summary.*", text, re.DOTALL)
     if match:
         return match.group(0)
-    print("Value '## Summary' didn't find; using full article text")
+    print("Value '## Summary' not found; using full article text")
     return text.strip()
 
 
 def new_text_handler(diff):
     """
-    Extracts text and target entity from a new pull request
+    Extracts text and target entities from a new pull request.
+
+    Returns the combined article text and a deduplicated list of target entities.
     """
     text_chunks = []
     target_entities = []
@@ -158,13 +160,16 @@ def build_target_urls(targets: Iterable[str], url: str, list_of_target_entities:
     ]
 
 
-def get_same_texts(targets, url, list_of_target_entities):
+def get_same_texts(targets: Iterable[str], url: str, list_of_target_entities: List[str]) -> List[str]:
     """
     Searching urls of same texts in the crypto wiki
     """
     href_list = []
     for target_url in build_target_urls(targets, url, list_of_target_entities):
-        response = requests.get(target_url)
+        try:
+            response = requests.get(target_url, timeout=10)
+        except requests.RequestException:
+            continue
         if response.status_code == 200:
             html = response.text
             soup = BeautifulSoup(html, 'html.parser')
@@ -172,9 +177,11 @@ def get_same_texts(targets, url, list_of_target_entities):
             if posts:
                 for post in posts:
                     post_head = post.find('h2')
+                    if not post_head:
+                        continue
                     href = post_head.find('a')
-                    href = href['href']
-                    href_list.append(href)
+                    if href and 'href' in href.attrs:
+                        href_list.append(href['href'])
     return href_list
 
 

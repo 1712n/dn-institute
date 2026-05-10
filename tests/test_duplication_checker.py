@@ -5,7 +5,10 @@ import unittest
 
 sys.modules.setdefault("github", types.SimpleNamespace(Github=object))
 sys.modules.setdefault("openai", types.SimpleNamespace(ChatCompletion=None))
-sys.modules.setdefault("requests", types.SimpleNamespace(get=lambda *args, **kwargs: None))
+sys.modules.setdefault(
+    "requests",
+    types.SimpleNamespace(get=lambda *args, **kwargs: None, RequestException=Exception),
+)
 sys.modules.setdefault("bs4", types.SimpleNamespace(BeautifulSoup=object))
 sys.modules.setdefault(
     "tiktoken",
@@ -37,6 +40,10 @@ class DuplicationCheckerTests(unittest.TestCase):
     def test_extract_article_summary_falls_back_to_full_text(self):
         text = "---\ntarget-entities: Foo Finance\n---\nNo summary heading yet"
         self.assertEqual(extract_article_summary(text), text)
+
+    def test_extract_article_summary_strips_whitespace_on_fallback(self):
+        text = "\n  No summary heading yet  \n"
+        self.assertEqual(extract_article_summary(text), text.strip())
 
     def test_new_text_handler_combines_files_and_deduplicates_targets(self):
         diff = [
