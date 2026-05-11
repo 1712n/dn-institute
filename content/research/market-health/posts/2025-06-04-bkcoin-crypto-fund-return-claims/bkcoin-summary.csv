@@ -1,0 +1,10 @@
+event_date,event,entities,reported_metric,market_health_signal,source
+2018-10 to 2022-09,Investor funds raised,BKCoin Management; Kevin Kang,SEC alleged approximately 100 million USD raised from at least 55 investors,Scale required fund-level account-level and custody tracing,SEC litigation release
+2018-10 to 2022-09,Crypto trading return claim,BKCoin Management; BKCoin Funds,SEC alleged investors were told funds would primarily trade crypto assets,Trading returns required exchange custody order and P&L records,SEC litigation release
+2018-10 to 2022-09,Fund structure claim,BKCoin Management; investors,SEC alleged separately managed accounts and five private funds were represented,Segregation claims required bank exchange and administrator proof,SEC litigation release
+offering period,Commingling alleged,BKCoin Management; Kevin Kang,SEC alleged investor assets were commingled and fund structures disregarded,Commingling weakened reported fund-level balances and return claims,SEC litigation release
+offering period,Ponzi-like payments alleged,BKCoin Management; investors,SEC alleged more than 3.6 million USD used for Ponzi-like payments,Distributions needed source-of-funds testing,SEC litigation release
+offering period,Altered administrator documents alleged,Kevin Kang; third-party administrator,SEC alleged altered documents with inflated bank balances were provided to an administrator,Independent source records were needed to verify administrator materials,SEC litigation release
+2023-03-06,Emergency action announced,SEC; BKCoin Management; Kevin Kang,SEC announced asset freeze receiver appointment and emergency relief,Enforcement action documented alleged fund-control failures,SEC litigation release
+2024-08-13,Partial judgment entered,Kevin Kang,SEC-hosted partial judgment showed case moved toward judgment-stage relief,Judgment-stage posture changed risk and legal status,SEC partial judgment
+2025-06-04,Final judgment entered,Kevin Kang,Court ordered 944874.11 USD in disgorgement prejudgment interest and civil penalty,Final judgment imposed injunctions conduct restrictions and payment,SEC final judgment
