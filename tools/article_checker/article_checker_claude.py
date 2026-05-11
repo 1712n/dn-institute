@@ -15,6 +15,8 @@ from tools.python_modules.llm_utils import remove_plus
 import tools.article_checker.claude_retriever
 from tools.article_checker.claude_retriever.searcher.searchtools.websearch import BraveSearchTool
 
+ARTICLE_PATH_PREFIX = "content/attacks/"
+
 
 def parse_cli_args():
     """
@@ -69,6 +71,42 @@ def create_comment_on_pr(pull_request, answer):
         print(f"Error creating a comment on PR: {e}")
 
 
+def _path_from_diff_header(header: str) -> str:
+    """
+    Extract the new-side file path from a parsed unified diff file header.
+    """
+    for line in header.splitlines():
+        if line.startswith("+++ "):
+            path = line[4:].strip()
+            return path[2:] if path.startswith("b/") else path
+    return ""
+
+
+def _is_attack_article_markdown(path: str) -> bool:
+    return path.startswith(ARTICLE_PATH_PREFIX) and path.endswith(".md")
+
+
+def build_article_review_text(diff: list[dict]) -> str:
+    """
+    Build review input from changed attack article Markdown files only.
+    """
+    review_chunks = []
+    for file_diff in diff:
+        path = _path_from_diff_header(file_diff.get("header", ""))
+        if not _is_attack_article_markdown(path):
+            continue
+
+        added_lines = []
+        for segment in file_diff.get("body", []):
+            added_lines.append(remove_plus(segment.get("body", "")))
+
+        file_text = "\n".join(part for part in added_lines if part.strip())
+        if file_text.strip():
+            review_chunks.append(f"File: {path}\n{file_text}")
+
+    return "\n\n".join(review_chunks)
+
+
 def main():
     args = parse_cli_args()
     with open('tools/article_checker/config.json', 'r') as config_file:
@@ -92,7 +130,14 @@ def main():
     print(diff)
     print('-' * 50)
 
-    text = remove_plus(diff[0]['header'] + diff[0]['body'][0]['body'])
+    text = build_article_review_text(diff)
+    if not text:
+        create_comment_on_pr(
+            pr,
+            "Article check skipped: this pull request does not change any attack article Markdown files under `content/attacks/`."
+        )
+        return
+
     answer = api_call(text, client, model, max_tokens, temperature)
     print('-' * 50)
     print('This is an answer', answer)
