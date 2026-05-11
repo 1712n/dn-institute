@@ -34,6 +34,33 @@ For market-health analysis, the key issue is not to determine which actor intend
 - derivatives and margin venues capable of forced selling,
 - and a narrative-driven valuation that could not tolerate sudden float expansion.
 
+## Quantitative stress framing
+
+The useful way to size the OM event is to compare exchange-ready supply with executable liquidity. Public reporting gives enough anchors for a reproducible stress test:
+
+| Input                                       | Publicly reported value                            | Surveillance interpretation                                                                       |
+| ------------------------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| Pre-crash exchange deposits                 | 43.6 million OM, valued near $227 million          | Treat as maximum visible sell-side inventory that became exchange-ready before the collapse.      |
+| Share of circulating supply                 | About 4.5%                                         | Implies roughly 969 million OM circulating at the time of the reported transfers.                 |
+| Pre-crash to crash price range              | Roughly $6.30 to below $0.50, with lows near $0.37 | A 90%+ price move means stop-loss and margin systems would reprice collateral almost immediately. |
+| Reported market capitalization compression  | Roughly $5.9-$6.1 billion to below $700 million    | A $200 million-class deposit signal coincided with a multi-billion-dollar repricing.              |
+| Reported derivative liquidation consequence | More than $71 million in 24-hour liquidations      | Forced selling was large enough to be a second-order shock, not just a narrative explanation.     |
+
+Those inputs make the exchange-inflow pressure metric concrete. If the relevant two-percent bid depth across the venues receiving deposits had been $5 million, $10 million, $25 million, or $50 million, the $227 million deposit overhang would have represented the following pressure multiples:
+
+| Two-percent executable bid depth | Deposit-overhang multiple |
+| -------------------------------- | ------------------------- |
+| $5 million                       | 45.4x                     |
+| $10 million                      | 22.7x                     |
+| $25 million                      | 9.1x                      |
+| $50 million                      | 4.5x                      |
+
+This is intentionally a stress model rather than a claim about the exact private order book at the crash instant. It shows the threshold logic an exchange, token issuer, or risk desk could have run in real time. Under the monitoring rule suggested below, even the optimistic $50 million depth case clears the 3x severe-alert threshold.
+
+The liquidation layer also changes the interpretation. If only 10% to 25% of the reported $227 million exchange-ready inventory converted into market sales or liquidation-driven hedging, the active sell pressure would still be about $22.7 million to $56.8 million. That range is large enough to overwhelm shallow weekend books, especially when traders are also de-risking leveraged longs. A reported $71.8 million liquidation print would equal 14.4x a $5 million two-percent depth assumption, 7.2x a $10 million assumption, and 2.9x a $25 million assumption. In other words, the liquidation channel did not need to explain the entire $5 billion-plus capitalization loss; it only needed to push the token through enough local depth to trigger recursive collateral and confidence effects.
+
+The most important original lesson is that a "4.5% of circulating supply" transfer is the wrong denominator during a crash. The operative denominator is the amount of reliable bid liquidity available before liquidations begin. For a concentrated token with recent tokenomics concerns, the alert should fire when exchange-ready top-cluster supply is several times executable depth, even if it is a single-digit percentage of circulating supply.
+
 ## Timeline and observable signals
 
 | Date                  | Event                                                                                                 | Market-health signal                                                                             |
@@ -142,6 +169,8 @@ The strongest future dataset would combine minute-level exchange deposits, tagge
 
 - [Lookonchain: OM exchange deposit analysis](https://www.lookonchain.com/feeds/9459)
 - [CoinDesk: Why Did Mantra's OM Plunge 90%?](https://www.coindesk.com/business/2025/04/14/nomura-s-laser-digital-denies-involvement-in-mantra-crash)
+- [Cointelegraph: Mantra says one particular exchange may have caused OM collapse](https://cointelegraph.com/news/mantra-speculates-one-exchange-in-particular-caused-token-to-dump)
+- [The Block: MANTRA's crash sparks over $71 million in liquidations](https://www.theblock.co/post/350680/mantra-crash-liquidations)
 - [Decrypt: MANTRA CEO pledges team token burn after OM crash](https://decrypt.co/315077/mantra-ceo-pledges-to-burn-his-team-tokens-after-major-90-om-crash)
 - [Binance: Monitoring tag and seed tag risk framework](https://www.binance.com/en/support/announcement/binance-will-extend-the-monitoring-tag-to-include-more-tokens-997083adf6024cd1a3601b3e66f314a1)
 - [MANTRA official site](https://www.mantrachain.io/)
