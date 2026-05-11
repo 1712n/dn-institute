@@ -97,9 +97,9 @@ The complaint identified Primefx.org, Prime FX Managed System, PrimeFX Managed S
 
 ## Market-Health Lessons
 
-PrimeFX shows how a fake trading platform can manufacture market activity at the user-interface layer. Account pages, balances, testimonials, and return schedules can all be created without any matching execution in forex or Bitcoin markets. The core control is external reconciliation: no dashboard number should be treated as market data until it ties to a regulated broker, exchange, custodian, or bank record.
+PrimeFX shows how an alleged fake trading platform can manufacture market activity at the user-interface layer. Account pages, balances, testimonials, and return schedules can allegedly be created without any matching execution in forex or Bitcoin markets. The core control is external reconciliation: no dashboard number should be treated as market data until it ties to a regulated broker, exchange, custodian, or bank record.
 
-The case also shows why payment rails matter. When customer deposits go to personal accounts, the platform has moved the verification problem away from trading performance and into fund custody. A managed-account operator should be able to show where deposits are held, who controls the account, and how trades are authorized. Personal-account routing breaks that chain.
+The case also shows why payment rails matter. When customer deposits go to personal accounts, the platform is alleged to have moved the verification problem away from trading performance and into fund custody. A managed-account operator should be able to show where deposits are held, who controls the account, and how trades are authorized. Personal-account routing is alleged to break that chain.
 
 Finally, licensing claims need entity-level matching. A platform can cite a real regulator or a real license number while still not being the licensed entity. Market-health reviewers should compare legal names, domains, jurisdictions, dates, and registrant identities before accepting a regulatory status claim as evidence of safety.
 
@@ -108,5 +108,5 @@ Finally, licensing claims need entity-level matching. A platform can cite a real
 - [CFTC press release 8441-21, September 30, 2021](https://www.cftc.gov/PressRoom/PressReleases/8441-21)
 - [CFTC complaint against Uduakobong Udo Inyangudo and other PrimeFX defendants, September 30, 2021](https://www.cftc.gov/media/6551/enfuduakobongcomplaint093021/download)
 - [Justia docket filing 101, summary judgment order against Charles A. Ochi, March 19, 2025](https://docs.justia.com/cases/federal/district-courts/massachusetts/madce/1%3A2021cv11615/238550/101)
-- [vLex record for default final judgment against Daniell N. Liggins and Victor O. Edeh, June 12, 2024](https://case-law.vlex.com/vid/commodity-futures-trading-comm-1039292333)
-- [CaseMine record for default final judgment against Tochukwu Edeh, July 19, 2024](https://www.casemine.com/judgement/us/669ded9b7977e900be37deaa)
+- [CourtListener RECAP document 63, default final judgment against Daniell N. Liggins and Victor O. Edeh, June 12, 2024](https://storage.courtlistener.com/recap/gov.uscourts.mad.238550/gov.uscourts.mad.238550.63.0.pdf)
+- [CourtListener RECAP document 70, default final judgment against Tochukwu Edeh, July 19, 2024](https://storage.courtlistener.com/recap/gov.uscourts.mad.238550/gov.uscourts.mad.238550.70.0_1.pdf)
