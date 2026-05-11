@@ -39,6 +39,35 @@ The market was later delisted by validator vote. Hyperliquid's own documentation
 
 The event also arrived just after another Hyperliquid liquidity stress episode. A large ETH long liquidation had reportedly produced a multi-million-dollar HLP loss days earlier. JELLYJELLY therefore exposed a repeated stress point: concentrated positions can convert liquidation mechanics into protocol-level balance-sheet risk.
 
+## Quantitative stress framing
+
+The JELLYJELLY incident is useful because the public numbers are large enough to create a practical risk desk checklist even without full private order book data. Reports vary on exact position accounting, but the common anchors are consistent: a JELLY short in the low single-digit millions of dollars, a token market capitalization in the tens of millions, a several-hundred-percent price move, and a protocol vault that could have inherited an eight-figure loss.
+
+| Input                               | Publicly reported range or anchor                          | Market-health interpretation                                                                  |
+| ----------------------------------- | ---------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Attacker short position             | Roughly $4.1 million to $6 million                         | A single account cluster could create a venue-level risk event in a low-cap perp market.      |
+| JELLY market capitalization context | Roughly $10 million to $25 million in public reports       | The short was not small relative to the token's economic float or attention-driven liquidity. |
+| JELLY price move                    | About 385% to 429% during the attack window                | Stress moves should be calibrated to intraday realized ranges, not normal volatility.         |
+| Potential HLP loss                  | About $12 million to $13 million in several reports        | The inherited position could become material even if the token itself looked niche.           |
+| HLP vault size context              | About $220 million to $230 million in public reporting     | A $12 million loss would be roughly 5% of the vault, before considering confidence effects.   |
+| Prior March 2025 HLP stress         | About $4 million loss from a large ETH liquidation episode | Repeated losses suggest a structural liquidation-routing weakness, not an isolated oddity.    |
+
+Those anchors imply three risk ratios that should have been watched together:
+
+```text
+position_to_market_cap = inherited_or_liquidatable_position / token_market_cap
+vault_loss_at_risk = stressed_unwind_loss / vault_equity
+repeat_stress_load = recent_vault_losses / vault_equity
+```
+
+Using only the public ranges, a $4.1 million short against a $25 million token market cap is already a 16.4% position-to-market-cap ratio. A $6 million short against a $10 million market cap is a 60% ratio. Both values are too high for a market where the backstop vault can inherit the position. Even if the true effective float was higher than the headline market cap estimate, the risk gate should compare the position to executable depth, which would usually be smaller than market capitalization.
+
+The vault-loss-at-risk ratio tells the same story from the venue side. A $12 million potential loss against a $230 million HLP vault is about 5.2% of vault equity; against a $220 million vault it is about 5.5%. Adding the earlier reported $4 million ETH liquidation stress would bring recent March stress to roughly $16 million, or about 7.0% to 7.3% of a $220 million-$230 million vault. This does not mean HLP was insolvent. It means the liquidation engine was able to route concentrated trader risk into a shared pool quickly enough that governance had to intervene.
+
+The emergency settlement price makes the monitoring lesson sharper. Halborn reports that Hyperliquid settled the market around $0.0095 rather than the much higher displayed JELLY price near the intervention window. That gap is evidence of an oracle and settlement problem, not merely a trader-level liquidation. When the fair settlement price has to be chosen manually after the fact, the automated system has already lost the ability to express a reliable executable exit price.
+
+An ex ante rule can be simple: if a single cluster's position is greater than 10% of the token's market capitalization, greater than 3x two-percent executable depth, or can create a vault loss above 1% of vault equity under an observed intraday price move, the market should enter reduce-only mode until depth normalizes. JELLYJELLY appears to have crossed at least the position-size and vault-loss criteria under conservative public assumptions.
+
 ## Timeline and observable signals
 
 | Date            | Event                                                                                           | Market-health signal                                                                                                          |
@@ -156,6 +185,8 @@ The most important missing dataset is a minute-by-minute combination of order bo
 - [Halborn: Explained - The Hyperliquid Hack, March 2025](https://www.halborn.com/blog/post/explained-the-hyperliquid-hack-march-2025)
 - [Hyperliquid Docs: Delisting](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/delisting)
 - [Hyperliquid Docs: Liquidations](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/liquidations)
+- [Arkham: JELLYJELLY Exploit on Hyperliquid](https://info.arkm.com/research/jellyjelly-exploit-on-hyperliquid)
 - [The Block: Hyperliquid delists JELLYJELLY memecoin amid whale manipulation fiasco](https://www.theblock.co/post/348314/hyperliquid-delists-jellyjelly-memecoin-amid-whale-manipulation-fiasco)
+- [CoinDesk: HyperLiquid delists JELLY after vault squeezed in $13M tussle](https://www.coindesk.com/markets/2025/03/26/hyperliquid-delists-jellyjelly-after-vault-squeezed-in-usd13m-tussle)
 - [Cointelegraph: Hyperliquid delists JELLY perps, citing suspicious activity](https://cointelegraph.com/news/hyperliquid-delists-jelly-perps-citing-suspicious-activity)
 - [web3 is going just great: Hyperliquid suffers market manipulation attack](https://www.web3isgoinggreat.com/single/hyperliquid-manipulation)
