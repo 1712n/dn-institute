@@ -1,0 +1,9 @@
+category,firm_or_group,date,people_or_roles,event_or_allegation,source
+announcement,Gotbit/Vortex/Contrarian/Antier,2026-03-30,"Ten executives and employees across four firms","DOJ and IRS-CI announced charges tied to alleged wash trading and pump-and-dump schemes; more than $1 million in cryptocurrency had been seized","DOJ NDCA and IRS-CI releases"
+undercover_operation,FBI and IRS-CI,2025-2026,"FBI-created cryptocurrency tokens","Undercover operation targeted illicit wash trading in the crypto industry using several created tokens","DOJ NDCA and IRS-CI releases"
+indictment,Gotbit,2025-03-25,"Antoine Tsao, Ian Sofronov, Nemanja Popov","Charged with wire fraud conspiracy and wire fraud for allegedly inflating the price of a cryptocurrency token","DOJ NDCA and IRS-CI releases"
+case_status,Gotbit,2025-06-02/2026-02-10,"Antoine Tsao and Nemanja Popov","DOJ said Tsao pleaded guilty and was sentenced on June 2, 2025; Popov pleaded guilty and was sentenced on February 10, 2026","DOJ NDCA release"
+indictment,Vortex,2025-08-28,"Gleb Gora, Sergei Ryzhkov, Michael Vogel","Charged with wire fraud conspiracy and wire fraud for allegedly inflating token price while planning to liquidate holdings at a high price","DOJ NDCA and IRS-CI releases"
+case_status,Vortex,2025-10-02/2026-03-30,"Gleb Gora","DOJ said Gora was arrested in Singapore on October 2, 2025 and appeared in Oakland after extradition on March 30, 2026","DOJ NDCA release"
+indictment,Contrarian/Antier,2025-09-04,"Manu Singh, Kushagra Srivastava, Vasu Sharma, Sabby Singh","Charged with wire fraud and wire fraud conspiracy for allegedly pumping token price and planning to dump holdings at a high trading price","DOJ NDCA and IRS-CI releases"
+case_status,Contrarian,2025-10-02/2026-03-30,"Manu Singh and Vasu Sharma","DOJ said Singh and Sharma were arrested in Singapore and appeared in Oakland after extradition on March 30, 2026","DOJ NDCA release"
