@@ -15,6 +15,11 @@ type EmbeddingResponse = {
   data?: unknown[]
 }
 
+const isEmbeddingVector = (value: unknown): value is number[] =>
+  Array.isArray(value) &&
+  value.length > 0 &&
+  value.every((item) => typeof item === "number" && Number.isFinite(item))
+
 const app = new Hono<{ Bindings: Env }>()
 
 app.use("*", async (c, next) => {
@@ -50,7 +55,7 @@ app.post("/", async (c) => {
   }
 
   const vector = modelResp.data?.[0]
-  if (!Array.isArray(vector) || vector.length === 0) {
+  if (!isEmbeddingVector(vector)) {
     return c.text("Embedding generation failed", 502)
   }
 

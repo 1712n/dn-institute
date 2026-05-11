@@ -34,7 +34,7 @@ export default defineWorkersConfig({
                       return Promise.resolve({ data: [] });
                     }
                     if (text === "invalid-embedding") {
-                      return Promise.resolve({ data: [null] });
+                      return Promise.resolve({ data: [[0.1, "not-a-number", 0.3]] });
                     }
                     return Promise.resolve({ data: [[0.1, 0.2, 0.3]] });
                   }
