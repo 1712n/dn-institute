@@ -43,7 +43,13 @@ export default defineWorkersConfig({
               script: `export default function() {
                 return {
                   query: async (vectorData, options) => {
-                    if (JSON.stringify(vectorData) !== JSON.stringify([0.12, 0.34, 0.56])) {
+                    const expectedVector = [0.12, 0.34, 0.56];
+                    const epsilon = 1e-6;
+                    if (
+                      !Array.isArray(vectorData) ||
+                      vectorData.length !== expectedVector.length ||
+                      !vectorData.every((value, index) => Math.abs(value - expectedVector[index]) <= epsilon)
+                    ) {
                       throw new Error("Unexpected vector payload");
                     }
                     if (options?.topK !== 1) {

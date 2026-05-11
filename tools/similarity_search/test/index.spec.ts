@@ -56,7 +56,16 @@ describe("Similarity Search integration", () => {
     })
   })
 
-  it("rejects requests that do not include string text and namespace fields", async () => {
+  it("rejects requests missing the text field", async () => {
+    const response = await postSimilarity({
+      namespace: "known-namespace"
+    })
+
+    expect(response.status).toBe(400)
+    expect(await response.text()).toBe("Invalid JSON format")
+  })
+
+  it("rejects requests missing the namespace field", async () => {
     const response = await postSimilarity({
       text: "Missing namespace"
     })
