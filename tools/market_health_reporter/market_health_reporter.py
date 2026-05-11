@@ -13,8 +13,8 @@ from tools.python_modules.report_graphics_tool import Visualization
 REPO_NAME = "1712n/dn-institute"
 SYSTEM_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/system_prompt.txt'
 HUMAN_PROMPT_FILE = 'tools/market_health_reporter/doc/prompts/prompt1.txt'
-ARTICLE_EXAMPLE_FILE = 'content/market-health/posts/2023-08-14-huobi/index.md'
-OUTPUT_DIR = 'content/market-health/posts/'
+ARTICLE_EXAMPLE_FILE = 'content/research/market-health/posts/2023-08-14-huobi/index.md'
+OUTPUT_DIR = 'content/research/market-health/posts/'
 DATA_DIR = 'tools/market_health_reporter/doc/data/'
 MAX_TOKENS = 125000
 
@@ -81,6 +81,7 @@ def save_data(data: str, directory: str, marketvenueid: str, pairid: str, start:
     """
     Saves data to a JSON file in the specified directory.
     """
+    os.makedirs(directory, exist_ok=True)
     new_file_name = f'{directory}{marketvenueid}_{pairid}_{start.replace(":", "-")}_{end.replace(":", "-")}.json'
     with open(new_file_name, 'w', encoding='utf-8') as file:
         file.write(data)
