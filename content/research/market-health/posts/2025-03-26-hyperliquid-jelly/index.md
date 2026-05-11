@@ -27,6 +27,14 @@ Several independent writeups describe the same core pattern: the attacker opened
 
 The public numbers are directionally consistent even when they differ in final PnL accounting. Reports tied the setup to a short of roughly several million dollars and offsetting long positions, followed by a rapid token move that made the inherited HLP short dangerous. This is enough to frame the event as a surveillance problem: the important ratio was not token market capitalization in isolation, but concentrated perp exposure versus usable depth and the vault's ability to unwind.
 
+The minimum preventive rule would have been a depth-adjusted margin gate. Before accepting additional JELLYJELLY exposure, the venue could estimate the larger of (a) expected liquidation slippage if the position had to be auctioned into visible depth and (b) the mark-to-market loss from a stress move equal to the token's recent intraday range. If that stress loss exceeded the user's posted margin plus a vault-safe liquidation buffer, the position should have been rejected or forced to reduce. In simplified terms:
+
+```text
+required_margin >= max(depth_slippage_loss, stress_price_move_loss) + vault_transfer_buffer
+```
+
+The attack became systemic because the residual loss was not bounded to the initiating account. Once liquidation routed the short to HLP, the relevant comparison changed from "can this trader survive?" to "can a shared vault absorb and exit this token without becoming the market?" That is a stricter standard than ordinary user margining and should be measured before liquidations occur.
+
 The market was later delisted by validator vote. Hyperliquid's own documentation describes delisting as a validator-governed process where positions are settled and open orders are cancelled. Media and security reports said the JELLYJELLY response also involved an emergency settlement price decision. That matters because the response was not only an exchange operations decision; it was a governance-controlled market-structure intervention.
 
 The event also arrived just after another Hyperliquid liquidity stress episode. A large ETH long liquidation had reportedly produced a multi-million-dollar HLP loss days earlier. JELLYJELLY therefore exposed a repeated stress point: concentrated positions can convert liquidation mechanics into protocol-level balance-sheet risk.
@@ -62,7 +70,7 @@ The first risk metric is the ratio between perp open interest and spot/perp mark
 
 For small tokens, a practical indicator is:
 
-```
+```text
 position_pressure = absolute_open_interest / one_percent_order_book_depth
 ```
 
@@ -74,7 +82,7 @@ When this ratio rises above a defined threshold, the venue should reduce max lev
 
 HLP's role makes the second metric venue-specific:
 
-```
+```text
 vault_inherited_exposure = position_size_transferred_to_vault / vault_equity
 ```
 
@@ -141,7 +149,7 @@ If these questions are not monitored together, a venue can pass ordinary trade-c
 
 This article relies on public postmortems, media reporting, and protocol documentation rather than a full private order book reconstruction. Exact account ownership, realized PnL, and liquidation engine state are not fully public. The analysis therefore treats the incident as a market-structure case study: the signal set is strong enough to design monitoring rules, but it should not be read as a legal attribution of identity or intent.
 
-The most important missing dataset is a minute-by-minute combination of account-level open interest, margin state, oracle inputs, liquidator actions, and HLP inventory. If Hyperliquid or independent researchers publish that dataset, the monitoring rules above could be converted into a reproducible benchmark.
+The most important missing dataset is a minute-by-minute combination of order book snapshots, funding rate histories, account-level open interest, margin state, oracle input timelines, liquidator action logs, HLP maker inventory changes, and on-chain vault position deltas. Even partial publication of these datasets would let future researchers reconstruct the liquidation threshold, estimate the slippage curve, and convert the monitoring rules above into a reproducible benchmark.
 
 ## References
 
