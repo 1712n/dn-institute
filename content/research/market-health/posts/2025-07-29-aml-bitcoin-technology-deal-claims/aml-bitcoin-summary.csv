@@ -1,0 +1,8 @@
+event_date,event,entities,reported_metric,market_health_signal,source
+2025-03,Jury conviction announced,Rowland Marcus Andrade; AML Bitcoin,DOJ said a jury convicted Andrade of wire fraud and money laundering,Trial outcome confirmed fraud and laundering record,DOJ conviction release
+2025-07-29,Sentence announced,Rowland Marcus Andrade,DOJ announced 84 months in federal prison and supervised release,Criminal outcome confirmed accountability,DOJ sentencing release
+token-sale-period,Investor fraud amount reported,AML Bitcoin; investors,DOJ said Andrade defrauded cryptocurrency investors out of approximately 10 million USD,Token-sale proceeds required project and treasury reconciliation,DOJ sentencing release
+token-sale-period,Technology and viability claims reported,AML Bitcoin,DOJ said Andrade misrepresented development viability business deals and release date,Offering claims required independent technical and commercial proof,DOJ sentencing release
+token-sale-period,Panama Canal Authority claim,AML Bitcoin; Panama Canal Authority,DOJ said Andrade falsely claimed AML Bitcoin adoption by the Panama Canal Authority was close when no agreement existed,Named-partner adoption claims required counterparty verification,DOJ sentencing release
+token-sale-period,Proceeds diversion reported,Rowland Marcus Andrade,DOJ said more than 2 million USD in sale proceeds was diverted to personal expenses,Personal spending conflicted with development and adoption claims,DOJ sentencing release
+2025-09-16,Forfeiture and restitution hearing scheduled,Rowland Marcus Andrade,DOJ said court ordered a hearing to determine forfeiture and restitution amounts,Final recovery figures required later court follow-up,DOJ sentencing release
