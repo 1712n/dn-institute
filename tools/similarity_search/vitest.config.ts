@@ -26,7 +26,13 @@ export default defineWorkersConfig({
               script: `export default function() {
                 return {
                   run: async (model, data) => {
-                    return Promise.resolve({ data: {} });
+                    if (model !== "@cf/baai/bge-base-en-v1.5") {
+                      throw new Error("Unexpected model: " + model);
+                    }
+                    if (!Array.isArray(data?.text) || typeof data.text[0] !== "string") {
+                      throw new Error("AI text payload must be a string array");
+                    }
+                    return Promise.resolve({ data: [[0.12, 0.34, 0.56]] });
                   }
                 };
               };`
@@ -37,8 +43,19 @@ export default defineWorkersConfig({
               script: `export default function() {
                 return {
                   query: async (vectorData, options) => {
-                    const score = 0.5678;
-                    return Promise.resolve({ matches: [{ score }] });
+                    if (JSON.stringify(vectorData) !== JSON.stringify([0.12, 0.34, 0.56])) {
+                      throw new Error("Unexpected vector payload");
+                    }
+                    if (options?.topK !== 1) {
+                      throw new Error("Expected topK=1");
+                    }
+                    if (options?.namespace === "empty-namespace") {
+                      return Promise.resolve({ matches: [] });
+                    }
+                    if (options?.namespace !== "known-namespace") {
+                      throw new Error("Unexpected namespace: " + options?.namespace);
+                    }
+                    return Promise.resolve({ matches: [{ score: 0.8765 }] });
                   }
                 };
               };`
