@@ -1,0 +1,6 @@
+date,event,reported_metric,source
+2022-11-13,Wallet associated with the attack began building a CRV short by borrowing CRV against USDC collateral,40 million CRV initially reported as borrowed and routed toward OKX,https://www.coindesk.com/markets/2022/11/22/mango-exploiter-gets-liquidated-after-roiling-aave-using-20m-of-borrowed-curve-tokens
+2022-11-22,Aave contributors described the position as a failed CRV short attempt on Aave,Peak short exposure about 92 million CRV or roughly $60 million,https://governance.aave.com/t/arc-repay-excess-debt-in-crv-market-for-aave-v2-eth/10779
+2022-11-23,Llama and Gauntlet proposed a path to repay excess CRV debt,About $1.6 million bad debt after full liquidation,https://governance.aave.com/t/arc-repay-excess-debt-in-crv-market-for-aave-v2-eth/10779
+2022-11-22,Aave governance proposed freezing multiple low-liquidity V2 markets following the CRV incident,17 markets listed in the risk proposal,https://governance.aave.com/t/arc-risk-parameter-recommendations-for-aave-v2-eth-2022-11-22/10757
+2022-12-08,Aave ARFC quantified the remaining CRV reserve excess debt for repayment,2,656,335 CRV excess debt valued at $1,762,478.27,https://governance.aave.com/t/arfc-repay-excess-crv-debt-on-ethereum-v2/10955
