@@ -5,11 +5,11 @@ import "../src/index"
 
 const API_KEY = "test-api-key"
 
-function postJson(body: unknown, apiKey = API_KEY) {
+function postJson(body: unknown, apiKey: string | undefined = API_KEY) {
   const headers: Record<string, string> = {
     "Content-Type": "application/json"
   }
-  if (apiKey) headers["X-API-Key"] = apiKey
+  if (apiKey !== undefined) headers["X-API-Key"] = apiKey
 
   return SELF.fetch("https://example.com/", {
     method: "POST",
@@ -47,20 +47,10 @@ describe("Authentication", () => {
     expect(res.status).toBe(200)
   })
 
-  it("is case-sensitive on API key header", async () => {
-    // lowercase header should not match
-    const res = await SELF.fetch("https://example.com/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": API_KEY // lowercase
-      },
-      body: JSON.stringify({ text: "hello", namespace: "ns" })
-    })
-    // Hono normalizes header names to lowercase, so lowercase x-api-key
-    // may actually match. Either 200 or 401 is acceptable depending on
-    // the runtime; we just verify the request doesn't crash.
-    expect([200, 401]).toContain(res.status)
+  it("rejects API key with wrong value casing", async () => {
+    const res = await postJson({ text: "hello", namespace: "ns" }, API_KEY.toUpperCase())
+    expect(res.status).toBe(401)
+    expect(await res.text()).toBe("Unauthorized")
   })
 })
 
@@ -203,7 +193,8 @@ describe("HTTP Methods", () => {
       headers: { "X-API-Key": API_KEY }
     })
     // Hono returns 404 for unmatched routes with GET
-    expect(res.status).not.toBe(200)
+    expect(res.status).toBeGreaterThanOrEqual(400)
+    expect(res.status).toBeLessThan(500)
   })
 
   it("rejects PUT requests", async () => {
@@ -215,7 +206,8 @@ describe("HTTP Methods", () => {
       },
       body: JSON.stringify({ text: "hello", namespace: "ns" })
     })
-    expect(res.status).not.toBe(200)
+    expect(res.status).toBeGreaterThanOrEqual(400)
+    expect(res.status).toBeLessThan(500)
   })
 
   it("rejects DELETE requests", async () => {
@@ -223,7 +215,8 @@ describe("HTTP Methods", () => {
       method: "DELETE",
       headers: { "X-API-Key": API_KEY }
     })
-    expect(res.status).not.toBe(200)
+    expect(res.status).toBeGreaterThanOrEqual(400)
+    expect(res.status).toBeLessThan(500)
   })
 
   it("rejects PATCH requests", async () => {
@@ -235,7 +228,8 @@ describe("HTTP Methods", () => {
       },
       body: JSON.stringify({ text: "hello", namespace: "ns" })
     })
-    expect(res.status).not.toBe(200)
+    expect(res.status).toBeGreaterThanOrEqual(400)
+    expect(res.status).toBeLessThan(500)
   })
 })
 
@@ -267,7 +261,7 @@ describe("Edge Cases", () => {
     expect(res.status).toBeGreaterThanOrEqual(400)
   })
 
-  it("returns 400 when extra unexpected fields are present", async () => {
+  it("accepts extra unexpected fields", async () => {
     const res = await postJson({
       text: "hello",
       namespace: "ns",
