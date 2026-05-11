@@ -49,7 +49,7 @@ class DuplicationCheckerPromptTest(unittest.TestCase):
             "choices": [
                 {
                     "message": {
-                        "content": '{"have_same_article": false}',
+                        "content": '  {"have_same_article": false}  ',
                     }
                 }
             ]
