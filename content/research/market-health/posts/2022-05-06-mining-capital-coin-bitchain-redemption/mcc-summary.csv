@@ -1,0 +1,9 @@
+event_date,event,entities,reported_metric,market_health_signal,source
+2018-01 onward,Mining package sales,MCC; Capuci; Pires,MCC sold mining packages to investors worldwide,Daily return promises required mining and trading source verification,SEC press release 2022-81
+Relevant SEC period,Investor count,MCC,"65,535 investors worldwide bought mining packages according to the SEC",Large distribution required proof of actual profit-generating operations,SEC press release 2022-81
+Relevant SEC period,Daily return promise,MCC,Promised daily returns of 1 percent paid weekly for up to 52 weeks,Stable daily returns require reconciliation to real market profits,SEC press release 2022-81
+Relevant SEC period,Profit-source claims,MCC,"Claimed profits came from mining, stock and forex trading, crypto arbitrage, and semi-automatic robotic trading",Multiple profit-engine claims require separate external records,SEC press release 2022-81
+Later scheme phase,Capital Coin withdrawal requirement,MCC; Capital Coin,Investors allegedly had to withdraw in MCC's own Capital Coin instead of bitcoin,Redemption asset substitution can mask missing liquid assets,SEC press release 2022-81
+Later scheme phase,Bitchain redemption venue,MCC; Bitchain Exchanges,Investors allegedly had to redeem Capital Coin on Bitchain, a fake crypto asset trading platform,Promoter-controlled fake venues create synthetic exit liquidity,SEC press release 2022-81
+2022-05-06,DOJ indictment announced,Luiz Carlos Capuci Jr.; MCC,DOJ alleged a 62 million USD cryptocurrency fraud scheme and fraudulent trading-bot marketing,Criminal allegations challenged bot-generated income claims,DOJ press release 22-479
+2022-05-06,SEC charges announced,SEC; MCC; Capuci; Pires; CPTLCoin; Bitchain,SEC announced fraud charges tied to unregistered offerings and mining packages,Enforcement action challenged the mining trading token and platform narrative,SEC press release 2022-81
