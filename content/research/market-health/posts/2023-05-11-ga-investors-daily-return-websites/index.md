@@ -1,6 +1,6 @@
 ---
 title: "GA Investors Daily Return Website Claims"
-date: 2023-05-11
+date: 2024-04-02
 entities:
   - GA Investors
   - GA-Investors.org
@@ -11,11 +11,13 @@ entities:
 
 ## Summary
 
-This case study analyzes the SEC's GA Investors emergency action as a market-health warning about fake investment portals that combine impersonated legitimacy, daily return claims, crypto-asset funding rails, and withdrawal freezes. On May 11, 2023, the SEC announced charges against GA Investors and John Does Nos. 1-4, alleging fraudulent securities offerings through dozens of websites, including crypto asset mining pools.
+This case study analyzes the SEC's GA Investors action as a market-health warning about fake investment portals that combine impersonated legitimacy, daily return claims, crypto-asset funding rails, and withdrawal freezes. On May 11, 2023, the SEC announced charges against GA Investors and John Does Nos. 1-4, alleging fraudulent securities offerings through dozens of websites, including crypto asset mining pools.
 
 According to the SEC's litigation release, the websites offered extreme returns, in some cases up to 61.9 percent in 24 hours, and some impersonated legitimate companies, including a registered broker-dealer. The SEC also alleged that GA-Investors.org offered guaranteed daily returns from 2 percent to 4.5 percent and directed investors to buy crypto assets on a separate trading platform before transferring those assets to a GA Investors wallet.
 
 The market-health signal is the use of a polished account portal and impersonated corporate references to make fabricated investment activity look observable. The SEC complaint alleged that private account pages displayed accumulated profits even though no such profits existed, that small withdrawals were sometimes permitted, and that larger withdrawals were blocked with account freezes and extra-deposit demands.
+
+On April 2, 2024, the SEC announced that the court had entered a default final judgment against GA Investors, the operator of the fraudulent websites, and ordered more than $1.1 million in monetary relief. The SEC said its litigation in the matter was then concluded.
 
 The supporting dataset is available in [ga-investors-summary.csv](ga-investors-summary.csv).
 
@@ -60,6 +62,8 @@ The complaint alleged that some investors could make small withdrawals, but larg
 | December 2022-January 2023 | The complaint alleged account suspension and additional deposit demands to unfreeze funds.              | Withdrawal gating became a direct fraud signal.                            |
 | April 19, 2023             | The complaint said GA-Investors.org was no longer accessible, while related sites remained active.      | Domain rotation can preserve the scheme after one site disappears.         |
 | May 11, 2023               | The SEC announced the emergency enforcement action and sought website takedown and asset-freeze relief. | Enforcement action documented the alleged market-health failures.          |
+| April 1, 2024              | The court entered a default final judgment against GA Investors.                                        | Final judgment imposed monetary relief and offering restrictions.          |
+| April 2, 2024              | The SEC announced the final judgment and said the litigation was concluded.                             | Case posture moved from allegations to final default judgment.             |
 
 ## Reconciliation Metrics
 
@@ -71,7 +75,10 @@ The complaint alleged that some investors could make small withdrawals, but larg
 | GA Investors investor amount | Approximately $85,000 alleged in fraudulent securities offerings on GA-Investors.org | Investor funds needed wallet and use-of-proceeds tracing.                      |
 | Massachusetts investor flow  | Approximately $2,400 initial investment and about $47,500 additional investment      | Account-level claims needed reconciliation against wallet receipts.            |
 | Withdrawal behavior          | Approximately $15,000 withdrawn before later withdrawal blocks                       | Partial withdrawals did not prove sustainable investment activity.             |
-| Legal posture                | SEC civil complaint and emergency action allegations                                 | Article should treat claims as allegations unless adjudicated.                 |
+| Disgorgement                 | $70,058                                                                              | Final judgment required return of alleged ill-gotten gains.                    |
+| Prejudgment interest         | $5,740                                                                               | Judgment added time-value remedy.                                              |
+| Civil penalty                | $1,116,140                                                                           | Penalty reflected default-judgment remedies.                                   |
+| Legal posture                | SEC civil allegations followed by default final judgment against GA Investors        | Article should distinguish complaint allegations from judgment posture.        |
 
 ## Detection Checklist
 
@@ -81,7 +88,7 @@ The complaint alleged that some investors could make small withdrawals, but larg
 4. Trace wallet addresses and test whether investor funds move to the claimed investment activity.
 5. Compare related websites for copied templates, reused personas, reused addresses, and shared wallet infrastructure.
 6. Monitor withdrawal behavior for small initial payouts followed by freezes, tax demands, upgrade fees, or unfreeze deposits.
-7. Preserve legal posture: this article relies on SEC civil allegations and should not treat the allegations as adjudicated findings.
+7. Preserve legal posture: this article relies on SEC civil allegations and a default final judgment, so alleged conduct should remain clearly attributed to the SEC.
 
 ## Market-Health Lessons
 
@@ -93,3 +100,4 @@ The case also shows why domain-network analysis matters. When one domain disappe
 
 - [SEC litigation release, GA Investors, May 11, 2023](https://www.sec.gov/enforcement-litigation/litigation-releases/lr-25721)
 - [SEC complaint, SEC v. GA Investors and John Does Nos. 1-4](https://www.sec.gov/files/litigation/complaints/2023/comp25721.pdf)
+- [SEC final-judgment litigation release, GA Investors, April 2, 2024](https://www.sec.gov/enforcement-litigation/litigation-releases/lr-25963)
