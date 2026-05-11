@@ -1,0 +1,9 @@
+event_date,event,entities,reported_metric,market_health_signal,source
+2018-05-18,Start of relevant solicitation period,MTI; Cornelius Johannes Steynberg,MTI solicited bitcoin for a commodity pool that purportedly traded off-exchange retail forex,Bot and pool claims require venue and custody reconciliation,CFTC complaint
+2018-2021,Bitcoin accepted from participants,MTI; Steynberg,"At least 29421 BTC valued over 1.733 billion USD from at least 23000 U.S. individuals and thousands more worldwide",Large inflows require proof that customer bitcoin reached trading venues,CFTC press release 8772-23
+2018-2021,Proprietary bot claims,MTI; Steynberg,Pool purportedly traded retail forex through a proprietary bot or software program,Automated trading claims require order and fill evidence,CFTC press release 8772-23
+2018-2021,Profitability claims,MTI; Steynberg,Complaint alleged claims of 10 percent monthly profits and almost no losing trading days,Stable return claims require full drawdown and loss reconciliation,CFTC complaint
+Relevant period,FXChoice account deposits,MTI; FXChoice,Complaint alleged only 1846 BTC was deposited into the FXChoice pool account,Trading-account deposits were far below participant inflows,CFTC complaint
+Relevant period,FXChoice trading outcome,MTI; FXChoice,Complaint alleged the FXChoice account lost 566.6 BTC trading unprofitably,Actual trading evidence contradicted profitable-bot claims,CFTC complaint
+Relevant period,Trade300 representation,MTI; Trade300,Complaint alleged Trade300 was a fictitious entity created by Steynberg,Fictitious venue claims invalidate trading-performance displays,CFTC complaint
+2023-09-07,CFTC announces MTI consent order,CFTC; MTI,Order required more than 1.7 billion USD restitution and imposed permanent trading and registration bans,Final order confirmed fraud and registration violations,CFTC press release 8772-23
