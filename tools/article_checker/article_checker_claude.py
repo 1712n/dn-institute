@@ -100,7 +100,7 @@ def build_article_review_text(diff: list[dict]) -> str:
         for segment in file_diff.get("body", []):
             added = "\n".join(
                 line for line in segment.get("body", "").splitlines()
-                if line.startswith("+") and not line.startswith("+++")
+                if line.startswith("+") and line != "+++"
             )
             if added:
                 added_lines.append(remove_plus(added))

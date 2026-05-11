@@ -103,6 +103,18 @@ class ArticleReviewTextTests(unittest.TestCase):
 
         self.assertIn("+C compiler note", review_text)
 
+    def test_preserves_added_markdown_line_starting_with_plus_markers(self):
+        diff = [
+            {
+                "header": "a/content/attacks/example.md b/content/attacks/example.md\n+++ b/content/attacks/example.md\n",
+                "body": [{"body": "++++ front matter delimiter example\n"}],
+            }
+        ]
+
+        review_text = build_article_review_text(diff)
+
+        self.assertIn("+++ front matter delimiter example", review_text)
+
 
 if __name__ == "__main__":
     unittest.main()
