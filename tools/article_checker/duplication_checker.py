@@ -96,32 +96,36 @@ def added_lines(segment_body):
     return lines
 
 
-def build_new_article_text(diff):
+def build_new_article_texts(diff):
     """
     Extract added text from changed incident article Markdown files.
     """
-    article_lines = []
+    articles = []
     for file in diff:
         path = get_new_file_path(file["header"])
         if not is_attack_article_path(path):
             continue
 
+        article_lines = []
         for segment in file["body"]:
             article_lines.extend(added_lines(segment["body"]))
 
-    return "\n".join(article_lines).strip()
+        article_text = "\n".join(article_lines).strip()
+        if article_text:
+            articles.append({"path": path, "raw_text": article_text})
+
+    return articles
 
 
-def new_text_handler(diff):
+def extract_summary_and_target(article_text):
     """
-    Extracts text and target entity from a new pull request
+    Extract summary text and target entity from one changed article.
     """
-    new_text = build_new_article_text(diff)
-    if not new_text:
+    if not article_text:
         return "", ""
 
     pattern = r'^target-entities:\s*(.*?)$'
-    matches = re.search(pattern, new_text, re.MULTILINE)
+    matches = re.search(pattern, article_text, re.MULTILINE)
     target = ''
     if matches:
         target_entities = matches.group(1)
@@ -129,10 +133,26 @@ def new_text_handler(diff):
     else:
         print("Value 'target-entities' didn't find")
 
-    summary = re.search(r'^## Summary.*', new_text, re.DOTALL | re.MULTILINE)
+    summary = re.search(r'^## Summary.*', article_text, re.DOTALL | re.MULTILINE)
+    new_text = article_text
     if summary:
         new_text = summary.group(0)
     return new_text.strip(), target
+
+
+def new_text_handler(diff):
+    """
+    Extracts article text and target entity from a new pull request.
+    """
+    articles = []
+    for article in build_new_article_texts(diff):
+        new_text, target = extract_summary_and_target(article["raw_text"])
+        articles.append({
+            "path": article["path"],
+            "text": new_text,
+            "target": target,
+        })
+    return articles
 
 
 def get_list_of_target_entities(url):
@@ -243,7 +263,10 @@ def generate_comment(answer):
     Generate a formatted comment based on the provided answer
     """
     comment = "## Duplicate checker\n\n"
-    comment += f"Is this a new article for Crypto wiki? {answer}\n\n"
+    if answer.startswith("- "):
+        comment += f"{answer}\n\n"
+    else:
+        comment += f"Is this a new article for Crypto wiki? {answer}\n\n"
     return comment
 
 
@@ -277,27 +300,34 @@ def main():
     pr = get_pull_request(github, args.pull_url)
     _diff = get_diff_by_url(pr)
     diff = parse_diff(_diff)
-    new_text, target = new_text_handler(diff)
-    if not new_text:
+    articles = new_text_handler(diff)
+    if not articles:
         create_comment_on_pr(
             pr,
             ":information_source: No changed cyberattack article content found to compare.",
         )
         return
 
-    if not target:
-        create_comment_on_pr(
-            pr,
-            ":information_source: Duplicate check skipped because no target-entities "
-            "value was found in the changed article content.",
-        )
-        return
-
     list_of_target_entities = get_list_of_target_entities(target_entities_url)
-    href_list = get_same_texts(target, target_entities_url, list_of_target_entities)
-    if href_list:
-        answer = compare_texts(href_list, main_url, new_text, PROMPT, config)
-        print(answer)
-        create_comment_on_pr(pr, answer)
-    else:
-        create_comment_on_pr(pr, ":white_check_mark:")
+    results = []
+    for article in articles:
+        if not article["target"]:
+            results.append(
+                f"- `{article['path']}`: :information_source: duplicate check skipped "
+                "because no target-entities value was found in the changed article content."
+            )
+            continue
+
+        href_list = get_same_texts(
+            article["target"],
+            target_entities_url,
+            list_of_target_entities,
+        )
+        if href_list:
+            answer = compare_texts(href_list, main_url, article["text"], PROMPT, config)
+        else:
+            answer = ":white_check_mark:"
+        print(article["path"], answer)
+        results.append(f"- `{article['path']}`: {answer}")
+
+    create_comment_on_pr(pr, "\n".join(results))
