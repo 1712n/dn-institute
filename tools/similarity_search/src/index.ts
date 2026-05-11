@@ -11,6 +11,10 @@ type TextEntry = {
   namespace: string
 }
 
+type EmbeddingResponse = {
+  data?: unknown[]
+}
+
 const app = new Hono<{ Bindings: Env }>()
 
 app.use("*", async (c, next) => {
@@ -35,14 +39,30 @@ app.post("/", async (c) => {
     return c.text("Invalid JSON format", 400)
   }
 
-  const modelResp = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
-    text: [text]
-  })
-  const vector = modelResp.data[0]
-  const searchResponse = await c.env.VECTORIZE_INDEX.query(vector, {
-    namespace,
-    topK: 1
-  })
+  let modelResp: EmbeddingResponse
+  try {
+    const response = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
+      text: [text]
+    })
+    modelResp = response as unknown as EmbeddingResponse
+  } catch {
+    return c.text("Embedding generation failed", 502)
+  }
+
+  const vector = modelResp.data?.[0]
+  if (!Array.isArray(vector) || vector.length === 0) {
+    return c.text("Embedding generation failed", 502)
+  }
+
+  let searchResponse: Awaited<ReturnType<Env["VECTORIZE_INDEX"]["query"]>>
+  try {
+    searchResponse = await c.env.VECTORIZE_INDEX.query(vector, {
+      namespace,
+      topK: 1
+    })
+  } catch {
+    return c.text("Similarity search failed", 502)
+  }
   const similarityScore = searchResponse.matches[0]?.score || 0
 
   return c.json({ similarity_score: similarityScore })

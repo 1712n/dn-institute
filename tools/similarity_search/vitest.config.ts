@@ -26,7 +26,17 @@ export default defineWorkersConfig({
               script: `export default function() {
                 return {
                   run: async (model, data) => {
-                    return Promise.resolve({ data: {} });
+                    const text = data.text?.[0];
+                    if (text === "trigger-ai-error") {
+                      throw new Error("AI binding unavailable");
+                    }
+                    if (text === "empty-embedding") {
+                      return Promise.resolve({ data: [] });
+                    }
+                    if (text === "invalid-embedding") {
+                      return Promise.resolve({ data: [null] });
+                    }
+                    return Promise.resolve({ data: [[0.1, 0.2, 0.3]] });
                   }
                 };
               };`
@@ -37,6 +47,15 @@ export default defineWorkersConfig({
               script: `export default function() {
                 return {
                   query: async (vectorData, options) => {
+                    if (options.namespace === "trigger-vectorize-error") {
+                      throw new Error("Vectorize query failed");
+                    }
+                    if (!Array.isArray(vectorData)) {
+                      throw new Error("Expected embedding vector");
+                    }
+                    if (options.namespace === "no-match") {
+                      return Promise.resolve({ matches: [] });
+                    }
                     const score = 0.5678;
                     return Promise.resolve({ matches: [{ score }] });
                   }
