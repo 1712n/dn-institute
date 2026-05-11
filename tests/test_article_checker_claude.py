@@ -10,8 +10,7 @@ sys.modules.setdefault("github", github_module)
 llm_utils_module = types.ModuleType("tools.python_modules.llm_utils")
 llm_utils_module.remove_plus = lambda text: "\n".join(
     line[1:] if line.startswith("+") else line
-    for line in text.splitlines()
-    if line.startswith("+") and not line.startswith("+++")
+    for line in text.split("\n")
 )
 sys.modules.setdefault("tools.python_modules.llm_utils", llm_utils_module)
 
@@ -65,6 +64,44 @@ class ArticleReviewTextTests(unittest.TestCase):
         ]
 
         self.assertEqual(build_article_review_text(diff), "")
+
+    def test_handles_attack_article_in_subdirectory(self):
+        diff = [
+            {
+                "header": "a/content/attacks/subdir/example.md b/content/attacks/subdir/example.md\n+++ b/content/attacks/subdir/example.md\n",
+                "body": [{"body": "+Nested article text\n"}],
+            }
+        ]
+
+        review_text = build_article_review_text(diff)
+
+        self.assertIn("File: content/attacks/subdir/example.md", review_text)
+        self.assertIn("Nested article text", review_text)
+
+    def test_ignores_deleted_only_attack_article(self):
+        diff = [
+            {
+                "header": "a/content/attacks/example.md b/content/attacks/example.md\n+++ b/content/attacks/example.md\n",
+                "body": [{"body": "-Deleted claim\n context\n"}],
+            }
+        ]
+
+        self.assertEqual(build_article_review_text(diff), "")
+
+    def test_handles_empty_diff(self):
+        self.assertEqual(build_article_review_text([]), "")
+
+    def test_preserves_literal_leading_plus_in_added_line(self):
+        diff = [
+            {
+                "header": "a/content/attacks/example.md b/content/attacks/example.md\n+++ b/content/attacks/example.md\n",
+                "body": [{"body": "++C compiler note\n"}],
+            }
+        ]
+
+        review_text = build_article_review_text(diff)
+
+        self.assertIn("+C compiler note", review_text)
 
 
 if __name__ == "__main__":

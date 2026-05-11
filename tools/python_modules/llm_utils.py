@@ -18,7 +18,7 @@ def extract_json(text):
 
 
 def remove_plus(text):
-    return '\n'.join(line.lstrip('+') for line in text.split('\n'))
+    return '\n'.join(line[1:] if line.startswith('+') else line for line in text.split('\n'))
 
 
 def count_tokens(text):

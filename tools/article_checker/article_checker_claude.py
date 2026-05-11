@@ -98,7 +98,12 @@ def build_article_review_text(diff: list[dict]) -> str:
 
         added_lines = []
         for segment in file_diff.get("body", []):
-            added_lines.append(remove_plus(segment.get("body", "")))
+            added = "\n".join(
+                line for line in segment.get("body", "").splitlines()
+                if line.startswith("+") and not line.startswith("+++")
+            )
+            if added:
+                added_lines.append(remove_plus(added))
 
         file_text = "\n".join(part for part in added_lines if part.strip())
         if file_text.strip():
@@ -139,6 +144,8 @@ def main():
         return
 
     answer = api_call(text, client, model, max_tokens, temperature)
+    if answer is None:
+        answer = "Article check failed: unable to complete the review due to an API error. Please check the workflow logs."
     print('-' * 50)
     print('This is an answer', answer)
     print('-' * 50)
