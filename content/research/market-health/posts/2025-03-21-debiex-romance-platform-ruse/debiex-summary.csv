@@ -1,0 +1,10 @@
+event_date,event,entities,reported_metric,market_health_signal,source
+2022-03-12,Debiex domains created,Debiex,CFTC said debiex.com and/or debiex.net were created around March 12 2022,New domains required registration and custody checks,CFTC press release 8850-24
+2022-03,Customer solicitation begins,Debiex,CFTC alleged solicitors contacted customers through social media and pretended to befriend or romance them,Relationship trust replaced platform verification,CFTC press release 8850-24
+2022-03,Trading accounts serviced,Debiex,CFTC alleged customer service purported to set up and service Debiex accounts,Support interactions created apparent operational legitimacy,CFTC press release 8850-24
+2022-03,Money mule wallets used,Debiex; Zhang Cheng Yang,CFTC alleged Zhang's wallet was used to misappropriate at least one customer's funds,Wallet-control evidence challenged the trading-account story,CFTC press release 8850-24
+2024-01-17,CFTC complaint filed,CFTC; Debiex,CFTC said it filed a complaint against Debiex in the District of Arizona,Regulatory action challenged the platform and trading claims,CFTC press release 9058-25
+2024-01-19,CFTC announces action,CFTC; Debiex,CFTC alleged about 2.3 million USD was misappropriated from about five customers,Customer assets allegedly failed to reach real trading activity,CFTC press release 8850-24
+2025-03-12,Wallet recovery order entered,Zhang Cheng Yang,The court ordered remaining digital assets worth about 120000 USD before fees returned to a customer,Specific wallet tracing supported partial recovery,CFTC press release 9058-25
+2025-03-13,Default judgment issued,Debiex,The court found Debiex liable for fraud and misappropriating over 2 million USD in customer funds,Liability finding confirmed fake-platform risk,CFTC press release 9058-25
+2025-03-21,CFTC announces restitution and penalty,CFTC; Debiex,CFTC announced more than 2.2 million USD restitution and a 221466 USD civil monetary penalty,Remedies followed the no-actual-trading finding,CFTC press release 9058-25
