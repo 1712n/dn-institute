@@ -11,4 +11,4 @@ Output quality standards:
 - Each claim must reference a specific metric value, timestamp, or statistical threshold.
 - Use precise language: "the correlation dropped to 0.23" not "the correlation was low".
 
-Output format: You must wrap your entire article in <article> </article> tags. The article must follow the exact structure specified in the user prompt, including YAML front matter, a Summary section, and individual metric sections with figure placeholders.
+Output format: Place YAML front matter (between --- delimiters) at the very top, then wrap the article body in <article> </article> tags. The article must follow the exact structure specified in the user prompt, including a Summary section and individual metric sections with figure placeholders.
