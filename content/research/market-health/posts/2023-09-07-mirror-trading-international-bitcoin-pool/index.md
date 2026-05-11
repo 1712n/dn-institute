@@ -21,15 +21,11 @@ The supporting dataset is available in [mti-summary.csv](mti-summary.csv).
 
 ## Trading Narrative
 
-The CFTC complaint said Steynberg and MTI solicited bitcoin from members of the public from approximately May 18, 2018 through March 30, 2021 using MTI websites, member portals, social media, and a multilevel marketing structure. Participants were told they were joining a commodity pool that purportedly traded off-exchange retail forex using a proprietary bot or software program.
+MTI's public story can be tested with a simple deposit-to-trade model: customer bitcoin should move into a verifiable trading venue, venue statements should connect to live funded accounts, and displayed returns should reconcile to executed trades and realized P&L. The dataset shows why that model failed. The CFTC reported at least 29,421 bitcoin accepted from participants, while the complaint alleged only 1,846 bitcoin reached the FXChoice pooled account and that the account lost 566.6 bitcoin trading unprofitably.
 
-The CFTC's 2023 release said Steynberg accepted at least 29,421 bitcoin, valued at more than $1.733 billion at the end of the relevant period, from at least 23,000 individuals in the United States and thousands more worldwide. The CFTC said the defendants misappropriated all of the bitcoin accepted from pool participants, directly or indirectly.
+That gap is the central market-health signal. Using the complaint figures, roughly 6.3 percent of participant bitcoin reached the only identified pooled trading account, while the alleged trading result was a loss rather than the advertised 10 percent monthly profit stream. The sales narrative depended on a proprietary bot, near-lossless trading history, simulated MT4 statements, and the named Trade300 venue. The evidence hierarchy pointed the other way: limited live-account evidence, an alleged fictitious venue, and no profitable trading tied to customer capital.
 
-The complaint alleged several market-facing misrepresentations. Steynberg allegedly claimed the trading bot achieved 10 percent monthly profits, that participants' bitcoin was traded in a pooled account, and that the pool had never had a losing trading day except for one. The complaint alleged those representations were false.
-
-The CFTC complaint also described the records problem in detail. It alleged that no profitable forex trading took place on behalf of participants, that account statements were simulated trades from MetaTrader 4 demo accounts, and that Trade300, where MTI supposedly traded participant bitcoin, was a fictitious entity created by Steynberg.
-
-The limited account evidence also contradicted the broader sales story. The complaint alleged that in the only pooled account defendants held, at FXChoice, defendants deposited 1,846 bitcoin and lost 566.6 bitcoin trading unprofitably. It further alleged that 27,574 bitcoin sent by participants was not deposited into the FXChoice pool account.
+The implication is broader than one pool operator. In pooled crypto or forex products, a dashboard balance or bot label is not market evidence unless it links customer funds to live venue records. When deposited assets cannot be traced into trading accounts, and when claimed returns are smoother than the documented venue outcomes, the product is producing a marketing signal rather than a price-discovery or liquidity signal.
 
 ## False Market Signals
 
@@ -71,20 +67,42 @@ The complaint alleged that purported returns and bonus payments were made from p
 
 ## Detection Checklist
 
-1. Verify that any named broker or trading venue exists and confirms the account relationship directly.
-2. Reconcile participant deposits to broker deposits, account balances, trades, fees, withdrawals, and losses.
-3. Treat demo-account statements as non-evidence unless linked to live funded accounts.
-4. Require independent records for bot operation, strategy logs, and actual order execution.
-5. Compare advertised return stability to real margin, drawdown, and loss history.
-6. Trace whether returns and bonuses come from trading gains or from later participant deposits.
+1. Verify the named broker or trading venue under the signal-to-evidence hierarchy below; direct venue confirmation outranks dashboard screenshots or pool-operator exports.
+2. Reconcile participant deposits to broker deposits, balances, trades, fees, withdrawals, and losses. A deposit-to-live-trading gap above 5 to 10 percent should be investigated before treating returns as market evidence.
+3. Treat demo-account statements as non-evidence unless the operator can link each statement to a live funded account and matching executed orders.
+4. Require independent records for bot operation, strategy logs, order routing, fills, and venue-level P&L.
+5. Compare advertised return stability to margin, drawdown, loss, and fee history. Near-constant monthly returns require especially strong proof of realized trading gains.
+6. Trace whether returns and bonuses came from realized P&L or later participant deposits.
 7. Check registration status for commodity pool operators and associated persons before accepting pool solicitations.
 8. Preserve legal posture: this article relies on CFTC order statements and public CFTC complaint allegations.
+
+## Manipulation Framework
+
+### Capital-flow falsification path
+
+The failure path starts when participant deposits are represented as trading capital without a complete custody-to-venue trail. In MTI, the complaint figures imply a deposit-to-live-account ratio of about 6.3 percent, with 27,574 bitcoin allegedly not deposited into the FXChoice pool account. A trading product with that kind of break cannot use platform balances or member statements as evidence of market activity.
+
+### Signal-to-evidence hierarchy
+
+The strongest evidence is broker-confirmed live-account data: account ownership, deposits, withdrawals, open positions, executed orders, fees, losses, and realized P&L. The weakest evidence is operator-controlled material such as dashboard balances, referral statements, demo-account exports, and performance screenshots. MTI's alleged demo statements and fictitious Trade300 venue sat at the weak end of that hierarchy.
+
+### Failure-mode taxonomy
+
+- Venue failure: the named broker or platform cannot be independently verified.
+- Custody failure: participant deposits do not reconcile to live trading accounts.
+- Execution failure: bot claims are not backed by orders, fills, and live-account logs.
+- Return-source failure: payouts and bonuses trace to new deposits rather than trading gains.
+- Smooth-return failure: advertised returns are too stable relative to documented leverage, drawdown, losses, and fees.
+
+### Reusable thresholds
+
+For pool-style crypto products, unresolved deposit-to-trade gaps above 5 to 10 percent, demo statements without live-account linkage, near-constant monthly returns without loss periods, and bonus payments unsupported by realized P&L should all trigger a no-reliance posture. The correct default is to treat the displayed performance as promotional until independent venue and custody records close the loop.
 
 ## Market-Health Lessons
 
 MTI shows how a trading pool can manufacture market credibility through a stack of false infrastructure signals: a proprietary bot, a named broker, account statements, monthly return claims, and multilevel referral growth. Each signal can appear plausible on its own. The failure mode is that none of them proves that customer capital reached a real trading venue and generated real profits.
 
-The strongest control is reconciliation across independent records. Participant bitcoin inflows should match custody and broker deposits. Broker statements should come from the broker, not a platform dashboard. Trading profits should reconcile to orders and fills. Return payments should trace to realized P&L, not to later deposits. When those links break, displayed trading performance should be treated as promotional content rather than market evidence.
+The manipulation framework turns that lesson into a repeatable test. Start with capital flows, rank each performance signal by independent evidence quality, classify the failure mode, and apply no-reliance thresholds before accepting any return claim. Participant bitcoin inflows should match custody and broker deposits. Broker statements should come from the broker, not a platform dashboard. Trading profits should reconcile to orders and fills. Return payments should trace to realized P&L, not to later deposits. When those links break, displayed trading performance should be treated as promotional content rather than market evidence.
 
 ## References
 
