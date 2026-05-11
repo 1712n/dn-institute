@@ -35,9 +35,9 @@ Dune's open wash-trade methodology for Ethereum NFTs uses four classes of flags:
 
 The platform concentration is the critical market-health signal. Dune reported that LooksRare and X2Y2 produced the vast majority of wash-trading volume, estimating 98% of LooksRare volume and 87% of X2Y2 volume as wash-driven. Element and Sudoswap were also affected, while OpenSea's reported wash-trade share was much lower. This pattern matches the incentive structure: the highest distortion appeared where token rewards or airdrop expectations made raw volume valuable by itself.
 
-Chainalysis reached a similar conclusion through wallet funding analysis. It identified 262 users who sold NFTs to self-financed addresses more than 25 times. One prolific seller made 830 sales to self-financed addresses. Most identified wash traders were unprofitable after gas, but the profitable subset collectively made nearly $8.9 million. That matters because the profit would likely come from later sales to buyers who interpreted the prior wash-traded history as real demand.
+Chainalysis reached a similar conclusion through wallet funding analysis: its sample found hundreds of repeat NFT sellers whose buyers were wallets they had funded, including one cluster with more than eight hundred such sales ([Chainalysis](https://www.chainalysis.com/blog/2022-crypto-crime-report-preview-nft-wash-trading-money-laundering/)). Most identified wash traders were unprofitable after gas, but the profitable subset collectively made nearly $8.9 million. That matters because the profit would likely come from later sales to buyers who interpreted the prior wash-traded history as real demand.
 
-Academic research also supports the use of graph features instead of simple volume thresholds. In a 2022 arXiv paper covering 52 large NFT collections from January 2018 to mid-November 2021, von Wachter, Jensen, Regner, and Ross found that 3.93% of addresses and 2.04% of sale transactions triggered suspicious-market-abuse signals, potentially inflating volume by up to $149.5 million in the studied period. Their finding that many patterns alternate between a small number of addresses is consistent with round-trip and cluster-based detection.
+Academic research also supports the use of graph features instead of simple volume thresholds. In a 2022 arXiv paper covering 52 large NFT collections from January 2018 to mid-November 2021, von Wachter, Jensen, Regner, and Ross reported that only a small minority of wallets and sales tripped their abuse heuristics, yet those flows could still add as much as $149.5 million of artificial volume to the sample ([arXiv](https://arxiv.org/abs/2202.03866)). Their finding that many patterns alternate between a small number of addresses is consistent with round-trip and cluster-based detection.
 
 ## Market health indicators
 
@@ -52,6 +52,26 @@ Raw marketplace volume should not be used alone when an NFT venue has volume rew
 7. Collection-level ranking impact: suspicious trades can lift a collection into trending pages, so filtered rankings are safer than raw rankings.
 
 These indicators should be reported per marketplace and per collection. A venue can have a low share of suspicious trades but still a high share of suspicious volume if the wash trades are large. That is why trade count, dollar volume, participant graph, and NFT-level repetition must be monitored together.
+
+### Proposed market-health score
+
+To make the indicators falsifiable, each marketplace or collection can be assigned a wash-trading risk score from 0 to 100. A higher score means reported volume is less reliable.
+
+`Risk score = 0.25F + 0.15D + 0.15R + 0.15C + 0.15G + 0.10S + 0.05K`
+
+Where:
+
+1. `F` is the filtered-volume gap: `100 * (raw volume - filtered volume) / raw volume`.
+2. `D` is volume-count divergence: `100 * max(0, suspicious volume share - suspicious trade-count share)`.
+3. `R` is same-token round-trip intensity: `100 * same-NFT round-trip trades / total trades`.
+4. `C` is counterparty concentration: `100 * top linked-cluster volume / total volume`.
+5. `G` is funding-graph overlap: `100 * common-funder or seller-funded volume / total volume`.
+6. `S` is reward sensitivity: the percent change in volume around reward, emission, or airdrop windows minus the percent change in unique buyers, clipped to 0-100.
+7. `K` is ranking impact: `100 * suspicious volume that affected trending or collection-rank windows / total suspicious volume`.
+
+The score should be computed twice: once per marketplace and once per collection. Marketplace scoring identifies venues whose total volume is reward-distorted. Collection scoring catches cases where a mostly clean venue still has a manipulated collection ranking. A marketplace or collection with a score below 25 is green, 25 to 50 is yellow, and above 50 is red. If raw volume is zero or source data is incomplete, the score should be marked "insufficient data" rather than forced into a color band.
+
+Audit rules should be explicit. Exclude known centralized-exchange deposit wallets from common-funder tests, separate ERC-721 and ERC-1155 behavior, publish the query window, and keep every excluded suspicious category count visible. A score can fail in several ways: market makers may create false positives through fast inventory turnover, privacy tools can obscure funding links, cross-chain bridges can hide first-funder relationships, and airdrop speculation can create organic but short-lived volume. For that reason, the score should not be used as a fraud verdict. It is a reproducible risk filter for deciding which raw volume figures need manual review.
 
 ## Practical implications
 
