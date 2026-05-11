@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="430" viewBox="0 0 920 430" role="img" aria-labelledby="title desc">
+  <title id="title">Estimated NFT wash-trading volume share by marketplace</title>
+  <desc id="desc">Horizontal bar chart showing Dune estimates: LooksRare 98 percent, X2Y2 87 percent, Element about 66 percent, Sudoswap about 11 percent, and OpenSea 2.4 percent.</desc>
+  <rect width="920" height="430" fill="#ffffff" />
+  <text x="44" y="46" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#111827">Estimated NFT wash-trading volume share</text>
+  <text x="44" y="76" font-family="Arial, sans-serif" font-size="14" fill="#4b5563">Dune Ethereum NFT marketplace breakdown; Element and Sudoswap are approximate values from the published chart.</text>
+  <g transform="translate(210 110)">
+    <line x1="0" y1="0" x2="0" y2="250" stroke="#d1d5db" stroke-width="1" />
+    <line x1="150" y1="0" x2="150" y2="250" stroke="#e5e7eb" stroke-width="1" />
+    <line x1="300" y1="0" x2="300" y2="250" stroke="#e5e7eb" stroke-width="1" />
+    <line x1="450" y1="0" x2="450" y2="250" stroke="#e5e7eb" stroke-width="1" />
+    <line x1="600" y1="0" x2="600" y2="250" stroke="#d1d5db" stroke-width="1" />
+    <text x="0" y="-14" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">0%</text>
+    <text x="150" y="-14" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">25%</text>
+    <text x="300" y="-14" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">50%</text>
+    <text x="450" y="-14" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">75%</text>
+    <text x="600" y="-14" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">100%</text>
+    <text x="-28" y="28" text-anchor="end" font-family="Arial, sans-serif" font-size="15" fill="#111827">LooksRare</text>
+    <rect x="0" y="8" width="588" height="30" rx="3" fill="#b91c1c" />
+    <text x="602" y="29" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">98%</text>
+    <text x="-28" y="78" text-anchor="end" font-family="Arial, sans-serif" font-size="15" fill="#111827">X2Y2</text>
+    <rect x="0" y="58" width="522" height="30" rx="3" fill="#dc2626" />
+    <text x="536" y="79" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">87%</text>
+    <text x="-28" y="128" text-anchor="end" font-family="Arial, sans-serif" font-size="15" fill="#111827">Element</text>
+    <rect x="0" y="108" width="396" height="30" rx="3" fill="#f97316" />
+    <text x="410" y="129" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">~66%</text>
+    <text x="-28" y="178" text-anchor="end" font-family="Arial, sans-serif" font-size="15" fill="#111827">Sudoswap</text>
+    <rect x="0" y="158" width="66" height="30" rx="3" fill="#facc15" />
+    <text x="80" y="179" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">~11%</text>
+    <text x="-28" y="228" text-anchor="end" font-family="Arial, sans-serif" font-size="15" fill="#111827">OpenSea</text>
+    <rect x="0" y="208" width="14.4" height="30" rx="3" fill="#16a34a" />
+    <text x="28" y="229" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">2.4%</text>
+  </g>
+  <text x="44" y="398" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">Source: Dune, "NFT wash trading on Ethereum". Values are estimates from Dune's marketplace-level wash-trading analysis.</text>
+</svg>

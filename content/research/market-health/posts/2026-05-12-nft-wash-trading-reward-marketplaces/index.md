@@ -35,6 +35,8 @@ Dune's open wash-trade methodology for Ethereum NFTs uses four classes of flags:
 
 The platform concentration is the critical market-health signal. Dune reported that LooksRare and X2Y2 produced the vast majority of wash-trading volume, estimating 98% of LooksRare volume and 87% of X2Y2 volume as wash-driven. Element and Sudoswap were also affected, while OpenSea's reported wash-trade share was much lower. This pattern matches the incentive structure: the highest distortion appeared where token rewards or airdrop expectations made raw volume valuable by itself.
 
+{{< figure src="marketplace-wash-volume-share.svg" alt="Dune reported estimated wash-trade volume share by NFT marketplace" caption="Estimated marketplace volume share classified as wash trading in Dune's Ethereum NFT analysis. Element and Sudoswap are approximate values from Dune's published marketplace breakdown." >}}
+
 Chainalysis reached a similar conclusion through wallet funding analysis: its sample found hundreds of repeat NFT sellers whose buyers were wallets they had funded, including one cluster with more than eight hundred such sales ([Chainalysis](https://www.chainalysis.com/blog/2022-crypto-crime-report-preview-nft-wash-trading-money-laundering/)). Most identified wash traders were unprofitable after gas, but the profitable subset collectively made nearly $8.9 million. That matters because the profit would likely come from later sales to buyers who interpreted the prior wash-traded history as real demand.
 
 Academic research also supports the use of graph features instead of simple volume thresholds. In a 2022 arXiv paper covering 52 large NFT collections from January 2018 to mid-November 2021, von Wachter, Jensen, Regner, and Ross reported that only a small minority of wallets and sales tripped their abuse heuristics, yet those flows could still add as much as $149.5 million of artificial volume to the sample ([arXiv](https://arxiv.org/abs/2202.03866)). Their finding that many patterns alternate between a small number of addresses is consistent with round-trip and cluster-based detection.
@@ -73,6 +75,20 @@ The score should be computed twice: once per marketplace and once per collection
 
 Audit rules should be explicit. Exclude known centralized-exchange deposit wallets from common-funder tests, separate ERC-721 and ERC-1155 behavior, publish the query window, and keep every excluded suspicious category count visible. A score can fail in several ways: market makers may create false positives through fast inventory turnover, privacy tools can obscure funding links, cross-chain bridges can hide first-funder relationships, and airdrop speculation can create organic but short-lived volume. For that reason, the score should not be used as a fraud verdict. It is a reproducible risk filter for deciding which raw volume figures need manual review.
 
+### Worked example from Dune marketplace shares
+
+Dune's published marketplace breakdown is not enough to compute every term of the full score, but it is enough to show why raw volume alone is dangerous. Treat the reported wash-volume share as a proxy for `F`, and compute `D` as `wash-volume share - wash-trade-count share`, clipped at zero. This gives a lower-bound score from only two components: `0.25F + 0.15D`.
+
+| Marketplace | Wash volume share | Wash trade-count share | `D` proxy | Two-factor lower-bound score |
+| --- | ---: | ---: | ---: | ---: |
+| LooksRare | 98% | 25% | 73 | 35.5 |
+| X2Y2 | 87% | 22% | 65 | 31.5 |
+| Element | about 66% | 18.5% | about 47.5 | about 23.6 |
+| Sudoswap | about 11% | 14.5% | 0 | about 2.8 |
+| OpenSea | 2.4% | below 1% | above 1.4 | above 0.8 |
+
+The table is intentionally conservative because it ignores same-token round trips, funding overlap, counterparty concentration, reward sensitivity, and ranking impact. LooksRare and X2Y2 already reach yellow-zone lower bounds with only two variables. If the omitted graph variables are added, their final score would likely move closer to the red threshold.
+
 ## Practical implications
 
 For analysts, the key lesson is that volume is not liquidity unless the counterparties are economically independent. LooksRare and X2Y2 showed how quickly a reward design can turn volume into a target to optimize rather than a measurement of demand. Public dashboards should therefore publish both raw and filtered statistics, explain the filtering rules, and make suspicious categories auditable.
@@ -81,7 +97,7 @@ For marketplaces, reward programs should avoid paying users for raw volume witho
 
 For buyers, wash-traded sale history can create a false signal of demand and price support. A collection with high volume but low unique ownership growth, repeated high-value transfers, or a narrow set of counterparties should be treated cautiously. The same warning applies to marketplace comparisons: raw volume can make a venue appear healthier than its organic user base.
 
-The supporting source table for this article is available in [source-metrics.csv](source-metrics.csv).
+The supporting source tables for this article are available in [source-metrics.csv](source-metrics.csv) and [marketplace-wash-share.csv](marketplace-wash-share.csv).
 
 ## References
 
