@@ -1,0 +1,12 @@
+event_date,event,entities,reported_metric,market_health_signal,source
+2020-01,Relevant period begins,Technical Trading Team; Edwin Carrion; Jason Rodriguez,CFTC complaint said the relevant period began in January 2020,Pool-solicitation controls should have existed from inception,CFTC complaint
+2020-04,TTT incorporated,Technical Trading Team LLC,CFTC complaint said TTT was incorporated in Florida around April 2020,Entity formation preceded pool fundraising,CFTC complaint
+2020-2022,Participant funds solicited,TTT; Carrion; Rodriguez,CFTC alleged more than 5 million USD was solicited from approximately 27 participants,Pool size required registration and participant ledgers,CFTC press release 8803-23
+2020-2022,Fixed interest promised,TTT Pool,CFTC alleged promissory notes promised 18 to 24 percent annual interest paid monthly,Fixed payments needed stable P&L coverage,CFTC complaint
+2020-2022,Risk controls represented,TTT Pool,CFTC alleged defendants promised a reserve fund equal to participant contributions 1 percent trade risk and no overnight positions,Risk and liquidity promises required broker-statement verification,CFTC press release 8803-23
+2020-2022,Collateral represented,TTT Pool,CFTC alleged participants were told assets such as real estate and a trucking company supported the loans,Collateral required title ownership and lien verification,CFTC complaint
+2020-04 to 2022-10,Leveraged forex losses incurred,TTT Pool,CFTC alleged defendants lost more than 3.13 million USD trading leveraged retail forex,Losses undermined fixed-return and principal repayment promises,CFTC complaint
+2022-10,Loan default disclosed,TTT Pool,CFTC alleged TTT notified some participants it had defaulted on loan principal and interest payments,Default exposed mismatch between promised yield and realized losses,CFTC complaint
+2022-2023,AI bot recovery claim promoted,TTT; AI bot,CFTC alleged defendants claimed they would create an AI-managed trading bot to recoup losses and repay loans,Technology recovery claim needed live execution proof,CFTC press release 8803-23
+2023-09-29,CFTC complaint filed,CFTC; TTT; Carrion; Rodriguez,CFTC filed complaint alleging retail forex pool fraud CPO fraud and registration failures,Public enforcement challenged safety collateral and AI claims,CFTC complaint
+2023-10-06,CFTC charges announced,CFTC; TTT; Carrion; Rodriguez,CFTC announced charges involving a 5 million USD forex commodity pool scheme,Public release summarized pool losses and requested remedies,CFTC press release 8803-23
