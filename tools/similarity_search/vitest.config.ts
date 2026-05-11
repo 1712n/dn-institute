@@ -25,23 +25,25 @@ export default defineWorkersConfig({
               modules: true,
               script: `export default function() {
                 return {
-                  run: async (model, data) => {
-                    return Promise.resolve({ data: {} });
+                  async run(model, data) {
+                    return { data: [new Array(768).fill(0.1)] }
                   }
-                };
-              };`
+                }
+              }`
             },
             {
               name: "vectorize-index",
               modules: true,
               script: `export default function() {
                 return {
-                  query: async (vectorData, options) => {
-                    const score = 0.5678;
-                    return Promise.resolve({ matches: [{ score }] });
+                  async query(vectorData, options) {
+                    if (options.namespace === "empty-namespace") {
+                      return { matches: [] }
+                    }
+                    return { matches: [{ score: 0.95 }] }
                   }
-                };
-              };`
+                }
+              }`
             }
           ]
         }
