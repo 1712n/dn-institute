@@ -10,6 +10,7 @@ import sys
 import time
 import json
 import re
+from typing import Iterable, List
 from github import Github
 import openai
 from bs4 import BeautifulSoup
@@ -68,23 +69,65 @@ def openai_call(prompt: str, config, retry: int = None):
         return openai_call(prompt, config, retry - 1)
 
 
+def normalize_target_entities(raw_target_entities: str) -> List[str]:
+    """
+    Normalizes the target-entities front matter value into individual entity names.
+    """
+    if not raw_target_entities:
+        return []
+
+    normalized = raw_target_entities.strip()
+    normalized = normalized.strip("[]")
+    entities = re.split(r"\s*,\s*|\s*;\s*", normalized)
+    return [
+        entity.strip().strip("\"'")
+        for entity in entities
+        if entity.strip().strip("\"'")
+    ]
+
+
+def extract_target_entities(text: str) -> List[str]:
+    """
+    Extracts target entities from the article front matter.
+    """
+    match = re.search(r"^target-entities:\s*(.*?)\s*$", text, re.MULTILINE)
+    if not match:
+        print("Value 'target-entities' not found")
+        return []
+    return normalize_target_entities(match.group(1))
+
+
+def extract_article_summary(text: str) -> str:
+    """
+    Extracts the article body starting at the Summary section.
+
+    Falls back to the full text so malformed submissions still get a useful
+    duplicate check instead of crashing the workflow.
+    """
+    match = re.search(r"## Summary.*", text, re.DOTALL)
+    if match:
+        return match.group(0)
+    print("Value '## Summary' not found; using full article text")
+    return text.strip()
+
+
 def new_text_handler(diff):
     """
-    Extracts text and target entity from a new pull request
-    """
-    new_text = remove_plus(diff[0]['header'] + diff[0]['body'][0]['body'])
-    pattern = r'target-entities:\s+(.*?)\n'
-    matches = re.search(pattern, new_text)
-    target = ''
-    if matches:
-        target_entities = matches.group(1)
-        target = target_entities
-    else:
-        print("Value 'target-entities' didn't find")
+    Extracts text and target entities from a new pull request.
 
-    new_text = re.search(r'## Summary.*', new_text, re.DOTALL)
-    new_text = new_text.group(0)
-    return new_text, target
+    Returns the combined article text and a deduplicated list of target entities.
+    """
+    text_chunks = []
+    target_entities = []
+    for changed_file in diff:
+        body = ''.join(segment['body'] for segment in changed_file['body'])
+        file_text = remove_plus(changed_file['header'] + body)
+        entities = extract_target_entities(file_text)
+        if entities:
+            target_entities.extend(entities)
+        text_chunks.append(extract_article_summary(file_text))
+
+    return "\n\n".join(text_chunks), list(dict.fromkeys(target_entities))
 
 
 def get_list_of_target_entities(url):
@@ -106,15 +149,27 @@ def get_list_of_target_entities(url):
     return result_list
     
 
-def get_same_texts(target, url, list_of_target_entities):
+def build_target_urls(targets: Iterable[str], url: str, list_of_target_entities: List[str]) -> List[str]:
+    """
+    Builds target entity page URLs for every matching entity.
+    """
+    return [
+        f"{url}{target.replace(' ', '-')}"
+        for target in targets
+        if target in list_of_target_entities
+    ]
+
+
+def get_same_texts(targets: Iterable[str], url: str, list_of_target_entities: List[str]) -> List[str]:
     """
     Searching urls of same texts in the crypto wiki
     """
     href_list = []
-    if target in list_of_target_entities:
-        target_url_component = target.replace(' ', '-')
-        url = url + target_url_component
-        response = requests.get(url)
+    for target_url in build_target_urls(targets, url, list_of_target_entities):
+        try:
+            response = requests.get(target_url, timeout=10)
+        except requests.RequestException:
+            continue
         if response.status_code == 200:
             html = response.text
             soup = BeautifulSoup(html, 'html.parser')
@@ -122,9 +177,11 @@ def get_same_texts(target, url, list_of_target_entities):
             if posts:
                 for post in posts:
                     post_head = post.find('h2')
+                    if not post_head:
+                        continue
                     href = post_head.find('a')
-                    href = href['href']
-                    href_list.append(href)
+                    if href and 'href' in href.attrs:
+                        href_list.append(href['href'])
     return href_list
 
 
@@ -213,9 +270,9 @@ def main():
     pr = get_pull_request(github, args.pull_url)
     _diff = get_diff_by_url(pr)
     diff = parse_diff(_diff)
-    new_text, target = new_text_handler(diff)
+    new_text, targets = new_text_handler(diff)
     list_of_target_entities = get_list_of_target_entities(target_entities_url)
-    href_list = get_same_texts(target, target_entities_url, list_of_target_entities)
+    href_list = get_same_texts(targets, target_entities_url, list_of_target_entities)
     if href_list:
         answer = compare_texts(href_list, main_url, new_text, PROMPT, config)
         print(answer)
