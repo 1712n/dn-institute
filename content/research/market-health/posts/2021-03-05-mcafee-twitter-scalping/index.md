@@ -40,7 +40,7 @@ The public filings describe a four-step pattern:
 
 This pattern is different from normal market commentary. The manipulative feature is not merely that a recommendation moved price. It is that the recommendation was allegedly presented as independent while the promoter and associates had already positioned themselves to profit from the short-term reaction.
 
-## Token Examples From The CFTC Complaint
+## Token Examples
 
 The supporting dataset is available in [mcafee-scalping-summary.csv](mcafee-scalping-summary.csv).
 
