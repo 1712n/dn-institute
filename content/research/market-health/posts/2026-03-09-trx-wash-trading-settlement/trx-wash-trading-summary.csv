@@ -1,0 +1,8 @@
+event_date,event,entities,reported_metric,market_health_signal,source
+2018-03-27,Nominee trading accounts opened,Justin Sun; Tron Foundation; Account 16; Account 17,Two trading-platform accounts opened in nominee names,Issuer-linked account setup before alleged wash trading,SEC complaint paragraphs 161-162
+2018-04-18 to 2019-02-11,TRX wash trading through Accounts 16 and 17,Justin Sun; Tron Foundation; BitTorrent Foundation; Rainberry; TRX,609790 wash trades over 249 active days; about 2449 trades per day,High-frequency two-way trading between controlled accounts,SEC complaint paragraph 172
+2018-09-26 to 2018-10-18,TRX wash trading through Activity and Bancor Accounts,Rainberry; Activity Account; Bancor Account; TRX,5426 wash trades over 23 days; about 236 trades per day,Repeated back-and-forth prints without beneficial ownership change,SEC complaint paragraph 174
+2018-04 to 2019-02,Daily alleged wash-traded quantity,Justin Sun; TRX,4.5 million to 7.4 million TRX per day,Artificial volume can overstate genuine demand and liquidity,SEC press release 2023-59
+2021-01 onward,Celebrity touting campaign,Justin Sun; Rainberry; TRX; BTT,At least one million followers for each cited celebrity promoter,Promotion risk when social attention coincides with abnormal volume,SEC complaint paragraphs 179-181
+2023-03-22,SEC enforcement action filed,SEC; Justin Sun; Tron Foundation; BitTorrent Foundation; Rainberry,Market manipulation and related claims announced,Regulatory confirmation that wash trading was central to the case,SEC press release 2023-59
+2026-03-09,Final judgment entered,Rainberry,10000000 USD civil penalty,Settlement without admitting or denying allegations; penalty attached to Rainberry wash-trading claim,Public docket copy of final judgment
