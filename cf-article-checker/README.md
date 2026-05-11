@@ -4,7 +4,7 @@ Migrated from the Python GitHub Actions workflow (`.github/workflows/article-che
 
 ## Architecture
 
-```
+```text
 GitHub Issue Comment Webhook
   → Cloudflare Worker (Hono)
     → Permission check (REVIEWERS list)
@@ -49,7 +49,7 @@ npm run deploy
 2. Payload URL: `https://cf-article-checker.<your-subdomain>.workers.dev/webhook`
 3. Content type: `application/json`
 4. Events: Select "Issue comments" only
-5. Secret: `WEBHOOK_SECRET` (required — used to verify `X-Hub-Signature-256` HMAC)
+5. Secret: `WEBHOOK_SECRET` (**required** — used to verify `X-Hub-Signature-256` HMAC. Worker rejects all unsigned requests.)
 
 ## Testing
 
@@ -71,7 +71,7 @@ Comment `/articlecheck` on any pull request to trigger the automated review. Onl
 
 ## File Structure
 
-```
+```text
 cf-article-checker/
 ├── src/
 │   └── index.ts          # Main worker: webhook handler + Claude/Search pipeline

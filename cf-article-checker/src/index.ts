@@ -492,11 +492,15 @@ app.post("/webhook", async (c) => {
   const signature = c.req.header("X-Hub-Signature-256");
   const secret = c.env.WEBHOOK_SECRET;
 
-  if (secret) {
-    const valid = await verifyWebhookSignature(rawBody, signature, secret);
-    if (!valid) {
-      return c.text("Invalid signature", 401);
-    }
+  if (!secret) {
+    return c.text("WEBHOOK_SECRET not configured", 500);
+  }
+  if (!signature) {
+    return c.text("Missing X-Hub-Signature-256 header", 401);
+  }
+  const valid = await verifyWebhookSignature(rawBody, signature, secret);
+  if (!valid) {
+    return c.text("Invalid signature", 401);
   }
 
   let payload: GitHubCommentEvent;
