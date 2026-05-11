@@ -82,7 +82,8 @@ def save_data(data: str, directory: str, marketvenueid: str, pairid: str, start:
     Saves data to a JSON file in the specified directory.
     """
     os.makedirs(directory, exist_ok=True)
-    new_file_name = f'{directory}{marketvenueid}_{pairid}_{start.replace(":", "-")}_{end.replace(":", "-")}.json'
+    filename = f'{marketvenueid}_{pairid}_{start.replace(":", "-")}_{end.replace(":", "-")}.json'
+    new_file_name = os.path.join(directory, filename)
     with open(new_file_name, 'w', encoding='utf-8') as file:
         file.write(data)
 
@@ -191,3 +192,4 @@ def main():
 
     except Exception as e:
         print(f"Error occurred: {e}")
+        raise

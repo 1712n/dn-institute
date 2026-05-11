@@ -17,7 +17,7 @@ Follow this workflow before writing:
    - Medium: one metric is abnormal but other metrics are neutral or missing.
    - Weak: abnormality is isolated, noisy, or not quantified.
 4. Build the article around the strongest metric cluster first.
-5. If no strong anomaly exists, write a short report explaining that the data does not show clear evidence of manipulation.
+5. If no strong anomaly exists, write a short report explaining that the data does not show clear evidence of manipulation. In this low-evidence path, the short report overrides the normal 3-6 numbered findings requirement: use one brief summary paragraph only, with no numbered findings, no list, and no extra sections.
 
 Metric interpretation guide:
 
@@ -28,7 +28,7 @@ Volume-volatility correlation (`vvcorrelation`)
 First-digit distribution (`firstdigitdist`) and Benford test (`benfordlawtest`)
 - Suspicious signal: first-digit distribution deviates from Benford expectations and the K-S test value exceeds the critical value.
 - Interpretation: non-natural digit patterns can suggest generated, filtered, or manipulated trade records.
-- Required calculation: the K-S critical value is `1.36 / sqrt(tradecount)`. Mention this comparison only if the required values exist.
+- Required calculation: the K-S critical value is `1.36 / sqrt(tradecount)`. Mention this comparison only if `tradecount` exists, `tradecount > 0`, and the other required values exist.
 
 Volume distribution (`volumedist`)
 - Suspicious signal: distribution does not resemble a power-law pattern, shows unusual whale concentration, or lacks ordinary small and medium trades.
@@ -61,7 +61,8 @@ Front matter between --- markers:
 
 Article body:
 - Start with `## Summary`.
-- Include 3-6 numbered findings.
+- Include 3-6 numbered findings when strong or medium evidence exists.
+- If there is no strong anomaly or the evidence is only weak/mixed, follow the short report exception above instead of forcing numbered findings.
 - Include `## Metrics used`.
 - For each metric section, state:
   - what was observed;
