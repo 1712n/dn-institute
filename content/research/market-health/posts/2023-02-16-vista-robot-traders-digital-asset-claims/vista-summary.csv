@@ -1,0 +1,14 @@
+event_date,event,entities,reported_metric,market_health_signal,source
+2017,Vista founded,Vista Network Technologies; Armen Temurian,CFTC complaint said Temurian co-founded Vista in mid-2017,Founder and entity controls needed registration review,CFTC complaint
+2017-08,Website launched,Vista; vista.network,CFTC complaint said Vista launched its website by August 2017,Website claims became the primary solicitation surface,CFTC complaint
+2017-09,Relevant solicitation period begins,Vista; Armen Temurian,CFTC alleged Vista began soliciting investors for the digital asset commodity scheme by September 2017,Customer wallet inflows needed custody tracing,CFTC complaint
+2017-09 to 2018-01,Digital asset deposits collected,Vista; Bitcoin; Ether,CFTC alleged investors transferred more than 750 BTC and more than 2000 ETH to Vista-controlled wallets,Deposit scale required blockchain and trade-record matching,CFTC complaint
+2017-09 to 2018-01,U.S. investor deposits collected,Vista; U.S.-based investors,CFTC alleged about 165 BTC and 800 ETH came from U.S.-based investors,U.S. flows needed customer-level accounting,CFTC complaint
+2017,Automated trading return marketed,Vista; Robot Traders,CFTC alleged Vista promised automated trading and a 2.5 percent daily return,Algorithm claims needed order logs and venue records,CFTC complaint
+2017,Investor-doubling claim marketed,Vista; Bitcoin; Ether,CFTC alleged Vista claimed bitcoin and ether could double within 80 days,Doubling claims needed realized trading evidence,CFTC complaint
+2017-12,Network marketing video used,Vista; Armen Temurian; Network Marketer A,CFTC complaint described a December 2017 marketing video using Vista materials and daily-return claims,Recruiting channels needed separation from proof of performance,CFTC complaint
+2018-01,Return language changed,Vista; Armen Temurian,CFTC complaint said Temurian discussed replacing fixed-return wording with variable daily benefits,Language changes did not substitute for execution records,CFTC complaint
+2018,Mini-miner product promoted,Vista; VistaLive; mini-miner,CFTC alleged Vista offered a mini-miner product after some investors questioned missing returns,Product pivot required independent technical verification,CFTC complaint
+2022-09-06,Under-oath testimony,Vista; Armen Temurian,CFTC complaint said Temurian admitted Vista never traded for customers,No-trade admission broke the trading-return narrative,CFTC complaint
+2023-02-15,CFTC complaint filed,CFTC; Vista; Armen Temurian,CFTC filed complaint alleging fraud and misappropriation involving bitcoin and ether,Public enforcement challenged the trading and mining claims,CFTC complaint
+2023-02-16,CFTC charges announced,CFTC; Vista; Armen Temurian,CFTC announced charges alleging over 7 million USD worth of customer bitcoin and ether was solicited,Public release summarized investor harm and requested remedies,CFTC press release 8660-23
