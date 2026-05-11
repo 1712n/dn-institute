@@ -79,6 +79,18 @@ Before trusting a high-volume crypto market, ask:
 
 A market with high reported volume but weak answers to these questions should be treated as a liquidity-risk candidate.
 
+## Related Market Health metrics
+
+This checklist maps to existing Market Health metric documentation:
+
+- [Time-of-trade clustering](../../../docs/time-of-trade/) helps identify mechanical activity rhythms.
+- [Volume distribution](../../../docs/volumedist/) helps compare trade-size patterns across venues.
+- [VWAP](../../../docs/vwap/) helps test whether reported flow contributes to plausible price discovery.
+- [Buy/sell balance](../../../docs/buy-sell/) helps compare directional flow with observed price behavior.
+- [Benford-style checks](../../../docs/benford/) can be used as weak anomaly screens, not standalone proof.
+
+These signals are most useful when they agree with each other and when analysts also document alternative explanations such as fee incentives, market-maker programs, listing campaigns, or regional trading-hour effects.
+
 ## How different users can respond
 
 ### Retail users
