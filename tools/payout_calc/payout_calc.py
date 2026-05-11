@@ -21,9 +21,7 @@ def parse_cli_args():
     parser.add_argument(
         "--pull-url", dest="pull_url", help="GitHub pull URL", required=True
     )
-    parser.add_argument(
-        "--github-token", dest="github_token", help="GitHub token", required=True
-    )
+    parser.add_argument("--github-token", dest="github_token", help="GitHub token")
     parser.add_argument(
         "-r", "--rate", dest="rate", help="Payout rate value", type=int, required=False
     )
@@ -33,7 +31,15 @@ def parse_cli_args():
     parser.add_argument(
         "-f", "--fixed", dest="fixed", help="Fixed payout value", type=float, required=False
     )
-    return parser.parse_args()
+    args = parser.parse_args()
+    args.github_token = (
+        args.github_token
+        or os.environ.get("GITHUB_TOKEN")
+        or os.environ.get("GH_TOKEN")
+    )
+    if not args.github_token:
+        parser.error("--github-token is required unless GITHUB_TOKEN or GH_TOKEN is set")
+    return args
 
 args = parse_cli_args()
 

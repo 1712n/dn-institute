@@ -57,7 +57,7 @@ jobs:
           _params="${_action#*/payout}"
           read -r -a _tokens <<< "$_params"
 
-          _args=(poetry run payout-calc --pull-url "$PULL_URL" --github-token "$GH_TOKEN")
+          _args=(poetry run payout-calc --pull-url "$PULL_URL")
           _i=0
           while [[ $_i -lt ${#_tokens[@]} ]]; do
             case "${_tokens[$_i]}" in
@@ -73,6 +73,11 @@ jobs:
                 _i=$((_i + 2))
                 ;;
               --rate=*|--multiplier=*|--fixed=*)
+                _value="${_tokens[$_i]#*=}"
+                if [[ -z "$_value" ]]; then
+                  echo "Missing value for ${_tokens[$_i]%%=*}"
+                  exit 1
+                fi
                 _args+=("${_tokens[$_i]}")
                 _i=$((_i + 1))
                 ;;
