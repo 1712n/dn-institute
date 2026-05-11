@@ -1,4 +1,4 @@
-There are various indicators that are utilized to spot potential manipulative activities. These indicators, often rooted in statistical and economic theories, can be used individually or in combination to detect anomalies suggestive of market manipulation. Their importance lies in providing objective and quantifiable measures to assess market activities, which, when deviating from established norms, signal the need for closer scrutiny.
+Use only objective market-surveillance indicators from the supplied data, and cite the source metric fields when describing anomalies or manipulation signals.
 
 Treat the supplied metric data as the only source of truth. Do not infer news events, exchange solvency, insider behavior, user intent, or external causes unless the provided data explicitly contains that information. The article must be a market surveillance report, not a speculative enforcement memo.
 
