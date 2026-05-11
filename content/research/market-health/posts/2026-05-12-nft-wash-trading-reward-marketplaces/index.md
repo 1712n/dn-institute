@@ -89,6 +89,26 @@ Dune's published marketplace breakdown is not enough to compute every term of th
 
 The table is intentionally conservative because it ignores same-token round trips, funding overlap, counterparty concentration, reward sensitivity, and ranking impact. LooksRare and X2Y2 already reach yellow-zone lower bounds with only two variables. If the omitted graph variables are added, their final score would likely move closer to the red threshold.
 
+The calculation worksheet is included in [marketplace-score-lower-bound.csv](marketplace-score-lower-bound.csv). It keeps source fields and derived fields separate so reviewers can replace the Dune inputs with another dataset and reproduce the same scoring logic.
+
+### Reproducibility protocol
+
+The score can be reproduced from a marketplace trade table with the following minimum schema: `tx_hash`, `block_time`, `marketplace`, `collection`, `token_id`, `seller`, `buyer`, `price_usd`, `seller_first_funder`, `buyer_first_funder`, `reward_epoch`, and `is_reward_eligible`.
+
+1. Normalize NFT identity as `collection + token_id` and deduplicate repeated event logs inside the same transaction.
+2. Build a suspicious-trade flag set rather than one binary flag:
+   - `self_trade`: buyer equals seller.
+   - `same_token_round_trip`: the same NFT returns to a prior holder within a short rolling window.
+   - `common_funder`: buyer and seller were first funded by the same address.
+   - `seller_funded_buyer`: seller funded the buyer before the trade.
+   - `repeat_pair`: the same buyer/seller pair repeats across the same collection with little counterparty diversity.
+3. Create filtered volume by excluding trades with at least one suspicious flag. Keep the individual flag counts visible so the result can be challenged category by category.
+4. Compute marketplace-level scores by grouping on `marketplace`, and collection-level scores by grouping on `marketplace + collection`.
+5. Compare reward windows against adjacent non-reward windows. Reward sensitivity should only count when volume rises faster than unique buyer count.
+6. Publish both raw and filtered rankings. A marketplace or collection whose rank changes sharply after filtering should be prioritized for manual review.
+
+This workflow matters because a single threshold can be gamed. If a trader avoids buyer-equals-seller detection, funding overlap and round-trip features can still identify the cluster. If a trader avoids common funding, same-token repetition and counterparty concentration still expose non-organic behavior.
+
 ## Practical implications
 
 For analysts, the key lesson is that volume is not liquidity unless the counterparties are economically independent. LooksRare and X2Y2 showed how quickly a reward design can turn volume into a target to optimize rather than a measurement of demand. Public dashboards should therefore publish both raw and filtered statistics, explain the filtering rules, and make suspicious categories auditable.
@@ -97,7 +117,7 @@ For marketplaces, reward programs should avoid paying users for raw volume witho
 
 For buyers, wash-traded sale history can create a false signal of demand and price support. A collection with high volume but low unique ownership growth, repeated high-value transfers, or a narrow set of counterparties should be treated cautiously. The same warning applies to marketplace comparisons: raw volume can make a venue appear healthier than its organic user base.
 
-The supporting source tables for this article are available in [source-metrics.csv](source-metrics.csv) and [marketplace-wash-share.csv](marketplace-wash-share.csv).
+The supporting source tables for this article are available in [source-metrics.csv](source-metrics.csv), [marketplace-wash-share.csv](marketplace-wash-share.csv), and [marketplace-score-lower-bound.csv](marketplace-score-lower-bound.csv).
 
 ## References
 
