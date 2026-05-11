@@ -1,0 +1,9 @@
+event_date,event,entities,reported_metric,market_health_signal,source
+2023-02-06,Alleged scheme period begins,Aipu; Fidefx; Qian Bai; Lan Bai; Chao Li,CFTC alleged the common enterprise operated from about February 6 2023,Fund routing required immediate custody checks,CFTC press release
+2023,Customers fund purported accounts,Aipu; Fidefx,Customers allegedly funded trading accounts through Aipu or Fidefx websites,Deposits needed registered-account reconciliation,CFTC press release
+2023,Messaging-app solicitation,Aipu; Fidefx; solicitors,Solicitors allegedly used WeChat WhatsApp Line and social media,Messaging channels created trust outside regulated onboarding,CFTC press release
+2023,Per-trade profit claims,Aipu; Fidefx,Solicitors allegedly claimed 10 to 30 percent profits per trade,High returns required trade-level verification,CFTC press release
+2023,Profitable statements displayed,Aipu; Fidefx,Customers allegedly saw online statements showing deposits and profitable trading,Platform statements became synthetic market data,CFTC press release
+2023,Private wallet and bank routing,Aipu; Fidefx; defendants,Customers allegedly transferred fiat and digital assets through affiliated bank accounts and private wallets,Private routing replaced registered custody controls,CFTC press release
+2023,Offshore transfers alleged,Aipu; Fidefx,CFTC alleged assets were transferred offshore to non-trading accounts,Fund flow contradicted represented trading use,CFTC press release
+2024-09-27,CFTC action announced,CFTC; Aipu; Fidefx,CFTC announced allegations of at least 3.6 million USD misappropriated from at least 32 customers,Public enforcement quantified platform-statement risk,CFTC press release
