@@ -49,6 +49,11 @@ function isValidTextEntry(value: unknown): value is TextEntry {
     && typeof entry.namespace === "string" && entry.namespace.length > 0
 }
 
+function isEmbeddingVector(value: unknown): value is number[] {
+  return Array.isArray(value)
+    && value.every((entry) => typeof entry === "number" && Number.isFinite(entry))
+}
+
 async function readJson<T>(request: Request): Promise<T | null> {
   try {
     return await request.json<T>()
@@ -65,7 +70,13 @@ async function embedTexts(ai: Ai, texts: string[]): Promise<number[][]> {
     throw new Error("Embedding response size did not match request size")
   }
 
-  return embeddings as number[][]
+  return embeddings.map((embedding, index) => {
+    if (!isEmbeddingVector(embedding)) {
+      throw new Error(`Embedding response contained invalid vector at index ${index}`)
+    }
+
+    return embedding
+  })
 }
 
 async function querySimilarity(env: Env, item: TextEntry, vector: number[]): Promise<BatchResult> {
@@ -100,10 +111,14 @@ app.post("/", async (c) => {
     return c.text("Invalid JSON format", 400)
   }
 
-  const [vector] = await embedTexts(c.env.AI, [data.text])
-  const result = await querySimilarity(c.env, data, vector)
+  try {
+    const [vector] = await embedTexts(c.env.AI, [data.text])
+    const result = await querySimilarity(c.env, data, vector)
 
-  return c.json(result)
+    return c.json(result)
+  } catch (error) {
+    return c.text(error instanceof Error ? error.message : "Similarity lookup failed", 502)
+  }
 })
 
 app.post("/batch", async (c) => {

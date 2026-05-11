@@ -53,6 +53,23 @@ describe("Similarity search", () => {
     expect(await response.text()).toBe("Invalid JSON format")
   })
 
+  it("returns 502 when the single lookup embedding response is invalid", async () => {
+    const response = await SELF.fetch("https://example.com/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-Key": "test-api-key"
+      },
+      body: JSON.stringify({
+        text: "invalid-embedding",
+        namespace: "test-namespace"
+      })
+    })
+
+    expect(response.status).toBe(502)
+    expect(await response.text()).toBe("Embedding response contained invalid vector at index 0")
+  })
+
   it("processes multiple text entries in request order", async () => {
     const response = await SELF.fetch("https://example.com/batch", {
       method: "POST",
@@ -87,6 +104,24 @@ describe("Similarity search", () => {
         "X-API-Key": "test-api-key"
       },
       body: JSON.stringify({ items: [] })
+    })
+
+    expect(response.status).toBe(400)
+    expect(await response.text()).toBe("Batch size must be between 1 and 100")
+  })
+
+  it("rejects batch requests over the maximum size", async () => {
+    const items = Array.from({ length: 101 }, (_, index) => ({
+      text: `Text ${index}`,
+      namespace: "test-namespace"
+    }))
+    const response = await SELF.fetch("https://example.com/batch", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-Key": "test-api-key"
+      },
+      body: JSON.stringify({ items })
     })
 
     expect(response.status).toBe(400)

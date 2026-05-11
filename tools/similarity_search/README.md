@@ -1,11 +1,11 @@
-```
+```bash
 npm install
 npm run dev
 ```
 
 Single lookup:
 
-```
+```bash
 curl -X POST http://localhost:8787/ \
   -H "Content-Type: application/json" \
   -H "X-API-Key: $API_KEY_TOKEN_CHECK" \
@@ -14,7 +14,7 @@ curl -X POST http://localhost:8787/ \
 
 Batch lookup:
 
-```
+```bash
 curl -X POST http://localhost:8787/batch \
   -H "Content-Type: application/json" \
   -H "X-API-Key: $API_KEY_TOKEN_CHECK" \
@@ -23,6 +23,6 @@ curl -X POST http://localhost:8787/batch \
 
 The batch endpoint accepts 1 to 100 items, embeds all texts in one Workers AI request, and queries Vectorize in bounded parallel chunks.
 
-```
+```bash
 npm run deploy
 ```

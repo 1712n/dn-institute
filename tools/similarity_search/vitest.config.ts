@@ -27,7 +27,9 @@ export default defineWorkersConfig({
                 return {
                   run: async (model, data) => {
                     return Promise.resolve({
-                      data: data.text.map((text, index) => [index + 1, text.length])
+                      data: data.text.map((text, index) =>
+                        text === "invalid-embedding" ? ["bad"] : [index + 1, text.length]
+                      )
                     });
                   }
                 };
