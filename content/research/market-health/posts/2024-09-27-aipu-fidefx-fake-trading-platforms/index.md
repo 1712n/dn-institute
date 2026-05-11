@@ -11,9 +11,9 @@ entities:
 
 ## Summary
 
-This case study analyzes Aipu and Fidefx as market-health warnings about fake commodity and digital-asset trading platforms that show profitable account statements without any corresponding trading infrastructure. On September 27, 2024, the CFTC announced a civil enforcement action against Aipu Limited, Qian Bai, Lan Bai, Fidefx Investments Limited, and Chao Li.
+This case study analyzes Aipu and Fidefx as market-health warnings about fake commodity and digital-asset trading platforms that show profitable account statements without any corresponding trading infrastructure. On September 27, 2024, the CFTC announced a civil enforcement action against Aipu Limited, Qian Bai, Lan Bai, Fidefx Investments Limited, and Chao Li. On July 24, 2025, the CFTC announced that the Western District of Washington had resolved all CFTC claims in the case.
 
-The CFTC complaint alleged that, from approximately February 6, 2023 to the filing period, defendants acting as a common enterprise fraudulently solicited and misappropriated at least $3.6 million from at least 32 customers. The alleged products included leveraged or margined retail commodity transactions, off-exchange retail foreign currency contracts, commodity futures contracts, and digital assets.
+The CFTC complaint alleged that, from approximately February 6, 2023 to the filing period, defendants acting as a common enterprise fraudulently solicited and misappropriated at least $3.6 million from at least 32 customers. The later resolution release said the court found at least $3,630,849 misappropriated from at least 34 customers, ordered $4,621,056 restitution and a $13,863,170 civil monetary penalty against Qian Bai, Li, Aipu, and Fidefx, and separately ordered Lan Bai to pay $233,178 restitution and a $699,534 civil monetary penalty. The alleged products included leveraged or margined retail commodity transactions, off-exchange retail foreign currency contracts, commodity futures contracts, and digital assets.
 
 The market-health problem was a false-account-statement loop. Customers allegedly funded purported trading accounts through Aipu or Fidefx websites after direct funding or solicitor contact. They then saw online account statements showing deposits and profitable trading. The CFTC said those statements were false, neither platform had U.S. trading accounts receiving customer funds, no trading took place on behalf of customers, and assets were transferred offshore to non-trading accounts.
 
@@ -28,6 +28,8 @@ The CFTC release described two websites with identical design operating under di
 The core break was account custody. The CFTC said neither Aipu nor Fidefx had U.S. trading accounts to which customer funds were sent. It also said defendants did not have commodity interest trading accounts, did not use customer assets to margin, guarantee, or secure trades for customers, and misappropriated all accepted assets. That means customer account statements could not be treated as market records.
 
 The fund-routing pattern made the risk visible. The CFTC said customers were directed to transfer fiat and digital assets through a series of bank accounts and private digital wallets affiliated with defendants, and that none of these accounts were held or controlled by a CFTC-registered futures commission merchant or retail foreign currency dealer. Instead, assets were allegedly transferred offshore to non-trading accounts controlled by persons outside the United States.
+
+The July 2025 resolution made the restitution gap explicit. The court ordered monetary remedies and trading and registration bans, but the CFTC cautioned that repayment orders may not produce recovered funds if wrongdoers lack sufficient assets. That is important for market-health reviewers: once customer funds have moved from private wallets to offshore non-trading accounts, later court remedies may confirm liability without restoring liquidity.
 
 ## False Market Signals
 
@@ -67,19 +69,24 @@ The CFTC alleged immediate transfers to offshore non-trading accounts. Offshore 
 | 2023 onward             | Customer assets allegedly moved through bank accounts and private digital wallets.           | Private routing replaced regulated futures or retail forex custody.          |
 | 2023 onward             | Assets allegedly moved offshore to non-trading accounts.                                     | Fund flow contradicted the represented trading use.                          |
 | September 27, 2024      | CFTC announced the civil enforcement action against Aipu, Fidefx, and individual defendants. | Public enforcement quantified at least $3.6 million and at least 32 victims. |
+| May 22, 2025            | Court entered default judgment against Qian Bai, Li, Aipu, and Fidefx, according to CFTC.    | Restitution, penalties, and trading bans followed the fake-platform finding. |
+| July 14, 2025           | Court entered an order against Lan Bai, according to CFTC.                                   | Consent resolution added further restitution, penalty, and market bans.      |
+| July 24, 2025           | CFTC announced that all claims in the September 2024 complaint had been resolved.            | Final outcome quantified at least $3,630,849 and at least 34 customers.      |
 
 ## Reconciliation Metrics
 
-| Metric                    | Enforcement-record figure                                                | Market-health interpretation                                         |
-| ------------------------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------- |
-| Alleged misappropriation  | At least $3.6 million                                                    | Customer funds required tracing to trading accounts or wallets.      |
-| Alleged customer count    | At least 32 customers                                                    | Multiple customers saw the same false-account pattern.               |
-| Claimed per-trade profits | 10 percent to 30 percent                                                 | Return claims required trade-level verification and legality checks. |
-| Claimed activity          | Leveraged commodity, retail forex, commodity futures, and digital assets | Needed registered intermediaries, margin records, orders, and P&L.   |
-| Platform-account evidence | Online statements showing deposits and profitable trading                | Platform-generated statements were not independent market records.   |
-| Trading-account reality   | CFTC said no customer trading took place at Aipu or Fidefx               | Displayed profits failed the venue reconciliation test.              |
-| Custody route             | Bank accounts and private wallets affiliated with defendants             | Funds were routed outside registered FCM/RFED control.               |
-| Destination risk          | Offshore non-trading accounts                                            | Fund flow contradicted the represented trading activity.             |
+| Metric                    | Enforcement-record figure                                                   | Market-health interpretation                                          |
+| ------------------------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Alleged misappropriation  | At least $3.6 million initially; at least $3,630,849 in the court finding   | Customer funds required tracing to trading accounts or wallets.       |
+| Alleged customer count    | At least 32 customers initially; at least 34 customers in the court finding | Multiple customers saw the same false-account pattern.                |
+| Claimed per-trade profits | 10 percent to 30 percent                                                    | Return claims required trade-level verification and legality checks.  |
+| Claimed activity          | Leveraged commodity, retail forex, commodity futures, and digital assets    | Needed registered intermediaries, margin records, orders, and P&L.    |
+| Platform-account evidence | Online statements showing deposits and profitable trading                   | Platform-generated statements were not independent market records.    |
+| Trading-account reality   | CFTC said no customer trading took place at Aipu or Fidefx                  | Displayed profits failed the venue reconciliation test.               |
+| Custody route             | Bank accounts and private wallets affiliated with defendants                | Funds were routed outside registered FCM/RFED control.                |
+| Destination risk          | Offshore non-trading accounts                                               | Fund flow contradicted the represented trading activity.              |
+| Default judgment remedies | $4,621,056 restitution and $13,863,170 civil monetary penalty               | Court-ordered amounts far exceeded the displayed account-story value. |
+| Lan Bai order             | $233,178 restitution and $699,534 civil monetary penalty                    | Individual role resolution added further monetary remedies.           |
 
 ## Detection Checklist
 
@@ -98,10 +105,11 @@ Aipu and Fidefx show how fake platforms can manufacture profitable account state
 
 The case also shows why payment rails matter. If customer funds move through private wallets or affiliated bank accounts rather than regulated trading accounts, the trading narrative should be suspended. A profitable statement does not cure a broken custody path.
 
-Finally, high per-trade profit claims should be evaluated as both market and compliance signals. A solicitor claiming inside information and 10 percent to 30 percent profits per trade is not only promising unusual performance; they may also be asking customers to rely on a claimed information advantage that lacks legal and market proof.
+Finally, high per-trade profit claims should be evaluated as both market and compliance signals. A solicitor claiming inside information and 10 percent to 30 percent profits per trade is not only promising unusual performance; they may also be asking customers to rely on a claimed information advantage that lacks legal and market proof. The 2025 orders reinforce the prevention lesson: restitution and penalties can document the fraud, but they may not recreate the liquidity that customers thought they had on the platform.
 
 ## References
 
 - [CFTC press release 8987-24, September 27, 2024](https://www.cftc.gov/PressRoom/PressReleases/8987-24)
+- [CFTC press release 9100-25, July 24, 2025](https://www.cftc.gov/PressRoom/PressReleases/9100-25)
 - [CFTC complaint against Aipu Limited et al.](https://www.cftc.gov/media/11341/enfaipucomplaint092724/download)
 - [CFTC fraud advisory: Avoid Forex, Precious Metals, and Digital Asset Romance Scams](https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/RomanceScam.html)
