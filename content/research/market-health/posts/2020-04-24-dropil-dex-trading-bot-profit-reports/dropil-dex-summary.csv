@@ -1,0 +1,9 @@
+event_date,event,entities,reported_metric,market_health_signal,source
+2017-late,DROP token offering launched,Dropil; Jeremy McAlpine; Zachary Matar; Patrick O'Hara,Dropil launched an unregistered offer and sale of DROPs on its website,Token demand was tied to the later Dex trading-bot narrative,SEC complaint
+2018-01-20,Dropil white paper published,Dropil; Dex,White paper described Dex as an automated digital asset trading bot with portfolio balancing,Automated-strategy claims require trade-level evidence,SEC complaint
+2018-01 to 2018-03,ICO phase,Dropil; DROP token,Dropil claimed investor funds would be pooled to trade digital assets through Dex,Pooled trading claims require venue and custody reconciliation,SEC litigation release 24804
+2018-01 to 2020-03,DROP sales period,Dropil; founders,SEC alleged more than 2.5 million USD raised through the sale of DROP tokens,Continuing offering metrics should reconcile to token-sale and wallet records,SEC complaint
+ICO phase,Claimed sale scale,Dropil,"Dropil allegedly claimed 54 million USD from 34000 investors",Inflated sale metrics can overstate market depth and adoption,SEC complaint
+ICO phase,Actual sale scale alleged by SEC,Dropil,"SEC alleged less than 1.9 million USD from 2472 investors",Actual sale metrics contradicted the public scale narrative,SEC complaint
+ICO phase,Founder transfers,McAlpine; Matar; O'Hara,Approximately 1.4 million USD allegedly transferred to founders' personal digital asset accounts,Fund-flow review should verify whether proceeds went to trading venues or insiders,SEC complaint
+2020-04-24,SEC charges announced,SEC; Dropil; McAlpine; Matar; O'Hara,SEC alleged fake Dex profitability reports and no record Dex operated or generated trading profits,Fabricated performance reports create synthetic trading evidence,SEC litigation release 24804
