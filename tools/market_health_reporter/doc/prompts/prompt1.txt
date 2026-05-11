@@ -62,21 +62,44 @@ Concurrent Irregularities in First-Digit Distribution and K-S Test: Significant 
 Inconsistencies in VWAP and Buy/Sell Ratio: A substantial difference between VWAP and market prices, along with abnormal Buy/Sell Ratios, could signify price manipulation. Traders might be attempting to influence the perceived average price through strategic buying or selling.
 Correlation between Time-of-Trade and Buy/Sell Ratio Anomalies: If the Time-of-Trade metric shows high frequency or evenly distributed trades, and the Buy/Sell Ratio deviates significantly from the 0.4-0.6 range, this might suggest automated trading systems are in play. This could be an attempt to influence market prices or create false market sentiment.
 
-Create an article with the results of your analysis. The article should include:
-- Fields between --- and ---:
-    - 'date'
-        The content of this field must match the format YYYY-MM-DD — YYYY-MM-DD, where the first date is the start of the analysis period, and the second date is the end of the analysis period.
-        Example: '2023-10-02 — 2023-10-08'
-    - 'entities'
-        The content of this field should include entities implicated in wash trading. Example: 'Huobi, HT, TRX, DOGE'
-    - 'title'
-        The content of this field should include the title of the article. Example: 'Uncovering Wash Trading and Market Manipulation on Huobi'
+Create an article with the results of your analysis. The article must follow this exact structure:
 
-Also, follow the example in the <example> </example> tags. Please, put into the article only the information from the data provided. 
-You can create placeholders for illustrations in the article, as in this example: `{{< figure src="volume_hist.png" alt="ht-usdt volume dist" caption="Volume distribution" loading="lazy" >}}`.
-Allowed names for illustrations:
+## Required YAML Front Matter
+Place fields between --- and --- at the top of the article:
+- `date`: Analysis period in format `YYYY-MM-DD — YYYY-MM-DD` (start — end)
+- `entities`: List all entities implicated in anomalies (exchange, tokens)
+- `title`: Descriptive title following the pattern "Uncovering [anomaly type] on [exchange]"
+
+## Required Sections (in order)
+
+### 1. Summary
+A numbered list of 4-6 key findings. Each point should be a concise, bold-highlighted statement summarizing one major finding. This section must appear first, before any detailed analysis.
+
+### 2. Metrics Used
+Organize into subsections, one per relevant metric. Order by significance: lead with the metric showing the strongest anomaly. Each subsection must contain:
+
+**Structure per metric:**
+- A brief description of what the metric measures and why it matters
+- Specific findings with timestamps and quantitative values (e.g., "the VV correlation dropped to 0.15 between June 15-20")
+- A figure placeholder using the Hugo shortcode format
+- Clear conclusion: does this metric indicate manipulation or not?
+
+**Figure placement rules:**
+- Place each figure immediately after the text that references it
+- Use this exact shortcode format: `{{< figure src="FILENAME.png" alt="DESCRIPTION" caption="CONTEXT" loading="lazy" >}}`
+- Every figure must have `alt` and `caption` attributes
+- Use `loading="lazy"` on all figures except the first one in each section
+
+**Allowed illustration filenames:**
 - volume_hist.png
 - crypto_metrics.png
 - benford_law.png
 - vv_correlation.png
-Place the article into the <article> </article> tags.
+
+## Quality Rules
+- Reference only data from the provided dataset. Do not invent metrics or values.
+- If a metric shows no anomaly, state this briefly and move on. Do not force findings.
+- Include specific timestamps (dates, hours) as evidence for every anomaly claim.
+- Follow the example article's structure and tone. The example is in the <example> </example> tags.
+
+Place the complete article into <article> </article> tags.
