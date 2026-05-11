@@ -13,6 +13,8 @@ entities:
 
 This case study analyzes IcomTech as a market-health warning about online return portals that simulate profitable crypto mining and trading. DOJ described IcomTech as a purported cryptocurrency mining and trading company that promised guaranteed daily returns to investors. In the December 3, 2024 sentencing release for David Brend and Gustavo Rodriguez, DOJ said IcomTech did not engage in cryptocurrency trading or mining for investors, while victim funds were used to pay other victims, promote the scheme, and enrich promoters.
 
+On December 11, 2024, the CFTC announced final civil orders against David Carmona, Marco Ruiz Ochoa, and Juan Tacuri. The CFTC said the orders required more than $1 million in restitution and $4 million in civil monetary penalties in connection with the IcomTech digital asset commodity scheme, and permanently banned the defendants from CFTC-regulated markets and registration.
+
 The market-health problem was a dashboard-liquidity loop. Victims purchased investment products, saw purported profits accumulate in an online portal, struggled to withdraw, and were later offered proprietary "Icoms" tokens as a supposed liquidity path. In market terms, the portal converted unverifiable mining and trading claims into displayed balances, while the token sale converted withdrawal stress into a new market-facing claim.
 
 The supporting dataset is available in [icomtech-summary.csv](icomtech-summary.csv).
@@ -24,6 +26,8 @@ IcomTech can be tested with a portal-to-cash model. If a company claims that cry
 The fraud signal became stronger when IcomTech moved from return displays to proprietary token claims. As complaints mounted, DOJ said IcomTech began offering "Icoms" tokens as a way to inject liquidity into the scheme, with promoters claiming the tokens would become valuable when accepted for goods and services. DOJ said that was false and that the tokens were essentially worthless. That sequence matters for market-health analysis because it shows how a failed withdrawal system can be reframed as a token-market opportunity.
 
 The later criminal outcome confirms the portal's evidentiary weakness. Brend and Rodriguez were convicted after trial and sentenced to 10 years and eight years in prison, respectively. Rodriguez was described as the architect of the sham website and portal, while Brend was described as a face-to-face salesman. For reviewers, the useful lesson is that platform balances, daily return percentages, and proprietary tokens are all claims until they survive reconciliation against external mining, trading, wallet, and withdrawal records.
+
+The CFTC orders add the civil commodity-law measurement. The Carmona and Tacuri default-judgment orders and Ochoa consent order tied the same daily-return and sham-digital-asset-commodity narrative to restitution, civil penalties, and market bans. That matters because a portal fraud can create both criminal liability and commodity-pool customer-redress obligations.
 
 ## False Market Signals
 
@@ -49,16 +53,17 @@ The Icom token converted a cash-out problem into a future-utility story. A token
 
 ## Event Timeline
 
-| Date or period   | Event                                                                                           | Market-health signal                                                     |
-| ---------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| Mid-2018         | IcomTech launched as a purported cryptocurrency mining and trading company.                     | Mining/trading claims required external proof from venues and wallets.   |
-| Mid-2018         | Victims purchased investment products through promoters.                                        | Investor funds entered a platform-controlled return system.              |
-| Mid-2018 onward  | IcomTech promised guaranteed daily returns from crypto mining and trading.                      | Fixed daily return claims conflicted with normal market variability.     |
-| August 2018      | DOJ said victims attempting withdrawals had difficulty and received excuses, delays, and fees.  | Withdrawal friction challenged the meaning of displayed portal profits.  |
-| 2018-2019        | Victims saw purported profits accumulate in online portal accounts.                             | Dashboard balances needed reconciliation to real mining/trading records. |
-| 2019             | IcomTech offered proprietary Icoms tokens as a claimed liquidity path.                          | Token issuance reframed withdrawal stress as future token value.         |
-| End of 2019      | DOJ said IcomTech stopped making payments to victims and collapsed.                             | Portal profits failed the redemption test.                               |
-| December 3, 2024 | DOJ announced 10-year and eight-year sentences for Brend and Rodriguez after trial convictions. | Criminal outcome confirmed the scheme's sham portal and return claims.   |
+| Date or period    | Event                                                                                           | Market-health signal                                                     |
+| ----------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Mid-2018          | IcomTech launched as a purported cryptocurrency mining and trading company.                     | Mining/trading claims required external proof from venues and wallets.   |
+| Mid-2018          | Victims purchased investment products through promoters.                                        | Investor funds entered a platform-controlled return system.              |
+| Mid-2018 onward   | IcomTech promised guaranteed daily returns from crypto mining and trading.                      | Fixed daily return claims conflicted with normal market variability.     |
+| August 2018       | DOJ said victims attempting withdrawals had difficulty and received excuses, delays, and fees.  | Withdrawal friction challenged the meaning of displayed portal profits.  |
+| 2018-2019         | Victims saw purported profits accumulate in online portal accounts.                             | Dashboard balances needed reconciliation to real mining/trading records. |
+| 2019              | IcomTech offered proprietary Icoms tokens as a claimed liquidity path.                          | Token issuance reframed withdrawal stress as future token value.         |
+| End of 2019       | DOJ said IcomTech stopped making payments to victims and collapsed.                             | Portal profits failed the redemption test.                               |
+| December 3, 2024  | DOJ announced 10-year and eight-year sentences for Brend and Rodriguez after trial convictions. | Criminal outcome confirmed the scheme's sham portal and return claims.   |
+| December 11, 2024 | CFTC announced final civil orders against Carmona, Ochoa, and Tacuri.                           | Civil orders added restitution, penalties, and market-access bans.       |
 
 ## Reconciliation Metrics
 
@@ -72,6 +77,9 @@ The Icom token converted a cash-out problem into a future-utility story. A token
 | Collapse period           | Payments stopped by about the end of 2019                                 | Return display failed when redemptions and new inflows broke down.     |
 | Sentencing outcome        | 10 years for Brend and eight years for Rodriguez                          | Later trial result validated the fraud theory for those defendants.    |
 | Forfeiture note           | Rodriguez ordered to pay $40,000 forfeiture, restitution to be determined | Personal proceeds and victim harm required court-ordered remedies.     |
+| CFTC civil restitution    | More than $1 million across Carmona, Ochoa, and Tacuri orders             | Civil redress measured customer harm from the digital asset scheme.    |
+| CFTC civil penalties      | $4 million across Carmona, Ochoa, and Tacuri orders                       | Penalties added deterrence beyond restitution.                         |
+| CFTC market bans          | Permanent trading and registration bans                                   | Final orders removed defendants from CFTC-regulated market activity.   |
 
 ## Detection Checklist
 
@@ -92,6 +100,7 @@ The Icoms token layer adds a second lesson. New tokens issued during withdrawal 
 
 ## References
 
+- [CFTC press release 9017-24, December 11, 2024](https://www.cftc.gov/PressRoom/PressReleases/9017-24)
 - [DOJ IcomTech sentencing release, December 3, 2024](https://www.justice.gov/usao-sdny/pr/two-defendants-sentenced-10-years-and-eight-years-prison-cryptocurrency-ponzi-scheme)
 - [DOJ IcomTech and Forcount charging release, December 14, 2022](https://www.justice.gov/usao-sdny/pr/us-attorney-announces-fraud-and-money-laundering-charges-against-founders-and-promoters)
 - [DOJ IcomTech indictment PDF](https://www.justice.gov/d9/press-releases/attachments/2022/12/14/icomtech_indictment_0.pdf)
