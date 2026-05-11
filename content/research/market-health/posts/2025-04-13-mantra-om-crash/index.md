@@ -169,7 +169,7 @@ The strongest future dataset would combine minute-level exchange deposits, tagge
 
 - [Lookonchain: OM exchange deposit analysis](https://www.lookonchain.com/feeds/9459)
 - [CoinDesk: Why Did Mantra's OM Plunge 90%?](https://www.coindesk.com/business/2025/04/14/nomura-s-laser-digital-denies-involvement-in-mantra-crash)
-- [Cointelegraph: Mantra says one particular exchange may have caused OM collapse](https://cointelegraph.com/news/mantra-speculates-one-exchange-in-particular-caused-token-to-dump)
+- [CoinMarketCap Academy: Mantra Token Plummets 90%, Team Blames Exchange Liquidations](https://coinmarketcap.com/academy/article/mantra-token-plummets-90percent-team-blames-exchange-liquidations-as-market-cap-shrinks-to-dollar683-million)
 - [The Block: MANTRA's crash sparks over $71 million in liquidations](https://www.theblock.co/post/350680/mantra-crash-liquidations)
 - [Decrypt: MANTRA CEO pledges team token burn after OM crash](https://decrypt.co/315077/mantra-ceo-pledges-to-burn-his-team-tokens-after-major-90-om-crash)
 - [Binance: Monitoring tag and seed tag risk framework](https://www.binance.com/en/support/announcement/binance-will-extend-the-monitoring-tag-to-include-more-tokens-997083adf6024cd1a3601b3e66f314a1)
