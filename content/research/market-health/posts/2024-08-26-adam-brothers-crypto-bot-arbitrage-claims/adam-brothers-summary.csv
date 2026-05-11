@@ -1,0 +1,8 @@
+event_date,event,entities,reported_metric,market_health_signal,source
+2023-01,Alleged scheme period begins,Jonathan Adam; Tanner Adam; GCZ Global; Triten Financial,SEC complaint alleged the scheme began in January 2023,Trading and fund-flow records needed preservation from launch,SEC press release 2024-107
+2023 to 2024-06,Bot and flash-loan claims promoted,Jonathan Adam; Tanner Adam,SEC alleged investors were told a bot would identify arbitrage opportunities and fund flash loans through smart contracts,Technical terms needed transaction-level proof,SEC press release 2024-107
+2023 to 2024-06,Investor funds raised,GCZ Global; Triten Financial,SEC alleged more than 60 million USD was raised from over 80 investors,Deposit scale required pool ledgers and asset tracing,SEC press release 2024-107
+2023 to 2024-06,High monthly return promoted,GCZ Global; Triten Financial,SEC complaint described potential monthly returns as high as 13.5 percent,Fixed high monthly returns required realized transaction proof,SEC complaint
+2023 to 2024-06,Bot and lending pool existence challenged,Jonathan Adam; Tanner Adam,SEC alleged no trading bot or lending pool existed,Core trading infrastructure failed existence checks,SEC press release 2024-107
+2023 to 2024-06,Personal purchases alleged,Jonathan Adam; Tanner Adam,SEC alleged at least 30 million USD for a Miami condominium and at least 480000 USD for recreational vehicles,Asset purchases contradicted strategy-funding claims,SEC press release 2024-107
+2024-08-26,SEC complaint filed,SEC; Adam defendants,SEC filed complaint in Northern District of Georgia and obtained emergency asset freezes,Public enforcement preserved assets and records,SEC press release 2024-107
