@@ -54,7 +54,7 @@ The DOJ's quantified figure of about $7 million in wash trades gives a known pos
 
 ### Spoofed liquidity
 
-Spoofing affects the pre-trade order book rather than only executed trades. The DOJ described more than $300 million in spoof trades placed through the bot. For detection, that is an order-book integrity problem: visible depth can look deep and orderly while the intent is to cancel, not trade.
+Spoofing affects the pre-trade order book rather than only executed trades. The DOJ described more than $300 million in spoof orders placed through the bot. For detection, that is an order-book integrity problem: visible depth can look deep and orderly while the intent is to cancel, not trade.
 
 Useful checks include:
 
@@ -82,14 +82,14 @@ The pattern is more concerning than wash trading alone because it gives the mani
 
 ## Enforcement timeline
 
-| Date                       | Event                                                                                                      | Market-health relevance                                                                   |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| January 2018               | Hydrogen created HYDRO and began distributing it through public programs and direct sales.                 | Token distribution created a public market while issuer-held inventory remained relevant. |
-| October 2018               | Hydrogen hired Moonwalkers Trading to provide automated market activity, according to SEC and DOJ records. | External "market making" became the alleged manipulation channel.                         |
-| October 2018 to April 2019 | DOJ evidence showed about $7 million in wash trades and more than $300 million in spoof orders.            | Executed volume and displayed depth were both affected.                                   |
-| September 28, 2022         | The SEC charged Hydrogen, former CEO Michael Kane, and Moonwalkers CEO Tyler Ostern.                       | Civil case framed the conduct as unregistered sales plus market manipulation.             |
-| April 2023 to May 2023     | SEC final judgments ordered disgorgement, interest, penalties, injunctions, and bars.                      | Civil outcome quantified monetary consequences and conduct restrictions.                  |
-| June 25, 2024              | DOJ announced prison sentences for Kane and Shane Hampton.                                                 | Criminal case confirmed the scheme as securities fraud and price manipulation.            |
+| Date                       | Event                                                                                                                                     | Market-health relevance                                                                   |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| January 2018               | Hydrogen created HYDRO and began distributing it through public programs and direct sales.                                                | Token distribution created a public market while issuer-held inventory remained relevant. |
+| October 2018               | Hydrogen hired Moonwalkers Trading to provide automated market activity, according to SEC and DOJ records.                                | External "market making" became the alleged manipulation channel.                         |
+| October 2018 to April 2019 | DOJ evidence showed about $7 million in wash trades and more than $300 million in spoof orders.                                           | Executed volume and displayed depth were both affected.                                   |
+| September 28, 2022         | The SEC charged Hydrogen, former CEO Michael Kane, and Moonwalkers CEO Tyler Ostern.                                                      | Civil case framed the conduct as unregistered sales plus market manipulation.             |
+| May 26, 2023               | SEC announced final consent judgments ordering disgorgement, interest, penalties, injunctions, and bars. See `manipulation-timeline.csv`. | Civil outcome quantified monetary consequences and conduct restrictions.                  |
+| June 25, 2024              | DOJ announced prison sentences for Kane and Shane Hampton.                                                                                | Criminal case confirmed the scheme as securities fraud and price manipulation.            |
 
 The companion CSV file, `manipulation-timeline.csv`, records the same timeline with source links for reuse in further analysis.
 
