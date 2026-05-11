@@ -39,15 +39,48 @@ jobs:
       - name: Install package
         run: pipx install poetry && poetry install --no-interaction
 
-      - name: Run script 
+      - name: Run script
+        env:
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          PULL_URL: ${{ github.event.issue.pull_request.url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Parse command from issue comment
-          _action=$(grep "/payout" <<< "${{ github.event.comment.body }}" | sed 's|.*/|/|')
-          _name="$(grep -o '/[^[:space:]]*' <<< "$_action")"
-          _params="$(sed 's/^[^ ]* *//' <<< "$_action")"
+          set -euo pipefail
 
-          # Note: This is potentially dangerous as the action string can be constructed to execute arbitrary code. 
-          eval "poetry run payout-calc \
-            --pull-url ${{ github.event.issue.pull_request.url }} \
-            --github-token ${{ secrets.GITHUB_TOKEN }} \
-            $_params"
+          # Parse command from issue comment
+          _action="$(grep -m 1 "/payout" <<< "$COMMENT_BODY" || true)"
+          if [[ -z "$_action" ]]; then
+            echo "No /payout command found."
+            exit 0
+          fi
+
+          _params="${_action#*/payout}"
+          read -r -a _tokens <<< "$_params"
+
+          _args=(poetry run payout-calc --pull-url "$PULL_URL" --github-token "$GH_TOKEN")
+          _i=0
+          while [[ $_i -lt ${#_tokens[@]} ]]; do
+            case "${_tokens[$_i]}" in
+              "")
+                _i=$((_i + 1))
+                ;;
+              -r|--rate|-x|--multiplier|-f|--fixed)
+                if [[ $((_i + 1)) -ge ${#_tokens[@]} ]]; then
+                  echo "Missing value for ${_tokens[$_i]}"
+                  exit 1
+                fi
+                _args+=("${_tokens[$_i]}" "${_tokens[$((_i + 1))]}")
+                _i=$((_i + 2))
+                ;;
+              --rate=*|--multiplier=*|--fixed=*)
+                _args+=("${_tokens[$_i]}")
+                _i=$((_i + 1))
+                ;;
+              *)
+                echo "Unsupported /payout argument: ${_tokens[$_i]}"
+                exit 1
+                ;;
+            esac
+          done
+
+          "${_args[@]}"
