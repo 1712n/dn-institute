@@ -3,7 +3,7 @@ import anthropic
 from .searcher.types import SearchTool, SearchResult, Tool
 import logging
 import re
-from utils import format_results_full
+from .utils import format_results_full
 import json
 from datetime import datetime
 

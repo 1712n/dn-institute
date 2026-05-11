@@ -51,7 +51,7 @@ class SearchTool(Tool):
         raise NotImplementedError()
     
     def search(self, query: str, n_search_results_to_use: int) -> str:
-        from utils import format_results_full # Avoids circular import
+        from tools.article_checker.claude_retriever.utils import format_results_full # Avoids circular import
 
         raw_search_results = self.raw_search(query, n_search_results_to_use)
         processed_search_results = self.process_raw_search_results(raw_search_results)
