@@ -1,0 +1,9 @@
+period,market_or_scope,metric,value,unit,source
+2022-09-18,GMX AVAX/USD,reported extracted profit,565000,USD,https://cointelegraph.com/news/decentralized-exchange-gmx-suffers-565k-price-manipulation-exploit
+2022-09-18,GMX AVAX/USD,trade loop count,5,cycles,https://cryptoslate.com/crypto-trader-exploits-gmx-manipulates-avax-price-to-remove-565k/
+2022-09-18 01:15:31 to 01:28:11 UTC,GMX AVAX/USD,first reported cycle profit,158000,USD,https://cointelegraph.com/news/decentralized-exchange-gmx-suffers-565k-price-manipulation-exploit
+2022-09-18,AVAX reference markets,reported clip size per cycle,4 to 5,USD millions,https://cointelegraph.com/news/decentralized-exchange-gmx-suffers-565k-price-manipulation-exploit
+2022-09-18,AVAX reference markets,reported AVAX transferred per cycle,200000,AVAX,https://cointelegraph.com/news/decentralized-exchange-gmx-suffers-565k-price-manipulation-exploit
+2022-09-18,AVAX spot,reported incident price band,18.33 to 18.68,USD,https://cryptoslate.com/crypto-trader-exploits-gmx-manipulates-avax-price-to-remove-565k/
+2022-09-18,GMX AVAX/USD,temporary long open-interest cap,2,USD millions,https://cointelegraph.com/news/decentralized-exchange-gmx-suffers-565k-price-manipulation-exploit
+2022-09-18,GMX AVAX/USD,temporary short open-interest cap,1,USD millions,https://cointelegraph.com/news/decentralized-exchange-gmx-suffers-565k-price-manipulation-exploit
