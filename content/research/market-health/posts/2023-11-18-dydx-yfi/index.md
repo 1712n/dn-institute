@@ -44,6 +44,20 @@ On November 18 at about 05:00 UTC, YFI fell nearly 30% in an hour. dYdX stated t
 
 That failure mode is important: the loss was not just a token price move. It was a liquidation-through-liquidity failure. A large concentrated long position, built using withdrawable unrealized gains, became too large for the market to close at solvent prices once the reference market reversed. Negative equity then triggered the insurance fund, which covered more than $9 million in losses.
 
+### Evidence anchors and replay fields
+
+dYdX's postmortem provides a useful minimum evidence packet for replaying the incident. It identified a root funding address, a sample connected wallet, and example ETH and USDC movements into an address connected to dYdX v3. Those links are not the full 132-account cluster, but they are enough to define the fields an investigator should require before accepting or closing an alert:
+
+| Evidence field        | Public anchor                                                                                               | Market-health use                                                                                                                    |
+| --------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Root funding source   | [0xccb6...bc27](https://etherscan.io/address/0xccb6f95b350ca6f9d3285d61a60ea54715a4bc27)                    | Start of the linked-account graph used to connect deposits, withdrawals, and repeated exposure.                                      |
+| Connected wallet      | [0x4277...190c](https://etherscan.io/address/0x4277af66d04cb6a71c83947e2bef6bb4365c190c)                    | Example wallet dYdX connected to the root source.                                                                                    |
+| ETH funding movement  | [0x25ba...34f8](https://etherscan.io/tx/0x25bac4a8930d7a0d29b6f0884d788df51e1d1e58c7fb16cade100397834434f8) | Shows the root-to-wallet setup path before exchange-side activity.                                                                   |
+| USDC deposit movement | [0x3b46...5c2](https://etherscan.io/tx/0x3b46d16f30e089513570e48fd026b64a0cb803762813df0e6db07289912cc5c2)  | Shows stablecoin funding into the dYdX-connected wallet.                                                                             |
+| Exchange-side metrics | [dYdX postmortem](https://dydx.exchange/blog/sushi-yfi-incident)                                            | Connects the SUSHI account cluster and later YFI pattern to $16M total deposits, $27M withdrawals, and the >$9M insurance fund draw. |
+
+A replayable packet for this case should therefore include `root_funding_address`, `connected_wallet`, `funding_tx_hash`, `stablecoin_deposit_tx_hash`, `dydx_account_id`, `market`, `position_side`, `open_interest_before`, `open_interest_after`, `mark_price`, `reference_spot_price`, `unrealized_pnl`, `withdrawal_amount`, `new_wallet_deposit`, `liquidation_price`, `bankruptcy_price`, and `insurance_fund_debit`.
+
 ## Market-health indicators
 
 ### Open interest to real liquidity mismatch
@@ -61,6 +75,14 @@ A practical monitor should compare open interest against:
 
 If open interest can become tens of millions of dollars in a market where a one-hour spot reversal can move the oracle by double-digit percentages, the venue is exposed to forced liquidation losses even when the matching engine works as designed.
 
+For an operational detector, the YFI case suggests concrete thresholds:
+
+- open interest growth above 10x in seven days for a low-depth market,
+- open interest above 25% of estimated one-hour reference-venue spot volume,
+- linked-account net withdrawals above 50% of original deposits while aggregate exposure is still rising,
+- spot price movement above 50% over seven days while the same wallet cluster is net long,
+- and largest liquidatable account loss above 25% of the market-specific insurance fund buffer under a 20% one-hour reference-price shock.
+
 ### Unrealized-profit withdrawal loop
 
 dYdX explained that account equity included USDC collateral plus unrealized profit. That meant an account could withdraw up to the excess equity after the initial margin requirement was satisfied. The attacker used this accounting path by building a long, helping move spot prices higher, withdrawing mark-to-market gains, and redepositing through new accounts.
@@ -74,6 +96,8 @@ This creates a compounding loop:
 5. Leave the venue with concentrated liquidation risk if the spot market reverses.
 
 The loop is a market-health signal because it turns mark-to-market accounting into funding for more leverage before profits are realized in a deep, final market.
+
+An alert rule should join withdrawals and exposure rather than treating each withdrawal as ordinary account activity. A high-severity rule would be: `cluster_withdrawals / cluster_deposits > 1.2` and `cluster_open_interest` still increasing after a 30% or greater reference-price move. The dYdX totals, about $27 million withdrawn against about $16 million deposited, clear that ratio and show why withdrawals from unrealized profit need a separate queue.
 
 ### Wallet concentration and funding links
 
@@ -89,11 +113,15 @@ For surveillance, address linkage is most useful when paired with trade behavior
 
 The combination points to one economic actor distributing a position across account boundaries.
 
+For replaying the linked SUSHI-to-YFI strategy, the account graph should be treated as one economic position when applying margin-surveillance thresholds. If 100 or more fresh accounts share a root funding source, trade the same low-depth market in the same direction, and recycle withdrawals into new deposits, the venue should aggregate those accounts for risk review before normal per-account limits are applied.
+
 ### Parameter lag
 
 The YFI market parameter changes came before the final crash, but after a large position had already accumulated. This is a common failure pattern in market manipulation incidents: parameter changes are effective for new exposure but weaker against existing exposure if they arrive after the position has grown beyond available liquidation liquidity.
 
 Risk controls should therefore trigger before exposure becomes hard to unwind. The useful thresholds are not only price-move thresholds. They should include open-interest growth rate, concentration by linked accounts, and the ratio between the largest liquidatable position and expected spot depth.
+
+A practical control is a staged margin throttle rather than a single late parameter update. For example, if open interest grows above 10x while linked-account withdrawals exceed 50% of original deposits, disable withdrawal of unrealized PnL for that market. If the largest linked cluster cannot be liquidated inside the expected one-hour reference-venue volume without pushing the oracle more than 10%, automatically raise initial margin for new exposure and force manual review before collateral can leave the venue.
 
 ## Detection and control lessons
 
