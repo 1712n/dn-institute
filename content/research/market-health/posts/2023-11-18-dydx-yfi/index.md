@@ -50,6 +50,8 @@ That failure mode is important: the loss was not just a token price move. It was
 
 The clearest quantitative signal was the jump from $0.8 million to $67 million of YFI-USD open interest. A market can absorb large open interest when spot depth, derivatives depth, and liquidation capacity all grow together. The dYdX YFI event showed the opposite pattern: derivatives exposure grew faster than the system's ability to liquidate that exposure under stress.
 
+The derived ratios make the signal easier to operationalize. Open interest expanded by about 84x in nine days, the YFI reference spot price more than doubled from roughly $6,500 to more than $14,000 during the final buildup window, and the reported total attacker withdrawals were about 1.7x reported deposits. A market-health queue should treat that combination as a single alert bundle rather than three separate anomalies: rapidly expanding derivatives exposure, reference-market price pressure, and realized cash extraction from still-concentrated positions.
+
 A practical monitor should compare open interest against:
 
 - reference-venue spot depth near the oracle price,
