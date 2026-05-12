@@ -1,0 +1,11 @@
+date,entity,metric,value,unit,source
+2022-07-28,Nirvana Finance,estimated exploit loss,3500000,USD,https://www.coindesk.com/tech/2022/07/28/solana-defi-protocol-nirvana-drained-of-liquidity-after-flash-loan-exploit
+2022-07-28,Solend,reported flash loan,10250000,USDC,https://www.certik.com/blog/nirvana-finance-incident-analysis
+2022-07-28,Nirvana Finance ANA,reported price before manipulation,8,USD,https://www.certik.com/blog/nirvana-finance-incident-analysis
+2022-07-28,Nirvana Finance ANA,reported manipulated price,24,USD,https://www.certik.com/blog/nirvana-finance-incident-analysis
+2022-07-28,Nirvana Finance treasury,reported USDT received by attacker,3490563,USDT,https://www.certik.com/blog/nirvana-finance-incident-analysis
+2022-07-28,Nirvana Finance ANA,reported post-attack price drawdown,80,percent,https://www.coindesk.com/tech/2022/07/28/solana-defi-protocol-nirvana-drained-of-liquidity-after-flash-loan-exploit
+2022-07-28,Nirvana Finance NIRV,reported post-attack market price,0.08,USD,https://www.coindesk.com/tech/2022/07/28/solana-defi-protocol-nirvana-drained-of-liquidity-after-flash-loan-exploit
+2024-04-12,Shakeeb Ahmed,reported sentence,3,years,https://www.justice.gov/usao-sdny/pr/former-security-engineer-sentenced-three-years-prison-hacking-two-decentralized
+2024-04-12,Shakeeb Ahmed,reported forfeiture,12300000,USD,https://www.justice.gov/usao-sdny/pr/former-security-engineer-sentenced-three-years-prison-hacking-two-decentralized
+2024-04-12,Shakeeb Ahmed,reported restitution to victims,5000000,USD,https://www.justice.gov/usao-sdny/pr/former-security-engineer-sentenced-three-years-prison-hacking-two-decentralized
