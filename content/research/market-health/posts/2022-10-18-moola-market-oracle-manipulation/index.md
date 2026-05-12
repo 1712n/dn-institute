@@ -19,12 +19,13 @@ The incident is useful for Market Health monitoring because the manipulation hap
 
 ## Incident mechanics
 
-The attack flow can be reduced to four steps:
+The attack flow can be reduced to five steps:
 
 1. The attacker accumulated MOO and CELO liquidity exposure on Celo.
 2. MOO was pushed upward on Ubeswap, the venue feeding the collateral price signal.
 3. Moola's oracle accepted the elevated MOO price long enough for the attacker to use MOO as high-value collateral.
-4. The attacker borrowed cUSD, cEUR, and CELO against that inflated collateral, leaving the protocol with undercollateralized debt once MOO reverted toward its pre-attack liquidity level.
+4. The attacker borrowed cUSD, cEUR, and CELO against the inflated MOO collateral.
+5. The attacker realized losses for the protocol when MOO reverted toward its pre-attack liquidity level, leaving undercollateralized debt.
 
 CertiK's incident analysis describes the event as network manipulation on Ubeswap and reports an exploit size of about $8.4 million. CoinDesk reported that Moola developers attributed the exploit to MOO price manipulation on Ubeswap that affected the Moola TWAP oracle. A later CertiK-authored writeup in Cyber Defense Magazine gives the clearest market-health datapoint: approximately $133,000 of CELO was enough to push MOO from about $0.018 to a peak near $3.58. That is a nearly 200x move in the collateral token used for borrowing power.
 
@@ -35,6 +36,8 @@ The supporting CSV in this directory records the source-level figures used below
 | Signal                        |                     Observed value | Why it matters                                                                                       |
 | ----------------------------- | ---------------------------------: | ---------------------------------------------------------------------------------------------------- |
 | Estimated exploit size        | About $8.4 million to $10 million+ | Shows protocol exposure created by the collateral price distortion.                                  |
+| Oracle venue                  |                            Ubeswap | Identifies the market source whose thin liquidity fed the manipulated oracle path.                   |
+| Manipulated token             |                                MOO | Names the collateral token whose inflated value unlocked borrowing power.                            |
 | MOO price move                |              About $0.018 to $3.58 | A low-liquidity collateral token became the control surface for borrowing liquid assets.             |
 | Reported manipulation capital |             About $133,000 of CELO | The capital required to move the oracle input was small relative to the borrowing capacity unlocked. |
 | Funds returned                |            93.1% reported returned | The recovery reduced realized losses but did not change the market-health lesson.                    |
