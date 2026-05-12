@@ -71,7 +71,7 @@ Exchange-issued tokens serve as an unofficial health indicator. Exchanges have a
 Key observations from the OKB data: 🌰
 
 - **Volume–price independence:** Significant volume spikes in OKB/USDT do not consistently correspond to price breakouts or breakdowns. This is the opposite of what is observed in genuinely liquid markets, where volume spikes accompany directional price moves.
-- **Buy/sell imbalance:** A 100-trade sample of live OKB/USDT trades showed a buy/sell ratio of **0.136** — meaning roughly 8 sell-side transactions for every buy. In a freely traded market, this ratio is volatile and oscillates around 1.0. A consistently skewed ratio suggests one side of the order book is being managed.
+- **Buy/sell imbalance:** A 100-trade sample of live OKB/USDT trades showed a buy/sell ratio of **0.136** — meaning roughly 8 sell-side transactions for every buy. In a freely traded market, this ratio is volatile and oscillates around 1.0. A skewed ratio of this magnitude is noteworthy even in a small sample; a larger sample would be needed to establish statistical significance. The direction of the skew is consistent with one side of the order book being managed.
 - **Coefficient of variation:** OKB volume CV of **0.912** is within normal range, but the volume does not track price — the correlation between OKB hourly price change and hourly volume is weaker than expected for a token traded on its own issuing platform.
 
 This pattern mirrors the HT token on Huobi (documented in the dn-institute's existing analysis), where the exchange used its visibility over customer order data to exert control over its native token's price behaviour.
@@ -98,7 +98,7 @@ The market health metrics observed here align with findings from peer-reviewed l
 
 - **Cong et al. (2023), "Crypto Wash Trading"** (*Management Science*): Using blockchain data and cross-exchange comparisons, the authors estimate that unregulated exchanges inflate reported volume by a factor of **70×** on average. Their methodology — comparing volume patterns against volatility and order flow — is consistent with the volume–volatility correlation analysis above.
 - **Bitwise Asset Management SEC Report (2019)**: Of 81 exchanges analysed, only 10 showed real, verifiable BTC trading volume. The report concluded that the remaining 71 exchanges — accounting for the vast majority of reported volume — were generating synthetic data. OKEx appeared in the "real volume" category in 2019; subsequent events (2020 withdrawal crisis, regulatory actions in 2023) complicate that classification.
-- **Cong, Li, Tang & Yang (2022), "Anatomy of a Liquidity Crisis"** (*Journal of Financial Economics*): Analyses how exchanges with inflated reported volume face accelerated liquidity crises during stress events, exactly matching the OKEx October 2020 episode.
+- **Liu, Makarov & Schoar (2023), "Anatomy of a Run: The Terra Luna Crash"** (*NBER Working Paper 31160*): Analyses how the gap between reported and real liquidity accelerates withdrawal runs during stress events — a dynamic consistent with the OKEx October 2020 episode.
 
 ---
 
@@ -119,6 +119,6 @@ Exchange-reported volume remains one of the least verified metrics in financial 
 
 - Bitwise Asset Management. (2019). *Presentation to the U.S. Securities and Exchange Commission: Bitcoin ETF Proposal.* [Link](https://www.sec.gov/comments/sr-nysearca-2019-01/srnysearca201901-5164833-183434.pdf)
 - Cong, L. W., Li, X., Tang, K., & Yang, Y. (2023). Crypto Wash Trading. *Management Science.* [Link](https://pubsonline.informs.org/doi/10.1287/mnsc.2023.4798)
-- Cong, L. W., Li, X., Tang, K., & Yang, Y. (2022). Anatomy of a Liquidity Crisis: The Terra-LUNA Crash. *Journal of Financial Economics.*
+- Liu, Y., Makarov, I., & Schoar, A. (2023). Anatomy of a Run: The Terra Luna Crash. *NBER Working Paper 31160.* [Link](https://www.nber.org/papers/w31160)
 - dn-institute. (2023). Uncovering Wash Trading and Market Manipulation on Huobi. [Link](https://dn.institute/market-health/posts/2023-08-14-huobi/)
 - OKEx Official Announcement. (2020). *Notice on Temporary Suspension of Withdrawal Services.* [Link](https://www.okx.com/support/hc/en-us/articles/360053000552)
