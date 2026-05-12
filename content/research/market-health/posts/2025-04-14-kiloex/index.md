@@ -81,6 +81,8 @@ Useful alert conditions include:
 
 These conditions can be evaluated without knowing the attacker's intent. They describe an impossible or highly suspicious relationship between price update, position accounting, and withdrawal.
 
+A replayable surveillance packet for this incident would therefore contain more than the final loss amount. It should join the accepted oracle update, the caller or forwarder path that delivered it, the position open and close timestamps, the resulting realized PnL, and the withdrawal transaction that moved vault liquidity out of the venue. The public loss range of roughly $7 million to $7.5 million is the outcome metric; the leading indicator is the moment when internal price authority, immediate settlement, and withdrawable synthetic PnL appear in the same transaction chain.
+
 ### Multi-chain deployments multiply the blast radius
 
 KiloEx's multi-chain deployment increased the response surface. Even when the same logical bug exists across chains, each deployment has its own vaults, liquidity, contracts, monitoring, and response latency. A single oracle-path weakness can therefore become a cross-chain drain.
