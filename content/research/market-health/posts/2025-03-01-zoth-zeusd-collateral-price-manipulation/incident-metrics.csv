@@ -1,0 +1,12 @@
+date,entity,metric,value,unit,source
+2025-03-01,Zoth,reported exploit loss,285000,USD,https://blog.solidityscan.com/zoth-hack-analysis-80ba3ac5076b/
+2025-03-01,Zoth,reported exploit loss,285000,USD,https://blog.verichains.io/p/anatomy-of-a-hack-how-a-simple-logic
+2025-03-01,Zoth,reported incident impact,286000,USD,https://www.nominis.io/insights/crypto-security-incidents-march-2025
+2025-03-01,Zoth mintWithStable,actual collateral received,7669,tokens,https://blog.solidityscan.com/zoth-hack-analysis-80ba3ac5076b/
+2025-03-01,Zoth mintWithStable,recorded collateral amount,330979,tokens,https://blog.solidityscan.com/zoth-hack-analysis-80ba3ac5076b/
+2025-03-01,Zoth mintWithStable,actual collateral received,7669,tokens,https://blog.verichains.io/p/anatomy-of-a-hack-how-a-simple-logic
+2025-03-01,Zoth mintWithStable,recorded collateral amount,330979,tokens,https://blog.verichains.io/p/anatomy-of-a-hack-how-a-simple-logic
+2025-03-01,Zoth exploit,attack transaction,0xc3f70057e261af554c6acf6a372389899f0c2d7d1ebd27311e39525dee88fb39,tx_hash,https://etherscan.io/tx/0xc3f70057e261af554c6acf6a372389899f0c2d7d1ebd27311e39525dee88fb39
+2025-03-01,Zoth attacker,attacker address,0x806d9d1f1b80107a294393c76258b69b441565f0,address,https://etherscan.io/address/0x806d9d1f1b80107a294393c76258b69b441565f0
+2025-03-01,Zoth vulnerable contract,contract address,0xe257495224eb1bd710ff18c3758c8a87cde46137,address,https://etherscan.io/address/0xe257495224eb1bd710ff18c3758c8a87cde46137
+2025-03-21,Zoth,reported separate later incident loss,8290000,USD,https://www.gate.com/research/article/gate-research-security-incident-summary-for-march-2025
