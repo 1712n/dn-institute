@@ -40,16 +40,14 @@ def test_rag_retriever():
     print(context)
     print("\n=== Test Complete ===")
     
-    # Check token count
+    # Check token count - use assert so CI fails if over limit
     import tiktoken
     encoding = tiktoken.encoding_for_model("gpt-4")
     token_count = len(encoding.encode(context))
     print(f"\nContext token count: {token_count}")
     
-    if token_count <= 2000:
-        print("✅ Token count within limit")
-    else:
-        print("⚠️ Token count exceeds limit")
+    assert token_count <= retriever.max_context_tokens, f"Token count {token_count} exceeds limit of {retriever.max_context_tokens}"
+    print("✅ Token count within limit")
 
 
 if __name__ == "__main__":

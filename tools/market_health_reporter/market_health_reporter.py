@@ -208,7 +208,9 @@ def main():
     print(f"Marketvenueid: {marketvenueid}, Pairid: {pairid}, Start: {start}, End: {end}")
     
     # Extract entity name from market venue ID for RAG context 🌰
-    entities = [marketvenueid.upper()]
+    # Also parse pair tokens from pairid (e.g., "btc-usdt" -> ["BTC", "USDT"])
+    pair_tokens = [t.upper() for t in pairid.split('-') if t]
+    entities = [marketvenueid.upper()] + pair_tokens
     
     querystring = {
         "marketvenueid": marketvenueid,
