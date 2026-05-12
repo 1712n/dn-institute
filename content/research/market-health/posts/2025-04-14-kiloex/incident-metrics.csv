@@ -1,0 +1,8 @@
+period,market_or_scope,metric,value,unit,source
+2025-04-14,KiloEx,reported loss,7 to 7.5,USD millions,https://www.halborn.com/blog/post/explained-the-kiloex-hack-april-2025
+2025-04-14,KiloEx,attack class,price oracle manipulation,category,https://www.coindesk.com/markets/2025/04/15/dex-kiloex-loses-usd7m-in-apparent-oracle-manipulation-attack
+2025-04-14,KiloEx,affected networks,Base; BNB Chain; Taiko,chains,https://www.coindesk.com/markets/2025/04/15/dex-kiloex-loses-usd7m-in-apparent-oracle-manipulation-attack
+2025-04-14,KiloEx,root cause class,oracle price path access-control failure,category,https://www.halborn.com/blog/post/explained-the-kiloex-hack-april-2025
+2025-04-15,KiloEx,response,platform operations suspended,status,https://www.coindesk.com/markets/2025/04/15/dex-kiloex-loses-usd7m-in-apparent-oracle-manipulation-attack
+2025-04-15,KiloEx,recovery offer,10,percent bounty,https://www.coindesk.com/markets/2025/04/15/dex-kiloex-loses-usd7m-in-apparent-oracle-manipulation-attack
+2025-04-18,KiloEx,recovery status,all stolen funds recovered,status,https://www.cryptotimes.io/2025/04/18/kiloex-hacker-returns-stolen-funds-just-days-after-hack/
