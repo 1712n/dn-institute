@@ -73,6 +73,19 @@ Useful controls:
 
 Market-maker misconduct can look similar to a pump-and-dump or insider distribution event from the user's perspective: a token launches, early liquidity appears deep enough to trade, and then concentrated inventory sale overwhelms demand. The MOVE case shows why market-health tooling should combine exchange trade data with governance metadata, including known market-maker allocations and contractual obligations.
 
+The practical monitoring lesson is that launch surveillance should turn vague "sell pressure" into thresholds that can be tested before public remediation is needed. A conservative rule set for a newly listed token would flag a designated market maker when:
+
+- its first-72-hour sell volume is more than 3x its buy volume,
+- its net sold inventory exceeds the 90th percentile of comparable launches after normalizing by circulating supply,
+- its execution-weighted VWAP drifts more than 10% below the launch-window median while bid replenishment stays below the peer-launch median,
+- one entity or affiliated cluster accounts for more than 25% of large sell trades during the initial listing window.
+
+Those thresholds should be calibrated against a peer sample of token launches rather than a single project. For example, a surveillance desk can maintain a rolling benchmark table with median and 90th-percentile values for sell-side concentration, large-trade concentration, bid-depth replenishment, and three-day VWAP drift across similar listings. MOVE's reported pattern, roughly 66 million tokens sold with little buy-side support and 38 million USDT in proceeds, would then be tested against the peer median and tail percentiles instead of judged only after the price impact became public.
+
+The root-cause model is equally important. The trading imbalance was possible because market-maker inventory appears to have been controlled by a third party without an enforceable, real-time constraint tying that allocation to two-sided quoting. The agreement required liquidity on both sides of the MOVE/USDT pair, but the observable market result described by Movement and Binance was one-sided distribution. That gap turns a governance decision into a market-health risk: inventory grants, intermediary relationships, and venue reporting should be monitored as first-class data, not only as legal documents reviewed after an incident.
+
+On detection lead time, the public facts suggest the anomaly could have been escalated long before the March 2025 remediation. Binance's reported misconduct date was December 12, 2024; Movement said Binance notified it on March 11, 2025; Movement announced the buyback on March 25, 2025. A launch-window rule that triggered within the first 72 hours would have produced an alert around December 15, roughly 86 days before Movement's Binance notice and roughly 100 days before the public buyback announcement. Even if a team required a full week of post-listing data, the alert would still have arrived months before public remediation.
+
 For new token listings, the strongest warning signs are:
 
 - high sell-side concentration immediately after listing,
@@ -80,6 +93,8 @@ For new token listings, the strongest warning signs are:
 - fast VWAP deterioration during concentrated inventory sales,
 - delayed disclosure of who controlled launch liquidity,
 - remediation that relies on post-event buybacks rather than preventive controls.
+
+The recommended control loop is therefore: publish market-maker allocation metadata before listing, monitor the first 24-72 hours against peer-launch thresholds, require venue-level reporting when a liquidity provider breaches the sell/buy ratio or bid-depth floor, and escrow remaining inventory until two-sided quoting recovers. That turns the MOVE lesson from an after-the-fact case study into a pre-listing checklist.
 
 ## References
 
