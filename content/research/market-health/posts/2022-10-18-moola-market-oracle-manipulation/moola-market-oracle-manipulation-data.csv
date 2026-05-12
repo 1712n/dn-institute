@@ -1,0 +1,10 @@
+metric,value,source
+attack_date,2022-10-18,https://www.certik.com/resources/blog/8ENVqveSYRcppTHOcxG29-moola-market
+estimated_exploit_size_usd,"about 8.4 million to more than 10 million",https://www.certik.com/resources/blog/8ENVqveSYRcppTHOcxG29-moola-market
+manipulated_token,MOO,https://www.coindesk.com/markets/2022/10/19/celo-protocol-moola-market-loses-over-10m-in-market-manipulation-attack
+oracle_venue,Ubeswap,https://www.coindesk.com/markets/2022/10/19/celo-protocol-moola-market-loses-over-10m-in-market-manipulation-attack
+reported_price_move,"about 0.018 USD to 3.58 USD",https://www.cyberdefensemagazine.com/moola-market-manipulation/
+reported_manipulation_capital,"about 133000 USD worth of CELO",https://www.cyberdefensemagazine.com/moola-market-manipulation/
+borrowed_assets,"cUSD;cEUR;CELO",https://www.certik.com/resources/blog/8ENVqveSYRcppTHOcxG29-moola-market
+reported_returned_funds_percent,93.1,https://cointelegraph.com/news/moola-market-attacker-returns-most-of-9m-looted-for-500k-bounty
+reported_retained_bounty_usd,about 500000,https://cointelegraph.com/news/moola-market-attacker-returns-most-of-9m-looted-for-500k-bounty
