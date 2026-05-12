@@ -1,0 +1,10 @@
+date,entity,metric,value,unit,source
+2024-11-16,Polter Finance,estimated direct exploit loss,8700000,USD,https://www.certik.com/zh-CN/blog/polter-finance-incident-analysis
+2024-11-16,Polter Finance,reported police-report loss,12000000,USD,https://www.tradingview.com/news/cointelegraph%3A4d22dee57094b%3A0-crypto-lender-polter-finance-halts-operations-after-12m-hack/
+2024-11-16,SpookySwap V3 BOO pool,reported BOO flash-loaned,269042,BOO,https://www.certik.com/zh-CN/blog/polter-finance-incident-analysis
+2024-11-16,SpookySwap V2 BOO pool,reported BOO flash-swapped,1154788,BOO,https://www.certik.com/zh-CN/blog/polter-finance-incident-analysis
+2024-11-16,SpookySwap BOO pools,reported remaining BOO balance per pair,1000000,wei BOO,https://www.certik.com/zh-CN/blog/polter-finance-incident-analysis
+2024-11-16,Polter Finance BOO collateral,reported deposited collateral,1,BOO,https://www.certik.com/zh-CN/blog/polter-finance-incident-analysis
+2024-11-16,Polter Finance wFTM reserve,reported wFTM borrowed,9134844,wFTM,https://www.certik.com/zh-CN/blog/polter-finance-incident-analysis
+2024-11-18,Polter Finance BOO market,reported BOO market valuation,3000,USD,https://www.tradingview.com/news/cointelegraph%3A4d22dee57094b%3A0-crypto-lender-polter-finance-halts-operations-after-12m-hack/
+2024-11-18,Polter Finance total market,reported market size,12000000,USD,https://www.tradingview.com/news/cointelegraph%3A4d22dee57094b%3A0-crypto-lender-polter-finance-halts-operations-after-12m-hack/
