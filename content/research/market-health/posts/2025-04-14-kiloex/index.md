@@ -35,7 +35,7 @@ KiloEx operated as a decentralized perpetual futures venue. In that model, the i
 
 ### Oracle price manipulation
 
-The exploit path centered on the relationship between KiloEx's keeper or forwarding flow and the price feed used to evaluate positions. Halborn traced the root cause to an access-control failure in the call chain that reached `setPrices`, specifically the MinimalForwarder path into PositionKeeper, Keeper, and KiloPriceFeed ([Halborn](https://www.halborn.com/blog/post/explained-the-kiloex-hack-april-2025)). KiloEx's post-mortem coverage similarly tied the issue to a permissionless TrustedForwarder `execute` path inherited from OpenZeppelin's MinimalForwarderUpgradeable ([Crypto.news](https://crypto.news/kiloex-reveals-7m-smart-contract-exploit-in-post-mortem-report/)).
+The exploit path centered on the relationship between KiloEx's keeper or forwarding flow and the price feed used to evaluate positions. Halborn traced the root cause to an access-control failure in the call chain that reached `setPrices`, specifically the MinimalForwarder path into PositionKeeper, Keeper, and KiloPriceFeed ([Halborn](https://www.halborn.com/blog/post/explained-the-kiloex-hack-april-2025): "the root cause of the incident was an access control vulnerability"). KiloEx's post-mortem coverage similarly tied the issue to a permissionless TrustedForwarder `execute` path inherited from OpenZeppelin's MinimalForwarderUpgradeable ([Crypto.news](https://crypto.news/kiloex-reveals-7m-smart-contract-exploit-in-post-mortem-report/)).
 
 The economic sequence was:
 
@@ -45,7 +45,7 @@ The economic sequence was:
 4. Close the position and withdraw the fabricated profit.
 5. Repeat across chains or markets until vault liquidity was drained.
 
-This is a pure market-health failure mode. The external market did not need to move enough to justify the profit. The venue's own internal price path produced the accounting gain. Crypto.news summarized the trading loop as opening and closing positions at favorable prices, while Chainvestigate's replay describes ETH being accepted near $100 and then near $10,000 before immediate close-out ([Crypto.news](https://crypto.news/kiloex-reveals-7m-smart-contract-exploit-in-post-mortem-report/); [Chainvestigate](https://chainvestigate.com/kiloex-hack-analysis/)).
+This is a pure market-health failure mode. The external market did not need to move enough to justify the profit. The venue's own internal price path produced the accounting gain. Crypto.news summarized the trading loop as "open and close positions at favorable prices," while Chainvestigate's replay describes ETH being accepted near $100 and then near $10,000 before immediate close-out ([Crypto.news](https://crypto.news/kiloex-reveals-7m-smart-contract-exploit-in-post-mortem-report/); [Chainvestigate](https://chainvestigate.com/en/kiloex-hack-analysis)).
 
 ### Chain-level proof and loss attribution
 
@@ -63,7 +63,7 @@ The reconciliation is therefore: Base (~$3.3M) + BSC (~$1.0M) + opBNB (~$3.1M) e
 
 ### Containment, recovery, and compensation path
 
-After the exploit, KiloEx suspended platform operations and worked with partners to trace funds. Reporting at the time described suspicious cross-chain activity across Base, Taiko, and BNB Chain, with losses spread across Base, opBNB, and BSC ([Crypto.news](https://crypto.news/kiloex-reveals-7m-smart-contract-exploit-in-post-mortem-report/)). KiloEx then offered the attacker a 10% bounty if the remaining funds were returned. Several days later, reporting stated that all stolen assets had been returned to KiloEx's designated multisig wallets and that KiloEx would treat the returned-funds process as a white-hat recovery ([Crypto.news](https://crypto.news/kiloex-reveals-7m-smart-contract-exploit-in-post-mortem-report/); [The Crypto Times](https://www.cryptotimes.io/2025/04/18/kiloex-hacker-returns-stolen-funds-just-days-after-hack/)).
+After the exploit, KiloEx suspended platform operations and worked with partners to trace funds. Reporting at the time described suspicious cross-chain activity across Base, Taiko, and BNB Chain, with losses spread across Base, opBNB, and BSC ([Crypto.news](https://crypto.news/kiloex-reveals-7m-smart-contract-exploit-in-post-mortem-report/)). KiloEx then offered the attacker a 10% bounty if the remaining funds were returned. Several days later, Crypto.news reported that the attacker had "agreed to a 10% bounty retention and systematically returned all stolen assets" to KiloEx's designated multisig wallets, while other coverage described the same returned-funds process as a white-hat recovery ([Crypto.news](https://crypto.news/kiloex-reveals-7m-smart-contract-exploit-in-post-mortem-report/); [The Crypto Times](https://www.cryptotimes.io/2025/04/18/kiloex-hacker-returns-stolen-funds-just-days-after-hack/)).
 
 The recovery does not erase the market-health lesson. A venue can survive an incident financially and still expose a reusable risk pattern: if a permission boundary lets an external actor influence the oracle update path, every downstream margin, PnL, and liquidation calculation becomes suspect.
 
@@ -127,7 +127,7 @@ Aggregated TVL or aggregate volume can hide the fact that one deployment has a c
 
 ### Recovery bounty is not a control
 
-The attacker reportedly returned all funds after KiloEx offered a 10% bounty, with post-mortem reporting describing a retained 10% bounty and returned assets sent to KiloEx multisig wallets ([Crypto.news](https://crypto.news/kiloex-reveals-7m-smart-contract-exploit-in-post-mortem-report/)). This is a useful recovery outcome, but it is not a prevention control. A white-hat style return depends on the attacker's incentives after the loss has already occurred.
+The attacker reportedly returned all funds after KiloEx offered a 10% bounty, with the same post-mortem reporting tying the retained bounty to returned assets sent to KiloEx multisig wallets ([Crypto.news](https://crypto.news/kiloex-reveals-7m-smart-contract-exploit-in-post-mortem-report/)). This is a useful recovery outcome, but it is not a prevention control. A white-hat style return depends on the attacker's incentives after the loss has already occurred.
 
 For market-health analysis, the more important lesson is pre-loss containment:
 
