@@ -49,9 +49,10 @@ def parse_cli_args():
         help="CryptoCompare API key for RAG (optional)",
         default=os.environ.get("CRYPTOCOMPARE_API_KEY")
     )
+import argparse
     parser.add_argument(
         "--enable-rag", dest="enable_rag", help="Enable RAG context retrieval",
-        action="store_true", default=True
+        action=argparse.BooleanOptionalAction, default=True
     )
     return parser.parse_args()
 
