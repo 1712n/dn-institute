@@ -1,0 +1,11 @@
+period,market_or_scope,metric,value,unit,source
+2023-10-29 to 2023-11-03,SUSHI-USD,attacker-linked dYdX v3 accounts,132,addresses,https://dydx.exchange/blog/sushi-yfi-incident
+2023-10-29 to 2023-11-03,SUSHI-USD,attacker deposits,5.3,USD millions,https://dydx.exchange/blog/sushi-yfi-incident
+2023-10-31 to 2023-11-03,SUSHI spot,price move,0.67 to 1.20,USD,https://dydx.exchange/blog/sushi-yfi-incident
+2023-11-01 to 2023-11-10,YFI-USD,attacker capital including SUSHI proceeds,10,USD millions,https://dydx.exchange/blog/sushi-yfi-incident
+2023-11-01 to 2023-11-10,YFI-USD,open interest move,0.8 to 67,USD millions,https://dydx.exchange/blog/sushi-yfi-incident
+2023-11-09 to 2023-11-17,YFI spot,price move,6500 to over 14000,USD,https://dydx.exchange/blog/sushi-yfi-incident
+2023-11-18 05:00 UTC,YFI spot,one-hour price drop,nearly 30,percent,https://dydx.exchange/blog/sushi-yfi-incident
+2023-11-18,dYdX v3,insurance fund loss,more than 9,USD millions,https://dydx.exchange/blog/sushi-yfi-incident
+total incident,dYdX v3,attacker deposits,16,USD millions,https://dydx.exchange/blog/sushi-yfi-incident
+total incident,dYdX v3,attacker withdrawals,27,USD millions,https://dydx.exchange/blog/sushi-yfi-incident
