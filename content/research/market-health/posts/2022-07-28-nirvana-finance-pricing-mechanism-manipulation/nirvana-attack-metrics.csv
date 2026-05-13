@@ -1,0 +1,12 @@
+date_utc,event,asset_or_pool,metric,value,source_url,notes
+2022-07-28,flash loan,Solend,borrowed_usdc,10250000,https://www.certik.com/blog/nirvana-finance-incident-analysis,CertiK reported the attacker borrowed 10250000 USDC from Solend before buying ANA
+2022-07-28,pricing manipulation,ANA,starting_price_usd,8,https://medium.com/@tient.tech/a-flash-loan-attack-on-nirvana-finance-46d7cb6a5771,Tient Technologies reported the attack changed ANA value from 8 dollars before the manipulated update
+2022-07-28,pricing manipulation,ANA,manipulated_price_usd,24.27,https://medium.com/@tient.tech/a-flash-loan-attack-on-nirvana-finance-46d7cb6a5771,Tient Technologies reported the manipulated ANA value reached 24.27 dollars per transaction
+2022-07-28,pricing manipulation,ANA,manipulated_price_usd_approx,24,https://www.certik.com/blog/nirvana-finance-incident-analysis,CertiK described the Buy 3 command as manipulating ANA price from 8 dollars to 24 dollars
+2022-07-28,treasury drain,Nirvana Finance,attacker_profit_usd,3574635,https://www.certik.com/blog/nirvana-finance-incident-analysis,CertiK estimated attacker profit at approximately 3574635 dollars
+2022-07-28,treasury drain,Nirvana Treasury,usdt_received,3490563,https://www.certik.com/blog/nirvana-finance-incident-analysis,CertiK reported approximately 3490563 USDT received from the Nirvana treasury
+2022-07-28,market impact,ANA,price_drop_percent,85,https://www.certik.com/blog/nirvana-finance-incident-analysis,CertiK reported ANA collapsed approximately 85 percent after the attack
+2022-07-28,market impact,NIRV,post_attack_price_usd,0.14,https://medium.com/@tient.tech/a-flash-loan-attack-on-nirvana-finance-46d7cb6a5771,Tient Technologies reported NIRV dropped to 0.14 dollars at writing time
+2022-07-28,cross-chain exit,Wormhole,bridged_to_ethereum,1,https://www.certik.com/blog/nirvana-finance-incident-analysis,CertiK traced the stolen funds from Solana to an Ethereum wallet through Wormhole
+2024-04-12,legal outcome,U.S. Department of Justice,stolen_from_nirvana_usd,3600000,https://www.justice.gov/usao-sdny/pr/former-security-engineer-sentenced-three-years-prison-hacking-two-decentralized,DOJ described approximately 3.6 million dollars stolen from Nirvana Finance
+2024-04-12,legal outcome,Nirvana Finance,restitution_to_nirvana_usd,3400000,https://medium.com/nirvanafinance/nirvana-finance-rising-from-the-ashes-f2780607f685,Nirvana said Ahmed was ordered to pay 3.4 million dollars in restitution to Nirvana
