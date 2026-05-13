@@ -66,9 +66,17 @@ This is different from ordinary arbitrage. Healthy arbitrage usually narrows a p
 
 The manipulated variable was USDT liquidity in YPool. Any vault that mints or redeems shares based on a single pool's current balance should be treated as exposed to pool-composition manipulation, even if the assets involved are all stablecoins.
 
+Curve-style stable pools are especially subtle because a balanced pool can make all assets look close to par while still allowing the balance vector and one-coin withdrawal quotes to move sharply under temporary capital. A monitor for this class of vault should therefore watch pool composition, `calc_withdraw_one_coin` output, and vault mint/redeem output together. A rule that only checks whether USDC, USDT, and DAI are near 1 USD can miss the real failure mode.
+
+Monitoring should also vary by pool design. A deep, high-amplification stable pool can tolerate small balance shifts without making vault accounting unsafe, but a vault that reads the current pool state should still flag any same-block balance move that changes the dependent mint/redeem quote by more than 0.5% or that changes one stablecoin's pool share by more than 5 percentage points before the vault action executes. Lower-liquidity or lower-amplification pools should use tighter thresholds because the same borrowed notional creates a larger quote displacement.
+
 ### 2. Flash-loan notional concentration
 
 The representative transaction used 9,000,000 USDC from Aave and 2,000,000 USDT from Uniswap V2. A monitoring rule should compare the notional used to change the pool with normal pool volume and with the profit or mint amount obtained from the dependent vault.
+
+The representative transaction used about 11,000,000 USD of temporary funding to extract 175,669.88 USD of profit, or about 1.6% of the borrowed notional. The explicit flash-loan repayment premium was much smaller: 8,100 USDC to Aave and 6,200 USDT to Uniswap V2, about 14,300 USD before the repayment-supporting swap. Profit that is more than 10x the visible flash-loan premium after a same-transaction vault interaction is a practical alert threshold because it indicates the vault, not ordinary stablecoin routing, is paying the spread.
+
+A conservative production rule would flag a vault interaction when all three conditions are true in one transaction: borrowed notional exceeds 10x the user's recent median vault interaction size, the dependent pool quote changes by more than 0.5% before the vault call, and realized profit exceeds 0.5% of temporary notional after repayments. Plouto's representative transaction would satisfy that pattern even without knowing the attacker's intent.
 
 ### 3. Same-transaction lifecycle
 
@@ -77,6 +85,16 @@ The transaction contained the whole lifecycle: borrow, distort, interact with th
 ### 4. Repeated attacker pattern
 
 BlockSec reported eight transactions launched by the same attacker address through one malicious contract. Repeated successful extraction from the same accounting dependency suggests the first transaction should have triggered an emergency pause or at least a vault-specific circuit breaker.
+
+The eight-transaction series implies a failure in response granularity as well as in price validation. After transaction one, a vault-specific circuit breaker could have paused new mint/redeem paths for the affected USDC, USDT, and DAI vaults while leaving unrelated vaults alone. After transaction two, even a slower off-chain monitor should have been able to identify the same malicious contract, the same borrowed-liquidity pattern, and the same final stablecoin profit realization.
+
+The likely failure modes are common in early vault designs: no per-vault loss or profit-outlier threshold, no automatic pause tied to pool-balance displacement, no same-block flash-loan heuristic, and governance or operator latency that was longer than the attacker's repeat cycle. The immediate mitigation would have been to stop only the affected vault adapters, freeze minting against the manipulated YPool dependency, and require manual review before re-enabling the strategy.
+
+### 5. Profit realization in stablecoins
+
+The warning-sign list ends with profit realized in stablecoins because that is where the extraction becomes measurable. In the representative transaction, the attacker converted 177,533 USDC into 175,669 DAI after repaying the funding legs. A stablecoin-denominated terminal balance is a strong post-condition for this incident type: the attacker is not holding directional risk in PLT or another volatile token, but has converted the accounting error into portable value.
+
+On-chain monitors should therefore link the whole path rather than alert on the vault call alone. The sequence of borrowed stablecoins, YPool composition change, Plouto interaction, flash-loan repayment, and final DAI transfer to the attacker's externally owned account is more specific than any single step. That pattern separates malicious extraction from a benign user who deposits or withdraws during a volatile stablecoin pool rebalance.
 
 ## Controls That Would Have Reduced The Risk
 
