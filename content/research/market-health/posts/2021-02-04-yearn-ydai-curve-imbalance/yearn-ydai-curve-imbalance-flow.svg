@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" role="img" aria-labelledby="title desc">
+  <title id="title">Yearn yDAI Curve 3pool imbalance loop</title>
+  <desc id="desc">Flow diagram showing the attacker debalancing Curve 3pool, forcing yDAI vault execution, restoring the pool, repeating, and redeeming profit.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#334155" />
+    </marker>
+    <style>
+      .box{fill:#f8fafc;stroke:#334155;stroke-width:2;rx:14;ry:14}.risk{fill:#fff7ed;stroke:#c2410c}.safe{fill:#ecfdf5;stroke:#047857}.text{font-family:Arial,Helvetica,sans-serif;fill:#0f172a}.title{font-size:24px;font-weight:700}.label{font-size:16px;font-weight:700}.small{font-size:13px}.arrow{stroke:#334155;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect x="20" y="20" width="920" height="480" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="480" y="58" text-anchor="middle" class="text title">Yearn yDAI: temporary stablecoin imbalance becomes exploitable execution</text>
+  <rect x="70" y="110" width="200" height="90" class="box"/>
+  <text x="170" y="142" text-anchor="middle" class="text label">1. Seed 3CRV</text>
+  <text x="170" y="166" text-anchor="middle" class="text small">134M USDC + 36M DAI</text>
+  <rect x="380" y="110" width="200" height="90" class="box risk"/>
+  <text x="480" y="142" text-anchor="middle" class="text label">2. Debalance pool</text>
+  <text x="480" y="166" text-anchor="middle" class="text small">Withdraw 165M USDT</text>
+  <rect x="690" y="110" width="200" height="90" class="box risk"/>
+  <text x="790" y="142" text-anchor="middle" class="text label">3. Force vault trade</text>
+  <text x="790" y="166" text-anchor="middle" class="text small">yDAI executes at bad rate</text>
+  <rect x="690" y="300" width="200" height="90" class="box"/>
+  <text x="790" y="332" text-anchor="middle" class="text label">4. Restore imbalance</text>
+  <text x="790" y="356" text-anchor="middle" class="text small">Deposit USDT, then repeat</text>
+  <rect x="380" y="300" width="200" height="90" class="box"/>
+  <text x="480" y="332" text-anchor="middle" class="text label">5. Repeat loop</text>
+  <text x="480" y="356" text-anchor="middle" class="text small">11 txs over 38 minutes</text>
+  <rect x="70" y="300" width="200" height="90" class="box safe"/>
+  <text x="170" y="332" text-anchor="middle" class="text label">6. Redeem profit</text>
+  <text x="170" y="356" text-anchor="middle" class="text small">Estimated 2.7M DAI</text>
+  <path d="M270 155 H370" class="arrow"/>
+  <path d="M580 155 H680" class="arrow"/>
+  <path d="M790 200 V290" class="arrow"/>
+  <path d="M690 345 H590" class="arrow"/>
+  <path d="M380 345 H280" class="arrow"/>
+  <path d="M480 300 C520 250 710 250 790 290" class="arrow"/>
+  <text x="480" y="445" text-anchor="middle" class="text small">Market-health signal: reversible, concentrated pool-composition shocks followed by dependent protocol execution.</text>
+</svg>

@@ -1,0 +1,9 @@
+signal,observed_value,market_health_interpretation,source
+"Initial Curve 3pool deposits in example transaction","134M USDC and 36M DAI","Large actor seeded a position big enough to move stablecoin pool composition","Yearn disclosure"
+"USDT withdrawal used to debalance pool","165M USDT","Material one-sided withdrawal created a temporary exchange-rate distortion","Yearn disclosure"
+"Victim protocol interaction","yDAI vault deposit and withdrawal while pool was imbalanced","Integrated vault consumed the distorted AMM price as a forced taker","Yearn disclosure"
+"Repeated exploit loop","11 transactions over 38 minutes","Repetition indicates a deliberate imbalance-harvest pattern rather than normal arbitrage","Yearn disclosure"
+"Reported vault loss","11M DAI","Manipulated execution converted temporary market distortion into protocol loss","Yearn disclosure"
+"Reported funds saved by mitigation","24M DAI","Emergency circuit breaker limited additional exposure once abnormal pattern was detected","Yearn disclosure"
+"Estimated attacker profit","2.7M DAI","Profit was extracted from holding and redeeming the pool position around the imbalance loop","Yearn disclosure"
+"Contributing controls","1% slippage, 0% withdrawal fee, callable earn()","Loose execution controls amplified market-state manipulation risk","Yearn disclosure"
