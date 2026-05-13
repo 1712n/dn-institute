@@ -68,7 +68,7 @@ The difference between the recorded and actual collateral values is the market-h
 
 A useful replay packet for this incident should include `tx_hash`, `block_number`, `attacker`, `zoth_contract`, `mint_function`, `input_stablecoin`, `input_amount`, `swap_pool`, `pool_price_before`, `pool_price_after`, `pool_liquidity_before`, `pool_liquidity_after`, `collateral_expected`, `collateral_received`, `collateral_recorded`, `zeusd_minted`, `zeusd_burned`, `collateral_withdrawn`, `profit_usd`, and `downstream_fund_movements`.
 
-The most important join is between swap execution data and Zoth's internal collateral metadata. Looking only at the Uniswap pool would show price impact, but not necessarily protocol loss. Looking only at ZeUSD minting would show token issuance, but not necessarily why it was underbacked. The exploit becomes visible when the replay joins:
+The companion `incident-metrics.csv` is shaped as this replay packet so the row can be joined directly against Etherscan traces, the SolidityScan/Verichains collateral mismatch, and Zoth ledger effects. The most important join is between swap execution data and Zoth's internal collateral metadata. Looking only at the Uniswap pool would show price impact, but not necessarily protocol loss. Looking only at ZeUSD minting would show token issuance, but not necessarily why it was underbacked. The exploit becomes visible when the replay joins:
 
 - the manipulated pool state;
 - the actual collateral quantity returned by the swap;
@@ -84,7 +84,7 @@ That replay packet turns the incident into a reusable market-health test: every 
 
 The first detector is a simple invariant check:
 
-`recorded_collateral <= collateral_received_after_swap`
+`recorded_collateral &lt;= collateral_received_after_swap`
 
 If units differ, the comparison should be made in a normalized collateral-value unit with a trusted reference price. The key point is that the ledger cannot credit a user based on the pre-swap input amount when the minting asset is the post-swap collateral. Any positive gap between recorded collateral and received collateral is a direct undercollateralization signal.
 

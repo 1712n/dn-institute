@@ -1,12 +1,2 @@
-date,entity,metric,value,unit,source
-2025-03-01,Zoth,reported exploit loss,285000,USD,https://blog.solidityscan.com/zoth-hack-analysis-80ba3ac5076b/
-2025-03-01,Zoth,reported exploit loss,285000,USD,https://blog.verichains.io/p/anatomy-of-a-hack-how-a-simple-logic
-2025-03-01,Zoth,reported incident impact,286000,USD,https://www.nominis.io/insights/crypto-security-incidents-march-2025
-2025-03-01,Zoth mintWithStable,actual collateral received,7669,tokens,https://blog.solidityscan.com/zoth-hack-analysis-80ba3ac5076b/
-2025-03-01,Zoth mintWithStable,recorded collateral amount,330979,tokens,https://blog.solidityscan.com/zoth-hack-analysis-80ba3ac5076b/
-2025-03-01,Zoth mintWithStable,actual collateral received,7669,tokens,https://blog.verichains.io/p/anatomy-of-a-hack-how-a-simple-logic
-2025-03-01,Zoth mintWithStable,recorded collateral amount,330979,tokens,https://blog.verichains.io/p/anatomy-of-a-hack-how-a-simple-logic
-2025-03-01,Zoth exploit,attack transaction,0xc3f70057e261af554c6acf6a372389899f0c2d7d1ebd27311e39525dee88fb39,tx_hash,https://etherscan.io/tx/0xc3f70057e261af554c6acf6a372389899f0c2d7d1ebd27311e39525dee88fb39
-2025-03-01,Zoth attacker,attacker address,0x806d9d1f1b80107a294393c76258b69b441565f0,address,https://etherscan.io/address/0x806d9d1f1b80107a294393c76258b69b441565f0
-2025-03-01,Zoth vulnerable contract,contract address,0xe257495224eb1bd710ff18c3758c8a87cde46137,address,https://etherscan.io/address/0xe257495224eb1bd710ff18c3758c8a87cde46137
-2025-03-21,Zoth,reported separate later incident loss,8290000,USD,https://www.gate.com/research/article/gate-research-security-incident-summary-for-march-2025
+tx_hash,block_number,attacker,zoth_contract,mint_function,input_stablecoin,input_amount,swap_pool,pool_price_before,pool_price_after,pool_liquidity_before,pool_liquidity_after,collateral_expected,collateral_received,collateral_recorded,zeusd_minted,zeusd_burned,collateral_withdrawn,profit_usd,downstream_fund_movements
+0xc3f70057e261af554c6acf6a372389899f0c2d7d1ebd27311e39525dee88fb39,21953340,0x806d9d1f1b80107a294393c76258b69b441565f0,0xe257495224eb1bd710ff18c3758c8a87cde46137,mintWithStable,USDC,330979.456815,Uniswap V3 wM-USDC,"about 1.00018 USDC per wM from the same transaction's stable pre-manipulation swap","about 43.1555 USDC per wM from the mint-path swap that returned 7669.463037 wM for 330979.456815 USDC","Etherscan trace shows a same-transaction add of 7951990.433032 wM and 0 USDC liquidity","Etherscan trace shows a same-transaction removal of 7951983.981468 wM and 40319276.180779 USDC liquidity",330979.456815,7669.463037,330979.456815,327618.873449,327618.873449,330979.456815,285000,"Etherscan shows final attacker-contract net receipt of 286902.019393 USDC and repayment of 63031500 USDC to Aave; public writeups round exploit profit to about 285000 USD"
