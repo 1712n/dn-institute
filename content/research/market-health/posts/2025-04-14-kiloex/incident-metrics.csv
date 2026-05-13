@@ -6,3 +6,13 @@ period,market_or_scope,metric,value,unit,source
 2025-04-15,KiloEx,response,platform operations suspended,status,https://www.coindesk.com/markets/2025/04/15/dex-kiloex-loses-usd7m-in-apparent-oracle-manipulation-attack
 2025-04-15,KiloEx,recovery offer,10,percent bounty,https://www.coindesk.com/markets/2025/04/15/dex-kiloex-loses-usd7m-in-apparent-oracle-manipulation-attack
 2025-04-18,KiloEx,recovery status,all stolen funds recovered,status,https://www.cryptotimes.io/2025/04/18/kiloex-hacker-returns-stolen-funds-just-days-after-hack/
+2025-04-14,KiloEx Base deployment,public loss attribution,3.3,USD millions,https://chainvestigate.com/en/kiloex-hack-analysis
+2025-04-14,KiloEx BSC deployment,public loss attribution,1.0,USD millions,https://chainvestigate.com/en/kiloex-hack-analysis
+2025-04-14,KiloEx opBNB deployment,public loss attribution,3.1,USD millions,https://chainvestigate.com/en/kiloex-hack-analysis
+2025-04-14,KiloEx Taiko deployment,public loss attribution,0.041,USD millions,https://chainvestigate.com/en/kiloex-hack-analysis
+2025-04-14,KiloEx Manta deployment,public loss attribution,0.100,USD millions,https://chainvestigate.com/en/kiloex-hack-analysis
+2025-04-14,KiloEx Base deployment,replay anchors,0x6b378c84aa57097fb5845f285476e33d6832b8090d36d02fe0e1aed909228edd; 0xde7f5e78ea63cbdcd199f4b109db2a551b4462dec79e4dba37711f6c814b26e6; 0xf0fcce0807a82041d050a60461e187f0e81a6f7fbda69bb600c04049d924e138,transaction hashes,https://chainvestigate.com/en/kiloex-hack-analysis
+2025-04-14,KiloEx BSC deployment,replay anchors,0x1aaf5d1dc3cd07feb5530fbd6aa09d48b02cbd232f78a40c6ce8e12c55927d03; 0x38b25be14b83fd549d5e0b29ba962db83d41f5f9072d0eac4f692fa8e7110bc0,transaction hashes,https://chainvestigate.com/en/kiloex-hack-analysis
+2025-04-14,KiloEx opBNB deployment,replay anchors,0x79eb28ae21698733048e2dae9f9fe3d913396dc9d93a0e30d659df6065127964; 0xcfc679a66f1d2966dbe83bb827409c40f29f881c20128107ae73e93ab55c65e4; 0x783d56ce53af6d59c7c4be374ff48a66257733fadf5905526b5862a54917889f,transaction hashes,https://chainvestigate.com/en/kiloex-hack-analysis
+2025-04-14,KiloEx Taiko deployment,replay anchors,0x9bce6e105cea138fe9fb1e4bfb63fe90d21817db9d2cc6d1bf7697317430215b,transaction hashes,https://chainvestigate.com/en/kiloex-hack-analysis
+2025-04-14,KiloEx Manta deployment,replay anchors,0x06074831103a1e91c7b6dcb3b641cf4b79bfa208ea75e99cf9b5100d60a82df5,transaction hashes,https://chainvestigate.com/en/kiloex-hack-analysis
