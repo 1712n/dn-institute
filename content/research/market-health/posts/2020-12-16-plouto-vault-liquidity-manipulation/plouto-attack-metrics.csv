@@ -1,0 +1,15 @@
+date_utc,event,asset_or_pool,metric,value,source_url,notes
+2020-12-16,attack detection,Plouto Vault,total_extracted_usd,698775.32,https://blocksec.com/blog/flash-loan-attack-on-plouto-vault,BlockSec reported total value extracted across eight transactions
+2020-12-16,representative transaction,Aave,flash_loan_usdc,9000000,https://blocksec.com/blog/flash-loan-attack-on-plouto-vault,USDC flash loan used to fund the manipulation cycle
+2020-12-16,representative transaction,Uniswap V2,flash_loan_usdt,2000000,https://blocksec.com/blog/flash-loan-attack-on-plouto-vault,USDT flash loan used alongside Aave funding
+2020-12-16,representative transaction,Curve YPool,manipulated_asset,USDT,https://blocksec.com/blog/flash-loan-attack-on-plouto-vault,BlockSec identified USDT liquidity manipulation in YPool
+2020-12-16,representative transaction,Uniswap V2,repayment_usdt,2006200,https://blocksec.com/blog/flash-loan-attack-on-plouto-vault,Amount returned to the Uniswap V2 flash-loan leg
+2020-12-16,representative transaction,Uniswap V2 USDT-USDC,input_usdt,17298,https://blocksec.com/blog/flash-loan-attack-on-plouto-vault,USDT swapped to obtain USDC for repayment
+2020-12-16,representative transaction,Uniswap V2 USDT-USDC,output_usdc,17320,https://blocksec.com/blog/flash-loan-attack-on-plouto-vault,USDC received from the repayment-supporting swap
+2020-12-16,representative transaction,Aave,repayment_usdc,9008100,https://blocksec.com/blog/flash-loan-attack-on-plouto-vault,Amount returned to Aave
+2020-12-16,representative transaction,USDC-DAI swap,input_usdc,177533,https://blocksec.com/blog/flash-loan-attack-on-plouto-vault,USDC converted into DAI profit
+2020-12-16,representative transaction,USDC-DAI swap,output_dai,175669,https://blocksec.com/blog/flash-loan-attack-on-plouto-vault,DAI sent to the attacker's externally owned account
+2020-12-16,attack scale,Plouto Vault,transaction_count,8,https://blocksec.com/blog/flash-loan-attack-on-plouto-vault,BlockSec counted eight transactions matching the attack pattern
+2020-12-16,attack scale,Plouto Vault,largest_transaction_profit_usd,175669.88,https://blocksec.com/blog/flash-loan-attack-on-plouto-vault,Largest profit in the transaction series
+2020-10-29,oracle attack classification,Plouto Finance,classified_loss_usd,700000,https://www.csie.ntu.edu.tw/~hchsiao/pub/2021_IEEE_SB_ProMutator.pdf,ProMutator classifies Plouto Finance as a 2020 Curve calc_withdraw_one_coin price-oracle attack
+2020-11-02,protocol disclosure,Plouto USDC USDT DAI vaults,disclosed_loss_usd,700000,https://ploutoprotocol.medium.com/plouto-was-attacked-by-flashloan-c309161c6281,Plouto statement describes more than 700000 dollars stolen from stablecoin vaults
