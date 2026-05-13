@@ -1,0 +1,15 @@
+date_utc,event,asset_or_pool,metric,value,source_url,notes
+2020-11-06T19:22:21Z,attack transaction,Cheese Bank,estimated_loss_usd,3300000,https://peckshield.medium.com/cheese-bank-incident-root-cause-analysis-d076bf87a1e7,PeckShield reported about 3.3 million dollars of USDC USDT and DAI loss
+2020-11-06T19:22:21Z,flash loan,dYdX,borrowed_eth,21000,https://peckshield.medium.com/cheese-bank-incident-root-cause-analysis-d076bf87a1e7,Flash loan principal used to fund the manipulation
+2020-11-06T19:22:21Z,initial swap,Uniswap V2 CHEESE-ETH,input_eth,50,https://cheesebank2020.medium.com/cheese-bank-detailed-statement-a765372dd84f,ETH used to acquire CHEESE inventory
+2020-11-06T19:22:21Z,initial swap,Uniswap V2 CHEESE-ETH,output_cheese,107232,https://cheesebank2020.medium.com/cheese-bank-detailed-statement-a765372dd84f,CHEESE acquired before LP collateral was created
+2020-11-06T19:22:21Z,lp collateral seed,Uniswap V2 CHEESE-ETH,added_eth,78.8,https://cheesebank2020.medium.com/cheese-bank-detailed-statement-a765372dd84f,ETH paired with CHEESE to mint LP tokens
+2020-11-06T19:22:21Z,lp collateral seed,Uniswap V2 CHEESE-ETH,added_cheese,107232,https://cheesebank2020.medium.com/cheese-bank-detailed-statement-a765372dd84f,CHEESE paired with ETH to mint LP tokens
+2020-11-06T19:22:21Z,price manipulation swap,Uniswap V2 CHEESE-ETH,input_eth,20000,https://peckshield.medium.com/cheese-bank-incident-root-cause-analysis-d076bf87a1e7,ETH used to push the pool reserves before oracle refresh
+2020-11-06T19:22:21Z,price manipulation swap,Uniswap V2 CHEESE-ETH,output_cheese,288000,https://peckshield.medium.com/cheese-bank-incident-root-cause-analysis-d076bf87a1e7,Approximate CHEESE amount from the manipulation leg
+2020-11-06T19:22:21Z,oracle refresh,CheesePriceOracle,reported_lp_value_change_multiple,300,https://cheesebank2020.medium.com/cheese-bank-detailed-statement-a765372dd84f,Cheese Bank statement describes an instantaneous LP value increase of about 300 times
+2020-11-06T19:22:21Z,borrow,Cheese Bank USDC,borrowed_usdc,2000000,https://peckshield.medium.com/cheese-bank-incident-root-cause-analysis-d076bf87a1e7,Stablecoin balance borrowed after manipulated oracle refresh
+2020-11-06T19:22:21Z,borrow,Cheese Bank USDT,borrowed_usdt,1230000,https://peckshield.medium.com/cheese-bank-incident-root-cause-analysis-d076bf87a1e7,Stablecoin balance borrowed after manipulated oracle refresh
+2020-11-06T19:22:21Z,borrow,Cheese Bank DAI,borrowed_dai,87000,https://peckshield.medium.com/cheese-bank-incident-root-cause-analysis-d076bf87a1e7,Stablecoin balance borrowed after manipulated oracle refresh
+2020-11-06T19:22:21Z,fee coverage swap,Uniswap V2 USDC-ETH,input_usdc,58812,https://peckshield.medium.com/cheese-bank-incident-root-cause-analysis-d076bf87a1e7,USDC converted to ETH to cover execution and repayment gap
+2020-11-06T19:22:21Z,fee coverage swap,Uniswap V2 USDC-ETH,output_eth,132,https://peckshield.medium.com/cheese-bank-incident-root-cause-analysis-d076bf87a1e7,ETH acquired for execution and repayment gap
