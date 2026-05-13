@@ -11,7 +11,7 @@ entities:
 
 ## Summary
 
-On February 4, 2021, Yearn Finance's v1 yDAI vault lost about 11 million DAI after an attacker repeatedly pushed Curve's 3pool away from its normal stablecoin balance and made the vault interact with the pool while the exchange rate was unfavorable. Yearn's own disclosure describes the core mechanism as creating exchange-rate imbalances in Curve's 3pool, forcing the yDAI vault to deposit and withdraw at bad rates, and then reversing the imbalance so the attacker could extract value from the pool position.[^yearn-disclosure]
+On February 4, 2021, Yearn Finance's v1 yDAI vault lost about 11 million DAI because the vault could be made to transact during short-lived distortions in Curve's 3pool. Instead of relying on a lasting move in stablecoin fundamentals, the attacker repeatedly changed the pool inventory, triggered vault activity against that temporary state, and unwound the position after the vault had absorbed the bad execution.[^yearn-disclosure]
 
 This is a useful market-health case because the manipulated market was not a thin memecoin book. It was a major stablecoin AMM pool where prices are expected to remain close to parity. The attacker used very large temporary flows, not a durable change in fundamentals, to alter the price surface visible to the vault. The vault then acted as a forced taker of that distorted price.
 
@@ -19,11 +19,11 @@ The incident also shows why market manipulation and oracle/AMM exploitation over
 
 ## Manipulation pattern
 
-The public Yearn disclosure gives a concise transaction-level pattern. In one example transaction, the attacker minted 3CRV shares by depositing 134 million USDC and 36 million DAI, withdrew 165 million USDT to leave the pool short of USDT, pushed the yDAI vault to deposit into the imbalanced pool, restored and re-created the imbalance across repeated loops, and finally redeemed the initial 3CRV shares for 134 million USDC and 39.4 million DAI.[^yearn-disclosure]
+Yearn's disclosure describes the exploit at transaction level. One representative loop started with 3CRV minting from 134 million USDC and 36 million DAI, then removed 165 million USDT so the pool's composition was skewed before the yDAI vault deposited. After cycling the imbalance through the vault interaction, the attacker later redeemed the initial 3CRV position for 134 million USDC and 39.4 million DAI.[^yearn-disclosure]
 
 {{< figure src="yearn-ydai-curve-imbalance-flow.svg" caption="Simplified flow of the yDAI manipulation loop: distort Curve 3pool, force yDAI vault execution, restore, repeat, and redeem." >}}
 
-The loss was not caused by a normal directional bet on DAI, USDC, or USDT. The attacker temporarily changed the relative stablecoin inventory inside Curve, made another protocol execute while that inventory was distorted, and then unwound the distortion. Yearn reported 11 million DAI of vault deposits lost, 24 million DAI saved by emergency mitigation, and an estimated attacker profit of 2.7 million DAI.[^yearn-disclosure]
+The loss was not caused by a normal directional bet on DAI, USDC, or USDT. The attacker temporarily changed the relative stablecoin inventory inside Curve, made another protocol execute while that inventory was distorted, and then unwound the distortion. Yearn reported 11 million DAI of vault deposits lost, 24 million DAI saved by emergency mitigation, and an estimated attacker profit of 2.7 million DAI; Halborn and CoinDesk later summarized the incident as the February 2021 Yearn v1 yDAI exploit.[^yearn-disclosure][^halborn][^coindesk]
 
 ## Market-health signals
 
