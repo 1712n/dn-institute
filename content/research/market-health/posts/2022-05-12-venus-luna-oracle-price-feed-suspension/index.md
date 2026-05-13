@@ -1,5 +1,5 @@
 ---
-title: "Venus Protocol LUNA Oracle Price Feed Suspension"
+title: "Venus Protocol LUNA Oracle Price Feed Suspension: Oracle Failure Operational Incident"
 date: 2022-05-12
 entities:
   - Venus Protocol
@@ -9,6 +9,10 @@ entities:
   - Chainlink
   - BNB Chain
   - XVS
+tags:
+  - oracle-failure
+  - operational-failure
+  - market-health
 ---
 
 ## Summary
@@ -18,6 +22,8 @@ collapse of the Terra ecosystem. The immediate failure was not a flash-loan
 price pump on a thin trading venue. It was a stale-oracle failure in a lending
 market: Chainlink's LUNA price feed hit a floor threshold and stopped updating
 at 0.107 USD while LUNA's spot price continued falling toward about 0.01 USD.
+This case is therefore classified as an oracle-failure operational incident,
+not as a direct spot-market or oracle-manipulation attack.
 
 Venus's own incident update says the feed was suspended at about 09:20 UTC and
 that the LUNA market continued operating while the external price kept falling.
@@ -49,7 +55,7 @@ The main warning signs were:
 The supporting dataset is stored in
 [`venus-luna-market-metrics.csv`](venus-luna-market-metrics.csv). It separates
 oracle, response-time, borrow, and remediation signals so the case can be
-compared with other market-manipulation and market-health failures.
+compared with other oracle-failure, operational, and market-health failures.
 
 | Metric                      |                Value | Market-health interpretation                                                     |
 | --------------------------- | -------------------: | -------------------------------------------------------------------------------- |
@@ -101,8 +107,8 @@ moving downward with the market.
 
 This distinction matters for market-health monitoring. A stale oracle can create
 the same economic effect as price manipulation even when no attacker directly
-manipulates the oracle or the underlying spot venue. The manipulated object is
-the protocol's interpretation of collateral value.
+manipulates the oracle or the underlying spot venue. The broken object is the
+protocol's interpretation of collateral value.
 
 ## Market-Health Indicators
 
