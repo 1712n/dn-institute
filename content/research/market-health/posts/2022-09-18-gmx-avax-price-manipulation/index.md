@@ -34,9 +34,9 @@ That model can be healthy when the trade size is small compared with reference-m
 
 Reports from September 18-19, 2022 describe a repeated loop in the AVAX/USD market. The trader opened large positions on GMX with no price impact, moved AVAX on reference exchanges, then used the changed reference price to exit with profit against GLP liquidity providers.
 
-The reported scale was material for a single-asset market-health event. [Cointelegraph's summary of Joshua Lim's public analysis](https://cointelegraph.com/news/decentralized-exchange-gmx-suffers-565k-price-manipulation-exploit) described five cycles and placed the first loop inside a roughly 13-minute window, from 01:15:31 to 01:28:11 UTC, with about $158,000 in profit. Across the repeated cycles, more than 200,000 AVAX, or about $4 million to $5 million, moved per cycle.
+The reported scale was material for a single-asset market-health event. In [Cointelegraph's summary of Joshua Lim's public analysis](https://cointelegraph.com/news/decentralized-exchange-gmx-suffers-565k-price-manipulation-exploit), the incident is framed as five repeated cycles; the first cycle is reported as a 01:15:31-01:28:11 UTC loop that generated about $158,000 in profit. Across the repeated cycles, public reporting indicates that each clip moved more than 200,000 AVAX, or about $4 million to $5 million.
 
-[CryptoSlate's incident report](https://cryptoslate.com/crypto-trader-exploits-gmx-manipulates-avax-price-to-remove-565k/) put the trader's working capital near $4.7 million and described AVAX trading in the $18.33 to $18.68 range during the window. That price band looks small in percentage terms, but the no-price-impact execution made small reference-market moves economically meaningful when repeated across large clips.
+[CryptoSlate's incident report](https://cryptoslate.com/crypto-trader-exploits-gmx-manipulates-avax-price-to-remove-565k/) separately reports roughly $4.7 million of working capital and an AVAX trading range of $18.33-$18.68 during the relevant window. That band is narrow in percentage terms, but the no-price-impact execution made small reference-market moves economically meaningful when repeated across large clips.
 
 ### GMX response
 
