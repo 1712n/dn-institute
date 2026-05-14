@@ -11,8 +11,8 @@ entities:
 ## Summary
 
 1. **CFTC Enforcement Action:** In March 2023, the U.S. Commodity Futures Trading Commission (CFTC) filed a comprehensive complaint against Binance and its founder Changpeng Zhao (CZ), alleging systematic wash trading and market manipulation across its platform.
-2. **Quantified Wash Trading Volume:** The CFTC complaint documented that Binance's own accounts engaged in wash trading that inflated reported volume by approximately **$2.7 billion** across multiple trading pairs between January and March 2023.
-3. **Internal Account Manipulation:** Binance maintained approximately **600 house accounts** controlled by entities affiliated with the exchange, which traded against retail customers without proper disclosure.
+2. **Regulatory Settlement:** The CFTC imposed **$2.7 billion** in total penalties on Binance — comprising **$1.35 billion in disgorgement** and **$1.35 billion in civil monetary penalty** — while CZ personally paid **$150 million** and agreed to resign as CEO.
+3. **Internal Account Manipulation:** Binance maintained approximately **300 house accounts** controlled by entities affiliated with the exchange, which traded against retail customers without proper disclosure.
 4. **Cross-Market Manipulation:** Evidence shows coordinated trading activity between Binance's house accounts and Sigma Chain, a trading firm owned by CZ, designed to manipulate spot prices for derivatives settlement.
 5. **Regulatory Settlement:** Binance agreed to pay **$2.7 billion** in penalties and disgorgement to the CFTC, while CZ personally paid **$150 million** and agreed to resign as CEO.
 6. **Systemic Volume Inflation:** Independent analysis suggests that Binance's reported trading volumes were inflated by **30-50%** across major trading pairs during the period under investigation.
@@ -27,7 +27,7 @@ However, concerns about the authenticity of Binance's reported trading volumes h
 
 ### House Account Trading
 
-The CFTC's investigation revealed that Binance maintained approximately **600 house accounts** controlled by entities affiliated with the exchange. These accounts engaged in trading activity that was not disclosed to retail users and created artificial volume.
+The CFTC's investigation revealed that Binance maintained approximately **300 house accounts** controlled by entities affiliated with the exchange. These accounts engaged in trading activity that was not disclosed to retail users and created artificial volume.
 
 Key findings from the CFTC complaint:
 
@@ -52,52 +52,54 @@ The CFTC's analysis quantified the impact of Binance's wash trading:
 | Total wash trading volume | $2.7 billion |
 | Period analyzed | January - March 2023 |
 | Affected trading pairs | BTC/USDT, ETH/USDT, BNB/USDT, and others |
-| House accounts identified | ~600 |
+| House accounts identified | ~300 |
 | Volume inflation estimate | 30-50% |
 
 ## Market Health Metrics Analysis
 
 ### Average Transaction Size Anomalies
 
-Analysis of Binance's trading data reveals patterns consistent with wash trading when compared to regulated exchanges:
+Analysis of Binance's trading data suggests patterns that may indicate wash trading when compared to regulated exchanges:
 
 **Spotting Artificial Volume:**
-- Average transaction sizes on Binance showed **unusually low variance** compared to Coinbase and Kraken.
-- Transaction sizes frequently clustered around **round numbers** (e.g., 1.0 BTC, 10.0 ETH), a hallmark of algorithmic wash trading.
-- The ratio of large-to-small transactions was **abnormally consistent**, suggesting automated volume generation rather than organic retail activity.
+- Average transaction sizes on Binance appeared to show **unusually low variance** compared to Coinbase and Kraken, though this observation requires further validation with controlled datasets.
+- Transaction sizes appeared to cluster around **round numbers** (e.g., 1.0 BTC, 10.0 ETH), a pattern commonly associated with algorithmic wash trading.
+- The ratio of large-to-small transactions appeared **abnormally consistent**, though this could reflect differences in user demographics rather than volume manipulation.
 
 **Cross-Exchange Comparison:**
-When comparing Binance's transaction size distributions to regulated exchanges like Coinbase:
+When comparing Binance's transaction size distributions to regulated exchanges like Coinbase (preliminary observations — not independently verified):
 
-- Binance's distribution showed a **narrower peak** around common trade sizes.
-- The **tail exponent** of Binance's volume distribution was **lower than expected**, indicating more large trades than organic market activity would produce.
-- **Skewness values** were closer to zero than on legitimate exchanges, suggesting volume manipulation.
+- Binance's distribution appeared to show a **narrower peak** around common trade sizes.
+- **Tail exponent** estimates suggested lower values than expected for organic markets, but the methodology (MLE fitting, sample selection, filtering criteria) was not documented and the results could not be independently reproduced.
+- **Skewness values** appeared closer to zero than on legitimate exchanges, but confidence intervals and significance tests were not provided.
 
 ### Volume Distribution Analysis
 
 **Power Law Deviation:**
-Healthy cryptocurrency markets follow a [power law](https://en.wikipedia.org/wiki/Power_law) distribution where small trades are common and large trades are rare. Binance's volume distribution showed:
+Healthy cryptocurrency markets follow a [power law](https://en.wikipedia.org/wiki/Power_law) distribution where small trades are common and large trades are rare. Preliminary observations from Binance's volume distribution suggested:
 
-- **Tail exponent values below 2.5** across multiple trading pairs, lower than the expected range of 2.5-3.5 for organic markets.
-- **Excess kurtosis** in volume distributions, indicating more extreme values than a natural market would produce.
-- **Synchronized fluctuations** in distribution parameters across unrelated trading pairs, suggesting coordinated algorithmic activity.
+- **Tail exponent values** that appeared lower than the expected range of 2.5-3.5 for organic markets, though the specific pairs, sampling windows, and fitting methodology were not documented.
+- **Excess kurtosis** was suggested but not quantified with statistical tests or confidence intervals.
+- **Synchronized fluctuations** across unrelated trading pairs were noted but could reflect common market factors rather than coordinated algorithmic activity.
 
 **Skewness Anomalies:**
-- Binance's volume distributions showed **skewness values closer to zero** than comparable exchanges.
+- Binance's volume distributions appeared to show **skewness values closer to zero** than comparable exchanges.
 - Healthy markets typically exhibit **positive skewness** (more small trades than large ones).
-- Near-zero or negative skewness indicates **artificial volume generation** through wash trading bots.
+- These observations require controlled analysis with documented datasets, sampling methodology, and statistical significance tests before drawing definitive conclusions.
 
 ### Retail Transaction Clustering
 
-**Absence of Organic Patterns:**
-- Unlike regulated exchanges, Binance showed **minimal clustering** of round-number trades by retail-sized accounts.
-- The **trade size distribution** was smoother than organic markets, suggesting algorithmic rather than human trading.
-- **Time-of-day patterns** showed less variation than expected for a global exchange serving retail customers across multiple time zones.
+**Absence of Organic Patterns (Hypothesis):**
+- Unlike regulated exchanges, Binance appeared to show **minimal clustering** of round-number trades by retail-sized accounts, though this observation has not been validated against controlled datasets.
+- The **trade size distribution** appeared smoother than organic markets, potentially suggesting algorithmic rather than human trading, but could also reflect a different user base composition.
+- **Time-of-day patterns** appeared less variable than expected for a global exchange, but this could be explained by geographic concentration of users.
 
-**Bot Detection Indicators:**
-- **Identical trade sizes** appearing at regular intervals across multiple trading pairs.
-- **Sub-second trade execution** patterns consistent with algorithmic wash trading.
-- **Cross-pair correlation** in trade timing that exceeded what organic market activity would produce.
+**Bot Detection Indicators (Hypothesis):**
+- **Identical trade sizes** at regular intervals were noted as a potential indicator, though automated detection methods and thresholds were not specified.
+- **Sub-second trade execution** patterns were observed but not quantified relative to legitimate high-frequency trading activity.
+- **Cross-pair correlation** in trade timing was suggested but not measured with statistical rigor.
+
+*Note: The observations in this section are preliminary hypotheses based on qualitative analysis. A rigorous, reproducible analysis would require: (1) documented dataset scope and provenance, (2) specified sampling windows and filtering rules, (3) exact statistical methods with confidence intervals, and (4) published output artifacts (tables, figures, or notebooks) for independent verification.*
 
 ## Regulatory Response and Settlement
 
@@ -156,8 +158,8 @@ The case demonstrates that even the largest exchanges are not immune to regulato
 
 ## References
 
-- [CFTC Complaint Against Binance (March 2023)](https://www.cftc.gov/PressRoom/EnforcementFilings/8791-23)
-- [CFTC Settlement Order (November 2023)](https://www.cftc.gov/PressRoom/EnforcementFilings/8791-23)
+- [CFTC Charges Binance and Its Founder (March 2023)](https://www.cftc.gov/PressRoom/PressReleases/8680-23)
+- [CFTC Orders Binance and CZ to Pay $2.85 Billion (November 2023)](https://www.cftc.gov/PressRoom/PressReleases/8825-23)
 - [Bitwise Asset Management Report on Fake Volume (2019)](https://blog.bitwiseinvestments.com/crypto-research/fake-volume)
 - [Chainalysis Crypto Crime Report (2022)](https://www.chainalysis.com/blog/2022-crypto-crime-report/)
 - [DN Institute Market Health Metrics Documentation](https://dn.institute/market-health/docs/market-health-metrics/)
