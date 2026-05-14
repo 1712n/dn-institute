@@ -1,0 +1,8 @@
+signal_type,observed_value,source,market_health_use,monitoring_rule
+exploit_date,2023-07-11,DN Institute incident record,Timestamp anchor for Arbitrum strategy monitoring,Replay strategy and oracle activity around exploit transactions
+reported_loss,about 472 ETH or 880000 to 888000 USD,DN Institute and Crypto Briefing,Materiality gauge for TWAP oracle exposure,Escalate when one oracle route can move strategy funds
+oracle_weakness,TWAP oracle path manipulated through sandwich-style routing,DN Institute and Smart Contract Hacking,Root market-health failure mode,Compare manipulation cost with maximum strategy exposure
+market_route,unshETH and related swap routes,Crypto Briefing and public analyses,Identifies reference-market dependency,Gate strategy actions when route depth is thin
+recovery_signal,about 810000 USD recovered from the Rodeo farm,Smart Contract Hacking,Separates gross impact from net loss,Track recovery amount separately from stolen amount
+tvl_impact,TVL reportedly fell from about 20 million USD to below 500 USD,Crypto Briefing,Measures user-confidence and liquidity flight,Alert on extreme TVL drawdown after oracle incidents
+fund_flow,bridged swapped and Tornado Cash routed funds,Crypto Briefing,Classifies adversarial extraction path,Connect Arbitrum exploit flow with Ethereum bridge and mixer events
