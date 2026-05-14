@@ -1,0 +1,6 @@
+signal,observation,market_health_use,source
+stablecoin_design,"GHO is described by Aave as an overcollateralized native stablecoin","Separate solvency backing from secondary-market peg behavior","https://aave.com/gho"
+peg_deviation,"AIP-323 cited GHO around $0.975","Track persistent underpeg despite collateral backing","https://governance-v2.aave.com/governance/proposal/323/"
+borrow_rate_mismatch,"AIP-323 said GHO borrow was below market stablecoin borrow rates","Compare minting cost against competing stablecoin borrow markets","https://governance-v2.aave.com/governance/proposal/323/"
+rate_intervention,"AIP-381 increased the GHO borrow rate after the peg remained outside target","Monitor governance rate changes as peg-restoration actions","https://governance-v2.aave.com/governance/proposal/381/"
+target_band,"December ARFC referenced a 0.995 to 1.005 monthly average price range and further 100 bps increases if needed","Convert peg stress into measurable policy triggers","https://governance.aave.com/t/arfc-increase-gho-borrow-rate-100-bps-to-6-35-on-aave-v3/15744"
