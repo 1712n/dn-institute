@@ -1,0 +1,12 @@
+date,entity,signal,value,source,market_health_use
+2022-05-13,Scream,total_liquidity_usd,184441420,https://api.llama.fi/protocol/scream,pre-incident liquidity baseline
+2022-05-16,Scream,total_liquidity_usd,98347123,https://api.llama.fi/protocol/scream,liquidity drawdown during bad-debt recognition
+2022-05-17,Scream,total_liquidity_usd,65795865,https://api.llama.fi/protocol/scream,continued liquidity exit after depeg-priced borrowing
+2022-05-20,Scream,total_liquidity_usd,33768023,https://api.llama.fi/protocol/scream,post-incident liquidity floor in source window
+2022-05-16,Scream,reported_bad_debt_usd,35000000,https://cryptoslate.com/scream-protocol-losses-millions-to-stablecoin-depeg/,protocol insolvency estimate from fixed-price collateral
+2022-05-16,fUSD,reported_market_low_usd,0.69,https://cryptoslate.com/scream-protocol-losses-millions-to-stablecoin-depeg/,external price below internal one-dollar collateral quote
+2022-05-16,DEI,reported_market_low_usd,0.52,https://cryptoslate.com/scream-protocol-losses-millions-to-stablecoin-depeg/,external price below internal one-dollar collateral quote
+2022-05-16,fUSD,reported_deposit_limit,infinity,https://crypto.news/fantoms-scream-defi-protocol-incurs-35m-bad-debt-as-two-more-stablecoins-lose-usd-peg/,missing exposure cap during collateral price stress
+2022-05-16,Scream,affected_borrow_assets,"FRAX;Fantom USDT;USDC;MIM;DAI",https://crypto.news/fantoms-scream-defi-protocol-incurs-35m-bad-debt-as-two-more-stablecoins-lose-usd-peg/,borrowed stronger stablecoins against mispriced collateral
+2022-05-16,Scream,reported_tvl_change_24h_pct,-50,https://cryptoslate.com/scream-protocol-losses-millions-to-stablecoin-depeg/,rapid liquidity loss and withdrawal pressure
+2022-05-16,Scream,remediation_signal,"liquidation bot and Chainlink oracle migration",https://cryptoslate.com/scream-protocol-losses-millions-to-stablecoin-depeg/,move from fixed pricing toward live oracle and liquidation controls
