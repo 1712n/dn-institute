@@ -1,0 +1,9 @@
+date,entity,signal,observation,source
+2024-05-04,Sonne Finance,governance-listing,"Sonne Improvement Proposal 15 proposed adding VELO markets on Optimism; CertiK reports voting closed May 7 with unanimous approval.","https://snapshot.org/#/sonnefi.eth/proposal/0x6f3f62efc77e8c501bf71812d2fdc064710a45618d65736ed886cca38ed16fa3"
+2024-05-14,Sonne Finance,timelock-execution,"Analyses describe scheduled multi-transaction market setup and c-factor changes becoming executable after a two-day timelock.","https://www.halborn.com/blog/post/explained-the-sonne-finance-hack-may-2024"
+2024-05-14,soVELO,low-share-supply,"CertiK reports the attacker supplied 400000001 wei VELO to mint 2 wei of soVELO before the attack flow.","https://www.certik.com/blog/sonne-finance-incident-analysis"
+2024-05-14,soVELO,donation-delta,"The attacker borrowed about 35469150 VELO and transferred it directly to the soVELO contract, increasing totalCash without proportional soVELO minting.","https://www.certik.com/blog/sonne-finance-incident-analysis"
+2024-05-14,soVELO,exchange-rate-spike,"CertiK reports the manipulated exchange rate made 1 wei soVELO worth 17735851 VELO.","https://www.certik.com/blog/sonne-finance-incident-analysis"
+2024-05-14,Sonne Finance,borrow-output,"CertiK reports the manipulated 2 wei soVELO position enabled borrowing 265 WETH before the flow repeated across additional markets.","https://www.certik.com/blog/sonne-finance-incident-analysis"
+2024-05-14,Sonne Finance,loss-estimate,"Public incident reports place total losses near 20 million dollars across multiple Sonne Optimism markets.","https://cryptonews.net/news/security/29035852/"
+2024-05-15,Sonne Finance,response,"Sonne announced that Optimism markets were paused and later explored recovery options including a bounty offer to the attacker.","https://cryptonews.net/news/security/29035852/"
