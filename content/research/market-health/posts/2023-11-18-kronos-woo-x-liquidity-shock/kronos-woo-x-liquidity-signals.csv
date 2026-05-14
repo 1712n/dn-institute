@@ -1,0 +1,8 @@
+signal_type,observed_value,source,market_health_use,monitoring_rule
+api_key_compromise,unauthorized API-key access at Kronos Research,DN Institute and Halborn,Operational compromise trigger for liquidity monitoring,Escalate provider security incidents that can affect quoting capacity
+reported_loss,about 26 million USD,DN Institute incident record,Capital shock to a market-making firm,Track loss size against provider balance sheet and venue dependency
+asset_mix,USDT ETH and USDC affected,DN Institute incident record,Asset-specific liquidity capacity signal,Track stablecoin and ETH losses that can impair cross-pair quoting
+trading_halt,Kronos paused trading after the incident,DN Institute and CoinMarketCap,Provider outage signal,Alert when a top provider stops quoting or publicly pauses trading
+venue_dependency,WOO X described Kronos as its largest liquidity provider,WOO X transparency update,Single-provider concentration signal,Measure provider share of maker volume depth and spread contribution by market
+concentration_trend,Kronos futures maker-volume share had fallen by almost 50 percent over prior months,WOO X transparency update,Pre-incident concentration reduction metric,Monitor concentration trend and replacement-provider readiness
+user_protection_pause,WOO X paused selected markets and halted withdrawals during response,WOO X transparency update,Direct exchange-level market-health outcome,Trigger market-pause playbooks when depth or withdrawal safety is uncertain
