@@ -1,0 +1,6 @@
+date,event,signal,value,unit,source
+2024-06-10,first-drain,reported-loss,19.3,USD million,https://www.coindesk.com/business/2024/06/10/defi-protocol-uwu-lend-suffers-193m-expolit-arkham
+2024-06-10,first-drain,attack-vector,sUSDe oracle manipulation,text,https://www.coinlive.com/news/uwu-lend-hack-analysis
+2024-06-13,temporary-capital,reported-flash-loan-notional,4,USD billion,https://www.dlnews.com/articles/defi/0xsifu-protocol-uwu-lend-hacked-again-amid-payback-plan/
+2024-06-13,second-drain,reported-loss,3.7,USD million,https://crypto.news/uwu-lend-suffers-its-second-3-7m-hack-by-same-attacker
+2024-06-13,second-drain,affected-markets,"uDAI;uWETH;uLUSD;uFRAX;uCRVUSD;uUSDT",market list,https://crypto.news/uwu-lend-suffers-its-second-3-7m-hack-by-same-attacker
