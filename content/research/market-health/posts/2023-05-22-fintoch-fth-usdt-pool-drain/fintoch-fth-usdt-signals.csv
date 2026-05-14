@@ -1,0 +1,8 @@
+signal_type,observed_value,source,market_health_use,monitoring_rule
+regulator_warning,MAS investor alert list entry for Fintoch,MAS investor alert list,Pre-event issuer risk signal,Join issuer names domains and token symbols to warning-list records
+false_affiliation,Morgan Stanley rejected Fintoch affiliation claims,Morgan Stanley notice,Credibility and impersonation signal,Require verified institutional relationship evidence before treating backing claims as valid
+return_promise,one percent daily return promise,DN Institute incident record,Unsustainable yield acquisition signal,Escalate fixed high daily return promises tied to token sales or fundraising contracts
+reported_loss,31697984 USDT,DN Institute incident record,Materiality gauge for investor stablecoin exposure,Track fundraising pool balances and loss scale by stablecoin asset
+drain_transaction,about 31.7 million USDT removed in final FTH sale,DN Institute rug-pull explainer and BscScan,Immediate pool-liquidity shock,Alert when issuer-token sells can remove a large fraction of pooled stablecoin liquidity
+token_concentration,34341 FTH transferred to scammer before the final sale,DN Institute rug-pull explainer,Inventory concentration and sell-pressure signal,Monitor privileged token transfers near fundraising and liquidity events
+post_drain_movement,funds bridged to Ethereum and Tron after the BNB Chain drain,DN Institute incident record,Recovery and attribution follow-up signal,Trace bridge exits separately from the original market drain
