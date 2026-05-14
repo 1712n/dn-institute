@@ -1,0 +1,7 @@
+date,entity,signal,value,source,market_health_use
+2023-04-27,0VIX,total_liquidity_usd,6417598,https://api.llama.fi/protocol/0vix,pre-exploit liquidity baseline
+2023-04-28,0VIX,total_liquidity_usd,6338982,https://api.llama.fi/protocol/0vix,incident-day protocol liquidity
+2023-04-29,0VIX,total_liquidity_usd,1645963,https://api.llama.fi/protocol/0vix,post-exploit liquidity drawdown
+2023-04-28,0VIX,exploit_mechanism,flash-loan funded vGHST price and oracle manipulation,https://blog.solidityscan.com/ovix-protocol-hack-analysis-oracle-price-manipulation-4bd2755ea85e/,same-transaction collateral repricing and liquidation path
+2023-04-28,0VIX,loss_estimate_usd,2000000,https://theblockchain.digital/0vix-protocol-drained-for-2m-in-oracle-manipulation-exploit/,loss magnitude for risk scoring
+2023-04-28,0VIX,transaction_shape,278_events,https://smartcontractshacking.com/hacks/ovix-hack-2023,complex one-transaction path suitable for flash-loan alerting
