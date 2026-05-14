@@ -1,0 +1,8 @@
+signal_type,observed_value,source,market_health_use,monitoring_rule
+exploit_date,2023-04-02,DN Institute incident record,Timestamp anchor for BNB Chain bridge-pool monitoring,Replay LP and swap activity around exploit reports
+reported_loss,282889 BUSD and 290868 USDT,ForkLog and PeckShield-linked reporting,Measures drain by stablecoin pool,Track per-asset pool losses instead of only aggregate bridge loss
+dual_role_activity,attacker acted as liquidity provider and swapper,ForkLog and DN Institute,Identifies self-shaped pool pricing risk,Alert on LP changes followed by large same-pool swaps
+flash_loan_signal,7.5 million USD BUSD flash loan,The Crypto Times and CertiK-linked reporting,Measures temporary capital against pool depth,Gate swaps when flash-loan notional dwarfs pool liquidity
+distorted_swap,40000 BUSD reportedly swapped for 789632 USDT,The Crypto Times,Detects extreme output-to-input deviation,Block swaps far outside independent stablecoin references
+protocol_response,bridge temporarily suspended,ForkLog and The Crypto Times,Liquidity and user-confidence event,Pause related pools after one pool formula is manipulated
+recovery_signal,1500 BNB returned and remaining funds treated as bounty,The Crypto Times,Separates recovery from initial loss,Track returned funds and bounty settlement separately
