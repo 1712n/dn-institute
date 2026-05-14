@@ -1,0 +1,10 @@
+date,entity,signal,observation,source
+2024-03-05,WOOFi,exploit-start,"WOOFi reports the sPMM exploit began at 15:49 UTC on Arbitrum.","https://woox.io/blog/woofi-spmm-exploit-post-mortem"
+2024-03-05,WOO,flash-loan-inventory,"The exploiter borrowed about 7.7M WOO plus other assets before selling WOO into WOOFi.","https://woox.io/blog/woofi-spmm-exploit-post-mortem"
+2024-03-05,WOOFi,low-liquidity-surface,"WOOFi attributed feasibility to low WOO liquidity on Arbitrum and the addition of a WOO lending market.","https://woox.io/blog/woofi-spmm-exploit-post-mortem"
+2024-03-05,WOOFi,sPMM-price-adjustment,"WOOFi reported its sPMM adjusted WOO to an extreme value near zero, around 0.00000009 dollars.","https://woox.io/blog/woofi-spmm-exploit-post-mortem"
+2024-03-05,WOOFi,fallback-gap,"The normal Chainlink fallback check did not cover the WOO token price.","https://woox.io/blog/woofi-spmm-exploit-post-mortem"
+2024-03-05,WOOFi,repeat-pattern,"The attacker repeated the attack three times within a short period.","https://woox.io/blog/woofi-spmm-exploit-post-mortem"
+2024-03-05,WOOFi,loss-estimate,"WOOFi reported about 8.75M dollars in profit after flash loans were repaid.","https://woox.io/blog/woofi-spmm-exploit-post-mortem"
+2024-03-05,WOOFi,pause-response,"WOOFi reported large swaps were detected and WOOFi Swap contracts were paused by 16:02 UTC.","https://woox.io/blog/woofi-spmm-exploit-post-mortem"
+2024-03-05,WOOFi,recovery-response,"WOOFi extended a 10 percent whitehat bounty to the exploiter and placed an Arkham bounty for additional information.","https://woox.io/blog/woofi-spmm-exploit-post-mortem"
