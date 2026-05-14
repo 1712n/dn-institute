@@ -1,0 +1,7 @@
+date,entity,signal,value,source,market_health_use
+2024-01-11,Wise Lending,total_liquidity_usd,283989,https://api.llama.fi/protocol/wise-lending,pre-incident protocol liquidity
+2024-01-12,Wise Lending,total_liquidity_usd,835185,https://api.llama.fi/protocol/wise-lending,incident-day protocol liquidity
+2024-01-13,Wise Lending,total_liquidity_usd,439,https://api.llama.fi/protocol/wise-lending,post-incident liquidity collapse
+2024-01-12,Wise Lending,exploit_mechanism,precision-loss rounding-donation share-price inflation,https://blog.solidityscan.com/wise-lending-hack-analysis-f652f389e397,accounting movement became collateral valuation risk
+2024-01-12,Wise Lending,affected_market,nearly empty PLP-stETH-Dec2025 market,https://smartcontractshacking.com/hacks/wise-lending-v1-hack-2024,thin new market depth signal
+2024-01-12,Wise Lending,loss_estimate_usd,464000,https://www.fxstreet.com/cryptocurrencies/news/wise-lending-market-exploited-for-177-eth-in-a-flash-loan-attack-202401130252,loss magnitude for risk scoring
