@@ -10,11 +10,23 @@ entities:
 
 ## Summary
 
-On June 13, 2022, TRON's USDD stablecoin broke from its intended dollar peg during a broad crypto-market selloff. [CoinDesk reported](https://www.coindesk.com/markets/2022/06/13/trons-stablecoin-peg-to-dollar-wobbles-justin-sun-swears-to-deploy-2b-to-prop-up) that USDD traded as low as $0.91 on crypto exchanges while TRON founder Justin Sun said TRON DAO would deploy $2 billion to fight pressure on TRX and USDD.
+USDD's first major 2022 stress window arrived on June 13, less than six weeks after launch. [CoinDesk reported](https://www.coindesk.com/markets/2022/06/13/trons-stablecoin-peg-to-dollar-wobbles-justin-sun-swears-to-deploy-2b-to-prop-up) that the token traded down to $0.91 on crypto exchanges while TRON founder Justin Sun pointed to heavy short pressure on TRX and said TRON DAO would commit $2 billion to the defense.
 
-The stress repeated later in the year. During the FTX crisis, [CoinDesk reported](https://www.coindesk.com/markets/2022/11/10/tron-network-usdd-stablecoin-wobbles-from-dollar-peg-amid-latest-crypto-crisis) that USDD fell below $0.97 on multiple exchanges and that the USDD pool on Curve was heavily imbalanced, with USDD making up almost 80% of the pool. In December, [CoinDesk reported](https://www.coindesk.com/markets/2022/12/12/trons-usdd-stablecoin-hits-lowest-since-june) that USDD again fell slightly below $0.97, which violated the TRON DAO Reserve's stated 3% price-fluctuation threshold for treating a move as a depeg.
+The pressure returned during the FTX crisis. [CoinDesk reported](https://www.coindesk.com/markets/2022/11/10/tron-network-usdd-stablecoin-wobbles-from-dollar-peg-amid-latest-crypto-crisis) that USDD traded under $0.97 on multiple exchanges and that its Curve pool had become one-sided, with USDD accounting for nearly four-fifths of pool assets. In December, [CoinDesk reported](https://www.coindesk.com/markets/2022/12/12/trons-usdd-stablecoin-hits-lowest-since-june) that USDD again slipped a little below $0.97, putting the market price outside the DAO's stated 3% tolerance band.
 
 USDD is useful for Market Health because its stress combined several measurable signals: peg deviation, volatile reserve collateral, public peg-defense announcements, short pressure on the linked TRX token, liquidity-pool imbalance, and a governance-defined depeg threshold. The case shows that high stated collateralization does not remove market-health risk if the reserve includes volatile assets and secondary-market liquidity becomes one-sided.
+
+## Manipulation Analysis
+
+The public record does not prove that USDD's 2022 peg stress was caused by a coordinated manipulation campaign. The useful Market Health question is narrower: which observable signals would distinguish ordinary panic selling from deliberate pressure on a thin stablecoin market?
+
+The first vector is linked-token pressure. In the June event, the reported stress was not limited to USDD spot markets; Sun also highlighted extreme negative funding for TRX shorts. That creates a manipulable feedback loop: short TRX, pressure confidence in a stablecoin whose reserve and ecosystem are tied to TRX, then benefit if the stablecoin defense forces public reserve action or worsens TRX sentiment. The relevant surveillance test is a joint time-series test across TRX funding, TRX open interest, USDD price, and reserve-wallet movement. A manipulation pattern would show abnormal TRX short buildup before the USDD discount, followed by clustered USDD selling and reserve transfers.
+
+The second vector is stablecoin-pool imbalance. In November, USDD's Curve pool composition moved sharply toward USDD. That is not proof of manipulation by itself; it can reflect rational exits during the FTX crisis. But it is the right place to test for intentional pressure because a stable-swap pool records whether exits are broad and organic or concentrated through repeated swaps. Useful tests include swap-size clustering, address reuse, time-of-day concentration, pool-imbalance velocity, and price impact per dollar sold.
+
+The third vector is reserve signaling. When an issuer or reserve manager announces a large defense, the announcement can stabilize confidence, but it can also reveal the threshold at which pressure becomes costly. Repeated moves near the DAO's 3% tolerance band therefore deserve threshold analysis. If selling repeatedly accelerates just before $0.97 and fades after public defense statements, that pattern would suggest strategic probing of the defense boundary rather than random flow.
+
+The strongest causal reading from the available sources is a combined liquidity and confidence event, not a proven single-actor manipulation. Still, the case provides a clear manipulation-monitoring template: watch for synchronized linked-token shorts, stablecoin pool exits, reserve-wallet reactions, and repeated tests of a public depeg threshold.
 
 ## Metrics Used
 
