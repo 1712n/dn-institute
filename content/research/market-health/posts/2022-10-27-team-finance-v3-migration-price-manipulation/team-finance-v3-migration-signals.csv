@@ -1,0 +1,8 @@
+signal_type,observed_value,source,market_health_use,monitoring_rule
+exploit_date,2022-10-27,DN Institute incident record,Timestamp anchor for migration-window monitoring,Replay LP lock migration and refund events around exploit transaction
+reported_loss,about 14.5 million USD,DN Institute and public reporting,Materiality gauge for migration-price exposure,Escalate when migration functions can transfer multi-asset value
+affected_assets,WETH DAI CAW and TSUKA,DN Institute and CoinDesk,Measures token-specific liquidity shock,Track outflows by asset during migration operations
+price_input,manipulated Uniswap v3 initialize price path,Neptune Mutual,Identifies user-controlled market input,Compare initialize price with v2 reserves and external references
+validation_weakness,flawed migrate function allowed attacker-controlled pair path,Halborn,Root migration-control failure mode,Require token pair pool and withdrawal metadata binding
+recovery_signal,about 7 million USD returned,DN Institute and CoinDesk,Separates recovery from original liquidity shock,Track returned funds separately from exploit loss
+audit_context,migration function had been audited before incident,Halborn and public reporting,Prevents audit status from hiding live market risk,Keep monitoring enabled for audited price-touching paths
