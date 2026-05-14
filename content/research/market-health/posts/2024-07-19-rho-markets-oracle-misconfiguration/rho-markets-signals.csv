@@ -1,0 +1,6 @@
+signal,observation,market_health_use,source
+oracle_admin_activity,"Scroll transaction included setPriceOracle activity before the drain","Track oracle-owner and price-source changes before market activation","https://scrollscan.com/tx/0x97c2e5fe5b46cd9c9069031f254451f93c8ffacb7011a495343ad5136f67757b"
+affected_pools,"Rho Markets paused USDC and USDT pools after unauthorized access","Flag stablecoin borrow pools exposed to collateral mispricing","https://unchainedcrypto.com/scroll-lending-protocol-rho-says-no-funds-lost-after-7-6-million-oracle-exploit/"
+affected_value,"About $7.6 million was affected","Measure pool-liquidity shock size versus borrow caps and available reserves","https://unchainedcrypto.com/scroll-lending-protocol-rho-says-no-funds-lost-after-7-6-million-oracle-exploit/"
+returned_value,"2,203.435110506901438029 ETH was returned on July 19, 2024","Separate temporary liquidity shock from final realized loss while preserving incident severity","https://scrollscan.com/tx/0x0a7b4c6542eb8f37de788c8848324c0ae002919148a4426903b0fb4149f88f05"
+root_cause,"Olympix attributed the exploit to a misconfigured price oracle that let the attacker control valuation","Monitor oracle provenance, ownership, timelocks, and price-deviation controls","https://olympixai.medium.com/rho-markets-on-scroll-exploit-analysis-965991270f56"
