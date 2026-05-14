@@ -1,0 +1,6 @@
+signal,observation,market_health_use,source
+peg_deviation,"sUSD traded near $0.68 in April 2025","Measure maximum discount to the $1 target and duration below key peg bands","https://coincentral.com/synthetixs-susd-stablecoin-continues-to-struggle-with-depeg-drops-as-low-as-0-66/"
+market_cap_contraction,"sUSD market capitalization fell from about $30 million to $24.5 million during April 2025","Track supply and market-cap contraction during confidence stress","https://coincentral.com/synthetixs-susd-stablecoin-continues-to-struggle-with-depeg-drops-as-low-as-0-66/"
+liquidity_imbalance,"sUSD reportedly exceeded 90% of total supply in Curve pools","Detect one-sided pool composition and weak exit liquidity","https://coincentral.com/synthetixs-susd-stablecoin-continues-to-struggle-with-depeg-drops-as-low-as-0-66/"
+debt_model_change,"Parsec analysis attributed the depeg to SIP-420 moving debt into a communal pool","Monitor whether peg-defense incentives remain with individual debt holders","https://coinness.com/en/news/61173"
+recovery_measures,"Synthetix cited 420 Pool deposits, reward campaigns, staker ratio requirements, and treasury buybacks","Track whether recovery depends on incentives or protocol balance-sheet intervention","https://blog.synthetix.io/synthetix-susd-peg-update/"
