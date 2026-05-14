@@ -62,7 +62,7 @@ signal features.
 
 ## Detection controls
 
-Allbridge points to controls that should be applied to liquidity-pool bridges:
+We suggest the following operator controls for liquidity-pool bridges:
 
 - **Dual-role LP/swapper alerts:** flag accounts that provide or remove
   liquidity and execute large swaps against the same pool in a short window.
