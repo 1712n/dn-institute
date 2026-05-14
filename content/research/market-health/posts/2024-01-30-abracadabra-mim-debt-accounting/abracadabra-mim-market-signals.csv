@@ -1,0 +1,7 @@
+signal,observation,market_health_interpretation,source
+first_exploit,"First malicious transaction occurred at 10:14:35 UTC on January 30, 2024","Transaction-bounded exploits need real-time anomaly detection","https://etherscan.io/tx/0x26a83db7e28838dd9fee6fb7314ae58dcc6aee9a20bf224c386ff5e80f7e4cf2"
+loss_estimate,"Reports cited about $6.5 million lost, including 1,800 ETH and 2.2 million MIM","Debt-ledger manipulation became a material asset and liability event","https://dn.institute/research/cyberattacks/incidents/2024-01-31-abracadabra-money/"
+debt_accounting,"Repayments reduced recorded debt while real economic exposure remained","Solvency checks should reconcile recorded debt against actual liabilities","https://neptunemutual.com/blog/how-was-abracadabra-money-exploited"
+stablecoin_stress,"MIM briefly traded below its dollar target after exploit reports","Protocol exploits can transmit into stablecoin liquidity and confidence","https://www.coindesk.com/business/2024/01/30/mim-stablecoin-suffers-flash-crash-amid-65m-exploit"
+treasury_response,"Abracadabra said the DAO treasury would buy back MIM from the market and burn it","Peg defense relies on treasury depth and response speed","https://www.cryptotimes.io/2024/01/31/6-5m-crypto-drain-hits-abracadabra-money-defi-platform/"
+control_gap,"Final debt and solvency checks were ineffective after recorded debt was manipulated","Market-health dashboards should track invariant drift, not only collateral prices","https://neptunemutual.com/blog/how-was-abracadabra-money-exploited"
