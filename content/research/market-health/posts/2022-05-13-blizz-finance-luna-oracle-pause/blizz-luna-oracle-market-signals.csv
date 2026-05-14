@@ -1,0 +1,9 @@
+date,entity,signal,value,source,market_health_use
+2022-05-11,Blizz Finance,total_liquidity_usd,9606666,https://api.llama.fi/protocol/blizz-finance,pre-exploit liquidity baseline
+2022-05-12,Blizz Finance,total_liquidity_usd,8289960,https://api.llama.fi/protocol/blizz-finance,liquidity before complete depletion
+2022-05-13,Blizz Finance,total_liquidity_usd,0,https://api.llama.fi/protocol/blizz-finance,post-exploit liquidity depletion
+2022-05-12,LUNA,paused_oracle_price_usd,0.10,https://www.galaxy.com/insights/research/chainlink-oracle-ccip-price-feeds,last-known oracle value used during external price collapse
+2022-05-13,Blizz Finance,estimated_loss_usd,8280000,https://www.halborn.com/blog/post/explained-the-luna-price-dip-exploits-may-2022,loss estimate from stale LUNA oracle exposure
+2022-05-13,Blizz Finance,exploit_mechanism,"deposit LUNA at stale oracle value and borrow lendable assets",https://cryptonews.net/news/altcoins/6473559/,collateral price divergence converted into borrow capacity
+2022-05-13,Blizz Finance,operational_blocker,timelock,https://crypto.news/terra-luna-defi-blizz-financend-venus-protocol/,pause could not execute before assets were drained
+2022-05-13,Blizz Finance,protocol_outcome,total_liquidity_zero,https://api.llama.fi/protocol/blizz-finance,stale oracle failure became a complete protocol-liquidity exit
