@@ -1,0 +1,8 @@
+signal_type,observed_value,source,market_health_use,monitoring_rule
+exploit_time,2023-06-12 01:06:35 UTC,Etherscan exploit transaction,Timestamp anchor for transaction-level replay,Alert on large borrow-capacity changes inside one block
+reported_loss,442 ETH / about 800000 USD,DN Institute incident record,Materiality gauge for lending bad-debt exposure,Escalate when oracle-driven borrow exceeds collateral-depth tolerance
+oracle_dependency,Balancer B-stETH-STABLE / wstETH-WETH collateral path,DN Institute and security analyses,Identifies upstream market data dependency,Require independent rate checks for LP-token collateral
+attack_primitive,Read-only reentrancy plus faulty price-oracle read,Olympix and CertiK analyses,Explains why a view-layer read became market risk,Block valuation reads during pool join exit callback windows
+protocol_response,Markets paused after exploit acknowledgement,CryptoSlate report,External symptom of abnormal venue liquidity conditions,Surface pause-state changes in market-health dashboards
+recovery_signal,100000 USD return offer sent on-chain,Etherscan on-chain message,Recovery-probability and confidence signal,Track negotiation events alongside loss and fund-flow data
+fund_flow,Attacker began moving funds to Tornado Cash shortly after exploit,DN Institute incident record,Recovery urgency and laundering-risk signal,Escalate when exploit proceeds move to mixers or instant exchangers
