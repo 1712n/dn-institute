@@ -11,7 +11,7 @@ entities:
 
 ## Summary
 
-On March 12, 2020, the crypto-market crash known as Black Thursday pushed MakerDAO's liquidation system into a severe auction failure mode. [MakerDAO's post-event writeup](https://blog.makerdao.com/the-market-collapse-of-march-12-2020-how-it-impacted-makerdao/) described how ETH price volatility, Ethereum congestion, and DAI liquidity stress affected vault liquidations and protocol debt.
+On March 12, 2020, the crypto-market crash known as Black Thursday pushed MakerDAO's liquidation system into a severe auction failure mode. [MakerDAO's post-event writeup](https://web.archive.org/web/20200401163841/https://blog.makerdao.com/the-market-collapse-of-march-12-2020-how-it-impacted-makerdao/) described how ETH price volatility, Ethereum congestion, and DAI liquidity stress affected vault liquidations and protocol debt.
 
 The most important market-abuse signal was the zero-bid auction outcome. [CoinDesk reported](https://www.coindesk.com/tech/2020/07/22/mempool-manipulation-enabled-theft-of-8m-in-makerdao-collateral-on-black-thursday-report) on Blocknative research finding that mempool congestion and transaction-spam dynamics helped one keeper win MakerDAO collateral auctions with zero DAI bids, taking about $8 million in collateral. [CoinDesk later reported](https://www.coindesk.com/tech/2020/09/23/makerdao-users-hosed-by-march-flash-crash-wont-get-mkr-payouts-say-mkr-whales) that affected vault users would not receive MKR-funded compensation after governance rejected a payout.
 
