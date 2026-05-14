@@ -1,0 +1,8 @@
+signal_type,observed_value,source,market_health_use,monitoring_rule
+exploit_date,2023-06-27,DN Institute incident record,Timestamp anchor for Arbitrum lending-market review,Replay new-market borrow activity around exploit reports
+reported_loss,about 370000 USD,DN Institute and Olympix,Materiality gauge for collateral-oracle risk,Escalate when one oracle path can drain multiple borrow assets
+flash_loan_input,large temporary WETH liquidity,Neptune Mutual and public analyses,Measures manipulation capital relative to pool depth,Compare flash-loan notional with LP pool depth before borrow approval
+lp_collateral_action,WETH deposited into Balancer pool for LP token exposure,Olympix and SolidityScan,Identifies derived collateral valuation dependency,Require conservative LP valuation from underlying reserves
+oracle_weakness,inaccurate Balancer LP token price oracle,Olympix and SolidityScan,Root market-health failure mode,Reject borrow capacity jumps from same-block LP rate distortion
+borrowed_assets,stablecoins ARB and WBTC,Neptune Mutual analysis,Shows cross-market contamination from one oracle path,Alert on multi-asset borrowing after a single collateral-rate change
+response_signal,borrowing suspension and later Themis 2.0 compensation steps,DN Institute incident record,External confidence and liquidity signal,Surface pause and migration announcements in market-health dashboards
