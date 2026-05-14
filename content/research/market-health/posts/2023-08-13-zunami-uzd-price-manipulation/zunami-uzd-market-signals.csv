@@ -1,0 +1,8 @@
+signal_type,observed_value,source,market_health_use,monitoring_rule
+exploit_date,2023-08-13,DN Institute incident record,Timestamp anchor for Ethereum stable-token monitoring,Replay price-cache and redemption activity around exploit reports
+reported_loss,1178 ETH or about 2.16 million USD,DN Institute and CertiK,Materiality gauge for stable-token accounting risk,Escalate when internal pricing can release external liquidity
+flash_loan_scale,about 32.4 million USD of temporary liquidity,CertiK incident analysis,Measures attack notional against strategy depth,Gate price-cache updates after flash-loan-sized route changes
+balance_inflation,UZD balance increased from about 4.8 million to 16.9 million,CertiK incident analysis,Detects manipulated asset-price cache effects,Alert on multi-x balance growth without equivalent deposit
+pricing_dependency,pool holdings divided by token supply style value calculation,Halborn analysis,Identifies internal valuation path exposed to pool-state changes,Compare cached price with external and previous-block references
+stable_token_warning,users warned not to buy zETH or UZD,Zunami and Decrypt,Captures confidence and liquidity risk after the exploit,Surface protocol token warnings in market-health dashboards
+fund_flow,stolen funds routed to Tornado Cash,DN Institute incident record,Classifies event as adversarial value extraction,Escalate mixer routing following stable-pool redemption drain
