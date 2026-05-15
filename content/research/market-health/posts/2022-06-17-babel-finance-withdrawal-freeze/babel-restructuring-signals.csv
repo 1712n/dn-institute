@@ -1,0 +1,8 @@
+signal,date,venue_or_protocol,severity,unit,source,note
+redemption_freeze,2022-06-17,Babel Finance,critical,boolean,https://cryptoslate.com/babel-finance-suspends-withdrawals-due-to-unusual-liquidity-pressures/,Babel suspended redemptions and withdrawals after citing unusual liquidity pressures.
+liquidity_pressure_context,2022-06-17,Babel Finance,high,market_stress,https://www.cryptotimes.io/2022/06/17/babel-finance-temporarily-suspends-withdrawals/,The withdrawal pause followed broader crypto-credit market stress.
+proprietary_trading_loss_exposure,2022-07-29,Babel Finance,critical,usd,https://www.financemagnates.com/cryptocurrency/news/babel-finance-lost-280-million-in-proprietary-trading/,Reported proprietary trading losses exceeded 280 million dollars.
+moratorium_dependency,2023-03-06,Babel Finance,critical,legal_recovery,https://www.prnewswire.com/news-releases/babel-finance-files-moratorium-application-in-singapore-high-court-301763460.html,Babel filed Singapore moratorium applications to support restructuring.
+recovery_coin_dependency,2023-03-13,Babel Recovery Coin/Hope,high,recovery_token,https://techcrunch.com/2023/03/13/babel-flex-yang-stablecoin/,Restructuring discussion included Hope and Babel Recovery Coin economics.
+creditor_protection_extension,2023-04-19,Babel Finance,high,court_milestone,https://www.blockhead.co/2023/04/19/babel-begins-in-court-restructuring-creditor-protection-extended/,Creditor protection was extended as in-court restructuring began.
+novel_crypto_restructuring,2023-11-01,Babel Finance,medium,legal_analysis,https://law.nus.edu.sg/trail/cryptocurrency_group_granted_moratoria/,NUS legal commentary described Babel's crypto restructuring plan and moratoria.
