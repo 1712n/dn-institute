@@ -1,6 +1,6 @@
 ---
 title: "Mochi USDM Curve Gauge Governance Attack"
-date: "2021-11-12"
+date: "2021-11-10"
 description: "A Market Health case study on Mochi Inu's alleged attempt to use self-issued USDM liquidity and Curve/Convex voting power to redirect emissions toward its own pool."
 entities:
   - Mochi Inu
@@ -17,7 +17,7 @@ In November 2021, Mochi Inu's USDM pool on Curve became a useful example of **go
 
 Key points:
 
-1. Mochi Inu launched a Curve pool containing stablecoins and its USDM stablecoin; reports place peak liquidity around $100 million to $170 million.
+1. Mochi Inu launched a Curve pool containing stablecoins and its USDM stablecoin; contemporary reports place peak liquidity at **$170.2 million**.
 2. Curve and later security writeups said a large amount of USDM was used to acquire Curve/Convex governance exposure, including CVX or CRV-based voting power.
 3. The concern was a reflexive loop: self-issued liquidity could fund governance-token accumulation, governance votes could increase rewards to the USDM pool, and higher rewards could attract more liquidity back into the same pool.
 4. Curve's Emergency DAO cut off the USDM gauge rewards after characterizing the situation as a governance attack and a liquidity-provider risk.
@@ -33,7 +33,7 @@ This created three market-health concerns:
 
 - **Self-funded voting power:** governance-token buying pressure was linked to a project-controlled asset rather than independent market demand.
 - **Incentive reflexivity:** if new rewards attracted more pool liquidity, the project could gain more capital to keep reinforcing the reward loop.
-- **Exit and collateral risk:** liquidity providers could be exposed if the self-issued side of the pool became undercollateralized or if incentives disappeared suddenly.
+- **Exit and collateral risk:** liquidity providers could be exposed if the self-issued side of the pool became undercollateralized or if incentives disappeared suddenly. Public incident discussions treated this as central rather than incidental because USDM's oracle was reportedly set manually by a team-controlled address while about **99.5%** of circulating MOCHI supply was team-controlled, creating a direct manual-oracle plus supply-concentration undercollateralization risk.
 
 ## Market health indicators
 
@@ -53,9 +53,10 @@ A high-confidence alert should require at least two pre-event signals, for examp
 ## Timeline
 
 - **Early November 2021:** USDM pool liquidity rapidly expanded. An alerting system would flag this if issuer-linked assets exceeded **35% of TVL for 12+ hours** or grew by **20 percentage points in 24 hours**.
-- **November 2021:** Public reports described USDM-funded swaps into governance or vote-escrow exposure. A detector would escalate if those swaps exceeded **$5 million** or **2% of pool depth** within a 24-hour window.
-- **November 2021:** Reward-routing risk increased as voting power could be directed toward the same pool. Gauge monitors should compare the epoch's vote-weight change with 7-day volume and fee growth.
-- **November 2021:** Curve's Emergency DAO cut off the USDM gauge rewards after declaring liquidity providers at risk. This is the post-event severe label for the alert chain.
+- **November 10, 2021:** Mochi's token launch and USDM pool growth quickly attracted nearly **$100 million** in liquidity, then later peaked at about **$170.2 million**. A detector would escalate if issuer-linked liquidity growth coincided with new voting-token accumulation.
+- **November 10, 2021:** Public reports described USDM-funded swaps into governance or vote-escrow exposure, including converting USDM to DAI before purchasing Convex exposure. A detector would escalate if those swaps exceeded **$5 million** or **2% of pool depth** within a 24-hour window.
+- **November 10–11, 2021:** Reward-routing risk increased as voting power could be directed toward the same pool; observers also traced unusual CVX price action to an address that had swapped roughly **46 million USDM** to DAI. Gauge monitors should compare the epoch's vote-weight change with 7-day volume and fee growth.
+- **November 10–11, 2021:** Curve's Emergency DAO cut off the USDM gauge rewards after declaring liquidity providers at risk. This is the post-event severe label for the alert chain.
 - **After the intervention:** Security and market observers framed the event as a governance attack or an aggressive exploitation of reward mechanics rather than a simple technical bug.
 
 ## Mitigations
@@ -71,4 +72,4 @@ A high-confidence alert should require at least two pre-event signals, for examp
 
 - [Halborn: Explained: The Mochi Inu Governance Hack (November 2021)](https://www.halborn.com/blog/post/explained-the-mochi-inu-governance-hack-november-2021)
 - [Crypto Briefing: Curve Blocks Mochi After Alleged Attempted Governance Attack](https://cryptobriefing.com/curve-blocks-mochi-after-alleged-attempted-governance-attack/)
-- [Chainlink: Market Manipulation vs. Oracle Exploits](https://chain.link/education-hub/market-manipulation-vs-oracle-exploits)
+- [Curve Governance: The Curve Emergency DAO has killed the USDM gauge](https://gov.curve.finance/t/the-curve-emergency-dao-has-killed-the-usdm-gauge/2307)
