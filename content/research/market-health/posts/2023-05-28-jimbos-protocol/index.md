@@ -74,24 +74,34 @@ Three receipt-derived findings matter for Market Health analysis:
 
 ## Manipulation Pattern
 
-The JIMBO market did not show a gradual repricing event. It showed an atomic
-liquidity distortion:
+The JIMBO market did not show a gradual repricing event. The receipt evidence
+shows a single-transaction liquidity distortion bounded by a visible funding leg
+and repayment leg:
 
-1. The attacker took a large flash loan, reported by Numen Cyber as 10,000 ETH.
-2. The borrowed ETH was swapped into the JIMBO/WETH pair, making the pool's
-   current price look healthier than the surrounding liquidity could support.
-3. A small amount of JIMBO was sent to the controller, and `shift()` was called,
-   causing protocol logic to consume the manipulated spot state.
-4. The liquidity move concentrated protocol-owned WETH where the attacker could
-   trade against it with poor protection from slippage or stale-price checks.
-5. The attacker reversed the position, sold JIMBO into the newly exposed WETH
-   depth, repaid the loan, and left the market with lower usable liquidity and a
-   broken price signal.
+1. Log index `1` moves `10,000` WETH from the Aave Arbitrum WETH source into
+   `attack_contract`, while log index `358` returns `10,005` WETH to the same
+   source. Those two rows define the transaction's temporary-capital boundary
+   without relying on a prose description of the attack.
+2. Between those boundary rows, the attack contract's transfer-implied WETH
+   delta rises to `10,630.999746` WETH before falling back to `625.999746` WETH
+   after repayment. The useful market-health signal is therefore not just a
+   large trade; it is a large temporary inventory swing that appears and unwinds
+   inside one receipt.
+3. The controller and liquidity-book actor rows show `28,804.245826` WETH of
+   gross controller/liquidity-book churn. That gross flow is the evidence that
+   protocol-owned liquidity migrated during the distorted state rather than
+   remaining passive background depth.
+4. The liquidity-book actor ends the receipt at `-630.999746` WETH on a
+   transfer-implied basis. That links the temporary push-away period to a
+   measurable depletion of venue-side WETH depth.
+5. The market-health pattern is the joint condition: temporary capital enters,
+   protocol liquidity moves while the venue state is distorted, and the same
+   transaction closes with repayment plus residual attacker-side WETH.
 
-That sequence matters because it separates real user demand from manufactured
-venue state. A price series alone might show a spike and crash; the healthier
-interpretation is to pair price action with pool depth, protocol-owned liquidity
-movement, and same-block buy/sell reversal.
+That receipt-derived pattern matters because it separates real user demand from
+manufactured venue state. A price series alone might show a spike and crash; the
+healthier interpretation is to pair price action with pool depth,
+protocol-owned-liquidity movement, and same-transaction reversal boundaries.
 
 ## Metrics To Monitor
 
