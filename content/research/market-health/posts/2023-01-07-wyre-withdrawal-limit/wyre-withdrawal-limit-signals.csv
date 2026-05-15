@@ -1,0 +1,8 @@
+signal,date,venue_or_protocol,severity,unit,source,note
+partial_withdrawal_cap,2023-01-07,Wyre,high,withdrawal_cap,https://coinmarketcap.com/academy/article/wyre-lifts-90-withdrawal-limit-after-landing-financing-from-partner,Wyre limited customers to withdrawing 90% of account assets.
+policy_change_scope,2023-01-09,Wyre,high,all_users,https://www.cryptotimes.io/2023/01/09/crypto-payment-firm-wyre-obtrudes-withdrawal-limit-for-all-users/,The Crypto Times reported the withdrawal limit applied to all users.
+partner_service_interruption,2023-01-06,Ledger Live Wyre route,medium,partner_route,https://support.ledger.com/article/8662167069469-zd,Ledger said the Wyre-powered buy/swap service was temporarily unavailable.
+shutdown_rumor_sensitivity,2023-01-07,Wyre,high,confidence_signal,https://coinmarketcap.com/academy/article/wyre-lifts-90-withdrawal-limit-after-landing-financing-from-partner,The withdrawal cap arrived amid reports that a shutdown was imminent.
+leadership_risk_control_change,2023-01-09,Wyre,medium,interim_leadership,https://www.cryptotimes.io/2023/01/09/crypto-payment-firm-wyre-obtrudes-withdrawal-limit-for-all-users/,Wyre named a former risk and compliance executive as interim CEO during the stress period.
+financing_dependent_limit_removal,2023-01-12,Wyre,medium,recovery_signal,https://coinmarketcap.com/academy/article/wyre-lifts-90-withdrawal-limit-after-landing-financing-from-partner,Wyre lifted the withdrawal limit after securing financing from a strategic partner.
+residual_trapped_balance,2023-01-07,Wyre,high,percent_of_balance,https://coinmarketcap.com/academy/article/wyre-lifts-90-withdrawal-limit-after-landing-financing-from-partner,A 90% cap implied 10% of each customer account remained non-withdrawable under the policy.
