@@ -1,0 +1,6 @@
+signal,date,description,market_health_use,source
+large_flash_loan,2023-05-28,"Attacker used a 10000 ETH flash loan as initial capital","Flags manipulation attempts that exceed ordinary pool flow","https://www.numencyber.com/jimbos-protocol-hack/"
+pool_price_spike,2023-05-28,"Borrowed ETH was swapped into JIMBO through the ETH-JIMBO pair, pushing the token price up","Average transaction size and price-impact alert","https://www.numencyber.com/jimbos-protocol-hack/"
+unsafe_shift_call,2023-05-28,"The shift operation moved protocol liquidity while the pool was imbalanced","Protocol-owned liquidity should not follow an unverified spot price","https://www.halborn.com/blog/post/explained-the-jimbos-protocol-hack-may-2023"
+reverse_swap_drain,2023-05-28,"Attacker sold JIMBO back after liquidity shifted, draining WETH liquidity","Buy/sell flow reversal and post-event depth collapse signal","https://rekt.news/jimbo-rekt"
+recovery_offer,2023-05-29,"Jimbos offered a 10 percent bounty to recover funds after the exploit","Confirms the manipulation became a solvency and recovery event","https://rekt.news/jimbo-rekt"
