@@ -1,0 +1,7 @@
+signal,date,venue_or_protocol,severity,unit,source,note
+service_partner_opacity,2023-06-13,Haru Invest,critical,counterparty_opacity,https://www.cryptotimes.io/2023/06/13/haru-invest-halts-withdrawals-and-deposits-in-south-korea/,Haru cited an issue with a service partner when suspending deposits and withdrawals.
+deposit_withdrawal_freeze,2023-06-13,Haru Invest,critical,boolean,https://forklog.com/en/haru-invest-platform-halts-withdrawals/,Haru halted deposits and withdrawals to protect assets under custody.
+downstream_platform_contagion,2023-06-15,Delio/Haru Invest,critical,platform_contagion,https://www.cryptotimes.io/2023/06/15/delio-temporarily-suspends-crypto-withdrawals/,Delio suspended withdrawals after Haru's freeze raised customer-protection concerns.
+haru_linked_delio_halt,2023-06-14,Delio,high,exposure_link,https://www.dlnews.com/articles/deals/korean-crypto-lender-delio-halts-withdrawals-after-haru/,Reporting linked Delio's halt to funds stuck in Haru.
+rehabilitation_dependency,2024-02-06,Haru Invest,critical,legal_recovery,https://cm.asiae.co.kr/en/article/2024020611071384620,Haru was reported to be undergoing rehabilitation procedures after the withdrawal suspension.
+criminal_enforcement_escalation,2024-02-06,Haru Invest,critical,legal_enforcement,https://cm.asiae.co.kr/en/article/2024020611071384620,Haru Invest management arrests were reported in connection with the large withdrawal-suspension case.
