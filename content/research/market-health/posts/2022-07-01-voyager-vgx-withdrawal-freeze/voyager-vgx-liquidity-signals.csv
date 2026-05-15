@@ -1,0 +1,7 @@
+signal,date,venue_or_protocol,severity,unit,source,note
+counterparty_exposure_concentration,2022-06-27,Voyager Digital,critical,ratio,https://www.cryptotimes.io/2022/06/27/voyager-digital-issues-notice-of-default-to-three-arrows-capital/,Three Arrows Capital default turned a concentrated loan exposure into platform liquidity stress.
+withdrawal_limit_compression,2022-06-22,Voyager Digital,high,ratio,https://decrypt.co/104294/voyager-digital-halts-withdrawals-three-arrows-capital-default,Voyager reduced daily withdrawal limits before the full service halt.
+full_service_halt,2022-07-01,Voyager Digital,critical,boolean,https://www.cryptotimes.io/2022/07/02/voyager-digital-suspends-trading-withdrawals-deposit-services/,Trading deposits withdrawals and loyalty rewards were suspended.
+native_token_confidence_gap,2022-07-01,VGX,high,price_vs_recovery,https://decrypt.co/104294/voyager-digital-halts-withdrawals-three-arrows-capital-default,VGX market confidence depended on platform recovery rather than only external trading.
+bankruptcy_recovery_dependency,2022-07-05,Voyager Digital,critical,legal_recovery,https://cases.stretto.com/Voyager/court-docket/,Customer recoveries became dependent on restructuring and counterparty recovery outcomes.
+locked_platform_balance_gap,2022-07-01,Voyager Digital,critical,liquidity_gap,https://cases.stretto.com/public/x193/11753/PLEADINGS/1175308112280000000015.pdf,Platform balances required legal recovery analysis rather than ordinary exchange-price interpretation.
