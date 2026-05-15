@@ -178,11 +178,13 @@ def fetch_external_context(
         for r in results:
             if len(all_results) >= MAX_CONTEXT_ITEMS:
                 break
-            if not r.get("url") or not r["url"].startswith("http"):
+            url = r.get("url", "")
+            if not url or not url.startswith("http"):
                 continue
-            if r["url"] not in seen_urls:
-                seen_urls.add(r["url"])
-                all_results.append(r)
+            if url in seen_urls:
+                continue
+            seen_urls.add(url)
+            all_results.append(r)
 
     if not all_results:
         return ""
@@ -200,6 +202,9 @@ def fetch_external_context(
     for i, result in enumerate(all_results, 1):
         title = html.escape(result.get("title", ""), quote=False)
         desc = html.escape(result.get("description", ""), quote=False)
+        # Sanitize closing tags to prevent prompt injection
+        title = title.replace("</", "<\\/")
+        desc = desc.replace("</", "<\\/")
         context_parts.append(f"[{i}] {title}")
         context_parts.append(f"    URL: {result['url']}")
         if desc:
