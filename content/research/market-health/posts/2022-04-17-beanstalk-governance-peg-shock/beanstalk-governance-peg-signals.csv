@@ -1,0 +1,7 @@
+signal,date,venue_or_protocol,severity,unit,source,note
+flash_loan_vote_power_dominance,2022-04-17,Beanstalk Farms,critical,ratio,https://immunefi.com/blog/bug-fix-reviews/hack-analysis-beanstalk-governance-attack-april-2022/,Borrowed liquidity created enough temporary voting power to pass the malicious governance path.
+emergency_execution_compression,2022-04-17,Beanstalk Farms,critical,ratio,https://www.certik.com/resources/blog/revisiting-beanstalk-farms-exploit,Emergency governance execution compressed the time available for review or defense.
+governance_controlled_backing_at_risk,2022-04-17,Beanstalk Farms,critical,usd,https://dn.institute/research/cyberattacks/incidents/2022-04-17-beanstalk/,Governance execution could move assets that supported market confidence in the protocol and BEAN.
+bean_peg_repricing_shock,2022-04-17,BEAN,critical,price_deviation,https://dn.institute/research/cyberattacks/incidents/2022-04-17-beanstalk/,BEAN traded far below its intended one-dollar target after the governance exploit.
+treasury_drain_to_liquidity_depth,2022-04-17,Beanstalk Farms,high,ratio,https://coincodex.com/article/14264/182-million-lost-hacker-uses-flash-loan-exploit-to-drain-the-beanstalk-defi-protocol/,Protocol asset movement overwhelmed confidence in available liquidity and backing.
+restart_credibility_gap,2022-08-06,Beanstalk Farms,medium,time_and_controls,https://bean.money/blog/beanstalk-farms-2022-roundup,Post-incident recovery required restored operations and new confidence in governance controls.
