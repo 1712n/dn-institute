@@ -155,6 +155,6 @@ The case reinforces the importance of sophisticated market health analysis in id
 
 - [DOJ Criminal Complaint Against KuCoin (March 2024)](https://www.justice.gov/usao-sdny/pr/kucoin-and-two-founders-criminally-charged-bank-secrecy-act-and-unlicensed-money)
 - [CFTC Civil Charges Against KuCoin (March 2024)](https://www.cftc.gov/PressRoom/EnforcementFilings/8874-24)
-- [Bitwise Asset Management Report on Fake Volume (2019)](https://blog.bitwiseinvestments.com/crypto-research/fake-volume)
-- [Chainalysis Crypto Crime Report (2024)](https://www.chainalysis.com/blog/2024-crypto-crime-report/)
-- [DN Institute Market Health Metrics Documentation](https://dn.institute/market-health/docs/market-health-metrics/)
+- [Bitwise Asset Management Report on Fake Volume (2019)](https://www.coindesk.com/markets/2019/03/22/bitwise-report-claims-95-of-bitcoin-trading-volume-is-fake/) *(CoinDesk summary — original Bitwise blog archived)*
+- [Chainalysis Crypto Crime Report (2024)](https://www.chainalysis.com/) *(annual reports at chainalysis.com — specific URL no longer live)*
+- [DN Institute Market Health Metrics](https://dn.institute/) *(documentation under reconstruction)*
