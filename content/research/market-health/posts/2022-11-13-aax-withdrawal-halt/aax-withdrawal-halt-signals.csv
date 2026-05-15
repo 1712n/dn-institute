@@ -1,0 +1,6 @@
+signal,date,venue_or_protocol,severity,unit,source,note
+withdrawal_halt_duration_risk,2022-11-13,AAX,critical,days,https://finance.yahoo.com/news/aax-crypto-exchange-suspends-withdrawals-015041886.html,AAX said withdrawals were suspended for an expected seven to ten days during FTX-era market stress.
+third_party_balance_data_failure,2022-11-14,AAX,critical,ledger_integrity,https://gizmodo.com/crypto-platform-aax-bitcoin-ether-halts-withdrawals-ftx-1849778792,AAX attributed abnormal balance data to a third-party partner issue.
+manual_withdrawal_queue,2022-11-15,AAX,high,withdrawal_process,https://gigazine.net/gsc_news/en/20221115-aax-withdrawals-suspended,AAX directed users to a withdrawal request form while normal withdrawals were halted.
+executive_departure_during_halt,2022-11-28,AAX,high,governance_signal,https://www.cryptotimes.io/2022/11/28/shuttered-crypto-exchange-aaxs-exec-resigns/,AAX's communications executive resigned during the ongoing operational halt.
+enforcement_shutdown_risk,2022-12-27,AAX,critical,legal_enforcement,https://www.blockhead.co/2022/12/27/rekt-hk-crypto-exchange-aax-execs-arrested-for-fraud/,Later reporting described arrests connected to the troubled exchange.
