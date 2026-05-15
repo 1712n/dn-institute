@@ -1,0 +1,7 @@
+signal,date,venue_or_protocol,severity,unit,source,note
+terra_exposure_impairment,2022-08-19,Hodlnaut,critical,loss_ratio,https://www.hodlnaut.com/press/an-update-on-our-ijm-process,Hodlnaut tied its financial distress to TerraUSD crash losses and other liquidity pressures.
+withdrawal_pressure_spike,2022-08-19,Hodlnaut,high,ratio,https://www.hodlnaut.com/press/an-update-on-our-ijm-process,Unusually high withdrawal volumes were cited as part of the platform stress.
+service_halt_breadth,2022-08-08,Hodlnaut,critical,paused_actions,https://forklog.com/en/hodlnaut-crypto-lending-platform-halts-withdrawals/,Withdrawals token swaps and deposits were halted together.
+judicial_management_dependency,2022-08-13,Hodlnaut,critical,legal_recovery,https://www.hodlnaut.com/press/an-update-for-our-users,Customer outcomes moved into a judicial-management recovery process.
+asset_specific_suspension_signal,2022-05-25,Hodlnaut,medium,asset_restriction,https://www.hodlnaut.com/press/updates-notice-terra-luna-ust,Hodlnaut had earlier restricted LUNA and UST handling after Terra ecosystem volatility.
+reported_terra_loss_gap,2022-08-22,Hodlnaut,critical,usd,https://coinmarketcap.com/academy/article/hodlnaut-in-a-193-million-hole,Reports described roughly 190 million dollars of Terra-related loss exposure.
