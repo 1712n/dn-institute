@@ -1,0 +1,8 @@
+signal,date,venue_or_protocol,severity,unit,source,note
+parent_bankruptcy_withdrawal_halt,2022-11-15,Liquid Global,critical,parent_proceeding,https://www.liquid.com/announcements/important-notice-suspension-of-withdrawals,Liquid tied withdrawal suspension to FTX Trading's Chapter 11 proceedings.
+rail_suspension_breadth,2022-11-15,Liquid Global,critical,exit_rails,https://www.liquid.com/announcements/important-notice-suspension-of-withdrawals,Fiat and crypto withdrawals were suspended.
+custodial_group_contagion,2022-11-15,Liquid Global,high,ownership_contagion,https://news.bitcoin.com/2-more-crypto-platforms-pause-withdrawals-as-liquid-global-and-salt-lending-cite-exposure-to-ftx/,Bitcoin.com reported Liquid Global was FTX-owned and paused withdrawals after the FTX collapse.
+fiat_withdrawal_update,2022-11-21,Liquid Global,medium,fiat_recovery,https://www.liquid.com/announcements/update-on-fiat-withdrawals,Liquid published a separate update on fiat withdrawal handling after the halt.
+staged_withdrawal_restart,2022-11-29,Liquid Global,medium,restart_status,https://www.liquid.com/announcements/update-on-withdrawals,Liquid later published an update on withdrawal reopening status.
+restart_communication_lag,2022-11-29,Liquid Global,medium,days_to_update,https://www.liquid.com/announcements/update-on-withdrawals,Restart mechanics were communicated after the initial suspension notice.
+group_dependency_risk,2022-11-15,Liquid Global,high,corporate_dependency,https://news.bitcoin.com/2-more-crypto-platforms-pause-withdrawals-as-liquid-global-and-salt-lending-cite-exposure-to-ftx/,The halt showed subsidiary exchange liquidity dependence on the FTX group crisis.
