@@ -170,7 +170,8 @@ async function verifyWebhookSignature(
 }
 
 function extractBetweenTags(tag: string, text: string): string | null {
-  const regex = new RegExp(`<${tag}\\s*>([\\s\\S]+?)</${tag}\\s*>`, "gs");
+  // Use strict matching — no whitespace flexibility in closing tag to prevent ReDoS
+  const regex = new RegExp(`<${tag}>([\\s\\S]+?)</${tag}>`, "g");
   const matches = [...text.matchAll(regex)];
   if (matches.length > 0) {
     return matches[matches.length - 1][1].trim();
@@ -179,6 +180,7 @@ function extractBetweenTags(tag: string, text: string): string | null {
 }
 
 function removePlus(text: string): string {
+  // Strip diff markers: remove deletion lines (-), strip addition marker (+), keep context
   return text
     .split("\n")
     .filter((line) => !line.startsWith("-"))
