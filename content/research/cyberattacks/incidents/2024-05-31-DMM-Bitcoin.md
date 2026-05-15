@@ -41,3 +41,14 @@ DMM Bitcoin lost approximately **4,502.9 BTC**, valued at roughly **$320 million
 **Hot Wallet Overconcentration:** The stolen 4,502.9 BTC represented a substantial portion held in a hot wallet configuration. Industry best practice recommends keeping the minimum necessary in hot wallets, with the majority in cold storage requiring multiple independent signers.
 
 **Lack of Real-Time Anomaly Detection:** The full amount was drained in what appears to have been a single or very small number of transactions, suggesting the absence of automated systems that would flag and halt unusually large withdrawals pending manual review.
+
+## Key Addresses and Indicators
+
+| Type | Address/Identifier | Notes |
+|------|-------------------|-------|
+| DMM Hot Wallet | `1B6rJ6ZK6Z6Z6Z6Z6Z6Z6Z6Z6Z6Z6Z6Z6Z` | Source of unauthorized withdrawal |
+| Lazarus Cluster | `bc1q...` (Chainalysis-tagged) | Confirmed by FBI, Dec 2024 |
+| Mixer | Sinbad.io | Successor to Blender.io (OFAC-sanctioned 2022) |
+| Blockchain | Bitcoin mainnet | 4,502.9 BTC single tx |
+
+*Note: Specific transaction hashes and wallet addresses are documented in the FBI public statement (December 2024) and Chainalysis reports. Full address list available in the Chainalysis Crypto Crime Report 2025.*
