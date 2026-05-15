@@ -1,6 +1,7 @@
 ---
 title: "UwU Lend sUSDe Oracle Manipulation and Repeat Drain"
 date: 2024-06-10
+description: "UwU Lend's June 2024 exploit shows how movable oracle-source liquidity, flash-loan capital, and post-remediation residual exposure can turn a venue-level price shock into lending-market losses."
 entities:
   - UwU Lend
   - sUSDe
@@ -30,6 +31,25 @@ The public loss estimates vary by source, but the first event is consistently
 reported around $19.3 million to $20 million, and the second event around
 $3.7 million. The companion dataset in `incident-metrics.csv` records the
 event-level signals used below.
+
+## Metrics Used
+
+The dataset is intentionally small because the public record does not expose a
+full transaction-level order book for the manipulated Curve route. It still
+turns the article into a repeatable market-health case by separating reported
+facts from derived surveillance checks:
+
+| Metric                           | Dataset signal                                     | Why it matters                                                                                |
+| -------------------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Reported first-drain loss        | `first-drain / reported-loss`                      | Establishes incident severity and the value at risk from the distorted collateral accounting. |
+| Reported attack vector           | `first-drain / attack-vector`                      | Links the loss to oracle-source manipulation rather than generic smart-contract malfunction.  |
+| Reported flash-loan notional     | `temporary-capital / reported-flash-loan-notional` | Marks when temporary capital was large enough to overwhelm ordinary source-pool depth.        |
+| Reported second-drain loss       | `second-drain / reported-loss`                     | Measures residual exposure after the first public remediation and reimbursement statement.    |
+| Reported affected second markets | `second-drain / affected-markets`                  | Shows whether one oracle event propagated into multiple borrowing markets before containment. |
+
+Those fields are enough to evaluate three operational checks: oracle-source
+depth versus accepted collateral value, temporary capital versus executable
+pool liquidity, and post-incident market isolation versus repeated outflows.
 
 ## Event Timeline
 
