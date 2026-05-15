@@ -1,0 +1,6 @@
+feature,formula,value,unit,source_fields
+flash_loan_to_first_loss,4000 / 19.3,207.25,ratio,reported-flash-loan-notional;first-drain reported-loss
+flash_loan_to_total_loss,4000 / (19.3 + 3.7),173.91,ratio,reported-flash-loan-notional;first-drain reported-loss;second-drain reported-loss
+repeat_drain_to_first_drain,3.7 / 19.3,19.17,percent,second-drain reported-loss;first-drain reported-loss
+repeat_drain_share_of_total,3.7 / (19.3 + 3.7),16.09,percent,second-drain reported-loss;first-drain reported-loss
+affected_repeat_markets_count,count(uDAI;uWETH;uLUSD;uFRAX;uCRVUSD;uUSDT),6,count,second-drain affected-markets

@@ -30,7 +30,9 @@ Two facts make the incident useful for surveillance:
 The public loss estimates vary by source, but the first event is consistently
 reported around $19.3 million to $20 million, and the second event around
 $3.7 million. The companion dataset in `incident-metrics.csv` records the
-event-level signals used below.
+event-level signals used below. A second companion file,
+`derived-surveillance-metrics.csv`, converts those reported facts into
+repeatable surveillance ratios.
 
 ## Metrics Used
 
@@ -50,6 +52,31 @@ facts from derived surveillance checks:
 Those fields are enough to evaluate three operational checks: oracle-source
 depth versus accepted collateral value, temporary capital versus executable
 pool liquidity, and post-incident market isolation versus repeated outflows.
+
+## Derived Surveillance Features
+
+The issue asks for data-backed conclusions rather than a public-source recap.
+Because public reporting does not expose full Curve route order books for the
+manipulated trade path, this article keeps source claims and derived metrics
+separate. The derived dataset uses only the numeric fields in
+`incident-metrics.csv`.
+
+![Derived surveillance ratios](derived-surveillance-ratios.svg)
+
+| Derived feature             | Formula                         | Value | Interpretation                                                                                |
+| --------------------------- | ------------------------------- | ----: | --------------------------------------------------------------------------------------------- |
+| Flash-loan / first loss     | `4000 / 19.3`                   | 207.3 | Temporary capital was over 200 times the reported first loss, so notional alone was abnormal. |
+| Flash-loan / total loss     | `4000 / (19.3 + 3.7)`           | 173.9 | Even after including the repeat drain, temporary capital dwarfed realized extractable value.  |
+| Repeat-drain / first drain  | `3.7 / 19.3`                    |  19.2 | The second drain was about one-fifth of the first, a material residual-exposure signal.       |
+| Repeat-drain share of total | `3.7 / (19.3 + 3.7)`            |  16.1 | Roughly one-sixth of reported losses occurred after the first remediation statement.          |
+| Affected repeat markets     | count of reported market labels |   6.0 | Residual exposure was multi-market, not limited to one isolated debt asset.                   |
+
+Those ratios are intentionally simple, but they are more useful for automated
+triage than narrative loss estimates. A market-health monitor can compute the
+same features for future events and route incidents for manual review when
+temporary capital is orders of magnitude above realized loss, or when a
+post-remediation loss exceeds a small single-digit percentage of the first
+event.
 
 ## Event Timeline
 
@@ -136,6 +163,11 @@ For future surveillance, the most useful indicators are:
 - flash-loan notional versus normal source liquidity;
 - cross-market borrow attempts immediately after an oracle move;
 - repeated withdrawals after a remediation statement.
+
+The strongest practical rule from the derived dataset is that remediation
+should not be treated as complete when the oracle source is patched. The
+repeat-drain ratio and six affected markets show that the review gate must also
+measure remaining borrowable value, bad-debt paths, and market isolation.
 
 ## References
 
