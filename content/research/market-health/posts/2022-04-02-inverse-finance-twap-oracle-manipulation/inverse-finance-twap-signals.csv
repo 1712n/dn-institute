@@ -1,0 +1,7 @@
+signal,date,venue_or_protocol,severity,unit,source,note
+reference_pair_depth_gap,2022-04-02,SushiSwap INV reference market,5,model_threshold,https://www.certik.com/blog/inverse-finance-02-april-2022,Emergency when attacker capital can move the DEX reference pair used for lending collateral valuation
+twap_capture_window,2022-04-02,Keep3r TWAP oracle,5,model_threshold,https://www.certik.com/resources/blog/2022-year-in-review-lending-protocols,TWAP protection weakens when manipulated price duration covers most of the oracle sampling window
+collateral_inflation_ratio,2022-04-02,Inverse Finance Anchor,5,model_threshold,https://www.pymnts.com/cryptocurrency/2022/lending-protocol-inverse-finance-loses-15-6m-in-crypto-following-hack,Manipulated INV collateral value allowed borrowing far above stress-price support
+borrowable_liquidity_drain,2022-04-02,Inverse Finance Anchor,5,qualitative,https://www.cryptotimes.io/2022/04/04/lending-protocol-inverse-finance-lost-15-6m-in-crypto/,Borrowing DOLA ETH WBTC and YFI against inflated INV turned oracle manipulation into multi-asset bad debt
+oracle_dependency_review,2022-04-02,Inverse Finance,4,qualitative,https://www.certik.com/resources/blog/2022-year-in-review-lending-protocols,Thin-pair TWAP oracles need debt ceilings cross-market checks and manipulation-cost tests
+loss_confirmation,2022-04-02,Inverse Finance,5,usd_loss,https://www.web3isgoinggreat.com/?id=inverse-finance-exploited,Reported losses around 14.5M to 15.6M make the incident material for collateral-oracle market-health scoring
