@@ -1,0 +1,7 @@
+signal,date,venue_or_protocol,severity,unit,source,note
+new_market_liquidity_dominance,2024-01-02,Radiant Capital USDC market,5,model_threshold,https://dn.institute/research/cyberattacks/incidents/2024-01-03-radiant-capital/,Flash-loan liquidity can dominate a newly created lending market before organic depth stabilizes accounting state
+liquidity_index_jump,2024-01-02,Radiant Capital,5,model_threshold,https://www.halborn.com/blog/post/explained-the-radiant-capital-hack-january-2024,One-block reserve or liquidity index movement should be monitored like an oracle deviation
+rounding_amplification,2024-01-02,Radiant Capital,5,model_threshold,https://blockchain.news/news/radiant-capital-suffers-45m-flash-loan-attack,Cumulative precision error becomes dangerous when repeated deposit-withdraw cycles create more value than execution costs
+borrow_against_distortion_ratio,2024-01-02,Radiant Capital,5,qualitative,https://www.cryptotimes.io/2024/01/03/radiant-capital-hacked-for-over-4-5-million-in-eth/,Manipulated accounting state was converted into WETH or ETH borrowing losses
+market_pause_confirmation,2024-01-03,Radiant Capital Arbitrum,4,qualitative,https://rekt.news/radiant-capital-rekt,Temporary market suspension confirmed that the incident affected live lending-market confidence
+bad_debt_context,2024-01-03,Radiant Capital,4,qualitative,https://www.theblock.co/post/270080/radiant-capital-reportedly-hacked-eth,Reported loss scale near 1900 ETH makes index-manipulation monitoring material for market-health risk scoring
