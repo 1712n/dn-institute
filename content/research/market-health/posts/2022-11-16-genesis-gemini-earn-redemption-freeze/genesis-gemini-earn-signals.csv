@@ -1,0 +1,7 @@
+signal,date,venue_or_protocol,severity,unit,source,note
+embedded_counterparty_dependency,2022-11-16,Gemini Earn,critical,ratio,https://www.gemini.com/blog/an-important-message-regarding-gemini-earn,Gemini Earn redemption performance depended on Genesis as the lending counterparty.
+redemption_sla_break,2022-11-16,Gemini Earn,critical,redemption_status,https://www.gemini.com/blog/an-important-message-regarding-gemini-earn,Genesis could not meet Earn customer redemptions within the expected service-level window.
+product_ring_fence_fragility,2022-11-16,Gemini,high,confidence_gap,https://www.gemini.com/blog/an-important-message-regarding-gemini-earn,Gemini had to distinguish Earn from other Gemini products and services after the redemption halt.
+bankruptcy_recovery_dependency,2023-01-19,Genesis Global Capital,critical,legal_recovery,https://techcrunch.com/2023/01/19/dcgs-crypto-lending-subsidiary-genesis-files-for-chapter-11-bankruptcy/,Customer recovery became dependent on Genesis bankruptcy proceedings and creditor outcomes.
+recovery_communication_lag,2023-01-01,Gemini Earn,high,time,https://www.gemini.com/blog/gemini-earn-update,Earn users faced a long update and recovery process after redemptions were frozen.
+actual_recovery_access,2024-01-01,Gemini Earn,medium,recovery_status,https://www.gemini.com/earn,Market health should track actual customer access and distribution status rather than only announcements.
