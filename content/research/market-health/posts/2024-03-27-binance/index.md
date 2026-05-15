@@ -44,7 +44,7 @@ The CFTC identified **Sigma Chain**, a trading firm owned and controlled by CZ, 
 
 ### Quantified Impact
 
-The CFTC's analysis quantified the impact of Binance's wash trading:
+The CFTC complaint and related enforcement filings documented the following impact:
 
 | Metric | Value |
 |--------|-------|
@@ -52,7 +52,7 @@ The CFTC's analysis quantified the impact of Binance's wash trading:
 | Period analyzed | January - March 2023 |
 | Affected trading pairs | BTC/USDT, ETH/USDT, BNB/USDT, and others |
 | House accounts identified | ~300 |
-| Volume inflation estimate | 30-50% |
+| Volume inflation estimate (independent analysis) | 30-50% |
 
 ## Market Health Metrics Analysis
 
@@ -121,7 +121,7 @@ In November 2023, Binance agreed to a comprehensive settlement:
 - **$4.3 billion** total settlement across multiple regulatory agencies (DOJ, FinCEN, OFAC).
 
 **Operational Requirements:**
-- CZ required to **resign as CEO** and divest from Binance.
+- CZ required to **resign as CEO** and step down from executive management.
 - Binance required to implement **independent compliance monitor**.
 - Enhanced **KYC/AML requirements** for all users.
 - **Prohibition on wash trading** and market manipulation.
@@ -161,6 +161,6 @@ The case demonstrates that even the largest exchanges are not immune to regulato
 
 - [CFTC Charges Binance and Its Founder (March 2023)](https://www.cftc.gov/PressRoom/PressReleases/8680-23)
 - [CFTC Orders Binance and CZ to Pay $2.85 Billion (November 2023)](https://www.cftc.gov/PressRoom/PressReleases/8825-23)
-- [Bitwise Asset Management Report on Fake Volume (2019)](https://www.bitwiseinvestments.com/) *(original blog post archived — see CoinDesk coverage)*
-- [Chainalysis Crypto Crime Report (2022)](https://www.chainalysis.com/) *(original URL removed — 404)*
-- [DN Institute Market Health Metrics Documentation](https://dn.institute/) *(docs page under reconstruction)*
+- [Bitwise Asset Management Report on Fake Volume (2019)](https://www.coindesk.com/markets/2019/03/22/bitwise-report-claims-95-of-bitcoin-trading-volume-is-fake/) *(CoinDesk summary — original Bitwise blog archived)*
+- [Chainalysis Crypto Crime Report (2022)](https://www.chainalysis.com/) *(annual reports at chainalysis.com — specific 2022 URL no longer live)*
+- [DN Institute Market Health Metrics](https://dn.institute/) *(documentation under reconstruction)*
