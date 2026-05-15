@@ -17,11 +17,12 @@ the JIMBO/WETH pool rather than on ordinary directional demand for JIMBO.
 
 Security analyses from [Halborn](https://www.halborn.com/blog/post/explained-the-jimbos-protocol-hack-may-2023),
 [Numen Cyber](https://www.numencyber.com/jimbos-protocol-hack/), and
-[Rekt](https://rekt.news/jimbo-rekt) describe the same core sequence: the
-attacker borrowed ETH, bought a large amount of JIMBO, pushed the pool price
-away from normal levels, triggered the protocol's `shift()` liquidity operation,
-and then sold the remaining JIMBO back into WETH after the protocol had moved
-liquidity into the manipulated range.
+[Rekt](https://rekt.news/jimbo-rekt) give the factual basis for this case. In
+market-health terms, the attack can be read as a state-oracle failure: flash-loan
+capital created temporary buying pressure, the JIMBO/WETH pool translated that
+pressure into an inflated spot price, `shift()` treated the distorted venue as a
+safe liquidity target, and the closing sell leg converted the protocol's
+misplaced WETH depth into extractable value.
 
 The market-health lesson is that an automated liquidity-management protocol can
 convert a temporary pool distortion into a real solvency event when it trusts
@@ -43,13 +44,15 @@ The JIMBO market did not show a gradual repricing event. It showed an atomic
 liquidity distortion:
 
 1. The attacker took a large flash loan, reported by Numen Cyber as 10,000 ETH.
-2. The borrowed ETH was swapped into the JIMBO/WETH pair, creating a sharp
-   JIMBO price increase in the pool.
-3. A small amount of JIMBO was sent to the controller, and `shift()` was called.
-4. Because the shift operation lacked adequate slippage controls, protocol funds
-   were moved using the manipulated pool state.
-5. The attacker reversed the trade, sold JIMBO into the now-exposed WETH
-   liquidity, repaid the flash loan, and kept the difference.
+2. The borrowed ETH was swapped into the JIMBO/WETH pair, making the pool's
+   current price look healthier than the surrounding liquidity could support.
+3. A small amount of JIMBO was sent to the controller, and `shift()` was called,
+   causing protocol logic to consume the manipulated spot state.
+4. The liquidity move concentrated protocol-owned WETH where the attacker could
+   trade against it with poor protection from slippage or stale-price checks.
+5. The attacker reversed the position, sold JIMBO into the newly exposed WETH
+   depth, repaid the loan, and left the market with lower usable liquidity and a
+   broken price signal.
 
 That sequence matters because it separates real user demand from manufactured
 venue state. A price series alone might show a spike and crash; the healthier
@@ -88,15 +91,29 @@ depth collapse as a venue-quality alert.
 
 ## Detection Rules
 
-- Flag any `shift()` or rebalance call that follows a large same-block swap in
-  the relevant pool.
-- Require slippage and minimum-output bounds before moving protocol-owned
-  liquidity.
-- Compare current pool price with a time-weighted price or an independent
-  reference before executing liquidity management.
-- Alert when one account or transaction path both pushes price away from normal
-  levels and reverses the position after a protocol action.
-- Treat a rapid price increase followed by liquidity exhaustion as a market
+Use configurable thresholds rather than vague labels:
+
+- `large_swap_liquidity_pct = X`: flag any `shift()` or rebalance call when the
+  preceding swap is more than X% of pool liquidity, or when its notional value is
+  more than `large_swap_sigma = N` standard deviations above the rolling
+  `large_swap_window_blocks = M`-block swap-size baseline. Require the swap and
+  rebalance to occur in the same block or within `rebalance_lag_blocks = K`.
+- `slippage_pct` and `min_output_amount`: before moving protocol-owned
+  liquidity, simulate the rebalance and fail the routine if expected slippage is
+  greater than `slippage_pct` or if the output asset amount is less than
+  `min_output_amount`.
+- `twap_window_short = 5m`, `twap_window_long = 1h`,
+  `spot_twap_deviation_pct = Y`, and `spot_twap_zscore = Z`: compare current
+  spot price with short and long TWAPs or an independent reference price, then
+  block liquidity management when spot price deviates by more than Y% or by a
+  z-score greater than Z.
+- `reversal_blocks = T` and `push_away_pct`: link the account, transaction path,
+  or bundle that pushed price away from TWAP with any reverse trade after a
+  protocol action. Alert when the push-away magnitude exceeds `push_away_pct`
+  and the reversal lands within T blocks.
+- `rapid_move_pct = A`, `rapid_move_blocks = B`, and
+  `minimum_depth_delta`: treat a price increase greater than A% inside B blocks
+  followed by a depth drop larger than `minimum_depth_delta` as a market
   integrity event, even if the contract call itself succeeds.
 
 ## Why This Belongs In Market Health
