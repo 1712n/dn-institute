@@ -46,7 +46,7 @@ SRM fit this pattern because FTX and Alameda were closely associated with Serum'
 
 ### 2. Control-plane risk
 
-Serum's market-health problem was not limited to price. After FTX filed for bankruptcy, Solana developers worried that Serum's upgrade authority was compromised or no longer safe. Solana Foundation's status page said the Serum community organized and deployed a new verified build with a new program ID. That emergency migration is a strong non-price signal: even if an order book still works technically, applications may abandon it when control of the upgrade path is unclear.
+Serum's market-health problem was not limited to price. After FTX filed for bankruptcy, Solana developers worried that Serum's upgrade authority was compromised or no longer safe. Solana Foundation's status page described a community-led replacement build that used a separate verified program identifier. That emergency migration is a strong non-price signal: even if an order book still works technically, applications may abandon it when control of the upgrade path is unclear.
 
 For surveillance purposes, this is similar to an exchange-reserve signal. A token venue can appear live while hidden authority or governance risk makes future market data less reliable.
 
