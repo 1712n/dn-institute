@@ -38,6 +38,40 @@ the current pool state without slippage, delay, or independent price checks.
 | May 28, 2023 | The attacker sold JIMBO back into the pool and drained WETH liquidity.                     | Buy/sell flow reversed after the rebalance; JIMBO price collapsed. |
 | May 29, 2023 | Jimbos Protocol offered an on-chain settlement proposal to recover funds.                  | Loss confirmed as a protocol solvency and user-confidence event.   |
 
+## On-Chain Evidence
+
+I reproduced the exploit transaction receipt from Arbitrum block `95144408` and
+decoded WETH `Transfer` events from transaction
+`0x44a0f5650a038ab522087c02f734b80e6c748afb207995e757ed67ca037a5eda`. The
+supporting files in this directory are:
+
+- `build-jimbos-onchain-evidence.py`: fetches the receipt from Arbitrum RPC and
+  regenerates the CSV and SVG artifacts.
+- `jimbos-exploit-weth-transfers.csv`: every decoded WETH transfer in receipt
+  order, with log index, labeled sender, labeled receiver, raw addresses, and
+  WETH amount.
+- `jimbos-exploit-weth-actors.csv`: actor-level gross inflow, gross outflow,
+  net transfer delta, and maximum/minimum transfer-implied balance delta.
+
+{{< figure src="jimbos-exploit-weth-flow.svg" alt="WETH transfer-implied balance deltas for the Jimbos exploit transaction" caption="WETH transfer-implied balance deltas across the exploit receipt. The chart starts each actor at zero and plots only deltas produced by decoded WETH Transfer logs, not full historical balances." >}}
+
+Three receipt-derived findings matter for Market Health analysis:
+
+1. The exploit did not just contain a large swap; it contained a fast liquidity
+   feedback loop. The Jimbos controller received `14,402.122913` WETH from the
+   liquidity-book token and sent the same amount back out during the same
+   receipt. That is `28,804.245826` WETH of gross controller/liquidity-book
+   movement inside one transaction.
+2. The attack contract received `10,000` WETH from the Aave Arbitrum WETH source
+   at log index 1 and repaid `10,005` WETH at log index 358. The receipt-level
+   transfer trail therefore shows the flash-loan principal and fee boundary.
+3. The attack contract's WETH transfer-implied delta ended at `625.999746` WETH
+   after repayment, while public incident reports estimate the broader protocol
+   loss at about `4,090` ETH. The gap is important: market-health monitoring
+   should not look only at attacker wallet profit. It should also track gross
+   liquidity churn, protocol-owned liquidity exposure, and post-trade venue
+   depth.
+
 ## Manipulation Pattern
 
 The JIMBO market did not show a gradual repricing event. It showed an atomic
@@ -80,7 +114,11 @@ goal was not accumulation. It was to alter the state used by `shift()`.
 The highest-risk step was not the initial buy. It was the protocol moving WETH
 liquidity in response to the distorted price. For liquidity-management systems,
 pool price impact should be monitored together with protocol-owned-liquidity
-transfers, current tick/range selection, and minimum-output checks.
+transfers, current tick/range selection, and minimum-output checks. In this
+transaction, decoded WETH transfers show the controller cycling more gross WETH
+through the liquidity book than the attacker's reported `10,000` WETH flash-loan
+principal. That makes controller/liquidity-book gross flow a direct risk metric,
+not just an accounting detail.
 
 ### Post-Manipulation Depth
 
