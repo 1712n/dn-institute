@@ -14,8 +14,7 @@ entities:
 2. **Regulatory Settlement:** The CFTC imposed **$2.7 billion** in total penalties on Binance — comprising **$1.35 billion in disgorgement** and **$1.35 billion in civil monetary penalty** — while CZ personally paid **$150 million** and agreed to resign as CEO.
 3. **Internal Account Manipulation:** Binance maintained approximately **300 house accounts** controlled by entities affiliated with the exchange, which traded against retail customers without proper disclosure.
 4. **Cross-Market Manipulation:** Evidence shows coordinated trading activity between Binance's house accounts and Sigma Chain, a trading firm owned by CZ, designed to manipulate spot prices for derivatives settlement.
-5. **Regulatory Settlement:** Binance agreed to pay **$2.7 billion** in penalties and disgorgement to the CFTC, while CZ personally paid **$150 million** and agreed to resign as CEO.
-6. **Systemic Volume Inflation:** Independent analysis suggests that Binance's reported trading volumes were inflated by **30-50%** across major trading pairs during the period under investigation.
+5. **Systemic Volume Inflation:** Independent analysis suggests that Binance's reported trading volumes were inflated by **30-50%** across major trading pairs during the period under investigation.
 
 ## Background
 
@@ -49,7 +48,7 @@ The CFTC's analysis quantified the impact of Binance's wash trading:
 
 | Metric | Value |
 |--------|-------|
-| Total wash trading volume | $2.7 billion |
+| Total regulatory penalties (disgorgement + civil penalty) | $2.7 billion |
 | Period analyzed | January - March 2023 |
 | Affected trading pairs | BTC/USDT, ETH/USDT, BNB/USDT, and others |
 | House accounts identified | ~300 |
@@ -147,12 +146,14 @@ The CFTC's enforcement action establishes important precedents:
 
 ## Conclusion
 
-The Binance wash trading case represents the most significant enforcement action against a cryptocurrency exchange for market manipulation. The CFTC's detailed analysis provides a blueprint for identifying wash trading through market health metrics, including:
+The Binance wash trading case represents the most significant enforcement action against a cryptocurrency exchange for market manipulation. The CFTC's enforcement record establishes key findings on wash trading mechanics. Additionally, academic literature on market microstructure suggests the following indicators *may* help identify wash trading, though the specific metrics below have not been independently validated for this case:
 
 1. **Transaction size anomalies** (low variance, round-number clustering)
 2. **Volume distribution deviations** (tail exponent, skewness anomalies)
 3. **Absence of retail clustering** (smooth distributions, bot-like patterns)
 4. **Cross-market coordination** (synchronized activity across trading pairs)
+
+*Note: Items 1–4 are hypotheses from the Market Health Metrics section above. A rigorous analysis would require documented datasets, specified methodology, and independently reproducible results.*
 
 The case demonstrates that even the largest exchanges are not immune to regulatory scrutiny for market manipulation, and that sophisticated analysis of market health metrics can uncover wash trading activities that might otherwise go undetected.
 
@@ -160,6 +161,6 @@ The case demonstrates that even the largest exchanges are not immune to regulato
 
 - [CFTC Charges Binance and Its Founder (March 2023)](https://www.cftc.gov/PressRoom/PressReleases/8680-23)
 - [CFTC Orders Binance and CZ to Pay $2.85 Billion (November 2023)](https://www.cftc.gov/PressRoom/PressReleases/8825-23)
-- [Bitwise Asset Management Report on Fake Volume (2019)](https://blog.bitwiseinvestments.com/crypto-research/fake-volume)
-- [Chainalysis Crypto Crime Report (2022)](https://www.chainalysis.com/blog/2022-crypto-crime-report/)
-- [DN Institute Market Health Metrics Documentation](https://dn.institute/market-health/docs/market-health-metrics/)
+- [Bitwise Asset Management Report on Fake Volume (2019)](https://www.bitwiseinvestments.com/) *(original blog post archived — see CoinDesk coverage)*
+- [Chainalysis Crypto Crime Report (2022)](https://www.chainalysis.com/) *(original URL removed — 404)*
+- [DN Institute Market Health Metrics Documentation](https://dn.institute/) *(docs page under reconstruction)*
