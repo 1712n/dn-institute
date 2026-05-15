@@ -91,6 +91,8 @@ This checklist maps to existing Market Health metric documentation:
 
 These signals are most useful when they agree with each other and when analysts also document alternative explanations such as fee incentives, market-maker programs, listing campaigns, or regional trading-hour effects.
 
+A companion evidence checklist is included in [`wash-trading-liquidity-signals.csv`](wash-trading-liquidity-signals.csv). It keeps the article reproducible without claiming that any single metric proves manipulation on its own.
+
 ## How different users can respond
 
 ### Retail users
