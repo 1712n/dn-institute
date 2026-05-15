@@ -1,0 +1,7 @@
+signal,date,venue_or_protocol,severity,unit,source,note
+flash_loan_collateral_dominance,2023-02-16,Platypus Finance,critical,ratio,https://www.certik.com/blog/platypus-finance-incident-analysis,Flash-loan-sized collateral dominated the transaction path before USP debt and withdrawal operations.
+borrowed_stablecoin_to_locked_collateral,2023-02-16,Platypus Finance,critical,ratio,https://immunefi.com/blog/industry-trends/platypus-finance-hack-analysis/,USP debt should be compared with collateral still locked after all state changes settle.
+emergency_withdrawal_debt_gap,2023-02-16,Platypus Finance,critical,boolean,https://www.halborn.com/blog/post/explained-the-platypus-finance-hack-february-2023,The emergency-withdrawal path exposed a debt and collateral accounting sequence gap.
+peg_repricing_shock,2023-02-16,USP,high,price_deviation,https://dn.institute/research/cyberattacks/incidents/2023-02-16-platypus/,USP traded materially below its intended dollar peg after collateral backing was impaired.
+recovery_coverage_ratio,2023-02-17,Platypus Finance,medium,ratio,https://dn.institute/research/cyberattacks/incidents/2023-02-16-platypus/,Recovered assets should be measured against gross loss and outstanding stablecoin liabilities.
+final_state_solvency_check,2023-02-16,Platypus Finance,critical,control,https://www.certik.com/blog/platypus-finance-incident-analysis,Solvency checks should evaluate the final debt and collateral state after withdrawal updates.
