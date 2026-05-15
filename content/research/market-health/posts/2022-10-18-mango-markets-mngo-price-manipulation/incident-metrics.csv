@@ -1,0 +1,9 @@
+entity,metric,value,source
+MNGO,quote_price_before_usd,0.038,Serum order book Oct 11 2022
+MNGO,quote_price_peak_usd,0.502,Serum order book Oct 11 2022
+MNGO,price_multiple,13.2,calculated
+Mango Markets,tvl_before_usd,200000000,DeFi Llama
+Mango Markets,tvl_after_usd,3000000,DeFi Llama
+Mango Markets,extracted_total_usd,116000000,on-chain analysis
+Mango Markets,returned_amount_usd,67000000,governance vote
+MNGO,token_price_drop_pct,50,CoinGecko Oct 11-15 2022
