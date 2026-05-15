@@ -1,0 +1,7 @@
+signal,date,venue_or_protocol,severity,unit,source,note
+withdrawal_cap_severity,2022-07-05,CoinLoan,high,usd_per_day,https://cryptoslate.com/coinloan-halts-all-withdrawals-user-services/,CoinLoan had used daily withdrawal limits of 5000 dollars before its later halt.
+legal_disposition_restraint,2023-04-24,CoinLoan,critical,legal_control,https://www.cointime.ai/news/cryptocurrency-lending-platform-coinloan-halts-operations-due-to-regulatory-restriction-81215,A notice of restraint required interim-liquidator approval for asset management.
+full_user_operation_halt,2023-04-25,CoinLoan,critical,boolean,https://crypto.news/coinloan-halts-withdrawals-and-services-following-court-order/,CoinLoan halted user withdrawals and services after the court-related notice.
+public_legal_notice,2023-04-24,CoinLoan,critical,court_notice,https://www.ametlikudteadaanded.ee/eng/teadaanne?teate_number=2065591,The Estonian public notice documented the restraint on disposition.
+service_provider_contagion,2023-04-26,CoinLoan/Bit4You,high,downstream_platform,https://finance.yahoo.com/news/belgian-crypto-lender-bit4you-suspends-162556274.html,Bit4You suspended operations after CoinLoan was declared insolvent by an Estonian court.
+creditor_claims_dependency,2023-06-14,CoinLoan,critical,claims_process,https://www.njordlaw.com/print/pdf/node/2765,CoinLoan recovery moved into a creditor claims process with submission deadlines.
