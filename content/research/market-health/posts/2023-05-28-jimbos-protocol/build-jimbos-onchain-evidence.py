@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import json
 import math
+from decimal import Decimal
 from pathlib import Path
 from urllib import request
 
@@ -11,6 +12,7 @@ RPC_URL = "https://arb1.arbitrum.io/rpc"
 ATTACK_TX = "0x44a0f5650a038ab522087c02f734b80e6c748afb207995e757ed67ca037a5eda"
 TRANSFER_TOPIC = "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"
 WETH = "0x82af49447d8a07e3bd95bd0d56f35241523fbab1"
+WEI_PER_WETH = Decimal(10) ** 18
 
 LABELS = {
     "0x0000000000000000000000000000000000000000": "zero_mint_burn",
@@ -51,6 +53,21 @@ def topic_address(topic: str) -> str:
     return "0x" + topic[-40:].lower()
 
 
+def weth_from_wei(amount_wei: int) -> Decimal:
+    return Decimal(amount_wei) / WEI_PER_WETH
+
+
+def format_decimal(value: Decimal, places: int | None = None) -> str:
+    if places is not None:
+        value = value.quantize(Decimal(1).scaleb(-places))
+    if value == 0:
+        value = Decimal(0)
+    text = format(value, "f")
+    if "." in text:
+        text = text.rstrip("0").rstrip(".")
+    return text or "0"
+
+
 def fetch_weth_transfers() -> tuple[int, int, list[dict[str, object]]]:
     receipt = rpc("eth_getTransactionReceipt", [ATTACK_TX])
     rows = []
@@ -59,7 +76,7 @@ def fetch_weth_transfers() -> tuple[int, int, list[dict[str, object]]]:
         if log["address"].lower() != WETH or not topics or topics[0] != TRANSFER_TOPIC:
             continue
 
-        amount_weth = int(log["data"], 16) / 10**18
+        amount_wei = int(log["data"], 16)
         from_address = topic_address(topics[1])
         to_address = topic_address(topics[2])
         rows.append(
@@ -69,7 +86,8 @@ def fetch_weth_transfers() -> tuple[int, int, list[dict[str, object]]]:
                 "to_label": label(to_address),
                 "from_address": from_address,
                 "to_address": to_address,
-                "amount_weth": f"{amount_weth:.18f}".rstrip("0").rstrip("."),
+                "amount_wei": str(amount_wei),
+                "amount_weth": format_decimal(weth_from_wei(amount_wei)),
             }
         )
     return int(receipt["blockNumber"], 16), len(receipt["logs"]), rows
@@ -85,6 +103,7 @@ def write_transfers(out_dir: Path, rows: list[dict[str, object]]) -> None:
                 "to_label",
                 "from_address",
                 "to_address",
+                "amount_wei",
                 "amount_weth",
             ],
         )
@@ -92,31 +111,31 @@ def write_transfers(out_dir: Path, rows: list[dict[str, object]]) -> None:
         writer.writerows(rows)
 
 
-def write_actor_summary(out_dir: Path, rows: list[dict[str, object]]) -> dict[str, dict[str, float]]:
-    balances: dict[str, float] = {}
-    stats: dict[str, dict[str, float]] = {}
+def write_actor_summary(out_dir: Path, rows: list[dict[str, object]]) -> dict[str, dict[str, Decimal]]:
+    balances: dict[str, Decimal] = {}
+    stats: dict[str, dict[str, Decimal]] = {}
 
-    def actor_stats(actor: str) -> dict[str, float]:
+    def actor_stats(actor: str) -> dict[str, Decimal]:
         if actor not in stats:
             stats[actor] = {
-                "gross_in_weth": 0.0,
-                "gross_out_weth": 0.0,
-                "net_delta_weth": 0.0,
-                "max_positive_delta_weth": 0.0,
-                "min_negative_delta_weth": 0.0,
+                "gross_in_weth": Decimal(0),
+                "gross_out_weth": Decimal(0),
+                "net_delta_weth": Decimal(0),
+                "max_positive_delta_weth": Decimal(0),
+                "min_negative_delta_weth": Decimal(0),
             }
         return stats[actor]
 
     for row in rows:
-        amount = float(row["amount_weth"])
+        amount = weth_from_wei(int(row["amount_wei"]))
         sender = str(row["from_label"])
         receiver = str(row["to_label"])
 
         actor_stats(sender)["gross_out_weth"] += amount
         actor_stats(receiver)["gross_in_weth"] += amount
 
-        balances[sender] = balances.get(sender, 0.0) - amount
-        balances[receiver] = balances.get(receiver, 0.0) + amount
+        balances[sender] = balances.get(sender, Decimal(0)) - amount
+        balances[receiver] = balances.get(receiver, Decimal(0)) + amount
 
         for actor in (sender, receiver):
             current = balances[actor]
@@ -142,7 +161,7 @@ def write_actor_summary(out_dir: Path, rows: list[dict[str, object]]) -> dict[st
         )
         writer.writeheader()
         for actor in sorted(stats):
-            writer.writerow({"actor": actor, **{k: f"{v:.6f}" for k, v in stats[actor].items()}})
+            writer.writerow({"actor": actor, **{k: format_decimal(v, 6) for k, v in stats[actor].items()}})
     return stats
 
 
@@ -156,14 +175,14 @@ def write_svg(out_dir: Path, rows: list[dict[str, object]]) -> None:
     plot_w = width - left - right
     plot_h = height - top - bottom
 
-    balances = {actor: 0.0 for actor in PLOT_ACTORS}
-    series = {actor: [(0, 0.0)] for actor in PLOT_ACTORS}
-    max_log = max(int(row["log_index"]) for row in rows)
-    max_abs = 1.0
+    balances = {actor: Decimal(0) for actor in PLOT_ACTORS}
+    series = {actor: [(0, Decimal(0))] for actor in PLOT_ACTORS}
+    max_log = max((int(row["log_index"]) for row in rows), default=0) or 1
+    max_abs = Decimal(1)
 
     for row in rows:
         log_index = int(row["log_index"])
-        amount = float(row["amount_weth"])
+        amount = weth_from_wei(int(row["amount_wei"]))
         sender = str(row["from_label"])
         receiver = str(row["to_label"])
         if sender in balances:
@@ -174,13 +193,13 @@ def write_svg(out_dir: Path, rows: list[dict[str, object]]) -> None:
             series[actor].append((log_index, balances[actor]))
             max_abs = max(max_abs, abs(balances[actor]))
 
-    y_limit = math.ceil(max_abs / 1000) * 1000
+    y_limit = max(1, math.ceil(float(max_abs) / 1000) * 1000)
 
     def x_for(log_index: int) -> float:
         return left + (log_index / max_log) * plot_w
 
-    def y_for(value: float) -> float:
-        return top + ((y_limit - value) / (2 * y_limit)) * plot_h
+    def y_for(value: Decimal | int) -> float:
+        return top + (float(Decimal(y_limit) - value) / (2 * y_limit)) * plot_h
 
     colors = {
         "attack_contract": "#f97316",
@@ -228,11 +247,12 @@ def main() -> None:
     write_transfers(out_dir, rows)
     stats = write_actor_summary(out_dir, rows)
     write_svg(out_dir, rows)
-    print(f"block={block_number} receipt_logs={log_count} weth_transfers={len(rows)}")
-    print(
-        "controller_gross_weth="
-        f"{stats['jimbo_controller']['gross_in_weth'] + stats['jimbo_controller']['gross_out_weth']:.6f}"
+    controller = stats.get("jimbo_controller", {})
+    controller_gross_weth = controller.get("gross_in_weth", Decimal(0)) + controller.get(
+        "gross_out_weth", Decimal(0)
     )
+    print(f"block={block_number} receipt_logs={log_count} weth_transfers={len(rows)}")
+    print(f"controller_gross_weth={format_decimal(controller_gross_weth, 6)}")
 
 
 if __name__ == "__main__":
