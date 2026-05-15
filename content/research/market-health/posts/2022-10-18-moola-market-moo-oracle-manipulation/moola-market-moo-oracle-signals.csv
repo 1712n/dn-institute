@@ -1,0 +1,7 @@
+signal,date,venue_or_protocol,severity,unit,source,note
+moo_spot_price_manipulation,2022-10-18,Ubeswap,5,qualitative,https://www.certik.com/skynet-report/moola-market,MOO spot-market pressure on Ubeswap was used to influence the oracle value consumed by Moola
+twap_oracle_sensitivity,2022-10-18,Moola Market,5,model_threshold,https://chaoslabs.xyz/resources/chaos_uniswap_v3_twap_oracle_manipulation.pdf,Emergency state when incremental borrowing power from a TWAP move exceeds the cost required to move the underlying market
+native_token_collateral_mismatch,2022-10-18,Moola Market,5,model_threshold,https://smartcontractshacking.com/hacks/moola-market-hack-2022,Native-token collateral should be capped by executable liquidation depth rather than headline oracle value
+liquid_asset_drain_rate,2022-10-18,Moola Market,5,qualitative,https://www.infosecurity-magazine.com/news/moola-market-crypto-exploit/,Manipulated MOO collateral enabled borrowing of more liquid CELO and stable-value assets
+recovery_negotiation,2022-10-19,Moola Market,3,qualitative,https://chainbulletin.com/moola-market-attacker-returns-93-of-stolen-funds,Most exploited funds were reportedly returned after negotiation but the retained amount showed residual protocol loss
+peer_exploit_contagion,2022-10-18,Moola Market and Mango Markets,4,qualitative,https://www.certik.com/skynet-report/moola-market,The attack resembled the Mango Markets price-manipulation playbook and should have raised peer-protocol collateral-risk alerts
