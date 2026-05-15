@@ -1,0 +1,7 @@
+signal,date,venue_or_protocol,severity,unit,source,note
+withdrawal_run_velocity,2022-07-04,Vauld,critical,usd,https://techcrunch.com/2022/07/04/crypto-lending-platform-vauld-suspends-withdrawals-trading-and-deposits-amid-financial-challenges/,Customers withdrew nearly 198 million dollars after June 12 before the halt.
+full_stack_service_halt,2022-07-04,Vauld,critical,boolean,https://techcrunch.com/2022/07/04/crypto-lending-platform-vauld-suspends-withdrawals-trading-and-deposits-amid-financial-challenges/,Withdrawals trading and deposits were suspended together.
+moratorium_dependency,2022-07-31,Vauld,critical,legal_recovery,https://support.vauld.com/en/articles/6382973-faqs-on-vauld-group-restructuring-as-of-31-july-22,Customer recovery depended on restructuring and moratorium protection.
+acquisition_recovery_optionality,2022-07-05,Vauld/Nexo,high,recovery_option,https://coincodex.com/article/16467/digital-asset-investment-platform-nexo-plans-to-acquire-troubled-crypto-lender-vauld/,A Nexo term sheet created rescue optionality but not immediate liquidity.
+failed_rescue_discount,2022-12-28,Vauld/Nexo,high,recovery_discount,https://www.blockhead.co/2022/12/28/sg-based-vauld-rejects-nexo-acquisition-for-now/,Later rejection of the Nexo proposal showed acquisition recovery remained uncertain.
+terra_contagion_link,2022-07-31,Vauld,medium,contagion_signal,https://support.vauld.com/en/articles/6382973-faqs-on-vauld-group-restructuring-as-of-31-july-22,Vauld cited TerraUSD contagion as a factor behind increased withdrawal requests.
