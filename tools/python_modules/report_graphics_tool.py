@@ -123,17 +123,29 @@ class Visualization:
 
     def _make_benfordlaw(self, data, directory):
         """Generate interactive Benford's Law chart with dual y-axis."""
+        # Filter out rows with zero or negative tradecount (Benford's Law requires positive sample size)
+        valid_data = data[data['tradecount'] > 0].copy()
+        
+        # If no valid data, create empty chart with note
+        if len(valid_data) == 0:
+            fig = go.Figure()
+            fig.add_annotation(text="No valid data for Benford's Law (all tradecount <= 0)", 
+                            xref="paper", yref="paper", x=0.5, y=0.5, showarrow=False)
+            fig.update_layout(title="Benford's Law Analysis (No Data)", template='plotly_white')
+            with open(os.path.join(directory, 'benford_law.plotly'), 'w', encoding='utf-8') as f:
+                f.write(pio.to_html(fig, full_html=False, include_plotlyjs=False))
+            return
+        
         # Convert index to string to avoid datetime parsing issues
-        x_vals = [str(idx) for idx in data.index]
-        safe_tradecount = data['tradecount'].clip(lower=1)
-        crit_val = 1.36 / np.sqrt(safe_tradecount)
+        x_vals = [str(idx) for idx in valid_data.index]
+        crit_val = 1.36 / np.sqrt(valid_data['tradecount'])
 
         fig = go.Figure()
 
         # Benford Law Test Score line
         fig.add_trace(go.Scatter(
             x=x_vals,
-            y=data['benfordlawtest'],
+            y=valid_data['benfordlawtest'],
             mode='lines',
             name='Benford Law Test Score',
             line=dict(color='blue'),
