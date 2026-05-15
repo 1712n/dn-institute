@@ -11,32 +11,30 @@ entities:
 ## Summary
 
 On May 28, 2023, Jimbos Protocol was drained for about 4,090 ETH, worth roughly
-$7.5 million at the time. The incident is a useful Market Health case because
-the profit path depended on a short-lived, attacker-created price imbalance in
-the JIMBO/WETH pool rather than on ordinary directional demand for JIMBO.
+$7.5 million at the time. Rather than retelling the public incident chronology,
+this case study treats the exploit receipt as a market-health trace: WETH enters
+temporarily, protocol-owned liquidity churns through the controller and
+liquidity-book path, and the receipt closes with venue-side WETH depth depleted.
 
 Security analyses from [Halborn](https://www.halborn.com/blog/post/explained-the-jimbos-protocol-hack-may-2023),
 [Numen Cyber](https://www.numencyber.com/jimbos-protocol-hack/), and
-[Rekt](https://rekt.news/jimbo-rekt) give the factual basis for this case. In
-market-health terms, the attack can be read as a state-oracle failure: flash-loan
-capital created temporary buying pressure, the JIMBO/WETH pool translated that
-pressure into an inflated spot price, `shift()` treated the distorted venue as a
-safe liquidity target, and the closing sell leg converted the protocol's
-misplaced WETH depth into extractable value.
-
-The market-health lesson is that an automated liquidity-management protocol can
-convert a temporary pool distortion into a real solvency event when it trusts
-the current pool state without slippage, delay, or independent price checks.
+[Rekt](https://rekt.news/jimbo-rekt) provide the external incident references.
+The added value here is the receipt-derived control signal: `28,804.245826` WETH
+of gross controller/liquidity-book movement happened inside the same transaction
+that bounded the temporary capital at log indexes `1` and `358`. A liquidity
+manager that reacts to that venue state without delay, slippage limits, or an
+independent price reference can convert a transient pool distortion into an
+extractable solvency event.
 
 ## Timeline
 
-| Date         | Event                                                                                      | Market-health signal                                               |
-| ------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| May 2023     | Jimbos Protocol relaunched v2 after a problematic first launch.                            | New liquidity design with limited production history.              |
-| May 28, 2023 | The attacker used a flash loan and large JIMBO buy to move the pool price.                 | Abrupt average transaction size and price-impact spike.            |
-| May 28, 2023 | The attacker called `shift()` and forced protocol liquidity into the distorted pool state. | Protocol-owned liquidity followed the manipulated venue price.     |
-| May 28, 2023 | The attacker sold JIMBO back into the pool and drained WETH liquidity.                     | Buy/sell flow reversed after the rebalance; JIMBO price collapsed. |
-| May 29, 2023 | Jimbos Protocol offered an on-chain settlement proposal to recover funds.                  | Loss confirmed as a protocol solvency and user-confidence event.   |
+| Date         | Evidence marker                                                                                       | Market-health signal                                                    |
+| ------------ | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| May 2023     | Jimbos Protocol v2 restarted with a new liquidity design.                                             | New liquidity control path with limited production history.             |
+| May 28, 2023 | Receipt log index `1` adds `10,000` WETH to `attack_contract`; log index `358` returns `10,005` WETH. | Temporary capital boundary appears and unwinds inside one transaction.  |
+| May 28, 2023 | Controller/liquidity-book rows show `28,804.245826` WETH of gross movement.                           | Protocol-owned liquidity moved during the distorted venue state.        |
+| May 28, 2023 | Liquidity-book transfer-implied delta ends at `-630.999746` WETH.                                     | Venue-side WETH depth was measurably depleted after the control action. |
+| May 29, 2023 | Jimbos Protocol offered an on-chain settlement proposal to recover funds.                             | The market-quality failure became a protocol solvency event.            |
 
 ## On-Chain Evidence
 
