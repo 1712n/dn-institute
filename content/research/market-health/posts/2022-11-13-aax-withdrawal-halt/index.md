@@ -1,6 +1,8 @@
 ---
 title: "AAX Withdrawal Halt and Third-Party Balance-Data Failure Risk"
 date: "2022-11-13"
+navShowTaxonomies: false
+navShowPages: false
 description: "AAX's November 2022 withdrawal halt shows how exchange confidence can break when a third-party system failure, FTX-era liquidity panic, manual withdrawal queues, executive departures, and enforcement risk converge."
 entities:
   - AAX
@@ -13,7 +15,7 @@ entities:
 
 ## Summary
 
-AAX suspended withdrawals in November 2022 during the market panic that followed FTX's collapse. Yahoo Finance reported that AAX described the halt as connected to scheduled maintenance and said it had no financial exposure to FTX or its affiliates. GIGAZINE and Gizmodo reported that AAX attributed the suspension to a third-party partner issue that affected some users' balance data and introduced a withdrawal request form while withdrawals were not operating normally.
+AAX suspended withdrawals in November 2022 during the market panic that followed FTX's collapse. [Yahoo Finance reported](https://finance.yahoo.com/news/aax-crypto-exchange-suspends-withdrawals-015041886.html) that AAX described the halt as connected to scheduled maintenance and said it had "no financial exposure to FTX or its affiliates." GIGAZINE and [Gizmodo reported](https://gizmodo.com/crypto-platform-aax-bitcoin-ether-halts-withdrawals-ftx-1849778792) that AAX blamed an outside service provider for abnormal balance inputs affecting some users and introduced a withdrawal request form while withdrawals were not operating normally.
 
 This is a Market Health case because the customer-facing result was a full withdrawal impairment regardless of the stated cause. Users had to evaluate a venue that said assets were intact, while normal withdrawals were replaced by a manual request process during an industry-wide confidence shock. The Crypto Times later reported that AAX's vice president for global marketing and communications resigned amid the ongoing operational halt.
 
@@ -113,6 +115,17 @@ The test asks whether users can independently verify and withdraw account balanc
 | Manual withdrawal queue          | Normal withdrawals were replaced by request forms | Customer access became discretionary and slower                    |
 | Executive departure during halt  | A key communications executive resigned           | Governance and recovery communication uncertainty increased        |
 | Enforcement shutdown risk        | Arrest and shuttered-exchange reporting followed  | The incident moved toward legal recovery and platform-failure risk |
+
+## Evidence Values
+
+| Signal                                     | Observed value                                                                                                                                                                  | Data source                                                           | Venue-level metric/proxy                                                                                                                                  |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Signal 1: Third-Party Balance-Data Failure | On 2022-11-14, reporting attributed abnormal balance inputs to an outside provider and described the affected population as some user balances, without a public account count. | Gizmodo report plus companion CSV row dated 2022-11-14.               | `balance_record_discrepancies` proxy; account-level discrepancy counts were not public, so the CSV records the event as a critical ledger-integrity flag. |
+| Signal 2: Withdrawal Halt Duration Risk    | AAX said withdrawals would be suspended for an expected seven to ten days from the 2022-11-13 announcement.                                                                     | Yahoo Finance report plus companion CSV row dated 2022-11-13.         | `expected_halt_days = 7..10`; this feeds the `withdrawal_halt_duration_risk` row.                                                                         |
+| Signal 3: Manual Withdrawal Queue          | By 2022-11-15, normal withdrawals were still halted and users were directed to a request form instead of routine rails.                                                         | GIGAZINE and Gizmodo reports plus companion CSV row dated 2022-11-15. | `manual_withdrawal_queue = 1`; processed and pending request counts were not public, so the dataset uses a process-change proxy.                          |
+| Signal 4: Executive Departure During Halt  | On 2022-11-28, one named communications executive, Ben Caselin, resigned while the customer-access impairment remained unresolved.                                              | The Crypto Times report plus companion CSV row dated 2022-11-28.      | `executive_resignation_date = 2022-11-28` and `key_resignations_during_customer_access_impairment = 1`.                                                   |
+| Signal 5: Enforcement and Shutdown Risk    | On 2022-12-27, later reporting described arrests connected to AAX and continued to frame the venue as shuttered or defunct.                                                     | Blockhead report plus companion CSV row dated 2022-12-27.             | `enforcement_event_flag = 1` and `platform_shutdown_indicator = 1`; recovery amounts and customer-account counts were not public in the cited source.     |
+| Requirement divergence                     | Public reporting did not disclose account-level affected-balance counts, withdrawal-request backlog counts, or recovery amounts.                                                | Cited news sources and companion CSV.                                 | The dataset therefore uses dated venue-level event flags and duration/proxy metrics rather than undisclosed internal exchange API values.                 |
 
 ## Practical Alert Rules
 
