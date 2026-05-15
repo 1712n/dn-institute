@@ -182,7 +182,6 @@ The case reinforces the importance of sophisticated market health analysis in id
 
 ## References
 
-- [Bitwise Asset Management Report on Fake Volume (2019)](https://blog.bitwiseinvestments.com/crypto-research/fake-volume)
-- [Chainalysis Crypto Crime Report (2024)](https://www.chainalysis.com/blog/2024-crypto-crime-report/)
-- [FCA Warning About Bitget (2023)](https://www.fca.org.uk/news/warnings/bitget)
-- [DN Institute Market Health Metrics Documentation](https://dn.institute/market-health/docs/market-health-metrics/)
+- [Bitwise Asset Management Report on Fake Volume (2019)](https://www.coindesk.com/markets/2019/03/22/bitwise-report-claims-95-of-bitcoin-trading-volume-is-fake/) *(CoinDesk summary — original Bitwise blog archived)*
+- [Chainalysis Crypto Crime Report (2024)](https://www.chainalysis.com/) *(annual reports at chainalysis.com — specific URL no longer live)*
+- [DN Institute Market Health Metrics](https://dn.institute/) *(documentation under reconstruction)*
