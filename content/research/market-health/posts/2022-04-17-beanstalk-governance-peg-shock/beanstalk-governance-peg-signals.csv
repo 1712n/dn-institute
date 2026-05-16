@@ -1,7 +1,22 @@
-signal,date,venue_or_protocol,severity,unit,source,note
-flash_loan_vote_power_dominance,2022-04-17,Beanstalk Farms,critical,ratio,https://immunefi.com/blog/bug-fix-reviews/hack-analysis-beanstalk-governance-attack-april-2022/,Borrowed liquidity created enough temporary voting power to pass the malicious governance path.
-emergency_execution_compression,2022-04-17,Beanstalk Farms,critical,ratio,https://www.certik.com/resources/blog/revisiting-beanstalk-farms-exploit,Emergency governance execution compressed the time available for review or defense.
-governance_controlled_backing_at_risk,2022-04-17,Beanstalk Farms,critical,usd,https://dn.institute/research/cyberattacks/incidents/2022-04-17-beanstalk/,Governance execution could move assets that supported market confidence in the protocol and BEAN.
-bean_peg_repricing_shock,2022-04-17,BEAN,critical,price_deviation,https://dn.institute/research/cyberattacks/incidents/2022-04-17-beanstalk/,BEAN traded far below its intended one-dollar target after the governance exploit.
-treasury_drain_to_liquidity_depth,2022-04-17,Beanstalk Farms,high,ratio,https://coincodex.com/article/14264/182-million-lost-hacker-uses-flash-loan-exploit-to-drain-the-beanstalk-defi-protocol/,Protocol asset movement overwhelmed confidence in available liquidity and backing.
-restart_credibility_gap,2022-08-06,Beanstalk Farms,medium,time_and_controls,https://bean.money/blog/beanstalk-farms-2022-roundup,Post-incident recovery required restored operations and new confidence in governance controls.
+metric,value,unit,calculation_or_basis,source
+reported_total_loss,182000000,USD,DN Institute reported total Beanstalk incident loss.,https://dn.institute/research/cyberattacks/incidents/2022-04-17-beanstalk/
+reported_attacker_profit,80000000,USD,"DN Institute reported 24,840 ETH attacker profit value.",https://dn.institute/research/cyberattacks/incidents/2022-04-17-beanstalk/
+reported_attacker_profit_eth,24840,ETH,DN Institute reported attacker profit in ETH.,https://dn.institute/research/cyberattacks/incidents/2022-04-17-beanstalk/
+reported_non_beanstalk_pool_assets,77000000,USD,DN Institute reported assets taken from non-Beanstalk liquidity pools.,https://dn.institute/research/cyberattacks/incidents/2022-04-17-beanstalk/
+reported_flash_loan_repaid,106000000,USD,DN Institute reported value returned through flash-loan repayment.,https://dn.institute/research/cyberattacks/incidents/2022-04-17-beanstalk/
+reported_flash_loan_borrowed,1000000000,USD,DN Institute reported nearly $1B borrowed through Aave.,https://dn.institute/research/cyberattacks/incidents/2022-04-17-beanstalk/
+reported_voting_stake,67,percent,DN Institute reported governance stake created by the flash loan.,https://dn.institute/research/cyberattacks/incidents/2022-04-17-beanstalk/
+reported_supermajority_reference,66.6667,percent,Immunefi described the attack path as gaining at least two-thirds voting power.,https://immunefi.com/blog/bug-fix-reviews/hack-analysis-beanstalk-governance-attack-april-2022/
+bean_post_attack_price,0.12,USD per BEAN,DN Institute reported BEAN post-attack price.,https://dn.institute/research/cyberattacks/incidents/2022-04-17-beanstalk/
+reported_bean_drop,88,percent,DN Institute reported approximate BEAN price drop.,https://dn.institute/research/cyberattacks/incidents/2022-04-17-beanstalk/
+reported_certik_loss,182000000,USD,CertiK corroborated approximate total loss.,https://www.certik.com/resources/blog/revisiting-beanstalk-farms-exploit
+reported_certik_profit,76000000,USD,CertiK reported attacker profit estimate.,https://www.certik.com/resources/blog/revisiting-beanstalk-farms-exploit
+reported_ukraine_donation,250000,USD,DN Institute and CertiK reported the attacker donation to Ukraine aid.,https://www.certik.com/resources/blog/revisiting-beanstalk-farms-exploit
+derived_attacker_profit_share_of_loss,43.956,percent,reported_attacker_profit_usd / reported_total_loss_usd,derived
+derived_flash_loan_repayment_share_of_loss,58.2418,percent,reported_flash_loan_repaid_usd / reported_total_loss_usd,derived
+derived_loss_to_attacker_profit_multiple,2.275,x,reported_total_loss_usd / reported_attacker_profit_usd,derived
+derived_bean_price_remaining,12,percent,bean_post_attack_price_usd / bean_target_price_usd,derived
+derived_peg_repricing_shock,88,percent,(bean_target_price_usd - bean_post_attack_price_usd) / bean_target_price_usd,derived
+derived_loss_per_peg_shock_pct,2068181.82,USD per percentage point,reported_total_loss_usd / reported_bean_drop_pct,derived
+derived_flash_loan_to_reported_loss_multiple,5.4945,x,reported_flash_loan_borrowed_usd / reported_total_loss_usd,derived
+derived_vote_margin_over_supermajority,0.3333,percentage points,reported_voting_stake_pct - 66.6667% supermajority reference,derived

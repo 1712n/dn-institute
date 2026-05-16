@@ -19,6 +19,14 @@ The important market-health lesson is that governance power can behave like a ma
 
 Public analyses from DN Institute, Immunefi, CertiK, CoinCodex, and Beanstalk's own post-incident materials describe a flash-loan-governance path: borrow large assets, convert them into voting power, execute a proposal through an emergency governance route, move treasury or deposited assets, repay the flash loan, and keep the extracted profit. A market-health system should recognize this pattern before the peg shock confirms it.
 
+## Reported Data and Derived Metrics
+
+The companion dataset [`beanstalk-governance-peg-signals.csv`](beanstalk-governance-peg-signals.csv) keeps the article's market-health numbers reproducible from public reporting. DN Institute reports a $182 million total loss, roughly $80 million in attacker profit, $106 million returned through flash-loan repayment, nearly $1 billion borrowed through Aave, a 67% voting stake, and a BEAN move down to about $0.12 after the exploit. CertiK separately corroborates the approximate $182 million loss and reports a $76 million attacker-profit estimate.
+
+{{< figure src="beanstalk-governance-peg-metrics.svg" caption="Reported Beanstalk governance exploit economics and derived BEAN peg-shock metrics." >}}
+
+Those inputs imply that the attacker profit was about 44.0% of the reported total loss, while flash-loan repayment represented about 58.2% of the reported loss footprint. The borrowed-liquidity base was about 5.49 times the total loss, which explains why a temporary position could overwhelm governance before disappearing from the protocol's durable capital base. On the market side, the $0.12 post-attack BEAN price left only 12% of the intended dollar peg and mechanically implies the same 88% peg repricing shock that DN Institute reports. Framed another way, each percentage point of BEAN's reported peg shock corresponded to roughly $2.07 million of reported protocol loss.
+
 ## Market Structure
 
 Beanstalk was built around BEAN, a protocol stablecoin whose credibility depended on protocol assets, liquidity, governance, and expectations of future peg restoration. That structure made governance security directly relevant to market health. If governance could move assets without durable voter commitment, then the stablecoin's backing and peg confidence could change inside a single transaction sequence.
