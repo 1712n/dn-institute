@@ -18,6 +18,14 @@ Inverse Finance's Anchor money market was exploited on April 2, 2022 after the I
 
 The event is a useful Market Health case because the attack was not only a smart-contract bug. It was a market-structure failure: a capital-intensive trade moved a thin reference market, the TWAP window absorbed the manipulated price, and the lending protocol treated that manipulated TWAP as collateral truth.
 
+## Reported Data and Derived Metrics
+
+The companion dataset [`inverse-finance-twap-signals.csv`](inverse-finance-twap-signals.csv) keeps the article's numeric claims reproducible from the public incident record. Web3 Is Going Great reports that the attacker converted the borrowed DOLA, ETH, WBTC, and YFI basket, valued at about $15.6 million, into about 4,300 ETH worth about $14.5 million, then transferred 1,300 ETH, about $4.5 million, to a mixer.
+
+{{< figure src="inverse-finance-extraction-metrics.svg" caption="Reported Inverse Finance extraction values and derived post-conversion ratios." >}}
+
+Those reported values imply a $1.1 million notional-to-realized haircut, a 92.9% converted-value share, and a 30.2% mixer-transfer share of the converted ETH. The numbers do not reconstruct the private SushiSwap order book or Keep3r sampling state; they bound the lending-market extraction that the manipulated oracle enabled and show why a local INV reference-price distortion became a multi-asset solvency event.
+
 ## Market Structure
 
 The vulnerable structure had four parts:
@@ -88,13 +96,13 @@ The key control is not merely a longer TWAP. It is comparing manipulation cost w
 
 ## Detection Table
 
-| Signal                       | What changed                                           | Why it mattered                                              |
-| ---------------------------- | ------------------------------------------------------ | ------------------------------------------------------------ |
-| Reference-pair depth gap     | INV pricing relied on a manipulable DEX reference pair | The attacker's capital could move the collateral price       |
-| TWAP capture window          | The manipulated price entered the oracle window        | The protocol accepted a distorted value after the trade      |
-| Collateral inflation ratio   | INV collateral was valued above stress-market reality  | The borrower gained artificial borrowing power               |
-| Borrowable liquidity drain   | DOLA, ETH, WBTC, and YFI were borrowed against INV     | A local oracle move became a multi-asset lending-market loss |
-| Post-incident oracle changes | Inverse moved toward stronger oracle design            | The remediation confirms that oracle robustness was material |
+| Signal                       | What changed                                           | Why it mattered                                                    |
+| ---------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------ |
+| Reference-pair depth gap     | INV pricing relied on a manipulable DEX reference pair | The attacker's capital could move the collateral price             |
+| TWAP capture window          | The manipulated price entered the oracle window        | The protocol accepted a distorted value after the trade            |
+| Collateral inflation ratio   | INV collateral was valued above stress-market reality  | The borrower gained artificial borrowing power                     |
+| Borrowable liquidity drain   | DOLA, ETH, WBTC, and YFI were borrowed against INV     | The borrowed basket reached about $15.6 million across four assets |
+| Post-incident oracle changes | Inverse moved toward stronger oracle design            | The remediation confirms that oracle robustness was material       |
 
 ## Practical Alert Rules
 

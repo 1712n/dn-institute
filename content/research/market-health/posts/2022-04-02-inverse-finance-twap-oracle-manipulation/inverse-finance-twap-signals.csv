@@ -1,7 +1,12 @@
-signal,date,venue_or_protocol,severity,unit,source,note
-reference_pair_depth_gap,2022-04-02,SushiSwap INV reference market,5,model_threshold,https://www.certik.com/blog/inverse-finance-02-april-2022,Emergency when attacker capital can move the DEX reference pair used for lending collateral valuation
-twap_capture_window,2022-04-02,Keep3r TWAP oracle,5,model_threshold,https://www.certik.com/resources/blog/2022-year-in-review-lending-protocols,TWAP protection weakens when manipulated price duration covers most of the oracle sampling window
-collateral_inflation_ratio,2022-04-02,Inverse Finance Anchor,5,model_threshold,https://www.pymnts.com/cryptocurrency/2022/lending-protocol-inverse-finance-loses-15-6m-in-crypto-following-hack,Manipulated INV collateral value allowed borrowing far above stress-price support
-borrowable_liquidity_drain,2022-04-02,Inverse Finance Anchor,5,qualitative,https://www.cryptotimes.io/2022/04/04/lending-protocol-inverse-finance-lost-15-6m-in-crypto/,Borrowing DOLA ETH WBTC and YFI against inflated INV turned oracle manipulation into multi-asset bad debt
-oracle_dependency_review,2022-04-02,Inverse Finance,4,qualitative,https://www.certik.com/resources/blog/2022-year-in-review-lending-protocols,Thin-pair TWAP oracles need debt ceilings cross-market checks and manipulation-cost tests
-loss_confirmation,2022-04-02,Inverse Finance,5,usd_loss,https://www.web3isgoinggreat.com/?id=inverse-finance-exploited,Reported losses around 14.5M to 15.6M make the incident material for collateral-oracle market-health scoring
+metric,value,unit,source,note
+reported_borrowed_basket_value,15600000,usd,https://www.web3isgoinggreat.com/?id=inverse-finance-exploited,"Borrowed DOLA, ETH, WBTC, and YFI basket reported at about $15.6 million."
+reported_converted_eth,4300,eth,https://www.web3isgoinggreat.com/?id=inverse-finance-exploited,"Borrowed assets were converted into about 4,300 ETH."
+reported_converted_eth_value,14500000,usd,https://www.web3isgoinggreat.com/?id=inverse-finance-exploited,The converted ETH was reported at about $14.5 million.
+reported_mixer_transfer_eth,1300,eth,https://www.web3isgoinggreat.com/?id=inverse-finance-exploited,"About 1,300 ETH was transferred to a mixer by early April 2."
+reported_mixer_transfer_value,4500000,usd,https://www.web3isgoinggreat.com/?id=inverse-finance-exploited,The mixer transfer was reported at about $4.5 million.
+reported_borrowed_asset_count,4,count,https://www.web3isgoinggreat.com/?id=inverse-finance-exploited,"The extractable basket crossed four assets: DOLA, ETH, WBTC, and YFI."
+derived_notional_to_realized_haircut,1100000,usd,https://www.web3isgoinggreat.com/?id=inverse-finance-exploited,Difference between reported borrowed-basket notional and converted ETH value.
+derived_realized_value_share,92.95,percent,https://www.web3isgoinggreat.com/?id=inverse-finance-exploited,Converted ETH value divided by reported borrowed-basket value.
+derived_mixer_transfer_share,30.23,percent,https://www.web3isgoinggreat.com/?id=inverse-finance-exploited,Mixer transfer ETH divided by converted ETH.
+derived_implied_converted_eth_price,3372.09,usd_per_eth,https://www.web3isgoinggreat.com/?id=inverse-finance-exploited,Converted ETH value divided by converted ETH quantity.
+derived_implied_mixer_transfer_eth_price,3461.54,usd_per_eth,https://www.web3isgoinggreat.com/?id=inverse-finance-exploited,Mixer transfer value divided by mixer transfer ETH quantity.

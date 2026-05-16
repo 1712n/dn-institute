@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="390" viewBox="0 0 820 390" role="img" aria-labelledby="title desc">
+<title id="title">Inverse Finance reported extraction metrics</title>
+<desc id="desc">Bar chart comparing reported borrowed basket value, converted ETH value, mixer transfer value, and derived haircut.</desc>
+<rect width="820" height="390" fill="#ffffff"/>
+<text x="32" y="36" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">Inverse Finance extraction metrics</text>
+<text x="32" y="58" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Reported values and simple ratios derived from the public incident record.</text>
+<text x="32" y="99" font-family="Arial, sans-serif" font-size="14" fill="#111827">Borrowed basket</text>
+<rect x="190" y="70" width="520" height="46" rx="4" fill="#e5e7eb"/>
+<rect x="190" y="70" width="520.0" height="46" rx="4" fill="#2563eb"/>
+<text x="722.0" y="99" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#111827">$15.6M</text>
+<text x="32" y="173" font-family="Arial, sans-serif" font-size="14" fill="#111827">Converted ETH value</text>
+<rect x="190" y="144" width="520" height="46" rx="4" fill="#e5e7eb"/>
+<rect x="190" y="144" width="483.3" height="46" rx="4" fill="#2563eb"/>
+<text x="685.3" y="173" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#111827">$14.5M</text>
+<text x="32" y="247" font-family="Arial, sans-serif" font-size="14" fill="#111827">Mixer transfer</text>
+<rect x="190" y="218" width="520" height="46" rx="4" fill="#e5e7eb"/>
+<rect x="190" y="218" width="150.0" height="46" rx="4" fill="#7c3aed"/>
+<text x="352.0" y="247" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#111827">$4.5M</text>
+<text x="32" y="321" font-family="Arial, sans-serif" font-size="14" fill="#111827">Haircut</text>
+<rect x="190" y="292" width="520" height="46" rx="4" fill="#e5e7eb"/>
+<rect x="190" y="292" width="36.7" height="46" rx="4" fill="#dc2626"/>
+<text x="238.7" y="321" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#111827">$1.1M</text>
+<text x="32" y="328" font-family="Arial, sans-serif" font-size="13" fill="#111827">Derived realized-value share: 92.9%</text>
+<text x="32" y="350" font-family="Arial, sans-serif" font-size="13" fill="#111827">Derived mixer-transfer share of converted ETH: 30.2%</text>
+<text x="32" y="370" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">Source: Web3 Is Going Great incident record; values rounded as reported.</text>
+</svg>
