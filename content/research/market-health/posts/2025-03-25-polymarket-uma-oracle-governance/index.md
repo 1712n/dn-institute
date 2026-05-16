@@ -16,6 +16,14 @@ In March 2025, Polymarket users disputed the resolution of a Ukraine-related pre
 
 The case belongs in Market Health because settlement integrity is the final price discovery step for prediction markets. Traders can be correct about the world and still lose if the oracle settlement layer can be influenced more cheaply than the payout at stake. That turns oracle governance power into a market-manipulation surface.
 
+## Reported Data and Derived Metrics
+
+The companion dataset [`polymarket-uma-oracle-signals.csv`](polymarket-uma-oracle-signals.csv) keeps the article's settlement-risk numbers reproducible from public reporting. Coin360 describes the disputed market as a $7 million Polymarket bet and reports that 5 million UMA tokens, about 25% of voting power, were deployed across three wallets. Crypto.Report, citing Dune Analytics, reports that Polymarket monthly volume fell from $2.5 billion in November to $687.9 million in March.
+
+{{< figure src="polymarket-uma-governance-stress.svg" caption="Reported Polymarket UMA governance exposure and monthly-volume drawdown." >}}
+
+Those inputs imply about $280,000 of disputed settlement value per reported voting-power percentage point and about $1.4 million of disputed settlement value per 1 million UMA deployed. The volume series implies a $1.812 billion, or 72.5%, drop from November to March, with November volume 3.63 times March volume. These derived metrics do not prove the private exposure of every voter, but they quantify why a governance dispute could become a market-health event: a finite token-vote position was associated with a multi-million-dollar settlement layer, while trust-sensitive market volume was already much lower than the election-season peak.
+
 ## Market Structure
 
 Polymarket markets trade before an event resolves, but the terminal value of each outcome depends on the resolution mechanism. UMA's optimistic oracle model relies on proposals, disputes, and token-weighted voting. This architecture can be robust when the disputed payout is small relative to the cost of corrupting or influencing the vote. It becomes fragile when the economic value of a market's open interest is large enough to justify accumulating governance influence.
@@ -122,6 +130,7 @@ Polymarket's UMA controversy shows that market-health systems should monitor the
 ## Sources
 
 - [Crypto.Report: Polymarket Faces Blowback Over Oracle Manipulation Allegations](https://crypto.report/hacks-exploits/polymarket-faces-blowback-over-oracle-manipulation-allegations/)
+- [Coin360: Whale Rigged $7M Polymarket Bet With 5M UMA Tokens](https://coin360.com/news/polymarket-oracle-vote-manipulation-scandal)
 - [CoinRank: Polymarket Oracle Crisis Puts Decentralized Prediction Markets at a Crossroads](https://www.coinrank.io/crypto/polymarket-oracle-crisis-puts-decentralized-prediction-markets-at-a-crossroads/)
 - [Coinlive: The Value of AI Oracles From the Polymarket Oracle Manipulation Case](https://www.coinlive.com/news/the-value-of-ai-oracles-from-the-polymarket-oracle-manipulation)
 - [PANews: Hyperliquid Was Attacked and Polymarket Was Attacked by Governance](https://www.panewslab.com/en/articles/n7qbr7q226xv)

@@ -1,7 +1,11 @@
-signal,date,venue_or_protocol,severity,unit,source,note
-settlement_value_at_risk,2025-03-25,Polymarket,5,model_threshold,https://crypto.report/hacks-exploits/polymarket-faces-blowback-over-oracle-manipulation-allegations/,Disputed prediction-market payout value becomes a direct target when final settlement is controlled by an oracle vote
-oracle_capture_ratio,2025-03-25,UMA Optimistic Oracle,5,model_threshold,https://www.coinrank.io/crypto/polymarket-oracle-crisis-puts-decentralized-prediction-markets-at-a-crossroads/,Critical band when estimated oracle influence cost is lower than settlement value at risk
-voter_concentration,2025-03-25,UMA,5,qualitative,https://www.panewslab.com/en/articles/n7qbr7q226xv,Large governance voters can dominate resolution when token-weighted dispute turnout is concentrated
-dispute_round_count,2025-03-25,UMA Optimistic Oracle,4,qualitative,https://www.coinlive.com/news/the-value-of-ai-oracles-from-the-polymarket-oracle-manipulation,Repeated proposal-dispute cycles indicate weak factual convergence and higher settlement-risk pressure
-evidence_latency,2025-03-25,Prediction Markets,4,model_threshold,https://journalducoin.com/defi/catastrophe-polymarket-attaque-manipulation-oracle-uma/,Ambiguous real-world evidence near the resolution deadline increases oracle manipulation surface
-trust_contagion,2025-03-26,Polymarket,4,qualitative,https://crypto.report/hacks-exploits/polymarket-faces-blowback-over-oracle-manipulation-allegations/,A disputed high-profile settlement can widen spreads and weaken liquidity confidence across unrelated markets
+metric,value,unit,source,note
+reported_disputed_market_value,7000000,usd,https://coin360.com/news/polymarket-oracle-vote-manipulation-scandal,Reported disputed Polymarket prediction market value.
+reported_uma_tokens_deployed,5000000,uma_tokens,https://coin360.com/news/polymarket-oracle-vote-manipulation-scandal,Reported UMA tokens deployed across three wallets.
+reported_voting_power_share,25,percent,https://coin360.com/news/polymarket-oracle-vote-manipulation-scandal,Reported share of total voting power attributed to the three-wallet UMA position.
+reported_november_volume,2500000000,usd,https://crypto.report/hacks-exploits/polymarket-faces-blowback-over-oracle-manipulation-allegations/,Reported Polymarket monthly volume during the 2024 U.S. election peak.
+reported_march_volume,687900000,usd,https://crypto.report/hacks-exploits/polymarket-faces-blowback-over-oracle-manipulation-allegations/,Reported Polymarket monthly volume in March.
+derived_settlement_value_per_voting_power_pct,280000,usd_per_vote_percent,https://coin360.com/news/polymarket-oracle-vote-manipulation-scandal,Disputed market value divided by reported voting-power share.
+derived_settlement_value_per_million_uma,1400000,usd_per_million_uma,https://coin360.com/news/polymarket-oracle-vote-manipulation-scandal,Disputed market value divided by reported UMA tokens deployed in millions.
+derived_monthly_volume_drop,1812100000,usd,https://crypto.report/hacks-exploits/polymarket-faces-blowback-over-oracle-manipulation-allegations/,November volume less March volume.
+derived_monthly_volume_drop_pct,72.48,percent,https://crypto.report/hacks-exploits/polymarket-faces-blowback-over-oracle-manipulation-allegations/,November-to-March volume drop divided by November volume.
+derived_november_to_march_volume_ratio,3.63,ratio,https://crypto.report/hacks-exploits/polymarket-faces-blowback-over-oracle-manipulation-allegations/,November volume divided by March volume.

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="500" viewBox="0 0 860 500" role="img" aria-labelledby="title desc">
+<title id="title">Polymarket UMA governance stress metrics</title>
+<desc id="desc">Two-panel chart showing reported UMA governance exposure and Polymarket monthly-volume drawdown.</desc>
+<rect width="860" height="500" fill="#ffffff"/>
+<text x="32" y="38" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">Polymarket UMA governance stress metrics</text>
+<text x="32" y="62" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Reported values and ratios derived from public coverage of the March 2025 oracle dispute.</text>
+<text x="32" y="104" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#111827">Governance exposure</text>
+<text x="32" y="116" font-family="Arial, sans-serif" font-size="13" fill="#111827">Disputed market value</text>
+<rect x="32" y="124" width="470" height="38" rx="4" fill="#e5e7eb"/>
+<rect x="32" y="124" width="470.0" height="38" rx="4" fill="#2563eb"/>
+<text x="512.0" y="148" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">$7.0M</text>
+<text x="32" y="184" font-family="Arial, sans-serif" font-size="13" fill="#111827">UMA deployed across reported wallets</text>
+<rect x="32" y="192" width="470" height="38" rx="4" fill="#e5e7eb"/>
+<rect x="32" y="192" width="335.7" height="38" rx="4" fill="#7c3aed"/>
+<text x="377.7" y="216" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">5.0M UMA</text>
+<text x="32" y="252" font-family="Arial, sans-serif" font-size="13" fill="#111827">Reported voting-power share</text>
+<rect x="32" y="260" width="470" height="38" rx="4" fill="#e5e7eb"/>
+<rect x="32" y="260" width="117.5" height="38" rx="4" fill="#dc2626"/>
+<text x="159.5" y="284" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">25.0%</text>
+<text x="560" y="104" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#111827">Volume drawdown</text>
+<text x="560" y="116" font-family="Arial, sans-serif" font-size="13" fill="#111827">November volume</text>
+<rect x="560" y="124" width="250" height="38" rx="4" fill="#e5e7eb"/>
+<rect x="560" y="124" width="250.0" height="38" rx="4" fill="#059669"/>
+<text x="820.0" y="148" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">$2.5B</text>
+<text x="560" y="184" font-family="Arial, sans-serif" font-size="13" fill="#111827">March volume</text>
+<rect x="560" y="192" width="250" height="38" rx="4" fill="#e5e7eb"/>
+<rect x="560" y="192" width="68.8" height="38" rx="4" fill="#f59e0b"/>
+<text x="638.8" y="216" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">$687.9M</text>
+<text x="560" y="252" font-family="Arial, sans-serif" font-size="13" fill="#111827">Derived drop</text>
+<rect x="560" y="260" width="250" height="38" rx="4" fill="#e5e7eb"/>
+<rect x="560" y="260" width="181.2" height="38" rx="4" fill="#b91c1c"/>
+<text x="751.2" y="284" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">$1.8B</text>
+<text x="32" y="350" font-family="Arial, sans-serif" font-size="13" fill="#111827">Derived settlement value per 1% reported vote share: $280K</text>
+<text x="32" y="374" font-family="Arial, sans-serif" font-size="13" fill="#111827">Derived settlement value per 1M UMA deployed: $1.4M</text>
+<text x="32" y="398" font-family="Arial, sans-serif" font-size="13" fill="#111827">Derived November-to-March volume drop: 72.5%</text>
+<text x="32" y="422" font-family="Arial, sans-serif" font-size="13" fill="#111827">Derived November/March volume ratio: 3.63x</text>
+<text x="32" y="474" font-family="Arial, sans-serif" font-size="11" fill="#6b7280">Sources: Coin360 for governance exposure; Crypto.Report/Dune for monthly-volume figures.</text>
+</svg>
