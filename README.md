@@ -32,3 +32,75 @@ We are happy to train anyone willing to learn our tools. Show initiative by cont
 ### 🎖️ Veterans
 
 Our diverse community includes military veterans from a wide variety of backgrounds. If you are in the process of getting out of the U.S. military, check out our SkillBridge program. Whether you qualify as eligible U.S. military personnel, or served in the armed forces of another country, solve one of the challenges and/or reach out to [@jhirschkorn](https://github.com/jhirschkorn).
+
+## 📊 Detecting Wash Trading with Python: A Practical Guide
+
+Wash trading is a form of market manipulation where traders buy and sell assets to create false market activity, often to inflate trading volume or manipulate price. Detecting such patterns is crucial for maintaining market integrity, and Python provides powerful tools for analyzing and visualizing this data. In this section, we'll walk through a practical example of how to detect wash trading using the DNI API and Python.
+
+First, let's fetch the relevant data from the DNI API. The API provides metrics such as `wash_trading_volume` and `orderbook_imbalance`, which are essential for identifying suspicious trading behavior.
+
+```python
+import requests
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Replace with your API key
+API_KEY = "YOUR_API_KEY"
+BASE_URL = "https://api.dn.institute/market-health"
+
+# Fetch wash trading data
+response = requests.get(f"{BASE_URL}/wash-trading", headers={"Authorization": f"Bearer {API_KEY}"})
+data = response.json()
+
+# Convert to DataFrame
+df = pd.DataFrame(data)
+df['timestamp'] = pd.to_datetime(df['timestamp'])
+df.set_index('timestamp', inplace=True)
+```
+
+Once we have the data, we can visualize it to identify any unusual patterns. For instance, a sudden spike in `wash_trading_volume` could indicate a wash trade.
+
+```python
+plt.figure(figsize=(14, 7))
+plt.plot(df.index, df['wash_trading_volume'], label='Wash Trading Volume')
+plt.title('Wash Trading Volume Over Time 🌟')
+plt.xlabel('Time')
+plt.ylabel('Volume')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+Next, we can analyze the `orderbook_imbalance` metric to detect any anomalies. A high imbalance might suggest that a large number of orders are being placed on one side of the book, which is a common indicator of wash trading.
+
+```python
+plt.figure(figsize=(14, 7))
+plt.plot(df.index, df['orderbook_imbalance'], label='Orderbook Imbalance')
+plt.title('Orderbook Imbalance Over Time 📈')
+plt.xlabel('Time')
+plt.ylabel('Imbalance')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+To further refine our analysis, we can calculate rolling averages and standard deviations to detect deviations from normal behavior.
+
+```python
+df['wash_volume_rolling_mean'] = df['wash_trading_volume'].rolling(window=7).mean()
+df['wash_volume_rolling_std'] = df['wash_trading_volume'].rolling(window=7).std()
+
+plt.figure(figsize=(14, 7))
+plt.plot(df.index, df['wash_trading_volume'], label='Wash Trading Volume')
+plt.plot(df.index, df['wash_volume_rolling_mean'], label='7-Day Rolling Mean')
+plt.fill_between(df.index, df['wash_volume_rolling_mean'] - df['wash_volume_rolling_std'],
+                 df['wash_volume_rolling_mean'] + df['wash_volume_rolling_std'], alpha=0.2, label='7-Day Rolling Std')
+plt.title('Wash Trading Volume with Rolling Statistics 📊')
+plt.xlabel('Time')
+plt.ylabel('Volume')
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+These visualizations and statistical analyses can help identify potential wash trading activities. By leveraging Python and the DNI API, contributors can provide valuable insights into market health and help maintain transparency in the crypto space. 🌟
