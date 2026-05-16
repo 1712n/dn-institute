@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="430" viewBox="0 0 860 430" role="img" aria-labelledby="title desc">
+  <title id="title">Derived surveillance ratios for the UwU Lend sUSDe oracle manipulation</title>
+  <desc id="desc">Bar chart showing flash-loan-to-loss ratios, repeat-drain ratios, and affected repeat markets derived from the companion CSV files.</desc>
+  <rect width="860" height="430" fill="#ffffff"/>
+  <text x="36" y="42" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">Derived surveillance ratios</text>
+  <text x="36" y="68" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Computed from incident-metrics.csv; ratios separate reported facts from analysis.</text>
+  <line x1="230" y1="96" x2="230" y2="352" stroke="#d1d5db"/>
+  <line x1="230" y1="352" x2="800" y2="352" stroke="#d1d5db"/>
+  <g font-family="Arial, sans-serif" font-size="12" fill="#6b7280">
+    <text x="226" y="373" text-anchor="middle">0</text>
+    <text x="360" y="373" text-anchor="middle">50</text>
+    <text x="495" y="373" text-anchor="middle">100</text>
+    <text x="630" y="373" text-anchor="middle">150</text>
+    <text x="765" y="373" text-anchor="middle">200</text>
+  </g>
+  <g stroke="#e5e7eb">
+    <line x1="360" y1="96" x2="360" y2="352"/>
+    <line x1="495" y1="96" x2="495" y2="352"/>
+    <line x1="630" y1="96" x2="630" y2="352"/>
+    <line x1="765" y1="96" x2="765" y2="352"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="13" fill="#111827">
+    <text x="36" y="129">Flash-loan / first loss</text>
+    <rect x="230" y="110" width="560" height="28" rx="3" fill="#2563eb"/>
+    <text x="798" y="129" fill="#111827">207.3x</text>
+    <text x="36" y="181">Flash-loan / total loss</text>
+    <rect x="230" y="162" width="470" height="28" rx="3" fill="#3b82f6"/>
+    <text x="708" y="181" fill="#111827">173.9x</text>
+    <text x="36" y="233">Repeat / first drain</text>
+    <rect x="230" y="214" width="52" height="28" rx="3" fill="#f59e0b"/>
+    <text x="291" y="233" fill="#111827">19.2%</text>
+    <text x="36" y="285">Repeat share of total</text>
+    <rect x="230" y="266" width="43" height="28" rx="3" fill="#fbbf24"/>
+    <text x="282" y="285" fill="#111827">16.1%</text>
+    <text x="36" y="337">Affected repeat markets</text>
+    <rect x="230" y="318" width="16" height="28" rx="3" fill="#10b981"/>
+    <text x="255" y="337" fill="#111827">6 markets</text>
+  </g>
+  <text x="36" y="405" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">Scale uses the numeric value column; percent bars show percentage points.</text>
+</svg>
