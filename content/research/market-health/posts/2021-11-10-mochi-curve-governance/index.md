@@ -31,7 +31,7 @@ The Mochi case showed how that market can become fragile when the same project c
 
 This created three market-health concerns, with LP solvency risk as the primary failure mode:
 
-- **Oracle-controlled collateral and exit risk:** liquidity providers could be exposed if the self-issued side of the pool became undercollateralized or if incentives disappeared suddenly. Public incident discussions treated this as central rather than incidental because USDM's oracle was reportedly set manually by a team-controlled address while about **99.5%** of circulating MOCHI supply was team-controlled, creating a direct manual-oracle plus supply-concentration undercollateralization risk.
+- **Oracle-controlled collateral and exit risk:** liquidity providers could be exposed if the self-issued side of the pool became undercollateralized or if incentives disappeared suddenly. The [Curve governance thread](https://gov.curve.finance/t/the-curve-emergency-dao-has-killed-the-usdm-gauge/2307) treated this as central rather than incidental because USDM's oracle was reportedly set manually by a team-controlled address while about **99.5%** of circulating MOCHI supply was team-controlled, creating a direct manual-oracle plus supply-concentration undercollateralization risk.
 - **Self-funded voting power:** governance-token buying pressure was linked to a project-controlled asset rather than independent market demand.
 - **Incentive reflexivity:** if new rewards attracted more pool liquidity, the project could gain more capital to keep reinforcing the reward loop.
 
@@ -52,8 +52,8 @@ A high-confidence alert should require at least two pre-event signals, for examp
 
 ## Timeline
 
-- **Early November 2021:** USDM pool liquidity rapidly expanded. An alerting system would flag this if issuer-linked assets exceeded **35% of TVL for 12+ hours** or grew by **20 percentage points in 24 hours**.
-- **November 10, 2021:** Mochi's token launch and USDM pool growth quickly attracted nearly **$100 million** in liquidity, then later peaked at about **$170.2 million**. A detector would escalate if issuer-linked liquidity growth coincided with new voting-token accumulation.
+- **November 10, 2021:** USDM pool liquidity rapidly expanded. An alerting system would flag this if issuer-linked assets exceeded **35% of TVL for 12+ hours** or grew by **20 percentage points in 24 hours**.
+- **November 10–11, 2021:** Mochi's token launch and USDM pool growth quickly attracted nearly **$100 million** in liquidity, then later peaked at about **$170.2 million**. A detector would escalate if issuer-linked liquidity growth coincided with new voting-token accumulation.
 - **November 10, 2021:** Public reports described USDM-funded swaps into governance or vote-escrow exposure, including converting USDM to DAI before purchasing Convex exposure. A detector would escalate if those swaps exceeded **$5 million** or **2% of pool depth** within a 24-hour window.
 - **November 10–11, 2021:** Reward-routing risk increased as voting power could be directed toward the same pool; observers also traced unusual CVX price action to an address that had swapped roughly **46 million USDM** to DAI. Gauge monitors should compare the epoch's vote-weight change with 7-day volume and fee growth.
 - **November 11, 2021:** Curve's Emergency DAO cut off the USDM gauge rewards after declaring liquidity providers at risk. This is the post-event severe label for the alert chain.
@@ -71,6 +71,5 @@ A high-confidence alert should require at least two pre-event signals, for examp
 ## Sources
 
 - [Halborn: Explained: The Mochi Inu Governance Hack (November 2021)](https://www.halborn.com/blog/post/explained-the-mochi-inu-governance-hack-november-2021)
-- [Crypto Briefing: Curve Blocks Mochi After Alleged Attempted Governance Attack](https://cryptobriefing.com/curve-blocks-mochi-after-alleged-attempted-governance-attack/)
 - [Curve Governance: The Curve Emergency DAO has killed the USDM gauge](https://gov.curve.finance/t/the-curve-emergency-dao-has-killed-the-usdm-gauge/2307)
 - [CoinDesk: Curve Wars Heat Up: Emergency DAO Invoked After Clear Governance Attack](https://www.coindesk.com/business/2021/11/11/curve-wars-heat-up-emergency-dao-invoked-after-clear-governance-attack)
