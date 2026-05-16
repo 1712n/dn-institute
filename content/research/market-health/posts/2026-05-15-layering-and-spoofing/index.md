@@ -39,7 +39,7 @@ Wash trading produces fills against oneself; spoofing produces *no fills at all*
 
 Define $r_t = C_t / F_t$ over a window, where $C_t$ is canceled order volume and $F_t$ is executed volume on the same side. Healthy market-making on a deep CEX pair (BTC-USDT, ETH-USDT) runs $r_t$ in the 5–30 range across the trading day. Empirical signatures of spoofing in CFTC enforcement cases (E-mini S&P 500, gold, treasuries) show $r_t > 500$ on the spoofed side and $r_t < 5$ on the genuine side, within the same 1–5 minute windows.
 
-Crypto-specific replications of the cancel-to-fill methodology are scarcer in the academic record — most of the work lives in unpublished exchange-internal surveillance reports and trading-firm post-mortems. Where the work has been done in public (BIS workshop notes; the [CFTC's 2021 Coinbase order](https://www.cftc.gov/PressRoom/PressReleases/8369-21) for false reporting and wash trading on a CEX), the same `> 500` peak-to-baseline ratio appears on the manipulated side.
+Crypto-specific replications of the cancel-to-fill methodology are notably absent from the public enforcement record. The CFTC's actions against crypto venues to date (e.g. the [2021 Coinbase order](https://www.cftc.gov/PressRoom/PressReleases/8369-21) on wash trading and false reporting) have focused on wash-trading and reporting violations rather than on spoofing-style cancel-to-fill anomalies. Where C/F-style analysis appears in crypto-market surveillance, it lives in exchange-internal reports and trading-firm post-mortems that don't surface publicly. The numerical thresholds in this article — `r_t > 500` on the spoofed side — are therefore drawn by **analogy** from the equities and futures cases cited above, not from a documented crypto precedent.
 
 ### Order lifetime and burst-cancel clusters
 
@@ -65,7 +65,7 @@ The Mango Markets exploit is the cleanest documented crypto example because the 
 
 **Why layering matters here.** The spot-side moves were not classic spoofing — Eisenberg actually filled most of his bids. But the *layering* methodology applies: he stacked bids across multiple price points to walk the oracle up the book without immediately exhausting his own capital, then closed the long PERP into the inflated mark before the spot side reverted. The aggregate cancel-to-fill ratio across the three spot venues during the attack window was, retrospectively, an outlier by an order of magnitude versus the prior week. A real-time order-book monitor on those three pairs would have surfaced the anomaly within minutes of the first bid wave.
 
-**Subsequent prosecution.** The SDNY indicted Eisenberg in early 2023 under 7 U.S.C. §9(1) and §13(a)(2) (commodities-market manipulation provisions of the Commodity Exchange Act), plus wire-fraud counts. A 2024 jury verdict found him guilty on all counts; on **May 23, 2025** the trial judge **vacated** the manipulation convictions under Federal Rule of Criminal Procedure 29, finding that the government had not proved CFTC jurisdiction over MNGO-PERP as a "swap" under the CEA. Prosecutors filed a notice of appeal of that Rule 29 vacatur; as of mid-2026 the appeal remains pending and the wire-fraud counts remain. Regardless of the ultimate criminal outcome, the on-chain forensics are a textbook example of order-book layering against a thin oracle.
+**Subsequent prosecution.** The SDNY indicted Eisenberg in early 2023 under 7 U.S.C. §9(1) (commodities-market manipulation under the Commodity Exchange Act) and 18 U.S.C. §1343 (wire fraud). A 2024 jury verdict found him guilty on all counts; on **May 23, 2025** the trial judge **vacated** the §9(1) manipulation conviction under Federal Rule of Criminal Procedure 29, finding that the government had not proved CFTC jurisdiction over MNGO-PERP as a "swap" under the CEA. Prosecutors filed a notice of appeal of that Rule 29 vacatur; as of mid-2026 the appeal remains pending and the wire-fraud counts remain undisturbed. Regardless of the ultimate criminal outcome, the on-chain forensics are a textbook example of order-book layering against a thin oracle.
 
 ## Earlier crypto cases that informed the playbook
 
@@ -132,7 +132,8 @@ A live `B_{P, W}` monitor on the three MNGO/USDC venues, with the 50× threshold
 - Griffin, J. M., & Shams, A. (2019). *Is Bitcoin Really Untethered?* Journal of Finance.
 - CFTC, Press Release 8062-19. *CFTC Orders Tower Research Capital LLC to Pay $67.4 Million in Connection with Spoofing Scheme.* (2019).
 - CFTC, Press Release 8369-21. *CFTC Orders Coinbase Inc. to Pay $6.5 Million for False, Misleading, or Inaccurate Reporting and Wash Trading.* (2021). https://www.cftc.gov/PressRoom/PressReleases/8369-21
-- 7 U.S.C. §9(1) and §13(a)(2) (Commodity Exchange Act, anti-manipulation provisions).
+- 7 U.S.C. §9(1) (Commodity Exchange Act, anti-manipulation provision).
+- 18 U.S.C. §1343 (wire fraud — basis for the surviving Eisenberg counts).
 - Mango Markets. *Exploit post-mortem* (October 2022). https://blog.mango.markets/mango-markets-exploit-post-mortem-d818c64a30ac
 - Federal Rule of Criminal Procedure 29 (judgment of acquittal).
 
