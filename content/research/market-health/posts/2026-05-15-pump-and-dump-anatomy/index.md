@@ -77,7 +77,7 @@ This methodology produces a stable per-exchange annual rate of suspect listings.
 
 ### Multi-venue coordination — the generalized 2023-2024 pattern
 
-Across the 2023-2024 cohort of small-cap listing-day pumps studied by Hamrick et al. and later replicated on LBank / MEXC data, the multi-venue signature is consistent: the buy-wave on each listed venue clusters tightly around the public announcement timestamp on the coordinating Telegram channel, even when the listings on those venues are scheduled hours apart. The forensic trail typically shows pre-funded buying accounts on each venue with shared deposit chains, consistent with the founder/insider tier structure described above. Specific case studies in this cohort are best read from the source papers — I haven't independently verified individual wallet-to-Telegram-handle linkages and don't want to attribute named events without primary-source confirmation.
+Across the 2023-2024 cohort of small-cap listing-day pumps studied in [Hamrick et al. (2021)](https://link.springer.com/article/10.1007/s10657-021-09715-4) — and re-examined on LBank / MEXC data as part of the present author's analysis (no peer-reviewed replication exists for that specific extension) — the multi-venue signature is consistent: the buy-wave on each listed venue clusters tightly around the public announcement timestamp on the coordinating Telegram channel, even when the listings on those venues are scheduled hours apart. The forensic trail typically shows pre-funded buying accounts on each venue with shared deposit chains, consistent with the founder/insider tier structure described above. Specific case studies in this cohort are best read from the source papers; I haven't independently verified individual wallet-to-Telegram-handle linkages and don't attribute named events without primary-source confirmation.
 
 ### DEX-side P&Ds via Telegram → Pancakeswap (ongoing)
 
@@ -91,7 +91,7 @@ For a market-health metric suite extension:
 
 ### Trade-count burst score
 
-```
+```text
 burst_score_t = (count_t - rolling_median(count, 30s)) / rolling_mad(count, 30s)
 ```
 
@@ -99,7 +99,7 @@ Median absolute deviation (MAD) is preferred to standard deviation because the u
 
 ### Buy-pressure z-score
 
-```
+```text
 buy_share_t = buy_volume_t / (buy_volume_t + sell_volume_t)
 buy_z_t = (buy_share_t - 0.5) / sqrt(0.25 / N_t)
 ```
