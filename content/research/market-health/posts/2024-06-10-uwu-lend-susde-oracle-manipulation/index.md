@@ -171,7 +171,7 @@ measure remaining borrowable value, bad-debt paths, and market isolation.
 
 ## References
 
-- CoinDesk, ["DeFi Protocol UwU Lend Suffers $19.3M Exploit: Arkham"](https://www.coindesk.com/business/2024/06/10/defi-protocol-uwu-lend-suffers-193m-expolit-arkham)
+- CoinDesk, ["DeFi Protocol UwU Lend Suffers $19.3M Exploit: Arkham"](https://www.coindesk.com/business/2024/06/10/defi-protocol-uwu-lend-suffers-193m-exploit-arkham)
 - SlowMist analysis republished by Coinlive, ["UwU Lend Hack Analysis"](https://www.coinlive.com/news/uwu-lend-hack-analysis)
 - DL News, ["UwU Lend hacker swipes another $3.7m amid payback plan for earlier attack"](https://www.dlnews.com/articles/defi/0xsifu-protocol-uwu-lend-hacked-again-amid-payback-plan/)
 - Crypto.news, ["UwU Lend suffers its second $3.7m hack by same attacker"](https://crypto.news/uwu-lend-suffers-its-second-3-7m-hack-by-same-attacker)
