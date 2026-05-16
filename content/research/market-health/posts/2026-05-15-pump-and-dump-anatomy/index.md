@@ -8,7 +8,6 @@ entities:
   - Binance
   - LBank
   - MEXC
-  - GoToken
   - Pancakeswap
 ---
 
@@ -76,9 +75,9 @@ A reproducible methodology:
 
 This methodology produces a stable per-exchange annual rate of suspect listings. The exchanges with the highest hit rate publicly enjoy heavy fee-rebate programs for listing-day market makers — the same accounts that show up in the buy wave.
 
-### GoToken (December 2023, multi-venue)
+### Multi-venue coordination — the generalized 2023-2024 pattern
 
-GoToken's launch in December 2023 produced a recognizable P&D signature across three venues simultaneously, despite the listings being scheduled 6 hours apart. The buy-wave timing on each venue clustered tightly around the public announcement on a Telegram channel with ~85,000 members at the time. Subsequent reporting traced wallet flows showing pre-funded buying accounts on each venue, consistent with the founder/insider tier structure.
+Across the 2023-2024 cohort of small-cap listing-day pumps studied by Hamrick et al. and later replicated on LBank / MEXC data, the multi-venue signature is consistent: the buy-wave on each listed venue clusters tightly around the public announcement timestamp on the coordinating Telegram channel, even when the listings on those venues are scheduled hours apart. The forensic trail typically shows pre-funded buying accounts on each venue with shared deposit chains, consistent with the founder/insider tier structure described above. Specific case studies in this cohort are best read from the source papers — I haven't independently verified individual wallet-to-Telegram-handle linkages and don't want to attribute named events without primary-source confirmation.
 
 ### DEX-side P&Ds via Telegram → Pancakeswap (ongoing)
 
