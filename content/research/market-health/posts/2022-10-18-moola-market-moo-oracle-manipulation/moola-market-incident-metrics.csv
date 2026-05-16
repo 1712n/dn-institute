@@ -1,0 +1,12 @@
+metric,value,unit,calculation_or_basis,source
+seed_celo_funding_usd,243000,USD,source-reported attacker funding from Binance,https://www.certik.com/blog/8ENVqveSYRcppTHOcxG29-moola-market
+initial_celo_collateral,60000,CELO,source-reported CELO lent as collateral before the first MOO borrow,https://www.certik.com/blog/8ENVqveSYRcppTHOcxG29-moola-market
+initial_moo_borrowed,1875000,MOO,source-reported MOO borrowed against the CELO collateral,https://www.certik.com/blog/8ENVqveSYRcppTHOcxG29-moola-market
+moo_start_price_usd,0.018,USD per MOO,source-reported pre-manipulation MOO price,https://www.certik.com/blog/8ENVqveSYRcppTHOcxG29-moola-market
+moo_peak_price_usd,5.6,USD per MOO,source-reported manipulated MOO peak price,https://www.certik.com/blog/8ENVqveSYRcppTHOcxG29-moola-market
+moo_price_multiple,311.1111,x,moo_peak_price_usd / moo_start_price_usd,derived
+certik_low_loss_estimate_usd,8400000,USD,CertiK low estimate for drained funds,https://www.certik.com/blog/8ENVqveSYRcppTHOcxG29-moola-market
+sch_total_lost_usd,9100000,USD,Smart Contract Hacking total lost estimate,https://smartcontractshacking.com/hacks/moola-market-hack-2022
+low_loss_to_seed_capital_multiple,34.5679,x,certik_low_loss_estimate_usd / seed_celo_funding_usd,derived
+reported_recovery_rate_pct,93.1,percent,source-reported returned share,https://smartcontractshacking.com/hacks/moola-market-hack-2022
+retained_loss_rate_pct,6.9,percent,100 - reported_recovery_rate_pct,derived

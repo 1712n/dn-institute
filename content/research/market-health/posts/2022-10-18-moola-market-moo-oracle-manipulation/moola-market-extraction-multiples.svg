@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="340" viewBox="0 0 760 340" role="img" aria-labelledby="title desc">
+  <title id="title">Moola Market reported extraction multiples</title>
+  <desc id="desc">Horizontal bars showing the reported MOO price expansion, estimated loss to seed-capital multiple, and recovered funds percentage.</desc>
+  <style>
+    .bg { fill: #ffffff; }
+    .title { fill: #17202a; font: 700 22px Arial, sans-serif; }
+    .subtitle { fill: #566573; font: 14px Arial, sans-serif; }
+    .label { fill: #1f2933; font: 600 15px Arial, sans-serif; }
+    .value { fill: #17202a; font: 700 15px Arial, sans-serif; }
+    .bar { fill: #2f6f73; }
+    .rule { stroke: #d6dde2; stroke-width: 1; }
+    .note { fill: #566573; font: 12px Arial, sans-serif; }
+  </style>
+  <rect class="bg" x="0" y="0" width="760" height="340"/>
+  <text x="44" y="42" class="title">Reported Moola extraction economics</text>
+  <text x="44" y="66" class="subtitle">Source-reported values with derived ratios from the bundled metrics CSV</text>
+  <line x1="240" x2="710" y1="296" y2="296" class="rule"/>
+  <text x="44" y="92" class="label">MOO price expansion</text><rect x="240" y="72" width="456.9" height="28" rx="4" class="bar"/><text x="708.9" y="92" class="value">311.1x</text><text x="44" y="170" class="label">Loss / seed capital</text><rect x="240" y="150" width="50.8" height="28" rx="4" class="bar"/><text x="302.8" y="170" class="value">34.6x</text><text x="44" y="248" class="label">Recovered funds</text><rect x="240" y="228" width="437.6" height="28" rx="4" class="bar"/><text x="689.6" y="248" class="value">93.1%</text>
+  <text x="44" y="316" class="note">Price expansion uses $5.60 / $0.018. Loss multiple uses $8.4M / $243k. Recovery uses the reported 93.1% returned share.</text>
+</svg>

@@ -29,6 +29,22 @@ The reported attack sequence had four market-health-relevant stages:
 
 The important point is that each step was economically linked. The spot-market pump increased collateral value, the collateral value increased borrow capacity, and the borrowed assets were more liquid than the collateral used to secure them. That made the trade asymmetric: the attacker could exit with liquid assets while leaving the protocol with overvalued MOO exposure.
 
+## Reported Data and Derived Metrics
+
+The bundled `moola-market-incident-metrics.csv` table turns the public incident reports into a small reproducible evidence set. It uses CertiK's source-reported figures for the attacker's starting CELO funding, the initial CELO collateral leg, the first MOO borrow, the MOO price range, and the low estimate of drained funds. It also uses the Smart Contract Hacking dashboard's total-lost and recovery-rate fields.
+
+{{< figure src="moola-market-extraction-multiples.svg" caption="Reported MOO price expansion, low-loss-to-seed-capital multiple, and recovery rate calculated from the bundled metrics CSV." >}}
+
+The derived ratios are deliberately simple:
+
+```text
+moo_price_multiple = 5.60 / 0.018 = 311.11x
+low_loss_to_seed_capital_multiple = 8,400,000 / 243,000 = 34.57x
+retained_loss_rate = 100% - 93.1% = 6.9%
+```
+
+These figures are not private venue order-book snapshots. They are source-reported exploit economics with transparent calculations, and they define the minimum signal that a market-health monitor should have escalated: a native collateral token moved more than 300x while a lending venue converted the manipulated mark into more than 30x the reported seed capital in extractable liquid assets.
+
 ## Signal 1: Collateral Liquidity Mismatch
 
 Native protocol tokens should not be treated like deep external collateral unless their executable depth can absorb a liquidation without destroying the oracle price. A useful monitoring ratio is:
@@ -50,6 +66,8 @@ oracle_impact_multiple =
 ```
 
 When `oracle_impact_multiple` is greater than 1, the manipulation has positive expected leverage before liquidation and execution risk. Above 5, the market is in an emergency band because the attacker can manufacture several dollars of borrow capacity for each dollar spent moving the oracle. This is the central risk in native-token collateral markets: the same trade that manipulates price can also create the collateral value used for extraction.
+
+The reported Moola metrics put the event well past that emergency band on an incident-economics basis. The MOO mark moved roughly 311x, and the low drained-funds estimate was 34.57x the reported seed capital. Even without full order-book reconstruction, those ratios justify a hard pause on additional MOO-backed borrowing until a venue-level liquidity review can prove the price is durable.
 
 ## Signal 3: Borrow-Cap Reflexivity
 
@@ -111,7 +129,9 @@ The broader lesson is that native-token collateral needs dynamic risk controls. 
 ## Sources
 
 - [CertiK: Moola Market](https://www.certik.com/skynet-report/moola-market)
+- [CertiK: Moola Market incident analysis](https://www.certik.com/blog/8ENVqveSYRcppTHOcxG29-moola-market)
 - [Infosecurity Magazine: Moola Market Reveals $9m Crypto Exploit](https://www.infosecurity-magazine.com/news/moola-market-crypto-exploit/)
 - [Chain Bulletin: Moola Market Attacker Returns 93% of Stolen Funds](https://chainbulletin.com/moola-market-attacker-returns-93-of-stolen-funds)
 - [Smart Contract Hacking: Moola Market Hack 2022](https://smartcontractshacking.com/hacks/moola-market-hack-2022)
+- [The Tokenist: Moola Market Temporarily Halts Trades After an $8.4M Hack](https://tokenist.com/moola-market-temporarily-halts-trades-after-an-8-4m-hack/)
 - [Chaos Labs: Uniswap V3 TWAP - Assessing TWAP Oracle Manipulation](https://chaoslabs.xyz/resources/chaos_uniswap_v3_twap_oracle_manipulation.pdf)
