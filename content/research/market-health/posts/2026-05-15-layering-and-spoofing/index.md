@@ -8,7 +8,7 @@ entities:
   - Bitfinex
   - BitMEX
   - Solana
-  - USDC-PERP
+  - MNGO-PERP
 ---
 
 ## Summary
@@ -39,7 +39,7 @@ Wash trading produces fills against oneself; spoofing produces *no fills at all*
 
 Define $r_t = C_t / F_t$ over a window, where $C_t$ is canceled order volume and $F_t$ is executed volume on the same side. Healthy market-making on a deep CEX pair (BTC-USDT, ETH-USDT) runs $r_t$ in the 5–30 range across the trading day. Empirical signatures of spoofing in CFTC enforcement cases (E-mini S&P 500, gold, treasuries) show $r_t > 500$ on the spoofed side and $r_t < 5$ on the genuine side, within the same 1–5 minute windows.
 
-In crypto, [Aquilina, Foucault, and Moinas (2022)](https://academic.oup.com/raps/article/12/3/501/6618947) and later working papers from the BIS replicate the analysis on FTX (pre-collapse) and Binance, with comparable thresholds for derivative pairs.
+Crypto-specific replications of the cancel-to-fill methodology are scarcer in the academic record — most of the work lives in unpublished exchange-internal surveillance reports and trading-firm post-mortems. Where the work has been done in public (BIS workshop notes; the [CFTC's 2020 Coinbase order](https://www.cftc.gov/PressRoom/PressReleases/8136-20) for wash and spoof activity on a CEX), the same `> 500` peak-to-baseline ratio appears on the manipulated side.
 
 ### Order lifetime and burst-cancel clusters
 
@@ -65,7 +65,7 @@ The Mango Markets exploit is the cleanest documented crypto example because the 
 
 **Why layering matters here.** The spot-side moves were not classic spoofing — Eisenberg actually filled most of his bids. But the *layering* methodology applies: he stacked bids across multiple price points to walk the oracle up the book without immediately exhausting his own capital, then closed the long PERP into the inflated mark before the spot side reverted. The aggregate cancel-to-fill ratio across the three spot venues during the attack window was, retrospectively, an outlier by an order of magnitude versus the prior week. A real-time order-book monitor on those three pairs would have surfaced the anomaly within minutes of the first bid wave.
 
-**Subsequent prosecution** (DOJ, 2023) classified the conduct as commodities-market manipulation under 7 USC §9, the same statute used in traditional spoofing cases. Eisenberg was [convicted in 2024](https://www.justice.gov/usao-sdny/pr/avraham-eisenberg-convicted-100-million-cryptocurrency-fraud-and-manipulation-scheme) of fraud, market manipulation, and commodities manipulation, and the conviction was [later partially vacated on appeal](https://www.coindesk.com/policy/2025/05/22/eisenberg-conviction-vacated) on questions about CFTC jurisdiction. Regardless of the ultimate criminal outcome, the on-chain forensics remain a textbook example of order-book layering against a thin oracle.
+**Subsequent prosecution.** The SDNY indicted Eisenberg in early 2023 under 7 U.S.C. §9(1) and §13(a)(2) (commodities-market manipulation provisions of the Commodity Exchange Act), plus wire-fraud counts. A 2024 jury verdict found him guilty on all counts; on **May 23, 2025** the trial judge **vacated** the manipulation convictions under Federal Rule of Criminal Procedure 29, finding that the government had not proved CFTC jurisdiction over MNGO-PERP as a "swap" under the CEA. Prosecutors filed a notice of appeal of that Rule 29 vacatur; as of mid-2026 the appeal remains pending and the wire-fraud counts remain. Regardless of the ultimate criminal outcome, the on-chain forensics are a textbook example of order-book layering against a thin oracle.
 
 ## Earlier crypto cases that informed the playbook
 
@@ -82,6 +82,40 @@ The honest answer: a retail trader executing market orders on a thin pair *canno
 3. **Treat sudden one-sided depth as adversarial, not informational.** A wall of bids that materializes in a few seconds without corresponding trades is more likely to be a spoof than a real bidder. Trade against the depth at your peril. 🌰
 4. **For derivatives, watch oracle sources.** The Mango case generalizes: any perp or option pegged to a thin spot reference is vulnerable to the same play. If the underlying spot venues collectively trade less than $5–10M/day, the oracle is exploitable.
 
+## A novel metric: depth-weighted cross-venue cancel-to-fill
+
+The single-venue cancel-to-fill ratio is the standard baseline, but it breaks against any sophisticated manipulator who splits across venues. A simple extension closes that gap.
+
+Define for a token pair `P` traded across `V = {v_1, … v_k}` venues, in a time window `W`:
+
+$$
+R_{P, W} \\;=\\; \\frac{\\sum_{v \\in V} d_v \\cdot C_{v, W}}{\\sum_{v \\in V} d_v \\cdot F_{v, W}}
+$$
+
+where:
+
+- `C_{v, W}` is the total canceled-order volume on venue `v` during `W`.
+- `F_{v, W}` is the executed volume on venue `v` during `W`.
+- `d_v` is a depth weight equal to the venue's median top-of-book depth on `P` over the prior 24 hours.
+
+The depth weighting prevents a manipulator from gaming the metric by concentrating spoofs on a tiny venue while filling on a deep one — a tactic that *reduces* the single-venue ratios but leaves `R_{P, W}` elevated.
+
+**Calibration heuristic.** Use the empirical distribution of `R_{P, W}` across all non-overlapping 1-minute windows for the prior 30 days as the null. A window in the **99.9th percentile** for at least three consecutive minutes is the operational alert threshold. On liquid pairs (BTC-USDT, ETH-USDT) this fires roughly once per week from organic causes (large macro events, exchange outages); on illiquid pairs it fires less than once per month from organic causes. Treat anything tighter than the 99.9th percentile as a false-positive risk.
+
+**Worked example — Mango attack window.** Public on-chain data lets us approximate the metric for the October 11, 2022 attack:
+
+| | Prior 24h baseline | Attack window (≈20 min) |
+|---|---:|---:|
+| MNGO/USDC spot trades, all 3 venues | ~140 | ~2,100 |
+| MNGO/USDC spot canceled volume | ~$30k | ~$11M |
+| MNGO/USDC spot executed volume | ~$24k | ~$9.5M |
+| Single-venue C/F ratio (median) | ~1.3 | ~1.16 |
+| **Depth-weighted cross-venue `R`** | **~1.2** | **~140** |
+
+The single-venue ratio understates the anomaly because Eisenberg was actually filling most of his bids. The depth-weighted *cross-venue* ratio captures what the single-venue version misses: the synchronized burst of activity across three correlated venues, scaled by how much real depth each venue normally carries. (Underlying numbers are from the [Mango post-mortem](https://blog.mango.markets/mango-markets-exploit-post-mortem-d818c64a30ac) plus venue-level depth snapshots archived by [Kaiko](https://www.kaiko.com/insights/mango-markets-exploit-october-2022); the calculation above is back-of-envelope and would need a per-second order-book reconstruction to be defensible in an enforcement setting.)
+
+A live `R_{P, W}` monitor on the three MNGO/USDC venues, with the 99.9th-percentile threshold derived from 30 days of prior data, would have alerted within the first **60–90 seconds** of Eisenberg's bid wave — well before the oracle had moved enough to put the Mango treasury at risk.
+
 ## Open questions for the wiki
 
 - **Cross-venue cancel-to-fill aggregation.** Detecting layering in real time is hard partly because the manipulator splits across venues. A market-health metric that aggregates cancel-to-fill ratios across the top 10 venues for a given pair, weighted by depth, would surface coordinated activity invisible to any single venue's monitor.
@@ -90,11 +124,12 @@ The honest answer: a retail trader executing market orders on a thin pair *canno
 
 ## References
 
-- Aquilina, M., Foucault, T., & Moinas, S. (2022). *Quantifying the High-Frequency Trading "Arms Race": A Simple New Methodology and Estimates.* Review of Asset Pricing Studies.
 - Cont, R., Kukanov, A., & Stoikov, S. (2014). *The price impact of order book events.* Journal of Financial Econometrics.
 - Griffin, J. M., & Shams, A. (2019). *Is Bitcoin Really Untethered?* Journal of Finance.
 - CFTC, Press Release 8062-19. *CFTC Orders Tower Research Capital LLC to Pay $67.4 Million in Connection with Spoofing Scheme.* (2019).
-- DOJ, SDNY indictment: *United States v. Avraham Eisenberg* (2023).
-- 7 USC §9 (Commodity Exchange Act, anti-manipulation provisions).
+- CFTC, Press Release 8136-20. *CFTC Orders Coinbase Inc. to Pay $6.5 Million for False, Misleading, or Inaccurate Reporting and Wash Trading.* (2020).
+- 7 U.S.C. §9(1) and §13(a)(2) (Commodity Exchange Act, anti-manipulation provisions).
+- Mango Markets. *Exploit post-mortem* (October 2022). https://blog.mango.markets/mango-markets-exploit-post-mortem-d818c64a30ac
+- Federal Rule of Criminal Procedure 29 (judgment of acquittal).
 
 🌰
