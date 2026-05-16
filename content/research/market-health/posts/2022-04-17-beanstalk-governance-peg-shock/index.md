@@ -21,7 +21,7 @@ Public analyses from DN Institute, Immunefi, CertiK, CoinCodex, and Beanstalk's 
 
 ## Reported Data and Derived Metrics
 
-The companion dataset [`beanstalk-governance-peg-signals.csv`](beanstalk-governance-peg-signals.csv) keeps the article's market-health numbers reproducible from public reporting. DN Institute reports a $182 million total loss, roughly $80 million in attacker profit, $106 million returned through flash-loan repayment, nearly $1 billion borrowed through Aave, a 67% voting stake, and a BEAN move down to about $0.12 after the exploit. CertiK separately corroborates the approximate $182 million loss and reports a $76 million attacker-profit estimate.
+The companion dataset [`beanstalk-governance-peg-signals.csv`](beanstalk-governance-peg-signals.csv) keeps the article's market-health numbers reproducible from public reporting. DN Institute reports a $182 million total loss, roughly $80 million in attacker profit, $106 million returned through flash-loan repayment, nearly $1 billion borrowed through Aave, a 67% voting stake, and a BEAN move down to about $0.12 after the exploit. It also notes that about $77 million of the $182 million loss came from liquidity pools unrelated to Beanstalk; the profit and repayment figures are therefore transaction-flow magnitudes from the same exploit path, not exact additive components that reconcile dollar-for-dollar to the rounded total-loss figure. CertiK separately corroborates the approximate $182 million loss and reports a $76 million attacker-profit estimate.
 
 {{< figure src="beanstalk-governance-peg-metrics.svg" caption="Reported Beanstalk governance exploit economics and derived BEAN peg-shock metrics." >}}
 

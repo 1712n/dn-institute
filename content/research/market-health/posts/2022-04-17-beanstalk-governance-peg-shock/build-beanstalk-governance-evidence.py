@@ -18,6 +18,7 @@ FACTS = {
     "reported_total_loss_usd": 182_000_000.0,
     "reported_non_beanstalk_pool_assets_usd": 77_000_000.0,
     "reported_attacker_profit_usd": 80_000_000.0,
+    "reported_certik_profit_usd": 76_000_000.0,
     "reported_flash_loan_repaid_usd": 106_000_000.0,
     "reported_attacker_profit_eth": 24_840.0,
     "reported_ukraine_donation_usd": 250_000.0,
@@ -127,14 +128,14 @@ ROWS = [
     ),
     (
         "reported_certik_loss",
-        182_000_000.0,
+        FACTS["reported_total_loss_usd"],
         "USD",
         "CertiK corroborated approximate total loss.",
         CERTIK_SOURCE,
     ),
     (
         "reported_certik_profit",
-        76_000_000.0,
+        FACTS["reported_certik_profit_usd"],
         "USD",
         "CertiK reported attacker profit estimate.",
         CERTIK_SOURCE,
@@ -221,14 +222,62 @@ def write_csv():
             writer.writerow([metric, format_value(value), unit, calculation, source])
 
 
+def format_millions(value):
+    return f"${value / 1_000_000:.0f}M"
+
+
+def format_pct(value):
+    return f"{value:.0f}%"
+
+
+def format_multiple(value):
+    return f"{value:.2f}x"
+
+
 def write_svg():
     bars = [
-        ("Total reported loss", 182, "$182M", 190, "#b91c1c"),
-        ("Flash-loan repayment", 106, "$106M", 190, "#c2410c"),
-        ("Attacker profit", 80, "$80M", 190, "#7c2d12"),
-        ("BEAN peg shock", 88, "88%", 100, "#1d4ed8"),
-        ("Post-attack BEAN price", 12, "12% of peg", 100, "#0f766e"),
-        ("Flash loan / loss multiple", 5.49, "5.49x", 6, "#4c1d95"),
+        (
+            "Total reported loss",
+            FACTS["reported_total_loss_usd"] / 1_000_000,
+            format_millions(FACTS["reported_total_loss_usd"]),
+            190,
+            "#b91c1c",
+        ),
+        (
+            "Flash-loan repayment",
+            FACTS["reported_flash_loan_repaid_usd"] / 1_000_000,
+            format_millions(FACTS["reported_flash_loan_repaid_usd"]),
+            190,
+            "#c2410c",
+        ),
+        (
+            "Attacker profit",
+            FACTS["reported_attacker_profit_usd"] / 1_000_000,
+            format_millions(FACTS["reported_attacker_profit_usd"]),
+            190,
+            "#7c2d12",
+        ),
+        (
+            "BEAN peg shock",
+            DERIVED["derived_peg_repricing_shock_pct"],
+            format_pct(DERIVED["derived_peg_repricing_shock_pct"]),
+            100,
+            "#1d4ed8",
+        ),
+        (
+            "Post-attack BEAN price",
+            DERIVED["bean_price_remaining_pct"],
+            f"{format_pct(DERIVED['bean_price_remaining_pct'])} of peg",
+            100,
+            "#0f766e",
+        ),
+        (
+            "Flash loan / loss multiple",
+            DERIVED["flash_loan_to_reported_loss_multiple"],
+            format_multiple(DERIVED["flash_loan_to_reported_loss_multiple"]),
+            6,
+            "#4c1d95",
+        ),
     ]
 
     rows = []
