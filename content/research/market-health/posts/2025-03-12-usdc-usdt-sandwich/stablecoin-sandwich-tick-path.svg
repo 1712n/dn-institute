@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="420" viewBox="0 0 860 420" role="img" aria-labelledby="title desc">
+  <title id="title">USDC-USDT pool price path during sandwich attacks</title>
+  <desc id="desc">Line chart of tick-implied USDT per USDC after front-run, victim, and back-run swaps for three cases.</desc>
+  <rect width="860" height="420" fill="#ffffff"/>
+  <text x="40" y="44" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">Tick-implied pool price after each swap</text>
+  <text x="40" y="70" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">USDT per USDC, derived from Uniswap v3 post-swap ticks with 1.0001^tick.</text>
+  <line x1="110" y1="340" x2="800" y2="340" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="110" y1="100" x2="110" y2="340" stroke="#d1d5db" stroke-width="1"/>
+  <line x1="110" y1="112" x2="800" y2="112" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="110" y1="226" x2="800" y2="226" stroke="#f3f4f6" stroke-width="1"/>
+  <text x="62" y="116" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">1.00</text>
+  <text x="62" y="230" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">0.50</text>
+  <text x="72" y="344" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">0</text>
+  <text x="180" y="368" font-family="Arial, sans-serif" font-size="13" fill="#374151">Front-run</text>
+  <text x="400" y="368" font-family="Arial, sans-serif" font-size="13" fill="#374151">Victim</text>
+  <text x="620" y="368" font-family="Arial, sans-serif" font-size="13" fill="#374151">Back-run</text>
+
+  <polyline points="220,333 440,335 660,112" fill="none" stroke="#2563eb" stroke-width="3"/>
+  <circle cx="220" cy="333" r="5" fill="#2563eb"/>
+  <circle cx="440" cy="335" r="5" fill="#2563eb"/>
+  <circle cx="660" cy="112" r="5" fill="#2563eb"/>
+  <text x="690" y="116" font-family="Arial, sans-serif" font-size="13" fill="#2563eb">Case A</text>
+
+  <polyline points="220,333 440,335 660,112" fill="none" stroke="#f97316" stroke-width="3" stroke-dasharray="7 5"/>
+  <circle cx="220" cy="333" r="5" fill="#f97316"/>
+  <circle cx="440" cy="335" r="5" fill="#f97316"/>
+  <circle cx="660" cy="112" r="5" fill="#f97316"/>
+  <text x="690" y="138" font-family="Arial, sans-serif" font-size="13" fill="#f97316">Case B</text>
+
+  <polyline points="220,334 440,335 660,112" fill="none" stroke="#7c3aed" stroke-width="3" stroke-dasharray="3 5"/>
+  <circle cx="220" cy="334" r="5" fill="#7c3aed"/>
+  <circle cx="440" cy="335" r="5" fill="#7c3aed"/>
+  <circle cx="660" cy="112" r="5" fill="#7c3aed"/>
+  <text x="690" y="160" font-family="Arial, sans-serif" font-size="13" fill="#7c3aed">Case C</text>
+
+  <text x="122" y="326" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">front-run leaves pool near 0.028</text>
+  <text x="356" y="315" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">victim executes near 0.021-0.024</text>
+  <text x="598" y="92" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">back-run restores parity</text>
+</svg>

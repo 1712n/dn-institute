@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="420" viewBox="0 0 860 420" role="img" aria-labelledby="title desc">
+  <title id="title">USDC-USDT sandwich victim losses</title>
+  <desc id="desc">Horizontal bars compare USDC input, USDT received, and shortfall versus 1:1 stablecoin execution for three sandwich victims.</desc>
+  <rect width="860" height="420" fill="#ffffff"/>
+  <text x="40" y="44" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">Victim execution versus 1:1 stablecoin baseline</text>
+  <text x="40" y="70" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Red is value lost versus parity. Green is USDT actually received.</text>
+  <rect x="560" y="50" width="16" height="16" fill="#ef4444"/>
+  <text x="584" y="63" font-family="Arial, sans-serif" font-size="13" fill="#374151">Shortfall</text>
+  <rect x="660" y="50" width="16" height="16" fill="#10b981"/>
+  <text x="684" y="63" font-family="Arial, sans-serif" font-size="13" fill="#374151">USDT received</text>
+  <line x1="170" y1="330" x2="790" y2="330" stroke="#d1d5db" stroke-width="1"/>
+  <text x="170" y="352" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">0</text>
+  <text x="443" y="352" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">100k</text>
+  <text x="718" y="352" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">200k USDC</text>
+  <line x1="446" y1="94" x2="446" y2="330" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="722" y1="94" x2="722" y2="330" stroke="#e5e7eb" stroke-width="1"/>
+
+  <text x="40" y="126" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Case A</text>
+  <text x="40" y="146" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">142,514.609972 USDC in</text>
+  <rect x="170" y="108" width="392" height="36" rx="2" fill="#f3f4f6"/>
+  <rect x="170" y="108" width="382" height="36" rx="2" fill="#ef4444"/>
+  <rect x="552" y="108" width="10" height="36" rx="2" fill="#10b981"/>
+  <text x="580" y="131" font-family="Arial, sans-serif" font-size="13" fill="#111827">3,658.706929 USDT out; 138,855.903043 shortfall</text>
+
+  <text x="40" y="206" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Case B</text>
+  <text x="40" y="226" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">131,398.034741 USDC in</text>
+  <rect x="170" y="188" width="361" height="36" rx="2" fill="#f3f4f6"/>
+  <rect x="170" y="188" width="352" height="36" rx="2" fill="#ef4444"/>
+  <rect x="522" y="188" width="9" height="36" rx="2" fill="#10b981"/>
+  <text x="550" y="211" font-family="Arial, sans-serif" font-size="13" fill="#111827">3,378.316721 USDT out; 128,019.718020 shortfall</text>
+
+  <text x="40" y="286" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#111827">Case C</text>
+  <text x="40" y="306" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">220,806.389669 USDC in</text>
+  <rect x="170" y="268" width="607" height="36" rx="2" fill="#f3f4f6"/>
+  <rect x="170" y="268" width="593" height="36" rx="2" fill="#ef4444"/>
+  <rect x="763" y="268" width="14" height="36" rx="2" fill="#10b981"/>
+  <text x="170" y="384" font-family="Arial, sans-serif" font-size="13" fill="#111827">Total: 494,719.034382 USDC in, 12,310.021708 USDT out, 482,409.012674 shortfall</text>
+</svg>
