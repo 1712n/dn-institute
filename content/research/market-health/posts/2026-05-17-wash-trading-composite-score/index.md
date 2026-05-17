@@ -88,13 +88,13 @@ This metric requires order-book snapshots, which is precisely what the dn.instit
 
 ## The composite score 🌰
 
-Each metric is mapped to the unit interval via a calibrated CDF (so a high VVD on the long tail of the distribution doesn't dominate). The composite is a weighted sum with weights chosen by maximizing the area under the precision-recall curve on the labelled subset of incidents already documented in this wiki:
+Each metric is mapped to the unit interval through a per-metric normalization: TSD by ratio to a clean-venue baseline, VVD by clamping the Spearman ρ tail to [0, 1], TOU by χ² divided by an empirical 99th-percentile cap, and OBR by the linear transform $1 + \\text{OBR}$ (OBR is constrained to $[-1, 0]$ by construction, so $1 + \\text{OBR}$ sits naturally in $[0, 1]$). The composite is a weighted sum:
 
 $$
-\\text{WashRisk}(p, T) = 0.30 \\cdot (1 - \\text{TSD}_{\\text{norm}}) + 0.25 \\cdot \\text{VVD} + 0.20 \\cdot \\text{TOU}_{\\text{norm}} + 0.25 \\cdot (1 - (1 + \\text{OBR}))
+\\text{WashRisk}(p, T) = 0.30 \\cdot (1 - \\text{TSD}_{\\text{norm}}) + 0.25 \\cdot \\text{VVD} + 0.20 \\cdot \\text{TOU}_{\\text{norm}} + 0.25 \\cdot (1 + \\text{OBR})
 $$
 
-where the last term flips OBR (which is non-positive for healthy flow) into a "depth-doesn't-deplete" indicator. The score is in [0, 1] with the following operational thresholds, calibrated against the SENSO and Huobi case data:
+where the last term sends "depth never depletes" (OBR ≈ 0, characteristic of wash flow) to a contribution near 1, and "depth depletes substantially after large prints" (OBR ≈ -0.5, characteristic of healthy flow) to a contribution near 0.5. Weights are an initial pass informed by the two labelled wiki incidents — see *Limitations §4* for the calibration-drift discussion. The score is in [0, 1] with the following operational thresholds, calibrated against the SENSO and Huobi case data:
 
 | Range | Interpretation |
 |---|---|
@@ -118,7 +118,7 @@ To make the score concrete, here is a side-by-side comparison of two synthetic (
 | TOU_norm (capped) | 0.04 | 0.91 |
 | Mean ΔDepth post-large-trade | -0.41 | -0.02 |
 | OBR | -0.41 | -0.02 |
-| **Composite WashRisk** | **0.21** | **0.80** |
+| **Composite WashRisk** | **0.25** | **0.87** |
 
 The clean tape lands in the "natural flow" range; the suspect tape lands in the top range, matching the wiki's prior qualitative finding from manual inspection of the same window. The point of the score is not to *replace* that case study analysis but to make it cheap to run continuously across every venue dn.institute indexes — turning what was an ad-hoc investigation into a routine surveillance feed. 🌰
 
@@ -169,8 +169,16 @@ def fetch_book_snapshots(venue: str, pair: str, start_iso: str, end_iso: str):
 
 def tsd_norm(trades, baseline_entropy: float = 6.0) -> float:
     sizes = np.array([t["size"] for t in trades], dtype=float)
+    if sizes.size == 0:
+        return 1.0  # no data; do not flag
     log_sizes = np.log10(np.clip(sizes, 1e-9, None))
-    bins = np.linspace(log_sizes.min(), log_sizes.max(), 32)
+    lo, hi = float(log_sizes.min()), float(log_sizes.max())
+    if hi <= lo:
+        # Degenerate case: every trade is the same size. Entropy is 0
+        # (and the constant-bin case below would otherwise produce an invalid
+        # zero-width range for np.linspace).
+        return 0.0
+    bins = np.linspace(lo, hi, 32)
     hist, _ = np.histogram(log_sizes, bins=bins)
     p = hist / max(hist.sum(), 1)
     p = p[p > 0]
@@ -179,9 +187,11 @@ def tsd_norm(trades, baseline_entropy: float = 6.0) -> float:
 
 
 def vvd(trades) -> float:
-    by_hour: dict[int, list[float]] = {}
+    # API trade timestamps are unix milliseconds; convert to seconds before
+    # bucketing by hour.
+    by_hour: dict[int, list[dict]] = {}
     for t in trades:
-        h = int(t["ts"] // 3600)
+        h = int((t["ts"] / 1000) // 3600)
         by_hour.setdefault(h, []).append(t)
     hours = sorted(by_hour)
     volumes, vols = [], []
@@ -201,7 +211,8 @@ def vvd(trades) -> float:
 def tou_norm(trades, ref_hourly_share: list[float]) -> float:
     counts = [0.0] * 24
     for t in trades:
-        h = int(t["ts"] // 3600) % 24
+        # ts is unix-ms; convert to seconds before extracting the hour-of-day.
+        h = int((t["ts"] / 1000) // 3600) % 24
         counts[h] += t["size"]
     total = sum(counts) or 1.0
     obs = [c / total for c in counts]
@@ -213,11 +224,14 @@ def tou_norm(trades, ref_hourly_share: list[float]) -> float:
     return min(chi2 / 450.0, 1.0)
 
 
+POST_TRADE_WINDOW_MS = 100  # how long after a print we measure depth recovery
+
+
 def obr(trades, snapshots) -> float:
-    # Match each large trade to the snapshots immediately before/after.
+    # All timestamps in this codepath are unix-milliseconds.
     snap_ts = np.array([s["ts"] for s in snapshots])
     sizes = np.array([t["size"] for t in trades])
-    if len(sizes) == 0:
+    if len(sizes) == 0 or len(snap_ts) == 0:
         return 0.0
     p90 = np.percentile(sizes, 90)
     deltas = []
@@ -225,7 +239,7 @@ def obr(trades, snapshots) -> float:
         if t["size"] < p90:
             continue
         i_pre = np.searchsorted(snap_ts, t["ts"]) - 1
-        i_post = np.searchsorted(snap_ts, t["ts"] + 0.1)
+        i_post = np.searchsorted(snap_ts, t["ts"] + POST_TRADE_WINDOW_MS)
         if i_pre < 0 or i_post >= len(snapshots):
             continue
         side = "asks" if t["side"] == "buy" else "bids"
@@ -233,7 +247,10 @@ def obr(trades, snapshots) -> float:
         d_post = sum(lv["size"] for lv in snapshots[i_post][side][:3])
         if d_pre > 0:
             deltas.append((d_post - d_pre) / d_pre)
-    return float(np.mean(deltas)) if deltas else 0.0
+    # Clamp to [-1, 0]: depth can be replenished but cannot grow on the same
+    # side as the take, and cannot drop below zero.
+    raw = float(np.mean(deltas)) if deltas else 0.0
+    return max(-1.0, min(0.0, raw))
 
 
 def wash_risk(venue: str, pair: str, start_iso: str, end_iso: str,
@@ -248,7 +265,7 @@ def wash_risk(venue: str, pair: str, start_iso: str, end_iso: str,
         0.30 * (1.0 - m_tsd)
         + 0.25 * m_vvd
         + 0.20 * m_tou
-        + 0.25 * (1.0 - (1.0 + m_obr))
+        + 0.25 * (1.0 + m_obr)
     )
     return {
         "tsd_norm": m_tsd,
