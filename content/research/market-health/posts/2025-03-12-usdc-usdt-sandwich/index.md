@@ -41,7 +41,7 @@ The three public victim transactions are:
 - Case B: [`0x636ca7a5f63a6698c82e860e610363e75d97184403fa06f9907243a84e25b68a`](https://etherscan.io/tx/0x636ca7a5f63a6698c82e860e610363e75d97184403fa06f9907243a84e25b68a), block 22029756.
 - Case C: [`0xee9fcd2b9996e96b642cb4cda47fc140f98fdaf07ee02657743d4bfcc4670106`](https://etherscan.io/tx/0xee9fcd2b9996e96b642cb4cda47fc140f98fdaf07ee02657743d4bfcc4670106), block 22029771.
 
-Etherscan marks the largest victim transaction as an MEV transaction, and public reporting described the same event as a stablecoin sandwich attack. The raw receipts are more important than that label: the transaction order, pool tick movement, swap amounts, and back-run fee-recipient transfers are enough to reconstruct the manipulation path.
+Etherscan marks the largest victim transaction as an MEV transaction, and [public reporting described the same event as a large sandwich attack](https://www.theblock.co/post/345977/crypto-trader-swaps-733000-for-just-19000-in-large-sandwich-attack). The raw receipts are more important than that label: the transaction order, pool tick movement, swap amounts, and back-run fee-recipient transfers are enough to reconstruct the manipulation path.
 
 ## Execution Evidence
 
