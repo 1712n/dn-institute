@@ -6,13 +6,21 @@
 {{- $caption := .Get "caption" | default "" -}}
 {{- $dir := .Page.File.Dir -}}
 {{- $path := printf "content/%s%s" $dir $src -}}
-{{- $content := readFile $path -}}
+{{- $allowedCharts := slice "volume_hist.plotly" "crypto_volume.plotly" "crypto_tradecount.plotly" "crypto_avg_txs.plotly" "crypto_buysell.plotly" "benford_law.plotly" "vv_correlation.plotly" -}}
+{{- if in $allowedCharts $src -}}
+{{- $content := "" -}}
+{{- if fileExists $path -}}
+{{- $content = readFile $path -}}
+{{- end -}}
 <div class="chart-container" style="width:100%;max-width:900px;margin:1em auto;">
   {{- if $content -}}
   {{ $content | safeHTML }}
   {{- else -}}
   <p style="color:red;">Chart not found: {{ $src }}</p>
   {{- end -}}
+{{- else -}}
+  <p style="color:red;">Invalid chart source: {{ $src }}</p>
+{{- end -}}
   {{- with $caption -}}
   <p style="text-align:center;font-style:italic;">{{ . }}</p>
   {{- end -}}
