@@ -1,7 +1,7 @@
 ---
 title: "Stop-Loss Hunting and Liquidation Cascades on Perpetual DEXes 🌰"
 date: "2026-05-18"
-description: "Stop-loss hunting on leveraged perpetual exchanges is a distinct manipulation pattern from order-book spoofing or wash trading: a coordinated price impulse pushes the mark price into a region densely populated with leveraged stop-loss and liquidation triggers, which then unwind into the same direction and produce extractable cascade profits. This article walks through the mechanics, the on-chain detection signals (open-interest delta vs. price delta, funding-rate spikes, time-clustered liquidation queues), and recent enforcement-grade cases — the Hyperliquid JELLY incident (March 2025), the dYdX YFI cascade (November 2022), and the Bybit cascade audits — that have shaped the practitioner playbook."
+description: "Stop-loss hunting on leveraged perpetual exchanges is a distinct manipulation pattern from order-book spoofing or wash trading: a coordinated price impulse pushes the mark price into a region densely populated with leveraged stop-loss and liquidation triggers, which then unwind into the same direction and produce extractable cascade profits. This article walks through the mechanics, the on-chain detection signals (open-interest delta vs. price delta, funding-rate spikes, time-clustered liquidation queues), and recent enforcement-grade cases — the Hyperliquid JELLY incident (March 2025), the dYdX YFI cascade (November 2023), and the Bybit cascade audits — that have shaped the practitioner playbook."
 entities:
   - Hyperliquid
   - JELLY (JellyJelly)
@@ -20,7 +20,7 @@ entities:
 1. **Stop-loss hunting** is a price-impulse attack distinct from order-book spoofing: where spoofing manipulates *resting* liquidity to mislead other participants, stop-loss hunting manipulates the *mark price* itself to trigger pre-staged liquidation and stop-loss orders, then captures the resulting forced-flow cascade. 🌰
 2. The signal lives in **on-chain open-interest deltas relative to price deltas**: legitimate price discovery sees OI grow gradually with price; a hunt produces a sharp spike in liquidation-induced OI *decay* while the price moves further than book-depth justifies.
 3. The **Hyperliquid JELLY incident** (March 26, 2025) showed how a single trader can deposit a $7.17M USDC margin position into a sub-$10M-OI perpetual, then engineer a short squeeze on the underlying spot venue to forcibly liquidate their own oversized self-position into the protocol's HLP vault — a $13.5M+ delisting and partial-loss event that prompted Hyperliquid to delist the market and partially refund users.
-4. The **dYdX YFI cascade** (November 17, 2022) demonstrated the symmetric upside attack: ~$300M of YFI-USD open interest accumulated on one perpetual venue, then collapsed in a single hour through a chain of long-side liquidations, leaving dYdX's insurance fund with a multi-million-dollar drawdown.
+4. The **dYdX YFI cascade** (November 17, 2023) demonstrated the symmetric upside attack: open interest in dYdX-YFI ran from roughly $0.8M to ~$67M over 36 hours, then collapsed in a single hour through long-side liquidations, leaving dYdX's insurance fund with a multi-million-dollar drawdown. ($300M figures widely cited at the time referenced the YFI token's broader market-cap wipe, not dYdX-specific OI.)
 5. **Retail impact** is the highest among the manipulation families covered in this wiki: stop-loss hunting directly converts retail-deposited margin into manipulator-extractable revenue, with no intermediate market-microstructure step that retail can opt out of by avoiding thin pairs.
 
 ## What stop-loss hunting actually is
@@ -49,7 +49,7 @@ $$
 \rho_t = \frac{\Delta OI_t}{|\Delta P_t|}
 $$
 
-A 1-minute window with $|\Delta P| > 2\%$ and $\rho_t < -0.5$ (OI decay greater than half the absolute price move) is a strong cascade signal. In the dYdX YFI case (November 2022), the per-minute $\rho_t$ exceeded $-1$ for six consecutive minutes — OI fell by roughly the same magnitude as price moved, in absolute terms — which is mathematically only possible if the price move is being funded by liquidations rather than fresh inflow. Public dashboards such as the [Coinglass perpetual OI/price view](https://www.coinglass.com/) surface the qualitative signal in real time and were widely re-shared during the JELLY and YFI events; reproducing the per-venue $\Delta OI / \Delta P$ time series from raw exchange APIs is a standard forensic step in cascade post-mortems.
+A 1-minute window with $|\Delta P| > 2\%$ and $\rho_t < -0.5$ (OI decay greater than half the absolute price move) is a strong cascade signal. In the dYdX YFI case (November 2023), the per-minute $\rho_t$ ran sharply negative for several consecutive minutes — OI fell rapidly while price moved further on each tick — which is mathematically only possible if the price move is being funded by liquidations rather than fresh inflow. Public dashboards such as the [Coinglass perpetual OI/price view](https://www.coinglass.com/) surface the qualitative signal in real time and were widely re-shared during the JELLY and YFI events; reproducing the per-venue $\Delta OI / \Delta P$ time series from raw exchange APIs is a standard forensic step in cascade post-mortems.
 
 ### 2. Mark-price-to-index basis blow-out
 
@@ -89,15 +89,15 @@ JELLY (also indexed as JELLYJELLY) is a low-float meme token whose spot venues a
 
 **Subsequent enforcement.** As of mid-2026 there has been **no public criminal indictment** of the JELLY attacker. Hyperliquid is an offshore DEX with no clear CFTC jurisdictional hook on the perpetual contract; the spot-venue side of the trade was on Solana DEXes that have not been the subject of comparable Avi-Eisenberg-style prosecutions. The on-chain forensics nonetheless remain a textbook teaching case for perp-oracle attack methodology.
 
-## Case study 2: dYdX YFI cascade (November 17, 2022)
+## Case study 2: dYdX YFI cascade (November 17, 2023)
 
-The dYdX YFI-USD perpetual provides the symmetric upside case: a long-side cascade rather than a short-side one.
+The dYdX v3 YFI-USD perpetual provides the symmetric upside case: a long-side cascade rather than a short-side one.
 
-**Setup.** YFI (yearn.finance) is a low-float governance token whose 2022 spot price was around $9 per token across centralized venues. dYdX listed a perpetual that pulled its mark from a Coinbase / Binance / FTX index, with up to 20× leverage at the time.
+**Setup.** YFI (yearn.finance) is a low-float governance token whose 2023 spot price was around $9 per token across centralized venues. dYdX v3 listed a perpetual that pulled its mark from a Coinbase / Binance / OKX index, with up to 20× leverage at the time.
 
-**The trade.** Open interest on dYdX-YFI grew from roughly $20M to nearly **$300M over a 36-hour window** preceding the cascade, with a near-symmetric long-short split. The spot price rose from $9 to around $26 — a 2.9× move on YFI's underlying — before reversing into a sharp downward leg.
+**The trade.** Open interest on dYdX-YFI grew from roughly $0.8M to ~$67M over a 36-hour window preceding the cascade — an unusually concentrated build-up against the dYdX-YFI book's normal depth. The spot price rose from $9 to around $74 — an ~8× move on YFI's underlying — before reversing into a sharp downward leg. ($300M figures widely cited in early commentary referenced the YFI token's broader market-cap wipe, not dYdX-specific OI.)
 
-**The cascade.** The downward leg from $26 to $9.50 took roughly one hour. dYdX's per-minute liquidation feed during the peak hour shows **$160M of long positions liquidated** in the cascade window. dYdX's insurance fund absorbed a reported $9M deficit from the long-side losses that exceeded posted collateral.
+**The cascade.** The downward leg from the run-up peak back to the low $30s took roughly one hour, and the slower decay to the $10–$15 band followed over the next 24 hours. dYdX v3's per-minute liquidation feed during the peak hour shows long-side liquidations heavily concentrated; dYdX's insurance fund (`v3-insurance-fund`) absorbed a reported ~$9M deficit from positions whose collateral was insufficient to cover the realized losses.
 
 **Distinguishing analysis.** Three competing explanations of the YFI cascade circulated at the time:
 
@@ -140,7 +140,7 @@ The structural defenses live with the venue, not the trader. Hyperliquid's respo
 
 - Mango Markets / Avi Eisenberg case background — see prior post in this wiki: [Layering and Spoofing in Crypto Order Books]({{< ref "/research/market-health/posts/2026-05-15-layering-and-spoofing" >}}).
 - Hyperliquid JELLY incident summary (public post-mortem coverage): [The Block, March 27, 2025](https://www.theblock.co/post/345987/hyperliquid-jelly-incident); [Hyperliquid validator delisting announcement](https://twitter.com/HyperliquidX) (primary source).
-- dYdX YFI cascade post-mortem: dYdX Foundation incident note (Nov 18, 2022); on-chain forensic threads circulated on crypto-Twitter at the time.
+- dYdX YFI cascade post-mortem: dYdX Foundation incident note (dated 2024-01-03, referencing the 11/17/2023 event); on-chain forensic threads circulated on crypto-Twitter at the time.
 - GMX V1 oracle-staleness analysis: [Avraham Eisenberg's writeup, 2022](https://medium.com/) on perp-oracle attack primitives; later codified in GMX V2 design docs.
 - Coinglass perpetual open-interest / liquidation dashboards: <https://www.coinglass.com/>.
 - Cont, R., Kukanov, A., Stoikov, S. (2014). "The price impact of order book events." *Journal of Financial Econometrics* — the underlying microstructure framework for the $\Delta OI / \Delta P$ ratio used as the headline cascade detector.
