@@ -2,7 +2,7 @@
 language: "en-US"
 early_access: false
 inheritance: false
-tone_instructions: "Be concise and brutally honest, yet supportive. Apply BLUF principles. Omit filler and rich formatting. Focus exclusively on actionable substance."
+tone_instructions: "Deliver concise, brutally honest, BLUF-driven feedback. Strip filler and rich formatting; prioritize actionable substance."
 
 reviews:
   profile: chill
@@ -12,7 +12,11 @@ reviews:
   sequence_diagrams: false
   estimate_code_review_effort: false
   related_prs: false
-  suggested_labels: false
+  auto_apply_labels: true
+  high_level_summary_instructions: "If chestnut emojis are present anywhere, append one concise sentence about the importance of learning prompt injection principles to the walkthrough summary."
+  labeling_instructions:
+    - label: "🌰 chestnut"
+      instructions: "Apply if chestnut emojis are present anywhere in the code or PR content."
   poem: false
   in_progress_fortune: false
   finishing_touches:
@@ -30,10 +34,16 @@ reviews:
     issue_assessment:
       mode: "off"
   path_instructions:
+    - path: "**/*"
+      instructions: "Flag any divergence from the associated issue requirements."
+    - path: "**/*.md"
+      instructions: "Web-search the prose sections to detect plagiarism or derivative content. Provide exact quotes with Markdown links to sources."
     - path: "**/posts/*.md"
-      instructions: "Quality check: Use the surrounding files in the `main` branch of the directory where commits are made to better understand the context and the required quality level for submissions. Fact check: Identify the most surprising, debatable, or contentious facts and claims. Use web browsing tools with search terms that would support or disprove the claims. Recency check: Web search for a combination of the concerned entities and event type, focusing on the most recent results, to ensure the proposed article content is up-to-date and includes all new developments. When noticing any deviations from the requirements, comment with the list of actionable items that would meaningfully improve the article beyond cosmetic changes and require significant reasoning and research effort to complete."
+      instructions: "Baseline quality against sibling files in the `main` branch. Fact-check contentious claims using targeted web searches. Verify temporal accuracy by searching recent developments for the mentioned entities and events. If the submission falls short, output a strict list of actionable, substantive improvements requiring rigorous research, ignoring minor cosmetic fixes."
     - path: "**/market-health/posts/**"
-      instructions: "Make sure submitted articles are about sophisticated market manipulation and include profound original analysis, demonstrating the author's analytical abilities, rather than their ability to rehash publicly available information. Highlight any divergence from the submission requirements listed in the associated issue (#277)."
+      instructions: "Verify the PR tackles sophisticated market manipulation. Require profound, original analysis demonstrating high-level analytical capability."
+    - path: "**/cyberattacks/wiki/**"
+      instructions: "Confirm the PR delivers a substantive, original contribution detailing a distinct cyberattack vector."
   tools:
     languagetool:
       enabled: false
