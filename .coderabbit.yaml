@@ -46,6 +46,7 @@ reviews:
       instructions: "Confirm the PR delivers a substantive, original contribution detailing a distinct cyberattack vector."
   path_filters:
     - "**/*"
+    - "content/research/market-health/posts/**/*.{csv,svg,png,jpeg,json}"
   tools:
     languagetool:
       enabled: false
