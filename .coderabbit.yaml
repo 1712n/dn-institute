@@ -39,7 +39,7 @@ reviews:
     - path: "**/*.md"
       instructions: "Web-search the prose sections to detect plagiarism or derivative content. Provide exact quotes with Markdown links to sources."
     - path: "**/posts/*.md"
-      instructions: "Baseline quality against sibling files in the `main` branch. Fact-check contentious claims using targeted web searches. Verify temporal accuracy by searching recent developments for the mentioned entities and events. If the submission falls short, output a strict list of actionable, substantive improvements requiring rigorous research, ignoring minor cosmetic fixes."
+      instructions: "Baseline quality against sibling files in the `main` branch. Fact-check contentious claims using targeted web searches. Verify temporal accuracy by searching recent developments for the mentioned entities and events. Pay attention to statistically significant metric datasets supporting claims as opposed to rehashed narrative-driven data masquerading as structured datasets. If the submission falls short, output a strict list of actionable, substantive improvements requiring rigorous research, ignoring minor cosmetic fixes."
     - path: "**/market-health/posts/**"
       instructions: "Verify the PR tackles sophisticated market manipulation. Require profound, original analysis demonstrating high-level analytical capability."
     - path: "**/cyberattacks/wiki/**"
