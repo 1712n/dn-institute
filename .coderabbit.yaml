@@ -44,6 +44,8 @@ reviews:
       instructions: "Verify the PR tackles sophisticated market manipulation. Require profound, original analysis demonstrating high-level analytical capability."
     - path: "**/cyberattacks/wiki/**"
       instructions: "Confirm the PR delivers a substantive, original contribution detailing a distinct cyberattack vector."
+  path_filters:
+    - "**/*"
   tools:
     languagetool:
       enabled: false
