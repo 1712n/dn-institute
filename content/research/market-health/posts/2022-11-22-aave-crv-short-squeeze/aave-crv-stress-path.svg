@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="460" viewBox="0 0 920 460" role="img" aria-labelledby="title desc">
+  <title id="title">Aave CRV stress path, November 2022</title>
+  <desc id="desc">Line chart showing CRV price falling from 0.61 to 0.4096, rebounding to 0.64 and briefly 0.74 while Aave liquidated the short account and later repaid bad debt.</desc>
+  <rect width="920" height="460" fill="#ffffff"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#1f2933">
+    <text x="48" y="44" font-size="24" font-weight="700">CRV price stress path around the Aave V2 liquidation</text>
+    <text x="48" y="72" font-size="14">Selected public data points from Aave governance, ChainCatcher/Foresight News, and Blockworks.</text>
+  </g>
+  <line x1="96" y1="350" x2="842" y2="350" stroke="#66788a" stroke-width="1.5"/>
+  <line x1="96" y1="108" x2="96" y2="350" stroke="#66788a" stroke-width="1.5"/>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#52616f">
+    <text x="58" y="354">$0.40</text>
+    <text x="58" y="294">$0.50</text>
+    <text x="58" y="234">$0.60</text>
+    <text x="58" y="174">$0.70</text>
+    <text x="58" y="114">$0.80</text>
+    <text x="88" y="376">Nov 13</text>
+    <text x="275" y="376">Nov 21</text>
+    <text x="460" y="376">Nov 22 10:35</text>
+    <text x="642" y="376">Nov 22 13:31</text>
+    <text x="785" y="376">Nov 23</text>
+  </g>
+  <polyline points="112,224 315,344 510,344 690,206 818,146" fill="none" stroke="#0b6e69" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+  <g fill="#0b6e69" stroke="#ffffff" stroke-width="3">
+    <circle cx="112" cy="224" r="7"/>
+    <circle cx="315" cy="344" r="7"/>
+    <circle cx="510" cy="344" r="7"/>
+    <circle cx="690" cy="206" r="7"/>
+    <circle cx="818" cy="146" r="7"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#1f2933">
+    <text x="118" y="207">$0.61 before borrow cycle</text>
+    <text x="218" y="330">$0.41 low after borrowed CRV sales</text>
+    <text x="476" y="326">$0.4096 Aave-cited low</text>
+    <text x="640" y="188">$0.64 liquidation zone</text>
+    <text x="746" y="128">$0.74 brief squeeze high</text>
+  </g>
+  <g>
+    <rect x="444" y="92" width="356" height="92" rx="4" fill="#f4f7f9" stroke="#cbd5df"/>
+    <text x="462" y="118" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1f2933">Liquidation / debt signals</text>
+    <text x="462" y="143" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#1f2933">~$63M USDC collateral liquidated</text>
+    <text x="462" y="164" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#1f2933">2.64M CRV excess debt, about $1.7M</text>
+  </g>
+  <g>
+    <rect x="124" y="116" width="270" height="72" rx="4" fill="#fff7ed" stroke="#f5b971"/>
+    <text x="140" y="142" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#1f2933">Borrow pressure: Aave governance</text>
+    <text x="140" y="163" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#1f2933">cited 55M CRV borrowed on Nov 22</text>
+  </g>
+  <text x="48" y="425" font-family="Arial, Helvetica, sans-serif" font-size="12" fill="#52616f">Chart is a compact incident reconstruction, not tick data. See aave-crv-event-ledger.csv for source links and exact public evidence points.</text>
+</svg>
