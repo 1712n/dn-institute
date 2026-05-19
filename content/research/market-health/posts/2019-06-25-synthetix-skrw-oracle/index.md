@@ -11,7 +11,7 @@ entities:
 
 On June 25, 2019, Synthetix disclosed an oracle incident in which its Korean won price feed reported KRW at roughly 1000 times the correct rate. The error did not require an attacker to compromise Synthetix contracts or manipulate the external data provider directly. Instead, an automated trading bot detected the mispriced synthetic asset and traded through it while Synthetix.exchange was still accepting the rate.
 
-The result was a short-lived but extreme market-health failure: Synthetix reported several trades with 1000x profits and more than $1 billion in apparent profit in less than one hour. The Block separately reported that the bot accumulated more than 37 million sETH, while noting that the true dollar impact was hard to value because sETH liquidity was limited. Synthetix later said the bot owner agreed to reverse the trades in exchange for a bug bounty.
+The result was a short-lived but extreme market-health failure: Synthetix reported several trades with 1000x profits and more than $1 billion in apparent profit in less than one hour. The Block separately reported that the bot accumulated more than 37 million sETH, while noting that the true dollar impact was hard to value because sETH liquidity was limited. These figures are treated here as incident-report evidence rather than independently reconstructed measurements. Synthetix later said the bot owner agreed to reverse the trades in exchange for a bug bounty.
 
 ## Manipulation signal
 
@@ -51,6 +51,10 @@ For synthetic assets and derivatives venues, useful monitoring should include:
 - post-incident labeling so suspicious volume from bad oracle windows is not treated as organic demand.
 
 The incident also shows why social reversibility is not a complete control. Synthetix was able to contact the bot owner and negotiate a reversal, but a market-health framework should treat that as mitigation after failure, not as proof that the market remained healthy.
+
+## Evidence limits
+
+This post does not reconstruct the Ethereum transaction sequence, oracle updates, or sETH balances at block level. It therefore should not be read as a statistical trade-size, balance-flow, or oracle-rate study. Its contribution is narrower: it records a documented oracle failure mode and maps the reported incident facts to market-health controls that would need primary on-chain and reference-price data for quantitative validation.
 
 ## Source timeline
 
