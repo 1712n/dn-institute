@@ -1,4 +1,4 @@
-# Bounty #415: Migrated from matplotlib to Plotly interactive charts.
+# Bounty #277: Migrated from matplotlib to Plotly interactive charts.
 import plotly.graph_objects as go
 import plotly.io as pio
 import pandas as pd
