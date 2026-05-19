@@ -19,7 +19,7 @@ The abnormal signal was not wash trading in the usual sense of one party trading
 
 This makes the incident useful for market-health monitoring because it shows how a venue can display apparently valid executed trades even when the tradeable price is detached from the underlying reference asset. In a synthetic-asset exchange, the oracle price is the order book's economic anchor. When that anchor fails, automated arbitrage can convert an oracle-data anomaly into distorted volume, artificial profit, and debt-pool losses for other participants.
 
-| Indicator                       | Observed value                                  | Market-health interpretation                                                               |
+| Indicator                       | Reported value                                  | Market-health interpretation                                                               |
 | ------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------ |
 | Reference price deviation       | KRW feed reported about 1000x the correct rate  | Synthetic asset price was detached from its underlying fiat market                         |
 | Exploit window                  | Less than one hour, according to Synthetix      | Automated strategies can monetize bad oracle states faster than manual operators can react |
@@ -52,9 +52,9 @@ For synthetic assets and derivatives venues, useful monitoring should include:
 
 The incident also shows why social reversibility is not a complete control. Synthetix was able to contact the bot owner and negotiate a reversal, but a market-health framework should treat that as mitigation after failure, not as proof that the market remained healthy.
 
-## Source dataset
+## Source timeline
 
-The supporting event timeline is included in `timeline.csv`. It records the incident date, reported metrics, and public source links used for the analysis.
+The supporting event timeline is included in `timeline.csv`. It is a citation log of narrative events and secondary-source reported values, not a primary on-chain dataset or time-series of measured trade metrics. Treat the CSV as provenance for the public reports cited here, not as independent statistical evidence of block-level balances, transaction flows, or oracle-rate movement.
 
 ## References
 

@@ -2,5 +2,6 @@ date,event,reported_metric,source
 2019-06-25,Synthetix disclosed that a commercial KRW feed intermittently reported a price about 1000 times higher than the correct rate,1000x KRW price-feed error,https://blog.synthetix.io/response-to-oracle-incident/
 2019-06-25,An automated trading bot traded into and out of sKRW while the bad feed was live,1000x trade profits and more than $1B apparent profit in less than one hour,https://blog.synthetix.io/response-to-oracle-incident/
 2019-06-25,Synthetix stopped the oracle service from sending rates to contracts and halted transfers and trading,Transfers and trading halted,https://blog.synthetix.io/response-to-oracle-incident/
-2019-06-24,The Block reported that the incident exposed more than 37 million sETH,More than 37 million sETH,https://www.theblock.co/post/28748/synthetix-suffers-oracle-attack-potentially-looting-37-million-synthetic-ether
+2019-06-25,The Block reported that the incident exposed more than 37 million sETH,More than 37 million sETH,https://www.theblock.co/post/28748/synthetix-suffers-oracle-attack-potentially-looting-37-million-synthetic-ether
+2019-06-25,CoinDesk reported that the trader rolled back the broken trades after the incident,Trades reversed after contact with trader,https://www.coindesk.com/markets/2019/06/25/synthetix-trader-rolls-back-broken-trades-that-netted-1-billion-profit
 2019-06-25,Synthetix said the bot owner agreed to reverse the trades in exchange for a bug bounty,Trades reversed after bounty negotiation,https://blog.synthetix.io/response-to-oracle-incident/
