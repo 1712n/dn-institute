@@ -61,23 +61,33 @@ The number of liquidation transactions is important because it shows why the ins
 
 ### Borrow-utilization concentration
 
-A single account borrowed tens of millions of CRV from one protocol market. That should trigger borrow concentration alerts, especially when the borrowed asset is also a governance token with large locked or strategic holdings.
+- Alert when one account borrows a double-digit share of a long-tail market's available debt liquidity or increases debt by tens of millions of tokens over a few days.
+- Escalate faster when the borrowed asset is a governance token with large locked, founder-held, or strategic positions that can make float smaller than headline supply.
+- Compare the borrower's debt growth with protocol-wide utilization so analysts can distinguish ordinary demand from a position that can dominate the liquidation path.
 
 ### Debt-asset liquidity gap
 
-The loan looked overcollateralized in USDC terms, but liquidation safety depended on buying CRV fast enough. A stablecoin collateral base did not remove risk when the debt asset was the illiquid leg.
+- Check collateral value against executable depth in the debt asset, not only against oracle value. In this case, stablecoin collateral did not remove the need to buy CRV into limited liquidity.
+- Stress-test whether liquidators could close the debt asset within an internal slippage limit during a rebound rather than assuming the collateral asset can be sold cleanly.
+- Raise the liquidation buffer or tighten borrowing when debt-token depth falls while account-level debt keeps rising.
 
 ### Exchange-transfer amplification
 
-Aave governance recorded 30 million CRV transferred to centralized exchanges on November 22. Moving borrowed supply from a lending protocol to exchange venues can be legitimate, but at this scale it is also a clear sign that protocol debt may become external spot-market pressure.
+- Escalate borrowed-token transfers to centralized exchanges when the flow reaches millions of tokens or a meaningful share of the market's available borrow liquidity.
+- Track whether exchange inflows coincide with price declines, additional protocol borrowing, or rising utilization in the same debt asset.
+- Treat large borrowed-supply transfers as a potential bridge between protocol debt and external spot-market pressure, even when the transfer itself is not proof of intent.
 
 ### Reflexive collateral narrative
 
-Public discussion focused on whether the short was aimed at Curve founder Michael Egorov's large CRV-backed borrowing position. Regardless of intent, the incident shows how visible leveraged positions invite adversarial trading around liquidation lines.
+- Flag public narratives around named large leveraged positions when the debt asset, collateral asset, and liquidation thresholds are easy for outside traders to model.
+- Stress-test whether pressure on one visible position would force liquidators to trade the same thin asset in the opposite direction.
+- Separate intent analysis from risk response: the surveillance alert should fire when the reflexive setup is visible, even before manipulation is proven.
 
 ### Governance-response latency
 
-The same Aave Q4 risk recap shows that risk discussions had been active before the CRV insolvency. The market still reached a point where governance remediation happened after the liquidation rather than before it. For fast market manipulation, social governance can identify the problem and still arrive late.
+- Track open risk-forum discussions against market movement and require pre-defined emergency actions when utilization, account concentration, and exchange-transfer alerts stack together.
+- Maintain response-time targets for parameter freezes, borrow caps, or liquidation-threshold changes in long-tail markets under active stress.
+- Log whether governance remediation happens before liquidation stress, during liquidation, or only after bad debt appears; that timing is the operational control being tested.
 
 ## Remediation and residual lesson
 
