@@ -25,7 +25,7 @@ The companion file [`bonqdao-oracle-whipsaw-ledger.csv`](bonqdao-oracle-whipsaw-
 
 Many oracle-manipulation writeups focus on the first half of the BonqDAO attack: WALBT was priced far too high, so the attacker could mint too much BEUR against tiny collateral. That is true, but it understates the market-health failure.
 
-The damaging pattern was a whipsaw. Immunefi describes two transactions separated by roughly two minutes. In the first, the attacker reported a very high ALBT/WALBT value and used the inflated collateral value to borrow 100 million BEUR. In the second, the attacker reported a very low value so WALBT troves held by other borrowers became liquidatable.
+Public postmortems describe two stages. In the first, the attacker reported a very high ALBT/WALBT value and used the inflated collateral value to borrow 100 million BEUR. In the second, the attacker reported a very low value so WALBT troves held by other borrowers became liquidatable.
 
 That sequence matters because it shows two distinct risk surfaces:
 
@@ -38,7 +38,7 @@ If a protocol protects only one side, it still leaves the other side open. A mar
 
 Halborn and Rekt both describe the attack starting with a 10 TRB TellorFlex stake. Rekt put the stake value near $175 at the time. That small stake controlled a price path that, inside BonqDAO, determined whether WALBT-backed troves were solvent.
 
-The problem was not simply that TellorFlex allowed permissionless reporting. Immunefi notes that permissionless reporting has requirements: sensible nonce, required stake, reporter timelock, and no duplicate timestamp report for the same query. The market-health failure was BonqDAO's use of the most recent spot report as a value safe enough for immediate debt and liquidation decisions.
+The problem was not simply that TellorFlex allowed permissionless reporting. BlockSec notes that TellorFlex allowed price providers to stake 10 TRB and update the WALBT price, while BonqDAO used the updated price directly in the lending contract. The market-health failure was BonqDAO's use of the newest spot report as a value safe enough for immediate debt and liquidation decisions.
 
 That created an extreme leverage mismatch:
 
@@ -114,7 +114,7 @@ The same signal path priced collateral, minted debt, and triggered liquidation. 
 ## References
 
 - Distributed Networks Institute, "BonqDAO Suffers a $120 Million Loss Through Price Oracle Manipulation": https://dn.institute/research/cyberattacks/incidents/2023-02-01-bonqdao/
-- Immunefi, "Hack Analysis: BonqDAO, February 2023", March 23, 2023: https://medium.com/immunefi/hack-analysis-bonqdao-february-2023-ef6aab0086d6
+- BlockSec, "BonqDAO Exploited on Polygon: $120M Stolen Due to Flawed Logic", February 2, 2023: https://blocksec.com/blog/bonq-dao-exploited-on-polygon-120-m-stolen-due-to-flawed-logic
 - Halborn, "Explained: The BonqDAO Hack (February 2023)", February 7, 2023: https://www.halborn.com/blog/post/explained-the-bonqdao-hack-february-2023
-- Rekt, "BonqDAO - REKT", February 3, 2023: https://rekt.news/bonq-rekt/
+- Rekt, "BonqDAO - REKT", February 3, 2023: https://rekt.news/bonq-rekt
 - Hacken, "The BonqDAO Price Oracle Hack Explained", February 2023: https://hacken.io/insights/bonqdao-hack/
