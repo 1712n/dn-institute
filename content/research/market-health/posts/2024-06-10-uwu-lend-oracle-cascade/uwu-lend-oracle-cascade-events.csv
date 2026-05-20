@@ -1,0 +1,13 @@
+date_utc,event,metric,value,unit,source,market_health_signal
+2024-04-16,Oracle configuration update,crvUSD oracle address updated to sUSDePriceProviderBUniCatch,1,event,Verichains,Spot-pool oracle dependency introduced before exploit
+2024-06-08,Exploit setup,first exploit helper deployment before attack,2,days before exploit,CUBE3,Pre-attack contract deployment and detection lead time
+2024-06-10,Exploit transaction,malicious transaction 0x242a0fb4 estimated loss,7.15,USD millions,CUBE3,Manipulated oracle value converted into stolen assets
+2024-06-10,Exploit transaction,malicious transaction 0xb3f06761 estimated loss,6.72,USD millions,CUBE3,Manipulated oracle value converted into stolen assets
+2024-06-10,Exploit transaction,malicious transaction 0xca1bbf3b estimated loss,4.14,USD millions,CUBE3,Manipulated oracle value converted into stolen assets
+2024-06-10,sUSDe oracle movement,observed sUSDe low during exploit flow,0.98821237,USD,CUBE3,Temporary spot-oracle mark below par
+2024-06-10,sUSDe oracle movement,observed sUSDe high during exploit flow,1.03183659,USD,CUBE3,Temporary spot-oracle mark above par
+2024-06-10,Curve Lend borrow,CRV posted as collateral by exploit-linked borrower,23617586.248,CRV,LlamaRisk,Stolen collateral inventory routed into another lending market
+2024-06-10,Curve Lend borrow,crvUSD borrowed against exploit-linked CRV collateral,8123821.056,crvUSD,LlamaRisk,Exploit inventory transformed into stablecoin debt
+2024-06-12,Curve Lend stress,CRV supplied in CRV-long Curve Lend market,200,CRV millions,LlamaRisk,Collateral concentration exposed during liquidation cascade
+2024-06-12,Curve Lend stress,peak debt in CRV-long Curve Lend market,55,USD millions,LlamaRisk,Liquidation demand coincided with crvUSD upward depeg
+2024-06-13,Second UwU exploit,reported second exploit loss,3.7,USD millions,The Block,Residual exploit risk remained after first vulnerability statement
