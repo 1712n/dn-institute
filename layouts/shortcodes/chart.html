@@ -18,10 +18,10 @@
   {{- else -}}
   <p style="color:red;">Chart not found: {{ $src }}</p>
   {{- end -}}
-{{- else -}}
-  <p style="color:red;">Invalid chart source: {{ $src }}</p>
-{{- end -}}
   {{- with $caption -}}
   <p style="text-align:center;font-style:italic;">{{ . }}</p>
   {{- end -}}
 </div>
+{{- else -}}
+<p style="color:red;">Invalid chart source: {{ $src }}</p>
+{{- end -}}
