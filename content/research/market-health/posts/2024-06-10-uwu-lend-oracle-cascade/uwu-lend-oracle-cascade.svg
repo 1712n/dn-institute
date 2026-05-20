@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" role="img" aria-labelledby="title desc">
+  <title id="title">UwU Lend oracle manipulation and crvUSD cascade metrics</title>
+  <desc id="desc">A bar chart showing three malicious transaction loss estimates, the second UwU exploit, CRV collateral supplied to Curve Lend, and peak CRV-long market debt.</desc>
+  <rect width="960" height="520" fill="#0f172a"/>
+  <text x="48" y="58" fill="#f8fafc" font-family="Arial, sans-serif" font-size="28" font-weight="700">UwU Lend Oracle Manipulation: Selected Metrics</text>
+  <text x="48" y="88" fill="#cbd5e1" font-family="Arial, sans-serif" font-size="15">Loss bars use USD millions. Exposure bars use source units noted below.</text>
+  <line x1="96" y1="438" x2="900" y2="438" stroke="#475569" stroke-width="2"/>
+  <line x1="96" y1="118" x2="96" y2="438" stroke="#475569" stroke-width="2"/>
+  <g font-family="Arial, sans-serif" font-size="13" fill="#94a3b8">
+    <text x="58" y="443">0</text>
+    <text x="48" y="363">50</text>
+    <text x="40" y="283">100</text>
+    <text x="40" y="203">150</text>
+    <text x="40" y="123">200</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="14" fill="#e2e8f0">
+    <rect x="128" y="426.56" width="78" height="11.44" fill="#f97316"/>
+    <text x="124" y="464">Tx 0x242</text>
+    <text x="137" y="412" fill="#fed7aa">7.15m</text>
+    <rect x="238" y="427.25" width="78" height="10.75" fill="#f97316"/>
+    <text x="235" y="464">Tx 0xb3</text>
+    <text x="249" y="413" fill="#fed7aa">6.72m</text>
+    <rect x="348" y="431.38" width="78" height="6.62" fill="#f97316"/>
+    <text x="345" y="464">Tx 0xca</text>
+    <text x="359" y="417" fill="#fed7aa">4.14m</text>
+    <rect x="458" y="432.08" width="78" height="5.92" fill="#f59e0b"/>
+    <text x="444" y="464">2nd exploit</text>
+    <text x="471" y="418" fill="#fde68a">3.7m</text>
+    <rect x="604" y="118" width="86" height="320" fill="#38bdf8"/>
+    <text x="590" y="464">CRV supplied</text>
+    <text x="608" y="104" fill="#bae6fd">~200m CRV</text>
+    <rect x="758" y="350" width="86" height="88" fill="#22c55e"/>
+    <text x="758" y="464">Peak debt</text>
+    <text x="768" y="336" fill="#bbf7d0">$55m</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="13" fill="#cbd5e1">
+    <rect x="48" y="486" width="12" height="12" fill="#f97316"/>
+    <text x="66" y="497">Initial exploit transaction estimates from CUBE3</text>
+    <rect x="360" y="486" width="12" height="12" fill="#f59e0b"/>
+    <text x="378" y="497">Second exploit reported by The Block</text>
+    <rect x="630" y="486" width="12" height="12" fill="#38bdf8"/>
+    <text x="648" y="497">Curve Lend exposure from LlamaRisk</text>
+  </g>
+</svg>
