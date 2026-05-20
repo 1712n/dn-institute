@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" role="img" aria-labelledby="title desc">
+  <title id="title">BonqDAO WALBT oracle whipsaw signal path</title>
+  <desc id="desc">Timeline showing low-cost oracle reporting, price inflation, BEUR borrowing, price deflation, liquidation fan-out, and post-incident liquidity collapse.</desc>
+  <rect width="960" height="520" fill="#f7f4ee"/>
+  <text x="48" y="58" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#2b2b2b">BonqDAO WALBT Oracle Whipsaw</text>
+  <text x="48" y="88" font-family="Arial, sans-serif" font-size="15" fill="#555">February 1, 2023 public evidence path from reporter stake to liquidation fallout</text>
+
+  <line x1="96" y1="280" x2="864" y2="280" stroke="#6b6b6b" stroke-width="3"/>
+
+  <g font-family="Arial, sans-serif">
+    <circle cx="126" cy="280" r="15" fill="#376f6b"/>
+    <text x="86" y="324" font-size="14" font-weight="700" fill="#2b2b2b">10 TRB</text>
+    <text x="70" y="344" font-size="12" fill="#555">reporter stake</text>
+
+    <circle cx="278" cy="280" r="15" fill="#b34d32"/>
+    <text x="224" y="205" font-size="14" font-weight="700" fill="#2b2b2b">WALBT price up</text>
+    <text x="206" y="225" font-size="12" fill="#555">single-source oracle shock</text>
+    <line x1="278" y1="265" x2="278" y2="238" stroke="#b34d32" stroke-width="2"/>
+
+    <circle cx="430" cy="280" r="15" fill="#c98621"/>
+    <text x="374" y="324" font-size="14" font-weight="700" fill="#2b2b2b">100M BEUR</text>
+    <text x="346" y="344" font-size="12" fill="#555">minted against 0.1 WALBT</text>
+
+    <circle cx="582" cy="280" r="15" fill="#5d4e9d"/>
+    <text x="526" y="205" font-size="14" font-weight="700" fill="#2b2b2b">WALBT price down</text>
+    <text x="516" y="225" font-size="12" fill="#555">same feed, opposite direction</text>
+    <line x1="582" y1="265" x2="582" y2="238" stroke="#5d4e9d" stroke-width="2"/>
+
+    <circle cx="734" cy="280" r="15" fill="#6c7a1f"/>
+    <text x="684" y="324" font-size="14" font-weight="700" fill="#2b2b2b">30+ troves</text>
+    <text x="660" y="344" font-size="12" fill="#555">forced into liquidation</text>
+
+    <circle cx="864" cy="280" r="15" fill="#3f5f8f"/>
+    <text x="804" y="205" font-size="14" font-weight="700" fill="#2b2b2b">113M WALBT</text>
+    <text x="780" y="225" font-size="12" fill="#555">liquidated collateral captured</text>
+    <line x1="864" y1="265" x2="864" y2="238" stroke="#3f5f8f" stroke-width="2"/>
+  </g>
+
+  <path d="M126 140 C230 110, 342 112, 430 154 C520 198, 500 364, 582 396 C670 430, 772 420, 864 382" fill="none" stroke="#2f2f2f" stroke-width="4"/>
+  <text x="318" y="128" font-family="Arial, sans-serif" font-size="13" fill="#2b2b2b">inflation creates debt capacity</text>
+  <text x="610" y="430" font-family="Arial, sans-serif" font-size="13" fill="#2b2b2b">deflation creates liquidation supply</text>
+
+  <rect x="54" y="396" width="378" height="72" rx="6" fill="#ffffff" stroke="#d2c8ba"/>
+  <text x="72" y="424" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#2b2b2b">Accounting damage</text>
+  <text x="72" y="448" font-family="Arial, sans-serif" font-size="13" fill="#555">DNI records about $120M notional loss.</text>
+
+  <rect x="528" y="396" width="378" height="72" rx="6" fill="#ffffff" stroke="#d2c8ba"/>
+  <text x="546" y="424" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#2b2b2b">Exit-liquidity mismatch</text>
+  <text x="546" y="448" font-family="Arial, sans-serif" font-size="13" fill="#555">Rekt reports attacker proceeds below $2M.</text>
+</svg>
