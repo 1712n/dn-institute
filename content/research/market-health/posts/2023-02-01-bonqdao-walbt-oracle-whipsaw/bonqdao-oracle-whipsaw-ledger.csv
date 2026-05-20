@@ -1,0 +1,11 @@
+time_utc,phase,observable,value,market_health_signal,source
+2023-02-01 18:29:18,reporter setup,TRB stake with TellorFlex,10 TRB,Low reporter-cost-to-market-value ratio,https://dn.institute/research/cyberattacks/incidents/2023-02-01-bonqdao/
+2023-02-01 18:29:18,price inflation,WALBT oracle value submitted,extreme upward repricing,Single-source collateral price shock,https://rekt.news/bonq-rekt/
+2023-02-01 18:29:18,borrow creation,Attacker trove collateral,0.1 WALBT,Immediate borrowing after collateral repricing,https://medium.com/immunefi/hack-analysis-bonqdao-february-2023-ef6aab0086d6
+2023-02-01 18:29:18,borrow creation,BEUR minted,100000000 BEUR,Debt creation far above normal collateral capacity,https://www.halborn.com/blog/post/explained-the-bonqdao-hack-february-2023
+2023-02-01 18:31:00,price deflation,WALBT oracle value submitted,very low repricing,Same feed used in opposite direction within minutes,https://medium.com/immunefi/hack-analysis-bonqdao-february-2023-ef6aab0086d6
+2023-02-01 18:31:00,liquidation fan-out,WALBT troves liquidated,over 30 troves,Protocol liquidation state controlled by one fresh report,https://medium.com/immunefi/hack-analysis-bonqdao-february-2023-ef6aab0086d6
+2023-02-01 18:31:00,collateral capture,WALBT collected,about 113-114 million WALBT,Forced liquidation creates attacker inventory,https://rekt.news/bonq-rekt/
+2023-02-03 00:00:00,accounting loss,Estimated protocol loss,about 120000000 USD,Accounting loss far exceeds clean exit liquidity,https://dn.institute/research/cyberattacks/incidents/2023-02-01-bonqdao/
+2023-02-03 00:00:00,exit liquidity,Attacker realized proceeds,less than 2000000 USD,Thin liquidity limits attacker exit but not protocol damage,https://rekt.news/bonq-rekt/
+2023-02-03 00:00:00,market aftermath,BonqDAO TVL path,about 13000000 USD to just over 100000 USD,Confidence and liquidity collapse after oracle whipsaw,https://rekt.news/bonq-rekt/
