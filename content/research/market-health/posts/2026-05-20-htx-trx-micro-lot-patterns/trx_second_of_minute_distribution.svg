@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="460" viewBox="0 0 920 460">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="460.0" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700">TRX/USDT trades by second of minute</text>
+<text x="460.0" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#555">Timing view is descriptive, not a manipulation test; samples have different windows</text>
+<text x="18" y="222.0" text-anchor="middle" transform="rotate(-90 18 222.0)" font-family="Arial, sans-serif" font-size="13">share of trades</text>
+<line x1="76" y1="372.0" x2="892" y2="372.0" stroke="#e8e8e8"/>
+<text x="68" y="376.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">0.00%</text>
+<line x1="76" y1="312.0" x2="892" y2="312.0" stroke="#e8e8e8"/>
+<text x="68" y="316.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">2.84%</text>
+<line x1="76" y1="252.0" x2="892" y2="252.0" stroke="#e8e8e8"/>
+<text x="68" y="256.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">5.68%</text>
+<line x1="76" y1="192.0" x2="892" y2="192.0" stroke="#e8e8e8"/>
+<text x="68" y="196.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">8.52%</text>
+<line x1="76" y1="132.0" x2="892" y2="132.0" stroke="#e8e8e8"/>
+<text x="68" y="136.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">11.36%</text>
+<line x1="76" y1="72.0" x2="892" y2="72.0" stroke="#e8e8e8"/>
+<text x="68" y="76.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">14.20%</text>
+<line x1="76" y1="372" x2="892" y2="372" stroke="#333"/>
+<polyline points="76.0,306.4 89.8,315.0 103.7,351.5 117.5,318.4 131.3,314.4 145.2,335.5 159.0,337.8 172.8,330.9 186.6,321.8 200.5,330.9 214.3,313.8 228.1,321.3 242.0,338.9 255.8,345.8 269.6,341.8 283.5,299.6 297.3,337.8 311.1,349.8 324.9,333.2 338.8,303.6 352.6,309.3 366.4,352.6 380.3,337.8 394.1,353.8 407.9,348.6 421.8,324.1 435.6,341.8 449.4,336.6 463.3,318.4 477.1,356.0 490.9,350.3 504.7,339.5 518.6,350.3 532.4,340.6 546.2,359.5 560.1,333.2 573.9,338.4 587.7,345.2 601.6,357.7 615.4,358.9 629.2,332.7 643.1,359.5 656.9,341.2 670.7,349.8 684.5,340.6 698.4,323.0 712.2,346.9 726.0,321.8 739.9,349.2 753.7,333.2 767.5,340.6 781.4,337.2 795.2,344.6 809.0,324.7 822.8,352.6 836.7,342.3 850.5,330.4 864.3,344.6 878.2,354.3 892.0,337.2" fill="none" stroke="#2454a6" stroke-width="2.5"/>
+<polyline points="76.0,262.1 89.8,338.2 103.7,338.2 117.5,346.6 131.3,350.9 145.2,266.4 159.0,334.0 172.8,338.2 186.6,329.7 200.5,363.5 214.3,346.6 228.1,355.1 242.0,350.9 255.8,350.9 269.6,367.8 283.5,291.7 297.3,363.5 311.1,72.0 324.9,367.8 338.8,321.3 352.6,355.1 366.4,367.8 380.3,338.2 394.1,355.1 407.9,317.1 421.8,329.7 435.6,355.1 449.4,359.3 463.3,342.4 477.1,355.1 490.9,342.4 504.7,359.3 518.6,355.1 532.4,342.4 546.2,350.9 560.1,342.4 573.9,334.0 587.7,359.3 601.6,355.1 615.4,312.8 629.2,321.3 643.1,363.5 656.9,350.9 670.7,334.0 684.5,367.8 698.4,312.8 712.2,295.9 726.0,355.1 739.9,346.6 753.7,346.6 767.5,367.8 781.4,308.6 795.2,367.8 809.0,287.5 822.8,346.6 836.7,355.1 850.5,346.6 864.3,359.3 878.2,346.6 892.0,342.4" fill="none" stroke="#d88722" stroke-width="2.5"/>
+<text x="76.0" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">0</text>
+<text x="145.2" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">5</text>
+<text x="214.3" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">10</text>
+<text x="283.5" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">15</text>
+<text x="352.6" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">20</text>
+<text x="421.8" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">25</text>
+<text x="490.9" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">30</text>
+<text x="560.1" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">35</text>
+<text x="629.2" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">40</text>
+<text x="698.4" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">45</text>
+<text x="767.5" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">50</text>
+<text x="836.7" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="10">55</text>
+<rect x="76" y="436" width="14" height="14" fill="#2454a6"/>
+<text x="96" y="448" font-family="Arial, sans-serif" font-size="12">HTX TRX/USDT</text>
+<rect x="266" y="436" width="14" height="14" fill="#d88722"/>
+<text x="286" y="448" font-family="Arial, sans-serif" font-size="12">OKX TRX/USDT</text>
+</svg>

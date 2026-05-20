@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="460" viewBox="0 0 920 460">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="460.0" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700">Most common exact trade-size share on HTX</text>
+<text x="460.0" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#555">Single snapshot from public trade tape; exact-size matching uses 12 decimal places</text>
+<text x="18" y="222.0" text-anchor="middle" transform="rotate(-90 18 222.0)" font-family="Arial, sans-serif" font-size="13">share of trades</text>
+<line x1="76" y1="372.0" x2="892" y2="372.0" stroke="#e8e8e8"/>
+<text x="68" y="376.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">0.00</text>
+<line x1="76" y1="312.0" x2="892" y2="312.0" stroke="#e8e8e8"/>
+<text x="68" y="316.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">0.05</text>
+<line x1="76" y1="252.0" x2="892" y2="252.0" stroke="#e8e8e8"/>
+<text x="68" y="256.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">0.10</text>
+<line x1="76" y1="192.0" x2="892" y2="192.0" stroke="#e8e8e8"/>
+<text x="68" y="196.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">0.15</text>
+<line x1="76" y1="132.0" x2="892" y2="132.0" stroke="#e8e8e8"/>
+<text x="68" y="136.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">0.20</text>
+<line x1="76" y1="72.0" x2="892" y2="72.0" stroke="#e8e8e8"/>
+<text x="68" y="76.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">0.25</text>
+<line x1="76" y1="72" x2="76" y2="372" stroke="#333"/>
+<line x1="76" y1="372" x2="892" y2="372" stroke="#333"/>
+<text x="144.0" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">BTCUSDT</text>
+<rect x="110.0" y="72.0" width="55.8" height="300.0" fill="#2454a6"/>
+<text x="137.9" y="84.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">25.2%</text>
+<text x="280.0" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">ETHUSDT</text>
+<rect x="246.0" y="210.9" width="55.8" height="161.1" fill="#2454a6"/>
+<text x="273.9" y="204.9" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">13.5%</text>
+<text x="416.0" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">DOGEUSDT</text>
+<rect x="382.0" y="261.7" width="55.8" height="110.3" fill="#2454a6"/>
+<text x="409.9" y="255.7" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">9.3%</text>
+<text x="552.0" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">TRXUSDT</text>
+<rect x="518.0" y="224.7" width="55.8" height="147.3" fill="#2454a6"/>
+<text x="545.9" y="218.7" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">12.4%</text>
+<text x="688.0" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">SOLUSDT</text>
+<rect x="654.0" y="305.4" width="55.8" height="66.6" fill="#2454a6"/>
+<text x="681.9" y="299.4" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">5.6%</text>
+<text x="824.0" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">XRPUSDT</text>
+<rect x="790.0" y="196.4" width="55.8" height="175.6" fill="#2454a6"/>
+<text x="817.9" y="190.4" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">14.7%</text>
+<rect x="76" y="436" width="14" height="14" fill="#2454a6"/>
+<text x="96" y="448" font-family="Arial, sans-serif" font-size="12">top exact-size share</text>
+</svg>

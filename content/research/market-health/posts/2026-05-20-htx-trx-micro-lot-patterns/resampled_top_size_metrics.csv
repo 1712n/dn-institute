@@ -1,0 +1,5 @@
+asset,htx_symbol,okx_symbol,sample_size,iterations,seed,htx_full_trades,htx_full_top_size,htx_full_top_size_share,htx_resampled_top_share_p025,htx_resampled_top_share_median,htx_resampled_top_share_p975,htx_resampled_unique_share_p025,htx_resampled_unique_share_median,htx_resampled_unique_share_p975,okx_trades,okx_top_size,okx_top_size_share,okx_unique_size_share
+TRX,TRXUSDT,TRX-USDT,500,1000,1712,3705,8.42,0.12361673414304994,0.104,0.124,0.15004999999999996,0.394,0.434,0.47,500,1.5,0.026,0.896
+DOGE,DOGEUSDT,DOGE-USDT,500,1000,1712,2484,12.6,0.09259259259259259,0.078,0.096,0.116,0.53795,0.574,0.614,500,15.0,0.176,0.716
+SOL,SOLUSDT,SOL-USDT,500,1000,1712,2309,0.015,0.05586834127327848,0.04,0.056,0.074,0.75195,0.784,0.814,500,1e-06,0.024,0.67
+XRP,XRPUSDT,XRP-USDT,500,1000,1712,2313,1.1,0.1474275832252486,0.122,0.146,0.174,0.618,0.656,0.692,500,1.5,0.15,0.748

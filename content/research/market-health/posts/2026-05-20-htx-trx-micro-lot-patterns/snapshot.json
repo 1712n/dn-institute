@@ -1,0 +1,37 @@
+{
+  "derived_files": {
+    "htx_trx_top_sizes_csv": "c96cac95437385a9bf8ea13d83dea6d309cd950a0231f773acaedba5d94d92a2",
+    "instrument_rules_csv": "d0ee2184fc46424191e2766c4b3ef2e27b1e346a0140509d41e78bdffd06011f",
+    "metrics_csv": "ee65249cfba0789ed96282170b6b981806ad000a436564343085307da079d762",
+    "resampled_top_size_metrics_csv": "bc93a899087eab2008d04b1236ff8d3bc7cdacb7cb5bbd52b4ede264db0df522"
+  },
+  "endpoint_templates": {
+    "htx_symbols": "https://api.huobi.pro/v1/common/symbols",
+    "htx_trades": "https://api.huobi.pro/market/history/trade?symbol={symbol}&size=2000",
+    "okx_instruments": "https://www.okx.com/api/v5/public/instruments?instType=SPOT",
+    "okx_trades": "https://www.okx.com/api/v5/market/trades?instId={inst_id}&limit=500"
+  },
+  "generated_at_utc": "2026-05-20T01:07:50.656671+00:00",
+  "notes": [
+    "HTX /market/history/trade returns recent trade batches; rows in raw_trades.csv are individual trades after expanding those batches.",
+    "OKX /market/trades is capped at 500 recent trades per request.",
+    "The default script path reuses raw_trades.csv when present; pass --refresh to capture a new public-trade snapshot."
+  ],
+  "raw_trades_sha256": "49808eb2a47b3e297ba6cbb93fcfa1a1ed667a2c77dd0c1aaefabf83424db722",
+  "row_count": 17436,
+  "sample_end_utc": "2026-05-20T00:54:20.008000+00:00",
+  "sample_start_utc": "2026-05-19T13:21:39.630000+00:00",
+  "symbols": [
+    "HTX:BTCUSDT",
+    "HTX:DOGEUSDT",
+    "HTX:ETHUSDT",
+    "HTX:SOLUSDT",
+    "HTX:TRXUSDT",
+    "HTX:XRPUSDT",
+    "OKX:DOGE-USDT",
+    "OKX:SOL-USDT",
+    "OKX:TRX-USDT",
+    "OKX:XRP-USDT"
+  ],
+  "used_existing_raw_trades_csv": true
+}

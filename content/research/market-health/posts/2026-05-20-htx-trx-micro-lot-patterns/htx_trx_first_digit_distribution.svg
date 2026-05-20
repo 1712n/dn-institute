@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="460" viewBox="0 0 920 460">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="460.0" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700">HTX TRX/USDT first significant digit distribution</text>
+<text x="460.0" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#555">Spike on digit 8 reflects repeated 8.41-8.44 TRX lot sizes</text>
+<text x="18" y="222.0" text-anchor="middle" transform="rotate(-90 18 222.0)" font-family="Arial, sans-serif" font-size="13">share of trades</text>
+<line x1="76" y1="372.0" x2="892" y2="372.0" stroke="#e8e8e8"/>
+<text x="68" y="376.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">0.00</text>
+<line x1="76" y1="312.0" x2="892" y2="312.0" stroke="#e8e8e8"/>
+<text x="68" y="316.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">0.09</text>
+<line x1="76" y1="252.0" x2="892" y2="252.0" stroke="#e8e8e8"/>
+<text x="68" y="256.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">0.19</text>
+<line x1="76" y1="192.0" x2="892" y2="192.0" stroke="#e8e8e8"/>
+<text x="68" y="196.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">0.28</text>
+<line x1="76" y1="132.0" x2="892" y2="132.0" stroke="#e8e8e8"/>
+<text x="68" y="136.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">0.38</text>
+<line x1="76" y1="72.0" x2="892" y2="72.0" stroke="#e8e8e8"/>
+<text x="68" y="76.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">0.47</text>
+<line x1="76" y1="72" x2="76" y2="372" stroke="#333"/>
+<line x1="76" y1="372" x2="892" y2="372" stroke="#333"/>
+<text x="121.3" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">1</text>
+<rect x="91.1" y="288.7" width="24.8" height="83.3" fill="#2454a6"/>
+<text x="103.5" y="282.7" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">13.0%</text>
+<rect x="121.3" y="179.7" width="24.8" height="192.3" fill="#d88722"/>
+<text x="133.7" y="173.7" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">30.1%</text>
+<text x="212.0" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">2</text>
+<rect x="181.8" y="207.3" width="24.8" height="164.7" fill="#2454a6"/>
+<text x="194.2" y="201.3" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">25.8%</text>
+<rect x="212.0" y="259.5" width="24.8" height="112.5" fill="#d88722"/>
+<text x="224.4" y="253.5" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">17.6%</text>
+<text x="302.7" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">3</text>
+<rect x="272.4" y="336.7" width="24.8" height="35.3" fill="#2454a6"/>
+<text x="284.8" y="330.7" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">5.5%</text>
+<rect x="302.7" y="292.2" width="24.8" height="79.8" fill="#d88722"/>
+<text x="315.1" y="286.2" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">12.5%</text>
+<text x="393.3" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">4</text>
+<rect x="363.1" y="359.6" width="24.8" height="12.4" fill="#2454a6"/>
+<text x="375.5" y="353.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">1.9%</text>
+<rect x="393.3" y="310.1" width="24.8" height="61.9" fill="#d88722"/>
+<text x="405.7" y="304.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">9.7%</text>
+<text x="484.0" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">5</text>
+<rect x="453.8" y="356.8" width="24.8" height="15.2" fill="#2454a6"/>
+<text x="466.2" y="350.8" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">2.4%</text>
+<rect x="484.0" y="321.4" width="24.8" height="50.6" fill="#d88722"/>
+<text x="496.4" y="315.4" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">7.9%</text>
+<text x="574.7" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">6</text>
+<rect x="544.4" y="363.6" width="24.8" height="8.4" fill="#2454a6"/>
+<text x="556.8" y="357.6" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">1.3%</text>
+<rect x="574.7" y="329.2" width="24.8" height="42.8" fill="#d88722"/>
+<text x="587.1" y="323.2" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">6.7%</text>
+<text x="665.3" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">7</text>
+<rect x="635.1" y="364.4" width="24.8" height="7.6" fill="#2454a6"/>
+<text x="647.5" y="358.4" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">1.2%</text>
+<rect x="665.3" y="335.0" width="24.8" height="37.0" fill="#d88722"/>
+<text x="677.7" y="329.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">5.8%</text>
+<text x="756.0" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">8</text>
+<rect x="725.8" y="72.0" width="24.8" height="300.0" fill="#2454a6"/>
+<text x="738.2" y="84.0" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">47.0%</text>
+<rect x="756.0" y="339.3" width="24.8" height="32.7" fill="#d88722"/>
+<text x="768.4" y="333.3" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">5.1%</text>
+<text x="846.7" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">9</text>
+<rect x="816.4" y="360.1" width="24.8" height="11.9" fill="#2454a6"/>
+<text x="828.8" y="354.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">1.9%</text>
+<rect x="846.7" y="342.8" width="24.8" height="29.2" fill="#d88722"/>
+<text x="859.1" y="336.8" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#333">4.6%</text>
+<rect x="76" y="436" width="14" height="14" fill="#2454a6"/>
+<text x="96" y="448" font-family="Arial, sans-serif" font-size="12">observed</text>
+<rect x="286" y="436" width="14" height="14" fill="#d88722"/>
+<text x="306" y="448" font-family="Arial, sans-serif" font-size="12">Benford</text>
+</svg>

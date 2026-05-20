@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="460" viewBox="0 0 920 460">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="460.0" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700">Top exact-size share, equal 500-trade samples</text>
+<text x="460.0" y="52" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#555">HTX shown as deterministic bootstrap median with 95% interval; OKX shown as observed 500-trade sample</text>
+<text x="18" y="222.0" text-anchor="middle" transform="rotate(-90 18 222.0)" font-family="Arial, sans-serif" font-size="13">share of trades</text>
+<line x1="76" y1="372.0" x2="880" y2="372.0" stroke="#e8e8e8"/>
+<text x="68" y="376.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">0%</text>
+<line x1="76" y1="312.0" x2="880" y2="312.0" stroke="#e8e8e8"/>
+<text x="68" y="316.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">4%</text>
+<line x1="76" y1="252.0" x2="880" y2="252.0" stroke="#e8e8e8"/>
+<text x="68" y="256.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">8%</text>
+<line x1="76" y1="192.0" x2="880" y2="192.0" stroke="#e8e8e8"/>
+<text x="68" y="196.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">12%</text>
+<line x1="76" y1="132.0" x2="880" y2="132.0" stroke="#e8e8e8"/>
+<text x="68" y="136.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">17%</text>
+<line x1="76" y1="72.0" x2="880" y2="72.0" stroke="#e8e8e8"/>
+<text x="68" y="76.0" text-anchor="end" font-family="Arial, sans-serif" font-size="11">21%</text>
+<line x1="76" y1="72" x2="76" y2="372" stroke="#333"/>
+<line x1="76" y1="372" x2="880" y2="372" stroke="#333"/>
+<text x="176.5" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">TRX</text>
+<line x1="160.5" y1="155.2" x2="160.5" y2="221.8" stroke="#2454a6" stroke-width="2"/>
+<line x1="153.5" y1="155.2" x2="167.5" y2="155.2" stroke="#2454a6" stroke-width="2"/>
+<line x1="153.5" y1="221.8" x2="167.5" y2="221.8" stroke="#2454a6" stroke-width="2"/>
+<circle cx="160.5" cy="192.9" r="5" fill="#2454a6"/>
+<rect x="187.5" y="329.4" width="10" height="10" fill="#d88722"/>
+<text x="160.5" y="147.2" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2454a6">12.4%</text>
+<text x="192.5" y="326.4" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9a5d0c">2.6%</text>
+<text x="377.5" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">DOGE</text>
+<line x1="361.5" y1="204.4" x2="361.5" y2="259.3" stroke="#2454a6" stroke-width="2"/>
+<line x1="354.5" y1="204.4" x2="368.5" y2="204.4" stroke="#2454a6" stroke-width="2"/>
+<line x1="354.5" y1="259.3" x2="368.5" y2="259.3" stroke="#2454a6" stroke-width="2"/>
+<circle cx="361.5" cy="233.3" r="5" fill="#2454a6"/>
+<rect x="388.5" y="112.8" width="10" height="10" fill="#d88722"/>
+<text x="361.5" y="196.4" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2454a6">9.6%</text>
+<text x="393.5" y="109.8" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9a5d0c">17.6%</text>
+<text x="578.5" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">SOL</text>
+<line x1="562.5" y1="265.1" x2="562.5" y2="314.2" stroke="#2454a6" stroke-width="2"/>
+<line x1="555.5" y1="265.1" x2="569.5" y2="265.1" stroke="#2454a6" stroke-width="2"/>
+<line x1="555.5" y1="314.2" x2="569.5" y2="314.2" stroke="#2454a6" stroke-width="2"/>
+<circle cx="562.5" cy="291.1" r="5" fill="#2454a6"/>
+<rect x="589.5" y="332.3" width="10" height="10" fill="#d88722"/>
+<text x="562.5" y="257.1" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2454a6">5.6%</text>
+<text x="594.5" y="329.3" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9a5d0c">2.4%</text>
+<text x="779.5" y="422" text-anchor="middle" font-family="Arial, sans-serif" font-size="11">XRP</text>
+<line x1="763.5" y1="120.7" x2="763.5" y2="195.8" stroke="#2454a6" stroke-width="2"/>
+<line x1="756.5" y1="120.7" x2="770.5" y2="120.7" stroke="#2454a6" stroke-width="2"/>
+<line x1="756.5" y1="195.8" x2="770.5" y2="195.8" stroke="#2454a6" stroke-width="2"/>
+<circle cx="763.5" cy="161.1" r="5" fill="#2454a6"/>
+<rect x="790.5" y="150.3" width="10" height="10" fill="#d88722"/>
+<text x="763.5" y="112.7" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#2454a6">14.6%</text>
+<text x="795.5" y="147.3" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9a5d0c">15.0%</text>
+<circle cx="76" cy="438" r="5" fill="#2454a6"/>
+<text x="90" y="442" font-family="Arial, sans-serif" font-size="12">HTX bootstrap median and 95% interval</text>
+<rect x="376" y="433" width="10" height="10" fill="#d88722"/>
+<text x="392" y="442" font-family="Arial, sans-serif" font-size="12">OKX observed 500 trades</text>
+</svg>
