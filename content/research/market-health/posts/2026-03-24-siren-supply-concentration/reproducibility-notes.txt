@@ -1,0 +1,32 @@
+SIREN case study reproducibility notes
+======================================
+
+This note maps the SIREN case study artifacts to the market-health bounty's
+data-backed submission criteria.
+
+Artifact map
+------------
+
+- index.md: article text, citations, methodology, event table, monitoring rules,
+  and conclusion.
+- siren-event-signals.csv: source-linked event timeline for public price,
+  concentration, and drawdown claims.
+- siren-coingecko-market-window.csv: CoinGecko market-chart observations for the
+  March and April event windows.
+- siren-window-summary.csv: generated high, low, drawdown, and volume summary
+  statistics.
+- siren-event-window-tests.csv: baseline-versus-event z-score checks for log
+  hourly volume and absolute period returns.
+- siren-price-volume-window.png: chart generated from the committed market
+  window data.
+
+Review checklist
+----------------
+
+1. Confirm the article does not treat wallet-cluster estimates as proven intent.
+2. Confirm every public narrative claim has a source URL in the article or event
+   signal table.
+3. Confirm the drawdown and z-score values in index.md match the committed CSV
+   summaries.
+4. Confirm the chart uses the committed CoinGecko market-window data and does
+   not depend on private API keys or uncommitted data.

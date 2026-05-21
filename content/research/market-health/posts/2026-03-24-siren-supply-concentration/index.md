@@ -22,6 +22,7 @@ This article combines source-linked wallet-cluster claims with a reproducible ma
 - `siren-window-summary.csv`: peak, trough, drawdown, and volume summary statistics for the two event windows.
 - `siren-event-window-tests.csv`: simple baseline-vs-event z-score checks for log hourly volume and absolute period return.
 - `siren-price-volume-window.png`: chart generated from the committed CSV data.
+- `reproducibility-notes.txt`: reviewer checklist mapping the committed artifacts to the article's sourced claims and generated statistics.
 
 {{< figure src="siren-price-volume-window.png" alt="SIREN price and volume event windows" caption="SIREN price and reported total-volume windows from CoinGecko API data, March 16-24 and April 17-19, 2026." loading="lazy" >}}
 
@@ -90,9 +91,6 @@ The point is not to label every concentrated token as fraudulent. The point is t
 SIREN's March 2026 episode shows how market manipulation risk can be detected without requiring private exchange records. Public wallet clustering, spot price behavior, and derivatives-adjacent signals are enough to identify a fragile market structure. For exchanges, risk teams, and regulators, the useful signal is not a single suspicious trade. It is the alignment of concentrated ownership, rapid repricing, and repeated distribution-like drawdowns.
 
 [^cointelegraph-siren]: Ezra Reguerra, "Siren token slides 70% after analysts flag concentrated holdings," Cointelegraph, March 24, 2026. https://cointelegraph.com/news/urgency-level-for-cover-news-title-siren-token-drops-63-a-day-after-wallet-concentration-drew-scrutiny
-
 [^defi-planet-siren]: Jewel Buddy, "SIREN Token Ownership Concentration Raises Market Manipulation Concerns," DeFi Planet, March 23, 2026. https://defi-planet.com/2026/03/siren-token-ownership-concentration-raises-market-manipulation-concerns/
-
 [^cmc-siren]: "Siren (SIREN) Plummets 60% Amid Whale-Driven Distribution," CoinMarketCap, April 18, 2026. https://coinmarketcap.com/top-stories/69e2f4c5b63fbc64ea373981/
-
 [^coingecko-api]: CoinGecko API, `siren-2` market chart range data, queried for March 16-25 and April 17-19, 2026. Example endpoint: https://api.coingecko.com/api/v3/coins/siren-2/market_chart/range?vs_currency=usd&from=1773619200&to=1774396800
