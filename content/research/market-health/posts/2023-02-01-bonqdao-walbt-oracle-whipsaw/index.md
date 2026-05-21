@@ -14,7 +14,7 @@ entities:
 1. BonqDAO's February 2023 incident is a clean market-health case because the same oracle path was used twice: first to overprice WALBT collateral, then to underprice the same collateral so other troves could be liquidated.
 2. Public reconstructions agree that the attacker staked only 10 TRB with TellorFlex, submitted an extreme WALBT price, opened a WALBT trove with 0.1 WALBT collateral, and minted 100 million BEUR.
 3. About two minutes later, the attacker submitted a very low WALBT price, pushing many existing WALBT troves below liquidation thresholds and allowing the attacker to collect roughly 113 million WALBT.
-4. DNI's existing incident entry records an estimated $120 million notional loss, split between about 98.66 million BEUR and 113.81 million WALBT, while Rekt notes that thin exit liquidity made the realized attacker proceeds far smaller.
+4. DNI's existing incident entry records an estimated $120 million notional loss, split into about $108 million of 98,658,538 BEUR and about $12 million of 113,813,998 WALBT, while Rekt notes that thin exit liquidity made the realized attacker proceeds far smaller.
 5. The practical surveillance lesson is that oracle freshness alone is not safety. A lending market also needs reporter-diversity, price-change bounds, borrow delay, and liquidation throttles when collateral value changes by impossible multiples.
 
 The companion file [`bonqdao-oracle-whipsaw-ledger.csv`](bonqdao-oracle-whipsaw-ledger.csv) records the public evidence points used below. The SVG is a compact signal-path chart rather than a raw Polygon event trace.
@@ -77,33 +77,55 @@ That difference between notional loss and realized proceeds is not a contradicti
 
 ### Reporter-cost-to-market-value ratio
 
-The price reporter's stake was tiny compared with the debt and liquidation state controlled by the reported value. Protocols should alert when a low-cost report can change more than a small percentage of market liabilities.
+The price reporter's stake was tiny compared with the debt and liquidation state controlled by the reported value.
+
+- Compute `reporter_control_ratio = reporter_stake_usd / max(new_debt_capacity_usd, liquidation_collateral_value_usd)` for each collateral feed update.
+- Alert when `reporter_control_ratio < 0.001` or one reporter can move more than $1 million of borrowing or liquidation value.
+- In the BonqDAO case, a roughly $175 reporting stake sat behind about $120 million of accounting impact, a ratio near 0.0000015.
 
 ### Same-feed opposite-direction shocks
 
-The attack used the same WALBT feed upward and downward in quick succession. A feed that first creates borrowing power and then creates liquidations should be frozen until independent prices agree.
+The attack used the same WALBT feed upward and downward in quick succession.
+
+- Track `price_change_pct = abs(new_price - previous_price) / previous_price` for every report.
+- Freeze new debt and liquidation from that feed if opposite-signed moves above 50% occur within five minutes or inside the protocol dispute window.
+- Require at least three independent sources to agree within 2% before re-enabling liquidation on the affected collateral class.
 
 ### Immediate borrow after collateral repricing
 
-The attack did not need a long holding period. The borrow followed the price report directly. A borrow delay after large collateral repricing would have given dispute windows, human monitors, or independent feeds time to react.
+The attack did not need a long holding period. The borrow followed the price report directly.
+
+- Alert when a borrow happens within five minutes of a collateral price increase greater than 25% or greater than three standard deviations from a 30-day move distribution.
+- Enforce a block-based or time-based hold before allowing new debt against collateral whose mark just moved beyond that threshold.
+- During the hold, allow repayments and deleveraging, but disallow fresh borrowing that depends on the new mark.
 
 ### Liquidation fan-out after a new oracle value
 
-The second price report pushed many troves into liquidation. A lending protocol should throttle liquidation when a single new oracle report changes a whole collateral class from healthy to unsafe.
+The second price report pushed many troves into liquidation.
+
+- Measure `liquidation_fanout = newly_liquidatable_troves / active_troves_for_collateral` immediately after each oracle update.
+- Trigger a throttle when fan-out exceeds 5% of a collateral class or `liquidation_count > mean + 3 * stdev` over a 30-day baseline.
+- Process liquidations in bounded batches until independent prices confirm the move, rather than allowing one report to clear an entire collateral class.
 
 ### Exit-liquidity mismatch
 
-The BEUR and WALBT balances were far larger than available exit liquidity. That mismatch should not be dismissed as limiting attacker profit; it is itself a sign that accounting values no longer match market-clearing values.
+The BEUR and WALBT balances were far larger than available exit liquidity.
+
+- Track `exit_liquidity_ratio = venue_depth_to_10pct_slippage / marked_collateral_value` for protocol collateral and debt assets.
+- Alert when realizable exit liquidity is below 10% of marked balances or when a protocol loss estimate relies on prices that cannot clear size.
+- Report notional protocol loss and probable cash-out value separately so a low attacker exit does not hide insolvency risk.
 
 ## Controls that would have reduced the damage
 
-1. Use time-weighted or dispute-windowed values for collateral, not the newest report.
-2. Require multiple independent sources for debt creation and liquidation, especially for project-token collateral.
-3. Cap price movement per reporting interval unless a quorum of feeds agrees.
-4. Add a cool-down between large positive collateral repricing and new borrowing.
-5. Add liquidation throttles when one report moves many troves across the threshold.
-6. Monitor reporter stake, query age, collateral-class liabilities, and available exit liquidity in one dashboard.
-7. Separate protocol accounting loss from realizable attacker proceeds in post-incident analysis.
+1. Use dispute-windowed or time-weighted collateral values: for example, only let a 15-minute TWAP or a finalized Tellor dispute-window price affect new borrowing and liquidation.
+2. Require a source quorum for debt creation and liquidation: at least three of five feeds should agree within 2% before a project-token collateral mark can expand borrow capacity.
+3. Cap collateral price movement to 10% per 15-minute interval unless the quorum rule passes; otherwise freeze new debt and mark the collateral class for review.
+4. Add an asymmetric cool-down after upward repricing: if collateral rises more than 25%, pause new borrowing against that collateral for 30 minutes while repayments and collateral additions remain available.
+5. Add a matching liquidation guard after downward repricing: if one report would liquidate more than 5% of troves, limit liquidation to bounded batches until independent sources confirm the price.
+6. Monitor reporter stake, query age, collateral-class liabilities, and available exit liquidity in one dashboard, with automatic escalation when the reporter-control ratio falls below 0.001.
+7. Haircut accounting values by exit liquidity during incident response, so the dashboard shows both protocol balance-sheet damage and realizable attacker proceeds.
+
+A concrete BonqDAO-specific breaker would have combined items 4 and 5: the first extreme upward WALBT report could have started a 30-minute borrow hold, and the second downward report could have delayed class-wide liquidations unless three independent prices agreed within 2%. That design targets the whipsaw mechanics directly instead of only adding a generic oracle hardening checklist.
 
 ## Why this belongs in a market manipulation wiki
 
