@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360">
+<rect width="100%" height="100%" fill="#fffaf2"/>
+<text x="90" y="24" font-family="Arial" font-size="16" font-weight="700" fill="#1f1d19">Reported 24h volume / projection from recent trade feed</text>
+<line x1="90" x2="700" y1="284.0" y2="284.0" stroke="#e0d6c8"/>
+<text x="80" y="288.0" text-anchor="end" font-family="Arial" font-size="11" fill="#6c6258">0.0x</text>
+<line x1="90" x2="700" y1="224.0" y2="224.0" stroke="#e0d6c8"/>
+<text x="80" y="228.0" text-anchor="end" font-family="Arial" font-size="11" fill="#6c6258">3.1x</text>
+<line x1="90" x2="700" y1="164.0" y2="164.0" stroke="#e0d6c8"/>
+<text x="80" y="168.0" text-anchor="end" font-family="Arial" font-size="11" fill="#6c6258">6.2x</text>
+<line x1="90" x2="700" y1="104.0" y2="104.0" stroke="#e0d6c8"/>
+<text x="80" y="108.0" text-anchor="end" font-family="Arial" font-size="11" fill="#6c6258">9.2x</text>
+<line x1="90" x2="700" y1="44.0" y2="44.0" stroke="#e0d6c8"/>
+<text x="80" y="48.0" text-anchor="end" font-family="Arial" font-size="11" fill="#6c6258">12.3x</text>
+<rect x="108.0" y="278.3" width="24" height="5.7" fill="#9c3f26"/>
+<rect x="138.0" y="257.3" width="24" height="26.7" fill="#277047"/>
+<text x="135.0" y="302" text-anchor="middle" font-family="Arial" font-size="12" fill="#1f1d19">BTC</text>
+<text x="120.0" y="273.3" text-anchor="middle" font-family="Arial" font-size="10" fill="#6c6258">0.3</text>
+<text x="150.0" y="252.3" text-anchor="middle" font-family="Arial" font-size="10" fill="#6c6258">1.4</text>
+<rect x="230.0" y="262.2" width="24" height="21.8" fill="#9c3f26"/>
+<rect x="260.0" y="262.7" width="24" height="21.3" fill="#277047"/>
+<text x="257.0" y="302" text-anchor="middle" font-family="Arial" font-size="12" fill="#1f1d19">ETH</text>
+<text x="242.0" y="257.2" text-anchor="middle" font-family="Arial" font-size="10" fill="#6c6258">1.1</text>
+<text x="272.0" y="257.7" text-anchor="middle" font-family="Arial" font-size="10" fill="#6c6258">1.1</text>
+<rect x="352.0" y="255.2" width="24" height="28.8" fill="#9c3f26"/>
+<rect x="382.0" y="264.4" width="24" height="19.6" fill="#277047"/>
+<text x="379.0" y="302" text-anchor="middle" font-family="Arial" font-size="12" fill="#1f1d19">SOL</text>
+<text x="364.0" y="250.2" text-anchor="middle" font-family="Arial" font-size="10" fill="#6c6258">1.5</text>
+<text x="394.0" y="259.4" text-anchor="middle" font-family="Arial" font-size="10" fill="#6c6258">1.0</text>
+<rect x="474.0" y="267.5" width="24" height="16.5" fill="#9c3f26"/>
+<rect x="504.0" y="263.0" width="24" height="21.0" fill="#277047"/>
+<text x="501.0" y="302" text-anchor="middle" font-family="Arial" font-size="12" fill="#1f1d19">XRP</text>
+<text x="486.0" y="262.5" text-anchor="middle" font-family="Arial" font-size="10" fill="#6c6258">0.8</text>
+<text x="516.0" y="258.0" text-anchor="middle" font-family="Arial" font-size="10" fill="#6c6258">1.1</text>
+<rect x="596.0" y="258.4" width="24" height="25.6" fill="#9c3f26"/>
+<rect x="626.0" y="65.8" width="24" height="218.2" fill="#277047"/>
+<text x="623.0" y="302" text-anchor="middle" font-family="Arial" font-size="12" fill="#1f1d19">DOGE</text>
+<text x="608.0" y="253.4" text-anchor="middle" font-family="Arial" font-size="10" fill="#6c6258">1.3</text>
+<text x="638.0" y="60.8" text-anchor="middle" font-family="Arial" font-size="10" fill="#6c6258">11.2</text>
+<line x1="90" x2="700" y1="284" y2="284" stroke="#1f1d19"/>
+<rect x="90" y="318" width="12" height="12" fill="#9c3f26"/><text x="108" y="328" font-family="Arial" font-size="12" fill="#1f1d19">CoinW</text>
+<rect x="170" y="318" width="12" height="12" fill="#277047"/><text x="188" y="328" font-family="Arial" font-size="12" fill="#1f1d19">Coinbase Exchange control</text>
+<text x="90" y="348" font-family="Arial" font-size="11" fill="#6c6258">Snapshot captured 2026-05-21T12:07:05Z; ratio near 1x means the recent feed rate and mean trade size reconcile with reported 24h volume.</text>
+</svg>
