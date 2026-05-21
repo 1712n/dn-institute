@@ -10,9 +10,28 @@ entities:
 
 ## Summary
 
-Siren (SIREN), a BNB Chain token marketed as an AI analyst agent, became a useful market-health case study in March 2026. Public coverage described a fast rally, a same-day crash of nearly 70%, and competing on-chain estimates that a small wallet cluster controlled a large share of the circulating supply. These claims do not prove intent, but they create a clear risk pattern: when an asset's effective float is controlled by a small cluster, price discovery can be dominated by the cluster's inventory decisions instead of broad market demand.
+Siren (SIREN), a BNB Chain asset whose public branding centers on AI trading analysis, became a useful market-health case study in March 2026. Public coverage described a fast rally, a same-day crash of nearly 70%, and competing on-chain estimates that a small wallet cluster controlled a large share of the circulating supply. These claims do not prove intent, but they create a clear risk pattern: when an asset's effective float is controlled by a small cluster, price discovery can be dominated by the cluster's inventory decisions instead of broad market demand.
 
-The warning signals were visible before the sell-off. Cointelegraph reported that SIREN rose from roughly $0.63 on March 16 to $2.81 on March 23, then fell from a high near $2.56 to a low near $0.79 on March 24. The same report cited EmberCN's estimate that one entity controlled about 644 million SIREN, or 88% of the reported 728 million circulating supply, while Bubblemaps estimated about 50% of circulating supply belonged to one cluster.[^cointelegraph-siren] A separate DeFi Planet report summarized the deeper wallet-cluster concern as up to 88.5% of supply controlled by one coordinated entity, while noting that the figures were unverified.[^defi-planet-siren]
+The warning signals were visible before the sell-off. Cointelegraph's March 24 coverage placed SIREN around $0.63 on March 16, near $2.81 on March 23, and then near $0.79 at the March 24 intraday low after an early-day high around $2.56.[^cointelegraph-siren] The same report cited EmberCN's estimate that one entity controlled about 644 million SIREN, or 88% of the reported 728 million circulating supply, while Bubblemaps estimated about 50% of circulating supply belonged to one cluster.[^cointelegraph-siren] A separate DeFi Planet report summarized the deeper wallet-cluster concern as up to 88.5% of supply controlled by one coordinated entity, while noting that the figures were unverified.[^defi-planet-siren]
+
+## Methodology & Data
+
+This article combines source-linked wallet-cluster claims with a reproducible market-data window pulled from CoinGecko's public API for the `siren-2` asset.[^coingecko-api] The committed data artifacts are:
+
+- `siren-coingecko-market-window.csv`: hourly-ish CoinGecko price, volume, market-cap, and period-return observations for March 16-24 and April 17-19, 2026.
+- `siren-window-summary.csv`: peak, trough, drawdown, and volume summary statistics for the two event windows.
+- `siren-event-window-tests.csv`: simple baseline-vs-event z-score checks for log hourly volume and absolute period return.
+- `siren-price-volume-window.png`: chart generated from the committed CSV data.
+
+{{< figure src="siren-price-volume-window.png" alt="SIREN price and volume event windows" caption="SIREN price and reported total-volume windows from CoinGecko API data, March 16-24 and April 17-19, 2026." loading="lazy" >}}
+
+The March data contains 216 observations from 2026-03-16 00:04 UTC through 2026-03-24 23:01 UTC. In that window, the CoinGecko series reached a high of $2.9982 at 2026-03-23 10:02 UTC and a subsequent low of $0.8778 at 2026-03-24 04:03 UTC, a high-to-low drawdown of 70.72%. The maximum hourly total-volume observation was $162.3 million at 2026-03-23 03:01 UTC, about 5.6x the window median of $29.2 million.
+
+For a simple event-window check, I used March 16-22 as the baseline and March 23-24 as the event window. The maximum log hourly volume in the event window was 2.66 standard deviations above the baseline mean, while the largest absolute period return was 11.96 standard deviations above its baseline. This is not proof of manipulation by itself, but it verifies that the wallet-concentration warning coincided with an extreme public market-data regime shift.
+
+The April follow-up window contains 60 observations from 2026-04-17 00:00 UTC through 2026-04-19 11:00 UTC. The public series moved from a high of $2.1044 at 2026-04-17 06:01 UTC to a later low of $0.3297 at 2026-04-17 09:01 UTC, an 84.33% high-to-low drawdown. The event-window z-score for maximum absolute period return was 3.99 versus the first-day baseline. This repeat episode supports treating SIREN as a recurring low-float distribution-risk case rather than a one-off headline.
+
+The dataset does not include historical order-book depth or exchange trade tape, which are not available from the free public sources used here. The conclusions below therefore focus on measurable aggregate-market behavior plus source-linked wallet-cluster estimates, not private intent.
 
 ## Market health signals
 
@@ -45,13 +64,15 @@ Even if some of those figures are estimates rather than official disclosures, th
 
 ## Event table
 
-| Date       | Observation                                                                                              | Market-health interpretation                                                          | Source                              |
-| ---------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ----------------------------------- |
-| 2026-03-16 | SIREN traded near $0.63 before its late-March rally.                                                     | Low starting price and thin float set up a high-beta move.                            | Cointelegraph[^cointelegraph-siren] |
-| 2026-03-23 | SIREN reached about $2.81 after a rapid rally.                                                           | Momentum and attention arrived before ownership-risk concerns were fully priced.      | Cointelegraph[^cointelegraph-siren] |
-| 2026-03-23 | EmberCN estimated 644 million SIREN, about 88% of circulating supply, could be controlled by one entity. | Potential supply corner and single-actor float control.                               | Cointelegraph[^cointelegraph-siren] |
-| 2026-03-24 | SIREN fell from around $2.56 to around $0.79 on the same day.                                            | Thin liquidity and crowded positioning made the unwind severe.                        | Cointelegraph[^cointelegraph-siren] |
-| 2026-04-18 | CoinMarketCap summarized a separate 60% 24-hour decline amid whale-distribution reports.                 | Repeated drawdowns after concentration warnings strengthened the low-float risk case. | CoinMarketCap[^cmc-siren]           |
+| Date       | Observation                                                                                                               | Market-health interpretation                                                          | Source                              |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ----------------------------------- |
+| 2026-03-16 | SIREN traded near $0.63 before its late-March rally.                                                                      | Low starting price and thin float set up a high-beta move.                            | Cointelegraph[^cointelegraph-siren] |
+| 2026-03-23 | SIREN reached about $2.81 after a rapid rally.                                                                            | Momentum and attention arrived before ownership-risk concerns were fully priced.      | Cointelegraph[^cointelegraph-siren] |
+| 2026-03-23 | EmberCN's unverified estimate said 644 million SIREN, about 88% of circulating supply, could be controlled by one entity. | Potential supply corner and single-actor float control.                               | Cointelegraph[^cointelegraph-siren] |
+| 2026-03-23 | CoinGecko event-window data peaked at $162.3 million in reported hourly total volume.                                     | Volume peaked before the price high, consistent with an unstable event-window regime. | CoinGecko API[^coingecko-api]       |
+| 2026-03-24 | SIREN fell from around $2.56 to around $0.79 on the same day.                                                             | Thin liquidity and crowded positioning made the unwind severe.                        | Cointelegraph[^cointelegraph-siren] |
+| 2026-03-24 | CoinGecko data showed a 70.72% high-to-low drawdown from the March 23 event-window peak to the later March 24 trough.     | The public market series confirms the scale and timing of the drawdown.               | `siren-window-summary.csv`          |
+| 2026-04-18 | CoinMarketCap summarized a separate 60% 24-hour decline amid whale-distribution reports.                                  | Repeated drawdowns after concentration warnings strengthened the low-float risk case. | CoinMarketCap[^cmc-siren]           |
 
 ## Monitoring rules
 
@@ -73,3 +94,5 @@ SIREN's March 2026 episode shows how market manipulation risk can be detected wi
 [^defi-planet-siren]: Jewel Buddy, "SIREN Token Ownership Concentration Raises Market Manipulation Concerns," DeFi Planet, March 23, 2026. https://defi-planet.com/2026/03/siren-token-ownership-concentration-raises-market-manipulation-concerns/
 
 [^cmc-siren]: "Siren (SIREN) Plummets 60% Amid Whale-Driven Distribution," CoinMarketCap, April 18, 2026. https://coinmarketcap.com/top-stories/69e2f4c5b63fbc64ea373981/
+
+[^coingecko-api]: CoinGecko API, `siren-2` market chart range data, queried for March 16-25 and April 17-19, 2026. Example endpoint: https://api.coingecko.com/api/v3/coins/siren-2/market_chart/range?vs_currency=usd&from=1773619200&to=1774396800
