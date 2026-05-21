@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="420" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">Venus XVS collateral squeeze path</title>
+  <desc id="desc">A compact chart showing XVS collateral factor, XVS price, liquidation volume, and bad debt values from public reports.</desc>
+  <rect width="960" height="420" fill="#ffffff" />
+  <text x="48" y="42" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#1f2937">Venus XVS collateral squeeze, May 2021</text>
+  <text x="48" y="68" font-family="Arial, sans-serif" font-size="13" fill="#4b5563">Public evidence points from Risk DAO, Messari, The Block, and Venus community discussion. Not exchange tick data.</text>
+
+  <line x1="90" y1="310" x2="870" y2="310" stroke="#111827" stroke-width="1.4" />
+  <line x1="90" y1="105" x2="90" y2="310" stroke="#111827" stroke-width="1.4" />
+  <text x="54" y="112" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">$150</text>
+  <text x="61" y="183" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">$100</text>
+  <text x="68" y="314" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">$0</text>
+
+  <polyline points="190,200 360,112 530,200" fill="none" stroke="#2563eb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="190" cy="200" r="6" fill="#2563eb" />
+  <circle cx="360" cy="112" r="6" fill="#2563eb" />
+  <circle cx="530" cy="200" r="6" fill="#2563eb" />
+  <text x="147" y="228" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">XVS ~$80</text>
+  <text x="322" y="100" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">~$145</text>
+  <text x="494" y="228" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">back near $80</text>
+
+  <rect x="130" y="286" width="95" height="24" fill="#f59e0b" opacity="0.88" />
+  <rect x="245" y="278" width="95" height="32" fill="#f59e0b" opacity="0.88" />
+  <text x="119" y="340" font-family="Arial, sans-serif" font-size="12" fill="#92400e">collateral factor</text>
+  <text x="151" y="303" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">60%</text>
+  <text x="267" y="300" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">80%</text>
+
+  <rect x="625" y="44" width="120" height="266" rx="4" fill="#ef4444" opacity="0.86" />
+  <text x="645" y="34" font-family="Arial, sans-serif" font-size="13" fill="#991b1b">liquidations</text>
+  <text x="650" y="182" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#ffffff">&gt;$200M</text>
+
+  <rect x="772" y="184" width="92" height="126" rx="4" fill="#7c3aed" opacity="0.85" />
+  <text x="773" y="174" font-family="Arial, sans-serif" font-size="13" fill="#4c1d95">bad debt</text>
+  <text x="789" y="254" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#ffffff">&gt;$95M</text>
+
+  <line x1="190" y1="315" x2="190" y2="326" stroke="#111827" />
+  <line x1="360" y1="315" x2="360" y2="326" stroke="#111827" />
+  <line x1="530" y1="315" x2="530" y2="326" stroke="#111827" />
+  <line x1="685" y1="315" x2="685" y2="326" stroke="#111827" />
+  <line x1="818" y1="315" x2="818" y2="326" stroke="#111827" />
+  <text x="146" y="352" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">pre-spike</text>
+  <text x="308" y="352" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">3h spike</text>
+  <text x="484" y="352" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">3-4h reversal</text>
+  <text x="635" y="352" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">liquidation</text>
+  <text x="785" y="352" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">shortfall</text>
+
+  <rect x="48" y="370" width="864" height="1" fill="#e5e7eb" />
+  <text x="48" y="394" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">Interpretation: the 80% collateral factor amplified a fast external price mark into borrow capacity, then liquidation had to recover blue-chip debt by selling collapsing XVS collateral.</text>
+</svg>
