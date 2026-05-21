@@ -1,0 +1,11 @@
+venue,pair,snapshot_at_utc,point_reported_to_projected_ratio,bootstrap_ci_low_95,bootstrap_ci_high_95,bootstrap_iterations,resampled_field
+CoinW,BTC_USDT,2026-05-21T12:07:05Z,0.294804,0.179026,0.637732,5000,recent trade notional; trade rate fixed from observed window
+CoinW,ETH_USDT,2026-05-21T12:07:05Z,1.118560,0.592882,2.682111,5000,recent trade notional; trade rate fixed from observed window
+CoinW,SOL_USDT,2026-05-21T12:07:05Z,1.479004,0.778008,3.139544,5000,recent trade notional; trade rate fixed from observed window
+CoinW,XRP_USDT,2026-05-21T12:07:05Z,0.847436,0.650737,1.194310,5000,recent trade notional; trade rate fixed from observed window
+CoinW,DOGE_USDT,2026-05-21T12:07:05Z,1.313695,0.718567,3.107524,5000,recent trade notional; trade rate fixed from observed window
+Coinbase Exchange,BTC-USD,2026-05-21T12:07:05Z,1.369678,0.711788,4.704441,5000,recent trade notional; trade rate fixed from observed window
+Coinbase Exchange,ETH-USD,2026-05-21T12:07:05Z,1.096930,0.851083,1.469136,5000,recent trade notional; trade rate fixed from observed window
+Coinbase Exchange,SOL-USD,2026-05-21T12:07:05Z,1.005329,0.632181,1.715255,5000,recent trade notional; trade rate fixed from observed window
+Coinbase Exchange,XRP-USD,2026-05-21T12:07:05Z,1.079268,0.614872,2.200638,5000,recent trade notional; trade rate fixed from observed window
+Coinbase Exchange,DOGE-USD,2026-05-21T12:07:05Z,11.211454,7.607727,18.772510,5000,recent trade notional; trade rate fixed from observed window

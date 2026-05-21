@@ -13,10 +13,12 @@ entities:
 
 ## Summary
 
-This snapshot checks whether CoinW's public 24-hour spot volume is easy to
-reconcile against two other public market-health surfaces: the recent-trade feed
-and the visible top-of-book depth. It is not a conclusive wash-trading finding.
-It is a triage report that identifies where deeper surveillance should focus.
+This snapshot tests whether CoinW's public 24-hour spot volume reconciles with
+two manipulation-relevant market-health surfaces: the recent-trade feed and the
+visible top-of-book depth. It is a probabilistic surveillance report, not a
+final accusation. The goal is to identify concrete manipulation-risk signals
+that can be reproduced from public data and escalated into longer websocket
+capture.
 
 The strongest signal is volume quality rather than a single impossible number.
 CoinW reported roughly `$547.4 million` of BTC/USDT turnover during the 24-hour
@@ -53,6 +55,7 @@ unauthenticated endpoints:
 Supporting files:
 
 - [venue_snapshot_summary.csv](venue_snapshot_summary.csv)
+- [projection_bootstrap_ci.csv](projection_bootstrap_ci.csv)
 - [coinw_recent_trades.csv](coinw_recent_trades.csv)
 - [coinbase_recent_trades.csv](coinbase_recent_trades.csv)
 - [reported_to_projected_volume_ratio.svg](reported_to_projected_volume_ratio.svg)
@@ -82,6 +85,45 @@ proving manipulation.
 
 {{< figure src="reported_to_projected_volume_ratio.svg" alt="Reported to projected volume ratio by pair for CoinW and Coinbase" caption="Reported 24-hour quote volume divided by a projection from the recent trade feed. The metric is a short-window reconciliation check, not a standalone proof of wash trading." loading="lazy" >}}
 
+### Robustness and confidence
+
+Because the REST trade samples are short, each reported/projected multiplier was
+bootstrapped 5,000 times by resampling recent trade notionals while holding the
+observed trade rate fixed. This does not remove all uncertainty: it does not
+model intraday seasonality, API pagination limits, off-book internalization,
+market-maker inventory cycles, or differences between USDT and USD books. It
+does quantify whether the point estimate is stable enough to use as a
+manipulation-risk signal.
+
+The public REST endpoints used for this snapshot return only recent trades, so
+the article does not present retrospective 1-minute, 5-minute, or 10-minute
+windows as if they were complete historical samples. The sensitivity checks
+available from this capture are therefore bootstrap uncertainty, cross-pair
+comparison, and the Coinbase control venue. Longer time-window sensitivity is
+listed as required follow-up websocket work below.
+
+| Venue    |      Pair | Point estimate | 95% bootstrap interval | Confidence interpretation                                                                                                                       |
+| -------- | --------: | -------------: | ---------------------: | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| CoinW    |  BTC/USDT |        `0.29x` |        `0.18x - 0.64x` | Stable mismatch: recent BTC prints project above reported daily volume, indicating lumpy high-notional flow rather than a smooth retail stream. |
+| CoinW    |  ETH/USDT |        `1.12x` |        `0.59x - 2.68x` | Underpowered as a volume-mismatch signal; keep as a control pair.                                                                               |
+| CoinW    |  SOL/USDT |        `1.48x` |        `0.78x - 3.14x` | Underpowered on volume projection alone; elevated spread is the stronger signal.                                                                |
+| CoinW    |  XRP/USDT |        `0.85x` |        `0.65x - 1.19x` | Near reconciliation; elevated spread is the stronger signal.                                                                                    |
+| CoinW    | DOGE/USDT |        `1.31x` |        `0.72x - 3.11x` | Underpowered as a volume-mismatch signal.                                                                                                       |
+| Coinbase |   BTC/USD |        `1.37x` |        `0.71x - 4.70x` | Underpowered control sample because a few larger prints dominate the bootstrap range.                                                           |
+| Coinbase |   ETH/USD |        `1.10x` |        `0.85x - 1.47x` | Stable control reconciliation.                                                                                                                  |
+| Coinbase |   SOL/USD |        `1.01x` |        `0.63x - 1.72x` | Reconciles within the short-window uncertainty band.                                                                                            |
+| Coinbase |   XRP/USD |        `1.08x` |        `0.61x - 2.20x` | Reconciles within the short-window uncertainty band.                                                                                            |
+| Coinbase |  DOGE/USD |       `11.21x` |       `7.61x - 18.77x` | Fails the projection check but is explained by a very quiet DOGE sample; this is the main false-positive control.                               |
+
+The confidence adjustment changes the interpretation. The reported/projected
+ratio is strongest for CoinW BTC/USDT, where the interval remains below `1.0x`.
+For CoinW SOL/USDT and XRP/USDT, the volume projection itself is not strong
+enough; the manipulation-risk signal comes from combining high reported
+turnover with a much wider live spread than the Coinbase control pair. The
+Coinbase DOGE/USD false positive is a useful guardrail: a quiet recent feed can
+produce a dramatic multiplier even on a mainstream venue, so the multiplier is
+never treated as a standalone verdict.
+
 ## Findings
 
 ### 1. CoinW BTC volume is concentrated into a thinner print stream
@@ -93,11 +135,13 @@ seconds. If both venues are reporting similar daily BTC turnover, the lower
 print density means CoinW's flow is more dependent on large, intermittent
 prints.
 
-That is not automatically suspicious. Wholesale order flow can be lumpy, and a
-50-trade REST sample can miss busier intervals. The market-health issue is that
-the public feed does not make the reported volume easy to audit from ordinary
-recent prints. A reviewer should request a longer executed-trade export or
-websocket capture before relying on the headline 24-hour ticker volume.
+The bootstrap interval for CoinW BTC/USDT stays below `1.0x`, so this is the
+most stable mismatch in the snapshot. It does not prove artificial volume:
+wholesale order flow can be lumpy, and a 50-trade REST sample can miss busier
+intervals. It does show that the public feed does not make the reported volume
+easy to audit from ordinary recent prints. A reviewer should request a longer
+executed-trade export or websocket capture before relying on the headline
+24-hour ticker volume.
 
 ### 2. SOL and XRP show high reported turnover with wider visible liquidity
 
@@ -111,11 +155,13 @@ The XRP comparison points in the same direction. CoinW XRP/USDT reported about
 whereas Coinbase XRP/USD reported about `$77.5 million` with a `0.73` basis-point
 spread.
 
-Wide spreads are not manipulation by themselves. They can reflect market-maker
-risk, fee tiers, jurisdictional access, or temporary inventory constraints. They
-do become a useful surveillance flag when paired with high reported turnover:
-if many trades are happening, but the visible book remains wide, the venue's
-reported flow may not represent competitive user-facing liquidity.
+The bootstrap table deliberately downgrades the volume-projection confidence
+for SOL and XRP: their intervals cross `1.0x`. The manipulation-oriented signal
+is therefore cross-sectional, not just statistical. A venue reporting large
+turnover while maintaining a much wider live spread than the control venue may
+be printing volume that does not translate into competitive user-facing
+liquidity. Confounders remain possible, especially fee tiers, quote-currency
+differences, market-maker obligations, and temporary inventory limits.
 
 ### 3. Repeat-size prints are present but not sufficient on their own
 
@@ -150,13 +196,14 @@ REST snapshot should be treated as a false-positive triage flag.
 
 ## Conclusion
 
-The public data does not prove wash trading on CoinW. It does show that some
-large-cap CoinW pairs deserve closer market-health review. BTC/USDT reports
-Coinbase-scale daily turnover through a thinner recent print stream, while
-SOL/USDT and XRP/USDT pair high reported turnover with much wider visible
-spreads than the Coinbase control venue. Those are exactly the kinds of
-reconciliation gaps that market-surveillance tooling should escalate before
-users, listing teams, or researchers treat headline volume as a liquidity proxy.
+The public data does not prove wash trading on CoinW. It does produce bounded,
+reproducible manipulation-risk signals. BTC/USDT has a stable bootstrap
+mismatch showing that Coinbase-scale reported turnover is concentrated into a
+thinner, lumpier print stream. SOL/USDT and XRP/USDT have weaker projection
+evidence, but they combine high reported turnover with much wider visible
+spreads than the Coinbase control venue. Those reconciliation gaps should be
+escalated into longer websocket surveillance before users, listing teams, or
+researchers treat headline volume as a liquidity proxy.
 
 ## Sources
 
