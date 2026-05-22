@@ -1,0 +1,11 @@
+date_utc,signal,observed_value,market_health_meaning,source
+2024-11-16,incident_classification,"price manipulation exploit on Fantom with about $8.7M reported loss","Treat the event as a market-structure oracle failure, not only a reserve-drain transaction","CertiK Polter Finance Incident Analysis"
+2024-11-16,oracle_dependency,"Polter AaveOracle consulted SpookySwap V2 and V3 BOO spot pairs","Borrowing power depended on manipulable DEX pool inventory","CertiK Polter Finance Incident Analysis"
+2024-11-16,spooky_v3_flashloan,"269042 BOO borrowed from Spooky V3 pair 0xed23...d89","Attacker could move the V3 BOO side inside one transaction","CertiK Polter Finance Incident Analysis"
+2024-11-16,spooky_v2_flashswap,"1154788 BOO borrowed from Spooky V2 pair 0xec71...a58","Attacker could also deplete the V2 BOO side used by the oracle path","CertiK Polter Finance Incident Analysis"
+2024-11-16,pool_depletion,"both pairs left with 1e6 wei BOO","Token-side dust balance made the spot price unusable for collateral valuation","CertiK Polter Finance Incident Analysis"
+2024-11-16,collateral_deposit,"1 BOO deposited into Polter lending pool","Minimal collateral became the bridge from manipulated spot price to borrow capacity","CertiK and Coinspect Polter Finance analyses"
+2024-11-16,first_large_borrow,"9134844 WFTM borrowed during validation path","Borrow check accepted manipulated BOO value before reserve drain expanded","CertiK Polter Finance Incident Analysis"
+2024-11-16,impossible_oracle_value,"1 BOO valued at $1,373,782,984,830,617,596","Sanity-band and executable-depth checks should have failed closed","CertiK Polter Finance Incident Analysis"
+2024-11-16,reserve_fanout,"WFTM, MIM, sFTMX, axlUSDC, WBTC, WETH, USDC, and WSOL targeted","One thin collateral market unlocked unrelated reserves","Coinspect Polter Finance reconstruction"
+2024-11-18,public_loss_estimates,"$8.7M+ in security-firm estimates; Polter police-report coverage cited roughly $12M","Use ranges carefully; surveillance controls do not depend on exact recovery accounting","Coinspect and Halborn Polter Finance analyses"
