@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="420" viewBox="0 0 920 420" role="img" aria-labelledby="title desc">
+  <title id="title">Polter Finance BOO spot-oracle manipulation path</title>
+  <desc id="desc">A compact chart showing BOO pool depletion, one BOO collateral, impossible oracle value, and reserve borrowing.</desc>
+  <rect width="920" height="420" fill="#f7f7f2"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#20252b">
+    <text x="44" y="48" font-size="24" font-weight="700">Polter Finance BOO Spot-Oracle Cascade</text>
+    <text x="44" y="76" font-size="13" fill="#5f666d">Public evidence points from CertiK, Coinspect, and Halborn reports</text>
+  </g>
+  <g stroke="#24313a" stroke-width="2" fill="none">
+    <path d="M132 152 H300"/>
+    <path d="M300 152 H468"/>
+    <path d="M468 152 H636"/>
+    <path d="M636 152 H804"/>
+    <path d="M296 148 L306 152 L296 156"/>
+    <path d="M464 148 L474 152 L464 156"/>
+    <path d="M632 148 L642 152 L632 156"/>
+    <path d="M800 148 L810 152 L800 156"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <g>
+      <rect x="46" y="104" width="150" height="96" rx="6" fill="#ffffff" stroke="#c6c8bd"/>
+      <text x="64" y="132" font-size="15" font-weight="700" fill="#20252b">Flash liquidity</text>
+      <text x="64" y="158" font-size="12" fill="#4d555c">269,042 BOO V3</text>
+      <text x="64" y="177" font-size="12" fill="#4d555c">1,154,788 BOO V2</text>
+    </g>
+    <g>
+      <rect x="226" y="104" width="150" height="96" rx="6" fill="#fff4d6" stroke="#d1b96c"/>
+      <text x="244" y="132" font-size="15" font-weight="700" fill="#20252b">Pool depletion</text>
+      <text x="244" y="158" font-size="12" fill="#4d555c">BOO side reduced</text>
+      <text x="244" y="177" font-size="12" fill="#4d555c">to 1e6 wei</text>
+    </g>
+    <g>
+      <rect x="406" y="104" width="150" height="96" rx="6" fill="#e7f1eb" stroke="#94b7a4"/>
+      <text x="424" y="132" font-size="15" font-weight="700" fill="#20252b">Collateral read</text>
+      <text x="424" y="158" font-size="12" fill="#4d555c">1 BOO deposited</text>
+      <text x="424" y="177" font-size="12" fill="#4d555c">as borrow base</text>
+    </g>
+    <g>
+      <rect x="586" y="104" width="150" height="96" rx="6" fill="#f2e6ed" stroke="#b68fa8"/>
+      <text x="604" y="132" font-size="15" font-weight="700" fill="#20252b">Oracle failure</text>
+      <text x="604" y="158" font-size="12" fill="#4d555c">1 BOO marked at</text>
+      <text x="604" y="177" font-size="12" fill="#4d555c">$1.37e18</text>
+    </g>
+    <g>
+      <rect x="766" y="104" width="108" height="96" rx="6" fill="#e4edf6" stroke="#93abc4"/>
+      <text x="782" y="132" font-size="15" font-weight="700" fill="#20252b">Reserve</text>
+      <text x="782" y="151" font-size="15" font-weight="700" fill="#20252b">fan-out</text>
+      <text x="782" y="177" font-size="12" fill="#4d555c">multi-asset drain</text>
+    </g>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="54" y="258" font-size="16" font-weight="700" fill="#20252b">Market-health controls that should fail closed</text>
+    <g fill="#20252b" font-size="13">
+      <circle cx="62" cy="292" r="4" fill="#8f4e3a"/>
+      <text x="78" y="296">Minimum executable depth before accepting a DEX route for collateral pricing</text>
+      <circle cx="62" cy="322" r="4" fill="#8f4e3a"/>
+      <text x="78" y="326">Same-block quarantine when pool inventory is flash-borrowed or nearly depleted</text>
+      <circle cx="62" cy="352" r="4" fill="#8f4e3a"/>
+      <text x="78" y="356">Sanity bands that reject values impossible relative to pool depth and market cap</text>
+      <circle cx="62" cy="382" r="4" fill="#8f4e3a"/>
+      <text x="78" y="386">Cross-reserve borrow caps for thin collateral until independent prices confirm the move</text>
+    </g>
+  </g>
+</svg>
