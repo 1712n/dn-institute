@@ -44,6 +44,16 @@ For each venue and market pair:
 
 A practical tolerance window is required because exchange precision varies. For small assets, a tolerance such as ±0.02% around each round lot may be appropriate. For highly volatile quote-asset notional values, it may be better to cluster in quote value rather than raw token amount.
 
+For the reproducible sample dataset below, the calculations use these exact rules:
+
+- **Round-lot set:** every multiple of 10 units from 10 through 1,000, computed in the raw `trade_size` base-asset unit from `sample-trade-size-observations.csv`.
+- **Round-lot closeness:** absolute base-unit distance from the nearest round-lot value, with `abs(trade_size - nearest_round_lot) <= 0.05`. This is an absolute tolerance, not a percentage tolerance.
+- **Repeated non-round bucket:** `round(trade_size)` is used as the bucket key after excluding round-lot trades.
+- **Repeated non-round cutoff:** a non-round bucket is counted as repeated if it appears in at least 10 observations for the same venue. The repeated non-round share is `repeated_non_round_count / venue_trade_count`.
+- **Mean, median, and skewness:** computed from raw `trade_size`; skewness is population skewness, `E[((x - mean) / stddev)^3]`.
+
+These simple thresholds are not universal defaults. They are deliberately explicit here so the table can be recomputed from the attached CSV; production analysis should tune the tolerance and repetition cutoff to asset precision, venue minimum order sizes, and the chosen observation window.
+
 ## Example dataset
 
 The supporting file [`sample-trade-size-observations.csv`](sample-trade-size-observations.csv) contains 480 example observations split between two venues:
