@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="420" viewBox="0 0 920 420" role="img" aria-labelledby="title desc">
+  <title id="title">WOOFi sPMM price manipulation response window</title>
+  <desc id="desc">Timeline showing first attack, first alert, second and third attacks, and the reported pause time during the March 2024 WOOFi exploit.</desc>
+  <rect width="920" height="420" fill="#f8fafc"/>
+  <text x="44" y="46" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#111827">WOOFi WOO sPMM manipulation: response window</text>
+  <text x="44" y="74" font-family="Arial, sans-serif" font-size="14" fill="#374151">Public transaction and alert timestamps show a narrow but measurable pause window before repeated execution finished.</text>
+
+  <line x1="90" y1="210" x2="830" y2="210" stroke="#334155" stroke-width="3"/>
+  <line x1="90" y1="202" x2="90" y2="218" stroke="#334155" stroke-width="3"/>
+  <line x1="830" y1="202" x2="830" y2="218" stroke="#334155" stroke-width="3"/>
+
+  <g font-family="Arial, sans-serif" font-size="12" fill="#475569">
+    <text x="74" y="246">15:42:06</text>
+    <text x="210" y="246">15:42:22</text>
+    <text x="420" y="246">15:49:29</text>
+    <text x="590" y="246">15:53:58</text>
+    <text x="805" y="246">16:02</text>
+  </g>
+
+  <g>
+    <circle cx="90" cy="210" r="10" fill="#dc2626"/>
+    <line x1="90" y1="128" x2="90" y2="200" stroke="#dc2626" stroke-width="2"/>
+    <rect x="38" y="92" width="158" height="50" rx="6" fill="#fee2e2" stroke="#fca5a5"/>
+    <text x="52" y="112" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#7f1d1d">First attack tx</text>
+    <text x="52" y="130" font-family="Arial, sans-serif" font-size="12" fill="#7f1d1d">45 logs, 24 ERC-20 transfers</text>
+  </g>
+
+  <g>
+    <circle cx="210" cy="210" r="8" fill="#2563eb"/>
+    <line x1="210" y1="150" x2="210" y2="202" stroke="#2563eb" stroke-width="2"/>
+    <rect x="166" y="114" width="150" height="50" rx="6" fill="#dbeafe" stroke="#93c5fd"/>
+    <text x="180" y="134" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#1e3a8a">First alert</text>
+    <text x="180" y="152" font-family="Arial, sans-serif" font-size="12" fill="#1e3a8a">16 seconds after start</text>
+  </g>
+
+  <g>
+    <circle cx="465" cy="210" r="10" fill="#ea580c"/>
+    <line x1="465" y1="276" x2="465" y2="220" stroke="#ea580c" stroke-width="2"/>
+    <rect x="376" y="274" width="176" height="56" rx="6" fill="#ffedd5" stroke="#fdba74"/>
+    <text x="390" y="296" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#7c2d12">Second attack tx</text>
+    <text x="390" y="314" font-family="Arial, sans-serif" font-size="12" fill="#7c2d12">7m 23s after first</text>
+  </g>
+
+  <g>
+    <circle cx="630" cy="210" r="10" fill="#ea580c"/>
+    <line x1="630" y1="130" x2="630" y2="200" stroke="#ea580c" stroke-width="2"/>
+    <rect x="560" y="92" width="170" height="56" rx="6" fill="#ffedd5" stroke="#fdba74"/>
+    <text x="574" y="114" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#7c2d12">Third attack tx</text>
+    <text x="574" y="132" font-family="Arial, sans-serif" font-size="12" fill="#7c2d12">11m 52s after first</text>
+  </g>
+
+  <g>
+    <circle cx="830" cy="210" r="10" fill="#16a34a"/>
+    <line x1="830" y1="276" x2="830" y2="220" stroke="#16a34a" stroke-width="2"/>
+    <rect x="724" y="274" width="168" height="56" rx="6" fill="#dcfce7" stroke="#86efac"/>
+    <text x="738" y="296" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#14532d">Contracts paused</text>
+    <text x="738" y="314" font-family="Arial, sans-serif" font-size="12" fill="#14532d">Reported by 16:02 UTC</text>
+  </g>
+
+  <path d="M 210 178 C 300 140, 370 140, 465 178" fill="none" stroke="#2563eb" stroke-width="2" stroke-dasharray="6 6"/>
+  <text x="288" y="134" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#1e3a8a">7+ minute warning before round 2</text>
+
+  <rect x="66" y="354" width="788" height="38" rx="6" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="84" y="378" font-family="Arial, sans-serif" font-size="14" fill="#1f2937">WOOFi/Forta: ~7.7M WOO borrowed, 10M WOO extracted near free, three repeats, ~$8.75M profit; Forta estimates up to $4.8M could have been saved with automated response.</text>
+</svg>
