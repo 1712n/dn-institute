@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="640" viewBox="0 0 1040 640" role="img" aria-labelledby="title desc">
+  <title id="title">Gamma Strategies price-threshold manipulation loop</title>
+  <desc id="desc">Diagram showing how flash liquidity, pool price distortion, permissive thresholds, vault deposits, and withdrawals created repeated Gamma vault losses.</desc>
+  <rect width="1040" height="640" fill="#ffffff" />
+  <text x="48" y="50" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#172033">Gamma Strategies Price-Threshold Vault Manipulation</text>
+  <text x="48" y="80" font-family="Arial, sans-serif" font-size="14" fill="#4b5563">Selected public evidence points from Gamma Strategies, Olympix, Neptune Mutual, and Arbiscan.</text>
+
+  <rect x="58" y="118" width="190" height="108" rx="8" fill="#e8f2ff" stroke="#2463a6" stroke-width="2" />
+  <text x="83" y="150" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#0f3762">Flash liquidity</text>
+  <text x="83" y="178" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">Uniswap and Balancer</text>
+  <text x="83" y="198" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">fund temporary pool</text>
+  <text x="83" y="218" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">price movement</text>
+
+  <rect x="308" y="118" width="190" height="108" rx="8" fill="#fff3df" stroke="#b46b13" stroke-width="2" />
+  <text x="333" y="150" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#7a4100">Pool distortion</text>
+  <text x="333" y="178" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">Pegged pair drifts</text>
+  <text x="333" y="198" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">outside normal basis</text>
+  <text x="333" y="218" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">inside the attack path</text>
+
+  <rect x="558" y="118" width="190" height="108" rx="8" fill="#ffe9ec" stroke="#b42337" stroke-width="2" />
+  <text x="583" y="150" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#8a1023">Threshold drift</text>
+  <text x="583" y="178" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">Intended guardrail: 2%</text>
+  <text x="583" y="198" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">Effective range:</text>
+  <text x="583" y="218" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">-50% to +100%</text>
+
+  <rect x="808" y="118" width="174" height="108" rx="8" fill="#eaf7e8" stroke="#2e7d32" stroke-width="2" />
+  <text x="833" y="150" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#1f5f24">Vault entry</text>
+  <text x="833" y="178" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">Deposit accepted</text>
+  <text x="833" y="198" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">while local price is</text>
+  <text x="833" y="218" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">attacker-shaped</text>
+
+  <path d="M 252 172 L 298 172" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 502 172 L 548 172" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 752 172 L 798 172" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+
+  <rect x="139" y="300" width="220" height="122" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2" />
+  <text x="169" y="334" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#334155">Withdrawal imbalance</text>
+  <text x="169" y="364" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">Vault accounting reflects</text>
+  <text x="169" y="384" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">the distorted state; attacker</text>
+  <text x="169" y="404" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">exits with value difference</text>
+
+  <rect x="410" y="300" width="220" height="122" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2" />
+  <text x="440" y="334" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#334155">Loop repetition</text>
+  <text x="440" y="364" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">Olympix describes repeated</text>
+  <text x="440" y="384" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">price manipulation, deposit,</text>
+  <text x="440" y="404" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">and withdrawal cycles</text>
+
+  <rect x="681" y="300" width="220" height="122" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2" />
+  <text x="711" y="334" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#334155">Cross-vault loss</text>
+  <text x="711" y="364" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">Gamma reported about</text>
+  <text x="711" y="384" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">$6.18M across four</text>
+  <text x="711" y="404" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">public vaults</text>
+
+  <path d="M 895 232 C 895 274 820 280 791 297" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 676 361 L 640 361" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 405 361 L 371 361" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 249 296 C 250 264 160 258 160 232" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+
+  <rect x="70" y="496" width="900" height="88" rx="8" fill="#f9fafb" stroke="#d1d5db" />
+  <text x="98" y="530" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#111827">Market-health control lesson</text>
+  <text x="98" y="558" font-family="Arial, sans-serif" font-size="14" fill="#1f2937">A pegged-pair vault should reject deposits when live pool price, TWAP, intended threshold policy, and external fair value diverge.</text>
+  <text x="98" y="580" font-family="Arial, sans-serif" font-size="14" fill="#1f2937">After one abnormal loop, sibling vaults sharing the same automated setting should pause before losses propagate.</text>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#374151" />
+    </marker>
+  </defs>
+</svg>
