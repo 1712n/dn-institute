@@ -12,10 +12,10 @@ tags:
 
 ## Key points
 
-1. Gamma Strategies' January 2024 exploit shows how an automated liquidity vault can convert a temporary pool-price distortion into withdrawable value when deposit thresholds are too permissive.
-2. Gamma's postmortem says the affected vaults were gDAI-DAI, wstETH-WETH, USDT-USDC.e, and USDC-USDC.e, with a combined loss of about $6.18 million.
-3. The intended price-change threshold was 2%, but the deployed automated settings accepted a much wider range, described by Gamma as effectively -50% to +100%.
-4. Olympix traced the exploit to Arbitrum block 166874977, where flash liquidity from Uniswap and Balancer funded repeated price manipulation, vault deposit, and vault withdrawal cycles.
+1. Gamma Strategies' [January 2024 exploit](https://gammastrategies.medium.com/post-mortem-remediation-plan-9a62f10d90f3) shows how an automated liquidity vault can convert a temporary pool-price distortion into withdrawable value when deposit thresholds are too permissive.
+2. Gamma's [postmortem](https://gammastrategies.medium.com/post-mortem-remediation-plan-9a62f10d90f3) says the affected vaults were gDAI-DAI, wstETH-WETH, USDT-USDC.e, and USDC-USDC.e, with a combined loss of about $6.18 million.
+3. The intended price-change threshold was 2%, but the deployed automated settings accepted a much wider range, described by Gamma's [postmortem](https://gammastrategies.medium.com/post-mortem-remediation-plan-9a62f10d90f3) as effectively -50% to +100%.
+4. Gamma's [postmortem](https://gammastrategies.medium.com/post-mortem-remediation-plan-9a62f10d90f3) and Olympix's [transaction analysis](https://olympix.ai/blog/gamma) trace the exploit to Arbitrum block 166874977, where flash liquidity from Uniswap and Balancer funded repeated price manipulation, vault deposit, and vault withdrawal cycles.
 5. The transferable market-health signal is not only "a vault was hacked." It is the combination of pegged-pair pool imbalance, threshold drift, one-sided deposit value, and repeated profitable withdraw cycles.
 
 The companion file [`gamma-price-threshold-signals.csv`](gamma-price-threshold-signals.csv) records the source-linked evidence points used below. The chart compresses the public reports into a market-health control path rather than a full Arbitrum execution trace.
@@ -26,9 +26,9 @@ The companion file [`gamma-price-threshold-signals.csv`](gamma-price-threshold-s
 
 Gamma Strategies built automated concentrated-liquidity vaults. Those vaults managed positions around assets that should normally trade close together: stablecoin pairs and liquid staking token pairs. The market-health dependency was the live pool price used to decide whether a deposit was acceptable and how much vault value the depositor received.
 
-That dependency is reasonable only when guardrails are tight enough to reject short-lived price distortion. Gamma's postmortem says the design intended a 2% threshold for price changes, but the automated setting applied to the affected vaults was far wider. In a pegged pair, that difference matters. A 2% guardrail treats a large deviation as abnormal market state. A -50% to +100% range can let the attacker make the abnormal state part of the accounting path.
+That dependency is reasonable only when guardrails are tight enough to reject short-lived price distortion. Gamma's [postmortem](https://gammastrategies.medium.com/post-mortem-remediation-plan-9a62f10d90f3) says the design intended a 2% threshold for price changes, but the automated setting applied to the affected vaults was far wider. In a pegged pair, that difference matters. A 2% guardrail treats a large deviation as abnormal market state. A -50% to +100% range can let the attacker make the abnormal state part of the accounting path.
 
-The attack therefore sits between market manipulation and accounting manipulation. The attacker did not need a durable public repricing of DAI, gDAI, USDC, USDT, wstETH, or WETH. They needed a temporary pool state that the vault would accept during deposit and withdrawal.
+Viewed as a market-health signal, the causal chain is pool-price distortion -> vault threshold or valuation failure -> incorrect deposit entitlements. Gamma's [postmortem](https://gammastrategies.medium.com/post-mortem-remediation-plan-9a62f10d90f3) frames the incident as overlapping market manipulation and accounting or share manipulation; this article focuses that framing on the vault-control failure to monitor. The attacker did not need a durable public repricing of DAI, gDAI, USDC, USDT, wstETH, or WETH. They needed a temporary pool state that the vault would accept during deposit and withdrawal.
 
 ## How the threshold became a trading surface
 
