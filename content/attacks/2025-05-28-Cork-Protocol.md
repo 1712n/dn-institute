@@ -14,10 +14,10 @@ loss: 12000000
 
 ## Summary
 
-- On May 28, 2025, Cork Protocol's public beta was exploited for 3,761 wstETH from the wstETH:weETH Liquidity Vault, a loss reported at about $12 million by Cork and independent security coverage.
-- The attack combined two failure paths: a rollover-pricing edge case that made cover tokens extremely cheap after expiry and a Cork Hook / FlashSwapRouter authorization gap that let the attacker extract matching depeg-swap tokens.
-- Cork said its core Peg Stability Module behaved as designed, but downstream automation around liquidity-vault rollovers and the Uniswap V4 hook integration created exploitable business-logic and access-control conditions.
-- Hypernative alerted Cork minutes after the exploit, Cork paused the Liquidity Vault by 12:33 UTC and all other protocol functions by 12:35 UTC, and about $20 million in other Cork vault assets remained locked but not drained.
+- Cork's May 28, 2025 beta incident drained 3,761 wstETH from the wstETH:weETH Liquidity Vault, with Cork and third-party security coverage valuing the impact at roughly $12 million.
+- The transaction sequence joined two separate weaknesses: expiry rollover economics that made new cover-token exposure underpriced, and a Cork Hook / FlashSwapRouter path that let the attacker pair that exposure with depeg-swap tokens.
+- The Peg Stability Module itself was not the failing component in Cork's post-mortem; the exploitable surface sat in vault rollover automation, market construction, and the Uniswap V4 hook integration around it.
+- Detection came shortly after the drain, followed by protocol pauses at the vault and broader-function levels within the next hour; Cork said roughly $20 million in other vault assets stayed locked rather than being removed.
 
 ## Attackers
 
@@ -47,11 +47,11 @@ loss: 12000000
 
 ## Security Failure Causes
 
-- **Rollover-pricing edge case:** Cork's rollover automation used historical risk-premium inputs to price the next issuance. In a low-volume market close to expiry, a small trade shortly before rollover could dominate the historical implied yield average and make new cover tokens abnormally cheap.
-- **Cork Hook authorization gap:** Cork's Uniswap V4 hook integration did not enforce a sufficient authorization check on hook data in the affected path. Cork noted that a later upstream Uniswap periphery change added an explicit authorization feature, but Cork's deployed version did not include it.
-- **Fake-market input validation failure:** CertiK and Halborn both described a fake-market setup in which the real market's depeg-swap token was treated as the redemption asset of a second market. That setup should not have been permitted because it let the attacker move between fake and real derivative-token accounting paths.
-- **Composable business-logic interaction:** The exploit was not a single isolated bug. It required pairing manipulated rollover economics with hook / router authorization behavior so that the attacker could obtain both cover tokens and depeg swaps and redeem them for the underlying wstETH.
-- **Residual control limits after audits:** Cork had multiple audits, formal-verification work, simulations, a bug bounty, and monitoring, but the exploit landed in downstream automation and integration logic. This indicates that vault automation, expiry handling, and hook data paths need scenario testing beyond standard invariant checks.
+- **Rollover-pricing edge case:** The next issuance inherited pricing from a narrow pre-expiry trading sample. When activity was thin, an attacker-controlled trade could pull the historical implied yield average toward an artificial level and leave fresh cover-token exposure priced far below the risk it carried.
+- **Cork Hook authorization gap:** The affected Uniswap V4 integration trusted hook data in a path where Cork needed a tighter caller or market authorization boundary. Cork later pointed to an upstream periphery authorization feature that was absent from the deployed integration, leaving the route open to crafted hook inputs.
+- **Fake-market input validation failure:** CertiK and Halborn described a constructed market that reused the genuine market's depeg-swap token as another market's redemption asset. That cross-market substitution let the attacker bridge fake-market accounting into real derivative-token redemption instead of being rejected at market creation or swap validation.
+- **Composable business-logic interaction:** The drain depended on the rollover and hook issues reinforcing each other. Cheap cover-token exposure created one side of the position, while the router/hook path supplied the matching depeg-swap side needed to redeem the underlying wstETH.
+- **Residual control limits after audits:** Cork had audits, formal verification, simulations, a bug bounty, and monitoring, but the missed case lived in the interaction between expiry automation and integration glue. The gap points to scenario tests that join vault rollover, fake-market construction, hook calldata, and redemption flows rather than checking each invariant in isolation.
 
 ## Sources
 
