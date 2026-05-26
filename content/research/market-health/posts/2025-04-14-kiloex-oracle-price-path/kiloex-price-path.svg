@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="520" viewBox="0 0 980 520" role="img" aria-labelledby="title desc">
+  <title id="title">KiloEx oracle price manipulation control path</title>
+  <desc id="desc">A flow chart showing public forwarder execution reaching price setting, artificial low entry, artificial high exit, cross-chain repetition, and recovery.</desc>
+  <rect width="980" height="520" fill="#f8fafc" />
+  <style>
+    .box { fill: #ffffff; stroke: #0f172a; stroke-width: 2; rx: 8; }
+    .alert { fill: #fff7ed; stroke: #c2410c; stroke-width: 2; rx: 8; }
+    .guard { fill: #ecfdf5; stroke: #047857; stroke-width: 2; rx: 8; }
+    .label { font: 600 18px Arial, sans-serif; fill: #0f172a; }
+    .small { font: 14px Arial, sans-serif; fill: #334155; }
+    .tiny { font: 12px Arial, sans-serif; fill: #475569; }
+    .arrow { stroke: #334155; stroke-width: 2.4; fill: none; marker-end: url(#arrow); }
+    .warn { stroke: #c2410c; stroke-width: 2.4; fill: none; marker-end: url(#arrowWarn); }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155" />
+    </marker>
+    <marker id="arrowWarn" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#c2410c" />
+    </marker>
+  </defs>
+
+  <text x="50" y="44" class="label">KiloEx oracle price-path manipulation, April 2025</text>
+  <text x="50" y="70" class="small">Public reporting points to a forwarder/execution route that let attacker-supplied prices drive opening and closing values.</text>
+
+  <rect x="55" y="110" width="210" height="92" class="box" />
+  <text x="78" y="142" class="label">Executor setup</text>
+  <text x="78" y="169" class="small">Contracts deployed on</text>
+  <text x="78" y="190" class="small">BSC, Base, and opBNB</text>
+
+  <rect x="335" y="110" width="230" height="92" class="alert" />
+  <text x="358" y="142" class="label">Public forwarder path</text>
+  <text x="358" y="169" class="small">MinimalForwarder execute</text>
+  <text x="358" y="190" class="small">reaches position execution</text>
+
+  <rect x="635" y="110" width="240" height="92" class="alert" />
+  <text x="658" y="142" class="label">Price setter reached</text>
+  <text x="658" y="169" class="small">PositionKeeper.setPrices</text>
+  <text x="658" y="190" class="small">accepts manipulated values</text>
+
+  <path d="M265 156 L335 156" class="arrow" />
+  <path d="M565 156 L635 156" class="warn" />
+
+  <rect x="130" y="275" width="250" height="110" class="alert" />
+  <text x="154" y="307" class="label">Artificial low entry</text>
+  <text x="154" y="334" class="small">ETH near $100</text>
+  <text x="154" y="355" class="small">BTC near $1,000</text>
+  <text x="154" y="376" class="small">BNB near $10</text>
+
+  <rect x="600" y="275" width="250" height="110" class="alert" />
+  <text x="624" y="307" class="label">Artificial high exit</text>
+  <text x="624" y="334" class="small">ETH near $10,000</text>
+  <text x="624" y="355" class="small">BTC near $100,000</text>
+  <text x="624" y="376" class="small">BNB near $1,000</text>
+
+  <path d="M755 202 C755 242 725 248 725 275" class="warn" />
+  <path d="M255 202 C255 242 255 248 255 275" class="warn" />
+  <path d="M380 330 L600 330" class="warn" />
+
+  <rect x="365" y="425" width="250" height="62" class="guard" />
+  <text x="390" y="452" class="label">Required control</text>
+  <text x="390" y="475" class="small">Fail closed on impossible</text>
+  <text x="390" y="494" class="small">open-to-close price deltas</text>
+
+  <path d="M490 385 L490 425" class="arrow" />
+
+  <text x="55" y="502" class="tiny">Sources: SlowMist incident recap; Halborn analysis; Cointelegraph and The Block recovery/loss reports.</text>
+</svg>
