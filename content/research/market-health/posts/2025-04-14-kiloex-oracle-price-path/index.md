@@ -8,7 +8,7 @@ tags:
   - Perpetuals
   - BNB Chain
   - Base
-  - Taiko
+  - opBNB
 ---
 
 ## Key points
@@ -27,7 +27,7 @@ The companion file [`kiloex-oracle-price-signals.csv`](kiloex-oracle-price-signa
 
 KiloEx operated as an on-chain perpetual trading venue where position execution depended on oracle prices. That is normal for many derivatives venues, but it creates a hard market-health boundary: price inputs must be independent, timely, and bounded before they can define a trader's entry or exit value.
 
-The incident exposed a failure at that boundary. SlowMist reports that the attacker used the public `execute` function in `MinimalForwarder` to call `executeIncreasePositions` and `executeDecreasePositions`. Those calls reached `PositionKeeper.setPrices`, allowing price data in the execution path to be altered. Once price updates became attacker-controlled, the venue could be made to accept economically impossible transitions: low entry prices followed by high exit prices.
+The incident exposed a failure at that boundary. SlowMist identifies the exposed route as the public `execute` function on `MinimalForwarder`. In that route, forwarded calls into `executeIncreasePositions` and `executeDecreasePositions` could reach `PositionKeeper.setPrices`, so the same execution flow that changed position size also supplied the price inputs used to value the trade. Once that separation failed, KiloEx's accounting could credit positions using one synthetic valuation on entry and a different synthetic valuation on exit, instead of checking both against independent market prices.
 
 In market-health terms, the exploit converted an oracle relay into the market. The attack did not need broad external venues to clear ETH, BTC, or BNB at the manipulated prices. It needed KiloEx's own execution stack to treat the synthetic path as authoritative for position accounting.
 
