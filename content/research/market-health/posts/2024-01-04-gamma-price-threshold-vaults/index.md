@@ -47,14 +47,14 @@ The economic issue is visible even without replaying every tick-range position. 
 
 Gamma reported four affected vault loss estimates:
 
-1. gDAI-DAI: about $2.74 million.
-2. wstETH-WETH: about $771,000.
-3. USDT-USDC.e: about $1.357 million.
-4. USDC-USDC.e: about $1.313 million.
+1. gDAI-DAI: about $2.74 million ([Gamma postmortem](https://gammastrategies.medium.com/post-mortem-remediation-plan-9a62f10d90f3)).
+2. wstETH-WETH: about $771,000 ([Gamma postmortem](https://gammastrategies.medium.com/post-mortem-remediation-plan-9a62f10d90f3)).
+3. USDT-USDC.e: about $1.357 million ([Gamma postmortem](https://gammastrategies.medium.com/post-mortem-remediation-plan-9a62f10d90f3)).
+4. USDC-USDC.e: about $1.313 million ([Gamma postmortem](https://gammastrategies.medium.com/post-mortem-remediation-plan-9a62f10d90f3)).
 
 Those vaults are useful because they are not exotic long-tail tokens. They are assets whose fair value should be relatively stable against each other. That makes price-threshold drift more important, not less. If a stable or LST pair can move enough for a profitable single-account loop, the vault should treat the movement as evidence of local pool manipulation, stale automation, or a route that should be paused.
 
-Neptune Mutual's incident analysis separately emphasized the repeated deposit/withdraw pattern and estimated about $4.19 million retained by the attacker after cycle costs. That lower retained-value estimate does not conflict with Gamma's larger vault-loss accounting. It separates attacker economics from the protocol's aggregate vault damage.
+Neptune Mutual's incident analysis separately emphasized the repeated deposit/withdraw pattern and estimated about $4.19 million retained by the attacker after cycle costs ([Neptune Mutual analysis](https://neptunemutual.com/blog/how-was-gamma-strategies-exploited/)). That lower retained-value estimate does not conflict with Gamma's larger vault-loss accounting. It separates attacker economics from the protocol's aggregate vault damage.
 
 ## Surveillance indicators
 
