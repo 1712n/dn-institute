@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="650" viewBox="0 0 1040 650" role="img" aria-labelledby="title desc">
+  <title id="title">Lodestar plvGLP oracle manipulation path</title>
+  <desc id="desc">Diagram showing how a vault exchange-rate donation inflated plvGLP collateral value and drained Lodestar lending liquidity.</desc>
+  <rect width="1040" height="650" fill="#ffffff" />
+  <text x="48" y="52" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#172033">Lodestar plvGLP Oracle Manipulation</text>
+  <text x="48" y="82" font-family="Arial, sans-serif" font-size="14" fill="#4b5563">Selected public evidence points from NomosLabs, CertiK, Cointelegraph, Halborn, and Arbiscan.</text>
+
+  <rect x="56" y="118" width="188" height="116" rx="8" fill="#e8f2ff" stroke="#2463a6" stroke-width="2" />
+  <text x="82" y="152" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#0f3762">Flash liquidity</text>
+  <text x="82" y="181" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">CertiK reports about</text>
+  <text x="82" y="201" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">$70.5M across eight</text>
+  <text x="82" y="221" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">flash loans</text>
+
+  <rect x="304" y="118" width="188" height="116" rx="8" fill="#eaf7e8" stroke="#2e7d32" stroke-width="2" />
+  <text x="330" y="152" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#1f5f24">Vault donation</text>
+  <text x="330" y="181" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">totalAssets rises</text>
+  <text x="330" y="201" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">without matching</text>
+  <text x="330" y="221" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">share issuance</text>
+
+  <rect x="552" y="118" width="188" height="116" rx="8" fill="#fff3df" stroke="#b46b13" stroke-width="2" />
+  <text x="578" y="152" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#7a4100">Ratio shock</text>
+  <text x="578" y="181" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">plvGLP/GLP ratio</text>
+  <text x="578" y="201" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">moves from 1.07</text>
+  <text x="578" y="221" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">to about 1.82-1.83</text>
+
+  <rect x="800" y="118" width="188" height="116" rx="8" fill="#ffe9ec" stroke="#b42337" stroke-width="2" />
+  <text x="826" y="152" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#8a1023">Oracle mark</text>
+  <text x="826" y="181" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">Lodestar prices</text>
+  <text x="826" y="201" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">collateral from the</text>
+  <text x="826" y="221" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">inflated ratio</text>
+
+  <path d="M 248 176 L 294 176" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 496 176 L 542 176" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 744 176 L 790 176" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+
+  <rect x="118" y="318" width="230" height="124" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2" />
+  <text x="150" y="352" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#334155">Borrowout</text>
+  <text x="150" y="382" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">Inflated collateral value</text>
+  <text x="150" y="402" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">unlocks nearly all</text>
+  <text x="150" y="422" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">available liquidity</text>
+
+  <rect x="405" y="318" width="230" height="124" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2" />
+  <text x="437" y="352" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#334155">Bad debt</text>
+  <text x="437" y="382" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">CertiK reports more</text>
+  <text x="437" y="402" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">than $6M in bad debt</text>
+  <text x="437" y="422" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">after the borrowout</text>
+
+  <rect x="692" y="318" width="230" height="124" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2" />
+  <text x="724" y="352" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#334155">Profit and recovery</text>
+  <text x="724" y="382" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">Reports put profit near</text>
+  <text x="724" y="402" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">$5.8M and recoverable</text>
+  <text x="724" y="422" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">GLP near $2.4M</text>
+
+  <path d="M 894 240 C 894 280 810 286 807 310" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 688 380 L 645 380" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 401 380 L 358 380" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 232 310 C 232 280 150 266 150 240" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" stroke-dasharray="8 7" />
+
+  <rect x="72" y="516" width="896" height="82" rx="8" fill="#f9fafb" stroke="#d1d5db" />
+  <text x="100" y="548" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#111827">Market-health control lesson</text>
+  <text x="100" y="574" font-family="Arial, sans-serif" font-size="14" fill="#1f2937">A lending market should not make a same-block vault exchange-rate jump immediately borrowable across unrelated reserves.</text>
+  <text x="100" y="596" font-family="Arial, sans-serif" font-size="14" fill="#1f2937">Pause collateral when totalAssets rises without matching share issuance, then validate the new mark against external depth.</text>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#374151" />
+    </marker>
+  </defs>
+</svg>
