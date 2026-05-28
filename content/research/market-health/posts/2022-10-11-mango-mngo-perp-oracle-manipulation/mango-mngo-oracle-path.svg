@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="650" viewBox="0 0 1040 650" role="img" aria-labelledby="title desc">
+  <title id="title">Mango MNGO perpetual oracle manipulation path</title>
+  <desc id="desc">Diagram showing how matched perpetual exposure, concentrated MNGO spot buying, oracle marks, and borrowing drained Mango Markets liquidity.</desc>
+  <rect width="1040" height="650" fill="#ffffff" />
+  <text x="48" y="52" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#172033">Mango MNGO Perpetual Oracle Manipulation</text>
+  <text x="48" y="82" font-family="Arial, sans-serif" font-size="14" fill="#4b5563">Selected public evidence points from the CFTC, SEC, Solidus Labs, DNI, and CoinDesk.</text>
+
+  <rect x="56" y="118" width="188" height="120" rx="8" fill="#e8f2ff" stroke="#2463a6" stroke-width="2" />
+  <text x="82" y="152" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#0f3762">Matched setup</text>
+  <text x="82" y="182" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">Two accounts funded</text>
+  <text x="82" y="202" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">with $5M USDC each</text>
+  <text x="82" y="222" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">open long and short</text>
+
+  <rect x="304" y="118" width="188" height="120" rx="8" fill="#eaf7e8" stroke="#2e7d32" stroke-width="2" />
+  <text x="330" y="152" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#1f5f24">Oracle-source buys</text>
+  <text x="330" y="182" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">Concentrated MNGO</text>
+  <text x="330" y="202" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">buying hits three</text>
+  <text x="330" y="222" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">oracle exchanges</text>
+
+  <rect x="552" y="118" width="188" height="120" rx="8" fill="#fff3df" stroke="#b46b13" stroke-width="2" />
+  <text x="578" y="152" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#7a4100">Price shock</text>
+  <text x="578" y="182" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">MNGO reaches up to</text>
+  <text x="578" y="202" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">$0.91 on one source</text>
+  <text x="578" y="222" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">from about $0.04</text>
+
+  <rect x="800" y="118" width="188" height="120" rx="8" fill="#ffe9ec" stroke="#b42337" stroke-width="2" />
+  <text x="826" y="152" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#8a1023">Perp mark</text>
+  <text x="826" y="182" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">Long swaps revalue</text>
+  <text x="826" y="202" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">from about $19M to</text>
+  <text x="826" y="222" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">more than $200M</text>
+
+  <path d="M 248 178 L 294 178" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 496 178 L 542 178" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 744 178 L 790 178" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+
+  <rect x="118" y="322" width="230" height="124" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2" />
+  <text x="150" y="356" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#334155">Borrowout</text>
+  <text x="150" y="386" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">Inflated collateral</text>
+  <text x="150" y="406" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">unlocks about</text>
+  <text x="150" y="426" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">$114M-$116M</text>
+
+  <rect x="405" y="322" width="230" height="124" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2" />
+  <text x="437" y="356" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#334155">Reversion</text>
+  <text x="437" y="386" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">MNGO falls to about</text>
+  <text x="437" y="406" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">$0.02 after buying</text>
+  <text x="437" y="426" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">pressure stops</text>
+
+  <rect x="692" y="322" width="230" height="124" rx="8" fill="#f8fafc" stroke="#64748b" stroke-width="2" />
+  <text x="724" y="356" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#334155">Partial return</text>
+  <text x="724" y="386" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">DNI records about</text>
+  <text x="724" y="406" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">$67M returned after</text>
+  <text x="724" y="426" font-family="Arial, sans-serif" font-size="13" fill="#1f2937">governance settlement</text>
+
+  <path d="M 894 244 C 894 282 807 296 807 314" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 688 384 L 645 384" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 401 384 L 358 384" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" />
+  <path d="M 232 314 C 232 280 150 268 150 244" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrow)" stroke-dasharray="8 7" />
+
+  <rect x="72" y="518" width="896" height="82" rx="8" fill="#f9fafb" stroke="#d1d5db" />
+  <text x="100" y="550" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#111827">Market-health control lesson</text>
+  <text x="100" y="576" font-family="Arial, sans-serif" font-size="14" fill="#1f2937">A venue should not let same-window thin-token price pressure turn unrealized perpetual PnL into full borrowable value.</text>
+  <text x="100" y="598" font-family="Arial, sans-serif" font-size="14" fill="#1f2937">Link matched derivative exposure, oracle-source concentration, and cross-asset borrowout as one incident pattern.</text>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#374151" />
+    </marker>
+  </defs>
+</svg>
