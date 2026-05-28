@@ -11,7 +11,7 @@ entities:
 
 ## Summary
 
-On February 4, 2021, Yearn Finance's v1 yDAI vault lost about 11 million DAI because the vault could be made to transact during short-lived distortions in Curve's 3pool. Instead of relying on a lasting move in stablecoin fundamentals, the attacker repeatedly changed the pool inventory, triggered vault activity against that temporary state, and unwound the position after the vault had absorbed the bad execution.[^yearn-disclosure]
+On February 4, 2021, an attacker used temporary Curve 3pool inventory shocks to make Yearn Finance's v1 yDAI vault execute deposits and withdrawals at poor rates. Yearn later reported about 11 million DAI of vault losses from the incident. The manipulation did not depend on a durable move in stablecoin fundamentals; it depended on creating a short imbalance, making the vault trade against that state, and then reversing enough of the imbalance to run the pattern again.[^yearn-disclosure]
 
 This is a useful market-health case because the manipulated market was not a thin memecoin book. It was a major stablecoin AMM pool where prices are expected to remain close to parity. The attacker used very large temporary flows, not a durable change in fundamentals, to alter the price surface visible to the vault. The vault then acted as a forced taker of that distorted price.
 
@@ -19,7 +19,7 @@ The incident also shows why market manipulation and oracle/AMM exploitation over
 
 ## Manipulation pattern
 
-Yearn's disclosure describes the exploit at transaction level. One representative loop started with 3CRV minting from 134 million USDC and 36 million DAI, then removed 165 million USDT so the pool's composition was skewed before the yDAI vault deposited. After cycling the imbalance through the vault interaction, the attacker later redeemed the initial 3CRV position for 134 million USDC and 39.4 million DAI.[^yearn-disclosure]
+Yearn's disclosure links to the attacker contract and an example transaction. In that representative transaction, the attacker minted 3CRV with 134 million USDC and 36 million DAI, withdrew 165 million USDT to skew the pool composition, pushed yDAI vault activity through the distorted pool state, and eventually redeemed the original 3CRV position for 134 million USDC plus 39.4 million DAI.[^yearn-disclosure][^example-tx]
 
 {{< figure src="yearn-ydai-curve-imbalance-flow.svg" caption="Simplified flow of the yDAI manipulation loop: distort Curve 3pool, force yDAI vault execution, restore, repeat, and redeem." >}}
 
@@ -27,7 +27,7 @@ The loss was not caused by a normal directional bet on DAI, USDC, or USDT. The a
 
 ## Market-health signals
 
-The accompanying dataset, [`yearn-ydai-market-health-signals.csv`](yearn-ydai-market-health-signals.csv), summarizes observable signals from the public disclosure. It is not a replacement for raw Curve swaps or Ethereum trace data; it is a compact checklist for identifying similar events in AMM and vault integrations.
+The accompanying dataset, [`yearn-ydai-market-health-signals.csv`](yearn-ydai-market-health-signals.csv), summarizes observable signals from the public disclosure. It is not a replacement for raw Curve swaps or Ethereum trace data; it is a compact checklist for identifying similar events in AMM and vault integrations. DN Institute's market-health API is oriented around exchange-market abuse metrics such as wash-trading indicators, so this vault-specific AMM case would need to pair those venue-level metrics with on-chain pool-composition and protocol-call data.[^dn-api]
 
 ### Pool composition imbalance
 
@@ -66,6 +66,10 @@ Third, raw volume alone can be misleading. The attacker generated huge flow, but
 ## References
 
 [^yearn-disclosure]: Yearn Security, ["Vulnerability disclosure 2021-02-04"](https://github.com/yearn/yearn-security/blob/master/disclosures/2021-02-04.md).
+
+[^example-tx]: Example transaction from Yearn's disclosure: [`0xf6022012b73770e7e2177129e648980a82aab555f9ac88b8a9cda3ec44b30779`](https://etherscan.io/tx/0xf6022012b73770e7e2177129e648980a82aab555f9ac88b8a9cda3ec44b30779).
+
+[^dn-api]: DN Institute, [Crypto Market Health API](https://rapidapi.com/DNInstitute/api/crypto-market-health/) and [Market Health Metrics documentation](https://dn.institute/market-health/docs/market-health-metrics/).
 
 [^halborn]: Halborn, ["Explained: Inside the Yearn v1 yDAI Hack (Feb 2021)"](https://www.halborn.com/blog/post/explained-the-yearn-v1-ydai-hack-feb-2021).
 
