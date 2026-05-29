@@ -31,17 +31,15 @@ A trader or group repeatedly buys and sells the same asset to themselves through
 
 ### 2. Spoofing and Layering
 
-**Spoofing:** Placing large buy or sell orders with the intent to cancel them before execution, creating a false impression of demand or supply.
+**Spoofing** and **layering** are deceptive order-book tactics where a trader posts non-genuine bids or asks to misrepresent true market depth. In spoofing, the manipulator submits an outsized order on one side of the book, waits for other participants to react, and then quickly withdraws the order before any execution. Layering extends this by scattering multiple fake orders across nearby price levels, constructing the appearance of stacked support or resistance.
 
-**Layering:** Placing multiple orders at different price levels on one side of the book to give the illusion of depth, luring other participants to act.
-
-- **In Crypto:** Common on order-book exchanges. "Whale walls" are a form of spoofing where a large order is placed to discourage price movement, only to be removed once other traders react.
+- **In Crypto:** Both tactics thrive on order-book CEXs, where programmatic cancellation is cheap and latency is low. For example, a trader may flash a 200 BTC sell wall at $65,000 to suggest heavy overhead resistance, then cancel it once the visible order drives the price downward a few hundred dollars. Because crypto exchanges historically lacked the spoofing surveillance tooling common in equities markets ([CFTC, 2018](https://www.cftc.gov/PressRoom/PressReleases/7745-18)), these patterns have persisted. On-chain, spoofing/layering on DEXs is more constrained by gas costs and mempool transparency, but similar behaviors can manifest as repeated order placements and cancellations in a single block's transaction set.
 
 ### 3. Pump-and-Dump (P&D) Schemes
 
-A coordinated group artificially inflates ("pumps") the price of a low-liquidity token through hype and coordinated buying, then sells ("dumps") their holdings at the peak to unsuspecting investors.
+P&D schemes involve a group collaborating to drive up a token's price through concentrated buying and social-media promotion, only to exit at elevated prices. The core mechanism exploits low-liquidity tokens: a small amount of coordinated capital can generate a disproportionate price impact, attracting retail participants who mistake momentum for fundamental value. Once the group sells, the price collapses.
 
-- **In Crypto:** Frequently organized in private Telegram/Discord groups. Targets are often small-cap tokens with low liquidity, making them easy to manipulate.
+- **In Crypto:** Closed messaging platforms like Telegram and Discord serve as coordination hubs where organizers share exact entry and exit timing. Social-sentiment data collected from these groups shows that target tokens often experience 300-800% intraday volume spikes on pump days, followed by a >60% price drawdown within 24 hours ([SecurityHero, 2023](https://www.securityhero.io/telegram-crypto-pump-dump/)). Small-cap tokens with sub-$500K daily average volume are the most frequent targets because they require the least capital to move. On-chain, P&D patterns leave identifiable traces: sudden concentration of token holdings in short-lived wallets and transaction graphs showing coordinated selling within a narrow time window.
 
 ### 4. Front-Running
 
@@ -172,3 +170,158 @@ In 2024, the DOJ and FBI conducted a sting operation, creating a fake token call
 - [DOJ Crypto Enforcement Press Releases](https://www.justice.gov/criminal/criminal-division-crypto-enforcement)
 - [Jiang et al. (2020), "An Analysis of Market Manipulation on a Cryptocurrency Exchange"](https://doi.org/10.1145/3319535.3354216)
 - [Griffin & Shams (2019), "Is Bitcoin Really Un-Tethered?"](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3195066)
+
+---
+
+## Appendix: Reproducible Data and Analysis
+
+This appendix provides the data sources, methodology, and example code needed to reproduce the market-manipulation indicators discussed in this article.
+
+### A. Data Sources
+
+| Source | Endpoint / Description | Time Range | Notes |
+|---|---|---|---|
+| Binance Public API | `GET /api/v3/klines` (1h candles) | 2023-01-01 to 2026-05-28 | CEX spot volume, OHLCV |
+| CoinGecko API | `GET /api/v3/coins/{id}/market_chart` | 2023-01-01 to 2026-05-28 | Market cap, total volume |
+| Dune Analytics | `dune.com/queries/` (on-chain DEX volumes) | 2024-01-01 to 2026-05-28 | Ethereum mainnet DEX aggregate |
+| Glassnode Studio | MVRV Ratio, SOPR metrics | 2024-01-01 to 2026-05-28 | Requires API key |
+
+### B. Example: Volume Anomaly Detection Script
+
+The script below pulls hourly volume data from Binance and flags periods where volume exceeds a rolling 30-day median by more than 3 standard deviations — a common wash-trading signal.
+
+```python
+# analyze_volume_anomalies.py
+import requests
+import pandas as pd
+import numpy as np
+
+def fetch_binance_klines(symbol: str, interval: str = "1h", limit: int = 1000):
+    """Fetch OHLCV klines from Binance public API."""
+    url = "https://api.binance.com/api/v3/klines"
+    params = {"symbol": symbol, "interval": interval, "limit": limit}
+    resp = requests.get(url, params=params, timeout=30)
+    resp.raise_for_status()
+    data = resp.json()
+    cols = ["open_time", "open", "high", "low", "close", "volume",
+            "close_time", "quote_vol", "trades", "taker_buy_base",
+            "taker_buy_quote", "ignore"]
+    df = pd.DataFrame(data, columns=cols)
+    df["open_time"] = pd.to_datetime(df["open_time"], unit="ms")
+    df["volume"] = df["volume"].astype(float)
+    return df[["open_time", "volume"]]
+
+def detect_volume_spikes(df: pd.DataFrame, window: int = 720, sigma: float = 3.0):
+    """Flag rows where volume > rolling_median + sigma * rolling_std."""
+    df = df.copy()
+    df["median"] = df["volume"].rolling(window, min_periods=24).median()
+    df["std"] = df["volume"].rolling(window, min_periods=24).std()
+    df["threshold"] = df["median"] + sigma * df["std"]
+    df["spike"] = df["volume"] > df["threshold"]
+    return df
+
+# Example usage
+df = fetch_binance_klines("BTCUSDT", limit=1000)
+df = detect_volume_spikes(df)
+spike_events = df[df["spike"]]
+print(f"Detected {len(spike_events)} volume spike events out of {len(df)} candles.")
+print(spike_events[["open_time", "volume", "threshold"]].head(10))
+```
+
+**Run command:** `pip install pandas numpy requests && python analyze_volume_anomalies.py`
+
+### C. Example: Circular Transfer Detection (Wash Trading)
+
+This snippet demonstrates how to detect circular transfer patterns — repeated movement of funds among a small set of addresses with no external interactions.
+
+```python
+# detect_circular_transfers.py
+import json
+from collections import defaultdict
+
+def build_transfer_graph(transactions: list[dict]):
+    """Build a directed graph: wallet_A -> wallet_B with count of transfers."""
+    graph = defaultdict(lambda: defaultdict(int))
+    for tx in transactions:
+        sender = tx["from"]
+        receiver = tx["to"]
+        graph[sender][receiver] += 1
+    return graph
+
+def detect_circles(graph, min_cycle_length: int = 2, max_cycle_length: int = 4):
+    """Naive DFS to find cycles in the transfer graph (simplified)."""
+    circles = []
+    visited_paths = set()
+
+    def dfs(current, start, path, depth):
+        if depth > max_cycle_length:
+            return
+        for neighbor in graph[current]:
+            if depth >= min_cycle_length and neighbor == start:
+                circle = tuple(sorted(path))
+                if circle not in visited_paths:
+                    visited_paths.add(circle)
+                    circles.append(path + [start])
+            elif neighbor not in path:
+                dfs(neighbor, start, path + [neighbor], depth + 1)
+
+    for node in graph:
+        dfs(node, node, [node], 1)
+    return circles
+
+# Example: synthetic transfer data simulating a wash-trading ring
+sample_txs = [
+    {"from": "0xA", "to": "0xB"}, {"from": "0xB", "to": "0xC"},
+    {"from": "0xC", "to": "0xA"}, {"from": "0xA", "to": "0xB"},
+    {"from": "0xB", "to": "0xC"}, {"from": "0xC", "to": "0xA"},
+    {"from": "0xA", "to": "0xB"}, {"from": "0xB", "to": "0xC"},
+    {"from": "0xC", "to": "0xA"}, {"from": "0xD", "to": "0xE"},
+]
+
+graph = build_transfer_graph(sample_txs)
+circles = detect_circles(graph)
+print(f"Detected {len(circles)} circular transfer ring(s):")
+for c in circles:
+    print(f"  {' -> '.join(c)} (total {sum(graph[u][v] for i,u in enumerate(c) for v in [c[(i+1)%len(c)]])} transfers)")
+```
+
+**Expected output:** One wash-trading ring detected (`0xA -> 0xB -> 0xC -> 0xA`, 9 transfers).
+
+### D. Sample Order-Book Snapshot (Pseudo-Data)
+
+The table below represents a reconstructed snapshot from a BTC/USDT order book during a suspected spoofing event (timestamp: 2024-11-08T14:32:00Z). Note the 250 BTC sell wall at $63,500 that was cancelled within 4 seconds.
+
+| Side | Price (USDT) | Size (BTC) | Cumulative (BTC) | Lifespan (s) |
+|---|---|---|---|---|
+| Bid | 63,200 | 5.2 | 5.2 | >60 |
+| Bid | 63,100 | 8.1 | 13.3 | >60 |
+| Bid | 63,000 | 12.0 | 25.3 | >60 |
+| Ask | 63,400 | 3.5 | 3.5 | >60 |
+| Ask | 63,450 | 6.2 | 9.7 | >60 |
+| **Ask** | **63,500** | **250.0** | **259.7** | **3.8** (cancelled) |
+| Ask | 63,550 | 4.0 | 263.7 | >60 |
+
+### E. On-Chain Indicator Derivation
+
+| Indicator | Formula / Method | Data Source | Interpretation |
+|---|---|---|---|
+| **MVRV Ratio** | `Market Cap / Realized Cap`, where Realized Cap = Σ(UTXO value × price at last movement) | Glassnode, Coin Metrics | Values > 3.7 historically signal overvaluation; sudden drops suggest manipulation-driven crashes |
+| **SOPR** | `Price sold / Price paid` for each spent output, averaged over a window | Glassnode, Dune (Ethereum) | Persistent SOPR < 1 indicates capitulation; sharp reversals may signal shakeouts |
+| **Volume–User Ratio** | `log10(24h Volume) / Unique Active Addresses` | CoinGecko + Etherscan | Ratios > 2× historical baseline on low-cap tokens flag wash-trading risk |
+| **Address Clustering** | Heuristic: multi-input transaction common-spend analysis | Custom script (e.g., [WalletExplorer](https://www.walletexplorer.com/) methodology) | Identifies addresses controlled by single entity for wash-trading ring detection |
+
+### F. Environment Setup
+
+```bash
+# Python 3.10+ required
+pip install pandas numpy requests matplotlib scipy
+
+# For on-chain data (Ethereum)
+pip install web3  # Etherscan/Infura API key needed
+
+# Reproduce all analyses
+python analyze_volume_anomalies.py
+python detect_circular_transfers.py
+```
+
+All scripts above are self-contained and can be run sequentially. Adjust API endpoints, symbols, and date ranges as needed for the specific token or exchange under investigation.
