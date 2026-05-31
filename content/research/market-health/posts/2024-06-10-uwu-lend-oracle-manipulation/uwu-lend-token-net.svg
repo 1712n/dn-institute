@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="242" viewBox="0 0 940 242" role="img">
+  <style>
+    text { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
+    .muted { fill: #5d6d7e; font-size: 12px; }
+    .title { font-size: 18px; font-weight: 700; }
+    .axis { stroke: #d6dbdf; stroke-width: 1; }
+    .bar { fill: #2f6f9f; }
+    .bar-alt { fill: #1f7a5a; }
+    .warn { fill: #9b2f2f; }
+  </style>
+<text class="title" x="30" y="32">Net ERC-20 inflow to UwU Lend attacker-controlled addresses</text>
+  <text class="muted" x="30" y="52">Liquid-token subset only; bars are log-scaled because token units are not directly comparable.</text>
+  <text x="30" y="92">WETH</text>
+  <rect class="bar" x="128" y="74" width="411.1705635944317" height="22" />
+  <text class="muted" x="549.1705635944318" y="90">4907.44316</text>
+<text x="30" y="130">crvUSD</text>
+  <rect class="bar" x="128" y="112" width="660" height="22" />
+  <text class="muted" x="798" y="128">840627.852064</text>
+<text x="30" y="168">sDAI</text>
+  <rect class="bar" x="128" y="150" width="630.4817742331812" height="22" />
+  <text class="muted" x="768.4817742331812" y="166">456696.702201</text>
+<text x="30" y="206">bLUSD</text>
+  <rect class="bar" x="128" y="188" width="634.7637473365583" height="22" />
+  <text class="muted" x="772.7637473365583" y="204">498960.112775</text>
+  <text class="muted" x="30" y="222">Source: Ethereum receipts for the three public UwU Lend attack transactions.</text>
+</svg>
