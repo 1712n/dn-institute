@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="420" viewBox="0 0 920 420" role="img">
+  <style>
+    text { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
+    .muted { fill: #5d6d7e; font-size: 12px; }
+    .title { font-size: 18px; font-weight: 700; }
+    .axis { stroke: #d6dbdf; stroke-width: 1; }
+    .line { fill: none; stroke: #1f7a5a; stroke-width: 3; }
+    .point { fill: #1f7a5a; }
+    .bar { fill: #2f6f9f; }
+    .warn { fill: #9b2f2f; }
+  </style>
+<text class="title" x="32" y="32">BURGER/WBNB reserve-implied price inside the first attack transaction</text>
+  <text class="muted" x="32" y="52">Price is WBNB reserve divided by BURGER reserve at each Sync log; x-axis labels are receipt log indexes.</text>
+  <line class="axis" x1="72" y1="56" x2="72" y2="326" />
+  <line class="axis" x1="72" y1="326" x2="862" y2="326" />
+  <text class="muted" x="18" y="61">0.195</text>
+  <text class="muted" x="20" y="326">0.001</text>
+  <polyline class="line" points="72,57.081240672783224 159.77777777777777,56.54062033639161 247.55555555555554,56 335.3333333333333,257.5432191352927 423.1111111111111,257.5432191352927 510.8888888888889,326 598.6666666666666,325.99870490959324 686.4444444444445,296.95663243917033 774.2222222222222,296.8842527242581 862,296.8118730093458" />
+  <circle class="point" cx="72" cy="57.081240672783224" r="4" />
+  <text class="muted" x="56" y="354">28</text>
+<circle class="point" cx="159.77777777777777" cy="56.54062033639161" r="4" />
+  <text class="muted" x="143.77777777777777" y="354">37</text>
+<circle class="point" cx="247.55555555555554" cy="56" r="4" />
+  <text class="muted" x="231.55555555555554" y="354">40</text>
+<circle class="point" cx="335.3333333333333" cy="257.5432191352927" r="4" />
+  <text class="muted" x="319.3333333333333" y="354">71</text>
+<circle class="point" cx="423.1111111111111" cy="257.5432191352927" r="4" />
+  <text class="muted" x="407.1111111111111" y="354">80</text>
+<circle class="point" cx="510.8888888888889" cy="326" r="4" />
+  <text class="muted" x="494.8888888888889" y="354">93</text>
+<circle class="point" cx="598.6666666666666" cy="325.99870490959324" r="4" />
+  <text class="muted" x="582.6666666666666" y="354">110</text>
+<circle class="point" cx="686.4444444444445" cy="296.95663243917033" r="4" />
+  <text class="muted" x="670.4444444444445" y="354">122</text>
+<circle class="point" cx="774.2222222222222" cy="296.8842527242581" r="4" />
+  <text class="muted" x="758.2222222222222" y="354">131</text>
+<circle class="point" cx="862" cy="296.8118730093458" r="4" />
+  <text class="muted" x="846" y="354">134</text>
+  <text class="muted" x="72" y="392">Source: BNB Smart Chain receipt 0xac8a739c...</text>
+</svg>

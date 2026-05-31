@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="356" viewBox="0 0 920 356" role="img">
+  <style>
+    text { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
+    .muted { fill: #5d6d7e; font-size: 12px; }
+    .title { font-size: 18px; font-weight: 700; }
+    .axis { stroke: #d6dbdf; stroke-width: 1; }
+    .line { fill: none; stroke: #1f7a5a; stroke-width: 3; }
+    .point { fill: #1f7a5a; }
+    .bar { fill: #2f6f9f; }
+    .warn { fill: #9b2f2f; }
+  </style>
+<text class="title" x="32" y="32">Net token inflow to the BurgerSwap attacker contract and wallet</text>
+  <text class="muted" x="32" y="52">Log-scaled bars keep unlike token units readable; exact unit amounts are printed next to each bar.</text>
+  <text x="32" y="93">USDT</text>
+  <rect class="bar" x="132" y="76" width="620" height="24" rx="3" />
+  <text class="muted" x="762" y="93">1431761.031031</text>
+<text x="32" y="131">BURGER</text>
+  <rect class="bar" x="132" y="114" width="567.6768128420264" height="24" rx="3" />
+  <text class="muted" x="709.6768128420264" y="131">432874.621429</text>
+<text x="32" y="169">xBURGER</text>
+  <rect class="bar" x="132" y="152" width="518.9625626841172" height="24" rx="3" />
+  <text class="muted" x="660.9625626841172" y="169">142129.706547</text>
+<text x="32" y="207">ROCKI</text>
+  <rect class="bar" x="132" y="190" width="501.41883256992764" height="24" rx="3" />
+  <text class="muted" x="643.4188325699276" y="207">95168.83305</text>
+<text x="32" y="245">BUSD</text>
+  <rect class="bar" x="132" y="228" width="437.68170605685367" height="24" rx="3" />
+  <text class="muted" x="579.6817060568537" y="245">22163.839969</text>
+<text x="32" y="283">WBNB</text>
+  <rect class="bar" x="132" y="266" width="367.0801524661961" height="24" rx="3" />
+  <text class="muted" x="509.0801524661961" y="283">4411.39318</text>
+<text x="32" y="321">ETH</text>
+  <rect class="bar" x="132" y="304" width="55.966118275111654" height="24" rx="3" />
+  <text class="muted" x="197.96611827511165" y="321">2.594824</text>
+</svg>
