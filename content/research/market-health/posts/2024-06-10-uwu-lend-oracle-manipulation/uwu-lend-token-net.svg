@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="940" height="242" viewBox="0 0 940 242" role="img">
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="242" viewBox="0 0 940 242" role="img" aria-labelledby="uwu-lend-liquid-token-net-inflow-chart-title">
+  <title id="uwu-lend-liquid-token-net-inflow-chart-title">UwU Lend liquid-token net inflow chart</title>
   <style>
     text { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
     .muted { fill: #5d6d7e; font-size: 12px; }

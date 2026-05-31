@@ -22,20 +22,20 @@ The on-chain evidence in this case shows a market-health failure, not only a con
 - Receipt-level transfer accounting across attacker-controlled addresses shows net liquid-token inflows of `4,907.443160` WETH, `840,627.852064` crvUSD, `498,960.112775` bLUSD, and `456,696.702201` sDAI.
 - The same accounting records large UwU internal/accounting-token changes, including `131,155,184.389656` uSUSDE, `65,662,583.444679` variableDebtSUSDE, and `25,326,128.474128` variableDebtCRV.
 
-This is a lower-bound receipt view. It uses ERC-20 logs only, excludes native ETH balance changes and execution traces, and separates liquid assets from lending-market accounting tokens so the output is not mistaken for a full USD loss valuation.
+This is a lower-bound receipt view. It uses ERC-20 logs only, excludes native ETH balance changes and execution traces, and separates liquid assets from lending-market accounting tokens so the output is not mistaken for a full USD loss valuation. The created-contract discovery uses `receipt.contractAddress`, so it captures top-level contract creations only; internal `CREATE`/`CREATE2` helper contracts would require trace data such as `debug_traceTransaction`.
 
 ## Reproducible Dataset
 
-I generated the CSV files and SVG charts in this directory from Ethereum JSON-RPC receipts with `build-uwu-lend-onchain-evidence.js`. The script uses no third-party package and can be rerun with:
+I generated the CSV files and SVG charts in this directory from Ethereum JSON-RPC receipts with `build-uwu-lend-onchain-evidence.js`. The script uses no third-party package and intentionally requires an explicit `ETH_RPC_URL`; use a reliable Ethereum endpoint because public RPC services can rate-limit historical receipt and metadata calls. It can be rerun with:
 
 ```bash
-ETH_RPC_URL=https://ethereum-rpc.publicnode.com node content/research/market-health/posts/2024-06-10-uwu-lend-oracle-manipulation/build-uwu-lend-onchain-evidence.js
+ETH_RPC_URL="$YOUR_ETH_RPC_URL" node content/research/market-health/posts/2024-06-10-uwu-lend-oracle-manipulation/build-uwu-lend-onchain-evidence.js
 ```
 
 Primary evidence:
 
 - [`uwu-lend-tx-summary.csv`](uwu-lend-tx-summary.csv): transaction sender, created executor contract, block, timestamp, gas, log count, and ERC-20 transfer count.
-- [`uwu-lend-controlled-addresses.csv`](uwu-lend-controlled-addresses.csv): attacker-controlled addresses included in the net-flow set.
+- [`uwu-lend-controlled-addresses.csv`](uwu-lend-controlled-addresses.csv): attacker-controlled addresses included in the net-flow set, with a discovery-method note for seeded addresses versus receipt-only top-level executor discovery.
 - [`uwu-lend-attack-transactions.csv`](uwu-lend-attack-transactions.csv): per-transaction net ERC-20 flow to the controlled address set.
 - [`uwu-lend-token-net.csv`](uwu-lend-token-net.csv): aggregate net flow by token, including lending-market accounting tokens.
 - [`uwu-lend-liquid-token-net.csv`](uwu-lend-liquid-token-net.csv): liquid-token subset of the aggregate flow table.

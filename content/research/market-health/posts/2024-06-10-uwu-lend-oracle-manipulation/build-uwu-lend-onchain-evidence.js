@@ -3,7 +3,12 @@
 const fs = require("fs")
 const path = require("path")
 
-const RPC_URL = process.env.ETH_RPC_URL || "https://ethereum-rpc.publicnode.com"
+const RPC_URL = process.env.ETH_RPC_URL
+if (!RPC_URL) {
+  throw new Error(
+    "Set ETH_RPC_URL to a reliable Ethereum JSON-RPC endpoint before running this script."
+  )
+}
 
 const ATTACKER = "0x841ddf093f5188989fa1524e7b893de64b421f47"
 const UWLEND_LENDING_POOL = "0x2409af0251dcb89ee3dee572629291f9b087c668"
@@ -86,9 +91,9 @@ async function rpc(method, params) {
   throw lastError
 }
 
-async function ethCall(to, data) {
+async function ethCall(to, data, blockTag) {
   try {
-    const result = await rpc("eth_call", [{ to, data }, "latest"])
+    const result = await rpc("eth_call", [{ to, data }, blockTag])
     return result && result !== "0x" ? result : null
   } catch {
     return null
@@ -139,19 +144,22 @@ function decodeStringOrBytes32(hex) {
   return cleanAscii(data.slice(0, 64)) || null
 }
 
-async function tokenMeta(address) {
+async function tokenMeta(address, blockTag) {
   const key = address.toLowerCase()
-  if (tokenCache.has(key)) return tokenCache.get(key)
+  const cacheKey = `${key}:${blockTag}`
+  if (tokenCache.has(cacheKey)) return tokenCache.get(cacheKey)
 
-  const symbol = decodeStringOrBytes32(await ethCall(key, SELECTORS.symbol))
-  const decimalsHex = await ethCall(key, SELECTORS.decimals)
+  const symbol = decodeStringOrBytes32(
+    await ethCall(key, SELECTORS.symbol, blockTag)
+  )
+  const decimalsHex = await ethCall(key, SELECTORS.decimals, blockTag)
   const decimals = decimalsHex ? Number(hexToBigInt(decimalsHex)) : 18
   const meta = {
     address: key,
     symbol: symbol || key.slice(0, 10),
     decimals
   }
-  tokenCache.set(key, meta)
+  tokenCache.set(cacheKey, meta)
   return meta
 }
 
@@ -204,8 +212,28 @@ function writeCsv(file, rows, columns) {
   fs.writeFileSync(path.join(__dirname, file), `${data}\n`)
 }
 
-function svgFrame(width, height, body) {
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img">
+function xmlEscape(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+}
+
+function svgTitleId(title) {
+  return `${String(title)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .slice(0, 48)}-title`
+}
+
+function svgFrame(width, height, title, body) {
+  const titleId = title ? svgTitleId(title) : ""
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img"${
+    title ? ` aria-labelledby="${titleId}"` : ""
+  }>
+  ${title ? `<title id="${titleId}">${xmlEscape(title)}</title>` : ""}
   <style>
     text { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
     .muted { fill: #5d6d7e; font-size: 12px; }
@@ -250,12 +278,12 @@ function writeTokenNetSvg(totalRows) {
       const widthValue = max === 0 ? 0 : (magnitude / max) * chartWidth
       return `<text x="30" y="${y + 18}">${row.symbol}</text>
   <rect class="bar" x="${left}" y="${y}" width="${Math.max(
-        2,
-        widthValue
-      )}" height="22" />
+    2,
+    widthValue
+  )}" height="22" />
   <text class="muted" x="${left + Math.max(8, widthValue) + 10}" y="${
-        y + 16
-      }">${row.net_amount}</text>`
+    y + 16
+  }">${row.net_amount}</text>`
     })
     .join("\n")
 
@@ -264,6 +292,7 @@ function writeTokenNetSvg(totalRows) {
     svgFrame(
       width,
       height,
+      "UwU Lend liquid-token net inflow chart",
       `<text class="title" x="30" y="32">Net ERC-20 inflow to UwU Lend attacker-controlled addresses</text>
   <text class="muted" x="30" y="52">Liquid-token subset only; bars are log-scaled because token units are not directly comparable.</text>
   ${bodyRows}
@@ -282,8 +311,8 @@ function writeReceiptLoadSvg(txSummaryRows) {
   const chartWidth = 760
   const chartHeight = 200
   const barWidth = 72
-  const maxLogs = Math.max(...txSummaryRows.map((row) => row.log_count))
-  const maxGas = Math.max(...txSummaryRows.map((row) => row.gas_used))
+  const maxLogs = Math.max(1, ...txSummaryRows.map((row) => row.log_count))
+  const maxGas = Math.max(1, ...txSummaryRows.map((row) => row.gas_used))
 
   const bars = txSummaryRows
     .map((row, index) => {
@@ -294,15 +323,15 @@ function writeReceiptLoadSvg(txSummaryRows) {
         top + chartHeight - logHeight
       }" width="${barWidth}" height="${logHeight}" />
   <rect class="bar-alt" x="${x + 88}" y="${
-        top + chartHeight - gasHeight
-      }" width="${barWidth}" height="${gasHeight}" />
+    top + chartHeight - gasHeight
+  }" width="${barWidth}" height="${gasHeight}" />
   <text x="${x}" y="${top + chartHeight + 28}">${row.tx_label}</text>
   <text class="muted" x="${x}" y="${top + chartHeight + 46}">block ${
-        row.block_number
-      }</text>
+    row.block_number
+  }</text>
   <text class="muted" x="${x}" y="${top + chartHeight + 64}">${
-        row.log_count
-      } logs</text>`
+    row.log_count
+  } logs</text>`
     })
     .join("\n")
 
@@ -311,11 +340,12 @@ function writeReceiptLoadSvg(txSummaryRows) {
     svgFrame(
       width,
       height,
+      "UwU Lend receipt load chart",
       `<text class="title" x="30" y="34">Three executor-creation receipts from one attacker EOA</text>
   <text class="muted" x="30" y="55">Blue bars show receipt log count; green bars show gas used, normalized separately.</text>
   <line class="axis" x1="${left}" y1="${top + chartHeight}" x2="${
-        left + chartWidth
-      }" y2="${top + chartHeight}" />
+    left + chartWidth
+  }" y2="${top + chartHeight}" />
   ${bars}
   <rect class="bar" x="706" y="30" width="14" height="14" />
   <text class="muted" x="728" y="42">logs</text>
@@ -342,7 +372,8 @@ function addAmount(map, key, patch) {
 async function main() {
   const controlledRows = CONTROLLED_ADDRESSES.map(([role, address]) => ({
     role,
-    address: address.toLowerCase()
+    address: address.toLowerCase(),
+    discovery_method: "seeded from public incident reports and attack context"
   }))
   const controlled = new Set(controlledRows.map((row) => row.address))
   const receipts = []
@@ -356,6 +387,8 @@ async function main() {
       receipt.blockNumber,
       false
     ])
+    // receipt.contractAddress only captures top-level contract creation.
+    // Internal CREATE/CREATE2 helper contracts require trace data, such as debug_traceTransaction.
     const created = receipt.contractAddress
       ? receipt.contractAddress.toLowerCase()
       : ""
@@ -363,7 +396,9 @@ async function main() {
       controlled.add(created)
       controlledRows.push({
         role: `${txInfo.label} created executor`,
-        address: created
+        address: created,
+        discovery_method:
+          "receipt.contractAddress only; internal CREATE/CREATE2 not traced"
       })
     }
     receipts.push({
@@ -377,10 +412,12 @@ async function main() {
 
   const perTxToken = new Map()
   const totalByToken = new Map()
+  const tokenBlockTags = new Map()
   const txSummaryRows = []
 
   for (const item of receipts) {
     const receipt = item.receipt
+    const blockTag = receipt.blockNumber
     let transferLogs = 0
     const uniqueTokens = new Set()
     const txTokenCounts = new Map()
@@ -403,10 +440,12 @@ async function main() {
       if (fromControlled === toControlled) continue
 
       const value = hexToBigInt(log.data)
-      const token = (await tokenMeta(log.address)).address
+      const token = (await tokenMeta(log.address, blockTag)).address
       uniqueTokens.add(token)
       const key = `${item.txInfo.hash}:${token}`
       const totalKey = token
+      tokenBlockTags.set(key, blockTag)
+      if (!tokenBlockTags.has(totalKey)) tokenBlockTags.set(totalKey, blockTag)
       const patch = toControlled
         ? { incoming: value, transfer_count: 1 }
         : { outgoing: value, transfer_count: 1 }
@@ -438,7 +477,7 @@ async function main() {
     const [txHash, tokenAddress] = key.split(":")
     const txInfo = TXS.find((tx) => tx.hash === txHash)
     const summary = txSummaryRows.find((row) => row.transaction_hash === txHash)
-    const meta = await tokenMeta(tokenAddress)
+    const meta = await tokenMeta(tokenAddress, tokenBlockTags.get(key))
     const net = value.incoming - value.outgoing
     if (!isVisibleNet(net, meta.decimals)) continue
     perTxRows.push({
@@ -469,7 +508,7 @@ async function main() {
 
   const totalRows = []
   for (const [tokenAddress, value] of totalByToken.entries()) {
-    const meta = await tokenMeta(tokenAddress)
+    const meta = await tokenMeta(tokenAddress, tokenBlockTags.get(tokenAddress))
     const net = value.incoming - value.outgoing
     if (!isVisibleNet(net, meta.decimals)) continue
     totalRows.push({
@@ -513,7 +552,8 @@ async function main() {
 
   writeCsv("uwu-lend-controlled-addresses.csv", controlledRows, [
     "role",
-    "address"
+    "address",
+    "discovery_method"
   ])
 
   writeCsv("uwu-lend-attack-transactions.csv", perTxRows, [

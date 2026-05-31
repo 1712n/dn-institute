@@ -1,10 +1,10 @@
-role,address
-attacker EOA,0x841ddf093f5188989fa1524e7b893de64b421f47
-exploit helper contract 1,0x4fea76b66db8b548842349dc01c85278da3925da
-exploit helper contract 2,0xf19d66e82ffe8e203b30df9e81359f8a201517ad
-exploit helper contract 3,0x87ed9296bf492ee8807b80923205d8c1fd16f5d8
-exploit helper contract 4,0x4cd6feba837b6944be0b2311b7a21036e86c3354
-crvUSD borrower contract,0x6f8c5692b00c2ebbd07e4fd80e332dff3ab8e83c
-attack-1 created executor,0x21c58d8f816578b1193aef4683e8c64405a4312e
-attack-2 created executor,0x4e48c46779b3b16d63375751467d7eee34d41c3d
-attack-3 created executor,0x13f3fee69160162a78284c64c1100a3df476d890
+role,address,discovery_method
+attacker EOA,0x841ddf093f5188989fa1524e7b893de64b421f47,seeded from public incident reports and attack context
+exploit helper contract 1,0x4fea76b66db8b548842349dc01c85278da3925da,seeded from public incident reports and attack context
+exploit helper contract 2,0xf19d66e82ffe8e203b30df9e81359f8a201517ad,seeded from public incident reports and attack context
+exploit helper contract 3,0x87ed9296bf492ee8807b80923205d8c1fd16f5d8,seeded from public incident reports and attack context
+exploit helper contract 4,0x4cd6feba837b6944be0b2311b7a21036e86c3354,seeded from public incident reports and attack context
+crvUSD borrower contract,0x6f8c5692b00c2ebbd07e4fd80e332dff3ab8e83c,seeded from public incident reports and attack context
+attack-1 created executor,0x21c58d8f816578b1193aef4683e8c64405a4312e,receipt.contractAddress only; internal CREATE/CREATE2 not traced
+attack-2 created executor,0x4e48c46779b3b16d63375751467d7eee34d41c3d,receipt.contractAddress only; internal CREATE/CREATE2 not traced
+attack-3 created executor,0x13f3fee69160162a78284c64c1100a3df476d890,receipt.contractAddress only; internal CREATE/CREATE2 not traced
