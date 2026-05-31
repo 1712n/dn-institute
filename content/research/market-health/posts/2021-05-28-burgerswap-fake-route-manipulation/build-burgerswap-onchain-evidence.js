@@ -201,17 +201,31 @@ function writeReservePriceSvg(syncRows) {
   const top = 56
   const chartWidth = 790
   const chartHeight = 270
+  if (syncRows.length === 0) {
+    fs.writeFileSync(
+      path.join(__dirname, "burgerswap-reserve-price.svg"),
+      svgFrame(
+        width,
+        height,
+        `<text class="title" x="32" y="32">BURGER/WBNB reserve-implied price inside the first attack transaction</text>
+  <text class="muted" x="32" y="52">No Sync logs were found in the fetched receipt.</text>`
+      )
+    )
+    return
+  }
   const maxPrice = Math.max(
     ...syncRows.map((row) => row.reserve_price_wbnb_per_burger)
   )
   const minPrice = Math.min(
     ...syncRows.map((row) => row.reserve_price_wbnb_per_burger)
   )
-  const x = (i) => left + (i * chartWidth) / (syncRows.length - 1)
+  const xDenominator = Math.max(1, syncRows.length - 1)
+  const priceRange = maxPrice - minPrice
+  const x = (i) => left + (i * chartWidth) / xDenominator
   const y = (price) =>
-    top +
-    chartHeight -
-    ((price - minPrice) / (maxPrice - minPrice)) * chartHeight
+    priceRange === 0
+      ? top + chartHeight / 2
+      : top + chartHeight - ((price - minPrice) / priceRange) * chartHeight
   const points = syncRows
     .map((row, i) => `${x(i)},${y(row.reserve_price_wbnb_per_burger)}`)
     .join(" ")
@@ -259,13 +273,14 @@ function writeTokenTakeSvg(totalRows) {
   const height = 90 + rows.length * rowHeight
   const left = 132
   const max = Math.max(
+    0,
     ...rows.map((row) => Math.log10(Math.abs(row.amount_number) + 1))
   )
   const bodyRows = rows
     .map((row, index) => {
       const y = 76 + index * rowHeight
       const size = Math.log10(Math.abs(row.amount_number) + 1)
-      const barWidth = (size / max) * 620
+      const barWidth = max === 0 ? 0 : (size / max) * 620
       return `<text x="32" y="${y + 17}">${row.symbol}</text>
   <rect class="bar" x="${left}" y="${y}" width="${barWidth}" height="24" rx="3" />
   <text class="muted" x="${left + barWidth + 10}" y="${y + 17}">${
