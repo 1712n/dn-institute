@@ -1,0 +1,11 @@
+metric,value,unit
+Aave V2 CRV borrow events,14,events
+CRV borrowed from Aave V2,92000000,CRV
+USDC deposited to Aave V2 by wallet,63596139.363797,USDC
+CRV transfers from wallet,91999999.997087,CRV
+USDC transfers to wallet,63974581.892838,USDC
+LiquidationCall events,385,events
+Liquidation debt covered,89544317.44385,CRV
+USDC collateral liquidated,63605103.124042,USDC
+Net wallet CRV transfer balance,0.002912,CRV
+Net wallet USDC transfer balance before aToken accounting,378442.529041,USDC
