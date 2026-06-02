@@ -1,34 +1,41 @@
 ---
-title: "Frontend Hijacking & DNS Spoofing"
-description: "A detailed look at how attackers compromise the user-facing interfaces of dApps through DNS, malicious scripts, and supply chain attacks to steal funds."
+title: Frontend Hijacking & DNS Spoofing
+bookToc: true
 ---
 
-While smart contracts are immutable, the web applications that provide a user interface to them are not. Frontend attacks represent a critical and often overlooked vulnerability vector where the entry point to a DeFi protocol is compromised, tricking users into signing malicious transactions.
+Even when smart contracts are immutable, the web interfaces that users rely on are not. Frontend compromises let attackers weaponize web servers, registrar accounts, injected JavaScript, and package dependencies to trick users into signing approvals for attacker-controlled spenders.
 
 ## The Mechanism of Frontend Attacks
 
-The vulnerability lies in the centralized components that most "decentralized" applications still rely on: web servers, domain name system (DNS) records, and third-party code dependencies.
+Most dApps still depend on centralized web infrastructure at the point where users click "connect wallet" or sign a transaction.
 
-*   **Compromised Scripts & Supply Chain Attacks:** Attackers inject malicious JavaScript into a dApp's frontend. This can happen by compromising a project's web server, or more insidiously, by publishing a malicious version of a widely used code library (e.g., an npm package for wallet connectivity).
-*   **DNS Hijacking:** An attacker gains control of a project's DNS records (e.g., at a registrar like GoDaddy) and redirects the legitimate domain (e.g., `app.protocol.com`) to a perfect clone of the site hosted on an attacker-controlled server.
-*   **Phishing Approvals:** The goal of these attacks is often to trick a user into signing an `approve` transaction. The malicious script or cloned site will prompt the user for a standard approval, but will have swapped the legitimate contract address with the attacker's address, giving them unlimited access to the user's tokens.
+- **Compromised scripts and dependencies:** A malicious third-party package or injected script can rewrite wallet prompts, replace spender addresses, or present fake approval flows.
+- **Registrar or DNS hijacking:** If an attacker controls a domain or DNS entry, they can redirect users to a pixel-perfect clone that asks for malicious approvals.
+- **Approval abuse:** The most common end state is not "send funds directly" but tricking the user into signing an `approve` transaction that grants token access to an attacker-controlled contract.
 
 ## Case Studies
 
 ### 1. Badger DAO ($120M) - Cloudflare API Key Exploit
 
-*   **Vector:** An attacker gained access to a Cloudflare API key for the Badger DAO frontend. They used this to inject a script that only activated for high-value wallet addresses.
-*   **Impact:** When targeted users interacted with the site, the script intercepted their approval transactions, changing the spender address to the attacker's. Over several weeks, the attacker drained funds from users who had unknowingly signed these malicious approvals.
-*   **Lesson:** Web2 infrastructure security (API keys, admin panels) is as critical as smart contract security. A compromised frontend can bypass all on-chain safeguards.
+- **Vector:** An attacker gained access to a Cloudflare API key and used it to inject malicious frontend JavaScript into Badger's site, as widely reported in the Badger DAO incident coverage.
+- **Impact:** The script selectively targeted high-value wallets and rewrote approval transactions so that users granted token spending rights to the attacker, contributing to losses widely reported at roughly [$120 million](https://rekt.news/badger-rekt/).
+- **Lesson:** Web2 admin credentials can become DeFi key material if they control production frontend assets.
 
-### 2. Curve Finance ($570k) - DNS Cache Poisoning
+### 2. Curve Finance ($570k) - Registrar Hijacking
 
-*   **Vector:** The DNS records for `curve.fi` were hijacked, redirecting users to a malicious clone of the site.
-*   **Impact:** The cloned site prompted users to approve a malicious contract. Although the amount stolen was relatively small for Curve, it demonstrated the fragility of relying on centralized DNS infrastructure.
-*   **Lesson:** Protocols that are critical infrastructure should adopt decentralized alternatives for hosting and domain resolution, such as IPFS for hosting and ENS (Ethereum Name Service) for domains.
+- **Vector:** In August 2022, Curve's `curve.fi` domain was hijacked at the registrar level, redirecting users to a malicious site; this was a registrar hijack, not DNS cache poisoning, as reflected in contemporary reporting from [BleepingComputer](https://www.bleepingcomputer.com/news/security/curve-finance-loses-570-000-in-dns-hijacking-attack/) and [CoinDesk](https://www.coindesk.com/business/2022/08/10/curve-finance-front-end-compromised/).
+- **Impact:** The fake site presented malicious approval flows, and users who signed them exposed funds to the attacker; reported realized losses were around [$570,000](https://www.bleepingcomputer.com/news/security/curve-finance-loses-570-000-in-dns-hijacking-attack/).
+- **Lesson:** If the registrar account is compromised, the security of the smart contracts no longer matters to end users interacting through the browser.
 
 ### 3. Ledger Connect Kit ($600k+) - NPM Supply Chain Attack
 
-*   **Vector:** A former Ledger employee fell victim to a phishing attack, which allowed the attacker to publish a malicious version of the `@ledgerhq/connect-kit` library to the public NPM registry.
-*   **Impact:** Hundreds of dApps that depended on `@ledgerhq/connect-kit` automatically loaded the compromised code. The malicious script could inject a fake wallet-connection or approval flow that replaced a legitimate spender address with an attacker-controlled contract, tricking users into signing malicious approvals and giving the attacker access to drain their tokens.
-*   **Lesson:** Supply chain attacks on frontend dependencies are a systemic risk. Projects must use lockfiles (e.g., `package-lock.json`) and consider security measures like Subresource Integrity (SRI) to ensure dependencies have not been tampered with.
+- **Vector:** A former Ledger employee was phished, and the attacker used that access to publish a malicious version of [`@ledgerhq/connect-kit`](https://www.ledger.com/blog/security-incident-report) to npm.
+- **Impact:** dApps that auto-loaded the compromised package could present wallet prompts that swapped a legitimate spender for an attacker-controlled contract, pushing users toward malicious approvals; public reporting and Ledger's incident report place the initial theft at [roughly $600,000](https://www.ledger.com/blog/security-incident-report) before white hats and responders intervened.
+- **Lesson:** Frontend dependency trust is part of protocol security, especially when wallet libraries can shape the exact transaction a user sees and signs.
+
+## Mitigations
+
+- **Use deterministic dependency controls:** Pin package versions with lockfiles and review any wallet or frontend package upgrade before deployment.
+- **Harden registrar and CDN access:** Registrar accounts, DNS providers, and CDN/API dashboards should use phishing-resistant MFA and tightly scoped admin rights.
+- **Add transaction sanity checks in the UI:** Frontends should surface spender addresses and approval scopes clearly so malicious substitutions are easier to spot.
+- **Prepare fallback delivery paths:** ENS/IPFS mirrors, emergency banners, and social incident channels help users verify when the main frontend is compromised.

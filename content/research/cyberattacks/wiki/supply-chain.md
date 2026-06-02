@@ -1,8 +1,6 @@
 ---
-title: "Supply-Chain Attacks Against Crypto Developer Tooling"
-description: "A technical overview of two 2025 software supply-chain attack patterns that targeted crypto developers through malicious Python and npm packages."
+title: Supply-Chain Attacks Against Crypto Developer Tooling
 bookToc: true
-toc: true
 ---
 
 Software supply-chain attacks have become a practical way to target crypto wallets, CI/CD pipelines, and developer credentials without touching a protocol's on-chain logic. The two cases below show different parts of the same problem: one campaign abused public troubleshooting around a Python wallet library, while another used malicious npm packages to steal credentials and spread further through compromised maintainer accounts.
