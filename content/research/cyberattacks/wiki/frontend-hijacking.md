@@ -30,5 +30,5 @@ The vulnerability lies in the centralized components that most "decentralized" a
 ### 3. Ledger Connect Kit ($600k+) - NPM Supply Chain Attack
 
 *   **Vector:** A former Ledger employee fell victim to a phishing attack, which allowed the attacker to publish a malicious version of the `@ledgerhq/connect-kit` library to the public NPM registry.
-*   **Impact:** Hundreds of dApps that used this library to allow users to connect their Ledger wallets automatically loaded the compromised code. The malicious script presented a fake modal that prompted users to send their funds directly to the attacker.
+*   **Impact:** Hundreds of dApps that depended on `@ledgerhq/connect-kit` automatically loaded the compromised code. The malicious script could inject a fake wallet-connection or approval flow that replaced a legitimate spender address with an attacker-controlled contract, tricking users into signing malicious approvals and giving the attacker access to drain their tokens.
 *   **Lesson:** Supply chain attacks on frontend dependencies are a systemic risk. Projects must use lockfiles (e.g., `package-lock.json`) and consider security measures like Subresource Integrity (SRI) to ensure dependencies have not been tampered with.

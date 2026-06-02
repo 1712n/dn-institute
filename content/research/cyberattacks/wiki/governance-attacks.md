@@ -35,7 +35,10 @@ Attackers typically acquire this power in two ways:
 *   **Result:** The attacker minted millions of BUILD tokens, drained liquidity pools on Uniswap and Balancer, and effectively killed the project.
 
 ### 3. True Seigniorage Dollar (ESD) & Others
-Many smaller algorithmic stablecoins have fallen victim to "governance arbitrage," where attackers buy cheap voting tokens to vote for payouts that exceed the cost of the tokens.
+*   **Loss:** Varies by protocol; typically smaller than marquee DAO treasury drains, but enough to wipe out fragile algorithmic stablecoin systems.
+*   **Mechanism:** Governance arbitrage via cheaply acquired voting tokens.
+*   **Details/Exploit:** In thinly traded governance systems, an attacker can accumulate voting power on the open market at low cost, then use that voting power to approve treasury payouts, emissions changes, or other self-serving proposals worth more than the tokens they bought.
+*   **Speed:** Usually slower than flash-loan governance attacks because the attacker has to accumulate tokens over time, but still fast once low-participation governance windows open.
 
 ## Prevention and Mitigation
 
