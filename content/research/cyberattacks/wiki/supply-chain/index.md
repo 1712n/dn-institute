@@ -48,7 +48,11 @@ According to CISA, the malware:
 - **Developer workflows are part of the attack surface.** Public issue threads, package managers, and local CLI tools can be abused even when smart contracts are untouched.
 - **Name trust is fragile.** Attackers only needed package names that looked plausible in context.
 - **Credential hygiene matters as much as code review.** Once tokens are stolen, package publishing and repository write access can become propagation mechanisms.
-- **Lockfiles, scoped publishing controls, and MFA reduce risk.** Version pinning, review of new dependencies, phishing-resistant MFA, and stricter CI/CD secret handling all make these campaigns harder to execute.
+- **Concrete mitigations reduce risk:**
+  - **Lockfiles and version pinning** prevent automatic installation of malicious package updates.
+  - **Scoped publishing controls** limit which maintainers can publish to specific package namespaces.
+  - **Phishing-resistant MFA** protects maintainer accounts from credential theft.
+  - **Stricter CI/CD secret handling** limits credential exposure in build environments.
 
 ## References
 
