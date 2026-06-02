@@ -6,8 +6,6 @@ tags: ["defi", "oracle", "flash-loan", "manipulation", "security"]
 weight: 60
 ---
 
-# Oracle Manipulation Attacks
-
 Oracle manipulation is one of the most devastating attack vectors in Decentralized Finance (DeFi). It occurs when an attacker artificially inflates or deflates the price of an asset on a platform that a target protocol relies on for price data. By manipulating this "source of truth," the attacker can drain funds through under-collateralized loans or profitable liquidations.
 
 ## What is a Price Oracle?

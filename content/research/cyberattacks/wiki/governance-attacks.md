@@ -6,8 +6,6 @@ tags: ["dao", "governance", "flash-loan", "exploit", "security"]
 weight: 65
 ---
 
-# Governance Attacks (DAO Takeovers)
-
 Decentralized Autonomous Organizations (DAOs) rely on token-based voting to make decisions. **Governance Attacks** exploit this mechanism by accumulating enough voting power to pass malicious proposals. These proposals can grant the attacker access to the treasury, the ability to mint infinite tokens, or change critical protocol parameters.
 
 ## The Mechanism
