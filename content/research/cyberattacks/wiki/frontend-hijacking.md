@@ -3,7 +3,7 @@ title: Frontend Hijacking & DNS Spoofing
 bookToc: true
 ---
 
-Even when smart contracts are immutable, the web interfaces that users rely on are not. Frontend compromises let attackers weaponize web servers, registrar accounts, injected JavaScript, and package dependencies to trick users into signing approvals for attacker-controlled spenders.
+Even when smart contracts are immutable, the web interfaces that users rely on are not. Frontend compromises let attackers weaponize web servers, registrar accounts, injected JavaScript, and package dependencies to trick users into signing approvals that grant token access to attacker-controlled spenders.
 
 ## The Mechanism of Frontend Attacks
 
@@ -17,8 +17,8 @@ Most dApps still depend on centralized web infrastructure at the point where use
 
 ### 1. Badger DAO ($120M) - Cloudflare API Key Exploit
 
-- **Vector:** An attacker gained access to a Cloudflare API key and used it to inject malicious frontend JavaScript into Badger's site, as widely reported in the Badger DAO incident coverage.
-- **Impact:** The script selectively targeted high-value wallets and rewrote approval transactions so that users granted token spending rights to the attacker, contributing to losses widely reported at roughly [$120 million](https://rekt.news/badger-rekt/).
+- **Vector:** Public incident reporting describes the Badger DAO compromise as a frontend-injection attack in which an attacker abused access to Badger's Cloudflare-connected web infrastructure to inject malicious JavaScript into the production interface ([rekt.news](https://rekt.news/badger-rekt/), [Chainalysis](https://www.chainalysis.com/blog/chainalysis-podcast-episode-6-badgerdao-hack/)).
+- **Impact:** The injected code targeted approvals by replacing the intended spender flow with attacker-controlled approvals, and reported losses were about [$120 million](https://rekt.news/badger-rekt/).
 - **Lesson:** Web2 admin credentials can become DeFi key material if they control production frontend assets.
 
 ### 2. Curve Finance ($570k) - Registrar Hijacking
@@ -30,7 +30,7 @@ Most dApps still depend on centralized web infrastructure at the point where use
 ### 3. Ledger Connect Kit ($600k+) - NPM Supply Chain Attack
 
 - **Vector:** A former Ledger employee was phished, and the attacker used that access to publish a malicious version of [`@ledgerhq/connect-kit`](https://www.ledger.com/blog/security-incident-report) to npm.
-- **Impact:** dApps that auto-loaded the compromised package could present wallet prompts that swapped a legitimate spender for an attacker-controlled contract, pushing users toward malicious approvals; public reporting and Ledger's incident report place the initial theft at [roughly $600,000](https://www.ledger.com/blog/security-incident-report) before white hats and responders intervened.
+- **Impact:** dApps that auto-loaded the compromised package could present wallet prompts that swapped a legitimate spender for an attacker-controlled contract, pushing users toward malicious approvals; Ledger's incident report and later security reporting place the initial theft at [more than $600,000](https://www.ledger.com/blog/security-incident-report) before white hats and responders intervened ([Ledger](https://www.ledger.com/blog/security-incident-report), [The Hacker News](https://thehackernews.com/2023/12/crypto-hardware-wallet-ledgers-supply.html)).
 - **Lesson:** Frontend dependency trust is part of protocol security, especially when wallet libraries can shape the exact transaction a user sees and signs.
 
 ## Mitigations

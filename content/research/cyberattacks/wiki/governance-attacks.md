@@ -22,15 +22,15 @@ In a standard DAO, governance power is proportional to token ownership or delega
 - **Speed:** The exploit completed in a single transaction because Beanstalk's emergency execution path allowed immediate enactment after the malicious vote.
 
 ### 2. Build Finance (February 2022)
-- **Loss:** Approximately [$470,000 plus full protocol control](https://rekt.news/build-finance-rekt/).
+- **Loss:** Contemporary reporting put the immediate loss at about [$470,000](https://www.theblock.co/post/134180/build-finance-dao-suffers-hostile-governance-takeover-loses-470000), with the more important consequence being full protocol control.
 - **Mechanism:** Hostile governance takeover through low participation.
-- **Details:** A malicious proposal granted the attacker control over the BUILD token contract. Because community turnout was weak, the proposal passed and the attacker minted new tokens, drained liquidity, and effectively captured the protocol.
+- **Details:** A malicious proposal granted the attacker control over the BUILD token contract. Because community turnout was weak, the proposal passed and the attacker minted new tokens, drained liquidity, and effectively captured the protocol ([The Block](https://www.theblock.co/post/134180/build-finance-dao-suffers-hostile-governance-takeover-loses-470000), [rekt.news](https://rekt.news/build-finance-rekt/)).
 - **Speed:** Slower than flash-loan exploits because it depended on the governance timetable, but still effective because almost nobody showed up to stop it.
 
 ### 3. True Seigniorage Dollar (TSD) (March 2021)
-- **Loss:** Roughly [$11.8 million in value](https://www.coindesk.com/markets/2021/03/18/11b-stablecoins-wiped-out-after-defi-project-apparently-hacked/) was extracted after the attacker minted 11.8 billion TSD.
+- **Loss:** Reporting on the incident focused less on a stable realized dollar total than on the fact that the attacker minted [11.8 billion TSD](https://tokenpost.com/news/investing/7404) and collapsed the token's market value.
 - **Mechanism:** Governance arbitrage via cheaply accumulated voting power.
-- **Details:** In the TSD takeover, the attacker accumulated enough governance influence to pass a self-serving proposal, minted 11.8 billion tokens, and dumped them on the market, collapsing the protocol. This was a TSD incident, not Empty Set Dollar (ESD), and it illustrates how thin-liquidity governance systems can be looted without flash loans.
+- **Details:** In the TSD takeover, the attacker accumulated enough governance influence to pass a self-serving proposal, minted [11.8 billion TSD](https://tokenpost.com/news/investing/7404), and dumped the newly created supply on PancakeSwap. This was a TSD incident, not Empty Set Dollar (ESD), and it illustrates how thin-liquidity governance systems can be looted without flash loans.
 - **Speed:** The accumulation phase took longer than Beanstalk, but the destructive payout and market collapse followed quickly once governance control was obtained.
 
 ## Prevention and Mitigation

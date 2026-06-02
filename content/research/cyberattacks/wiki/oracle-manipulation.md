@@ -33,7 +33,7 @@ Most oracle-manipulation attacks follow the same broad pattern:
 - **Result:** The attacker borrowed out protocol liquidity worth about [$116 million](https://dn.institute/attacks/posts/2022-10-11-Mango-Markets/) against unrealized gains created by the manipulated oracle state.
 
 ### 2. BonqDAO (February 2023)
-- **Loss:** The repo's [BonqDAO incident page](https://dn.institute/attacks/posts/2023-02-01-BonqDAO/) records an estimated loss of roughly [$120 million](https://dn.institute/attacks/posts/2023-02-01-BonqDAO/), including about $108 million in BEUR and $12 million in WALBT, even though the exploit path centered on minting capacity.
+- **Loss:** The repo's [BonqDAO incident page](https://dn.institute/attacks/posts/2023-02-01-BonqDAO/) describes the incident as an estimated [$120 million loss](https://dn.institute/attacks/posts/2023-02-01-BonqDAO/), while also specifying that the exploit path involved roughly [$100 million BEUR minted](https://dn.institute/attacks/posts/2023-02-01-BonqDAO/).
 - **Mechanism:** Manipulation of the Tellor-fed WALBT price.
 - **Details:** The attacker staked Tellor assets, submitted a manipulated WALBT value, minted roughly [100 million BEUR](https://dn.institute/attacks/posts/2023-02-01-BonqDAO/), and then liquidated collateral using the distorted price.
 - **Result:** BonqDAO's dependence on an instantaneous single-source price made the protocol vulnerable to minting and liquidation abuse.
