@@ -274,7 +274,10 @@ def main() -> None:
     borrow_rows = [row for row in rows if row["event_type"] == "Borrow"]
     repay_rows = [row for row in rows if row["event_type"] == "Repay"]
     liquidation_rows = [row for row in rows if row["event_type"] == "LiquidationCall"]
-    sum_crv = lambda selected: sum(Decimal(row["amount_crv"]) for row in selected)
+
+    def sum_crv(selected):
+        return sum(Decimal(row["amount_crv"]) for row in selected)
+
     summary = {
         "source": {
             "rpc_url": RPC_URL,
