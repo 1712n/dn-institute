@@ -1,0 +1,39 @@
+{
+  "source": {
+    "rpc_url": "https://ethereum.publicnode.com",
+    "methods": [
+      "eth_getLogs for event discovery",
+      "eth_getTransactionReceipt for canonical receipt logs",
+      "eth_getBlockByNumber and eth_blockNumber for block/time discovery"
+    ],
+    "lending_pool": "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9",
+    "account": "0x57e04786e231af3343562c062e0d058f25dace9e",
+    "crv": "0xD533a949740bb3306d119CC777fa900bA034cd52",
+    "usdc": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+    "borrow_topic": "0xc6a898309e823ee50bac64e45ca8adba6690e99e7841c45d754e2a38e9019d9b",
+    "repay_topic": "0x4cdde6e09bb755c9a5589ebaec640bbfedff1362d4b255ebf8339782b9942faa",
+    "liquidation_call_topic": "0xe413a321e8681d831f4dbccbca790d2952b56f977908e45be37335533e005286"
+  },
+  "block_ranges": {
+    "borrow_scan_from_2022_11_01_block": 15871479,
+    "event_scan_from_2022_11_21_block": 16014665,
+    "event_scan_to_2022_11_24_block": 16036115
+  },
+  "decoded_results": {
+    "borrow_event_count": 14,
+    "borrowed_crv_sum": "92000000.000000",
+    "repay_event_count_2022_11_21_to_24": 0,
+    "repaid_crv_sum_2022_11_21_to_24": "0.000000",
+    "liquidation_call_count_2022_11_21_to_24": 385,
+    "liquidation_debt_covered_crv_sum": "89544317.443851",
+    "liquidated_usdc_collateral_sum": "63605103.124042",
+    "first_liquidation_utc": "2022-11-22T13:31:23Z",
+    "last_liquidation_utc": "2022-11-22T18:09:23Z",
+    "unique_liquidator_count": 21
+  },
+  "notes": [
+    "Borrow events are scanned from 2022-11-01 through 2022-11-24 to capture the account's staged CRV borrow buildup before the Nov 22 liquidation window.",
+    "LiquidationCall events are filtered to debtAsset=CRV and user=0x57e04786e231af3343562c062e0d058f25dace9e from 2022-11-21 through 2022-11-24.",
+    "Aave v2 CRV amounts use 18 token decimals; USDC collateral amounts use 6 decimals."
+  ]
+}

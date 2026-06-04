@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
+<rect width="100%" height="100%" fill="white"/>
+<style>text{font-family:Arial,sans-serif;font-size:12px;fill:#333}.axis{stroke:#333;stroke-width:1}.grid{stroke:#ddd;stroke-width:1}.price{fill:none;stroke:#1f77b4;stroke-width:2}.vol{fill:#c7d7ee}</style>
+<text x="70" y="22" font-size="16">CRV/USDT hourly close and quote volume, Binance spot, 2022-11-20 to 2022-11-25 UTC</text>
+<rect class="vol" x="67.4" y="349.3" width="5.3" height="0.7"/>
+<rect class="vol" x="74.0" y="349.5" width="5.3" height="0.5"/>
+<rect class="vol" x="80.7" y="349.8" width="5.3" height="0.2"/>
+<rect class="vol" x="87.4" y="349.6" width="5.3" height="0.4"/>
+<rect class="vol" x="94.0" y="349.6" width="5.3" height="0.4"/>
+<rect class="vol" x="100.7" y="349.4" width="5.3" height="0.6"/>
+<rect class="vol" x="107.4" y="349.1" width="5.3" height="0.9"/>
+<rect class="vol" x="114.0" y="349.3" width="5.3" height="0.7"/>
+<rect class="vol" x="120.7" y="346.8" width="5.3" height="3.2"/>
+<rect class="vol" x="127.4" y="349.1" width="5.3" height="0.9"/>
+<rect class="vol" x="134.0" y="349.1" width="5.3" height="0.9"/>
+<rect class="vol" x="140.7" y="348.6" width="5.3" height="1.4"/>
+<rect class="vol" x="147.4" y="348.9" width="5.3" height="1.1"/>
+<rect class="vol" x="154.0" y="349.5" width="5.3" height="0.5"/>
+<rect class="vol" x="160.7" y="349.5" width="5.3" height="0.5"/>
+<rect class="vol" x="167.4" y="349.6" width="5.3" height="0.4"/>
+<rect class="vol" x="174.0" y="349.5" width="5.3" height="0.5"/>
+<rect class="vol" x="180.7" y="349.6" width="5.3" height="0.4"/>
+<rect class="vol" x="187.4" y="349.7" width="5.3" height="0.3"/>
+<rect class="vol" x="194.0" y="349.3" width="5.3" height="0.7"/>
+<rect class="vol" x="200.7" y="344.9" width="5.3" height="5.1"/>
+<rect class="vol" x="207.4" y="347.9" width="5.3" height="2.1"/>
+<rect class="vol" x="214.0" y="347.8" width="5.3" height="2.2"/>
+<rect class="vol" x="220.7" y="349.1" width="5.3" height="0.9"/>
+<rect class="vol" x="227.4" y="348.2" width="5.3" height="1.8"/>
+<rect class="vol" x="234.0" y="349.6" width="5.3" height="0.4"/>
+<rect class="vol" x="240.7" y="348.7" width="5.3" height="1.3"/>
+<rect class="vol" x="247.4" y="349.1" width="5.3" height="0.9"/>
+<rect class="vol" x="254.0" y="349.1" width="5.3" height="0.9"/>
+<rect class="vol" x="260.7" y="349.7" width="5.3" height="0.3"/>
+<rect class="vol" x="267.4" y="349.5" width="5.3" height="0.5"/>
+<rect class="vol" x="274.0" y="349.5" width="5.3" height="0.5"/>
+<rect class="vol" x="280.7" y="349.4" width="5.3" height="0.6"/>
+<rect class="vol" x="287.4" y="348.9" width="5.3" height="1.1"/>
+<rect class="vol" x="294.0" y="349.7" width="5.3" height="0.3"/>
+<rect class="vol" x="300.7" y="349.7" width="5.3" height="0.3"/>
+<rect class="vol" x="307.4" y="349.5" width="5.3" height="0.5"/>
+<rect class="vol" x="314.0" y="349.1" width="5.3" height="0.9"/>
+<rect class="vol" x="320.7" y="347.6" width="5.3" height="2.4"/>
+<rect class="vol" x="327.4" y="349.6" width="5.3" height="0.4"/>
+<rect class="vol" x="334.0" y="348.8" width="5.3" height="1.2"/>
+<rect class="vol" x="340.7" y="349.1" width="5.3" height="0.9"/>
+<rect class="vol" x="347.4" y="349.0" width="5.3" height="1.0"/>
+<rect class="vol" x="354.0" y="348.9" width="5.3" height="1.1"/>
+<rect class="vol" x="360.7" y="349.3" width="5.3" height="0.7"/>
+<rect class="vol" x="367.4" y="349.2" width="5.3" height="0.8"/>
+<rect class="vol" x="374.0" y="347.5" width="5.3" height="2.5"/>
+<rect class="vol" x="380.7" y="345.0" width="5.3" height="5.0"/>
+<rect class="vol" x="387.4" y="348.8" width="5.3" height="1.2"/>
+<rect class="vol" x="394.0" y="349.7" width="5.3" height="0.3"/>
+<rect class="vol" x="400.7" y="347.9" width="5.3" height="2.1"/>
+<rect class="vol" x="407.4" y="346.5" width="5.3" height="3.5"/>
+<rect class="vol" x="414.0" y="346.5" width="5.3" height="3.5"/>
+<rect class="vol" x="420.7" y="345.8" width="5.3" height="4.2"/>
+<rect class="vol" x="427.4" y="336.9" width="5.3" height="13.1"/>
+<rect class="vol" x="434.0" y="337.8" width="5.3" height="12.2"/>
+<rect class="vol" x="440.7" y="335.9" width="5.3" height="14.1"/>
+<rect class="vol" x="447.4" y="337.9" width="5.3" height="12.1"/>
+<rect class="vol" x="454.0" y="328.9" width="5.3" height="21.1"/>
+<rect class="vol" x="460.7" y="318.3" width="5.3" height="31.7"/>
+<rect class="vol" x="467.4" y="310.8" width="5.3" height="39.2"/>
+<rect class="vol" x="474.0" y="260.4" width="5.3" height="89.6"/>
+<rect class="vol" x="480.7" y="325.4" width="5.3" height="24.6"/>
+<rect class="vol" x="487.4" y="321.2" width="5.3" height="28.8"/>
+<rect class="vol" x="494.0" y="337.6" width="5.3" height="12.4"/>
+<rect class="vol" x="500.7" y="274.7" width="5.3" height="75.3"/>
+<rect class="vol" x="507.4" y="283.0" width="5.3" height="67.0"/>
+<rect class="vol" x="514.0" y="338.4" width="5.3" height="11.6"/>
+<rect class="vol" x="520.7" y="337.6" width="5.3" height="12.4"/>
+<rect class="vol" x="527.4" y="345.3" width="5.3" height="4.7"/>
+<rect class="vol" x="534.0" y="345.1" width="5.3" height="4.9"/>
+<rect class="vol" x="540.7" y="346.6" width="5.3" height="3.4"/>
+<rect class="vol" x="547.4" y="334.6" width="5.3" height="15.4"/>
+<rect class="vol" x="554.0" y="343.8" width="5.3" height="6.2"/>
+<rect class="vol" x="560.7" y="342.9" width="5.3" height="7.1"/>
+<rect class="vol" x="567.4" y="344.9" width="5.3" height="5.1"/>
+<rect class="vol" x="574.0" y="344.0" width="5.3" height="6.0"/>
+<rect class="vol" x="580.7" y="343.4" width="5.3" height="6.6"/>
+<rect class="vol" x="587.4" y="344.7" width="5.3" height="5.3"/>
+<rect class="vol" x="594.0" y="344.0" width="5.3" height="6.0"/>
+<rect class="vol" x="600.7" y="341.9" width="5.3" height="8.1"/>
+<rect class="vol" x="607.4" y="344.6" width="5.3" height="5.4"/>
+<rect class="vol" x="614.0" y="344.3" width="5.3" height="5.7"/>
+<rect class="vol" x="620.7" y="347.6" width="5.3" height="2.4"/>
+<rect class="vol" x="627.4" y="344.3" width="5.3" height="5.7"/>
+<rect class="vol" x="634.0" y="345.6" width="5.3" height="4.4"/>
+<rect class="vol" x="640.7" y="347.1" width="5.3" height="2.9"/>
+<rect class="vol" x="647.4" y="348.2" width="5.3" height="1.8"/>
+<rect class="vol" x="654.0" y="346.1" width="5.3" height="3.9"/>
+<rect class="vol" x="660.7" y="337.9" width="5.3" height="12.1"/>
+<rect class="vol" x="667.4" y="337.5" width="5.3" height="12.5"/>
+<rect class="vol" x="674.0" y="338.6" width="5.3" height="11.4"/>
+<rect class="vol" x="680.7" y="343.0" width="5.3" height="7.0"/>
+<rect class="vol" x="687.4" y="346.4" width="5.3" height="3.6"/>
+<rect class="vol" x="694.0" y="346.4" width="5.3" height="3.6"/>
+<rect class="vol" x="700.7" y="346.2" width="5.3" height="3.8"/>
+<rect class="vol" x="707.4" y="347.2" width="5.3" height="2.8"/>
+<rect class="vol" x="714.0" y="347.0" width="5.3" height="3.0"/>
+<rect class="vol" x="720.7" y="347.5" width="5.3" height="2.5"/>
+<rect class="vol" x="727.4" y="348.2" width="5.3" height="1.8"/>
+<rect class="vol" x="734.0" y="348.1" width="5.3" height="1.9"/>
+<rect class="vol" x="740.7" y="346.7" width="5.3" height="3.3"/>
+<rect class="vol" x="747.4" y="347.8" width="5.3" height="2.2"/>
+<rect class="vol" x="754.0" y="347.4" width="5.3" height="2.6"/>
+<rect class="vol" x="760.7" y="343.6" width="5.3" height="6.4"/>
+<rect class="vol" x="767.4" y="346.3" width="5.3" height="3.7"/>
+<rect class="vol" x="774.0" y="345.6" width="5.3" height="4.4"/>
+<rect class="vol" x="780.7" y="348.2" width="5.3" height="1.8"/>
+<rect class="vol" x="787.4" y="348.2" width="5.3" height="1.8"/>
+<rect class="vol" x="794.0" y="345.3" width="5.3" height="4.7"/>
+<rect class="vol" x="800.7" y="341.3" width="5.3" height="8.7"/>
+<rect class="vol" x="807.4" y="344.8" width="5.3" height="5.2"/>
+<rect class="vol" x="814.0" y="343.2" width="5.3" height="6.8"/>
+<rect class="vol" x="820.7" y="347.0" width="5.3" height="3.0"/>
+<rect class="vol" x="827.4" y="345.1" width="5.3" height="4.9"/>
+<rect class="vol" x="834.0" y="348.0" width="5.3" height="2.0"/>
+<rect class="vol" x="840.7" y="346.7" width="5.3" height="3.3"/>
+<rect class="vol" x="847.4" y="348.6" width="5.3" height="1.4"/>
+<rect class="vol" x="854.0" y="348.9" width="5.3" height="1.1"/>
+<rect class="vol" x="860.7" y="348.4" width="5.3" height="1.6"/>
+<rect class="vol" x="867.4" y="347.2" width="5.3" height="2.8"/>
+<polyline class="price" points="70.0,205.6 76.7,206.6 83.3,206.6 90.0,207.7 96.7,206.6 103.3,210.8 110.0,211.8 116.7,209.7 123.3,222.2 130.0,225.3 136.7,226.4 143.3,235.7 150.0,235.7 156.7,229.5 163.3,232.6 170.0,231.6 176.7,232.6 183.3,237.8 190.0,233.6 196.7,225.3 203.3,220.1 210.0,233.6 216.7,236.8 223.3,239.9 230.0,234.7 236.7,241.9 243.3,245.1 250.0,247.1 256.7,245.1 263.3,240.9 270.0,245.1 276.7,248.2 283.3,252.3 290.0,250.3 296.7,248.2 303.3,250.3 310.0,251.3 316.7,244.0 323.3,249.2 330.0,250.3 336.7,256.5 343.3,263.8 350.0,266.9 356.7,273.1 363.3,267.9 370.0,270.0 376.7,263.8 383.3,250.3 390.0,244.0 396.7,241.9 403.3,228.4 410.0,214.9 416.7,237.8 423.3,253.4 430.0,297.0 436.7,311.6 443.3,314.7 450.0,350.0 456.7,337.5 463.3,273.1 470.0,203.5 476.7,155.7 483.3,158.8 490.0,141.2 496.7,133.9 503.3,30.0 510.0,155.7 516.7,153.6 523.3,129.7 530.0,125.6 536.7,115.2 543.3,114.2 550.0,80.9 556.7,104.8 563.3,89.2 570.0,84.0 576.7,96.5 583.3,111.0 590.0,94.4 596.7,103.8 603.3,104.8 610.0,118.3 616.7,118.3 623.3,127.7 630.0,136.0 636.7,138.1 643.3,125.6 650.0,126.6 656.7,125.6 663.3,93.4 670.0,39.4 676.7,59.1 683.3,35.2 690.0,46.6 696.7,54.9 703.3,58.1 710.0,62.2 716.7,60.1 723.3,73.6 730.0,81.9 736.7,72.6 743.3,71.6 750.0,65.3 756.7,67.4 763.3,39.4 770.0,52.9 776.7,50.8 783.3,54.9 790.0,60.1 796.7,43.5 803.3,35.2 810.0,44.5 816.7,30.0 823.3,41.4 830.0,60.1 836.7,60.1 843.3,61.2 850.0,68.4 856.7,57.0 863.3,57.0 870.0,61.2"/>
+<line class="axis" x1="70" y1="350" x2="870" y2="350"/>
+<line class="axis" x1="70" y1="30" x2="70" y2="350"/>
+<line class="grid" x1="70" y1="350.0" x2="870" y2="350.0"/>
+<text x="15" y="354.0">$0.41</text>
+<line class="grid" x1="70" y1="190.0" x2="870" y2="190.0"/>
+<text x="15" y="194.0">$0.56</text>
+<line class="grid" x1="70" y1="30.0" x2="870" y2="30.0"/>
+<text x="15" y="34.0">$0.71</text>
+<line class="grid" x1="70.0" y1="30" x2="70.0" y2="350"/>
+<text x="42.0" y="375">11-20</text>
+<line class="grid" x1="230.0" y1="30" x2="230.0" y2="350"/>
+<text x="202.0" y="375">11-21</text>
+<line class="grid" x1="390.0" y1="30" x2="390.0" y2="350"/>
+<text x="362.0" y="375">11-22</text>
+<line class="grid" x1="550.0" y1="30" x2="550.0" y2="350"/>
+<text x="522.0" y="375">11-23</text>
+<line class="grid" x1="710.0" y1="30" x2="710.0" y2="350"/>
+<text x="682.0" y="375">11-24</text>
+<line class="grid" x1="870.0" y1="30" x2="870.0" y2="350"/>
+<text x="842.0" y="375">11-25</text>
+<text x="395.0" y="50" fill="#b22222">Nov 22 liquidation/squeeze stress window</text>
+<text x="70" y="390">Blue line: hourly close (USDT). Pale bars: hourly quote volume scaled to chart.</text>
+</svg>
