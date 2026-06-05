@@ -34,6 +34,10 @@ export default defineWorkersConfig({
                       throw new Error("unexpected AI input");
                     }
 
+                    if (data.text[0] === "trigger-workers-ai-failure") {
+                      throw new Error("simulated Workers AI failure");
+                    }
+
                     return Promise.resolve({ data: [[0.11, 0.22, 0.33]] });
                   }
                 };
@@ -55,6 +59,10 @@ export default defineWorkersConfig({
 
                     if (options.namespace === "empty-namespace") {
                       return Promise.resolve({ matches: [] });
+                    }
+
+                    if (options.namespace === "vectorize-failure") {
+                      throw new Error("simulated Vectorize failure");
                     }
 
                     const score = options.namespace === "security-incidents" ? 0.8765 : 0.4321;

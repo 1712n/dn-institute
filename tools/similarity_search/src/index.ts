@@ -39,14 +39,25 @@ app.post("/", async (c) => {
     return c.text("Invalid JSON format", 400)
   }
 
-  const modelResp = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
-    text: [text]
-  })
+  let modelResp
+  try {
+    modelResp = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
+      text: [text]
+    })
+  } catch {
+    return c.text("Workers AI request failed", 502)
+  }
+
   const vector = modelResp.data[0]
-  const searchResponse = await c.env.VECTORIZE_INDEX.query(vector, {
-    namespace,
-    topK: 1
-  })
+  let searchResponse
+  try {
+    searchResponse = await c.env.VECTORIZE_INDEX.query(vector, {
+      namespace,
+      topK: 1
+    })
+  } catch {
+    return c.text("Vectorize query failed", 502)
+  }
   const similarityScore = searchResponse.matches[0]?.score || 0
 
   return c.json({ similarity_score: similarityScore })

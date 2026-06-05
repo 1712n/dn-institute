@@ -134,4 +134,24 @@ describe("Similarity search", () => {
       similarity_score: 0.4321
     })
   })
+
+  it("returns 502 when Workers AI embedding fails", async () => {
+    const response = await postSimilaritySearch({
+      text: "trigger-workers-ai-failure",
+      namespace: "security-incidents"
+    })
+
+    expect(response.status).toBe(502)
+    expect(await response.text()).toBe("Workers AI request failed")
+  })
+
+  it("returns 502 when Vectorize query fails", async () => {
+    const response = await postSimilaritySearch({
+      text: "Vectorize boundary failure should be handled",
+      namespace: "vectorize-failure"
+    })
+
+    expect(response.status).toBe(502)
+    expect(await response.text()).toBe("Vectorize query failed")
+  })
 })
