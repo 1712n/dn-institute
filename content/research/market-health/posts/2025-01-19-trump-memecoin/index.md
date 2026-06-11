@@ -8,9 +8,9 @@ entities:
 
 ## 🌰 Executive Summary
 
-The TRUMP token (TRUMP/USDT) launched on Binance on January 19, 2025, generating $14.95 billion in spot volume in its first 48 hours — a figure nearly equal to the cumulative $13.97 billion traded over the following 11 days combined. Statistical analysis of 5-minute OHLCV data reveals multiple anomalies inconsistent with organic market activity:
+The TRUMP token (TRUMP/USDT) launched on Binance on January 19, 2025, generating $14.95 billion in spot volume in its first 39.5 hours — a figure nearly equal to the cumulative $13.97 billion traded over the following 11 days combined. Statistical analysis of 5-minute OHLCV data reveals multiple anomalies inconsistent with organic market activity:
 
-1. **7.8× volume ratio**: Average 5-minute volume during the 0–48h launch window was $31.5M, compared to $4.0M in the 72h–336h stabilization period.
+1. **7.8× volume ratio**: Average 5-minute volume during the launch window (Jan 19 08:30 – Jan 21 00:00 UTC) was $31.5M, compared to $4.0M in the stabilized period (Jan 21 00:00 – Feb 2 00:00 UTC).
 2. **Artificially stable buy/sell ratio**: The taker-buy volume share was 49.8% during the highly volatile launch window (standard deviation = 0.079), *lower* than the 0.112 standard deviation observed in the stabilized period, despite the launch period spanning a price range from $7 to $75.
 3. **Reduced trade count/volume correlation**: Pearson correlation between per-bar trade count and dollar volume was 0.906 during the launch window versus 0.973 in the stabilized period, indicating unusually variable average trade sizes at launch.
 4. **Statistically significant volume distribution shift**: A two-sample KS test between launch-period and stabilized-period 5-minute volumes yields KS = 0.82 (p ≈ 0), well beyond any plausible organic distribution shift.
@@ -63,30 +63,30 @@ Two distinct windows were defined:
 
 ### 1. 🌰 Extreme Volume Concentration at Launch
 
-![Hourly volume distribution: 14-day window, red = launch 0-48h, blue = stabilized](trump-manipulation-analysis.png)
+![Hourly volume distribution: 14-day window, red = launch window (0–39.5h), blue = stabilized](trump-manipulation-analysis.png)
 
-The 48-hour launch window generated $14.95B in cumulative USD volume on Binance TRUMP/USDT — compared to $13.97B over the subsequent 11 days (January 21 – February 2). The peak single hour was 09:00–10:00 UTC on January 19, with $1.34B in reported volume.
+The launch window (Jan 19 08:30 – Jan 21 00:00 UTC; 39.5 hours) generated $14.95B in cumulative USD volume on Binance TRUMP/USDT — compared to $13.97B over the subsequent 11 days (January 21 – February 2). The peak single hour was 09:00–10:00 UTC on January 19, with $1.34B in reported volume.
 
 The volume ratio between windows:
 
 $$\text{Ratio} = \frac{\text{Launch avg 5m vol}}{\text{Stable avg 5m vol}} = \frac{\$31{,}534K}{\$4{,}042K} = 7.8×$$
 
-While new token listings routinely experience elevated launch-day volumes, a **7.8× ratio sustained over 48 hours** with an abrupt step-function transition is atypical of organic demand-driven activity. A KS test comparing the two 5-minute volume distributions confirms they are statistically incompatible with the same underlying process (KS = 0.821, p ≈ 0).
+While new token listings routinely experience elevated launch-day volumes, a **7.8× ratio sustained over 39.5 hours** with an abrupt step-function transition is atypical of organic demand-driven activity. A KS test comparing the two 5-minute volume distributions confirms they are statistically incompatible with the same underlying process (KS = 0.821, p ≈ 0).
 
 ### 2. 🌰 Artificially Stable Buy/Sell Ratio
 
 In a genuinely demand-driven market, the taker-buy ratio tracks directional sentiment: it rises during price appreciation phases and falls during drawdowns. During the TRUMP launch, the price moved from approximately $7 at listing to an intraday peak above $75, representing a 10×+ price range in under 24 hours, followed by a significant correction.
 
-Despite this extreme price range, the taker-buy volume ratio remained locked near 50% throughout the 48-hour window:
+Despite this extreme price range, the taker-buy volume ratio remained locked near 50% throughout the launch window:
 
-| Window | Taker-Buy Ratio | Std Dev |
-|--------|----------------|---------|
-| Launch (0–48h) | **49.8%** | **0.079** |
-| Stabilized (72h–336h) | **49.4%** | 0.112 |
+| Window | Period | Taker-Buy Ratio | Std Dev |
+|--------|--------|----------------|---------|
+| Launch | Jan 19 08:30 – Jan 21 00:00 UTC | **49.8%** | **0.079** |
+| Stabilized | Jan 21 00:00 – Feb 2 00:00 UTC | **49.4%** | 0.112 |
 
 The **lower standard deviation during launch** is the anomalous signal. Organic markets exhibit higher buy/sell variability precisely during high-volatility periods, as directional traders and momentum participants establish and unwind positions. The TRUMP launch window shows the *inverse*: greater price volatility coincides with *reduced* buy/sell ratio variance. This pattern is consistent with bilateral wash trading activity, where matched buy and sell orders are placed simultaneously to generate volume without net directional exposure.
 
-![Buy/sell ratio over time, with 48h boundary](trump-manipulation-analysis.png)
+![Buy/sell ratio over time, with launch/stabilized boundary marked](trump-manipulation-analysis.png)
 
 ### 3. 🌰 Benford's First-Digit Law Deviation in Trade Counts
 
@@ -148,7 +148,7 @@ No single metric is sufficient proof of wash trading in isolation. Collectively,
 
 ## 🌰 Data and Reproduction
 
-All charts and statistics in this article are reproducible using Binance's public `/api/v3/klines` endpoint with no API key. The Python analysis script is available in the supporting files directory.
+All charts and statistics in this article are reproducible using Binance's public `/api/v3/klines` endpoint with no API key. The Python analysis script `reproduce.py` is available alongside this article.
 
 **Data source**: Binance REST API (public), TRUMP/USDT, 5-minute interval, Jan 19 – Feb 2, 2025.
 

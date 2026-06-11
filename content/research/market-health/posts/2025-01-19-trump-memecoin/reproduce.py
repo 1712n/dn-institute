@@ -13,8 +13,8 @@ import matplotlib.dates as mdates
 from scipy import stats
 import json, time, os
 
-OUTPUT_DIR = "/Users/cyouuu/Desktop/work/makemoney/2/market-health-analysis"
-LAUNCH_START_MS = 1737244800000  # Jan 19, 2025 00:00 UTC
+OUTPUT_DIR = os.path.dirname(os.path.abspath(__file__))
+LAUNCH_START_MS = 1737275400000  # Jan 19, 2025 08:30 UTC (Binance listing time)
 
 def fetch_klines_all(symbol, interval, start_ms, end_ms, base="https://api.binance.com"):
     url = f"{base}/api/v3/klines"
@@ -43,16 +43,16 @@ cols = ['open_time','open','high','low','close','volume','close_time','quote_vol
 df = pd.DataFrame(raw, columns=cols)
 for c in ['open','high','low','close','volume','quote_vol','trades','taker_buy_base','taker_buy_quote']:
     df[c] = df[c].astype(float)
-df['open_time'] = pd.to_datetime(df['open_time'], unit='ms')
+df['open_time'] = pd.to_datetime(df['open_time'], unit='ms', utc=True)
 
 print(f"Range: {df['open_time'].min()} → {df['open_time'].max()}")
 print(f"Peak 5m volume: ${df['quote_vol'].max()/1e6:.1f}M at {df.loc[df['quote_vol'].idxmax(), 'open_time']}")
 
-# === SPLIT: Launch (0-48h) vs Stabilized (days 3-14) ===
-boundary = pd.Timestamp('2025-01-21')
+# === SPLIT: Launch (Jan 19 08:30 – Jan 21 00:00 UTC) vs Stabilized ===
+boundary = pd.Timestamp('2025-01-21 00:00:00', tz='UTC')
 launch = df[df['open_time'] < boundary].copy()
 stable = df[df['open_time'] >= boundary].copy()
-print(f"\nLaunch  (0-48h):   {len(launch)} candles, avg 5m vol: ${launch['quote_vol'].mean()/1e3:.1f}K, total: ${launch['quote_vol'].sum()/1e9:.2f}B")
+print(f"\nLaunch (Jan 19 08:30 – Jan 21 00:00 UTC):   {len(launch)} candles, avg 5m vol: ${launch['quote_vol'].mean()/1e3:.1f}K, total: ${launch['quote_vol'].sum()/1e9:.2f}B")
 print(f"Stable  (days3-14):{len(stable)} candles, avg 5m vol: ${stable['quote_vol'].mean()/1e3:.1f}K, total: ${stable['quote_vol'].sum()/1e9:.2f}B")
 vol_ratio = launch['quote_vol'].mean() / stable['quote_vol'].mean()
 print(f"Volume ratio (launch/stable): {vol_ratio:.1f}x")
@@ -104,16 +104,6 @@ print(f"\nTrade count/volume correlation:")
 print(f"  Launch: {l_corr:.4f}")
 print(f"  Stable: {s_corr:.4f}")
 
-# === ROUND NUMBER VOLUME CLUSTERING ===
-def round_clustering(volumes, name):
-    counts = [round(v, -3) == v for v in volumes]  # multiples of 1000
-    ratio_1k = sum(counts) / len(counts) if len(counts) > 0 else 0
-    print(f"{name} round-1000 clustering: {ratio_1k:.4f}")
-    return ratio_1k
-
-l_round = round_clustering(launch['quote_vol'].values, "Launch")
-s_round = round_clustering(stable['quote_vol'].values, "Stable")
-
 # === PRICE IMPACT ANALYSIS ===
 # In wash trading, large volume shouldn't move the price much
 df['price_change_pct'] = df['close'].pct_change().abs() * 100
@@ -141,19 +131,19 @@ colors = ['#E53935' if t < pd.Timestamp('2025-01-21') else '#1976D2'
 ax1.bar(hourly.index, hourly.values/1e6, color=colors, alpha=0.85,
         width=pd.Timedelta(minutes=55))
 ax1.axvline(pd.Timestamp('2025-01-21'), color='black', linestyle='--',
-            linewidth=2, label='48h boundary')
+            linewidth=2, label='39.5h boundary (Jan 21 00:00 UTC)')
 peak_t = hourly.idxmax()
 ax1.annotate(f"${hourly.max()/1e6:.0f}M",
     xy=(peak_t, hourly.max()/1e6), xytext=(5, 5),
     textcoords='offset points', fontsize=10, color='darkred',
     fontweight='bold', arrowprops=dict(arrowstyle='->', color='darkred'))
-ax1.set_title('Hourly Volume (Red=Launch 0-48h, Blue=Stabilized)', fontsize=11)
+ax1.set_title('Hourly Volume (Red=Launch 0–39.5h, Blue=Stabilized)', fontsize=11)
 ax1.set_ylabel('Volume (USD Millions)')
 ax1.xaxis.set_major_formatter(mdates.DateFormatter('%b %d'))
 ax1.xaxis.set_major_locator(mdates.DayLocator())
 plt.setp(ax1.xaxis.get_majorticklabels(), rotation=45, ha='right', fontsize=8)
 ax1.legend(); ax1.grid(axis='y', alpha=0.3)
-ax1.text(0.02, 0.92, f"Launch avg: ${launch['quote_vol'].sum()/48/1e6:.0f}M/hr | Stable avg: ${stable['quote_vol'].sum()/len(stable)*12/1e6:.0f}M/hr | Ratio: {vol_ratio:.1f}x",
+ax1.text(0.02, 0.92, f"Launch avg: ${launch['quote_vol'].sum()/39.5/1e6:.0f}M/hr | Stable avg: ${stable['quote_vol'].sum()/len(stable)*12/1e6:.0f}M/hr | Ratio: {vol_ratio:.1f}x",
     transform=ax1.transAxes, fontsize=9, color='darkred',
     bbox=dict(boxstyle='round', facecolor='lightyellow', alpha=0.8))
 
@@ -181,7 +171,7 @@ rolling_buy = (df['taker_buy_quote'] / df['quote_vol'].replace(0, np.nan)).rolli
 hours = (df['open_time'] - df['open_time'].iloc[0]).dt.total_seconds() / 3600
 ax4.plot(hours, rolling_buy * 100, color='#2E7D32', linewidth=1.5, alpha=0.8)
 ax4.axhline(50, color='black', linestyle='--', alpha=0.5, linewidth=1, label='50% (neutral)')
-ax4.axvline(48, color='red', linestyle='--', alpha=0.7, label='48h boundary')
+ax4.axvline(39.5, color='red', linestyle='--', alpha=0.7, label='39.5h boundary (Jan 21 00:00 UTC)')
 ax4.set_title(f"Buy Volume % (rolling 1h avg)\nLaunch: {launch_buy_r*100:.1f}% | Stable: {stable_buy_r*100:.1f}%")
 ax4.set_xlabel('Hours Since Launch'); ax4.set_ylabel('Buy Volume %')
 ax4.set_ylim(30, 70); ax4.legend(fontsize=8); ax4.grid(alpha=0.3)
@@ -190,7 +180,7 @@ ax4.set_ylim(30, 70); ax4.legend(fontsize=8); ax4.grid(alpha=0.3)
 ax5 = fig.add_subplot(gs[2, 0])
 log_launch = np.log10(launch['quote_vol'].values[launch['quote_vol'].values > 0])
 log_stable = np.log10(stable['quote_vol'].values[stable['quote_vol'].values > 0])
-ax5.hist(log_launch, bins=40, alpha=0.7, label='Launch (0-48h)', color='#E53935', density=True)
+ax5.hist(log_launch, bins=40, alpha=0.7, label='Launch (0–39.5h)', color='#E53935', density=True)
 ax5.hist(log_stable, bins=40, alpha=0.7, label='Stabilized', color='#1976D2', density=True)
 ks_stat, ks_p = stats.ks_2samp(log_launch, log_stable)
 ax5.set_title(f"5m Volume Distribution\nKS test: stat={ks_stat:.3f}, p={ks_p:.2e}")
@@ -233,7 +223,7 @@ fig2.suptitle("TRUMP Token: Volume vs Price Dynamics — Evidence of Artificial 
 price_hourly = df.resample('1h', on='open_time')['close'].last()
 ax_p = axes[0]
 ax_p.plot(price_hourly.index, price_hourly.values, color='#FF9800', linewidth=2)
-ax_p.axvline(pd.Timestamp('2025-01-21'), color='red', linestyle='--', alpha=0.7, label='48h boundary')
+ax_p.axvline(pd.Timestamp('2025-01-21'), color='red', linestyle='--', alpha=0.7, label='39.5h boundary (Jan 21 00:00 UTC)')
 ax_p.set_title('TRUMP Price (USDT) — First 14 Days')
 ax_p.set_ylabel('Price (USDT)')
 ax_p.xaxis.set_major_formatter(mdates.DateFormatter('%b %d'))
