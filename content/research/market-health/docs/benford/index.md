@@ -99,7 +99,9 @@ The average 'benfordlawtest' value across the data is approximately 0.208.
    - The digits '4' and '7' are quite close to their expected frequencies.
 
 2. **Benford's Law Test:**
-   - The average test value of approximately 0.208 suggests a deviation from Benford's Law. Typically, a lower test value (closer to 0) indicates closer conformity to Benford's Law. While this isn't a definitive measure on its own, it suggests that the first digit distribution in this data set doesn't closely follow the expected pattern from Benford's Law.
+   - As defined above, `benfordlawtest` is a **p-value**: values closer to **1** indicate closer conformity to Benford's Law, while values at or below **0.005** signal high concern. The average `benfordlawtest` of approximately **0.208** therefore falls inside the `0.01 < p ≤ 1` **Good Fit** range — meaning no individual record window deviates strongly enough to reject conformity on its own.
+   - This, however, illustrates an important caveat of averaging per-window p-values. When each window aggregates relatively few records, the test has low statistical power, so individual windows rarely reject — and averaging those high p-values yields a "Good Fit" figure even when the underlying data is skewed. The **aggregated** first-digit distribution in the table above tells a different story: digit '9' occurs 450 times versus roughly 213 expected (more than 2×), and a chi-square goodness-of-fit test on the aggregate (n = 4644) rejects conformity decisively (χ² ≈ 368, p ≈ 0).
+   - **Takeaway:** a "Good Fit" average p-value does not by itself guarantee that the underlying data conforms to Benford's Law. Aggregate first-digit distributions and complementary tests (e.g., chi-square) should be inspected alongside the averaged `benfordlawtest` before concluding either conformity or manipulation.
 
 #### Possible Reasons and Implications
 - **Natural Variability:** Not all datasets strictly follow Benford's Law, especially if they are not large enough or don't cover a wide enough range of magnitudes.
