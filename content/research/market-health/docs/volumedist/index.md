@@ -98,8 +98,8 @@ Here is the histogram representing the trading volumes based on the provided sam
 
 #### Interpretation
 
-- Ideally, trading volume should follow a [power law](https://en.wikipedia.org/wiki/Power_law) heavy tail distribution, where small trades are common, and large trades are rare.
-- A more uniform distribution might suggest a healthy mix of small and large volume trades.
+- Ideally, trading volume should follow a [power law](https://en.wikipedia.org/wiki/Power_law) heavy-tail distribution, where small trades are common and large trades are rare.
+- A marked departure from this shape — for example, volume spread unusually **uniformly** across bins, or clustered at a few repeated discrete sizes — is a potential red flag rather than a sign of health. This is consistent with the wash-trading signature noted below ("unnatural uniformity in trade sizes across many bins"), since automated wash trading tends to generate repetitive, similarly-sized orders that flatten the natural heavy-tail shape.
 
 ### Applications in Market Surveillance
 
