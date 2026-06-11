@@ -76,8 +76,8 @@ The dataset comprised 60 data points with the following statistical insights:
 
 #### Interpretation
 
-- The mean Buy-Sell Ratio being less than 1 indicates a slight tendency towards sell orders over this period.
-- The Absolute Buy-Sell Ratio provides additional context, suggesting that while sell orders might be more frequent, the discrepancy is not extremely significant.
+- The mean Buy-Sell Ratio of 0.488 being below the balanced midpoint of 0.5 indicates a slight tendency towards sell orders over this period. (Note: because `buysellratio` is defined as buy trades divided by *total* trades, it ranges from 0 to 1 with 0.5 as the neutral point — consistent with the "balanced market tends towards 0.4-0.6" range stated above — so 0.5, not 1, is the correct reference for buy/sell balance.)
+- The mean Absolute Buy-Sell Ratio of 0.519 sits just above 0.5, indicating that buy *volume* slightly outweighs sell volume even though sell *trades* are marginally more frequent. This count-versus-volume divergence suggests sells were placed in slightly more numerous but smaller orders, while buys were fewer but larger — a nuance the count-based ratio alone would miss.
 - Variations in the Buy-Sell Ratio could indicate shifts in market sentiment or reaction to external events.
 
 #### Visuals
