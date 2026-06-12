@@ -173,41 +173,52 @@ def main():
     all_klines = []
     for sym in SYMBOLS:
         print(f"  -> {sym}")
-        df = fetch_binance_klines(sym, interval="1h", limit=1000)
-        all_klines.append(df)
-        time.sleep(0.5)  # Rate limit courtesy
+        try:
+            df = fetch_binance_klines(sym, interval="1h", limit=1000)
+            all_klines.append(df)
+        except Exception as e:
+            print(f"    Warning: Failed to fetch {sym} klines: {e}")
+        time.sleep(0.5)
 
-    klines_df = pd.concat(all_klines, ignore_index=True)
-    klines_path = os.path.join(DATA_DIR, "binance_klines_1h.csv")
-    klines_df.to_csv(klines_path, index=False)
-    print(f"  Saved: {klines_path} ({len(klines_df)} rows)")
+    if all_klines:
+        klines_df = pd.concat(all_klines, ignore_index=True)
+        klines_path = os.path.join(DATA_DIR, "binance_klines_1h.csv")
+        klines_df.to_csv(klines_path, index=False)
+        print(f"  Saved: {klines_path} ({len(klines_df)} rows)")
 
     # 2. Fetch Binance aggregate trades
     print("\n[2/4] Fetching Binance aggregate trades...")
     all_trades = []
     for sym in SYMBOLS:
         print(f"  -> {sym}")
-        df = fetch_binance_agg_trades(sym, limit=1000)
-        all_trades.append(df)
+        try:
+            df = fetch_binance_agg_trades(sym, limit=1000)
+            all_trades.append(df)
+        except Exception as e:
+            print(f"    Warning: Failed to fetch {sym} trades: {e}")
         time.sleep(0.5)
 
-    trades_df = pd.concat(all_trades, ignore_index=True)
-    trades_path = os.path.join(DATA_DIR, "binance_agg_trades.csv")
-    trades_df.to_csv(trades_path, index=False)
-    print(f"  Saved: {trades_path} ({len(trades_df)} rows)")
+    if all_trades:
+        trades_df = pd.concat(all_trades, ignore_index=True)
+        trades_path = os.path.join(DATA_DIR, "binance_agg_trades.csv")
+        trades_df.to_csv(trades_path, index=False)
+        print(f"  Saved: {trades_path} ({len(trades_df)} rows)")
 
     # 3. Fetch Binance order book snapshots
     print("\n[3/4] Fetching Binance order book snapshots...")
     for sym in SYMBOLS:
         print(f"  -> {sym}")
-        ob_df = fetch_binance_orderbook(sym, limit=100)
-        ob_path = os.path.join(DATA_DIR, f"binance_orderbook_{sym.lower()}.csv")
-        ob_df.to_csv(ob_path, index=False)
+        try:
+            ob_df = fetch_binance_orderbook(sym, limit=100)
+            ob_path = os.path.join(DATA_DIR, f"binance_orderbook_{sym.lower()}.csv")
+            ob_df.to_csv(ob_path, index=False)
+        except Exception as e:
+            print(f"    Warning: Failed to fetch {sym} orderbook: {e}")
         time.sleep(0.5)
 
     # 4. Fetch CoinGecko data
     print("\n[4/4] Fetching CoinGecko cross-exchange data...")
-    for sym, coin_id in COIN_IDS.items():
+    for coin_id in COIN_IDS.values():
         print(f"  -> {coin_id}")
         try:
             chart_df = fetch_coingecko_market_chart(coin_id, days=90)

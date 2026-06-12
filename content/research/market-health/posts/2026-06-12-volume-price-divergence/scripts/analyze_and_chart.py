@@ -215,14 +215,28 @@ def chart_benford_analysis(df):
         observed = first_digit_dist(sym_df["volume_usd"].values)
         obs_vals = [observed[d] for d in range(1, 10)]
 
-        # KS test
+        # KS test against Benford's distribution
         obs_digits = []
         for v in sym_df["volume_usd"].values:
             if v > 0:
                 first = int(str(f"{v:.10f}").lstrip('0').lstrip('.')[0])
                 if 1 <= first <= 9:
                     obs_digits.append(first)
-        ks_stat, ks_p = stats.kstest(obs_digits, 'uniform', args=(0.5, 8.5))
+
+        # Build Benford CDF for KS test
+        benford_probs = [np.log10(1 + 1/d) for d in range(1, 10)]
+        benford_cdf = np.cumsum(benford_probs)
+
+        def benford_cdf_func(x):
+            """Benford CDF: P(X <= x) for first digit."""
+            idx = int(np.floor(x)) - 1
+            if idx < 0:
+                return 0.0
+            if idx >= len(benford_cdf):
+                return 1.0
+            return benford_cdf[idx]
+
+        ks_stat, ks_p = stats.kstest(obs_digits, benford_cdf_func)
 
         ks_results[symbol] = {"stat": ks_stat, "p": ks_p}
 

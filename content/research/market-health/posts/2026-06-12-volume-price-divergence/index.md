@@ -24,7 +24,7 @@ entities:
 
 ## Background
 
-Wash trading — the practice of simultaneously buying and selling the same asset to create artificial volume — remains the most prevalent form of cryptocurrency market manipulation. Estimates from Bitwise, Chainalysis, and Solidus Labs suggest that **50–70%+ of reported volume** on certain exchanges is fabricated. This manipulation inflates token rankings on aggregators like CoinMarketCap, attracts real traders to illiquid markets, and misleads investors about true market depth.
+Wash trading — the practice of simultaneously buying and selling the same asset to create artificial volume — remains the most prevalent form of cryptocurrency market manipulation. Bitwise's 2019 report estimated that approximately **95% of reported BTC spot volume** was non-economic wash trading, while Chainalysis has documented billions of dollars in on-chain wash trading activity in subsequent years. This manipulation inflates token rankings on aggregators like CoinMarketCap, attracts real traders to illiquid markets, and misleads investors about true market depth.
 
 Unlike traditional financial markets, crypto exchanges operate across fragmented jurisdictions with no unified surveillance system. This creates opportunities for sophisticated manipulation techniques that exploit the gap between regulated and unregulated venues.
 
@@ -147,10 +147,10 @@ The ratio of aggressive buyers to sellers indicates directional pressure and its
 
 | Pair | Ratio Std Dev | % Time in ±5% Range |
 |------|--------------|---------------------|
-| BTC/USDT | 0.0866 | — |
-| ETH/USDT | 0.0863 | — |
-| SOL/USDT | 0.0733 | — |
-| DOGE/USDT | 0.0825 | — |
+| BTC/USDT | 0.0866 | 43.5% |
+| ETH/USDT | 0.0863 | 45.5% |
+| SOL/USDT | 0.0733 | 48.1% |
+| DOGE/USDT | 0.0825 | 47.8% |
 
 These ratios show **healthy volatility** — the standard deviations are large enough to indicate genuine market dynamics. This contrasts with the Huobi HT token analysis, where the buy/sell ratio showed "abnormal stability" within an extremely narrow range, indicating exchange-controlled price dynamics.
 
