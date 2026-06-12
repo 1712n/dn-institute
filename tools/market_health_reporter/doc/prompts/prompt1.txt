@@ -79,4 +79,11 @@ Allowed names for illustrations:
 - crypto_metrics.png
 - benford_law.png
 - vv_correlation.png
+
+If additional background context is provided within <context></context> tags, use it to enrich your analysis with relevant historical precedents, token background information, and recent news. This context should help you:
+- Reference prior incidents involving the same exchange or tokens
+- Provide market context (token market cap, trading volume) for more informed analysis
+- Connect findings to broader industry trends or known manipulation patterns
+Do NOT fabricate information — only use context that is explicitly provided.
+
 Place the article into the <article> </article> tags.
