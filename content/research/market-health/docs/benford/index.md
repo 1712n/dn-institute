@@ -36,10 +36,12 @@ Leading digit | Expected frequency
 
 `firstdigitdist`: This metric represents the distribution of the first digits across the given dataset. It returns an object with the digit (1-9) as keys and the count of occurrences as values. This distribution is then compared against the expected distribution as per Benford's Law to detect anomalies.
 
-`benfordlawtest`: This metric is calculated using the Kolmogorov-Smirnov test. The K-S test is a type of statistical test that measures the agreement between the observed frequency distribution of first digits in the dataset and the expected distribution as per Benford's Law. Cryptocurrency markets are known for their volatility and might not always follow expected distributions due to market speculation, rapid news cycles, and the behavior of both retail and institutional traders. Therefore, while a p-value greater than 0.05 is generally considered a good fit, analysts might allow for a slightly broader range to account for the inherent volatility and less predictable behavior of these markets.
-- **Good Fit**: $0.01 < p ≤ 1$ - This range indicates a strong adherence to Benford's distribution
-- **Moderate Concern**:  $0.005 < p ≤ 0.01$ 
-- **High Concern (Potential Manipulation)**:  $p ≤ 0.005$ 
+`benfordlawtest`: This metric is calculated using the Kolmogorov-Smirnov test. The K-S test measures the agreement between the observed first-digit distribution and the expected distribution under Benford's Law. If this field is a p-value, a small value is evidence against the Benford null hypothesis; a large value means the test did not find sufficient evidence to reject it. A large p-value does not prove that the data follows Benford's Law, and a small p-value does not by itself prove manipulation. Sample size, repeated testing, market structure, and whether Benford's assumptions are appropriate for the selected data must also be considered.
+- **Insufficient evidence of deviation**: $p > 0.05$
+- **Moderate evidence of deviation**: $0.01 < p ≤ 0.05$
+- **Strong evidence of deviation requiring investigation**: $p ≤ 0.01$
+
+When many markets or time windows are tested, apply a multiple-testing correction or control the false discovery rate before classifying alerts.
 
 #### Example
 
@@ -99,7 +101,8 @@ The average 'benfordlawtest' value across the data is approximately 0.208.
    - The digits '4' and '7' are quite close to their expected frequencies.
 
 2. **Benford's Law Test:**
-   - The average test value of approximately 0.208 suggests a deviation from Benford's Law. Typically, a lower test value (closer to 0) indicates closer conformity to Benford's Law. While this isn't a definitive measure on its own, it suggests that the first digit distribution in this data set doesn't closely follow the expected pattern from Benford's Law.
+   - If `benfordlawtest` is a p-value, the reported average of approximately 0.208 does not indicate a statistically significant deviation at conventional thresholds. Lower p-values indicate stronger evidence against the Benford null hypothesis, not closer conformity.
+   - Averaging p-values across time windows is generally not a valid way to combine test evidence. Inspect the window-level p-values and effect sizes, or use an established p-value combination method and correct for repeated testing.
 
 #### Possible Reasons and Implications
 - **Natural Variability:** Not all datasets strictly follow Benford's Law, especially if they are not large enough or don't cover a wide enough range of magnitudes.
