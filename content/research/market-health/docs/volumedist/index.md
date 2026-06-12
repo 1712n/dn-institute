@@ -98,8 +98,8 @@ Here is the histogram representing the trading volumes based on the provided sam
 
 #### Interpretation
 
-- Ideally, trading volume should follow a [power law](https://en.wikipedia.org/wiki/Power_law) heavy tail distribution, where small trades are common, and large trades are rare.
-- A more uniform distribution might suggest a healthy mix of small and large volume trades.
+- A typical trade-size distribution often has a [power-law](https://en.wikipedia.org/wiki/Power_law)-like heavy tail, where small trades are common and large trades are rare.
+- A distribution that is unusually uniform across trade-size bins, or that contains repeated concentrations at specific sizes, can be anomalous and warrants comparison with the market's historical baseline. Uniformity does not by itself indicate a healthy mix of trades.
 
 ### Applications in Market Surveillance
 
@@ -119,7 +119,7 @@ Here is the histogram representing the trading volumes based on the provided sam
 
 - Volume Distribution analyzes trade size frequencies across bins.
 - Changes can reveal shifting market participant behaviors.  
-- Conforming distributions may indicate wash trading risks.
+- Unusual deviations from the market's expected distribution may indicate wash-trading risks and require further investigation.
 - Integration with other metrics provides robust surveillance.
 
 ## References and Further Reading
