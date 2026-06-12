@@ -36,10 +36,16 @@ Leading digit | Expected frequency
 
 `firstdigitdist`: This metric represents the distribution of the first digits across the given dataset. It returns an object with the digit (1-9) as keys and the count of occurrences as values. This distribution is then compared against the expected distribution as per Benford's Law to detect anomalies.
 
-`benfordlawtest`: This metric is calculated using the Kolmogorov-Smirnov test. The K-S test is a type of statistical test that measures the agreement between the observed frequency distribution of first digits in the dataset and the expected distribution as per Benford's Law. Cryptocurrency markets are known for their volatility and might not always follow expected distributions due to market speculation, rapid news cycles, and the behavior of both retail and institutional traders. Therefore, while a p-value greater than 0.05 is generally considered a good fit, analysts might allow for a slightly broader range to account for the inherent volatility and less predictable behavior of these markets.
-- **Good Fit**: $0.01 < p ≤ 1$ - This range indicates a strong adherence to Benford's distribution
-- **Moderate Concern**:  $0.005 < p ≤ 0.01$ 
-- **High Concern (Potential Manipulation)**:  $p ≤ 0.005$ 
+`benfordlawtest`: This metric is the Kolmogorov-Smirnov (K-S) test statistic, which measures the maximum distance between the observed first-digit distribution and the expected distribution under Benford's Law. At the 5% significance level, compare the statistic with the critical value:
+
+{{< katex display >}}
+\text{critical value} = \frac{1.36}{\sqrt{\text{tradecount}}}
+{{< /katex >}}
+
+- If `benfordlawtest` is greater than the critical value, reject the null hypothesis that the data conforms to Benford's Law.
+- If `benfordlawtest` is less than or equal to the critical value, there is insufficient evidence to reject the null hypothesis.
+
+A statistically significant deviation does not by itself prove manipulation. Sample size, market structure, and whether Benford's assumptions are appropriate for the selected data must also be considered.
 
 #### Example
 
@@ -99,7 +105,8 @@ The average 'benfordlawtest' value across the data is approximately 0.208.
    - The digits '4' and '7' are quite close to their expected frequencies.
 
 2. **Benford's Law Test:**
-   - The average test value of approximately 0.208 suggests a deviation from Benford's Law. Typically, a lower test value (closer to 0) indicates closer conformity to Benford's Law. While this isn't a definitive measure on its own, it suggests that the first digit distribution in this data set doesn't closely follow the expected pattern from Benford's Law.
+   - The reported average `benfordlawtest` value of approximately 0.208 should not be interpreted on its own. For each time window, compare the K-S statistic with `1.36 / sqrt(tradecount)` using that window's corresponding trade count.
+   - Averaging K-S statistics across windows with different sample sizes obscures the relevant critical-value comparison. Inspect each window-level statistic and threshold instead.
 
 #### Possible Reasons and Implications
 - **Natural Variability:** Not all datasets strictly follow Benford's Law, especially if they are not large enough or don't cover a wide enough range of magnitudes.
@@ -115,7 +122,7 @@ Visual aids, such as a bar graph representing the expected and actual frequency 
 {{< figure src="benford.png" >}}
 
 ### Applications in Market Surveillance
-- **Detecting Potential Manipulation**: Significantly low test values may indicate fabricated or manipulated data requiring further investigation. However, natural deviations can occur.
+- **Detecting Potential Manipulation**: Test values above their sample-size-dependent critical values indicate statistically significant deviations that may require further investigation. However, natural deviations can occur.
 - **Identifying Suspicious Patterns**: Unusual first digit frequencies appearing concurrently across exchanges could indicate coordinated manipulation efforts. 
 - **Combining With Other Metrics**: Benford's Law is best used alongside other metrics like volume, volatility, orders to substantiate manipulation hypotheses.
 - **Establishing Expected Ranges**: Calculate historical test value ranges for a trading pair to better detect anomaly deviations.
