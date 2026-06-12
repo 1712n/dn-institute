@@ -51,10 +51,10 @@ Analyzing the market data for `okx-btc-usdt` on December 25-27, 2023:
 
 {{< figure src="vwap.png" caption="VWAP and Trade Count on OKX BTC-USDT pair, December 25-27, 2023." >}}
 
-- VWAP (Volume Weighted Average Price): The VWAP line appears to be above the closing prices initially, indicating that earlier trades were happening at prices above the average. However, as time progresses, the VWAP gets closer to the closing price line, suggesting that the trading prices are aligning more closely with the average. This could mean the market is stabilizing or that volume is decreasing.
+- VWAP (Volume Weighted Average Price): When VWAP is above the closing price for an interval, the volume-weighted average execution price is above that close. When the two lines converge, the closing price is moving closer to the volume-weighted average. This relationship alone does not establish that the market is stabilizing or that volume is decreasing; those claims require separate volatility and volume evidence.
 - Trade Count: The bar chart at the bottom represents the trade count during each time interval. There's a significant peak in the middle of the period, indicating a period of high trading activity. This spike could be due to a news event, market announcement, or other stimuli causing a sudden increase in trading interest.
 
-Based on this visual information, we can infer that during the observed time period, the Bitcoin market experienced a phase of relatively stable prices with a period of increased trading activity in the middle. The VWAP trend suggests that the price movement was near the average traded prices over time, showing no significant divergence from typical trading patterns.
+Based on this visual information, the observed period contains a mid-period increase in trade count and intervals where the closing price is near VWAP. Determining whether prices were relatively stable or whether the pattern is typical requires comparison with volatility data and an appropriate historical baseline.
 
 ### Applications in Market Surveillance
 
