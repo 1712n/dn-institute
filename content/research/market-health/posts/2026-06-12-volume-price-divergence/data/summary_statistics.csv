@@ -1,0 +1,5 @@
+Symbol,Mean Hourly Volume (M USD),Mean Trade Count,Mean Avg Trade Size,Avg Trade Size CV,Vol-Price Correlation (mean),Vol-Price Correlation (% negative),Taker Buy Ratio Std,Benford KS p-value
+BTC/USDT,$52.77,"137,002",$424,0.41,0.541,0.0%,0.0866,0.0000
+ETH/USDT,$28.03,"140,613",$218,0.47,0.637,0.0%,0.0863,0.0000
+SOL/USDT,$8.92,"33,012",$294,0.34,0.614,0.0%,0.0733,0.0000
+DOGE/USDT,$3.66,"31,641",$110,0.38,0.555,0.0%,0.0825,0.0000
