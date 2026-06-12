@@ -5,7 +5,7 @@ weight: 60
 
 ## Buy/Sell Ratio
 
-The buy/sell ratio calculates the proportion of buy orders to sell orders in a market over a period. It gauges whether buying or selling prevails. A balanced market tends towards 0.4-0.6.
+The buy/sell ratio calculates the proportion of buyer-initiated trades among all classified trades in a market over a period. It gauges whether buying or selling prevails. Because the metric is a proportion bounded between 0 and 1, 0.5 is the neutral point: values above 0.5 indicate more buys and values below 0.5 indicate more sells. A practical "balanced" range such as 0.4-0.6 should be calibrated to the market's historical distribution.
 
 ### Mathematical Background
 
@@ -76,8 +76,9 @@ The dataset comprised 60 data points with the following statistical insights:
 
 #### Interpretation
 
-- The mean Buy-Sell Ratio being less than 1 indicates a slight tendency towards sell orders over this period.
-- The Absolute Buy-Sell Ratio provides additional context, suggesting that while sell orders might be more frequent, the discrepancy is not extremely significant.
+- The mean Buy-Sell Ratio of 0.488 is slightly below the neutral value of 0.5, indicating that sell trades were marginally more frequent during this period.
+- The mean Absolute Buy-Sell Ratio of 0.519 is slightly above 0.5, indicating that buyer-initiated trades accounted for marginally more volume even though they were slightly less frequent.
+- Both means are close to 0.5. Whether these differences are meaningful requires comparison with the pair's historical distribution and an uncertainty or significance analysis.
 - Variations in the Buy-Sell Ratio could indicate shifts in market sentiment or reaction to external events.
 
 #### Visuals
