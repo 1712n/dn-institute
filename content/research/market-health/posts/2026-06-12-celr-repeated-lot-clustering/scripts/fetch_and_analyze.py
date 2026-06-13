@@ -2,6 +2,7 @@
 import csv
 import html
 import io
+import logging
 import math
 import statistics
 import subprocess
@@ -10,6 +11,7 @@ import zipfile
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlparse
 
 
 DATE = "2026-06-11"
@@ -18,6 +20,8 @@ TARGET = "CELRUSDT"
 REPEATED_QTYS = {"6788", "6888"}
 SYMBOLS = ["CELRUSDT", "GMXUSDT", "FLOKIUSDT", "DYDXUSDT", "TUSDUSDT"]
 BASE_URL = "https://data.binance.vision/data/spot/daily/aggTrades"
+ALLOWED_DOWNLOAD_HOST = "data.binance.vision"
+LOGGER = logging.getLogger(__name__)
 
 ARTICLE_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = ARTICLE_DIR / "data"
@@ -28,7 +32,16 @@ def source_url(symbol, date=DATE):
     return f"{BASE_URL}/{symbol}/{symbol}-aggTrades-{date}.zip"
 
 
+def validate_download_url(url):
+    parsed = urlparse(url)
+    if parsed.scheme != "https" or not parsed.netloc:
+        raise ValueError(f"download URL must use HTTPS with a host: {url}")
+    if parsed.hostname != ALLOWED_DOWNLOAD_HOST:
+        raise ValueError(f"unexpected download host: {parsed.hostname}")
+
+
 def download(url):
+    validate_download_url(url)
     last_error = None
     for _ in range(3):
         try:
@@ -99,11 +112,20 @@ def metrics(symbol, rows, zip_bytes, date=DATE):
     seconds = Counter((timestamp // 1000) % 60 for timestamp in timestamps)
     expected = len(rows) / 60
     chi_square = sum((seconds.get(second, 0) - expected) ** 2 / expected for second in range(60))
-    gaps = [
-        (current - previous) / 1000
-        for previous, current in zip(timestamps, timestamps[1:])
-        if current >= previous
-    ]
+    gaps = []
+    filtered_gap_count = 0
+    for previous, current in zip(timestamps, timestamps[1:]):
+        if current >= previous:
+            gaps.append((current - previous) / 1000)
+        else:
+            filtered_gap_count += 1
+    if filtered_gap_count:
+        LOGGER.warning(
+            "%s %s had %s out-of-order timestamp gaps skipped",
+            symbol,
+            date,
+            filtered_gap_count,
+        )
     top_two_share = sum(count for _, count in top[:2]) / len(rows)
     top_two_qtys = {qty for qty, _ in top[:2]}
     top_two_quote_volume = sum(row["quote"] for row in rows if row["qty_text"] in top_two_qtys)
@@ -219,7 +241,7 @@ def svg_line_chart(path, title, points, y_label, color="#287d57"):
         x = scale(hour, 0, 23, left, left + chart_w)
         parts.append(f'<text x="{x:.2f}" y="{top + chart_h + 24}" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">{hour:02d}:00</text>')
     parts.append(f'<polyline points="{" ".join(polyline)}" fill="none" stroke="{color}" stroke-width="3"/>')
-    for point, xy in zip(points, polyline):
+    for xy in polyline:
         x, y = xy.split(",")
         parts.append(f'<circle cx="{x}" cy="{y}" r="4" fill="{color}"/>')
     parts.append("</svg>")

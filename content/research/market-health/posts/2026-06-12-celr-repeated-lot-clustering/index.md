@@ -33,7 +33,7 @@ The source URLs are listed in `data/source_urls.csv`. The script `scripts/fetch_
 
 The main metric is repeated-lot concentration:
 
-```
+```text
 top-two quantity share = trades printed at the two most common exact quantities / all aggregate trades
 ```
 
