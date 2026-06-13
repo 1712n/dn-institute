@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="520" viewBox="0 0 920 520">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="78" y="30" font-family="Arial" font-size="20" font-weight="700">Top-two exact quantity concentration by market, 2026-06-11</text>
+<text x="18" y="228.0" transform="rotate(-90 18 228.0)" font-family="Arial" font-size="13" fill="#344054">Share of aggregate trades</text>
+<line x1="78" y1="402" x2="892" y2="402" stroke="#667085"/>
+<line x1="78" y1="54" x2="78" y2="402" stroke="#667085"/>
+<line x1="73" y1="402.00" x2="892" y2="402.00" stroke="#eaecf0"/>
+<text x="68" y="406.00" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">0%</text>
+<line x1="73" y1="315.00" x2="892" y2="315.00" stroke="#eaecf0"/>
+<text x="68" y="319.00" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">13%</text>
+<line x1="73" y1="228.00" x2="892" y2="228.00" stroke="#eaecf0"/>
+<text x="68" y="232.00" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">27%</text>
+<line x1="73" y1="141.00" x2="892" y2="141.00" stroke="#eaecf0"/>
+<text x="68" y="145.00" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">40%</text>
+<line x1="73" y1="54.00" x2="892" y2="54.00" stroke="#eaecf0"/>
+<text x="68" y="58.00" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">53%</text>
+<rect x="78.00" y="54.00" width="68.55" height="348.00" fill="#3d6fb6"/>
+<text x="112.27" y="418" text-anchor="end" transform="rotate(-45 112.27 418)" font-family="Arial" font-size="11" fill="#475467">NOT/USDT</text>
+<rect x="152.55" y="198.02" width="68.55" height="203.98" fill="#3d6fb6"/>
+<text x="186.82" y="418" text-anchor="end" transform="rotate(-45 186.82 418)" font-family="Arial" font-size="11" fill="#475467">CELR/USDT</text>
+<rect x="227.09" y="186.38" width="68.55" height="215.62" fill="#3d6fb6"/>
+<text x="261.36" y="418" text-anchor="end" transform="rotate(-45 261.36 418)" font-family="Arial" font-size="11" fill="#475467">STRK/USDT</text>
+<rect x="301.64" y="202.67" width="68.55" height="199.33" fill="#3d6fb6"/>
+<text x="335.91" y="418" text-anchor="end" transform="rotate(-45 335.91 418)" font-family="Arial" font-size="11" fill="#475467">OP/USDT</text>
+<rect x="376.18" y="222.06" width="68.55" height="179.94" fill="#3d6fb6"/>
+<text x="410.45" y="418" text-anchor="end" transform="rotate(-45 410.45 418)" font-family="Arial" font-size="11" fill="#475467">OG/USDT</text>
+<rect x="450.73" y="251.64" width="68.55" height="150.36" fill="#3d6fb6"/>
+<text x="485.00" y="418" text-anchor="end" transform="rotate(-45 485.00 418)" font-family="Arial" font-size="11" fill="#475467">SCR/USDT</text>
+<rect x="525.27" y="304.74" width="68.55" height="97.26" fill="#3d6fb6"/>
+<text x="559.55" y="418" text-anchor="end" transform="rotate(-45 559.55 418)" font-family="Arial" font-size="11" fill="#475467">SAND/USDT</text>
+<rect x="599.82" y="350.05" width="68.55" height="51.95" fill="#3d6fb6"/>
+<text x="634.09" y="418" text-anchor="end" transform="rotate(-45 634.09 418)" font-family="Arial" font-size="11" fill="#475467">FLOKI/USDT</text>
+<rect x="674.36" y="362.99" width="68.55" height="39.01" fill="#3d6fb6"/>
+<text x="708.64" y="418" text-anchor="end" transform="rotate(-45 708.64 418)" font-family="Arial" font-size="11" fill="#475467">DOGE/USDT</text>
+<rect x="748.91" y="388.62" width="68.55" height="13.38" fill="#3d6fb6"/>
+<text x="783.18" y="418" text-anchor="end" transform="rotate(-45 783.18 418)" font-family="Arial" font-size="11" fill="#475467">ADA/USDT</text>
+<rect x="823.45" y="316.97" width="68.55" height="85.03" fill="#3d6fb6"/>
+<text x="857.73" y="418" text-anchor="end" transform="rotate(-45 857.73 418)" font-family="Arial" font-size="11" fill="#475467">SPK/USDT</text>
+</svg>

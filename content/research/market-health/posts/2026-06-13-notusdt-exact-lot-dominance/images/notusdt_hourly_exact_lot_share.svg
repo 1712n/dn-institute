@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="430" viewBox="0 0 920 430">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="72" y="30" font-family="Arial" font-size="20" font-weight="700">NOT/USDT hourly exact-lot share, 2026-06-11</text>
+<text x="18" y="213.0" transform="rotate(-90 18 213.0)" font-family="Arial" font-size="13" fill="#344054">Share of aggregate trades</text>
+<line x1="72" y1="372" x2="892" y2="372" stroke="#667085"/>
+<line x1="72" y1="54" x2="72" y2="372" stroke="#667085"/>
+<line x1="67" y1="372.00" x2="892" y2="372.00" stroke="#eaecf0"/>
+<text x="62" y="376.00" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">0%</text>
+<line x1="67" y1="292.50" x2="892" y2="292.50" stroke="#eaecf0"/>
+<text x="62" y="296.50" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">17%</text>
+<line x1="67" y1="213.00" x2="892" y2="213.00" stroke="#eaecf0"/>
+<text x="62" y="217.00" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">35%</text>
+<line x1="67" y1="133.50" x2="892" y2="133.50" stroke="#eaecf0"/>
+<text x="62" y="137.50" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">52%</text>
+<line x1="67" y1="54.00" x2="892" y2="54.00" stroke="#eaecf0"/>
+<text x="62" y="58.00" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">69%</text>
+<line x1="72.00" y1="372" x2="72.00" y2="377" stroke="#667085"/>
+<text x="72.00" y="394" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">00:00</text>
+<line x1="178.96" y1="372" x2="178.96" y2="377" stroke="#667085"/>
+<text x="178.96" y="394" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">03:00</text>
+<line x1="285.91" y1="372" x2="285.91" y2="377" stroke="#667085"/>
+<text x="285.91" y="394" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">06:00</text>
+<line x1="392.87" y1="372" x2="392.87" y2="377" stroke="#667085"/>
+<text x="392.87" y="394" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">09:00</text>
+<line x1="499.83" y1="372" x2="499.83" y2="377" stroke="#667085"/>
+<text x="499.83" y="394" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">12:00</text>
+<line x1="606.78" y1="372" x2="606.78" y2="377" stroke="#667085"/>
+<text x="606.78" y="394" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">15:00</text>
+<line x1="713.74" y1="372" x2="713.74" y2="377" stroke="#667085"/>
+<text x="713.74" y="394" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">18:00</text>
+<line x1="820.70" y1="372" x2="820.70" y2="377" stroke="#667085"/>
+<text x="820.70" y="394" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">21:00</text>
+<polyline fill="none" stroke="#287d57" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" points="72.00,150.33 107.65,189.85 143.30,131.94 178.96,154.33 214.61,188.74 250.26,85.21 285.91,81.79 321.57,82.69 357.22,177.61 392.87,166.23 428.52,77.15 464.17,121.07 499.83,54.00 535.48,95.78 571.13,168.48 606.78,115.42 642.43,144.82 678.09,88.31 713.74,289.45 749.39,176.07 785.04,188.48 820.70,168.08 856.35,160.65 892.00,106.34"/>
+<circle cx="72.00" cy="150.33" r="3.5" fill="#287d57"/>
+<circle cx="107.65" cy="189.85" r="3.5" fill="#287d57"/>
+<circle cx="143.30" cy="131.94" r="3.5" fill="#287d57"/>
+<circle cx="178.96" cy="154.33" r="3.5" fill="#287d57"/>
+<circle cx="214.61" cy="188.74" r="3.5" fill="#287d57"/>
+<circle cx="250.26" cy="85.21" r="3.5" fill="#287d57"/>
+<circle cx="285.91" cy="81.79" r="3.5" fill="#287d57"/>
+<circle cx="321.57" cy="82.69" r="3.5" fill="#287d57"/>
+<circle cx="357.22" cy="177.61" r="3.5" fill="#287d57"/>
+<circle cx="392.87" cy="166.23" r="3.5" fill="#287d57"/>
+<circle cx="428.52" cy="77.15" r="3.5" fill="#287d57"/>
+<circle cx="464.17" cy="121.07" r="3.5" fill="#287d57"/>
+<circle cx="499.83" cy="54.00" r="3.5" fill="#287d57"/>
+<circle cx="535.48" cy="95.78" r="3.5" fill="#287d57"/>
+<circle cx="571.13" cy="168.48" r="3.5" fill="#287d57"/>
+<circle cx="606.78" cy="115.42" r="3.5" fill="#287d57"/>
+<circle cx="642.43" cy="144.82" r="3.5" fill="#287d57"/>
+<circle cx="678.09" cy="88.31" r="3.5" fill="#287d57"/>
+<circle cx="713.74" cy="289.45" r="3.5" fill="#287d57"/>
+<circle cx="749.39" cy="176.07" r="3.5" fill="#287d57"/>
+<circle cx="785.04" cy="188.48" r="3.5" fill="#287d57"/>
+<circle cx="820.70" cy="168.08" r="3.5" fill="#287d57"/>
+<circle cx="856.35" cy="160.65" r="3.5" fill="#287d57"/>
+<circle cx="892.00" cy="106.34" r="3.5" fill="#287d57"/>
+</svg>

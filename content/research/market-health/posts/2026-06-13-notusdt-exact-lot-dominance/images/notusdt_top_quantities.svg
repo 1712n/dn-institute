@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="520" viewBox="0 0 920 520">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="78" y="30" font-family="Arial" font-size="20" font-weight="700">NOT/USDT top trade quantities on Binance, 2026-06-11</text>
+<text x="18" y="228.0" transform="rotate(-90 18 228.0)" font-family="Arial" font-size="13" fill="#344054">Share of aggregate trades</text>
+<line x1="78" y1="402" x2="892" y2="402" stroke="#667085"/>
+<line x1="78" y1="54" x2="78" y2="402" stroke="#667085"/>
+<line x1="73" y1="402.00" x2="892" y2="402.00" stroke="#eaecf0"/>
+<text x="68" y="406.00" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">0%</text>
+<line x1="73" y1="315.00" x2="892" y2="315.00" stroke="#eaecf0"/>
+<text x="68" y="319.00" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">7%</text>
+<line x1="73" y1="228.00" x2="892" y2="228.00" stroke="#eaecf0"/>
+<text x="68" y="232.00" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">14%</text>
+<line x1="73" y1="141.00" x2="892" y2="141.00" stroke="#eaecf0"/>
+<text x="68" y="145.00" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">20%</text>
+<line x1="73" y1="54.00" x2="892" y2="54.00" stroke="#eaecf0"/>
+<text x="68" y="58.00" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">27%</text>
+<rect x="78.00" y="54.00" width="76.00" height="348.00" fill="#b85c38"/>
+<text x="116.00" y="418" text-anchor="end" transform="rotate(-45 116.00 418)" font-family="Arial" font-size="11" fill="#475467">200000</text>
+<rect x="160.00" y="70.61" width="76.00" height="331.39" fill="#b85c38"/>
+<text x="198.00" y="418" text-anchor="end" transform="rotate(-45 198.00 418)" font-family="Arial" font-size="11" fill="#475467">14748</text>
+<rect x="242.00" y="375.25" width="76.00" height="26.75" fill="#b85c38"/>
+<text x="280.00" y="418" text-anchor="end" transform="rotate(-45 280.00 418)" font-family="Arial" font-size="11" fill="#475467">261057</text>
+<rect x="324.00" y="387.76" width="76.00" height="14.24" fill="#b85c38"/>
+<text x="362.00" y="418" text-anchor="end" transform="rotate(-45 362.00 418)" font-family="Arial" font-size="11" fill="#475467">46309</text>
+<rect x="406.00" y="393.59" width="76.00" height="8.41" fill="#b85c38"/>
+<text x="444.00" y="418" text-anchor="end" transform="rotate(-45 444.00 418)" font-family="Arial" font-size="11" fill="#475467">415204</text>
+<rect x="488.00" y="395.85" width="76.00" height="6.15" fill="#b85c38"/>
+<text x="526.00" y="418" text-anchor="end" transform="rotate(-45 526.00 418)" font-family="Arial" font-size="11" fill="#475467">461057</text>
+<rect x="570.00" y="396.39" width="76.00" height="5.61" fill="#b85c38"/>
+<text x="608.00" y="418" text-anchor="end" transform="rotate(-45 608.00 418)" font-family="Arial" font-size="11" fill="#475467">70504</text>
+<rect x="652.00" y="398.22" width="76.00" height="3.78" fill="#b85c38"/>
+<text x="690.00" y="418" text-anchor="end" transform="rotate(-45 690.00 418)" font-family="Arial" font-size="11" fill="#475467">61057</text>
+<rect x="734.00" y="398.44" width="76.00" height="3.56" fill="#b85c38"/>
+<text x="772.00" y="418" text-anchor="end" transform="rotate(-45 772.00 418)" font-family="Arial" font-size="11" fill="#475467">31561</text>
+<rect x="816.00" y="399.95" width="76.00" height="2.05" fill="#b85c38"/>
+<text x="854.00" y="418" text-anchor="end" transform="rotate(-45 854.00 418)" font-family="Arial" font-size="11" fill="#475467">25062</text>
+</svg>
