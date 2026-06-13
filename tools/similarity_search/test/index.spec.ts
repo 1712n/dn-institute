@@ -67,6 +67,16 @@ describe("Request validation", () => {
     expect(await response.text()).toBe("Invalid JSON format")
   })
 
+  it("returns 400 when text is only whitespace", async () => {
+    const response = await postSimilaritySearch({
+      text: "  \t  ",
+      namespace: "security-incidents"
+    })
+
+    expect(response.status).toBe(400)
+    expect(await response.text()).toBe("Invalid JSON format")
+  })
+
   it("returns 400 when namespace is not a string", async () => {
     const response = await postSimilaritySearch({
       text: "duplicate message",
@@ -138,6 +148,16 @@ describe("Similarity search", () => {
   it("returns 502 when Workers AI embedding fails", async () => {
     const response = await postSimilaritySearch({
       text: "trigger-workers-ai-failure",
+      namespace: "security-incidents"
+    })
+
+    expect(response.status).toBe(502)
+    expect(await response.text()).toBe("Workers AI request failed")
+  })
+
+  it("returns 502 when Workers AI returns an invalid response shape", async () => {
+    const response = await postSimilaritySearch({
+      text: "trigger-workers-ai-empty-response",
       namespace: "security-incidents"
     })
 

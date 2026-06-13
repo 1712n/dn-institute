@@ -38,6 +38,10 @@ export default defineWorkersConfig({
                       throw new Error("simulated Workers AI failure");
                     }
 
+                    if (data.text[0] === "trigger-workers-ai-empty-response") {
+                      return Promise.resolve({ data: [] });
+                    }
+
                     return Promise.resolve({ data: [[0.11, 0.22, 0.33]] });
                   }
                 };

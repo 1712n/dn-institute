@@ -40,15 +40,20 @@ app.post("/", async (c) => {
   }
 
   let modelResp
+  let vector
   try {
     modelResp = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
       text: [text]
     })
+
+    vector = modelResp.data?.[0]
+    if (!vector) {
+      throw new Error("Workers AI returned invalid response shape")
+    }
   } catch {
     return c.text("Workers AI request failed", 502)
   }
 
-  const vector = modelResp.data[0]
   let searchResponse
   try {
     searchResponse = await c.env.VECTORIZE_INDEX.query(vector, {
