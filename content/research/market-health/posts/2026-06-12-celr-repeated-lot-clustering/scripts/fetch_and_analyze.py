@@ -13,7 +13,9 @@ from pathlib import Path
 
 
 DATE = "2026-06-11"
+CELR_DATES = ["2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11"]
 TARGET = "CELRUSDT"
+REPEATED_QTYS = {"6788", "6888"}
 SYMBOLS = ["CELRUSDT", "GMXUSDT", "FLOKIUSDT", "DYDXUSDT", "TUSDUSDT"]
 BASE_URL = "https://data.binance.vision/data/spot/daily/aggTrades"
 
@@ -22,8 +24,8 @@ DATA_DIR = ARTICLE_DIR / "data"
 IMAGE_DIR = ARTICLE_DIR / "images"
 
 
-def source_url(symbol):
-    return f"{BASE_URL}/{symbol}/{symbol}-aggTrades-{DATE}.zip"
+def source_url(symbol, date=DATE):
+    return f"{BASE_URL}/{symbol}/{symbol}-aggTrades-{date}.zip"
 
 
 def download(url):
@@ -44,8 +46,8 @@ def download(url):
         raise RuntimeError(f"failed to download {url}: {last_error}; curl fallback: {exc}") from exc
 
 
-def parse_agg_trades(symbol):
-    raw = download(source_url(symbol))
+def parse_agg_trades(symbol, date=DATE):
+    raw = download(source_url(symbol, date))
     with zipfile.ZipFile(io.BytesIO(raw)) as archive:
         csv_name = archive.namelist()[0]
         rows = []
@@ -88,7 +90,7 @@ def roundish_qty_share(qty_texts):
     return roundish / len(qty_texts)
 
 
-def metrics(symbol, rows, zip_bytes):
+def metrics(symbol, rows, zip_bytes, date=DATE):
     qty_counts = Counter(row["qty_text"] for row in rows)
     top = qty_counts.most_common(5)
     timestamps = [row["timestamp"] for row in rows]
@@ -108,9 +110,9 @@ def metrics(symbol, rows, zip_bytes):
     quote_volume = sum(row["quote"] for row in rows)
     return {
         "symbol": symbol,
-        "date": DATE,
+        "date": date,
         "source_zip_bytes": zip_bytes,
-        "source_url": source_url(symbol),
+        "source_url": source_url(symbol, date),
         "trade_count": len(rows),
         "start_utc": datetime.fromtimestamp(min(timestamps) / 1000, tz=timezone.utc).isoformat(),
         "end_utc": datetime.fromtimestamp(max(timestamps) / 1000, tz=timezone.utc).isoformat(),
@@ -137,7 +139,7 @@ def metrics(symbol, rows, zip_bytes):
 
 def write_csv(path, fieldnames, rows):
     with path.open("w", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
@@ -255,6 +257,37 @@ def hourly_repeated_share(rows, repeated_qtys):
     return output
 
 
+def daily_repeated_persistence(rows_by_date):
+    output = []
+    for date in sorted(rows_by_date):
+        rows = rows_by_date[date]
+        qty_counts = Counter(row["qty_text"] for row in rows)
+        prices = [row["price"] for row in rows]
+        quote_volume = sum(row["quote"] for row in rows)
+        repeated_rows = [row for row in rows if row["qty_text"] in REPEATED_QTYS]
+        repeated_quote_volume = sum(row["quote"] for row in repeated_rows)
+        top = qty_counts.most_common(2)
+        output.append(
+            {
+                "date": date,
+                "trade_count": len(rows),
+                "quote_volume_usdt": round(quote_volume, 2),
+                "price_change_pct": round((prices[-1] - prices[0]) / prices[0] * 100, 4),
+                "repeated_quantities": "+".join(sorted(REPEATED_QTYS)),
+                "repeated_lot_trades": len(repeated_rows),
+                "repeated_lot_trade_share": round(len(repeated_rows) / len(rows), 6),
+                "repeated_lot_quote_volume_usdt": round(repeated_quote_volume, 2),
+                "repeated_lot_quote_volume_share": round(repeated_quote_volume / quote_volume, 6),
+                "top_qty": top[0][0],
+                "top_qty_count": top[0][1],
+                "second_qty": top[1][0],
+                "second_qty_count": top[1][1],
+                "source_url": source_url(TARGET, date),
+            }
+        )
+    return output
+
+
 def main():
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     IMAGE_DIR.mkdir(parents=True, exist_ok=True)
@@ -271,7 +304,23 @@ def main():
     write_csv(
         DATA_DIR / "source_urls.csv",
         ["symbol", "date", "source_url"],
-        [{"symbol": symbol, "date": DATE, "source_url": source_url(symbol)} for symbol in SYMBOLS],
+        [{"symbol": symbol, "date": DATE, "source_url": source_url(symbol)} for symbol in SYMBOLS]
+        + [
+            {"symbol": TARGET, "date": date, "source_url": source_url(TARGET, date)}
+            for date in CELR_DATES
+            if date != DATE
+        ],
+    )
+
+    celr_rows_by_date = {DATE: all_rows[TARGET]}
+    for date in CELR_DATES:
+        if date != DATE:
+            celr_rows_by_date[date], _ = parse_agg_trades(TARGET, date)
+    daily_persistence = daily_repeated_persistence(celr_rows_by_date)
+    write_csv(
+        DATA_DIR / "celr_daily_repeated_lot_persistence.csv",
+        list(daily_persistence[0].keys()),
+        daily_persistence,
     )
 
     celr = all_rows[TARGET]
@@ -305,6 +354,14 @@ def main():
         "Hourly share of the two repeated CELRUSDT quantities",
         hourly,
         "share of hourly aggregate trades",
+        "#287d57",
+    )
+    svg_bar_chart(
+        IMAGE_DIR / "celr_four_day_repeated_lot_share.svg",
+        "CELRUSDT repeated-lot share across four days",
+        [row["date"][5:] for row in daily_persistence],
+        [row["repeated_lot_trade_share"] for row in daily_persistence],
+        "share of daily aggregate trades",
         "#287d57",
     )
     svg_bar_chart(

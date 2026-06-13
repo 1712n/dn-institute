@@ -1,7 +1,7 @@
 ---
 title: "Repeated-lot clustering on Binance CELR/USDT"
 date: 2026-06-12
-description: "A one-day Binance aggregate-trade sample shows that two exact CELR/USDT quantities accounted for 31% of trades and 27.7% of quote volume, a pattern consistent with automated volume shaping risk."
+description: "Binance aggregate-trade samples show that the same two CELR/USDT quantities dominated four consecutive days, with a June 11 peak at 31% of trades and 27.7% of quote volume."
 entities:
   - Binance
   - CELR
@@ -9,18 +9,19 @@ entities:
 
 ## Summary
 
-On June 11, 2026, Binance's public aggregate-trade dataset for CELR/USDT showed an unusually concentrated trade-size pattern:
+From June 8 to June 11, 2026, Binance's public aggregate-trade dataset for CELR/USDT showed an unusually concentrated trade-size pattern:
 
-1. Two exact quantities, `6788` CELR and `6888` CELR, appeared in 5,065 of 16,275 aggregate trades.
-2. Those two quantities represented 31.12% of aggregate trades and 27.74% of quote volume, equal to 74,208.83 USDT.
-3. The pattern was not confined to a single burst. The two quantities accounted for at least 20% of hourly aggregate trades in 21 of 24 UTC hours.
-4. Among non-stablecoin comparison markets sampled for the same day, the top-two quantity concentration was materially lower: GMX/USDT at 0.82%, FLOKI/USDT at 7.93%, and DYDX/USDT at 2.19%.
+1. The same two exact quantities, `6788` CELR and `6888` CELR, were the two most common quantities on each of the four sampled days.
+2. Their daily trade share ranged from 17.49% to 31.12%.
+3. On June 11, those two quantities appeared in 5,065 of 16,275 aggregate trades and represented 27.74% of quote volume, equal to 74,208.83 USDT.
+4. The June 11 pattern was not confined to a single burst. The two quantities accounted for at least 20% of hourly aggregate trades in 21 of 24 UTC hours.
+5. Among non-stablecoin comparison markets sampled for June 11, the top-two quantity concentration was materially lower: GMX/USDT at 0.82%, FLOKI/USDT at 7.93%, and DYDX/USDT at 2.19%.
 
 This does not prove self-trading or wash trading by itself. It is a surveillance signal: a large share of daily activity was printed through two neighboring lot sizes, repeatedly, across most of the day. That is more consistent with automated volume maintenance or inventory cycling than with independent retail order flow.
 
 ## Dataset and method
 
-The analysis uses Binance's official public aggregate-trade archives for June 11, 2026:
+The analysis uses Binance's official public aggregate-trade archives. The CELR/USDT persistence check covers June 8-11, 2026. The cross-market comparison uses June 11, 2026 for:
 
 - `CELRUSDT`
 - `GMXUSDT`
@@ -51,6 +52,21 @@ The two most common CELR/USDT trade quantities were separated by only 100 CELR:
 The next most common quantity, `2686.2` CELR, appeared only 25 times. That steep drop-off is the main anomaly. The leading two lots are not merely the top of a smooth distribution; they are isolated peaks.
 
 {{< figure src="images/celr_top_quantities.svg" alt="CELR/USDT top trade quantity concentration" caption="Top CELR/USDT aggregate-trade quantities on Binance, June 11, 2026. The two leading exact quantities dominate the distribution." >}}
+
+## Four-day persistence
+
+The repeated lots were not unique to June 11. They were the two most common quantities in every sampled CELR/USDT day from June 8 through June 11:
+
+| Date       | Trades |    Quote volume | `6788` + `6888` trades | Trade share | Quote-volume share |
+| ---------- | -----: | --------------: | ---------------------: | ----------: | -----------------: |
+| 2026-06-08 | 13,957 | 210,541.69 USDT |                  2,799 |      20.05% |             20.06% |
+| 2026-06-09 | 15,490 | 211,167.48 USDT |                  2,933 |      18.93% |             20.56% |
+| 2026-06-10 | 18,463 | 238,587.73 USDT |                  3,230 |      17.49% |             19.58% |
+| 2026-06-11 | 16,275 | 267,495.22 USDT |                  5,065 |      31.12% |             27.74% |
+
+{{< figure src="images/celr_four_day_repeated_lot_share.svg" alt="Four-day repeated-lot share for CELR/USDT" caption="The same two CELR/USDT quantities were dominant across four consecutive Binance daily aggregate-trade archives." >}}
+
+The repeated-lot share grew sharply on June 11, but the same footprint was already visible on the prior three days. That makes a one-off manual execution error less likely than an automated process using fixed quantity templates.
 
 ## Persistence through the day
 
@@ -104,6 +120,7 @@ The public aggregate-trade dataset does not expose account identifiers or full o
 Supporting files in this article directory:
 
 - `data/comparison_daily_metrics.csv`
+- `data/celr_daily_repeated_lot_persistence.csv`
 - `data/celr_top_quantities.csv`
 - `data/celr_hourly_repeated_lot_share.csv`
 - `data/source_urls.csv`

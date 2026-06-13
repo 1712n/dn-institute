@@ -1,0 +1,5 @@
+date,trade_count,quote_volume_usdt,price_change_pct,repeated_quantities,repeated_lot_trades,repeated_lot_trade_share,repeated_lot_quote_volume_usdt,repeated_lot_quote_volume_share,top_qty,top_qty_count,second_qty,second_qty_count,source_url
+2026-06-08,13957,210541.69,1.3661,6788+6888,2799,0.200545,42242.61,0.200638,6888,1493,6788,1306,https://data.binance.vision/data/spot/daily/aggTrades/CELRUSDT/CELRUSDT-aggTrades-2026-06-08.zip
+2026-06-09,15490,211167.48,-3.7736,6788+6888,2933,0.189348,43415.12,0.205596,6788,1473,6888,1460,https://data.binance.vision/data/spot/daily/aggTrades/CELRUSDT/CELRUSDT-aggTrades-2026-06-09.zip
+2026-06-10,18463,238587.73,-2.5198,6788+6888,3230,0.174944,46715.48,0.1958,6888,1667,6788,1563,https://data.binance.vision/data/spot/daily/aggTrades/CELRUSDT/CELRUSDT-aggTrades-2026-06-10.zip
+2026-06-11,16275,267495.22,3.7321,6788+6888,5065,0.311214,74208.83,0.277421,6788,2545,6888,2520,https://data.binance.vision/data/spot/daily/aggTrades/CELRUSDT/CELRUSDT-aggTrades-2026-06-11.zip
