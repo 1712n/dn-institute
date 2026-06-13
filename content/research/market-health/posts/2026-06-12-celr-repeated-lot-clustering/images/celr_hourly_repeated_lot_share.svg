@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="430" viewBox="0 0 920 430">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="72" y="30" font-family="Arial" font-size="20" font-weight="700">Hourly share of the two repeated CELRUSDT quantities</text>
+<text x="18" y="213.0" transform="rotate(-90 18 213.0)" font-family="Arial" font-size="13" fill="#344054">share of hourly aggregate trades</text>
+<line x1="72" y1="372" x2="892" y2="372" stroke="#667085"/>
+<line x1="72" y1="54" x2="72" y2="372" stroke="#667085"/>
+<line x1="67" y1="372.00" x2="892" y2="372.00" stroke="#eaecf0"/>
+<text x="62" y="376.00" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">0%</text>
+<line x1="67" y1="292.50" x2="892" y2="292.50" stroke="#eaecf0"/>
+<text x="62" y="296.50" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">12%</text>
+<line x1="67" y1="213.00" x2="892" y2="213.00" stroke="#eaecf0"/>
+<text x="62" y="217.00" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">23%</text>
+<line x1="67" y1="133.50" x2="892" y2="133.50" stroke="#eaecf0"/>
+<text x="62" y="137.50" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">35%</text>
+<line x1="67" y1="54.00" x2="892" y2="54.00" stroke="#eaecf0"/>
+<text x="62" y="58.00" text-anchor="end" font-family="Arial" font-size="12" fill="#475467">47%</text>
+<text x="72.00" y="396" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">00:00</text>
+<text x="178.96" y="396" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">03:00</text>
+<text x="285.91" y="396" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">06:00</text>
+<text x="392.87" y="396" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">09:00</text>
+<text x="499.83" y="396" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">12:00</text>
+<text x="606.78" y="396" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">15:00</text>
+<text x="713.74" y="396" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">18:00</text>
+<text x="820.70" y="396" text-anchor="middle" font-family="Arial" font-size="12" fill="#475467">21:00</text>
+<polyline points="72.00,209.11 107.65,150.75 143.30,134.38 178.96,193.62 214.61,177.33 250.26,72.58 285.91,91.45 321.57,54.00 357.22,58.20 392.87,65.04 428.52,58.55 464.17,66.08 499.83,211.42 535.48,103.24 571.13,127.73 606.78,203.03 642.43,212.73 678.09,292.04 713.74,256.64 749.39,234.62 785.04,119.90 820.70,249.12 856.35,185.44 892.00,87.31" fill="none" stroke="#287d57" stroke-width="3"/>
+<circle cx="72.00" cy="209.11" r="4" fill="#287d57"/>
+<circle cx="107.65" cy="150.75" r="4" fill="#287d57"/>
+<circle cx="143.30" cy="134.38" r="4" fill="#287d57"/>
+<circle cx="178.96" cy="193.62" r="4" fill="#287d57"/>
+<circle cx="214.61" cy="177.33" r="4" fill="#287d57"/>
+<circle cx="250.26" cy="72.58" r="4" fill="#287d57"/>
+<circle cx="285.91" cy="91.45" r="4" fill="#287d57"/>
+<circle cx="321.57" cy="54.00" r="4" fill="#287d57"/>
+<circle cx="357.22" cy="58.20" r="4" fill="#287d57"/>
+<circle cx="392.87" cy="65.04" r="4" fill="#287d57"/>
+<circle cx="428.52" cy="58.55" r="4" fill="#287d57"/>
+<circle cx="464.17" cy="66.08" r="4" fill="#287d57"/>
+<circle cx="499.83" cy="211.42" r="4" fill="#287d57"/>
+<circle cx="535.48" cy="103.24" r="4" fill="#287d57"/>
+<circle cx="571.13" cy="127.73" r="4" fill="#287d57"/>
+<circle cx="606.78" cy="203.03" r="4" fill="#287d57"/>
+<circle cx="642.43" cy="212.73" r="4" fill="#287d57"/>
+<circle cx="678.09" cy="292.04" r="4" fill="#287d57"/>
+<circle cx="713.74" cy="256.64" r="4" fill="#287d57"/>
+<circle cx="749.39" cy="234.62" r="4" fill="#287d57"/>
+<circle cx="785.04" cy="119.90" r="4" fill="#287d57"/>
+<circle cx="820.70" cy="249.12" r="4" fill="#287d57"/>
+<circle cx="856.35" cy="185.44" r="4" fill="#287d57"/>
+<circle cx="892.00" cy="87.31" r="4" fill="#287d57"/>
+</svg>
