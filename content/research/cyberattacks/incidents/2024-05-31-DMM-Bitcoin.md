@@ -1,10 +1,6 @@
 ---
 date: 2024-05-31
 target-entities: DMM Bitcoin
-tags:
-  - Lazarus Group
-  - North Korea
-  - TraderTraitor
 entity-types:
   - Exchange
   - Custodian
@@ -46,13 +42,14 @@ The loss was a single-asset Bitcoin theft. Public reports did not identify other
 
 ## Timeline
 
-- **Late March 2024:** A North Korean actor masquerading as a recruiter on LinkedIn contacted a Ginco employee who had access to Ginco's wallet management system, according to the FBI.
-- **After mid-May 2024:** TraderTraitor actors exploited session cookie information to impersonate the compromised Ginco employee and access Ginco's unencrypted communications system, according to the FBI.
-- **May 31, 2024:** DMM Bitcoin detected an unauthorized Bitcoin outflow from its wallet involving 4,502.9 BTC. Elliptic reported that the bitcoin had already been split and sent to multiple new wallets.
-- **May 31, 2024:** DMM Bitcoin restricted spot buys and warned that Japanese yen withdrawals could take longer than usual, while saying it would procure equivalent BTC to cover the outflow, according to CoinDesk.
-- **December 2, 2024:** SBI VC Trade announced that it had reached a basic agreement to accept DMM Bitcoin customer accounts and deposited assets.
-- **December 23, 2024:** The FBI, DC3, and Japan's National Police Agency publicly attributed the theft to North Korean TraderTraitor actors.
-- **March 8, 2025:** DMM Bitcoin ended service and transferred customer accounts and custody assets to SBI VC Trade.
+- **March 31, 2024, 11:59 PM UTC:** A North Korean actor masquerading as a recruiter on LinkedIn had contacted a Ginco employee who had access to Ginco's wallet management system; the FBI report gives the timing as late March 2024, not an exact timestamp.
+- **May 16, 2024, 12:00 AM UTC:** TraderTraitor actors began the source-reported post-mid-May phase of exploiting session cookie information to impersonate the compromised Ginco employee and access Ginco's unencrypted communications system; the FBI report does not publish a more exact timestamp.
+- **May 31, 2024, 04:26 AM UTC:** DMM Bitcoin detected an unauthorized Bitcoin outflow from its wallet involving 4,502.9 BTC, corresponding to the company's reported 1:26 PM JST detection time.
+- **May 31, 2024, 01:40 PM UTC:** CoinDesk reported DMM Bitcoin's service restrictions, including restricted spot buys and longer Japanese yen withdrawal times, and DMM Bitcoin's statement that it would procure equivalent BTC to cover the outflow.
+- **May 31, 2024, 03:00 PM UTC:** Elliptic reported that the stolen bitcoin had already been split and sent to multiple new wallets as of 15:00 UTC.
+- **December 2, 2024, 12:00 AM UTC:** SBI VC Trade announced that it had reached a basic agreement to accept DMM Bitcoin customer accounts and deposited assets; the announcement source provides a date but not a UTC timestamp.
+- **December 23, 2024, 12:00 AM UTC:** The FBI, DC3, and Japan's National Police Agency publicly attributed the theft to North Korean TraderTraitor actors; the public attribution source provides a date but not an intraday UTC timestamp.
+- **March 8, 2025, 12:00 AM UTC:** DMM Bitcoin ended service and transferred customer accounts and custody assets to SBI VC Trade; the DMM service notice provides a date but not an intraday UTC timestamp.
 
 ## Security Failure Causes
 
