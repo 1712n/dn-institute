@@ -17,7 +17,6 @@ from urllib.parse import urlparse
 DATE = "2026-06-11"
 CELR_DATES = ["2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11"]
 TARGET = "CELRUSDT"
-REPEATED_QTYS = {"6788", "6888"}
 SYMBOLS = ["CELRUSDT", "GMXUSDT", "FLOKIUSDT", "DYDXUSDT", "TUSDUSDT"]
 BASE_URL = "https://data.binance.vision/data/spot/daily/aggTrades"
 ALLOWED_DOWNLOAD_HOST = "data.binance.vision"
@@ -103,9 +102,25 @@ def roundish_qty_share(qty_texts):
     return roundish / len(qty_texts)
 
 
+def require_top_two_quantities(symbol, date, top):
+    if len(top) < 2:
+        raise ValueError(
+            f"{symbol} {date} has only {len(top)} distinct trade quantities; "
+            "top-two repeated-lot analysis requires at least two"
+        )
+    return top[:2]
+
+
+def target_repeated_quantities(rows, symbol=TARGET, date=DATE):
+    qty_counts = Counter(row["qty_text"] for row in rows)
+    top_two = require_top_two_quantities(symbol, date, qty_counts.most_common(2))
+    return tuple(qty for qty, _ in top_two)
+
+
 def metrics(symbol, rows, zip_bytes, date=DATE):
     qty_counts = Counter(row["qty_text"] for row in rows)
     top = qty_counts.most_common(5)
+    top_two = require_top_two_quantities(symbol, date, top)
     timestamps = [row["timestamp"] for row in rows]
     prices = [row["price"] for row in rows]
     qty_texts = [row["qty_text"] for row in rows]
@@ -126,8 +141,8 @@ def metrics(symbol, rows, zip_bytes, date=DATE):
             date,
             filtered_gap_count,
         )
-    top_two_share = sum(count for _, count in top[:2]) / len(rows)
-    top_two_qtys = {qty for qty, _ in top[:2]}
+    top_two_share = sum(count for _, count in top_two) / len(rows)
+    top_two_qtys = {qty for qty, _ in top_two}
     top_two_quote_volume = sum(row["quote"] for row in rows if row["qty_text"] in top_two_qtys)
     quote_volume = sum(row["quote"] for row in rows)
     return {
@@ -140,12 +155,12 @@ def metrics(symbol, rows, zip_bytes, date=DATE):
         "end_utc": datetime.fromtimestamp(max(timestamps) / 1000, tz=timezone.utc).isoformat(),
         "quote_volume_usdt": round(quote_volume, 2),
         "price_change_pct": round((prices[-1] - prices[0]) / prices[0] * 100, 4),
-        "top_qty": top[0][0],
-        "top_qty_count": top[0][1],
-        "top_qty_share": round(top[0][1] / len(rows), 6),
-        "second_qty": top[1][0],
-        "second_qty_count": top[1][1],
-        "second_qty_share": round(top[1][1] / len(rows), 6),
+        "top_qty": top_two[0][0],
+        "top_qty_count": top_two[0][1],
+        "top_qty_share": round(top_two[0][1] / len(rows), 6),
+        "second_qty": top_two[1][0],
+        "second_qty_count": top_two[1][1],
+        "second_qty_share": round(top_two[1][1] / len(rows), 6),
         "top_two_qty_share": round(top_two_share, 6),
         "top_two_quote_volume_usdt": round(top_two_quote_volume, 2),
         "top_two_quote_volume_share": round(top_two_quote_volume / quote_volume, 6),
@@ -251,6 +266,7 @@ def svg_line_chart(path, title, points, y_label, color="#287d57"):
 
 
 def hourly_repeated_share(rows, repeated_qtys):
+    repeated_qty_set = set(repeated_qtys)
     buckets = defaultdict(lambda: {"hour": 0, "trades": 0, "top_two_trades": 0, "quote_volume_usdt": 0.0, "top_two_quote_volume_usdt": 0.0})
     for row in rows:
         hour = datetime.fromtimestamp(row["timestamp"] / 1000, tz=timezone.utc).hour
@@ -258,7 +274,7 @@ def hourly_repeated_share(rows, repeated_qtys):
         bucket["hour"] = hour
         bucket["trades"] += 1
         bucket["quote_volume_usdt"] += row["quote"]
-        if row["qty_text"] in repeated_qtys:
+        if row["qty_text"] in repeated_qty_set:
             bucket["top_two_trades"] += 1
             bucket["top_two_quote_volume_usdt"] += row["quote"]
     output = []
@@ -281,31 +297,34 @@ def hourly_repeated_share(rows, repeated_qtys):
     return output
 
 
-def daily_repeated_persistence(rows_by_date):
+def daily_repeated_persistence(rows_by_date, repeated_qtys):
+    repeated_qty_set = set(repeated_qtys)
+    repeated_qty_label = "+".join(repeated_qtys)
     output = []
     for date in sorted(rows_by_date):
         rows = rows_by_date[date]
         qty_counts = Counter(row["qty_text"] for row in rows)
         prices = [row["price"] for row in rows]
         quote_volume = sum(row["quote"] for row in rows)
-        repeated_rows = [row for row in rows if row["qty_text"] in REPEATED_QTYS]
+        repeated_rows = [row for row in rows if row["qty_text"] in repeated_qty_set]
         repeated_quote_volume = sum(row["quote"] for row in repeated_rows)
         top = qty_counts.most_common(2)
+        top_two = require_top_two_quantities(TARGET, date, top)
         output.append(
             {
                 "date": date,
                 "trade_count": len(rows),
                 "quote_volume_usdt": round(quote_volume, 2),
                 "price_change_pct": round((prices[-1] - prices[0]) / prices[0] * 100, 4),
-                "repeated_quantities": "+".join(sorted(REPEATED_QTYS)),
+                "repeated_quantities": repeated_qty_label,
                 "repeated_lot_trades": len(repeated_rows),
                 "repeated_lot_trade_share": round(len(repeated_rows) / len(rows), 6),
                 "repeated_lot_quote_volume_usdt": round(repeated_quote_volume, 2),
                 "repeated_lot_quote_volume_share": round(repeated_quote_volume / quote_volume, 6),
-                "top_qty": top[0][0],
-                "top_qty_count": top[0][1],
-                "second_qty": top[1][0],
-                "second_qty_count": top[1][1],
+                "top_qty": top_two[0][0],
+                "top_qty_count": top_two[0][1],
+                "second_qty": top_two[1][0],
+                "second_qty_count": top_two[1][1],
                 "source_url": source_url(TARGET, date),
             }
         )
@@ -322,6 +341,8 @@ def main():
         rows, zip_bytes = parse_agg_trades(symbol)
         all_rows[symbol] = rows
         comparison.append(metrics(symbol, rows, zip_bytes))
+    celr = all_rows[TARGET]
+    repeated_qtys = target_repeated_quantities(celr)
 
     comparison_fields = list(comparison[0].keys())
     write_csv(DATA_DIR / "comparison_daily_metrics.csv", comparison_fields, comparison)
@@ -340,14 +361,13 @@ def main():
     for date in CELR_DATES:
         if date != DATE:
             celr_rows_by_date[date], _ = parse_agg_trades(TARGET, date)
-    daily_persistence = daily_repeated_persistence(celr_rows_by_date)
+    daily_persistence = daily_repeated_persistence(celr_rows_by_date, repeated_qtys)
     write_csv(
         DATA_DIR / "celr_daily_repeated_lot_persistence.csv",
         list(daily_persistence[0].keys()),
         daily_persistence,
     )
 
-    celr = all_rows[TARGET]
     qty_counts = Counter(row["qty_text"] for row in celr)
     top_quantities = [
         {
@@ -361,8 +381,7 @@ def main():
     ]
     write_csv(DATA_DIR / "celr_top_quantities.csv", list(top_quantities[0].keys()), top_quantities)
 
-    repeated_qtys = [row["quantity"] for row in top_quantities[:2]]
-    hourly = hourly_repeated_share(celr, set(repeated_qtys))
+    hourly = hourly_repeated_share(celr, repeated_qtys)
     write_csv(DATA_DIR / "celr_hourly_repeated_lot_share.csv", list(hourly[0].keys()), hourly)
 
     svg_bar_chart(
