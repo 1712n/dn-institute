@@ -9,6 +9,7 @@ import urllib.request
 import zipfile
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
+from decimal import Decimal
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -71,7 +72,10 @@ def download(url):
 
 
 def normalize_qty(value):
-    return f"{float(value):.8f}".rstrip("0").rstrip(".")
+    qty = str(Decimal(str(value)))
+    if "." in qty:
+        qty = qty.rstrip("0").rstrip(".")
+    return qty or "0"
 
 
 def parse_agg_trades(symbol, date=DATE):
@@ -96,6 +100,7 @@ def parse_agg_trades(symbol, date=DATE):
                         "buyer_maker": row[6].lower() == "true",
                     }
                 )
+    rows.sort(key=lambda row: row["timestamp"])
     return rows, len(raw)
 
 
