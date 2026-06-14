@@ -167,6 +167,8 @@ def write_csv(path, fieldnames, rows):
 
 
 def write_text(path, text):
+    if not text.endswith("\n"):
+        text += "\n"
     path.write_text(text, encoding="utf-8")
 
 
