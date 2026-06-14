@@ -16,7 +16,7 @@ from urllib.parse import urlparse
 DATE = "2026-06-11"
 NOT_DATES = ["2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11"]
 TARGET = "NOTUSDT"
-DOMINANT_QTYS = {"200000", "14748"}
+DOMINANT_QTY_COUNT = 2
 COMPARISON_SYMBOLS = [
     "NOTUSDT",
     "CELRUSDT",
@@ -106,9 +106,19 @@ def percentile(values, pct):
     return sorted(values)[pos]
 
 
-def daily_metrics(symbol, rows, zip_bytes, date=DATE):
+def target_dominant_quantities(symbol, rows, date):
+    qty_counts = Counter(row["qty_text"] for row in rows)
+    top = qty_counts.most_common(DOMINANT_QTY_COUNT)
+    if len(top) < DOMINANT_QTY_COUNT:
+        raise ValueError(f"{symbol} {date} has fewer than {DOMINANT_QTY_COUNT} distinct quantities")
+    return tuple(qty for qty, _ in top)
+
+
+def daily_metrics(symbol, rows, zip_bytes, dominant_qtys, date=DATE):
     qty_counts = Counter(row["qty_text"] for row in rows)
     top = qty_counts.most_common(8)
+    if len(top) < DOMINANT_QTY_COUNT:
+        raise ValueError(f"{symbol} {date} has fewer than {DOMINANT_QTY_COUNT} distinct quantities")
     timestamps = [row["timestamp"] for row in rows]
     prices = [row["price"] for row in rows]
     seconds = Counter((timestamp // 1000) % 60 for timestamp in timestamps)
@@ -128,9 +138,10 @@ def daily_metrics(symbol, rows, zip_bytes, date=DATE):
             date,
             filtered_gap_count,
         )
-    top_two_qtys = {qty for qty, _ in top[:2]}
+    top_two_qtys = {qty for qty, _ in top[:DOMINANT_QTY_COUNT]}
     top_two_quote_volume = sum(row["quote"] for row in rows if row["qty_text"] in top_two_qtys)
-    dominant_quote_volume = sum(row["quote"] for row in rows if row["qty_text"] in DOMINANT_QTYS)
+    dominant_qty_set = set(dominant_qtys)
+    dominant_quote_volume = sum(row["quote"] for row in rows if row["qty_text"] in dominant_qty_set)
     quote_volume = sum(row["quote"] for row in rows)
     return {
         "symbol": symbol,
@@ -148,11 +159,11 @@ def daily_metrics(symbol, rows, zip_bytes, date=DATE):
         "second_qty": top[1][0],
         "second_qty_count": top[1][1],
         "second_qty_share": round(top[1][1] / len(rows), 6),
-        "top_two_qty_share": round(sum(count for _, count in top[:2]) / len(rows), 6),
+        "top_two_qty_share": round(sum(count for _, count in top[:DOMINANT_QTY_COUNT]) / len(rows), 6),
         "top_two_quote_volume_usdt": round(top_two_quote_volume, 2),
         "top_two_quote_volume_share": round(top_two_quote_volume / quote_volume, 6),
-        "dominant_lot_trade_count": sum(qty_counts.get(qty, 0) for qty in DOMINANT_QTYS),
-        "dominant_lot_trade_share": round(sum(qty_counts.get(qty, 0) for qty in DOMINANT_QTYS) / len(rows), 6),
+        "dominant_lot_trade_count": sum(qty_counts.get(qty, 0) for qty in dominant_qty_set),
+        "dominant_lot_trade_share": round(sum(qty_counts.get(qty, 0) for qty in dominant_qty_set) / len(rows), 6),
         "dominant_lot_quote_volume_usdt": round(dominant_quote_volume, 2),
         "dominant_lot_quote_volume_share": round(dominant_quote_volume / quote_volume, 6),
         "unique_qty_ratio": round(len(qty_counts) / len(rows), 6),
@@ -186,14 +197,15 @@ def top_quantity_rows(rows, limit=10):
     return result
 
 
-def hourly_dominant_lot_rows(rows):
+def hourly_dominant_lot_rows(rows, dominant_qtys):
     hourly = defaultdict(lambda: {"trades": 0, "quote_volume_usdt": 0.0, "lot_trades": 0, "lot_quote_volume_usdt": 0.0})
+    dominant_qty_set = set(dominant_qtys)
     for row in rows:
         hour = datetime.fromtimestamp(row["timestamp"] / 1000, tz=timezone.utc).hour
         bucket = hourly[hour]
         bucket["trades"] += 1
         bucket["quote_volume_usdt"] += row["quote"]
-        if row["qty_text"] in DOMINANT_QTYS:
+        if row["qty_text"] in dominant_qty_set:
             bucket["lot_trades"] += 1
             bucket["lot_quote_volume_usdt"] += row["quote"]
     result = []
@@ -323,7 +335,12 @@ def main():
         rows, zip_bytes = parse_agg_trades(TARGET, date)
         not_rows_by_date[date] = rows
         not_zip_bytes_by_date[date] = zip_bytes
-        metrics = daily_metrics(TARGET, rows, zip_bytes, date)
+
+    dominant_qtys = target_dominant_quantities(TARGET, not_rows_by_date[DATE], DATE)
+    for date in NOT_DATES:
+        rows = not_rows_by_date[date]
+        zip_bytes = not_zip_bytes_by_date[date]
+        metrics = daily_metrics(TARGET, rows, zip_bytes, dominant_qtys, date)
         persistence_rows.append(metrics)
         source_rows.append({"symbol": TARGET, "date": date, "source_url": metrics["source_url"]})
 
@@ -335,11 +352,11 @@ def main():
         else:
             rows, zip_bytes = parse_agg_trades(symbol, DATE)
             source_rows.append({"symbol": symbol, "date": DATE, "source_url": source_url(symbol, DATE)})
-        comparison_rows.append(daily_metrics(symbol, rows, zip_bytes, DATE))
+        comparison_rows.append(daily_metrics(symbol, rows, zip_bytes, dominant_qtys, DATE))
 
     not_rows = not_rows_by_date[DATE]
     top_qty_rows = top_quantity_rows(not_rows)
-    hourly_rows = hourly_dominant_lot_rows(not_rows)
+    hourly_rows = hourly_dominant_lot_rows(not_rows, dominant_qtys)
 
     metric_fields = [
         "symbol",
