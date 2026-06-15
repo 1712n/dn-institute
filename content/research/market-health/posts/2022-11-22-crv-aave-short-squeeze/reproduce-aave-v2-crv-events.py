@@ -22,7 +22,8 @@ from decimal import Decimal
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-RPC_URL = os.environ.get("ETH_RPC_URL", "https://ethereum.publicnode.com")
+DEFAULT_RPC_URL = "https://ethereum.publicnode.com"
+RPC_URL = os.environ.get("ETH_RPC_URL", DEFAULT_RPC_URL)
 LENDING_POOL = "0x7d2768dE32b0b80b7a3454c06BdAc94A69DDc7A9"
 ACCOUNT = "0x57e04786e231af3343562c062e0d058f25dace9e"
 CRV = "0xD533a949740bb3306d119CC777fa900bA034cd52"
@@ -101,8 +102,12 @@ def decimal_units(value: int, decimals: int) -> str:
 
 def iso_utc(block_number: int, cache: dict[int, str]) -> str:
     if block_number not in cache:
-        cache[block_number] = datetime.fromtimestamp(block_timestamp(block_number), timezone.utc).isoformat().replace("+00:00", "Z")
+        cache[block_number] = datetime.fromtimestamp(block_timestamp(block_number), tz=timezone.utc).isoformat().replace("+00:00", "Z")
     return cache[block_number]
+
+
+def summary_rpc_url() -> str:
+    return RPC_URL if RPC_URL == DEFAULT_RPC_URL else "<redacted ETH_RPC_URL>"
 
 
 def get_logs(from_block: int, to_block: int, topics: list, chunk_size: int = 50_000) -> list[dict]:
@@ -242,7 +247,7 @@ def main() -> None:
                 "on_behalf_of_or_repayer": "",
                 "liquidator": address_from_word(decoded[2]),
                 "amount_crv": decimal_units(debt_raw, 18),
-                "collateral_amount_usdc": decimal_units(collateral_raw, 6) if address_from_word(log["topics"][1]).lower() == USDC.lower() else str(collateral_raw),
+                "collateral_amount_usdc": decimal_units(collateral_raw, 6) if address_from_word(log["topics"][1]).lower() == USDC.lower() else "",
                 "borrow_rate_mode": "",
                 "receive_a_token": str(bool(int(decoded[3], 16))).lower(),
             }
@@ -278,9 +283,12 @@ def main() -> None:
     def sum_crv(selected):
         return sum(Decimal(row["amount_crv"]) for row in selected)
 
+    def sum_usdc_collateral(selected):
+        return sum(Decimal(row["collateral_amount_usdc"]) for row in selected if row["collateral_amount_usdc"])
+
     summary = {
         "source": {
-            "rpc_url": RPC_URL,
+            "rpc_url": summary_rpc_url(),
             "methods": [
                 "eth_getLogs for event discovery",
                 "eth_getTransactionReceipt for canonical receipt logs",
@@ -306,7 +314,7 @@ def main() -> None:
             "repaid_crv_sum_2022_11_21_to_24": f"{sum_crv(repay_rows):.6f}",
             "liquidation_call_count_2022_11_21_to_24": len(liquidation_rows),
             "liquidation_debt_covered_crv_sum": f"{sum_crv(liquidation_rows):.6f}",
-            "liquidated_usdc_collateral_sum": f"{sum(Decimal(row['collateral_amount_usdc']) for row in liquidation_rows):.6f}",
+            "liquidated_usdc_collateral_sum": f"{sum_usdc_collateral(liquidation_rows):.6f}",
             "first_liquidation_utc": liquidation_rows[0]["block_timestamp_utc"] if liquidation_rows else None,
             "last_liquidation_utc": liquidation_rows[-1]["block_timestamp_utc"] if liquidation_rows else None,
             "unique_liquidator_count": len({row["liquidator"].lower() for row in liquidation_rows}),
