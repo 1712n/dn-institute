@@ -38,7 +38,7 @@ The source is the official [Binance public data archive](https://github.com/bina
 7. whether the buyer was the maker;
 8. whether the trade was the best-price match.
 
-Binance also notes that spot timestamps from January 1, 2025 onward are expressed in microseconds.
+For this 2026 sample, the timestamp column uses microsecond precision under the archive's documented post-2024 spot-data convention.
 
 The analysis:
 

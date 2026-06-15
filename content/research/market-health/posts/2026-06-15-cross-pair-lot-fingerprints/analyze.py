@@ -7,6 +7,8 @@ import argparse
 import csv
 import hashlib
 import io
+import socket
+import time
 import urllib.request
 import zipfile
 from collections import Counter, defaultdict
@@ -14,12 +16,15 @@ from dataclasses import dataclass
 from decimal import Decimal
 from pathlib import Path
 from tempfile import gettempdir
+from urllib.error import URLError
 
 
 PAIRS = ("BOMEUSDT", "BOMEUSDC", "NEIROUSDT", "NEIROUSDC")
 DATES = tuple(f"2026-06-{day:02d}" for day in range(7, 14))
 FINGERPRINTS = (Decimal("200000"), Decimal("14748"))
 BASE_URL = "https://data.binance.vision/data/spot/daily/aggTrades"
+DOWNLOAD_ATTEMPTS = 3
+DOWNLOAD_TIMEOUT_SECONDS = 30
 COLORS = {
     "BOMEUSDT": "#2563eb",
     "BOMEUSDC": "#16a34a",
@@ -49,13 +54,33 @@ def archive_url(pair: str, date: str) -> str:
     return f"{BASE_URL}/{pair}/{filename}"
 
 
+def fetch_bytes(url: str) -> bytes:
+    for attempt in range(DOWNLOAD_ATTEMPTS):
+        try:
+            with urllib.request.urlopen(
+                url, timeout=DOWNLOAD_TIMEOUT_SECONDS
+            ) as response:
+                return response.read()
+        except (OSError, socket.timeout, URLError):
+            if attempt + 1 == DOWNLOAD_ATTEMPTS:
+                raise
+            time.sleep(2**attempt)
+    raise AssertionError("unreachable")
+
+
 def download(pair: str, date: str, cache_dir: Path) -> tuple[Path, str]:
     cache_dir.mkdir(parents=True, exist_ok=True)
     path = cache_dir / f"{pair}-aggTrades-{date}.zip"
     if not path.exists():
         print(f"Downloading {archive_url(pair, date)}")
-        urllib.request.urlretrieve(archive_url(pair, date), path)
+        path.write_bytes(fetch_bytes(archive_url(pair, date)))
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    checksum_url = f"{archive_url(pair, date)}.CHECKSUM"
+    expected_digest = fetch_bytes(checksum_url).decode("ascii").split()[0]
+    if digest.lower() != expected_digest.lower():
+        raise ValueError(
+            f"Checksum mismatch for {path}: expected {expected_digest}, got {digest}"
+        )
     return path, digest
 
 
@@ -98,6 +123,8 @@ def analyze_archive(pair: str, date: str, path: Path) -> DayMetrics:
                         fingerprint_single_fill_counts[quantity] += 1
                     fingerprint_timestamps[quantity][timestamp].add(buyer_is_maker)
 
+    if not quantities:
+        raise ValueError(f"No valid aggregate trades found in archive {path}")
     top_quantity, top_count = quantities.most_common(1)[0]
     return DayMetrics(
         pair=pair,
