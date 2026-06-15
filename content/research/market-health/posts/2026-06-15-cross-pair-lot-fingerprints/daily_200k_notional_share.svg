@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="480" y="30" text-anchor="middle" font-family="Arial" font-size="20" font-weight="700">200,000-token exact-lot share of daily notional</text>
+<line x1="85" y1="435.0" x2="930" y2="435.0" stroke="#d1d5db" stroke-width="1"/>
+<text x="73" y="439.0" text-anchor="end" font-family="Arial" font-size="12" fill="#374151">0%</text>
+<line x1="85" y1="371.7" x2="930" y2="371.7" stroke="#d1d5db" stroke-width="1"/>
+<text x="73" y="375.7" text-anchor="end" font-family="Arial" font-size="12" fill="#374151">5%</text>
+<line x1="85" y1="308.3" x2="930" y2="308.3" stroke="#d1d5db" stroke-width="1"/>
+<text x="73" y="312.3" text-anchor="end" font-family="Arial" font-size="12" fill="#374151">10%</text>
+<line x1="85" y1="245.0" x2="930" y2="245.0" stroke="#d1d5db" stroke-width="1"/>
+<text x="73" y="249.0" text-anchor="end" font-family="Arial" font-size="12" fill="#374151">15%</text>
+<line x1="85" y1="181.7" x2="930" y2="181.7" stroke="#d1d5db" stroke-width="1"/>
+<text x="73" y="185.7" text-anchor="end" font-family="Arial" font-size="12" fill="#374151">20%</text>
+<line x1="85" y1="118.3" x2="930" y2="118.3" stroke="#d1d5db" stroke-width="1"/>
+<text x="73" y="122.3" text-anchor="end" font-family="Arial" font-size="12" fill="#374151">25%</text>
+<line x1="85" y1="55.0" x2="930" y2="55.0" stroke="#d1d5db" stroke-width="1"/>
+<text x="73" y="59.0" text-anchor="end" font-family="Arial" font-size="12" fill="#374151">30%</text>
+<text x="85.0" y="463" text-anchor="middle" font-family="Arial" font-size="12" fill="#374151">06-07</text>
+<text x="225.8" y="463" text-anchor="middle" font-family="Arial" font-size="12" fill="#374151">06-08</text>
+<text x="366.7" y="463" text-anchor="middle" font-family="Arial" font-size="12" fill="#374151">06-09</text>
+<text x="507.5" y="463" text-anchor="middle" font-family="Arial" font-size="12" fill="#374151">06-10</text>
+<text x="648.3" y="463" text-anchor="middle" font-family="Arial" font-size="12" fill="#374151">06-11</text>
+<text x="789.2" y="463" text-anchor="middle" font-family="Arial" font-size="12" fill="#374151">06-12</text>
+<text x="930.0" y="463" text-anchor="middle" font-family="Arial" font-size="12" fill="#374151">06-13</text>
+<polyline points="85.0,205.0 225.8,258.9 366.7,220.2 507.5,183.0 648.3,168.0 789.2,104.5 930.0,162.0" fill="none" stroke="#2563eb" stroke-width="3"/>
+<circle cx="85.0" cy="205.0" r="4" fill="#2563eb"/>
+<circle cx="225.8" cy="258.9" r="4" fill="#2563eb"/>
+<circle cx="366.7" cy="220.2" r="4" fill="#2563eb"/>
+<circle cx="507.5" cy="183.0" r="4" fill="#2563eb"/>
+<circle cx="648.3" cy="168.0" r="4" fill="#2563eb"/>
+<circle cx="789.2" cy="104.5" r="4" fill="#2563eb"/>
+<circle cx="930.0" cy="162.0" r="4" fill="#2563eb"/>
+<polyline points="85.0,248.1 225.8,233.3 366.7,205.9 507.5,91.0 648.3,161.3 789.2,252.1 930.0,123.5" fill="none" stroke="#16a34a" stroke-width="3"/>
+<circle cx="85.0" cy="248.1" r="4" fill="#16a34a"/>
+<circle cx="225.8" cy="233.3" r="4" fill="#16a34a"/>
+<circle cx="366.7" cy="205.9" r="4" fill="#16a34a"/>
+<circle cx="507.5" cy="91.0" r="4" fill="#16a34a"/>
+<circle cx="648.3" cy="161.3" r="4" fill="#16a34a"/>
+<circle cx="789.2" cy="252.1" r="4" fill="#16a34a"/>
+<circle cx="930.0" cy="123.5" r="4" fill="#16a34a"/>
+<polyline points="85.0,330.3 225.8,336.0 366.7,323.9 507.5,317.8 648.3,326.1 789.2,312.6 930.0,341.8" fill="none" stroke="#dc2626" stroke-width="3"/>
+<circle cx="85.0" cy="330.3" r="4" fill="#dc2626"/>
+<circle cx="225.8" cy="336.0" r="4" fill="#dc2626"/>
+<circle cx="366.7" cy="323.9" r="4" fill="#dc2626"/>
+<circle cx="507.5" cy="317.8" r="4" fill="#dc2626"/>
+<circle cx="648.3" cy="326.1" r="4" fill="#dc2626"/>
+<circle cx="789.2" cy="312.6" r="4" fill="#dc2626"/>
+<circle cx="930.0" cy="341.8" r="4" fill="#dc2626"/>
+<polyline points="85.0,208.7 225.8,229.7 366.7,214.0 507.5,140.4 648.3,139.3 789.2,93.8 930.0,113.7" fill="none" stroke="#9333ea" stroke-width="3"/>
+<circle cx="85.0" cy="208.7" r="4" fill="#9333ea"/>
+<circle cx="225.8" cy="229.7" r="4" fill="#9333ea"/>
+<circle cx="366.7" cy="214.0" r="4" fill="#9333ea"/>
+<circle cx="507.5" cy="140.4" r="4" fill="#9333ea"/>
+<circle cx="648.3" cy="139.3" r="4" fill="#9333ea"/>
+<circle cx="789.2" cy="93.8" r="4" fill="#9333ea"/>
+<circle cx="930.0" cy="113.7" r="4" fill="#9333ea"/>
+<line x1="85" y1="496" x2="110" y2="496" stroke="#2563eb" stroke-width="4"/>
+<text x="117" y="501" font-family="Arial" font-size="13" fill="#111827">BOMEUSDT</text>
+<line x1="275" y1="496" x2="300" y2="496" stroke="#16a34a" stroke-width="4"/>
+<text x="307" y="501" font-family="Arial" font-size="13" fill="#111827">BOMEUSDC</text>
+<line x1="465" y1="496" x2="490" y2="496" stroke="#dc2626" stroke-width="4"/>
+<text x="497" y="501" font-family="Arial" font-size="13" fill="#111827">NEIROUSDT</text>
+<line x1="655" y1="496" x2="680" y2="496" stroke="#9333ea" stroke-width="4"/>
+<text x="687" y="501" font-family="Arial" font-size="13" fill="#111827">NEIROUSDC</text>
+</svg>
