@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="360" viewBox="0 0 820 360">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="44" y="28" font-family="Arial, sans-serif" font-size="18" font-weight="700">SOL-USD trades by second of minute</text>
+<line x1="44" y1="312" x2="796" y2="312" stroke="#333"/>
+<line x1="44" y1="46" x2="44" y2="312" stroke="#333"/>
+<rect x="45.00" y="46.00" width="10.53" height="266.00" fill="#3b82f6"/>
+<text x="45.00" y="340" font-family="Arial, sans-serif" font-size="10" transform="rotate(45 45.00,340)">0</text>
+<rect x="57.53" y="266.14" width="10.53" height="45.86" fill="#3b82f6"/>
+<rect x="70.07" y="247.79" width="10.53" height="64.21" fill="#3b82f6"/>
+<rect x="82.60" y="289.07" width="10.53" height="22.93" fill="#3b82f6"/>
+<rect x="95.13" y="298.24" width="10.53" height="13.76" fill="#3b82f6"/>
+<rect x="107.67" y="302.83" width="10.53" height="9.17" fill="#3b82f6"/>
+<text x="107.67" y="340" font-family="Arial, sans-serif" font-size="10" transform="rotate(45 107.67,340)">5</text>
+<rect x="120.20" y="266.14" width="10.53" height="45.86" fill="#3b82f6"/>
+<rect x="132.73" y="270.72" width="10.53" height="41.28" fill="#3b82f6"/>
+<rect x="145.27" y="192.76" width="10.53" height="119.24" fill="#3b82f6"/>
+<rect x="157.80" y="279.90" width="10.53" height="32.10" fill="#3b82f6"/>
+<rect x="170.33" y="289.07" width="10.53" height="22.93" fill="#3b82f6"/>
+<text x="170.33" y="340" font-family="Arial, sans-serif" font-size="10" transform="rotate(45 170.33,340)">10</text>
+<rect x="182.87" y="293.66" width="10.53" height="18.34" fill="#3b82f6"/>
+<rect x="195.40" y="302.83" width="10.53" height="9.17" fill="#3b82f6"/>
+<rect x="207.93" y="266.14" width="10.53" height="45.86" fill="#3b82f6"/>
+<rect x="220.47" y="275.31" width="10.53" height="36.69" fill="#3b82f6"/>
+<rect x="233.00" y="266.14" width="10.53" height="45.86" fill="#3b82f6"/>
+<text x="233.00" y="340" font-family="Arial, sans-serif" font-size="10" transform="rotate(45 233.00,340)">15</text>
+<rect x="245.53" y="261.55" width="10.53" height="50.45" fill="#3b82f6"/>
+<rect x="258.07" y="293.66" width="10.53" height="18.34" fill="#3b82f6"/>
+<rect x="270.60" y="293.66" width="10.53" height="18.34" fill="#3b82f6"/>
+<rect x="283.13" y="302.83" width="10.53" height="9.17" fill="#3b82f6"/>
+<rect x="295.67" y="270.72" width="10.53" height="41.28" fill="#3b82f6"/>
+<text x="295.67" y="340" font-family="Arial, sans-serif" font-size="10" transform="rotate(45 295.67,340)">20</text>
+<rect x="308.20" y="302.83" width="10.53" height="9.17" fill="#3b82f6"/>
+<rect x="320.73" y="307.41" width="10.53" height="4.59" fill="#3b82f6"/>
+<rect x="333.27" y="284.48" width="10.53" height="27.52" fill="#3b82f6"/>
+<rect x="345.80" y="284.48" width="10.53" height="27.52" fill="#3b82f6"/>
+<rect x="358.33" y="302.83" width="10.53" height="9.17" fill="#3b82f6"/>
+<text x="358.33" y="340" font-family="Arial, sans-serif" font-size="10" transform="rotate(45 358.33,340)">25</text>
+<rect x="370.87" y="307.41" width="10.53" height="4.59" fill="#3b82f6"/>
+<rect x="383.40" y="307.41" width="10.53" height="4.59" fill="#3b82f6"/>
+<rect x="395.93" y="302.83" width="10.53" height="9.17" fill="#3b82f6"/>
+<rect x="408.47" y="293.66" width="10.53" height="18.34" fill="#3b82f6"/>
+<rect x="421.00" y="289.07" width="10.53" height="22.93" fill="#3b82f6"/>
+<text x="421.00" y="340" font-family="Arial, sans-serif" font-size="10" transform="rotate(45 421.00,340)">30</text>
+<rect x="433.53" y="289.07" width="10.53" height="22.93" fill="#3b82f6"/>
+<rect x="446.07" y="312.00" width="10.53" height="0.00" fill="#3b82f6"/>
+<rect x="458.60" y="293.66" width="10.53" height="18.34" fill="#3b82f6"/>
+<rect x="471.13" y="270.72" width="10.53" height="41.28" fill="#3b82f6"/>
+<rect x="483.67" y="312.00" width="10.53" height="0.00" fill="#3b82f6"/>
+<text x="483.67" y="340" font-family="Arial, sans-serif" font-size="10" transform="rotate(45 483.67,340)">35</text>
+<rect x="496.20" y="312.00" width="10.53" height="0.00" fill="#3b82f6"/>
+<rect x="508.73" y="289.07" width="10.53" height="22.93" fill="#3b82f6"/>
+<rect x="521.27" y="312.00" width="10.53" height="0.00" fill="#3b82f6"/>
+<rect x="533.80" y="289.07" width="10.53" height="22.93" fill="#3b82f6"/>
+<rect x="546.33" y="275.31" width="10.53" height="36.69" fill="#3b82f6"/>
+<text x="546.33" y="340" font-family="Arial, sans-serif" font-size="10" transform="rotate(45 546.33,340)">40</text>
+<rect x="558.87" y="307.41" width="10.53" height="4.59" fill="#3b82f6"/>
+<rect x="571.40" y="275.31" width="10.53" height="36.69" fill="#3b82f6"/>
+<rect x="583.93" y="284.48" width="10.53" height="27.52" fill="#3b82f6"/>
+<rect x="596.47" y="298.24" width="10.53" height="13.76" fill="#3b82f6"/>
+<rect x="609.00" y="279.90" width="10.53" height="32.10" fill="#3b82f6"/>
+<text x="609.00" y="340" font-family="Arial, sans-serif" font-size="10" transform="rotate(45 609.00,340)">45</text>
+<rect x="621.53" y="298.24" width="10.53" height="13.76" fill="#3b82f6"/>
+<rect x="634.07" y="312.00" width="10.53" height="0.00" fill="#3b82f6"/>
+<rect x="646.60" y="293.66" width="10.53" height="18.34" fill="#3b82f6"/>
+<rect x="659.13" y="275.31" width="10.53" height="36.69" fill="#3b82f6"/>
+<rect x="671.67" y="302.83" width="10.53" height="9.17" fill="#3b82f6"/>
+<text x="671.67" y="340" font-family="Arial, sans-serif" font-size="10" transform="rotate(45 671.67,340)">50</text>
+<rect x="684.20" y="87.28" width="10.53" height="224.72" fill="#3b82f6"/>
+<rect x="696.73" y="293.66" width="10.53" height="18.34" fill="#3b82f6"/>
+<rect x="709.27" y="266.14" width="10.53" height="45.86" fill="#3b82f6"/>
+<rect x="721.80" y="256.97" width="10.53" height="55.03" fill="#3b82f6"/>
+<rect x="734.33" y="289.07" width="10.53" height="22.93" fill="#3b82f6"/>
+<text x="734.33" y="340" font-family="Arial, sans-serif" font-size="10" transform="rotate(45 734.33,340)">55</text>
+<rect x="746.87" y="211.10" width="10.53" height="100.90" fill="#3b82f6"/>
+<rect x="759.40" y="289.07" width="10.53" height="22.93" fill="#3b82f6"/>
+<rect x="771.93" y="220.28" width="10.53" height="91.72" fill="#3b82f6"/>
+<rect x="784.47" y="73.52" width="10.53" height="238.48" fill="#3b82f6"/>
+<text x="8" y="58" font-family="Arial, sans-serif" font-size="11">max 58</text>
+</svg>
