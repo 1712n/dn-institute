@@ -1,0 +1,7 @@
+Dataset provenance — reproducible, SHA-256 verifiable
+Source: Binance public market data archive (https://data.binance.vision)
+Endpoint pattern: /data/spot/daily/aggTrades/<SYMBOL>/<SYMBOL>-aggTrades-2024-05-01.zip
+Snapshot date: 2024-05-01 (full UTC trading day, executed aggregate trades)
+
+FLOKIUSDT-aggTrades-2024-05-01.zip  rows=444,956  zip_bytes=7165792  sha256=7ff0786ff2b6c15b987ada89d2577253234df5b571166b604a3d75783333248a
+BTCUSDT-aggTrades-2024-05-01.zip  rows=1,852,572  zip_bytes=25789838  sha256=8d1fe1e7916a3f9b928768e7fbe2ca19c5a84b3f43661dab631d7d9ee3ec9328
