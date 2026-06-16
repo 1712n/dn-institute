@@ -1,0 +1,8 @@
+Dataset provenance - reproducible, SHA-256 verifiable
+Source: Binance public market data archive (https://data.binance.vision)
+Endpoint pattern: /data/spot/daily/aggTrades/<SYMBOL>/<SYMBOL>-aggTrades-2024-03-15.zip
+Snapshot date: 2024-03-15 (full UTC trading day, executed aggregate trades)
+
+1000SATSUSDT-aggTrades-2024-03-15.zip  rows=229,485  zip_bytes=3543470  sha256=47a518da9f91c7e50ecb19ba808fbd850b26c9f1407147de880997e1411cd829
+BTCUSDT-aggTrades-2024-03-15.zip  rows=2,834,058  zip_bytes=40035795  sha256=8766965c619305ac49fc28a1d1c17b30e422a73fe60f8911931dc0d87a06c8fc
+ETHUSDT-aggTrades-2024-03-15.zip  rows=1,737,276  zip_bytes=24960593  sha256=6e96bc68c200497cf9da4a147e9db6d8b56488b2dbcf8eaee24ce1eb0e9563a1

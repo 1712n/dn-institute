@@ -1,0 +1,13 @@
+# SHA-256 manifest - article artifacts (1000SATS/USDT 2024-03-15)
+# Verify with: sha256sum -c SHA256SUMS.txt
+
+a2066344a534bc6ae53acbac7c4aa3af2878893d3ef85d4b8139383ed66b9728  index.md
+4a1a68cb4bd361d03fb7db537ed78430b77a9c0fac990764b99da5c903c8939a  analysis.py
+561be60dba6b797573b6f4a2b91aa74d682fb892545a84340d7e1269c07201d8  data/metrics.json
+fa0e1f2b205a07d8e9fd27e80de739a3301777c0ad9dd53e4bef920c1f4c31b3  data/MANIFEST.txt
+02dcbabdac5fefbba57925f934a5b5b99ec0afd550a5c0074b85235863c6e87c  charts/count-inflation.png
+b08979930c4714c552189bf5ceb79c4eadc69dc2bb05db4b26243daa35bcfdd6  charts/lot-concentration.png
+e36a7f393ff753686abcb77583de828630fe078b1d47362f4abce02b2a19b709  charts/ms-clustering.png
+5940d7537ff4148d11377eae84fb975376b0e39f3bcdbb398d51015cd1b4be16  charts/sats-intraday.png
+44017e9089c3f10a52eca3f51d9354a619458c69655fd774197426008d7feca7  charts/sats-repeated-lots.png
+549927638e51ab8937c7a092f04094bf7856f54b4b65385fbf0a572bba696690  charts/volume-distribution.png
