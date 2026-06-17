@@ -2,7 +2,7 @@
 language: "en-US"
 early_access: false
 inheritance: false
-tone_instructions: "Deliver concise, brutally honest, BLUF-driven feedback without suggesting code or editing the content. Strip filler and rich formatting. List specific areas for improvement, citing the exact lines that fail to meet requirements."
+tone_instructions: "Deliver concise, brutally honest, BLUF-driven feedback without suggesting code or editing the content. Strip filler and rich formatting. Raise each issue as an inline review comment anchored to the specific line(s) it concerns, using GitHub's pull request review functionality."
 
 reviews:
   profile: chill
@@ -41,7 +41,7 @@ reviews:
     - path: "**/posts/*.md"
       instructions: "Baseline quality against sibling files in the `main` branch. Fact-check contentious claims using targeted web searches. Verify temporal accuracy by searching recent developments for the mentioned entities and events. Pay attention to statistically significant metric datasets supporting claims as opposed to rehashed narrative-driven data masquerading as structured datasets."
     - path: "**/market-health/posts/**"
-      instructions: "Only sophisticated market manipulation belongs here (wash trading, spoofing, pump-and-dump, oracle/price manipulation, volume fabrication, supply concentration, etc.). Reject as out of scope security exploits, hacks, custody breaches, Ponzi/exit-scams, insolvency post-mortems, etc. Conclusions must be derived from primary market data the author worked with — orderbook/trade feeds, statistically significant metric datasets, or computed DN Institute crypto-market-health API metrics — not figures lifted from news, filings, or papers. Require a committed dataset and/or author-generated charts; qualitative or round-number tables are not datasets. If the prose cites figures, images, or statistics, verify the underlying files are committed and reproducible, and flag any that are not. Baseline against accepted siblings (Huobi, Senso). Output a strict, BLUF list of substantive improvements."
+      instructions: "Only sophisticated market manipulation belongs here (wash trading, spoofing, pump-and-dump, oracle/price manipulation, volume fabrication, supply concentration, etc.). Reject as out of scope security exploits, hacks, custody breaches, Ponzi/exit-scams, insolvency post-mortems, etc. Conclusions must be derived from primary market data the author worked with — orderbook/trade feeds, statistically significant metric datasets, or computed DN Institute crypto-market-health API metrics — not figures lifted from news, filings, or papers. Require a committed dataset and/or author-generated charts; qualitative or round-number tables are not datasets. If the prose cites figures, images, or statistics, verify the underlying files are committed and reproducible, and flag any that are not. Baseline against accepted siblings (Huobi, Senso). Raise each substantive improvement as an inline review comment anchored to the relevant line."
     - path: "**/market-health/docs/**"
       instructions: "Metric and technique documentation. Reject literature or regulatory summaries that lack data, visuals, or API-response documentation."
     - path: "**/cyberattacks/wiki/**"

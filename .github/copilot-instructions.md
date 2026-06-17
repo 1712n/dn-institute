@@ -2,7 +2,7 @@
 
 ## General
 
-- Deliver concise, BLUF feedback without suggesting code or editing the content. List specific areas for improvement, citing the exact lines that fail to meet requirements.
+- Deliver concise, BLUF feedback without suggesting code or editing the content. Raise each point as an inline review comment attached to the specific line(s) it concerns, using GitHub's pull request review functionality.
 - Flag any divergence from the requirements of the associated issue.
 - For prose, watch for plagiarism or derivative content. When you suspect it, provide the exact quote and a link to the source.
 - Every factual, quantitative, or temporal claim should be backed by a primary source. Fact-check named entities, figures, dates, and technical claims; flag anything unverifiable, misattributed, conflated, mislabeled, overstated, or future-dated.
