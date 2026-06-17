@@ -24,7 +24,7 @@ Most oracle-manipulation attacks follow the same broad pattern:
 4. **Exploit the bad price** by borrowing too much, minting under-collateralized assets, or triggering liquidations.
 5. **Exit before the market normalizes** and repay the borrowed capital.
 
-## Famous Case Studies
+## Case Studies
 
 ### 1. Mango Markets (October 2022)
 - **Loss:** Approximately [$116 million](https://dn.institute/attacks/posts/2022-10-11-Mango-Markets/).
@@ -33,7 +33,7 @@ Most oracle-manipulation attacks follow the same broad pattern:
 - **Result:** The attacker borrowed out protocol liquidity worth about [$116 million](https://dn.institute/attacks/posts/2022-10-11-Mango-Markets/) against unrealized gains created by the manipulated oracle state.
 
 ### 2. BonqDAO (February 2023)
-- **Loss:** The repo's [BonqDAO incident page](https://dn.institute/attacks/posts/2023-02-01-BonqDAO/) describes the incident as an estimated [$120 million loss](https://dn.institute/attacks/posts/2023-02-01-BonqDAO/), while also specifying that the exploit path involved roughly [$100 million BEUR minted](https://dn.institute/attacks/posts/2023-02-01-BonqDAO/).
+- **Loss:** The repo's [BonqDAO incident page](https://dn.institute/attacks/posts/2023-02-01-BonqDAO/) describes the incident as an estimated [$120 million loss](https://dn.institute/attacks/posts/2023-02-01-BonqDAO/), while also specifying that the exploit path involved roughly [$100 million BEUR minted](https://dn.institute/attacks/posts/2023-02-01-BonqDAO/). That headline figure is nominal: most of the minted BEUR and stolen wALBT were illiquid, and the attacker realized under $2 million, converting about [$1.2 million](https://www.theblock.co/post/207799/bonqdao-exploited-for-88-million-allianceblock-tokens-stolen-during-the-exploit) into ETH and stablecoins.
 - **Mechanism:** Manipulation of the Tellor-fed WALBT price.
 - **Details:** The attacker staked Tellor assets, submitted a manipulated WALBT value, minted roughly [100 million BEUR](https://dn.institute/attacks/posts/2023-02-01-BonqDAO/), and then liquidated collateral using the distorted price.
 - **Result:** BonqDAO's dependence on an instantaneous single-source price made the protocol vulnerable to minting and liquidation abuse.
@@ -44,7 +44,7 @@ Most oracle-manipulation attacks follow the same broad pattern:
 - **Details:** The attacker exploited Cream's hybrid oracle design and uncapped collateral mechanics to double-count value in yUSD-related positions, as summarized in the repo's [Cream Finance incident page](https://dn.institute/attacks/posts/2021-10-27-Cream-Finance/).
 - **Result:** The protocol overvalued manipulated collateral and allowed the attacker to drain lending liquidity worth roughly [$130 million](https://dn.institute/attacks/posts/2021-10-27-Cream-Finance/).
 
-## Prevention and Mitigation
+## Mitigations
 
 ### 1. Use harder-to-manipulate pricing inputs
 - **Decentralized oracle networks:** Aggregated sources such as Chainlink are generally harder to move than a single DEX market.

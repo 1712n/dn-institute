@@ -17,13 +17,13 @@ Most dApps still depend on centralized web infrastructure at the point where use
 
 ### 1. Badger DAO ($120M) - Cloudflare API Key Exploit
 
-- **Vector:** Public incident reporting describes the Badger DAO compromise as a frontend-injection attack in which an attacker abused access to Badger's Cloudflare-connected web infrastructure to inject malicious JavaScript into the production interface ([rekt.news](https://rekt.news/badger-rekt/), [Chainalysis](https://www.chainalysis.com/blog/chainalysis-podcast-episode-6-badgerdao-hack/)).
+- **Vector:** Public incident reporting describes the Badger DAO compromise as a frontend-injection attack in which an attacker used a compromised Cloudflare API key to inject malicious JavaScript through Cloudflare Workers into the production interface, applying and removing the script intermittently through November 2021 to evade detection before funds were drained on [December 2, 2021](https://www.chainalysis.com/blog/chainalysis-podcast-episode-6-badgerdao-hack/) ([rekt.news](https://rekt.news/badger-rekt/), [Chainalysis](https://www.chainalysis.com/blog/chainalysis-podcast-episode-6-badgerdao-hack/)).
 - **Impact:** The injected code targeted approvals by replacing the intended spender flow with attacker-controlled approvals, and reported losses were about [$120 million](https://rekt.news/badger-rekt/).
 - **Lesson:** Web2 admin credentials can become DeFi key material if they control production frontend assets.
 
-### 2. Curve Finance ($570k) - Registrar Hijacking
+### 2. Curve Finance ($570k) - DNS / Registrar Hijacking
 
-- **Vector:** In August 2022, Curve's `curve.fi` domain was hijacked at the registrar level, redirecting users to a malicious site; this was a registrar hijack, not DNS cache poisoning, as reflected in contemporary reporting from [BleepingComputer](https://www.bleepingcomputer.com/news/security/curve-finance-loses-570-000-in-dns-hijacking-attack/) and [CoinDesk](https://www.coindesk.com/business/2022/08/10/curve-finance-front-end-compromised/).
+- **Vector:** In August 2022, attackers compromised Curve's account at its registrar and DNS host ([iwantmyname](https://cointelegraph.com/news/curve-finance-warns-dns-hijacked-again)) and rewrote the `curve.fi` DNS records to redirect users to a malicious clone; this was a DNS hijack at the nameserver/registrar level, not a smart-contract exploit or DNS cache poisoning, as reflected in contemporary reporting from [BleepingComputer](https://www.bleepingcomputer.com/news/security/curve-finance-loses-570-000-in-dns-hijacking-attack/) and [CoinDesk](https://www.coindesk.com/business/2022/08/10/curve-finance-front-end-compromised/).
 - **Impact:** The fake site presented malicious approval flows, and users who signed them exposed funds to the attacker; reported realized losses were around [$570,000](https://www.bleepingcomputer.com/news/security/curve-finance-loses-570-000-in-dns-hijacking-attack/).
 - **Lesson:** If the registrar account is compromised, the security of the smart contracts no longer matters to end users interacting through the browser.
 

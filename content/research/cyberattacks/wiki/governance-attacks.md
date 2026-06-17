@@ -13,12 +13,12 @@ In a standard DAO, governance power is proportional to token ownership or delega
 2. **Low participation** allows hostile proposals to pass when honest voters are absent or disengaged.
 3. **Thin governance-token liquidity** lets an attacker buy effective control cheaply and then extract more value than the acquisition cost.
 
-## Famous Case Studies
+## Case Studies
 
 ### 1. Beanstalk Farms (April 2022)
 - **Loss:** Approximately [$182 million](https://dn.institute/attacks/posts/2022-04-17-Beanstalk/).
 - **Mechanism:** Flash-loan governance attack.
-- **Details:** The attacker used a flash loan of nearly [$1 billion](https://dn.institute/attacks/posts/2022-04-17-Beanstalk/) in assets to gain a 67% governance supermajority, then executed proposal BIP-18 to transfer protocol funds.
+- **Details:** The attacker used a flash loan of nearly [$1 billion](https://dn.institute/attacks/posts/2022-04-17-Beanstalk/) in assets to gain a 67% governance supermajority, then used the `emergencyCommit` path to execute the malicious proposal BIP-18 and drain protocol funds; a paired proposal, BIP-19, posed as a Ukraine donation to disguise intent. The attacker netted [about $80 million](https://medium.com/immunefi/hack-analysis-beanstalk-governance-attack-april-2022-f42788fc821e) of the roughly $182 million removed.
 - **Speed:** The exploit completed in a single transaction because Beanstalk's emergency execution path allowed immediate enactment after the malicious vote.
 
 ### 2. Build Finance (February 2022)
@@ -33,7 +33,7 @@ In a standard DAO, governance power is proportional to token ownership or delega
 - **Details:** In the TSD takeover, the attacker accumulated enough governance influence to pass a self-serving proposal, minted [11.8 billion TSD](https://tokenpost.com/news/investing/7404), and dumped the newly created supply on PancakeSwap. This was a TSD incident, not Empty Set Dollar (ESD), and it illustrates how thin-liquidity governance systems can be looted without flash loans.
 - **Speed:** The accumulation phase took longer than Beanstalk, but the destructive payout and market collapse followed quickly once governance control was obtained.
 
-## Prevention and Mitigation
+## Mitigations
 
 ### 1. Snapshot voting power before execution
 - **Snapshotting:** Count voting power at a prior block so attackers cannot borrow governance weight only for the execution window.
