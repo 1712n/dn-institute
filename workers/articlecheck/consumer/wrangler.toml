@@ -1,0 +1,29 @@
+name = "dn-institute-articlecheck-consumer"
+main = "src/index.ts"
+compatibility_date = "2026-02-06"
+
+[[queues.consumers]]
+queue = "dn-institute-articlecheck"
+max_batch_size = 1
+max_batch_timeout = 5
+
+[[kv_namespaces]]
+binding = "ARTICLECHECK_DEDUP"
+# Set via: `wrangler kv namespace create ARTICLECHECK_DEDUP`
+id = "REPLACE_ME"
+
+# Secrets (set via `wrangler secret put ...`):
+# - GITHUB_APP_PRIVATE_KEY
+# - ANTHROPIC_API_KEY
+# - BRAVE_API_KEY
+#
+# Vars:
+# - GITHUB_APP_ID
+# - ANTHROPIC_MODEL (optional)
+# - ANTHROPIC_TEMPERATURE (optional, default 0)
+# - MAX_STATEMENTS (optional)
+# - MAX_SEARCH_RESULTS (optional)
+# - MAX_FILES (optional)
+# - MAX_ARTICLE_CHARS (optional)
+# - DEDUP_TTL_SECONDS (optional)
+
