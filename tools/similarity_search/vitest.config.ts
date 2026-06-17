@@ -26,7 +26,9 @@ export default defineWorkersConfig({
               script: `export default function() {
                 return {
                   run: async (model, data) => {
-                    return Promise.resolve({ data: {} });
+                    const texts = Array.isArray(data.text) ? data.text : [data.text];
+                    const mockVector = new Array(768).fill(0.1);
+                    return Promise.resolve({ data: texts.map(() => mockVector) });
                   }
                 };
               };`
