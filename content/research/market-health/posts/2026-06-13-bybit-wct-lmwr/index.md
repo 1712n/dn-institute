@@ -13,7 +13,7 @@ entities:
 1. Two low-cap Bybit spot markets, **WCT/USDT and LMWR/USDT, show automated, non-organic volume** over 2026-06-09 to 2026-06-13. On both, a handful of identical clip sizes carry far more of the tape than any single size does in a healthy market.
 2. **Identical-clip recurrence.** On WCT/USDT a single 1432-token clip is **8.7% of all trades** and recurs every day of the window; three clips (1432, 1500, 1000) together make up about 16% of the tape.
 3. **Self-trading signature on LMWR/USDT.** Its recurring clips (400, 410, 420) split **almost exactly 50/50 between buy and sell**, the pattern expected when one operator trades a fixed size against itself.
-4. **First-digit (Benford) break.** WCT trade sizes start with the digit 1 in **59.6%** of trades, against the 30.1% expected under Benford's law; a healthy control (SOL/USDT) tracks Benford closely.
+4. **First-digit (Benford) break.** WCT trade sizes start with the digit 1 in **59.6%** of trades, against the 30.1% expected under Benford's law; a healthy control (SOL/USDT) stays close to Benford.
 5. **Cron-style timing.** **13.6%** of LMWR trades land on a single second of the minute, where a uniform tape would put about 1.7%, consistent with a scheduled bot.
 6. **Read this as a flag, not a verdict.** These are statistical signatures of automated, likely non-organic activity. They mark markets whose reported volume should be treated with caution, not a proof of intent.
 
@@ -31,7 +31,7 @@ WCT/USDT puts 59.6% of its trades on a leading digit of 1, almost double the 30.
 
 In an organic market no single size dominates the tape: small trades are common, large ones rare, and even the most-traded size is a small slice of the whole. SOL/USDT bears this out, with its most common size at just 4.4% of trades and the rest spread thin. WCT/USDT instead stacks a few fixed clips on top of that tail.
 
-{{< figure src="recurring-clips-wct.png" alt="recurring clip sizes on WCT" caption="Share of WCT/USDT trades at each exact size. A single 1432-token clip is 8.7% of all trades; 1432, 1500 and 1000 together are about 16%." >}}
+{{< figure src="recurring-clips-wct.png" alt="recurring clip sizes on WCT" caption="Share of WCT/USDT trades at each exact size. A single 1432-token clip is 8.7% of all trades; 1432, 1500 and 1000 together are about 16%." loading="lazy" >}}
 
 The 1432-token clip alone is 8.7% of all trades and appears on every day of the window. Over this window it is buy-heavy (1,692 buys vs 569 sells), while a paired 1000-token clip is sell-heavy (55 buys vs 784 sells) and a 1500-token clip is buy-heavy (891 vs 118); in the preceding week the same 1432 clip ran close to 50/50, so the clip persists while its direction rotates. This is consistent with one operator cycling a small set of fixed sizes on both sides of the book, inflating reported volume.
 
@@ -39,7 +39,7 @@ The 1432-token clip alone is 8.7% of all trades and appears on every day of the 
 
 When the same operator trades a fixed size against itself, that size shows up split roughly evenly between buy and sell. LMWR/USDT shows this cleanly.
 
-{{< figure src="clip-buysell-lmwr.png" alt="buy/sell split of LMWR recurring clips" caption="Buy vs sell counts for the recurring LMWR/USDT clips over the window. 410 splits 512/518, 400 splits 385/418, 420 splits 301/292: near-perfect two-sided balance." >}}
+{{< figure src="clip-buysell-lmwr.png" alt="buy/sell split of LMWR recurring clips" caption="Buy vs sell counts for the recurring LMWR/USDT clips over the window. 410 splits 512/518, 400 splits 385/418, 420 splits 301/292: near-perfect two-sided balance." loading="lazy" >}}
 
 The 400, 410 and 420 clips each split within a few percent of 50/50 buy versus sell. A directional trader would lean one way; a market maker would not repeat the same three sizes for thousands of trades. A balanced, fixed-size, two-sided tape is the textbook footprint of wash trading.
 
@@ -47,12 +47,12 @@ The 400, 410 and 420 clips each split within a few percent of 50/50 buy versus s
 
 Organic order flow arrives at random moments, so trades spread evenly across the 60 seconds of each minute (about 1.7% per second). A scheduled bot fires at the same offset and piles trades onto one second.
 
-{{< figure src="time-of-trade-lmwr.png" alt="second-of-minute distribution LMWR vs SOL" caption="Share of trades by second of the minute. LMWR/USDT puts 13.6% of trades on a single second; SOL/USDT is flat near the 1.7% uniform line." >}}
+{{< figure src="time-of-trade-lmwr.png" alt="second-of-minute distribution LMWR vs SOL" caption="Share of trades by second of the minute. LMWR/USDT puts 13.6% of trades on a single second; SOL/USDT is flat near the 1.7% uniform line." loading="lazy" >}}
 
 LMWR/USDT places 13.6% of its trades on one second of the minute, eight times the uniform rate, while the SOL/USDT control is flat. Combined with the balanced fixed-size clips, this points to a single automated process behind a large, non-organic share of the market's reported activity.
 
 ### How this was measured
 
-All figures use free, key-less data: Bybit's public spot trade dumps (`public.bybit.com/spot/<symbol>/`), 2026-06-09 to 2026-06-13, one row per executed trade (timestamp, price, size, side). The metrics are the DN [market-health family](https://dn.institute/market-health/docs/market-health-metrics/): first-digit (Benford) distribution, volume distribution and clip recurrence, buy/sell balance, and time-of-trade. SOL/USDT is used throughout as a liquid, organic control.
+All figures use free, key-less data: Bybit's public spot trade dumps (`public.bybit.com/spot/<symbol>/`), 2026-06-09 to 2026-06-13, one row per executed trade (timestamp, price, size, side). The metrics are the DN [market-health family](https://dn.institute/market-health/docs/market-health-metrics/): first-digit (Benford) distribution, volume distribution and clip recurrence, buy/sell balance, and time-of-trade. SOL/USDT is used throughout as a liquid, organic control. The signatures here (identical-clip recurrence, a broken first-digit distribution, abnormally balanced buy/sell, and scheduled timing) are the same family of non-organic-volume markers documented in the wiki's earlier [Huobi (2023)](https://github.com/1712n/dn-institute/tree/main/content/research/market-health/posts/2023-08-14-huobi) and [Senso (2021)](https://github.com/1712n/dn-institute/tree/main/content/research/market-health/posts/2021-01-05-Senso) posts, applied here to two new low-cap markets.
 
-A robustness note: WCT's signature is stable week to week. In the preceding week (2026-06-02 to 06) WCT still puts 61% of trades on leading digit 1 and the 1432 clip is still 9% of the tape. LMWR's one-second clustering also persists, but its exact clip sizes rotate between weeks, so its footprint is that of an episodic bot rather than a fixed one. The analysis is fully reproducible from the trade dumps.
+A robustness note: WCT's signature is stable week to week. In the preceding week (2026-06-02 to 06) WCT still puts 61% of trades on leading digit 1 and the 1432 clip is still 9% of the tape. LMWR's one-second clustering also persists, but its exact clip sizes rotate between weeks, so its footprint is that of an episodic bot rather than a fixed one. The analysis is fully reproducible: the screening, metric, and figure scripts are in the companion repository [mkzung/bybit-wash-trading-analysis](https://github.com/mkzung/bybit-wash-trading-analysis), run against the dated Bybit dumps above (`public.bybit.com/spot/<symbol>/<symbol>_YYYY-MM-DD.csv.gz`, 2026-06-09 to 2026-06-13).
