@@ -39,10 +39,9 @@ app.post("/", async (c) => {
     return c.text("Invalid JSON format", 400)
   }
 
-  let modelResp
   let vector
   try {
-    modelResp = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
+    const modelResp = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
       text: [text]
     })
 
@@ -50,7 +49,8 @@ app.post("/", async (c) => {
     if (!vector) {
       throw new Error("Workers AI returned invalid response shape")
     }
-  } catch {
+  } catch (error) {
+    console.error("Workers AI request failed", error)
     return c.text("Workers AI request failed", 502)
   }
 
@@ -60,7 +60,8 @@ app.post("/", async (c) => {
       namespace,
       topK: 1
     })
-  } catch {
+  } catch (error) {
+    console.error("Vectorize query failed", error)
     return c.text("Vectorize query failed", 502)
   }
   const similarityScore = searchResponse.matches[0]?.score || 0
