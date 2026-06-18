@@ -1,0 +1,19 @@
+{
+  "name": "article-checker-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker for automated PR article quality checks",
+  "scripts": {
+    "dev": "wrangler dev src/index.ts",
+    "deploy": "wrangler deploy --minify src/index.ts",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "hono": "^4.3.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240403.0",
+    "@types/node": "^20.14.2",
+    "vitest": "^1.6.0",
+    "wrangler": "^3.47.0"
+  }
+}
