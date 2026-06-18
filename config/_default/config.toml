@@ -1,5 +1,5 @@
 title = "Distributed Networks Institute"
-languageCode = "en-us"
+locale = "en-us"
 theme="archie"
 pygmentsstyle = "monokai"
 pygmentscodefences = true
@@ -24,9 +24,14 @@ url = "/"
 weight = 1
 
 [[menu.main]]
+name = "SpecGEM"
+url = "/research/ai/specgem/"
+weight = 2
+
+[[menu.main]]
 name = "Incidents"
 url = "/research/cyberattacks/incidents/"
-weight = 2
+weight = 4
 
 [[menu.main]]
 name = "Attack Vectors"
@@ -36,9 +41,9 @@ weight = 3
 [[menu.main]]
 name = "Market Health"
 url = "/research/market-health/"
-weight = 4
+weight = 5
 
 [[menu.main]]
 name = "Synthetic Data"
 url = "/research/ai/synthetic-data"
-weight = 5
+weight = 6

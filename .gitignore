@@ -6,9 +6,7 @@
 
 # Misc
 .DS_Store
-
-# Python
-**/__pycache__/
+.claude
 
 # Node
 node_modules

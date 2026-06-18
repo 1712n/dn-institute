@@ -7,13 +7,19 @@ Distributed Networks Institute's mission is to achieve sustainable technological
 
 ## Research Axes
 
+### AI
+
+#### SpecGEM
+
+[SpecGEM](/research/ai/specgem/) is our spec-driven code generation model fine-tuned to produce sophisticated, fault-tolerant edge workers from structured comment blocks. It targets the knowledge gaps, attention limits, and instruction-adherence failures of vanilla frontier models by training on a small, highly curated synthetic dataset of recent, narrowly scoped code, prioritizing aggressive data curation over hyperparameter tuning. An automated, continuously running pipeline keeps the model current with fast-evolving serverless runtimes.
+
+#### Synthetic Data
+
+To proactively address the emerging threats associated with the rise of generative AI, we have developed a [suite of tools](/research/ai/synthetic-data/) that enable researchers and engineers to create synthetic datasets. These datasets serve as a foundation for building compact, high-efficiency classification models capable of detecting distributed network attacks in their early stages.
+
 ### IT Security
 
 We maintain a crowdsourced knowledge base on IT security vulnerabilities and [cyberattack taxonomy](/research/cyberattacks/wiki/) across distributed networks. Our attack surface maps and corresponding datasets help regulators and law enforcement focus attention on the biggest threats and principal actors. As part of our documentation efforts, we maintain a [crowdsourced dataset on blockchain ecosystem attacks](/research/cyberattacks/incidents/).
-
-### AI
-
-To proactively address the emerging threats associated with the rise of generative AI, we have developed a [suite of tools](/research/ai/synthetic-data/) that enable researchers and engineers to create synthetic datasets. These datasets serve as a foundation for building compact, high-efficiency classification models capable of detecting distributed network attacks in their early stages.
 
 ### Market Health
 
