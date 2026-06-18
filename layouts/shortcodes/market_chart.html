@@ -1,0 +1,76 @@
+{{/*
+  market_chart: Renders an interactive Chart.js chart from inline JSON data.
+
+  Usage in markdown:
+    {{< market_chart id="volume-hist" type="bar" title="Transaction Volume Distribution" >}}
+    {"labels":["0-10","10-20",...],"datasets":[{"data":[5,12,...]}]}
+    {{< /market_chart >}}
+
+  Parameters:
+    id     - Unique canvas element ID (required)
+    type   - Chart.js chart type: bar, line, scatter (default: "line")
+    title  - Chart title (optional)
+    height - Canvas height in px (default: 400)
+    xLabel - X-axis label (optional)
+    yLabel - Y-axis label (optional)
+    y2Label - Secondary Y-axis label (optional, enables dual-axis)
+*/}}
+
+{{ $id := .Get "id" }}
+{{ $chartType := .Get "type" | default "line" }}
+{{ $title := .Get "title" | default "" }}
+{{ $height := .Get "height" | default "400" }}
+{{ $xLabel := .Get "xLabel" | default "" }}
+{{ $yLabel := .Get "yLabel" | default "" }}
+{{ $y2Label := .Get "y2Label" | default "" }}
+
+{{ $chart := resources.Get "/js/chart.js" }}
+<script src="{{ $chart.Permalink }}"></script>
+
+<div style="position:relative;width:100%;max-width:900px;margin:1.5em auto;">
+  <canvas id="{{ $id }}" height="{{ $height }}"></canvas>
+</div>
+
+<script>
+(function() {
+  var ctx = document.getElementById('{{ $id }}').getContext('2d');
+  var chartData = {{ .Inner | safeJS }};
+
+  var scales = { x: {}, y: {} };
+
+  {{ with $xLabel }}
+  scales.x.title = { display: true, text: '{{ . }}' };
+  {{ end }}
+
+  {{ with $yLabel }}
+  scales.y.title = { display: true, text: '{{ . }}' };
+  {{ end }}
+
+  {{ with $y2Label }}
+  scales.y2 = {
+    position: 'right',
+    title: { display: true, text: '{{ . }}' },
+    grid: { drawOnChartArea: false }
+  };
+  {{ end }}
+
+  new Chart(ctx, {
+    type: '{{ $chartType }}',
+    data: chartData,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        title: {
+          display: {{ if $title }}true{{ else }}false{{ end }},
+          text: '{{ $title }}'
+        },
+        tooltip: { enabled: true },
+        legend: { display: true, position: 'top' }
+      },
+      scales: scales
+    }
+  });
+})();
+</script>
