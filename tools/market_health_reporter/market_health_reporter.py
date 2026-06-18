@@ -8,6 +8,7 @@ import glob
 from github import Github
 from tools.python_modules.utils import read_file, extract_between_tags
 from tools.python_modules.report_graphics_tool import Visualization
+from tools.market_health_reporter.news_retriever import retrieve_news_context
 
 
 REPO_NAME = "1712n/dn-institute"
@@ -38,6 +39,10 @@ def parse_cli_args():
     )
     parser.add_argument(
         "--rapid-api", dest="rapid_api", help="Rapid API key", required=True
+    )
+    parser.add_argument(
+        "--disable-rag", dest="disable_rag", action="store_true",
+        help="Disable external news retrieval"
     )
     return parser.parse_args()
 
@@ -126,11 +131,20 @@ def post_comment_to_issue(github_token, issue_number, repo_name, comment):
         issue.create_comment(comment)
 
 
-def create_prompt(article_example: str, data: dict, human_prompt_content: str) -> str:
+def create_prompt(article_example: str, data: dict, human_prompt_content: str, news_context: str = "") -> str:
     """
-    Creates a prompt string using article example and data.
+    Creates a prompt string using article example, data, and optional news context.
     """
-    return f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    prompt = f"<example> {article_example} </example>\n{human_prompt_content}\n<data> {json.dumps(data)} </data>"
+    if news_context:
+        prompt += (
+            "\n\nBelow are recent news articles and reports about this exchange and trading pair. "
+            "Use them to provide additional context, corroborate your findings with external evidence, "
+            "and reference relevant events or regulatory actions where appropriate. "
+            "Only include information from these sources if it is relevant to the anomalies found in the data.\n"
+            + news_context
+        )
+    return prompt
 
 
 def main():
@@ -157,11 +171,30 @@ def main():
     try:
         data = fetch_or_load_market_data(querystring, headers, url, DATA_DIR, marketvenueid, pairid, start, end)
 
-        encoding = encoding_for_model("gpt-4")     
+        encoding = encoding_for_model("gpt-4")
         print('num of data tokens: ', len(encoding.encode(str(data))))
 
-        prompt = create_prompt(article_example, data, human_prompt_content)
+        # Retrieve external news context (RAG)
+        news_context = ""
+        if not args.disable_rag:
+            try:
+                print("Retrieving external news context...")
+                news_context = retrieve_news_context(marketvenueid, pairid)
+                if news_context:
+                    print(f"Retrieved news context ({len(encoding.encode(news_context))} tokens)")
+                else:
+                    print("No relevant news articles found")
+            except Exception as e:
+                print(f"News retrieval failed (continuing without): {e}")
+
+        prompt = create_prompt(article_example, data, human_prompt_content, news_context)
         prompt_token_count = len(encoding.encode(prompt))
+
+        # If prompt exceeds limit with RAG context, retry without it
+        if prompt_token_count > MAX_TOKENS and news_context:
+            print("Prompt too long with news context, retrying without RAG...")
+            prompt = create_prompt(article_example, data, human_prompt_content)
+            prompt_token_count = len(encoding.encode(prompt))
 
         if prompt_token_count > MAX_TOKENS:
             error_message = "Your request is too long. It's possible that the period for the data is too broad. Please narrow it down."
