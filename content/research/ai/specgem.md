@@ -63,7 +63,7 @@ SpecGEM is the output of an automated, continuously running pipeline designed to
 SpecGEM is delivered directly to the developer's local environment via a dedicated VS Code extension, prioritizing frictionless UX and implicit feedback.
 
 * **Spec-to-Code in One Click.** A `$(play) Generate Code` CodeLens automatically appears beneath any JSDoc block. The extension auto-triggers on JSDoc presence to [eliminate the need for a manual detection step](https://github.com/1712n/dni-model-fine-tuning/commit/20fd71c1640f9a581ca867e2744e4949a8517d23), reducing per-invocation friction.
-* **Frictionless Authentication.** To join the alpha testing group and receive automatic VS Code extension authentication, submit a PR appending your GitHub handle to the Alpha Testers section, or reach out to `specgem.team@dn.institute` for access).
+* **Frictionless Authentication.** To join the alpha testing group and receive automatic VS Code extension authentication, submit a PR appending your GitHub handle to the Alpha Testers section, or reach out to `specgem.team@dn.institute` for access.
 
 ### Alpha Testers
 * @Kseymur
