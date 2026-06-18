@@ -2,7 +2,7 @@
 language: "en-US"
 early_access: false
 inheritance: false
-tone_instructions: "Deliver concise, brutally honest, BLUF-driven feedback without suggesting code or editing the content. Strip filler and rich formatting. Raise each issue as an inline review comment anchored to the specific line(s) it concerns, using GitHub's pull request review functionality."
+tone_instructions: "Deliver concise, brutally honest, BLUF feedback without suggesting code or editing content. Strip filler and rich formatting. Raise each issue as an inline review comment anchored to the specific lines it concerns."
 
 reviews:
   profile: chill
