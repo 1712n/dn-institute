@@ -20,7 +20,7 @@ entities:
 
 MCRT/USDT is a low-cap spot market: through most of May 2026 it traded in a narrow band around **0.000097 to 0.000106 USDT** on roughly **$57k of volume a day**, with order flow split close to evenly (about 48% of trades on the buy side). A market like this is thin enough that a modest amount of one-sided buying can move the price a long way.
 
-On 2026-05-26 that is exactly what happened. The daily high jumped to **0.000255**, more than 2.6x the surrounding days, on a volume bar several times the monthly norm, and then the price fell straight back. Every other day in the month is unremarkable by comparison.
+On 2026-05-26 that is what happened. The daily high jumped to **0.000255**, more than 2.6x the surrounding days, on a volume bar several times the monthly norm, and then the price fell straight back. Every other day in the month is unremarkable by comparison.
 
 {{< figure src="price-volume-month.png" alt="MCRT/USDT daily high price and daily volume across May 2026, flat then a 05-26 spike" caption="MCRT/USDT daily high (line) and daily volume (bars), May 2026. A flat market for weeks, then a single-day spike to 0.000255 on a volume surge on 2026-05-26." >}}
 
@@ -42,7 +42,7 @@ A pump and dump transfers money from whoever buys near the top to whoever was al
 
 The move was specific to MCRT, not a market-wide event. Normalised to the start of the window, MCRT spikes to about **2.6x** and falls back below where it began, while a liquid control, SOL/USDT, holds within about **3%** over the same window: a flat line by comparison. Whatever lifted MCRT did not touch the rest of the market.
 
-{{< figure src="control-comparison.png" alt="MCRT versus SOL normalized price over the event, MCRT spikes 2.6x while SOL stays flat" caption="MCRT/USDT and SOL/USDT, normalised to the start of 2026-05-25 12:00 UTC. MCRT spikes 2.6x and reverses; the liquid control barely moves." loading="lazy" >}}
+{{< figure src="control-comparison.png" alt="MCRT versus SOL normalised price over the event, MCRT spikes 2.6x while SOL stays flat" caption="MCRT/USDT and SOL/USDT, normalised to the start of 2026-05-25 12:00 UTC. MCRT spikes 2.6x and reverses; the liquid control barely moves." loading="lazy" >}}
 
 The moves are extreme even against MCRT's own month. The crash five minutes off the peak was the **largest single five-minute drop of the entire month**, about **39 times the standard deviation** of all 5-minute moves in May; the two sharpest upward moves, the dry run and the real push, each cleared **25 times** that deviation. The 14:00 UTC hour that held the peak and the crash was the **single highest-volume hour of all 744 active hours**. Crypto returns are fat-tailed, so treat those multiples as a measure of scale rather than a Gaussian probability; even so, every tail of the month belongs to 2026-05-26. This is the footprint of a concentrated push and an equally fast exit.
 
