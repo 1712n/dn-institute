@@ -31,18 +31,39 @@ app.post("/", async (c) => {
   const data = await c.req.json<TextEntry>()
   const { text, namespace } = data
 
-  if (typeof text !== "string" || typeof namespace !== "string") {
+  if (
+    typeof text !== "string" ||
+    text.trim() === "" ||
+    typeof namespace !== "string"
+  ) {
     return c.text("Invalid JSON format", 400)
   }
 
-  const modelResp = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
-    text: [text]
-  })
-  const vector = modelResp.data[0]
-  const searchResponse = await c.env.VECTORIZE_INDEX.query(vector, {
-    namespace,
-    topK: 1
-  })
+  let vector
+  try {
+    const modelResp = await c.env.AI.run("@cf/baai/bge-base-en-v1.5", {
+      text: [text]
+    })
+
+    vector = modelResp.data?.[0]
+    if (!vector) {
+      throw new Error("Workers AI returned invalid response shape")
+    }
+  } catch (error) {
+    console.error("Workers AI request failed", error)
+    return c.text("Workers AI request failed", 502)
+  }
+
+  let searchResponse
+  try {
+    searchResponse = await c.env.VECTORIZE_INDEX.query(vector, {
+      namespace,
+      topK: 1
+    })
+  } catch (error) {
+    console.error("Vectorize query failed", error)
+    return c.text("Vectorize query failed", 502)
+  }
   const similarityScore = searchResponse.matches[0]?.score || 0
 
   return c.json({ similarity_score: similarityScore })
