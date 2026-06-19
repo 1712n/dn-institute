@@ -38,14 +38,22 @@ The two seconds are not one trade repeated: they are opposite sides of the book.
 
 The earlier wash cases in this wiki ([Huobi](https://github.com/1712n/dn-institute/tree/main/content/research/market-health/posts/2023-08-14-huobi), [Senso](https://github.com/1712n/dn-institute/tree/main/content/research/market-health/posts/2021-01-05-Senso), and the recent [Bybit WCT and LMWR](https://github.com/1712n/dn-institute/tree/main/content/research/market-health/posts/2026-06-13-bybit-wct-lmwr) post) were caught by a **size** signature: a few repeated clip sizes that dominate the tape and skew the first-digit distribution. CBK leaves no such signature: its single most common trade size is only **0.5% of trades**, and the buy second alone carries **2,287 distinct sizes**, so clip-recurrence and first-digit tests find nothing. The amount is clearly randomised to look organic. What was not randomised is the timing. A fixed-second schedule is trivial to write and, evidently, easy to forget to hide, so time-of-trade catches what volume distribution alone would miss.
 
+Against the wiki's earlier wash cases, the difference is the detection signal:
+
+| | Earlier wash cases (Huobi, Senso, Bybit WCT/LMWR) | CBK/USDT, this post |
+| --- | --- | --- |
+| Footprint | a few repeated clip sizes dominate the tape | randomised sizes, no dominant clip (top size 0.5%) |
+| What catches it | volume distribution and first-digit tests | time-of-trade: 75% of trades on two fixed seconds |
+| Sides | balanced within the repeated clips | strictly split, sells on :05 and buys on :35 |
+
 ## Always on
 
-This is not a one-off burst. Every day of May, between **47% and 91%** of that day's trades (median **79%**) land on :05 and :35, in all **24 hours** of the day. Nor is it confined to May: the same signature runs in **April** (about **67%** of trades on the same two seconds, sells on :05 and buys on :35), so it predates the window. The bot has been running for months, around the clock.
+This is not a one-off burst. Every day of May, between **47% and 91%** of that day's trades (median **79%**) land on :05 and :35, across **every hour of the day**. Nor is it confined to May: the same signature runs in **April** (about **67%** of trades on the same two seconds, sells on :05 and buys on :35), so it predates the window. The bot has been running for months, around the clock.
 
-{{< figure src="persistence.png" alt="daily share of CBK trades on seconds 05 and 35 across May 2026, all bars far above the uniform line" caption="Share of each day's trades on :05 and :35 across May 2026. Never below 47%, median 79%, against a 3.3% uniform expectation." loading="lazy" >}}
+{{< figure src="persistence.png" alt="daily share of CBK trades on seconds 05 and 35 across May 2026, all bars far above the uniform line" caption="Share of each day's trades on :05 and :35 across May 2026. Never below 47%, median 79%, against the 3.3% a uniform clock would put on two of sixty seconds." loading="lazy" >}}
 
 ## How this was measured
 
-All figures use free, key-less data: Bybit's public spot trade dumps (`public.bybit.com/spot/CBKUSDT/`), the full May 2026 month (36,890 trades), one row per executed trade (timestamp, price, size, side). GAIB/USDT, another low-cap Bybit pair with organic trade timing, is used as a control. The metrics map to the DN [market-health family](https://dn.institute/market-health/docs/market-health-metrics/): time-of-trade concentration, buy/sell balance, and volume distribution. The analysis is fully reproducible: the fetch, metric, and figure scripts are in the companion repository [mkzung/cbk-scheduled-wash-analysis](https://github.com/mkzung/cbk-scheduled-wash-analysis), and `verify.py` recomputes and asserts every headline number from the dated dumps above.
+All figures use free, key-less data: Bybit's public spot trade dumps (`public.bybit.com/spot/CBKUSDT/`), the full May 2026 month (36,890 trades), one row per executed trade (timestamp, price, size, side). GAIB/USDT, another low-cap Bybit pair with organic trade timing, is used as a control. The metrics map to the DN [market-health family](https://dn.institute/market-health/docs/market-health-metrics/): time-of-trade concentration (the two-second clustering), buy/sell balance (one side on each second), and volume distribution (the absence of any dominant clip size). The analysis is fully reproducible: the fetch, metric, and figure scripts are in the companion repository [mkzung/cbk-scheduled-wash-analysis](https://github.com/mkzung/cbk-scheduled-wash-analysis), and `verify.py` recomputes and asserts every headline number from the dated dumps above.
 
 A note on scope: this is a single market on a single venue over one month, read against a control rather than a labelled ground truth. The reading is the pattern, a fixed-clock two-sided self-wash that prints volume without taking a position, not an attribution of who placed the orders.
