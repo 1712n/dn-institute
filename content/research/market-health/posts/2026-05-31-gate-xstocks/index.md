@@ -1,0 +1,104 @@
+---
+title: "Wash trading is the rule, not the exception, on Gate's tokenized stocks"
+description: "A detector scored every tokenized-stock (xStock) market on Gate against three converging signatures and three organic controls. Of the 13 markets liquid enough to score, nine are flagged as wash-traded; the same tokens trade cleanly on Bybit, and on HOODX the wash escalated through 2026."
+date: 2026-05-31
+entities:
+  - Gate
+  - HOODX
+  - TSLAX
+  - NVDAX
+  - AMZNX
+  - AAPLX
+  - SPYX
+  - MSTRX
+---
+
+## Summary
+
+1. **A detector run over the whole venue finds the wash is pervasive, not isolated.** Scoring all 31 xStock/USDT markets on three signatures (a dominant fixed clip, that clip's two-sidedness, and a broken first-digit distribution), with the flag threshold calibrated above three organic controls (the same-class MicroStrategy at 0.17 and the liquid SOL and LINK at 0.69 and 0.43), **9 of the 13 markets with enough trades to score are flagged** (score 0.83 to 0.99). Three more are elevated but ambiguous; both controls sit well below the line.
+2. **The signature is circular volume.** On the nine flagged markets one fixed trade size carries **16 to 49% of each market's trades** while its buys and sells cancel to almost no position (the clip is **7 to 12% directional** on the six largest, against **94%** for the control). It manufactures the *appearance* of activity: because the clips are tiny, they are 16 to 49% of the trade count but only **6.4%** of the nine markets' combined dollar volume.
+3. **It is unreachable by chance.** Resampling the clean controls' own trade sizes at the flagged markets' sample sizes, the most common size never exceeds **8%** of trades in 3,000 simulations. The smallest flagged clip, 16%, sits far outside that null (0 of 3,000 simulated organic months reached it; p < 1/3000).
+4. **It is the venue, not the token.** The same five xStocks that are washed on Gate (clip 17 to 49%, score 0.83 to 0.97) trade **organically on Bybit (clip 2 to 6%, score 0.49 to 0.65, below the flag)**. Same token, same issuer, same underlying share, so the wash is specific to Gate, not a property of the asset.
+5. **It has a start date.** HOODX (a tokenized Robinhood share) traded cleanly for its first three months on Gate; an elevated clip first appeared in **October 2025**, and from **March 2026** the market crossed the flag into clearly-washed territory, the clip rising from 18% of trades to 49%. The dominant clip alone manufactured about **$0.95M** of HOODX volume over the period.
+6. **It is cheap.** Across the nine flagged markets the dominant clips total about **$1.8M** of May volume; at Gate's spot taker fee that costs the operators only a few thousand dollars a month, which is why it is widespread.
+7. **Read it as a flag, not a verdict.** The public tape is anonymous, so this characterises behaviour, not identity, and the patterns are independent per market. What the data shows is that most of Gate's liquid tokenized-stock markets carry manufactured activity.
+
+## The market: tokenized stocks on Gate
+
+[xStocks](https://xstocks.com) are tokenized equities issued by Backed Assets (JE) Limited on Solana, each backed one-to-one and designed to track a US share. Backed launched them on 30 June 2025; Gate opened a dedicated xStocks section on [3 July 2025](https://www.globenewswire.com/news-release/2025/07/03/3109777/0/en/Gate-Launches-xStocks-Trading-Section-Bridging-Crypto-Finance-and-Global-Capital-Markets.html) and now lists dozens of them against USDT. They trade around the clock, while the underlying shares trade only in US market hours.
+
+The macro picture already hints at the problem. Industry data put cumulative xStocks trading volume above **$10B** within a few months of launch against on-chain assets under management of only about **$135M** ([Cointelegraph, RWA.xyz data](https://cointelegraph.com/news/xstocks-10b-volume-launch-tokenized-stocks-gain-traction)). Volume two orders of magnitude larger than the value backing it is the shape of manufactured activity. This article takes that top-down hint and resolves it market by market in Gate's own trade tape.
+
+## A screen of the whole venue
+
+Rather than hand-pick cases, the analysis scores every xStock market Gate exposes a May 2026 dump for. Each market gets a single **non-organic-activity score**, the geometric mean of three normalised signals, so a market has to trip all three to score high:
+
+- **clip dominance** - the share of the tape sitting on one fixed trade size (a healthy market has no single dominant size);
+- **circularity** - how two-sided that clip is, `1 - |buys - sells| / clip volume` (real flow takes a side; a wash clip cancels);
+- **Benford break** - the Kolmogorov-Smirnov distance of trade-size first digits from [Benford's law](https://en.wikipedia.org/wiki/Benford%27s_law) (the first significant digit of organic trade sizes is far more often a 1 than a 9, in the smooth proportions Benford predicts; a tape built from one repeated size cannot match that curve).
+
+The flag threshold matters, so it is **calibrated against organic markets run through the same pipeline**: the same-class control MSTRX (a tokenized MicroStrategy share) scores 0.17, and two genuinely liquid markets, SOL/USDT (2.2M trades) and LINK/USDT (0.7M trades), score 0.69 and 0.43. The flag is set at **0.80**, above all three, so an organic market - thin or liquid - does not trip it.
+
+The three signals are not co-equal. Decomposed against the controls, **clip dominance does the discriminating work**: it is the one signal statistically unreachable for an organic market. Circularity barely separates wash from organic - the liquid control SOL is just as two-sided as the washed names - and earns its place only by marking out the *directional* same-class control MSTRX, whose dominant size is real one-directional flow. The first-digit break helps at the extremes, lifting the strongest clips (HOODX, AMZNX) and holding the near-miss CRCLX below the flag, but adds little among the middle flagged markets, whose Benford distance is close to SOL's. The composite needs all three elevated, but the clip is the load-bearing signal.
+
+Of the 31 markets, 18 are too thin to score (under 5,000 trades in the month). Of the 13 with enough trades, **9 are flagged at 0.80 or above and score between 0.83 and 0.99**. Three more (CRCLX, COINX, METAX) score 0.61 to 0.74 - elevated, but inside the band of the liquid control SOL, so they are left ambiguous rather than flagged. Only MSTRX, the same-class control, scores cleanly low.
+
+{{< figure src="screen.png" alt="ranked non-organic-activity score for Gate's 13 liquid tokenized-stock markets plus two liquid controls, nine flagged in orange above the controls" caption="Non-organic-activity score for the 13 Gate xStock markets with at least 5,000 trades in May 2026 (orange flagged, grey ambiguous, MSTRX same-class control in green), with the liquid SOL and LINK controls (blue). Nine clear the 0.80 flag, calibrated above every control. 18 further markets were too thin to score." >}}
+
+The nine span the venue's busiest names. AMZNX (Amazon) and AZNX (AstraZeneca) score highest; the list also includes the most heavily traded markets, TSLAX and NVDAX, alongside HOODX, AAPLX, GOOGLX, QQQX and SPYX. Notably the single busiest market of all 31, CRCLX (Circle, 631,314 trades), lands in the ambiguous band, not the flagged one: its clip is dominant and two-sided but its first-digit break is weak, so the detector declines to call it. That restraint is the point - the flag is for markets that trip all three signals at once.
+
+## Why the flagged markets are non-organic
+
+The score compresses three signals; each is worth seeing directly. The figures below use the six largest flagged equity markets, with MSTRX as the clean same-class control.
+
+**One size carries the tape.** A healthy tape has no single dominant size: the most-traded size is still a thin slice of the whole. Each flagged market instead piles one fixed clip over that spread. HOODX puts 49.4% of its trades on 0.12 tokens; SPYX 25.4%, TSLAX 24.0%, NVDAX 23.0%, AAPLX 17.1%, GOOGLX 16.8%. HOODX records 1,808 distinct trade sizes, yet one of them is nearly half the tape. MSTRX never concentrates like this; its busiest size is 5% of trades.
+
+{{< figure src="clip-recurrence.png" alt="most common trade size as a share of all trades, six washed xStocks high versus MSTRX low" caption="Share of trades on each market's single most common size, Gate spot, May 2026. The six washed xStocks (orange) put 17 to 49 percent on one clip; the MSTRX control (grey) puts 5 percent." loading="lazy" >}}
+
+**That clip takes almost no position.** Netting each clip's buys against its sells over the month, the dominant clip is **7 to 12% directional** on the six, its buying and selling very nearly cancelling, against **94%** for MSTRX, where the comparable size is real one-sided flow. A clip this dominant that nets to almost nothing is turnover without exposure: it carries much of the tape while building no position.
+
+{{< figure src="circular-volume.png" alt="net position taken by the dominant clip, 7 to 12 percent for the washed xStocks and 94 percent for MSTRX" caption="Net position the dominant clip takes, as a share of its own volume. Near zero for the washed xStocks (orange): buys and sells cancel. The MSTRX control (grey) is 94% one-sided." loading="lazy" >}}
+
+**The clip breaks Benford's law.** A tape built from one repeated size pulls the first digit away from the Benford curve, because that clip's leading digit is over-represented. The first-digit distance from Benford is 0.10 to 0.35 for the six against 0.03 for MSTRX.
+
+{{< figure src="benford.png" alt="Kolmogorov-Smirnov distance from Benford by market, high for the washed xStocks and near zero for MSTRX" caption="Distance of each market's first-digit distribution from Benford's law. The washed xStocks sit far from Benford; MSTRX, near the 0.05 line, is consistent with it." loading="lazy" >}}
+
+None of this happens by chance. Resampling the clean controls' trade-size distributions (same-class MSTRX and liquid SOL) at the flagged markets' sample sizes, the most common size in a simulated organic month never exceeds **8%** of trades across 3,000 draws. The smallest flagged clip, 16%, is twice that ceiling, so the clip dominance alone sits well outside the organic null (0 of 3,000 reached it; empirical p < 1/3000), before the circularity and Benford signals are even added.
+
+## It is the venue, not the token
+
+If a tokenized stock were simply prone to this, it would look the same wherever it trades. It does not. Five of the flagged xStocks also trade on Bybit, whose public tick dumps allow the identical screen. **On Bybit the same tokens are organic:** the dominant clip falls from 17 to 49% on Gate to 2 to 6% on Bybit, and the score falls from 0.83 to 0.97 (above the flag) to 0.49 to 0.65 (below it, in the band of the liquid controls).
+
+{{< figure src="crossvenue.png" alt="dominant clip share for five xStocks on Gate versus Bybit, far higher on Gate" caption="Dominant clip as a share of trades, same five xStocks on Gate (orange) and Bybit (blue), May 2026. The clip that carries 17 to 49% of the tape on Gate carries 2 to 6% on Bybit." loading="lazy" >}}
+
+Same token, same issuer, same underlying share, same month, different venue, different result. That rules out the asset and the issuer and points the finding at Gate, or at an operator running specifically on Gate. It is the strongest single check in the analysis: a control where everything but the venue is held fixed.
+
+## When it started
+
+The wash is not a permanent feature of these markets either. HOODX listed on Gate on 3 July 2025; running the screen on every month since shows it traded **cleanly for its first three months**, with the most common size under 2% of trades. An **elevated clip first appears in October 2025** (around 6%, just above the organic ceiling), subsides over the new year, and from **March 2026 the market crosses the flag into clearly-washed territory**, the dominant clip rising from 18% of trades to 40% to 49% even as real volume falls away. As genuine interest faded, manufactured volume took over a larger share of the tape.
+
+{{< figure src="longitudinal.png" alt="HOODX dominant-clip share and wash score by month from listing, flat then rising after autumn 2025" caption="HOODX on Gate, month by month since listing. The dominant clip (bars) and the score (line) are flat through launch, lift in autumn 2025, and cross the flag line in March 2026." loading="lazy" >}}
+
+Over the eleven months the HOODX clip alone accounts for about **$0.95M** of manufactured volume. Across the nine flagged markets in May, the dominant clips total about **$1.8M**, only **6.4%** of the $28M those markets report, yet 16 to 49% of each market's trade *count*. The point is leverage: the clips are tiny, so at Gate's spot taker fee the whole programme costs only a few thousand dollars a month to run, while inflating the trade count that exchanges and aggregators read as liquidity. Cheap to manufacture is exactly why it is widespread rather than rare.
+
+{{< figure src="persistence.png" alt="daily share of HOODX trades on the 0.12 clip across May 2026, every bar far above an organic level" caption="Share of each day's HOODX trades on the 0.12 clip across May 2026. Present every day, never below 21%, median 47%." loading="lazy" >}}
+
+## What this is, and what it is not
+
+Working from an anonymous public tape, the responsible move is to characterise the behaviour and rule out cheaper explanations. The flagged markets are **not a single coordinated ring**: the minute-by-minute correlation of clip activity across the six largest is 0.08, below the 0.11 of their overall activity, so they look like independent per-market operators. The balance is reached over the month, **not by visible matched buy-against-sell pairs**, and the clip is **not pinned to a fixed second of the minute**, so this is not the scheduled-bot pattern seen on some venues. The innocent explanations also fail: a market maker would not repeat one identical size, two-sided, tens of thousands of times and break Benford, and would not leave MSTRX and a liquid market like SOL clean on the same engine; a retail default size would not net to no position, hold for months, and distort the first digit; a matching-engine quirk would not spare the same token on Bybit. What remains is non-economic, fixed-size, two-sided volume, run independently across most of Gate's liquid tokenized-stock markets.
+
+On the *motive*, the public tape is silent, and more than one story fits. Gate wraps this section in volume-rewarding programmes - by its own description, [frequent trading competitions and airdrop events](https://www.gate.com/learn/articles/what-is-gate-xstock-a-complete-guide-to-tokenized-stock-trading/10175) on xStocks, alongside deposit cashback and the CandyDrop and Alpha-Points airdrops that pay out by trading activity - so much of this churn may be users and bots farming those rewards rather than a lone manipulator deceiving investors. The detector cannot separate the two and does not try to. What it establishes is the behaviour: manufactured, non-economic volume that nets to no position and inflates the reported activity any volume-based ranking reads as liquidity - whoever generates it, and for whatever reason. That is also why the distinction matters less than it seems: incentive-farmed volume is still fake volume, and it pollutes the same rankings and liquidity signals.
+
+## Why it matters
+
+Reported trade activity is the number exchanges and third-party aggregators turn into liquidity rankings, and traders follow those rankings. CoinMarketCap's [Confidence indicator](https://support.coinmarketcap.com/hc/en-us/articles/360043675052-Market-Pair-Ranking-Confidence-Indicator) and CoinGecko's [Trust Score](https://support.coingecko.com/hc/en-us/articles/36442561461657-Trust-Score-Methodology) exist precisely because, in their words, exchanges "have reported inflated trading volumes to give the impression of legitimacy and a false sense of liquidity", yet they down-weight rather than remove suspect volume, so a tape like this still feeds the headline numbers. Peer-reviewed work finds wash trading "averaged over 70%" of reported volume on unregulated exchanges and relates it to a venue's age and userbase ([Cong et al., NBER WP 30783 / *Management Science* 2023](https://www.nber.org/papers/w30783)), which is exactly the position of a 2025-vintage tokenized-equity market. And the conduct is not cosmetic: in October 2024 the SEC and DOJ charged multiple market makers over bots that "generated . . . billions of dollars of artificial trading volume" to "create the false appearance of an active trading market" ([SEC](https://www.sec.gov/newsroom/press-releases/2024-166), [DOJ](https://www.justice.gov/usao-ma/pr/eighteen-individuals-and-entities-charged-international-operation-targeting-widespread)), with a guilty plea following in 2025. Tokenized equities do not escape this: the SEC's position is that "tokenized securities are still securities" ([Peirce, July 2025](https://www.sec.gov/newsroom/speeches-statements/peirce-statement-tokenized-securities-070925)), even where, as with xStocks, they are sold only outside the US. Manufactured activity on a brand-new instrument, where real liquidity is thin and the price stays honest to the underlying, corrupts exactly the signal investors use to decide where to trade.
+
+## How this was measured
+
+Every figure is reproducible from free, key-less public data: Gate's spot trade dumps (`download.gatedata.org/spot/deals/`) and, for the cross-venue check, Bybit's (`public.bybit.com/spot/`), one row per executed trade. The screen covers all 31 xStock/USDT markets Gate exposes for May 2026, calibrated against three organic controls (MSTRX, SOL, LINK); the mechanism figures use the six largest flagged equity markets with MSTRX as the in-class control; the longitudinal run covers every monthly HOODX dump from listing (2025-07) to 2026-05; the cross-venue run covers the five flagged xStocks that also list on Bybit. The metrics map to the DN [market-health family](https://dn.institute/market-health/docs/market-health-metrics/): volume distribution and clip recurrence, buy/sell balance, and first-digit distribution. The same markers were documented earlier in the wiki's [Huobi (2023)](https://github.com/1712n/dn-institute/tree/main/content/research/market-health/posts/2023-08-14-huobi) and [Senso (2021)](https://github.com/1712n/dn-institute/tree/main/content/research/market-health/posts/2021-01-05-Senso) posts, here applied to a new venue and asset class and extended into a venue-wide screen, a cross-venue control and a time series. `screen.py`, `longitudinal.py` and `crossvenue.py` regenerate the screen, the onset series and the venue comparison directly from the dumps; `verify.py` independently recomputes and asserts the per-market mechanism figures; the test suite asserts the screen ranking, the cross-venue gap and the onset; and the processed per-figure datasets are committed under `data/`.
+
+Three robustness checks back the result: the dumps are complete (trade IDs are gap-free and unique), the dominant clip runs 14 to 120 times the exchange minimum rather than a minimum-lot artefact, and the flagged set is stable under the score's normalisation constants (clip caps from 0.10 to 0.20).
+
+## Scope
+
+This is one venue, read against same-class, liquid, cross-venue and historical controls rather than a labelled ground truth, on an anonymous tape that shows behaviour and not account identity. The finding is the pattern and its breadth: a fixed-size, two-sided clip that carries much of each market's trade count while netting to almost no position, present on most of Gate's liquid tokenized-stock markets, absent from the same tokens on Bybit, and switched on at a datable moment. It does not identify the accounts behind the orders or settle whether their motive is manipulation or reward-farming.
