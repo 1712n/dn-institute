@@ -1,0 +1,32 @@
+symbol,name,n_trades,reliable,clip_share,clip_net_pct,benford_ks,score,flag
+AMZNX,Amazon,40218,True,0.2197,0.015,0.292,0.995,True
+ABTX,Abbott,229,False,0.1528,0.044,0.219,0.985,False
+HONX,Honeywell,200,False,0.225,0.044,0.299,0.985,False
+AZNX,AstraZeneca,5746,True,0.1993,0.063,0.203,0.979,True
+TSLAX,Tesla,242598,True,0.2395,0.074,0.22,0.975,True
+HOODX,Robinhood,65164,True,0.4938,0.083,0.346,0.972,True
+AAPLX,Apple,37753,True,0.1711,0.07,0.141,0.955,True
+LLYX,Eli Lilly,242,False,0.2355,0.095,0.142,0.951,False
+GOOGLX,Alphabet,33819,True,0.1676,0.094,0.137,0.939,True
+AVGOX,Broadcom,913,False,0.1621,0.131,0.138,0.927,False
+UNHX,UnitedHealth,1274,False,0.4945,0.238,0.236,0.913,False
+PGX,P&G,167,False,0.1198,0.11,0.191,0.892,False
+QQQX,Nasdaq-100,63722,True,0.1588,0.05,0.106,0.876,True
+SPYX,S&P 500,28116,True,0.2541,0.121,0.104,0.848,True
+MCDX,McDonald's,4542,False,0.0874,0.0,0.204,0.835,False
+NVDAX,NVIDIA,196025,True,0.2297,0.097,0.096,0.834,True
+KOX,Coca-Cola,430,False,0.2837,0.458,0.233,0.815,False
+HDX,Home Depot,109,False,0.1835,0.493,0.205,0.797,False
+CRCLX,Circle,631314,True,0.1396,0.14,0.075,0.738,False
+DHRX,Danaher,160,False,0.0813,0.223,0.135,0.724,False
+COINX,Coinbase,21038,True,0.1022,0.023,0.064,0.659,False
+ACNX,Accenture,86,False,0.1744,0.731,0.209,0.646,False
+METAX,Meta,6181,True,0.099,0.054,0.054,0.606,False
+ABBVX,AbbVie,166,False,0.2108,0.778,0.181,0.605,False
+GLDX,Gold ETF,703,False,0.0868,0.329,0.083,0.598,False
+CRWDX,CrowdStrike,1852,False,0.1091,0.451,0.079,0.594,False
+CSCOX,Cisco,135,False,0.0889,0.674,0.161,0.578,False
+WMTX,Walmart,3991,False,0.0241,0.24,0.209,0.496,False
+PEPX,PepsiCo,213,False,0.1127,0.834,0.127,0.473,False
+NFLXX,Netflix,336,False,0.0387,0.387,0.034,0.328,False
+MSTRX,MicroStrategy,27467,True,0.0498,0.935,0.034,0.17,False
