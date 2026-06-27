@@ -165,10 +165,30 @@ describe("Similarity search", () => {
     expect(await response.text()).toBe("Workers AI request failed")
   })
 
+  it("returns 502 when Workers AI returns a non-numeric vector", async () => {
+    const response = await postSimilaritySearch({
+      text: "trigger-workers-ai-invalid-vector",
+      namespace: "security-incidents"
+    })
+
+    expect(response.status).toBe(502)
+    expect(await response.text()).toBe("Workers AI request failed")
+  })
+
   it("returns 502 when Vectorize query fails", async () => {
     const response = await postSimilaritySearch({
       text: "Vectorize boundary failure should be handled",
       namespace: "vectorize-failure"
+    })
+
+    expect(response.status).toBe(502)
+    expect(await response.text()).toBe("Vectorize query failed")
+  })
+
+  it("returns 502 when Vectorize returns an invalid response shape", async () => {
+    const response = await postSimilaritySearch({
+      text: "Malformed Vectorize response should be handled",
+      namespace: "vectorize-invalid-response"
     })
 
     expect(response.status).toBe(502)

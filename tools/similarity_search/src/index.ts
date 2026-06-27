@@ -46,7 +46,11 @@ app.post("/", async (c) => {
     })
 
     vector = modelResp.data?.[0]
-    if (!vector) {
+    if (
+      !Array.isArray(vector) ||
+      vector.length === 0 ||
+      vector.some((value) => typeof value !== "number" || !Number.isFinite(value))
+    ) {
       throw new Error("Workers AI returned invalid response shape")
     }
   } catch (error) {
@@ -60,6 +64,10 @@ app.post("/", async (c) => {
       namespace,
       topK: 1
     })
+
+    if (!Array.isArray(searchResponse?.matches)) {
+      throw new Error("Vectorize returned invalid response shape")
+    }
   } catch (error) {
     console.error("Vectorize query failed", error)
     return c.text("Vectorize query failed", 502)

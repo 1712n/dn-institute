@@ -42,6 +42,10 @@ export default defineWorkersConfig({
                       return Promise.resolve({ data: [] });
                     }
 
+                    if (data.text[0] === "trigger-workers-ai-invalid-vector") {
+                      return Promise.resolve({ data: [["not-a-number"]] });
+                    }
+
                     return Promise.resolve({ data: [[0.11, 0.22, 0.33]] });
                   }
                 };
@@ -67,6 +71,10 @@ export default defineWorkersConfig({
 
                     if (options.namespace === "vectorize-failure") {
                       throw new Error("simulated Vectorize failure");
+                    }
+
+                    if (options.namespace === "vectorize-invalid-response") {
+                      return Promise.resolve({});
                     }
 
                     const score = options.namespace === "security-incidents" ? 0.8765 : 0.4321;
