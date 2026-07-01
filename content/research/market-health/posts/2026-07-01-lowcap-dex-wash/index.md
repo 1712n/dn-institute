@@ -33,7 +33,7 @@ Starting from the established (non-launch) pool feeds on six chains, the screen 
 
 ## Detection method
 
-A wash-trading fleet is a set of wallets that buy and sell the same token in near-equal amounts, so gross volume is large while net position is near zero. The screen flags a pool when a group of wallets each records at least three buys and three sells with balanced counts, those wallets are at least half of the sampled trades, and the pool-wide net-to-gross ratio is within 0.15 of zero (Figure 4). A pool must also be sustained: at least seven active days of volume history.
+A wash-trading fleet is a set of wallets that buy and sell the same token in near-equal amounts, so gross volume is large while net position is near zero. The screen flags a pool when a group of wallets each records at least three buys and three sells with balanced counts, those wallets are at least half of the sampled trades, and the pool-wide net-to-gross ratio is within 0.15 of zero. A pool must also be sustained: at least seven active days of volume history.
 
 Three filters then decide what counts:
 
@@ -41,7 +41,7 @@ Three filters then decide what counts:
 2. **Contract-fleet check.** The trader recorded for a swap can be a smart contract (a router, an aggregator, or a Uniswap v4 pool manager) rather than a person's wallet. For every EVM pool the detector runs `eth_getCode` on each fleet wallet and keeps only externally-owned accounts; a pool needs at least two.
 3. **Direct on-chain full-day measurement.** The screen's fleet share comes from a roughly 300-trade window, which over-represents a fleet that trades in bursts. The fleet's real 24-hour USD volume is read directly from the chain (Bitquery for the EVM pools, Helius for the Solana candidate). That on-chain figure, not the window extrapolation, is the reported fabricated volume, and the pool total measured this way agrees with DexScreener independently.
 
-Mapped to the DN [market-health metric family](https://dn.institute/market-health/docs/market-health-metrics/): the balanced-flow test is `buysellratio` (count-based, buy trades over total) with `buysellratioabs` (volume-weighted), both near 0.5 for a wash fleet; the fleet's dominance of executed size is `volumedist`, summarised by the fleet's share of 24-hour volume rather than a fixed-bin histogram; the pool volume itself is `vwap`/`tradecount`, cross-checked between Bitquery and DexScreener. A first-digit test (`firstdigitdist`/`benfordlawtest`) is deliberately not used: low-cap trade sizes span too few orders of magnitude to track Benford, so at this sample size the test rejects even the organic control and cannot discriminate. The load-bearing signals here are concentration, near-zero inventory, and the funding graph. This carries the same non-organic-volume analysis the wiki has applied to centralized venues, in the [Huobi (2023)](https://github.com/1712n/dn-institute/tree/main/content/research/market-health/posts/2023-08-14-huobi) and [Senso (2021)](https://github.com/1712n/dn-institute/tree/main/content/research/market-health/posts/2021-01-05-Senso) posts, onto on-chain DEX pools measured per wallet.
+Mapped to the DN [market-health metric family](https://dn.institute/market-health/docs/market-health-metrics/): the balanced-flow test is `buysellratio` (count-based, buy trades over total) with `buysellratioabs` (volume-weighted), both near 0.5 for a wash fleet; the fleet's dominance of the pool is a concentration measure, its share of 24-hour volume, reported as its own signal and deliberately not folded into `volumedist` (the metric family's trade-size histogram, which this analysis does not compute); the pool volume itself is `vwap`/`tradecount`, cross-checked between Bitquery and DexScreener. A first-digit test (`firstdigitdist`/`benfordlawtest`) is deliberately not used: low-cap trade sizes span too few orders of magnitude to track Benford, so at this sample size the test rejects even the organic control and cannot discriminate. The load-bearing signals here are concentration, near-zero inventory, and the funding graph. This carries the same non-organic-volume analysis the wiki has applied to centralized venues, in the [Huobi (2023)](https://github.com/1712n/dn-institute/tree/main/content/research/market-health/posts/2023-08-14-huobi) and [Senso (2021)](https://github.com/1712n/dn-institute/tree/main/content/research/market-health/posts/2021-01-05-Senso) posts, onto on-chain DEX pools measured per wallet.
 
 ## Findings
 
@@ -59,13 +59,13 @@ Of 73 screened pools, 10 flagged on mechanics and 9 were sustained. Three cleare
 
 ### Why a snapshot is not enough
 
-The screen flags on a short window of the trade tape. For fleets that trade in bursts, that window catches them mid-burst and overstates their share. The full 24-hour on-chain measurement corrects this (Figure 6). SOSO barely moves: its fleet is 98.9 percent of the pool over the whole day, just as the snapshot suggested. ULTIMA drops modestly. IN collapses: the snapshot implied about 2 million dollars a day, but over 24 hours the three identified wallets are only 9.3 percent of the pool, about 324,000 dollars. A fourth pool, PYTH on Solana, was rejected entirely: its snapshot implied 216,000 dollars, but the on-chain check (via Helius) found the wallets trade PYTH essentially not at all over a full day (206 dollars, 0.1 percent); they are generic multi-token bots that happened to be balanced in the sampled window.
+The screen flags on a short window of the trade tape. For fleets that trade in bursts, that window catches them mid-burst and overstates their share. The full 24-hour on-chain measurement corrects this. SOSO barely moves: its fleet is 98.9 percent of the pool over the whole day, just as the snapshot suggested. ULTIMA drops modestly. IN collapses: the snapshot implied about 2 million dollars a day, but over 24 hours the three identified wallets are only 9.3 percent of the pool, about 324,000 dollars. A fourth pool, PYTH on Solana, was rejected entirely: its snapshot implied 216,000 dollars, but the on-chain check (via Helius) found the wallets trade PYTH essentially not at all over a full day (206 dollars, 0.1 percent); they are generic multi-token bots that happened to be balanced in the sampled window.
 
 {{< figure src="fig6_window_vs_onchain.png" alt="sampled-window estimate versus direct on-chain measurement" caption="Sampled-window estimate versus the direct 24-hour on-chain measurement. SOSO is unchanged; IN falls from a snapshot-implied ~$2.0M to $324k; PYTH collapses to near zero and is rejected." loading="lazy" >}}
 
 ### Exclusion gate 1: phantom volume
 
-Three pools flagged on mechanics were dropped because the independent source shows no volume at all. The clearest is a BNB Chain pool for the token quq: GeckoTerminal reported **395,507,943 dollars** of daily volume; DexScreener does not index the pool and shows zero. A second quq pool (20 million reported) and an ARX pool (14 million reported) show the same pattern. These three alone would have added roughly 430 million dollars per day of fictional volume had the study trusted aggregator numbers (Figure 2).
+Three pools flagged on mechanics were dropped because the independent source shows no volume at all. The clearest is a BNB Chain pool for the token quq: GeckoTerminal reported **395,507,943 dollars** of daily volume; DexScreener does not index the pool and shows zero. A second quq pool (20 million reported) and an ARX pool (14 million reported) show the same pattern. These three alone would have added roughly 430 million dollars per day of fictional volume had the study trusted aggregator numbers.
 
 {{< figure src="fig2_phantom_vs_real.png" alt="phantom volume: reported versus independent" caption="Excluded phantom volume: GeckoTerminal reports up to $396M/day on these pools while DexScreener shows zero." loading="lazy" >}}
 
@@ -75,13 +75,15 @@ Two pools cleared the volume check but failed the contract check. DUAL/ETH on Ba
 
 ### A liquid control: concentration is the tell, not turnover
 
-Turnover (a pool's daily volume divided by its liquidity) screens candidates but does not prove manipulation: liquid, legitimately-traded pools run high turnover too. Measured the same way over 24 hours, WETH/USDC on Base and USDT/WBNB on BNB Chain each turn over about seven times, both organic. What separates the flagged pools is concentration in a handful of wallets. In the two controls even the ten largest traders hold only 28 and 26 percent of volume (the single largest, 7 and 3 percent), whereas in SOSO a fleet of eleven wallets holds 98.9 percent of the pool and in ULTIMA eleven wallets hold 42 percent (Figure 3), both outside the range the two controls occupy. IN is the honest exception: its three wallets are 9 percent of the pool, below the controls, so IN does not rest on concentration but on the pool's own impossibility. On DexScreener's snapshot the pool turns over 481 times in a single day, 3.5 million dollars of volume through just 7,346 dollars of liquidity across 78,233 transactions, and its three named wallets trade in balanced, zero-inventory lockstep. The manipulation in the IN pool is clearly broader than the fleet we can name.
+Turnover (a pool's daily volume divided by its liquidity) screens candidates but does not prove manipulation: liquid, legitimately-traded pools run high turnover too. Measured the same way over 24 hours, WETH/USDC on Base and USDT/WBNB on BNB Chain each turn over about seven times, both organic. What separates the flagged pools is concentration in a handful of wallets. In the two controls even the ten largest traders hold only 28 and 26 percent of volume (the single largest, 7 and 3 percent), whereas in SOSO a fleet of eleven wallets holds 98.9 percent of the pool and in ULTIMA eleven wallets hold 42 percent, both outside the range the two controls occupy. IN is the honest exception: its three wallets are 9 percent of the pool, below the controls, so IN does not rest on concentration but on the pool's own impossibility. On DexScreener's snapshot the pool turns over 481 times in a single day, 3.5 million dollars of volume through just 7,346 dollars of liquidity across 78,233 transactions, and its three named wallets trade in balanced, zero-inventory lockstep. The manipulation in the IN pool is clearly broader than the fleet we can name.
 
 {{< figure src="fig3_concentration.png" alt="volume concentration: flagged fleets versus liquid controls" caption="Share of 24-hour pool volume held by the flagging wallet set. SOSO 98.9% and ULTIMA 42% sit above the liquid controls, whose ten largest traders hold only 26-28%; IN at 9% falls below them." loading="lazy" >}}
 
 ### Wash trading, not market-making
 
 A legitimate market maker holds inventory to quote both sides; a wash fleet cycles the same small stack of funds and ends near flat. The fleets hold almost nothing relative to what they trade: the IN wallets hold 0 dollars of the token against 3.5 million dollars a day of volume, SOSO's fleet holds 2,531 dollars (0.12 percent of daily volume), ULTIMA's holds 377 dollars (0.03 percent). They are recycling funds, not making markets.
+
+{{< figure src="fig4_fleet_balance.png" alt="fleet flow is balanced buy versus sell" caption="Fleet buys versus sells in the sampled tape are near-equal for each pool (net accumulation near zero): the wash signature." loading="lazy" >}}
 
 ### Three pools up close
 
@@ -95,15 +97,13 @@ A legitimate market maker holds inventory to quote both sides; a wash fleet cycl
 
 The mechanics prove self-trading; the funding graph identifies coordination. Tracing native-token transfers upward from the BNB-Chain fleets gives two clear pictures:
 
-**ULTIMA is a single automated operator.** The eleven wallets are linked by one automated funding chain: each receives roughly 0.052 BNB and forwards it to a single next wallet, on a fixed cadence of about eight minutes, with a small fixed per-hop decrement consistent with the forwarding-transaction fee. A chain in which every node has exactly one downstream recipient, on a regular timer, is not organic behaviour (Figure 5).
+**ULTIMA is a single automated operator.** The eleven wallets are linked by one automated funding chain: each receives roughly 0.052 BNB and forwards it to a single next wallet, on a fixed cadence of about eight minutes, with a small fixed per-hop decrement consistent with the forwarding-transaction fee. A chain in which every node has exactly one downstream recipient, on a regular timer, is not organic behaviour.
 
 {{< figure src="fig5_ultima_funding_chain.png" alt="ULTIMA automated funding relay chain" caption="ULTIMA's eleven wallets are fed by one automated relay chain: each hop forwards roughly 0.052 BNB to the next wallet on a fixed ~8-minute cadence, with a small fixed decrement." loading="lazy" >}}
 
 **IN traces to throwaway wallets.** Its fleet is funded through a short chain of throwaway externally-owned accounts (`0x50560acf...` funding `0x40068df75...` funding the fleet), each with only a couple of transactions.
 
 The two BNB-Chain operators do not share a funding ancestor, and neither connects to the Base pool: this is a decentralised pattern, many independent operators rather than one actor.
-
-{{< figure src="fig4_fleet_balance.png" alt="fleet flow is balanced buy versus sell" caption="Fleet buys versus sells in the sampled tape are near-equal for each pool (net accumulation near zero): the wash signature." loading="lazy" >}}
 
 ## Limitations
 
