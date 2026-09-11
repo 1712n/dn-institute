@@ -1,0 +1,302 @@
+{
+  "event_date": "2025-10-10",
+  "archives": 22,
+  "aggregate_records_analyzed": 221010,
+  "input_checks": [
+    {
+      "file": "binance-USDEUSDT-2025-10-03.zip",
+      "aggregate_records": 5952,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDT-2025-10-04.zip",
+      "aggregate_records": 4689,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDT-2025-10-05.zip",
+      "aggregate_records": 5734,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDT-2025-10-06.zip",
+      "aggregate_records": 7908,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDT-2025-10-07.zip",
+      "aggregate_records": 4986,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDT-2025-10-08.zip",
+      "aggregate_records": 4262,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDT-2025-10-09.zip",
+      "aggregate_records": 4566,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDT-2025-10-10.zip",
+      "aggregate_records": 112002,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDT-2025-10-11.zip",
+      "aggregate_records": 24033,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDC-2025-10-03.zip",
+      "aggregate_records": 931,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDC-2025-10-04.zip",
+      "aggregate_records": 1008,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDC-2025-10-05.zip",
+      "aggregate_records": 750,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDC-2025-10-06.zip",
+      "aggregate_records": 692,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDC-2025-10-07.zip",
+      "aggregate_records": 1666,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDC-2025-10-08.zip",
+      "aggregate_records": 2725,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDC-2025-10-09.zip",
+      "aggregate_records": 1566,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDC-2025-10-10.zip",
+      "aggregate_records": 33505,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    },
+    {
+      "file": "binance-USDEUSDC-2025-10-11.zip",
+      "aggregate_records": 4035,
+      "aggregate_id_gaps": 0,
+      "timestamps_within_source_day": true,
+      "ids_and_timestamps_monotonic": true,
+      "underlying_trade_ranges_nonoverlapping": true
+    }
+  ],
+  "kline_crosscheck": {
+    "minutes_per_pair": 1440,
+    "pairs": [
+      "USDEUSDT",
+      "USDEUSDC"
+    ],
+    "OHLC_and_underlying_trade_counts_match": true,
+    "taker_buy_base_and_quote_volumes_match": true,
+    "max_absolute_base_volume_difference": 0.0,
+    "max_absolute_quote_notional_difference": 3.725290298461914e-09
+  },
+  "event_daily": [
+    {
+      "symbol": "USDEUSDT",
+      "date": "2025-10-10",
+      "aggregate_records": 112002,
+      "underlying_trades": 136677,
+      "base_volume": 1467085065.0,
+      "quote_notional": 1388127796.5,
+      "vwap": 0.9461808518240216,
+      "low": 0.65,
+      "high": 1.0005,
+      "open": 0.9999,
+      "close": 0.9978,
+      "taker_sell_base_share": 0.6248195662737525,
+      "taker_sell_quote_share": 0.6183794937270388
+    },
+    {
+      "symbol": "USDEUSDC",
+      "date": "2025-10-10",
+      "aggregate_records": 33505,
+      "underlying_trades": 35292,
+      "base_volume": 104956111.0,
+      "quote_notional": 98267410.6902,
+      "vwap": 0.9362714543624812,
+      "low": 0.6268,
+      "high": 1.0999,
+      "open": 1.0007,
+      "close": 0.9996,
+      "taker_sell_base_share": 0.4764941033304864,
+      "taker_sell_quote_share": 0.4759022638119012
+    }
+  ],
+  "extremes": {
+    "USDEUSDT": {
+      "minimum_price": 0.65,
+      "first_minimum_utc": "2025-10-10T21:54:24.242962Z",
+      "last_minimum_utc": "2025-10-10T21:54:24.242962Z",
+      "minimum_price_trades": {
+        "aggregate_records": 1,
+        "underlying_trades": 4,
+        "base_volume": 55726.0,
+        "quote_notional": 36221.9,
+        "vwap": 0.65,
+        "low": 0.65,
+        "high": 0.65,
+        "open": 0.65,
+        "close": 0.65,
+        "taker_sell_base_share": 1.0,
+        "taker_sell_quote_share": 1.0
+      },
+      "minimum_price_daily_quote_share": 2.6094067197075972e-05
+    },
+    "USDEUSDC": {
+      "minimum_price": 0.6268,
+      "first_minimum_utc": "2025-10-10T21:46:13.731477Z",
+      "last_minimum_utc": "2025-10-10T21:46:36.551410Z",
+      "minimum_price_trades": {
+        "aggregate_records": 14,
+        "underlying_trades": 14,
+        "base_volume": 171965.0,
+        "quote_notional": 107787.66200000001,
+        "vwap": 0.6268,
+        "low": 0.6268,
+        "high": 0.6268,
+        "open": 0.6268,
+        "close": 0.6268,
+        "taker_sell_base_share": 0.0,
+        "taker_sell_quote_share": 0.0
+      },
+      "minimum_price_daily_quote_share": 0.0010968810640570735
+    }
+  },
+  "exploratory_recovery_window": {
+    "aggregate_records": 15835,
+    "underlying_trades": 19633,
+    "base_volume": 193663929.0,
+    "quote_notional": 163995798.8007,
+    "vwap": 0.846806112255938,
+    "low": 0.6567,
+    "high": 1.0005,
+    "open": 0.67,
+    "close": 0.88,
+    "taker_sell_base_share": 0.8105557437079571,
+    "taker_sell_quote_share": 0.8118307025334097,
+    "start_utc": "2025-10-10T21:44:00Z",
+    "end_utc_exclusive": "2025-10-10T21:54:00Z",
+    "first_minute_vwap": 0.6771953973605035,
+    "last_minute_vwap": 0.923093414223459,
+    "minute_vwap_change": 0.3631123569672643,
+    "selection": "Exploratory interval selected after the initial price inspection; not a pre-registered test"
+  },
+  "quote_gap_sensitivity": [
+    {
+      "minimum_base_volume_per_pair_per_minute": 10000,
+      "eligible_minutes": 87,
+      "minutes_absolute_relative_gap_over_5_percent": 8,
+      "maximum_absolute_relative_gap": 0.159771313202405
+    },
+    {
+      "minimum_base_volume_per_pair_per_minute": 100000,
+      "eligible_minutes": 79,
+      "minutes_absolute_relative_gap_over_5_percent": 7,
+      "maximum_absolute_relative_gap": 0.159771313202405
+    },
+    {
+      "minimum_base_volume_per_pair_per_minute": 1000000,
+      "eligible_minutes": 18,
+      "minutes_absolute_relative_gap_over_5_percent": 6,
+      "maximum_absolute_relative_gap": 0.159771313202405
+    }
+  ],
+  "same_second_sensitivity_at_2146": [
+    {
+      "minimum_base_volume_per_pair_per_second": 1000,
+      "eligible_seconds": 25,
+      "seconds_usdc_route_lower_by_over_5_percent": 22
+    },
+    {
+      "minimum_base_volume_per_pair_per_second": 10000,
+      "eligible_seconds": 16,
+      "seconds_usdc_route_lower_by_over_5_percent": 16
+    }
+  ],
+  "quote_comparison_at_2146": {
+    "minute_utc": "2025-10-10T21:46:00Z",
+    "minute_us": 1760132760000000,
+    "usdt_pair_vwap": 0.7901619644215176,
+    "usdc_pair_vwap": 0.666022467127915,
+    "usdc_usdt_vwap": 0.9968383688110466,
+    "usdc_pair_approx_vwap_in_usdt": 0.6639167497232997,
+    "usdc_route_relative_gap": -0.159771313202405,
+    "usdt_pair_base_volume": 15676554.0,
+    "usdc_pair_base_volume": 1871877.0
+  },
+  "baseline_median_quote_notional_21_to_23": {
+    "USDEUSDT": 2662949.0433,
+    "USDEUSDC": 38337.267199999995
+  },
+  "missing_minutes_policy": "No interpolation or forward-fill; no-trade minutes are absent from trade metrics",
+  "scope": "One venue, two USDE spot pairs and two Binance control pairs; no independent Bybit data"
+}
