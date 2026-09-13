@@ -1,5 +1,5 @@
 {
-  "analysis_script_sha256": "07e62821f51474b637b9b1597b1493ce01de4b9a9c808e488a6438a16ef72b2e",
+  "analysis_script_sha256": "167d24bafe375d998c1d2ce87b39ebfaafd1dfa9ec3273be4c9c7a739ddff34f",
   "archive_verification": [
     {
       "archive": "ADAUSDT-trades-2026-09-10.zip",
@@ -14,11 +14,13 @@
       "verified": true
     }
   ],
-  "generated_at_utc": "2026-09-13T06:14:33.626360Z",
+  "generated_at_utc": "2026-09-13T06:43:07.498440Z",
   "official_sources": {
     "aggregate_archive": "https://data.binance.vision/data/spot/daily/aggTrades/ADAUSDT/ADAUSDT-aggTrades-2026-09-10.zip",
+    "aggregate_checksum": "https://data.binance.vision/data/spot/daily/aggTrades/ADAUSDT/ADAUSDT-aggTrades-2026-09-10.zip.CHECKSUM",
     "public_data_readme_schema": "https://raw.githubusercontent.com/binance/binance-public-data/master/README.md",
-    "trades_archive": "https://data.binance.vision/data/spot/daily/trades/ADAUSDT/ADAUSDT-trades-2026-09-10.zip"
+    "trades_archive": "https://data.binance.vision/data/spot/daily/trades/ADAUSDT/ADAUSDT-trades-2026-09-10.zip",
+    "trades_checksum": "https://data.binance.vision/data/spot/daily/trades/ADAUSDT/ADAUSDT-trades-2026-09-10.zip.CHECKSUM"
   },
   "outputs": [
     "metrics.json",

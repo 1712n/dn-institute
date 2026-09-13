@@ -33,6 +33,22 @@ class ReconciliationTests(unittest.TestCase):
         self.assertEqual(result["failure_counts"]["missing_or_noncontiguous_id_range"], 1)
         self.assertEqual(result["failure_counts"]["timestamp_outside_raw_range"], 1)
 
+    def test_metrics_raises_data_error_for_missing_aggregate_endpoint(self):
+        raw = [trade(10, "1", 100)]
+        malformed = [aggregate(1, 10, 11, quantity="1", timestamp=100)]
+        with self.assertRaisesRegex(analysis.DataError, "aggregate reconciliation failed"):
+            analysis.metrics(raw, malformed)
+
+    def test_metrics_preserves_valid_sample_output(self):
+        raw = [trade(10, "1", 100), trade(11, "1", 101)]
+        result = analysis.metrics(raw, [aggregate(1, 10, 11)])
+        self.assertTrue(result["reconciliation"]["all_checks_passed"])
+        self.assertEqual(result["sample_counts"], {
+            "raw_trades": 2,
+            "aggregate_trades": 1,
+            "raw_trades_per_aggregate_trade": "2",
+        })
+
     def test_first_digit_and_round_rate_use_decimal_not_float(self):
         quantities = [Decimal("0.00100"), Decimal("10.000"), Decimal("2.5")]
         self.assertEqual(analysis.first_digit(quantities[0]), "1")

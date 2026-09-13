@@ -373,6 +373,8 @@ def metrics(raw: list[Trade], aggregates: list[AggregateTrade]) -> dict:
     raw_digits, aggregate_digits = distribution(raw_quantities), distribution(aggregate_quantities)
     raw_round, aggregate_round = round_rate(raw_quantities), round_rate(aggregate_quantities)
     reconcile = reconciliation(raw, aggregates)
+    if not reconcile["all_checks_passed"]:
+        raise DataError("aggregate reconciliation failed")
     return {
         "dataset": {"symbol": "ADAUSDT", "market": "Spot", "date_utc": "2026-09-10"},
         "timestamp": timestamp_info(raw, aggregates),
@@ -465,7 +467,8 @@ def main():
     charts(result)
     atomic_json(PROVENANCE, {
         "generated_at_utc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
-        "official_sources": {"trades_archive": TRADES_URL, "aggregate_archive": AGG_URL,
+        "official_sources": {"trades_archive": TRADES_URL, "trades_checksum": TRADES_URL + ".CHECKSUM",
+                             "aggregate_archive": AGG_URL, "aggregate_checksum": AGG_URL + ".CHECKSUM",
                              "public_data_readme_schema": README_URL},
         "archive_verification": verification,
         "schema_reference": {

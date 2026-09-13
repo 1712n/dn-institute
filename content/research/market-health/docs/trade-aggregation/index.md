@@ -21,7 +21,7 @@ The inputs are Binance's official [raw trade archive](https://data.binance.visio
 
 Source: [sample counts and exact quantity reconciliation](metrics.json). No archive rows are deduplicated, sampled, or discarded in the daily comparison. Each row receives one vote in its own distribution; the percentages below are **row-count shares, not volume shares**.
 
-The bundled files match their exchange-published SHA-256 sidecars. Their hashes, source URLs, schema-reference hash, analysis hash, and plotting dependencies are recorded in [provenance.json](provenance.json). The [Binance public-data README](https://github.com/binance/binance-public-data#data-information) specifies microsecond timestamps for Spot files from 2025 onward. The script rejects observations outside the requested UTC day rather than silently interpreting these timestamps as milliseconds.
+The bundled files match the exchange-published SHA-256 sidecars for the [raw trades](https://data.binance.vision/data/spot/daily/trades/ADAUSDT/ADAUSDT-trades-2026-09-10.zip.CHECKSUM) and [aggregate trades](https://data.binance.vision/data/spot/daily/aggTrades/ADAUSDT/ADAUSDT-aggTrades-2026-09-10.zip.CHECKSUM). Their hashes, source URLs, schema-reference hash, analysis hash, and plotting dependencies are recorded in [provenance.json](provenance.json). The [Binance public-data README](https://github.com/binance/binance-public-data#data-information) specifies microsecond timestamps for Spot files from 2025 onward. The script rejects observations outside the requested UTC day rather than silently interpreting these timestamps as milliseconds.
 
 ## Verify that the files describe the same executions
 
@@ -92,7 +92,7 @@ The convenience sample is one pair on one UTC day. The 24 hourly comparisons est
 
 ## Reproduce the analysis
 
-This page's directory contains both compressed source datasets and checksum sidecars under `raw/`, [analysis.py](analysis.py), [seven focused checks](test_analysis.py), [plotting requirements](requirements.txt), [metrics](metrics.json), and [provenance](provenance.json). From that directory:
+This page's directory contains both compressed source datasets and checksum sidecars under `raw/`, [analysis.py](analysis.py), [focused checks](test_analysis.py), [plotting requirements](requirements.txt), [metrics](metrics.json), and [provenance](provenance.json). The pinned dependencies require **Python 3.12 or newer**; ensure `python3` selects a compatible interpreter. From that directory:
 
 ```bash
 python3 -m venv .venv
