@@ -8,6 +8,8 @@ weight: 30
 
 [Benford's Law](https://en.wikipedia.org/wiki/Benford%27s_law), or the First-Digit Law, is a principle used to evaluate the first digit distribution in sets of numerical data. Benford's Law asserts that in many naturally occurring datasets, the first digit is likely to be small. For example, the number 1 appears as the leading digit about 30% of the time, while 9 appears as the leading digit less than 5% of the time. In the context of cryptocurrency trading, adherence to Benford's Law can be used to scrutinize trading data for inconsistencies or abnormalities. 
 
+For a reproducible check of how the input feed changes this metric, see [trade aggregation and first-digit surveillance metrics](../trade-aggregation/). That example reconciles raw and aggregate records before comparing their distributions.
+
 ### Mathematical Background
 
 Benford's Law probabilities can be calculated using: 

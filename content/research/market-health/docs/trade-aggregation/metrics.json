@@ -1,0 +1,532 @@
+{
+  "dataset": {
+    "date_utc": "2026-09-10",
+    "market": "Spot",
+    "symbol": "ADAUSDT"
+  },
+  "exact_round_number_base_quantity_rate": {
+    "aggregate_minus_raw_rate": "0.04568553713201042715476250153997985284654088980250",
+    "aggregate_trades": {
+      "count": 8207,
+      "definition": "quantity is exactly equal to its integral Decimal value",
+      "rate": "0.22917539303565943425204546089190472201278936639580",
+      "sample_count": 35811
+    },
+    "raw_trades": {
+      "count": 30714,
+      "definition": "quantity is exactly equal to its integral Decimal value",
+      "rate": "0.18348985590364900709728295935192486916624847659330",
+      "sample_count": 167388
+    }
+  },
+  "first_digit_base_quantity_distribution": {
+    "aggregate_minus_raw_rate": {
+      "1": "0.17622310284216325415379067743636904143356119680097",
+      "2": "-0.41690576705005906590085598847114043273189133784847",
+      "3": "0.015524106965380548242296558889707402156379979607094",
+      "4": "0.046660121343155548596180881194443777314191817922609",
+      "5": "0.038977127049420382522617532280330938805169897716110",
+      "6": "0.034079550200824823629028463027648406057467422738545",
+      "7": "0.043744384782680663641917119224708204784640555194584",
+      "8": "0.027795241776401485564245224877336567156397125805485",
+      "9": "0.033902132090032359550779531540596095024083342063081"
+    },
+    "aggregate_trades": {
+      "1": {
+        "count": 9943,
+        "rate": "0.27765211806428192454832314093434978079361090167826"
+      },
+      "2": {
+        "count": 7115,
+        "rate": "0.19868196922733238390438692022004412052162743291168"
+      },
+      "3": {
+        "count": 3875,
+        "rate": "0.10820697551031805869704839295188629192147664125548"
+      },
+      "4": {
+        "count": 4511,
+        "rate": "0.12596688168439864845997040015637653235039512998799"
+      },
+      "5": {
+        "count": 2295,
+        "rate": "0.064086453882885147021864790148278461925106810756471"
+      },
+      "6": {
+        "count": 1880,
+        "rate": "0.052497835860489793638826059032140962274161570467175"
+      },
+      "7": {
+        "count": 2381,
+        "rate": "0.066487950629694786518108960933791293178073776214012"
+      },
+      "8": {
+        "count": 1493,
+        "rate": "0.041691100499846415905727290497333221635810225908240"
+      },
+      "9": {
+        "count": 2318,
+        "rate": "0.064728714640752841305744045125799335399737510820698"
+      }
+    },
+    "benford_descriptive_diagnostics": {
+      "aggregate_trades": {
+        "benford_expected_rates": {
+          "1": "0.30102999566398119521373889472449302676818988146211",
+          "2": "0.17609125905568124208128900853062228243193898272859",
+          "3": "0.12493873660829995313244988619387074433625089873351",
+          "4": "0.096910013008056414358783315826520919695430355613674",
+          "5": "0.079181246047624827722505692704101362736508627114913",
+          "6": "0.066946789630613198203449460613027857515253650671173",
+          "7": "0.057991946977686754929000425580842886820997248062344",
+          "8": "0.051152522447381288948839122336751538095688083995066",
+          "9": "0.045757490560675125409944193489769381599742271618604"
+        },
+        "maximum_cdf_distance": "0.02337787759969927066541575379014324597457897978385",
+        "mean_absolute_deviation": "0.017581068128906471868709640668501291311494442646924",
+        "scope_note": "Descriptive distance measures only. No p-values or independence claims are made."
+      },
+      "raw_trades": {
+        "benford_expected_rates": {
+          "1": "0.30102999566398119521373889472449302676818988146211",
+          "2": "0.17609125905568124208128900853062228243193898272859",
+          "3": "0.12493873660829995313244988619387074433625089873351",
+          "4": "0.096910013008056414358783315826520919695430355613674",
+          "5": "0.079181246047624827722505692704101362736508627114913",
+          "6": "0.066946789630613198203449460613027857515253650671173",
+          "7": "0.057991946977686754929000425580842886820997248062344",
+          "8": "0.051152522447381288948839122336751538095688083995066",
+          "9": "0.045757490560675125409944193489769381599742271618604"
+        },
+        "maximum_cdf_distance": "0.23989549677984768290474746893404998341343961144674",
+        "mean_absolute_deviation": "0.097665883827046712827545311146791615738128841784789",
+        "scope_note": "Descriptive distance measures only. No p-values or independence claims are made."
+      }
+    },
+    "raw_trades": {
+      "1": {
+        "count": 16978,
+        "rate": "0.10142901522211867039453246349798073936004970487729"
+      },
+      "2": {
+        "count": 103042,
+        "rate": "0.61558773627739144980524290869118455325351877076015"
+      },
+      "3": {
+        "count": 15514,
+        "rate": "0.092682868544937510454751834062178889765096661648386"
+      },
+      "4": {
+        "count": 13275,
+        "rate": "0.079306760341243099863789518961932755036203312065381"
+      },
+      "5": {
+        "count": 4203,
+        "rate": "0.025109326833464764499247257867947523119936913040361"
+      },
+      "6": {
+        "count": 3083,
+        "rate": "0.018418285659664970009797596004492556216694147728630"
+      },
+      "7": {
+        "count": 3807,
+        "rate": "0.022743565847014122876191841709083088393433221019428"
+      },
+      "8": {
+        "count": 2326,
+        "rate": "0.013895858723444930341482065619996654479413100102755"
+      },
+      "9": {
+        "count": 5160,
+        "rate": "0.030826582550720481754964513585203240375654168757617"
+      }
+    },
+    "raw_vs_aggregate_total_variation_distance": "0.41690576705005906590085598847114043273189133784847"
+  },
+  "hourly_leading_digit_2": {
+    "aggregate_ranges_crossing_utc_hour_boundary": 0,
+    "crossing_aggregate_ids_sample": [],
+    "crossing_range_treatment": "Excluded from aggregate hourly rates; no aggregate is assigned to a single hour when its raw range crosses a UTC-hour boundary.",
+    "definition": "First significant base-quantity digit equals 2. Rates use row counts, not volume.",
+    "hours_utc": {
+      "00": {
+        "aggregate_minus_raw_rate": "-0.38049160346695557963163596966413867822318526543879",
+        "aggregate_trades": {
+          "leading_digit_2_count": 279,
+          "leading_digit_2_rate": "0.22355769230769230769230769230769230769230769230769",
+          "row_count": 1248
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 3431,
+          "leading_digit_2_rate": "0.60404929577464788732394366197183098591549295774648",
+          "row_count": 5680
+        }
+      },
+      "01": {
+        "aggregate_minus_raw_rate": "-0.45312031271305849734102995318394618426435162038089",
+        "aggregate_trades": {
+          "leading_digit_2_count": 303,
+          "leading_digit_2_rate": "0.20612244897959183673469387755102040816326530612245",
+          "row_count": 1470
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 5328,
+          "leading_digit_2_rate": "0.65924276169265033407572383073496659242761692650334",
+          "row_count": 8082
+        }
+      },
+      "02": {
+        "aggregate_minus_raw_rate": "-0.44044096827450416661221538314101139992071893118664",
+        "aggregate_trades": {
+          "leading_digit_2_count": 221,
+          "leading_digit_2_rate": "0.21352657004830917874396135265700483091787439613527",
+          "row_count": 1035
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 2901,
+          "leading_digit_2_rate": "0.65396753832281334535617673579801623083859332732191",
+          "row_count": 4436
+        }
+      },
+      "03": {
+        "aggregate_minus_raw_rate": "-0.32609283248962047147243761886940287891024252093961",
+        "aggregate_trades": {
+          "leading_digit_2_count": 303,
+          "leading_digit_2_rate": "0.27150537634408602150537634408602150537634408602151",
+          "row_count": 1116
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 2936,
+          "leading_digit_2_rate": "0.59759820883370649297781396295542438428658660696112",
+          "row_count": 4913
+        }
+      },
+      "04": {
+        "aggregate_minus_raw_rate": "-0.29849038075215179315300802502655444926597108165600",
+        "aggregate_trades": {
+          "leading_digit_2_count": 250,
+          "leading_digit_2_rate": "0.23786869647954329210275927687916270218839200761180",
+          "row_count": 1051
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 2139,
+          "leading_digit_2_rate": "0.53635907723169508525576730190571715145436308926780",
+          "row_count": 3988
+        }
+      },
+      "05": {
+        "aggregate_minus_raw_rate": "-0.38902076214101151508598959402610118552298947619053",
+        "aggregate_trades": {
+          "leading_digit_2_count": 186,
+          "leading_digit_2_rate": "0.16893732970027247956403269754768392370572207084469",
+          "row_count": 1101
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 2503,
+          "leading_digit_2_rate": "0.55795809184128399465002229157378510922871154703522",
+          "row_count": 4486
+        }
+      },
+      "06": {
+        "aggregate_minus_raw_rate": "-0.42036325839033611049791603012144186447690236261222",
+        "aggregate_trades": {
+          "leading_digit_2_count": 163,
+          "leading_digit_2_rate": "0.20528967254408060453400503778337531486146095717884",
+          "row_count": 794
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 2156,
+          "leading_digit_2_rate": "0.62565293093441671503192106790481717933836331979106",
+          "row_count": 3446
+        }
+      },
+      "07": {
+        "aggregate_minus_raw_rate": "-0.41807054602851415213098342765096013532680795947375",
+        "aggregate_trades": {
+          "leading_digit_2_count": 203,
+          "leading_digit_2_rate": "0.22017353579175704989154013015184381778741865509761",
+          "row_count": 922
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 2777,
+          "leading_digit_2_rate": "0.63824408182027120202252355780280395311422661457136",
+          "row_count": 4351
+        }
+      },
+      "08": {
+        "aggregate_minus_raw_rate": "-0.40484881142247506816821777003956058238809445799836",
+        "aggregate_trades": {
+          "leading_digit_2_count": 203,
+          "leading_digit_2_rate": "0.19863013698630136986301369863013698630136986301370",
+          "row_count": 1022
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 3053,
+          "leading_digit_2_rate": "0.60347894840877643803123146866969756868946432101206",
+          "row_count": 5059
+        }
+      },
+      "09": {
+        "aggregate_minus_raw_rate": "-0.40714700264107158225141081312742748729738414120197",
+        "aggregate_trades": {
+          "leading_digit_2_count": 269,
+          "leading_digit_2_rate": "0.18732590529247910863509749303621169916434540389972",
+          "row_count": 1436
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 3829,
+          "leading_digit_2_rate": "0.59447290793355069088650830616363918646172954510169",
+          "row_count": 6441
+        }
+      },
+      "10": {
+        "aggregate_minus_raw_rate": "-0.40965411840411840411840411840411840411840411840412",
+        "aggregate_trades": {
+          "leading_digit_2_count": 237,
+          "leading_digit_2_rate": "0.21160714285714285714285714285714285714285714285714",
+          "row_count": 1120
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 3448,
+          "leading_digit_2_rate": "0.62126126126126126126126126126126126126126126126126",
+          "row_count": 5550
+        }
+      },
+      "11": {
+        "aggregate_minus_raw_rate": "-0.42587969987831972743117299552835710521137074608934",
+        "aggregate_trades": {
+          "leading_digit_2_count": 256,
+          "leading_digit_2_rate": "0.18168914123491838183108587650816181689141234918382",
+          "row_count": 1409
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 4126,
+          "leading_digit_2_rate": "0.60756884111323810926225887203651892210278309527316",
+          "row_count": 6791
+        }
+      },
+      "12": {
+        "aggregate_minus_raw_rate": "-0.41066753369127562522044803560565914601625905434395",
+        "aggregate_trades": {
+          "leading_digit_2_count": 907,
+          "leading_digit_2_rate": "0.16526967930029154518950437317784256559766763848397",
+          "row_count": 5488
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 13796,
+          "leading_digit_2_rate": "0.57593721299156717040995240878350171161392669282792",
+          "row_count": 23954
+        }
+      },
+      "13": {
+        "aggregate_minus_raw_rate": "-0.47592289421522895753337026928961090245179766914676",
+        "aggregate_trades": {
+          "leading_digit_2_count": 560,
+          "leading_digit_2_rate": "0.20603384841795437821927888153053715967623252391464",
+          "row_count": 2718
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 9396,
+          "leading_digit_2_rate": "0.68195674263318333575264915082014806212803019306140",
+          "row_count": 13778
+        }
+      },
+      "14": {
+        "aggregate_minus_raw_rate": "-0.45243128410296805805814153136665890499738177299191",
+        "aggregate_trades": {
+          "leading_digit_2_count": 417,
+          "leading_digit_2_rate": "0.21639854696419304618578100674623767514270887389725",
+          "row_count": 1927
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 6493,
+          "leading_digit_2_rate": "0.66882983106716110424392253811289658014009064688916",
+          "row_count": 9708
+        }
+      },
+      "15": {
+        "aggregate_minus_raw_rate": "-0.42376223263928588064416411533298609787805260193689",
+        "aggregate_trades": {
+          "leading_digit_2_count": 293,
+          "leading_digit_2_rate": "0.21418128654970760233918128654970760233918128654971",
+          "row_count": 1368
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 4405,
+          "leading_digit_2_rate": "0.63794351918899348298334540188269370021723388848660",
+          "row_count": 6905
+        }
+      },
+      "16": {
+        "aggregate_minus_raw_rate": "-0.39999375083475369098980650868940300866673446806738",
+        "aggregate_trades": {
+          "leading_digit_2_count": 549,
+          "leading_digit_2_rate": "0.19082377476538060479666319082377476538060479666319",
+          "row_count": 2877
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 7039,
+          "leading_digit_2_rate": "0.59081752560013429578646969951317777404733926473057",
+          "row_count": 11914
+        }
+      },
+      "17": {
+        "aggregate_minus_raw_rate": "-0.39268284950653699405648308796628525091475161171679",
+        "aggregate_trades": {
+          "leading_digit_2_count": 343,
+          "leading_digit_2_rate": "0.18887665198237885462555066079295154185022026431718",
+          "row_count": 1816
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 5273,
+          "leading_digit_2_rate": "0.58155950148891584868203374875923679276497187603397",
+          "row_count": 9067
+        }
+      },
+      "18": {
+        "aggregate_minus_raw_rate": "-0.45085106584624424547278934935636960709284720856562",
+        "aggregate_trades": {
+          "leading_digit_2_count": 179,
+          "leading_digit_2_rate": "0.17261330761812921890067502410800385728061716489875",
+          "row_count": 1037
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 3045,
+          "leading_digit_2_rate": "0.62346437346437346437346437346437346437346437346437",
+          "row_count": 4884
+        }
+      },
+      "19": {
+        "aggregate_minus_raw_rate": "-0.40864935227276298326394749605176370848939763688936",
+        "aggregate_trades": {
+          "leading_digit_2_count": 242,
+          "leading_digit_2_rate": "0.23224568138195777351247600767754318618042226487524",
+          "row_count": 1042
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 3523,
+          "leading_digit_2_rate": "0.64089503365472075677642350372930689466981990176460",
+          "row_count": 5497
+        }
+      },
+      "20": {
+        "aggregate_minus_raw_rate": "-0.44475885521384069302752749025740313252413930051877",
+        "aggregate_trades": {
+          "leading_digit_2_count": 136,
+          "leading_digit_2_rate": "0.20512820512820512820512820512820512820512820512821",
+          "row_count": 663
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 2014,
+          "leading_digit_2_rate": "0.64988706034204582123265569538560826072926750564698",
+          "row_count": 3099
+        }
+      },
+      "21": {
+        "aggregate_minus_raw_rate": "-0.42396105800246319863937598967802474928156706351534",
+        "aggregate_trades": {
+          "leading_digit_2_count": 109,
+          "leading_digit_2_rate": "0.18858131487889273356401384083044982698961937716263",
+          "row_count": 578
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 1807,
+          "leading_digit_2_rate": "0.61254237288135593220338983050847457627118644067797",
+          "row_count": 2950
+        }
+      },
+      "22": {
+        "aggregate_minus_raw_rate": "-0.44099667850650903256100687632694097075184439393547",
+        "aggregate_trades": {
+          "leading_digit_2_count": 131,
+          "leading_digit_2_rate": "0.17397078353253652058432934926958831341301460823373",
+          "row_count": 753
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 2268,
+          "leading_digit_2_rate": "0.61496746203904555314533622559652928416485900216920",
+          "row_count": 3688
+        }
+      },
+      "23": {
+        "aggregate_minus_raw_rate": "-0.40755634687523232414873281746346761826637987628699",
+        "aggregate_trades": {
+          "leading_digit_2_count": 376,
+          "leading_digit_2_rate": "0.20659340659340659340659340659340659340659340659341",
+          "row_count": 1820
+        },
+        "raw_trades": {
+          "leading_digit_2_count": 5356,
+          "leading_digit_2_rate": "0.61414975346863891755532622405687421167297328288040",
+          "row_count": 8721
+        }
+      }
+    }
+  },
+  "interpretation_limit": "This descriptive archive comparison does not infer intent, misconduct, or fraud.",
+  "methods": {
+    "deduplication": "None. Every archive row is counted once in its own source file.",
+    "first_digit": "First significant decimal digit of positive base quantity after Decimal normalization.",
+    "quantity_precision": "Python Decimal parsed directly from archive text; no float arithmetic."
+  },
+  "quantity_24_7": {
+    "aggregate_trades": {
+      "base_quantity": "10596.3",
+      "base_quantity_volume_share": "0.000078606391110199426757683337052108080451773005789637",
+      "row_count": 429,
+      "row_prevalence_rate": "0.011979559353271341208008712406802379157242188154478",
+      "total_base_quantity": "134802016.10000000"
+    },
+    "quantity": "24.7",
+    "raw_trades": {
+      "base_quantity": "882950.9",
+      "base_quantity_volume_share": "0.0065499828974738902291536276214492017527028662889560",
+      "row_count": 35747,
+      "row_prevalence_rate": "0.21355772217841183358424737735082562668769565321289",
+      "total_base_quantity": "134802016.10000000"
+    }
+  },
+  "reconciliation": {
+    "aggregate_rows_checked": 35811,
+    "aggregate_timestamp_rule_tested": "aggregate timestamp lies within inclusive min/max raw timestamp range",
+    "aggregate_timestamps_equal_last_raw_timestamp_count": 35811,
+    "all_checks_passed": true,
+    "failure_counts": {
+      "best_match_mismatch": 0,
+      "buyer_maker_mismatch": 0,
+      "missing_or_noncontiguous_id_range": 0,
+      "overlapping_or_uncovered_raw_ranges": 0,
+      "price_mismatch": 0,
+      "quantity_mismatch": 0,
+      "timestamp_outside_raw_range": 0,
+      "total_base_quantity_mismatch": 0
+    },
+    "first_failing_aggregate_id": {},
+    "raw_rows_checked": 167388,
+    "total_base_quantity": {
+      "aggregate_minus_raw": "0.00000000",
+      "aggregate_trades": "134802016.10000000",
+      "matches_exactly": true,
+      "raw_trades": "134802016.10000000"
+    }
+  },
+  "sample_counts": {
+    "aggregate_trades": 35811,
+    "raw_trades": 167388,
+    "raw_trades_per_aggregate_trade": "4.6742062494764178604339448772723464857166792326380"
+  },
+  "timestamp": {
+    "all_timestamps_within_requested_utc_day": true,
+    "detected_unit": "microseconds",
+    "maximum_timestamp": 1789084790274431,
+    "minimum_timestamp": 1788998401625668,
+    "observed_decimal_digit_lengths": [
+      16
+    ],
+    "official_schema_note": "Binance public-data README states Spot timestamps from 2025-01-01 onward are microseconds.",
+    "requested_utc_day_bounds_microseconds": [
+      1788998400000000,
+      1789084800000000
+    ]
+  }
+}
