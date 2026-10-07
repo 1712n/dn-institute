@@ -1,0 +1,25 @@
+{
+  "archive_sha256": "3ea5b913d66d97df1e58102b5ff03b8e4f6e5165ee73b8a0b3bbb4f36cf84be9",
+  "parts": [
+    {
+      "path": "data-snapshot.zip.part00",
+      "size_bytes": 5242880,
+      "sha256": "ff0b449d1ebec55daf98b8b2e0634f215f3cdadd433748caff001d6706295613"
+    },
+    {
+      "path": "data-snapshot.zip.part01",
+      "size_bytes": 5242880,
+      "sha256": "1c412bc4017aa6159d250103eccacb9b0014058b42fba7543fdbe8d44c7ebf91"
+    },
+    {
+      "path": "data-snapshot.zip.part02",
+      "size_bytes": 5242880,
+      "sha256": "966b4fe08d1616f472c03b345874a8adf4c826f48a5025c4a6588260e27e69a0"
+    },
+    {
+      "path": "data-snapshot.zip.part03",
+      "size_bytes": 4381429,
+      "sha256": "4a453dc683bdaa37c7c28a879038c9d8f4909301f74e266d6b9b6de552a1dc44"
+    }
+  ]
+}

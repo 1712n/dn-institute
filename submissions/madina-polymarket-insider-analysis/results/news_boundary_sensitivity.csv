@@ -1,0 +1,10 @@
+cutoff_utc,window_hours,interpretation,eligible,max_score,base_top3_overlap,leading_wallet
+2026-01-03T00:00:00+00:00,24,conservative sensitivity,8,87.20034,2,0xa72db1749e9ac2379d49a3c12708325ed17febd4
+2026-01-03T03:00:00+00:00,24,conservative sensitivity,5,94.960011,2,0x31a56e9e690c621ed21de08cb559e9524cdb8ed9
+2026-01-03T04:00:00+00:00,24,conservative sensitivity,7,94.960011,3,0x31a56e9e690c621ed21de08cb559e9524cdb8ed9
+2026-01-03T05:00:00+00:00,24,main analysis,8,94.960011,3,0x31a56e9e690c621ed21de08cb559e9524cdb8ed9
+2026-01-03T05:30:00+00:00,24,closer to or after visible events; not a clean-news boundary,9,94.960011,3,0x31a56e9e690c621ed21de08cb559e9524cdb8ed9
+2026-01-03T06:00:00+00:00,24,closer to or after visible events; not a clean-news boundary,9,94.960011,2,0x31a56e9e690c621ed21de08cb559e9524cdb8ed9
+2026-01-03T07:30:00+00:00,24,closer to or after visible events; not a clean-news boundary,52,94.960011,2,0x31a56e9e690c621ed21de08cb559e9524cdb8ed9
+2026-01-03T05:00:00+00:00,12,window-length sensitivity,8,93.262733,3,0x31a56e9e690c621ed21de08cb559e9524cdb8ed9
+2026-01-03T05:00:00+00:00,48,window-length sensitivity,18,95.941382,3,0x31a56e9e690c621ed21de08cb559e9524cdb8ed9

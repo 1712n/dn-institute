@@ -1,0 +1,8 @@
+event,timestamp_utc,interpretation,source
+market_created,2025-12-11T21:44:09.295024Z,Gamma creation timestamp,data/maduro/raw/event_000.json
+main_cutoff,2026-01-03T05:00:00Z,Analytical margin; NOT earliest-public-news timestamp,analyze.py
+approximate_operation_boundary,2026-01-03T06:00:00Z,Reuters retrospective reconstruction; 01:00 EST; approximate,https://www.reuters.com/business/aerospace-defense/mock-house-cia-source-special-forces-us-operation-capture-maduro-2026-01-03/
+custody_market_created,2026-01-03T07:47:51.145417Z,Too late for pre-operation screening,data/custody/raw/event_000.json
+presidential_announcement,2026-01-03T09:21:00Z,Reuters reports 04:21 EST; already after operation began,https://www.reuters.com/business/aerospace-defense/mock-house-cia-source-special-forces-us-operation-capture-maduro-2026-01-03/
+visible_disturbances,2026-01-03T06:00:00Z,Approximate physical-event time reported by Reuters witnesses; not publication time,https://www.reuters.com/world/americas/shocked-venezuelans-hunker-down-unsure-what-comes-next-2026-01-03/
+contemporary_wire_dispatch,2026-01-03T07:30:00Z,Current Reuters page displays this UTC publication time; references earlier reports; earliest public report unverified,https://www.reuters.com/world/americas/trump-administration-aware-reported-explosions-venezuelan-capital-cbs-reporter-2026-01-03/
