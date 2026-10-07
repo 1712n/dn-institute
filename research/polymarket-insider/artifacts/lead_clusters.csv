@@ -1,0 +1,4 @@
+market_id,question,flagged_fills,distinct_wallets,total_flagged_notional_usd,first_flagged_fill_utc,last_flagged_fill_utc,max_trade_signal_score
+1570155,"US x Iran meeting by April 30, 2026?",17,10,9609.52,2026-03-21T18:42:19+00:00,2026-04-07T13:10:09+00:00,43.9
+1348353,Will the government shutdown last 1 day or more?,2,2,1384.27,2026-02-13T05:58:03+00:00,2026-02-13T05:58:31+00:00,37.6
+538292,Will Trump announce Kevin Hassett as next Fed Chair in 2025?,1,1,630.37,2025-12-02T16:57:00+00:00,2025-12-02T16:57:00+00:00,34.6

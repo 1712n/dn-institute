@@ -1,0 +1,13 @@
+selection_order,market_id,condition_id,question,scheduled_end_date_utc,resolution_time_utc,reported_volume_usd,resolved_outcome,retrieved_taker_trades,window_saturated
+1,1273909,0x26b9487d59e0907306b923d7d12553d2aac0fe379b243b1473014f5e8e4849b8,"Will the US next strike Iran on February 4, 2026 (ET)?",2026-02-28T00:00:00Z,2026-02-07T08:24:11+00:00,999004.6,No,3807,False
+2,1348353,0xb7b4de3e0320e86b89e92893a477da097b6e5dfa2b5c54cbc47f2791e5d2702e,Will the government shutdown last 1 day or more?,2026-03-14T00:00:00Z,2026-02-15T07:16:23+00:00,983793.64,No,3989,False
+3,523343,0xf3d74c153a35436ff82a5f78200104975c5841140ace763f2954adb340cca511,Ukraine election called in 2025?,2026-01-01T04:59:00Z,2026-01-01T09:11:37+00:00,982716.69,No,945,False
+4,1111180,0xdfaaf716c433747ae71bae5e78dfd4fdd0250d9cc348302376ae5baad52ca647,Trump invokes War Powers against Venezuela by January 9?,2025-12-31T00:00:00Z,2026-01-06T18:10:57+00:00,982231.39,Yes,1605,False
+5,948044,0x0258f47973df582d7e9b659ce402024ceb3354376d95c1ba035c89f0f161357c,Will the Momentum Movement (Momentum) win the most seats in the next Hungarian parliamentary election?,2026-04-12T00:00:00Z,2026-04-13T00:52:57+00:00,976956.76,No,3825,False
+6,669999,0xe3b11d4bdf2926eb9f27339b1b8ace1415a22742250569def18871b452858d72,No change in Bank of Japan's interest rates after January 2026 meeting?,2026-01-23T00:00:00Z,2026-01-23T06:38:36+00:00,968369.09,Yes,4937,False
+7,1570155,0x628e335a6cbec4b2dbcc89482fe594cb91f273318479e6930542d3cffc02f68f,"US x Iran meeting by April 30, 2026?",2026-04-30T00:00:00Z,2026-04-11T18:22:03+00:00,946175.8,Yes,5840,False
+8,551976,0xdab6eabf31fcde6a2daf55d074af0b0f56057073d67b76bd19201155e83d9ff3,Will Eric Adams win second place in the 2025 NYC mayoral election?,2025-11-04T23:55:00Z,2025-11-05T15:23:01+00:00,940555.14,No,19,False
+9,538292,0x700b422f79a08e5c31e6b05160cabb3d5e4f30f13d731c1a6056515e461a1f40,Will Trump announce Kevin Hassett as next Fed Chair in 2025?,2025-12-31T12:00:00Z,2026-01-01T09:20:43+00:00,933952.76,No,3217,False
+10,1230243,0xa3ff280965905d8b827dd573d14d8deaa6cc127709fc0658a10ac1879e8f9d56,Will Taro Kono be the Prime Minister of Japan as a result of the 2026 snap election?,2026-04-30T00:00:00Z,2026-02-18T17:21:42+00:00,933653.04,No,749,False
+11,1261054,0x360b5ab61e12806d96430a792f43d4c38fa7a33345c7c99db897accb59983db6,Will the government shutdown last 30 days or more?,2026-03-31T00:00:00Z,2026-02-04T00:16:52+00:00,933496.43,No,2545,False
+12,553610,0xfb5f415a77fb16d4a96d19909c86f93204b8835664f3bfa9af92a349e2d30a25,Will the Iranian regime survive U.S. military strikes?,2025-12-31T00:00:00Z,2026-01-01T08:50:49+00:00,927476.49,Yes,2456,False
