@@ -16,7 +16,7 @@ import re
 import statistics
 import time
 from collections import defaultdict
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -25,6 +25,19 @@ GAMMA = "https://gamma-api.polymarket.com/markets"
 TRADES = "https://data-api.polymarket.com/trades"
 START = datetime(2025, 11, 1, tzinfo=timezone.utc)
 END = datetime(2026, 5, 1, tzinfo=timezone.utc)
+# Gamma can filter scheduled endDate but not actual closedTime. Search a wider
+# scheduled window, then apply the stated analysis period to actual closure.
+SCHEDULED_LOOKUP_PAD = timedelta(days=90)
+GAMMA_PAGE_MAX_OFFSET = 2_000
+MIN_REPORTED_VOLUME = 900_000
+MAX_REPORTED_VOLUME = 3_000_000
+RAW_TRADE_FIELDS = (
+    "proxyWallet", "side", "asset", "conditionId", "size", "price", "timestamp",
+    "title", "slug", "eventSlug", "outcome", "outcomeIndex", "transactionHash",
+)
+FILL_ID_FIELDS = (
+    "transactionHash", "timestamp", "proxyWallet", "asset", "outcome", "side", "price", "size",
+)
 NEWS_TERMS = re.compile(
     r"president|prime minister|election|government|shutdown|tariff|fed |"
     r"interest rate|iran|ukraine|ceasefire|strike|war |congress|senate|"
@@ -79,31 +92,61 @@ def parse_json_field(value: str | list | None) -> list:
     return json.loads(value)
 
 
+def fill_identity(row: dict) -> tuple[str, ...]:
+    """Stable fill identity; a transaction may contain several same-second fills."""
+    return tuple(str(row.get(field, "")) for field in FILL_ID_FIELDS)
+
+
+def scheduled_windows() -> list[tuple[datetime, datetime]]:
+    """Monthly candidate windows keep Gamma pagination bounded and auditable."""
+    cursor, finish = START - SCHEDULED_LOOKUP_PAD, END + SCHEDULED_LOOKUP_PAD
+    windows = []
+    while cursor < finish:
+        next_month = (cursor.replace(day=28) + timedelta(days=4)).replace(day=1)
+        upper = min(next_month, finish)
+        windows.append((cursor, upper))
+        cursor = upper
+    return windows
+
+
 def selected_markets(limit: int) -> list[dict]:
     """Use a pre-declared topical filter, not a post-hoc winning-wallet filter."""
-    raw = []
-    # Gamma allows offset pagination. Five pages gives the policy filter a
-    # broader universe without turning this scoped challenge into a data lake.
-    # Gamma currently rejects offsets above 2,000 for this endpoint.
-    for offset in range(0, 2_001, 100):
-        page = fetch_json(
-            GAMMA,
-            {
-                "closed": "true",
-                "end_date_min": START.isoformat().replace("+00:00", "Z"),
-                "end_date_max": END.isoformat().replace("+00:00", "Z"),
-                "volume_num_min": 100_000,
-                "order": "volume",
-                "ascending": "false",
-                "limit": 100,
-                "offset": offset,
-            },
-        )
-        raw.extend(page)
-        if len(page) < 100:
-            break
+    raw_by_id = {}
+    # Gamma allows offset pagination, capped at 2,000. A dense scheduled-date
+    # bucket is bisected until its result set is fully retrievable.
+    def fetch_scheduled_window(scheduled_start: datetime, scheduled_end: datetime) -> None:
+        for offset in range(0, GAMMA_PAGE_MAX_OFFSET + 1, 100):
+            page = fetch_json(
+                GAMMA,
+                {
+                    "closed": "true",
+                    "end_date_min": scheduled_start.isoformat().replace("+00:00", "Z"),
+                    "end_date_max": scheduled_end.isoformat().replace("+00:00", "Z"),
+                    "volume_num_min": MIN_REPORTED_VOLUME,
+                    "volume_num_max": MAX_REPORTED_VOLUME,
+                    "order": "volume",
+                    "ascending": "false",
+                    "limit": 100,
+                    "offset": offset,
+                },
+            )
+            for market in page:
+                raw_by_id[str(market.get("id"))] = market
+            if len(page) < 100:
+                return
+        else:
+            if scheduled_end - scheduled_start <= timedelta(days=1):
+                raise RuntimeError(
+                    f"Gamma result cap reached even for {scheduled_start.date()}; refusing partial market discovery."
+                )
+            midpoint = scheduled_start + (scheduled_end - scheduled_start) / 2
+            fetch_scheduled_window(scheduled_start, midpoint)
+            fetch_scheduled_window(midpoint, scheduled_end)
+
+    for scheduled_start, scheduled_end in scheduled_windows():
+        fetch_scheduled_window(scheduled_start, scheduled_end)
     eligible = []
-    for market in raw:
+    for market in raw_by_id.values():
         question = market.get("question", "")
         outcomes, prices = parse_json_field(market.get("outcomes")), parse_json_field(market.get("outcomePrices"))
         resolved = len(outcomes) == len(prices) == 2 and sum(float(p) >= 0.99 for p in prices) == 1
@@ -115,7 +158,7 @@ def selected_markets(limit: int) -> list[dict]:
         if not (
             resolved
             and START <= resolved_at < END
-            and 100_000 <= volume <= 3_000_000
+            and MIN_REPORTED_VOLUME <= volume <= MAX_REPORTED_VOLUME
             and NEWS_TERMS.search(question)
             and not SPORTS_TERMS.search(question)
         ):
@@ -148,19 +191,23 @@ def trade_windows(market: dict) -> list[tuple[int, int]]:
 
 
 def fetch_market_trades(market: dict, page_size: int) -> tuple[list[dict], bool]:
-    rows, saturated = [], False
+    rows = []
     for start, end in trade_windows(market):
+        window_rows = []
         offset = 0
         while offset <= 10_000:
             page = fetch_json(TRADES, {"market": market["conditionId"], "start": start, "end": end, "limit": page_size, "offset": offset, "takerOnly": "true"})
-            rows.extend(page)
+            window_rows.extend(page)
             if len(page) < page_size:
                 break
             offset += page_size
         else:
-            saturated = True
-    unique = {row.get("transactionHash", "") + ":" + str(row.get("timestamp")) + ":" + str(row.get("proxyWallet")): row for row in rows}
-    return sorted(unique.values(), key=lambda r: (int(r["timestamp"]), r.get("transactionHash", ""))), saturated
+            # Do not score a market whose tape is incomplete in even one
+            # window: missing rows corrupt both price baselines and rankings.
+            return [], True
+        rows.extend(window_rows)
+    unique = {fill_identity(row): row for row in rows}
+    return sorted(unique.values(), key=lambda r: (int(r["timestamp"]), fill_identity(r))), False
 
 
 def winner(market: dict) -> str:
@@ -168,14 +215,17 @@ def winner(market: dict) -> str:
     return outcomes[max(range(len(prices)), key=lambda i: float(prices[i]))]
 
 
-def prior_prices(rows: list[dict]) -> dict[tuple[str, int], float]:
+def prior_prices(rows: list[dict]) -> dict[tuple[str, ...], float | None]:
     """Trailing 20-fill median per outcome; no future market information leaks in."""
     history: dict[str, list[float]] = defaultdict(list)
     baseline = {}
     for row in rows:
-        key = (row.get("transactionHash", ""), int(row["timestamp"]))
+        key = fill_identity(row)
         values = history[row["outcome"]]
-        baseline[key] = statistics.median(values[-20:]) if len(values) >= 5 else float(row["price"])
+        # The score uses exactly the documented preceding-20 median. Warm-up
+        # fills receive no dislocation component instead of borrowing their own
+        # price, which would disguise a different calculation.
+        baseline[key] = statistics.median(values[-20:]) if len(values) >= 20 else None
         values.append(float(row["price"]))
     return baseline
 
@@ -206,7 +256,7 @@ def score_rows(markets: list[dict], trades: list[dict]) -> tuple[list[dict], lis
             if row["side"] != "BUY" or row["outcome"] != final_outcome:
                 continue
             hours_to_end = max(0, (end_epoch - int(row["timestamp"])) / 3600)
-            pre_price = baseline[(row.get("transactionHash", ""), int(row["timestamp"]))]
+            pre_price = baseline[fill_identity(row)]
             # Components deliberately need both low implied probability and meaningful stake.
             # Below 50 cents, the eventual winner was still the market's
             # minority view. This is intentionally a screening threshold, not
@@ -216,7 +266,7 @@ def score_rows(markets: list[dict], trades: list[dict]) -> tuple[list[dict], lis
             # while still excluding ordinary long-horizon thesis positions.
             late = max(0, min(1, (168 - hours_to_end) / 168))
             stake = max(0, min(1, math.log10(max(notional, 1)) / 4))
-            dislocation = max(0, min(1, (price - pre_price) / 0.15))
+            dislocation = max(0, min(1, (price - pre_price) / 0.15)) if pre_price is not None else 0
             trade_score = 100 * (0.40 * cheap_winner + 0.25 * late + 0.20 * stake + 0.15 * dislocation)
             # A near-certain purchase minutes before resolution is normal exit
             # liquidity, not an informed low-probability bet. Require each
@@ -231,7 +281,7 @@ def score_rows(markets: list[dict], trades: list[dict]) -> tuple[list[dict], lis
                     "hours_to_resolution": round(hours_to_end, 2),
                     "outcome": row["outcome"],
                     "fill_price": round(price, 5),
-                    "pre_trade_median_price": round(pre_price, 5),
+                    "pre_trade_median_price": round(pre_price, 5) if pre_price is not None else "",
                     "shares": round(size, 4),
                     "notional_usd": round(notional, 2),
                     "score_cheap_winner": round(100 * cheap_winner, 1),
@@ -250,7 +300,8 @@ def score_rows(markets: list[dict], trades: list[dict]) -> tuple[list[dict], lis
             continue
         # Repeatability matters more than one fortuitous correct trade.
         top_signals = sorted(signals, key=lambda item: item["trade_signal_score"], reverse=True)[:5]
-        repeatability = min(100, 35 * (len({s["condition_id"] for s in signals}) - 1))
+        flagged_market_count = len({s["condition_id"] for s in signals})
+        repeatability = min(100, 35 * (flagged_market_count - 1))
         precision = 100 * stat["winner_buy_notional"] / stat["buy_notional"] if stat["buy_notional"] else 0
         score = 0.65 * statistics.mean(s["trade_signal_score"] for s in top_signals) + 0.20 * repeatability + 0.15 * min(100, precision)
         ranking.append({
@@ -258,7 +309,9 @@ def score_rows(markets: list[dict], trades: list[dict]) -> tuple[list[dict], lis
             "wallet": wallet,
             "investigation_priority_score": round(score, 1),
             "flagged_trade_count": len(signals),
-            "flagged_market_count": len({s["condition_id"] for s in signals}),
+            "flagged_market_count": flagged_market_count,
+            "corroborated_across_markets": flagged_market_count >= 2,
+            "assessment": "cross-market pattern" if flagged_market_count >= 2 else "single-market lead",
             "scoped_market_count": len(stat["markets"]),
             "winning_buy_notional_usd": round(stat["winner_buy_notional"], 2),
             "all_buy_notional_usd": round(stat["buy_notional"], 2),
@@ -273,13 +326,20 @@ def score_rows(markets: list[dict], trades: list[dict]) -> tuple[list[dict], lis
     return ranking, candidate_trades
 
 
+def spreadsheet_safe(value: object) -> object:
+    """Prevent spreadsheet apps evaluating public text fields as formulas."""
+    if isinstance(value, str) and value[:1] in ("=", "+", "-", "@"):
+        return "'" + value
+    return value
+
+
 def write_csv(path: Path, rows: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     keys = list(rows[0]) if rows else []
     with path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=keys, lineterminator="\n")
         writer.writeheader()
-        writer.writerows(rows)
+        writer.writerows([{key: spreadsheet_safe(value) for key, value in row.items()} for row in rows])
 
 
 def cluster_leads(candidates: list[dict]) -> list[dict]:
@@ -321,12 +381,16 @@ def main() -> None:
             "resolution_time_utc": resolution_time(market).isoformat(),
             "reported_volume_usd": round(float(market.get("volume") or 0), 2), "resolved_outcome": winner(market),
             "retrieved_taker_trades": len(rows), "window_saturated": saturated,
+            "retrieval_status": "incomplete_excluded" if saturated else "complete",
         })
         all_trades.extend(rows)
         print(f"[{number}/{len(markets)}] {market['id']}: {len(rows)} trades")
     ranked, candidates = score_rows(markets, all_trades)
     write_csv(args.output / "market_selection.csv", selection)
-    write_csv(args.output / "all_taker_trades.csv", all_trades)
+    # Keep evidence sufficient to reproduce every score while excluding
+    # display-name, bio and image fields that are unrelated to the analysis.
+    raw_evidence = [{field: row.get(field, "") for field in RAW_TRADE_FIELDS} for row in all_trades]
+    write_csv(args.output / "all_taker_trades.csv", raw_evidence)
     write_csv(args.output / "wallet_ranking.csv", ranked)
     write_csv(args.output / "candidate_trades.csv", candidates)
     write_csv(args.output / "lead_clusters.csv", cluster_leads(candidates))
@@ -334,6 +398,10 @@ def main() -> None:
         "generated_at_utc": datetime.now(timezone.utc).isoformat(), "analysis_window": [START.isoformat(), END.isoformat()],
         "market_count": len(markets), "trade_count": len(all_trades), "candidate_trade_count": len(candidates),
         "ranking_count": len(ranked), "api_sources": [GAMMA, TRADES],
+        "scheduled_lookup_pad_days": SCHEDULED_LOOKUP_PAD.days,
+        "csv_formula_escaping": "apostrophe-prefix for strings beginning = + - @",
+        "complete_market_count": sum(row["retrieval_status"] == "complete" for row in selection),
+        "incomplete_market_count": sum(row["retrieval_status"] != "complete" for row in selection),
     }
     (args.output / "run_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     checksums = []

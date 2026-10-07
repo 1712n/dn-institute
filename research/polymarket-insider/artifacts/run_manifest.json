@@ -1,15 +1,19 @@
 {
-  "generated_at_utc": "2026-10-07T09:52:17.689007+00:00",
+  "generated_at_utc": "2026-10-07T10:19:01.125893+00:00",
   "analysis_window": [
     "2025-11-01T00:00:00+00:00",
     "2026-05-01T00:00:00+00:00"
   ],
   "market_count": 12,
-  "trade_count": 33934,
-  "candidate_trade_count": 20,
-  "ranking_count": 13,
+  "trade_count": 64784,
+  "candidate_trade_count": 10,
+  "ranking_count": 8,
   "api_sources": [
     "https://gamma-api.polymarket.com/markets",
     "https://data-api.polymarket.com/trades"
-  ]
+  ],
+  "scheduled_lookup_pad_days": 90,
+  "csv_formula_escaping": "apostrophe-prefix for strings beginning = + - @",
+  "complete_market_count": 11,
+  "incomplete_market_count": 1
 }
