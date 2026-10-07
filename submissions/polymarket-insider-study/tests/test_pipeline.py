@@ -5,18 +5,37 @@ import hashlib
 import json
 import math
 import sys
+import tempfile
 import unittest
 import urllib.parse
 from collections import Counter
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
 from collect import collect_windows, epoch, read_json
 from analyze import rank, load_trades
+import collect
 
 
 class CollectionTests(unittest.TestCase):
+    def test_metadata_mismatch_stops_before_saving_or_collecting_trades(self):
+        cfg = read_json(ROOT / 'config.json')
+        events = [{'markets': [{'id': cfg['market_id'], 'conditionId': 'wrong'}]}]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'data').mkdir()
+            with (patch.object(collect, 'ROOT', root),
+                  patch.object(collect, 'read_json', return_value=cfg),
+                  patch.object(collect, 'Client') as client,
+                  patch.object(sys, 'argv', ['collect.py'])):
+                client.return_value.get.return_value = events
+                with self.assertRaisesRegex(ValueError, 'Market condition ID does not match config'):
+                    collect.main()
+                self.assertEqual(client.return_value.get.call_count, 1)
+                self.assertFalse((root / 'data/market.json').exists())
+
     def test_splitting_has_no_gaps_or_duplicate_boundaries(self):
         source = [{'timestamp': t} for t in range(13)]
         def fetch(p):

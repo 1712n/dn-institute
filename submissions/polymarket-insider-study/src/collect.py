@@ -150,7 +150,8 @@ def main():
         return
     events = client.get('https://gamma-api.polymarket.com/events', {'slug': cfg['event_slug']})
     market = next(m for e in events for m in e['markets'] if m['id'] == cfg['market_id'])
-    assert market['conditionId'] == cfg['condition_id']
+    if market['conditionId'] != cfg['condition_id']:
+        raise ValueError('Market condition ID does not match config')
     (ROOT / 'data/market.json').write_text(json.dumps(market, indent=2), encoding='utf-8')
     rows = collect_windows(lambda p: client.get('https://data-api.polymarket.com/trades', p),
         {'market': cfg['condition_id'], 'takerOnly': str(cfg['taker_only']).lower()},
