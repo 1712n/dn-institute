@@ -17,6 +17,100 @@ OUT = ROOT / 'results'
 PRIMARY = '0x580adc1327de9bf7c179ef5aaffa3377bb5cb252b7d6390b027172d43fd6f993'
 DAY = 86400
 
+CSV_FIELDS = {'duplicate_collapse_sensitivity.csv': ['wallet',
+                                        'eligible',
+                                        'score',
+                                        'buy_yes_notional',
+                                        'buy_yes_shares',
+                                        'yes_buy_vwap',
+                                        'baseline_7d_buy_yes_notional',
+                                        'net_directional_share_flow',
+                                        'net_yes_share_flow',
+                                        'size_factor',
+                                        'cheapness',
+                                        'burst',
+                                        'directionality',
+                                        'window_trade_rows',
+                                        'window_yes_buy_rows',
+                                        'first_observed_in_this_market_utc',
+                                        'eligibility_reason',
+                                        'history_scope',
+                                        'rank'],
+ 'event_timeline.csv': ['event', 'timestamp_utc', 'interpretation', 'source'],
+ 'hourly_activity.csv': ['hour_utc', 'rows', 'wallets', 'yes_buy_notional', 'yes_trade_vwap'],
+ 'market_coverage.csv': ['dataset',
+                         'condition_id',
+                         'question',
+                         'created_at',
+                         'pages',
+                         'rows',
+                         'wallets',
+                         'first_trade_utc',
+                         'last_trade_utc',
+                         'hashes_match',
+                         'cursor_exhausted',
+                         'csv_reconciled'],
+ 'news_boundary_sensitivity.csv': ['cutoff_utc',
+                                   'window_hours',
+                                   'interpretation',
+                                   'eligible',
+                                   'max_score',
+                                   'base_top3_overlap',
+                                   'leading_wallet'],
+ 'placebo_windows.csv': ['cutoff_utc',
+                         'days_before_event',
+                         'eligible',
+                         'max_score',
+                         'score_ge_70',
+                         'score_ge_80'],
+ 'primary_trades.csv': ['evidence_id',
+                        'proxy_wallet',
+                        'condition_id',
+                        'token_id',
+                        'side',
+                        'size',
+                        'price',
+                        'timestamp',
+                        'outcome',
+                        'transaction_hash'],
+ 'sensitivity_ranks.csv': ['scenario', 'wallet', 'rank', 'score'],
+ 'sensitivity_summary.csv': ['scenario',
+                             'cutoff_utc',
+                             'eligible',
+                             'top10_overlap',
+                             'max_score',
+                             'score_ge_70'],
+ 'top_wallet_related_markets.csv': ['wallet', 'question', 'rows_before_cutoff', 'buy_yes_notional'],
+ 'top_wallet_window_trades.csv': ['evidence_id',
+                                  'proxy_wallet',
+                                  'condition_id',
+                                  'token_id',
+                                  'side',
+                                  'size',
+                                  'price',
+                                  'timestamp',
+                                  'outcome',
+                                  'transaction_hash'],
+ 'wallet_ranking.csv': ['wallet',
+                        'eligible',
+                        'score',
+                        'buy_yes_notional',
+                        'buy_yes_shares',
+                        'yes_buy_vwap',
+                        'baseline_7d_buy_yes_notional',
+                        'net_directional_share_flow',
+                        'net_yes_share_flow',
+                        'size_factor',
+                        'cheapness',
+                        'burst',
+                        'directionality',
+                        'window_trade_rows',
+                        'window_yes_buy_rows',
+                        'first_observed_in_this_market_utc',
+                        'eligibility_reason',
+                        'history_scope',
+                        'rank']}
+
 
 def ts(s):
     return int(dt.datetime.fromisoformat(s.replace('Z', '+00:00')).timestamp())
@@ -33,7 +127,11 @@ END = ts('2026-05-02T00:00:00Z')
 
 def write_csv(name, rows, fields=None):
     rows = list(rows)
-    fields = fields or list(rows[0])
+    fields = fields or CSV_FIELDS.get(name)
+    if fields is None:
+        if not rows:
+            raise ValueError('CSV fields required for empty output: ' + name)
+        fields = list(rows[0])
     with (OUT / name).open('w', newline='', encoding='utf-8') as f:
         w = csv.DictWriter(f, fieldnames=fields, extrasaction='ignore')
         w.writeheader(); w.writerows(rows)
@@ -80,8 +178,8 @@ def load_verified(label):
         coverage.append(dict(dataset=label, condition_id=m['condition_id'], question=m['question'],
             created_at=m['created_at'], pages=m['pages'], rows=len(rows),
             wallets=len({r['proxy_wallet'] for r in rows}),
-            first_trade_utc=iso(min(r['timestamp'] for r in rows)),
-            last_trade_utc=iso(max(r['timestamp'] for r in rows)),
+            first_trade_utc=iso(min(r['timestamp'] for r in rows)) if rows else '',
+            last_trade_utc=iso(max(r['timestamp'] for r in rows)) if rows else '',
             hashes_match=True, cursor_exhausted=True, csv_reconciled=True))
     return raw_rows, coverage
 

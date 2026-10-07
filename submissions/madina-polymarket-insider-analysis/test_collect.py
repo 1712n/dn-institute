@@ -38,6 +38,13 @@ class CollectorTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             collect_market('0xmarket', lambda _: (payload, b'{}'), lambda *a: None, 1)
 
+    def test_missing_cursor_is_not_a_terminal_page(self):
+        for pagination in [{}, {'has_more': False}, {'has_more': True}]:
+            with self.subTest(pagination=pagination):
+                payload = {'data': [row()], 'pagination': pagination}
+                with self.assertRaisesRegex(ValueError, 'Missing next_cursor'):
+                    collect_market('0xmarket', lambda _: (payload, b'{}'), lambda *a: None, 2)
+
     def test_wrong_market_and_invalid_price_fail(self):
         with self.assertRaises(ValueError):
             check_row(row(), 'other')

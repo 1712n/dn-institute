@@ -9,99 +9,15 @@
   },
   {
     "path": "REPORT.md",
-    "sha256": "39d9530e9a15e67b980cedf95a56ff70f31f9542adfd696716d6c352cc04b6ad"
+    "sha256": "90619eb6f0407c1df6687474fae7fe65b2f330d1eaf4bbb15ddb83680eca541e"
   },
   {
     "path": "analyze.py",
-    "sha256": "5927376d7975d106c5dc423d1dcd0d2ad695206ef4a38d3b82e9531f862520c0"
+    "sha256": "3ba27b350e01b55be6835138536c62019689954ab95eb1f7ed2bd1e332f1e6cf"
   },
   {
     "path": "collect.py",
-    "sha256": "32a8d9a4520678156ced994aabdb0b6e527d336c03424a44ff46677677e82dc1"
-  },
-  {
-    "path": "prepare_data.py",
-    "sha256": "8c59b8e8e6982ff0f534ec3ef78e48bf6659bd65b639235c5103734bd4ec6678"
-  },
-  {
-    "path": "results/duplicate_collapse_sensitivity.csv",
-    "sha256": "31618f4c3ac1b997952fa4d60f7d603c8e218ee1ece5c9c8a51b4c8e84548da2"
-  },
-  {
-    "path": "results/event_timeline.csv",
-    "sha256": "a551514a3d2d20ec32cee8132f826d618c90950508d8f94dc689fc492c6ea057"
-  },
-  {
-    "path": "results/hourly_activity.csv",
-    "sha256": "77e53a2f82d277b4653d0561fe3dd8fa686ab5e0c759e0f7383b2c3ee0b743cc"
-  },
-  {
-    "path": "results/market_coverage.csv",
-    "sha256": "84b9266993010b726865b1b107ae814a5525ece15261c144886b22179f0e501a"
-  },
-  {
-    "path": "results/news_boundary_sensitivity.csv",
-    "sha256": "0f31a64484b106bc2bc1e6696f1cf8f4af1b0b1b48b73d2aba11b8a4748dabc9"
-  },
-  {
-    "path": "results/placebo_windows.csv",
-    "sha256": "94ae5a6d8ec052882826b7e6086b9900a32654d3470e38d3a976cbb76ba007dd"
-  },
-  {
-    "path": "results/primary_trades.csv",
-    "sha256": "a8f3e74115392e71761e5e5b1896d006486ab74a5327247d5d5553ec013e9073"
-  },
-  {
-    "path": "results/sensitivity_ranks.csv",
-    "sha256": "938224e00e676775b0827595f9cbf7b049e518836615b4a877d28954e571e6d5"
-  },
-  {
-    "path": "results/sensitivity_summary.csv",
-    "sha256": "e84e34ba2e2e78cfa6530378db917a79ce3d503ed3f34bb20b3dcedb7a044353"
-  },
-  {
-    "path": "results/summary.json",
-    "sha256": "88398f5160ca3b02eb3e1683bc60a42a8905b3073c0fdf950f5d5dc258de43a4"
-  },
-  {
-    "path": "results/top_wallet_related_markets.csv",
-    "sha256": "94a6e5a567ea969529d05b61ad55bd2354de99e83b8383c5aee6cd4a9944450f"
-  },
-  {
-    "path": "results/top_wallet_window_trades.csv",
-    "sha256": "2cecdb865ecb694be500663042bfca97e707453c3f9c2baba4a67d379bf0f932"
-  },
-  {
-    "path": "results/wallet_ranking.csv",
-    "sha256": "c186aec935dda7122492220f6a142c72f864f6d253366fb9a128e211f0e331d9"
-  },
-  {
-    "path": "snapshot/data-snapshot.zip.part00",
-    "sha256": "ff0b449d1ebec55daf98b8b2e0634f215f3cdadd433748caff001d6706295613"
-  },
-  {
-    "path": "snapshot/data-snapshot.zip.part01",
-    "sha256": "1c412bc4017aa6159d250103eccacb9b0014058b42fba7543fdbe8d44c7ebf91"
-  },
-  {
-    "path": "snapshot/data-snapshot.zip.part02",
-    "sha256": "966b4fe08d1616f472c03b345874a8adf4c826f48a5025c4a6588260e27e69a0"
-  },
-  {
-    "path": "snapshot/data-snapshot.zip.part03",
-    "sha256": "4a453dc683bdaa37c7c28a879038c9d8f4909301f74e266d6b9b6de552a1dc44"
-  },
-  {
-    "path": "snapshot/manifest.json",
-    "sha256": "3e80bd9da00066eb3f2c6fa6a2d5d0053d96722259cdec3f2d7cde92b317fd3c"
-  },
-  {
-    "path": "test_analysis.py",
-    "sha256": "1b02aa8dd44279a3b4f69f82cbcb983c28ba4fe86e08860b72e95fcf7edc4b53"
-  },
-  {
-    "path": "test_collect.py",
-    "sha256": "ff575d270bda5646eea72f8e639ed39014baca7ac2638704cc3f39208d3d05a0"
+    "sha256": "e8162c71aa507815273c1dcca221001b4a89ec2cd71948aa7196493f671b156a"
   },
   {
     "path": "data/custody/manifest.json",
@@ -1038,5 +954,89 @@
   {
     "path": "data/maduro/trades.csv",
     "sha256": "21b08207288168c9fb46d7be164d7b47c456fd078a39e514305f3c72c3084cbf"
+  },
+  {
+    "path": "prepare_data.py",
+    "sha256": "8c59b8e8e6982ff0f534ec3ef78e48bf6659bd65b639235c5103734bd4ec6678"
+  },
+  {
+    "path": "results/duplicate_collapse_sensitivity.csv",
+    "sha256": "31618f4c3ac1b997952fa4d60f7d603c8e218ee1ece5c9c8a51b4c8e84548da2"
+  },
+  {
+    "path": "results/event_timeline.csv",
+    "sha256": "a551514a3d2d20ec32cee8132f826d618c90950508d8f94dc689fc492c6ea057"
+  },
+  {
+    "path": "results/hourly_activity.csv",
+    "sha256": "77e53a2f82d277b4653d0561fe3dd8fa686ab5e0c759e0f7383b2c3ee0b743cc"
+  },
+  {
+    "path": "results/market_coverage.csv",
+    "sha256": "84b9266993010b726865b1b107ae814a5525ece15261c144886b22179f0e501a"
+  },
+  {
+    "path": "results/news_boundary_sensitivity.csv",
+    "sha256": "0f31a64484b106bc2bc1e6696f1cf8f4af1b0b1b48b73d2aba11b8a4748dabc9"
+  },
+  {
+    "path": "results/placebo_windows.csv",
+    "sha256": "94ae5a6d8ec052882826b7e6086b9900a32654d3470e38d3a976cbb76ba007dd"
+  },
+  {
+    "path": "results/primary_trades.csv",
+    "sha256": "a8f3e74115392e71761e5e5b1896d006486ab74a5327247d5d5553ec013e9073"
+  },
+  {
+    "path": "results/sensitivity_ranks.csv",
+    "sha256": "938224e00e676775b0827595f9cbf7b049e518836615b4a877d28954e571e6d5"
+  },
+  {
+    "path": "results/sensitivity_summary.csv",
+    "sha256": "e84e34ba2e2e78cfa6530378db917a79ce3d503ed3f34bb20b3dcedb7a044353"
+  },
+  {
+    "path": "results/summary.json",
+    "sha256": "88398f5160ca3b02eb3e1683bc60a42a8905b3073c0fdf950f5d5dc258de43a4"
+  },
+  {
+    "path": "results/top_wallet_related_markets.csv",
+    "sha256": "94a6e5a567ea969529d05b61ad55bd2354de99e83b8383c5aee6cd4a9944450f"
+  },
+  {
+    "path": "results/top_wallet_window_trades.csv",
+    "sha256": "2cecdb865ecb694be500663042bfca97e707453c3f9c2baba4a67d379bf0f932"
+  },
+  {
+    "path": "results/wallet_ranking.csv",
+    "sha256": "c186aec935dda7122492220f6a142c72f864f6d253366fb9a128e211f0e331d9"
+  },
+  {
+    "path": "snapshot/data-snapshot.zip.part00",
+    "sha256": "ff0b449d1ebec55daf98b8b2e0634f215f3cdadd433748caff001d6706295613"
+  },
+  {
+    "path": "snapshot/data-snapshot.zip.part01",
+    "sha256": "1c412bc4017aa6159d250103eccacb9b0014058b42fba7543fdbe8d44c7ebf91"
+  },
+  {
+    "path": "snapshot/data-snapshot.zip.part02",
+    "sha256": "966b4fe08d1616f472c03b345874a8adf4c826f48a5025c4a6588260e27e69a0"
+  },
+  {
+    "path": "snapshot/data-snapshot.zip.part03",
+    "sha256": "4a453dc683bdaa37c7c28a879038c9d8f4909301f74e266d6b9b6de552a1dc44"
+  },
+  {
+    "path": "snapshot/manifest.json",
+    "sha256": "3e80bd9da00066eb3f2c6fa6a2d5d0053d96722259cdec3f2d7cde92b317fd3c"
+  },
+  {
+    "path": "test_analysis.py",
+    "sha256": "b4fcce7e9c242d70321f8fc61e212250ad98d43f87501c4db803911ad2fa899d"
+  },
+  {
+    "path": "test_collect.py",
+    "sha256": "3d3cfd76900291336dd63c506cdf21ff4f6f0166153ff383caa880c72604f7bd"
   }
 ]

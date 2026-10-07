@@ -69,7 +69,9 @@ def collect_market(condition, fetch, save, max_pages):
         if not isinstance(batch, list) or not isinstance(pagination, dict):
             raise ValueError('Unexpected response envelope')
         rows.extend(row for row in batch if check_row(row, condition))
-        cursor = pagination.get('next_cursor')
+        if 'next_cursor' not in pagination:
+            raise ValueError('Missing next_cursor in pagination')
+        cursor = pagination['next_cursor']
         if cursor is None:
             if pagination.get('has_more') is True:
                 raise ValueError('has_more without a cursor')

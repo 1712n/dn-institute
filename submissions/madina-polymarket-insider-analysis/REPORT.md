@@ -120,6 +120,6 @@ The strongest next step is to reconstruct full histories and on-chain flows for 
 
 ## Reproduction and provenance
 
-Run `python3 -m unittest -v` and `python3 analyze.py`; see [README.md](README.md). Fourteen tests cover pagination, date boundaries, wrong-market data, future-data exclusion, offsetting flows, trade splitting, baseline effects and eligibility. The analysis executes hash/cursor/CSV reconciliation on real inputs. Synthetic test records never enter results.
+Run `python3 -m unittest -v` and `python3 analyze.py`; see [README.md](README.md). Seventeen tests cover pagination, date boundaries, wrong-market data, future-data exclusion, offsetting flows, trade splitting, baseline effects, eligibility, empty markets and zero-candidate exports. The analysis executes hash/cursor/CSV reconciliation on real inputs. Synthetic test records never enter results.
 
 API contract: [Polymarket Data API v2 trades](https://docs.polymarket.com/api-reference/feeds/list-trades). Market metadata: archived Gamma responses under `data/*/raw/event_000.json`. All record-level findings above are computed from the supplied snapshot, with candidate transactions in `results/top_wallet_window_trades.csv`. 
