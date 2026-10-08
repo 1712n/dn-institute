@@ -16,4 +16,12 @@ python code/11_crosscheck.py out/wallet_ranking.csv raw/markets.json raw/trades 
 python code/12_polymarket_pnl.py out/wallet_ranking_cashflow.csv out/markets_scope.csv raw/closed_cache.json out/wallet_ranking_pm.csv
 ```
 
+The post's `data/` holds the final outputs under shorter names:
+
+```bash
+cp out/wallet_ranking_pm.csv data/wallet_ranking.csv
+cp out/markets_scope.csv out/null_calibration.csv data/
+cp out/baseline.json data/freshness_baseline.json
+```
+
 `03_scope.py` is imported by the others. `04_trades.py` is the slow step and resumes from `raw/trades/manifest.json`. The trade tapes (about 140 MB) are not committed. Results from a later run can differ slightly: the APIs return live data and the null and baseline use fixed seeds over that data.

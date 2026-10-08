@@ -68,7 +68,7 @@ def wallet_market_rows(df, market, event_slug):
             "first_ts": g["timestamp"].min(), "last_ts": g["timestamp"].max(),
             "usd_cheap_pre_res": g.loc[(g["price"] <= CHEAP) & (g["lead_h"] <= LEAD_WINDOW_H)
                                        & (g["lead_h"] >= 0), "usd"].sum() if is_win else 0.0,
-            "median_lead_h": float(np.average(g["lead_h"], weights=g["usd"])) if cost > 0 else np.nan,
+            "usd_weighted_lead_h": float(np.average(g["lead_h"], weights=g["usd"])) if cost > 0 else np.nan,
         })
     return rows
 

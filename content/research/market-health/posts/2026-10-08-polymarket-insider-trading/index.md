@@ -1,6 +1,6 @@
 ---
 title: "Insider trading on Polymarket: 69 flagged wallets in 660 resolved markets, half of them in Iran war markets"
-description: "A wallet-level screen of 660 resolved non-sports Polymarket markets from November 2025 to May 2026. It flags 69 wallets that bought the winning side cheaply shortly before resolution, and it finds the account NPR reported for the Maduro trade without being told about it. Profit alone cannot be told apart from luck here. The flag is on a trading pattern, not on any person."
+description: "A wallet-level screen of 660 resolved non-sports Polymarket markets from November 2025 to May 2026. It ranks 69 wallets on profit against luck, cheap buying before resolution, focus and account age, and it finds the account NPR reported for the Maduro trade without being told about it. Profit alone cannot be told apart from luck here. The flag is on a trading pattern, not on any person."
 date: 2026-10-08
 entities:
   - Polymarket
@@ -42,15 +42,15 @@ A wallet enters the ranking if it spent at least $10,000, made a profit, has a z
 
 ## Profit against luck
 
-To test the edge signal, every bet was replayed 20 times as a coin flip at its own price, and the same filter was applied.
+To test the edge signal, every position was replayed 20 times at fair odds, one winning side per wallet and market, and the same filter was applied to the same wallets.
 
 | z at least | wallets observed | expected by luck |
 |---|---|---|
-| 2 | 69 | 97 |
-| 3 | 9 | 20 |
-| 4 | 1 | 7 |
+| 2 | 69 | 105 |
+| 3 | 9 | 31 |
+| 4 | 1 | 15 |
 
-Fewer wallets clear each bar than luck alone would produce. The replay treats each bet as independent while real wallets hold related bets, so the comparison is rough, but it is enough to show that a profit record does not identify an insider here. The ranking leans on timing and price for that reason.
+Fewer wallets clear each bar than luck alone would produce. Part of the gap is that cheap outcomes in these markets won less often than their price: by dollar weight, bets bought near 5 cents won 2.5% of the time. A fair-price replay hands cheap-side buyers more wins than they really get. Either way, a profit record does not identify an insider here, and the ranking leans on timing and price for that reason.
 
 {{< figure src="edge-distribution.png" alt="Histogram of the edge z score across wallets, log scale" caption="Edge z score across wallets that spent at least $10,000. Source: code/06_score.py." >}}
 

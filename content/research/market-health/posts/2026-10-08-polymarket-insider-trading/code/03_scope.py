@@ -14,6 +14,8 @@ def in_scope(markets, tags):
         ev = (m.get("events") or [None])[0]
         if not ev:
             continue
+        if ev["id"] not in tags:
+            raise KeyError(f"event {ev['id']} has no tags; rerun 02_event_tags.py")
         tg = set(tags[ev["id"]]["tags"])
         if tg & EXCLUDE_TAGS:
             continue

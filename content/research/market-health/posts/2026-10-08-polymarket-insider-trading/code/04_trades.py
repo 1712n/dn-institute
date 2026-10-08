@@ -33,13 +33,17 @@ S.headers["User-Agent"] = "Mozilla/5.0"
 
 def get(params):
     for attempt in range(6):
-        r = S.get(URL, params=params, timeout=90)
+        try:
+            r = S.get(URL, params=params, timeout=90)
+        except requests.RequestException:
+            time.sleep(2 ** attempt)
+            continue
         if r.status_code == 200:
             return r.json()
         if r.status_code == 400 and "offset" in r.text:
             return None
         time.sleep(2 ** attempt)
-    r.raise_for_status()
+    raise RuntimeError(f"trades request failed six times: {params}")
 
 
 def pull(cid, extra):

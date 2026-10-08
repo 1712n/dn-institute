@@ -36,11 +36,15 @@ def closed_positions(wallet):
 
 
 def profile(wallet):
-    r = S.get("https://gamma-api.polymarket.com/public-profile", params={"address": wallet}, timeout=60)
-    if r.status_code != 200:
-        return {}
-    j = r.json()
-    return {"pseudonym": j.get("pseudonym"), "created_at": j.get("createdAt")}
+    for attempt in range(6):
+        r = S.get("https://gamma-api.polymarket.com/public-profile", params={"address": wallet}, timeout=60)
+        if r.status_code == 200:
+            j = r.json()
+            return {"pseudonym": j.get("pseudonym"), "created_at": j.get("createdAt")}
+        if r.status_code == 404:  # wallet never set up a public profile
+            return {"pseudonym": None, "created_at": None}
+        time.sleep(2 ** attempt)
+    r.raise_for_status()
 
 
 def main(ranking_path, markets_path, cache_path, out):
@@ -51,6 +55,12 @@ def main(ranking_path, markets_path, cache_path, out):
         if wallet not in cache:
             cache[wallet] = closed_positions(wallet)
             json.dump(cache, open(cache_path, "w"))
+    profiles_path = cache_path + ".profiles.json"
+    profiles = json.load(open(profiles_path)) if os.path.exists(profiles_path) else {}
+    for wallet in rank["wallet"]:
+        if wallet not in profiles:
+            profiles[wallet] = profile(wallet)
+            json.dump(profiles, open(profiles_path, "w"))
     rows = []
     for wallet in rank["wallet"]:
         pos = [p for p in cache[wallet] if p["conditionId"] in scoped]
@@ -59,7 +69,7 @@ def main(ranking_path, markets_path, cache_path, out):
                      "pm_cost": sum(p["totalBought"] * p["avgPrice"] for p in pos),
                      "pm_positions": len(pos),
                      "pm_realized_pnl_all_markets": sum(p["realizedPnl"] for p in cache[wallet]),
-                     **profile(wallet)})
+                     **profiles[wallet]})
     t = rank.merge(pd.DataFrame(rows), on="wallet", how="left")
     created = (pd.to_datetime(t["created_at"], utc=True) - pd.Timestamp(0, tz="UTC")).dt.total_seconds()
     t["days_since_profile_created"] = (t["first_buy_ts"] - created) / 86400
@@ -67,7 +77,8 @@ def main(ranking_path, markets_path, cache_path, out):
     t.round(4).to_csv(out, index=False)
     print("held", round(t["pnl"].sum()), "cashflow", round(t["cashflow_pnl"].sum()),
           "polymarket", round(t["pm_realized_pnl"].sum()))
-    print("pm pnl <= 0:", int((t["pm_realized_pnl"] <= 0).sum()), "median tape cover", round(t["tape_cover"].median(), 3))
+    print("pm pnl <= 0:", int((t["pm_realized_pnl"] <= 0).sum()), "median tape cover", round(t["tape_cover"].median(), 3),
+          "no profile date:", int(t["created_at"].isna().sum()))
 
 
 if __name__ == "__main__":

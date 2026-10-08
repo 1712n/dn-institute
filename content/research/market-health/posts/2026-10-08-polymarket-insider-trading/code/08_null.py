@@ -1,8 +1,9 @@
 """How many wallets would clear the same bars by luck alone?
 
-Each wallet-market bet is redrawn as a Bernoulli trial that wins with probability equal to the
-wallet's own average entry price (fair prices, no information). The wallet table is rebuilt from
-the redrawn outcomes and the share of wallets above each z threshold is compared with the real one.
+Each wallet-market position is redrawn at fair prices: one outcome per wallet and market, won with
+probability equal to the wallet's average entry price on the side it first bought. A wallet that
+holds both sides gets the opposite outcome on its other side, so exactly one side wins. The real
+market-maker flag is kept, so the null counts the same population as the real run.
 """
 import os
 import sys
@@ -19,17 +20,26 @@ DRAWS = 20
 THRESHOLDS = (2, 3, 4, 5)
 
 
+def redraw(wm, rng):
+    sim = wm.sort_values(["wallet", "conditionId", "first_ts"]).copy()
+    first = ~sim.duplicated(["wallet", "conditionId"])
+    p = sim.loc[first, "avg_price"].to_numpy()
+    lead_wins = pd.Series(rng.random(len(p)) < p, index=sim.index[first])
+    lead = lead_wins.reindex(sim.index).ffill().astype(bool)
+    sim["won"] = np.where(first, lead, ~lead)
+    return sim
+
+
 def main(wm_path, out):
     wm = pd.read_csv(wm_path)
     real = score.wallet_table(wm)
     real = real[(real["cost"] >= score.MIN_COST) & ~real["market_maker"]]
+    keep = set(real["wallet"])
     rng = np.random.default_rng(7)
     rows = []
     for d in range(DRAWS):
-        sim = wm.copy()
-        sim["won"] = rng.random(len(sim)) < sim["avg_price"]
-        w = score.wallet_table(sim)
-        w = w[(w["cost"] >= score.MIN_COST) & ~w["market_maker"]]
+        w = score.wallet_table(redraw(wm, rng))
+        w = w[w["wallet"].isin(keep)]
         rows.append({t: int(((w["z_edge"] >= t) & (w["pnl"] > 0)).sum()) for t in THRESHOLDS})
     null = pd.DataFrame(rows)
     table = pd.DataFrame({
