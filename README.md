@@ -1,34 +1,100 @@
-Distributed Networks Institute (DNI) aims to help infrastructure resilience and financial health of distributed networks through scientific, engineering, and educational efforts. We are a part of a 501(c)3 non-profit incubator in Washington, DC called [BlockShop](https://blockshop.org/). Constantly on the lookout for talent, we encourage anyone to contribute code, market analysis, and engineering expertise to one of our active projects. Multiple research grants and [code bounties](https://github.com/1712n/dn-institute/labels/%F0%9F%92%B0%20bounty) are available.
+[README.md](https://github.com/user-attachments/files/33222207/README.md)
+# Polymarket Potential Informed Trading Analysis
 
-## 🏆 Challenge Program
+## Overview
 
-[![Challenge Program Video](https://blockshopdc.com/static/assets/images/challenge.jpg)](https://link.hygge.work/MayaVick_Challenge)
+This project investigates potential informed trading behavior on Polymarket using publicly available market and trade data.
 
-We maintain a list of real-world problems we work on to give interested individuals a chance to prove themselves, learn a bit about us, and boost their GitHub profiles in the process. The challenge program was so successful for some teams, that they made solving a challenge a hard requirement for joining them. Our challenges are extremely independent and will require you to manage your own time and work process. Check out the [success stories](https://www.instagram.com/explore/tags/challenge_successstory/) of the challenge winners.
+The goal is not to prove insider trading, but to identify wallets whose trading behavior may deserve further investigation.
 
-### General rules
+## Research Period
 
-- Anyone can participate in a challenge. You do not need anyone's approval to start working or to submit your results.
-- Some challenges are paid and have bounties attached to them. When you complete a bounty task, please message bounty-payout@dn.institute with a link to your merged pull request and a Bitcoin or an altcoin address to get paid. We pay all bounties at the end of each month and close tasks as soon as we get enough good quality submissions that fulfill all the requirements.
-- By participating in the Challenge Program, you agree to let challenge creators use any and all work submitted for any internal or external purposes.
+**November 1, 2025 – May 1, 2026**
 
-### Navigating and Working with the Tasks
+## Data
 
-- In the [issue list](https://github.com/1712n/dn-institute/issues), you'll find a list of tasks that are currently available.
-- You are free to start working on any open challenge issue whenever you want.
-- For highly complex tasks, we are willing to lock individual issues for qualified candidates to make sure no one else is working on it. For that, please comment in the issue and email challenge@blockshop.org with your CV/profile. We'll review your request and assign the issue exclusively to you.
-- To be alerted whenever we create new tasks, please click "👁 Watch" and "☆ Star" in the upper right corner.
+The analysis uses public Polymarket data from:
 
-## 🌱 Giving Back
+- Gamma API — market metadata and resolution information
+- Data API — historical trade data
 
-### 🔬 Research
+There were **1,161 markets** closed during the research period.
 
-DNI has a growing scientific research team, focused on the application of Large Language Models to risk modeling. If you are interested in gaining relevant skills while publishing scientific papers along the way, solve one of the [NLP challenges](https://github.com/1712n/dn-institute/labels/nlp) and mention your interest in joining the research team. Multiple research grants are available!
+To keep the analysis manageable, the research focused on the **30 markets with the highest trading volume**.
 
-### 🧑‍🎓 Training
+This resulted in approximately **1.33 million historical trades** and **383,615 trades** within the research period.
 
-We are happy to train anyone willing to learn our tools. Show initiative by contributing to one of the [open issues](https://github.com/1712n/dn-institute/issues) and mention in your pull request that you want to be considered for any training opportunities they might have available.
+## Methodology
 
-### 🎖️ Veterans
+Wallets were screened using several simple and explainable signals:
 
-Our diverse community includes military veterans from a wide variety of backgrounds. If you are in the process of getting out of the U.S. military, check out our SkillBridge program. Whether you qualify as eligible U.S. military personnel, or served in the armed forces of another country, solve one of the challenges and/or reach out to [@jhirschkorn](https://github.com/jhirschkorn).
+1. **Winning outcome** — the wallet bought the outcome that eventually won.
+2. **Timing** — the purchase was made 6–72 hours before market resolution.
+3. **Trade size** — the position was at least $1,000.
+4. **Price movement** — the price moved in the wallet's favor during the following 6 hours.
+5. **Repeatability** — similar behavior appeared across multiple markets.
+6. **Bot-like activity** — wallets with extremely frequent trading were treated with lower priority.
+
+The final ranking is an investigation-priority ranking, not a probability of insider trading.
+
+## Main Findings
+
+The analysis identified several wallets with behavior that may be consistent with potentially informed trading.
+
+The main candidates were:
+
+1. `0x24c8...`
+2. `0x7c3d...`
+3. `0xd218...`
+4. `0x0c4b...`
+5. `0xbacd...`
+
+No wallet was classified as a confirmed insider.
+
+The full reasoning and limitations are described in `report.md`.
+
+## Repository Structure
+
+```text
+├── README.md
+├── report.md
+├── analysis.ipynb
+└── artifacts/
+    ├── top_markets.csv
+    ├── wallet_ranking.csv
+    ├── suspicious_trades.csv
+    └── top5_investigation_trades.csv
+```
+
+### Artifacts
+
+- `top_markets.csv` — the 30 markets included in the analysis.
+- `wallet_ranking.csv` — ranked wallets and their main metrics.
+- `suspicious_trades.csv` — trades matching the main screening criteria.
+- `top5_investigation_trades.csv` — detailed trades for the five main candidates.
+
+## Reproducibility
+
+The complete analysis is available in `analysis.ipynb`.
+
+The notebook contains the steps used to:
+
+1. collect market data;
+2. select the top 30 markets;
+3. collect historical trades;
+4. filter trades to the research period;
+5. determine winning outcomes;
+6. calculate timing and price-movement metrics;
+7. rank wallets;
+8. inspect the highest-priority candidates.
+
+## Limitations
+
+This is a retrospective screening analysis based only on public data.
+
+Correctly predicting an outcome does not prove insider trading. Price movement after a trade is also not the same as realized profit.
+
+The selected markets are not fully independent, and some wallets may be professional traders, arbitrageurs, or automated strategies rather than insiders.
+
+Therefore, the results should be interpreted as a **shortlist for further investigation**, not as proof of misconduct.
+<!-- Final research submission -->
