@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+/data/prepared/history_fills.csv
+/data/prepared/history_trades.csv
+validation.log
+*.csv.tmp

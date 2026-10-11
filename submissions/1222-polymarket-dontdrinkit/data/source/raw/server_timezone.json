@@ -1,0 +1,15 @@
+{
+  "meta": [
+    {
+      "name": "timezone",
+      "type": "String"
+    }
+  ],
+  "data": [
+    {
+      "timezone": "UTC"
+    }
+  ],
+  "rows": 1,
+  "origin_kind": "filtered_saved_snapshot"
+}

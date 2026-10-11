@@ -1,0 +1,1 @@
+SELECT timezone() AS timezone FORMAT JSON

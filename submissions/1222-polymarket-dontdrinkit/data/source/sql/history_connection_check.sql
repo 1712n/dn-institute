@@ -1,0 +1,1 @@
+SELECT timezone() AS timezone, now() AS server_time FORMAT JSON

@@ -1,0 +1,1 @@
+SELECT number FROM numbers(3000) SETTINGS max_result_rows=4000 FORMAT JSON

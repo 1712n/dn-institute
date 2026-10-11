@@ -1,0 +1,30 @@
+{
+	"meta":
+	[
+		{
+			"name": "timezone",
+			"type": "String"
+		},
+		{
+			"name": "server_time",
+			"type": "DateTime"
+		}
+	],
+
+	"data":
+	[
+		{
+			"timezone": "UTC",
+			"server_time": "2026-10-08 20:51:17"
+		}
+	],
+
+	"rows": 1,
+
+	"statistics":
+	{
+		"elapsed": 0.000843644,
+		"rows_read": 1,
+		"bytes_read": 1
+	}
+}

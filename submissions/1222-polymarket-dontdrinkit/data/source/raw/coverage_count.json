@@ -1,0 +1,35 @@
+{
+  "meta": [
+    {
+      "name": "n",
+      "type": "UInt64"
+    },
+    {
+      "name": "unique_ids",
+      "type": "UInt64"
+    },
+    {
+      "name": "first",
+      "type": "DateTime"
+    },
+    {
+      "name": "last",
+      "type": "DateTime"
+    },
+    {
+      "name": "noncash",
+      "type": "UInt64"
+    }
+  ],
+  "data": [
+    {
+      "n": "19911",
+      "unique_ids": "19911",
+      "first": "2025-12-27 00:10:57",
+      "last": "2026-01-03 12:13:39",
+      "noncash": "0"
+    }
+  ],
+  "rows": 1,
+  "origin_kind": "filtered_saved_snapshot"
+}

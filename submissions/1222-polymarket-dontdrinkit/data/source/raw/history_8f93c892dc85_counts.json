@@ -1,0 +1,970 @@
+{
+	"meta":
+	[
+		{
+			"name": "wallet",
+			"type": "String"
+		},
+		{
+			"name": "fills",
+			"type": "UInt64"
+		},
+		{
+			"name": "unique_ids",
+			"type": "UInt64"
+		},
+		{
+			"name": "first",
+			"type": "DateTime"
+		},
+		{
+			"name": "last",
+			"type": "DateTime"
+		},
+		{
+			"name": "cash_outcome_fills",
+			"type": "UInt64"
+		}
+	],
+
+	"data":
+	[
+		{
+			"wallet": "0xbf935ba3c9add3c744a7e7ecca070a7e34c96e4f",
+			"fills": "252",
+			"unique_ids": "252",
+			"first": "2025-12-19 06:44:25",
+			"last": "2026-01-03 03:48:21",
+			"cash_outcome_fills": "252"
+		},
+		{
+			"wallet": "0x4c039d1350e83f378be2356f543e8d2e13fe604e",
+			"fills": "4496",
+			"unique_ids": "4496",
+			"first": "2025-12-19 07:43:17",
+			"last": "2026-01-03 03:58:33",
+			"cash_outcome_fills": "4496"
+		},
+		{
+			"wallet": "0x0d9ebe00e5e9e559494155f81ff3a9b177ef6026",
+			"fills": "21",
+			"unique_ids": "21",
+			"first": "2025-12-19 08:46:44",
+			"last": "2026-01-02 13:46:39",
+			"cash_outcome_fills": "21"
+		},
+		{
+			"wallet": "0xe7387473b067235436884d16799777cf279edf65",
+			"fills": "309",
+			"unique_ids": "309",
+			"first": "2025-12-19 08:23:46",
+			"last": "2026-01-03 05:55:27",
+			"cash_outcome_fills": "309"
+		},
+		{
+			"wallet": "0x31a56e9e690c621ed21de08cb559e9524cdb8ed9",
+			"fills": "13",
+			"unique_ids": "13",
+			"first": "2025-12-27 05:05:41",
+			"last": "2026-01-03 02:58:25",
+			"cash_outcome_fills": "13"
+		},
+		{
+			"wallet": "0x9dd9e18b9dcc393705e73966bc79eccbbd9108bd",
+			"fills": "16498",
+			"unique_ids": "16498",
+			"first": "2025-12-18 23:37:45",
+			"last": "2026-01-03 05:58:03",
+			"cash_outcome_fills": "16498"
+		},
+		{
+			"wallet": "0x8f119d941be716090a7734b8d456185af7ad837c",
+			"fills": "143",
+			"unique_ids": "143",
+			"first": "2025-12-30 15:27:35",
+			"last": "2026-01-03 04:21:29",
+			"cash_outcome_fills": "143"
+		},
+		{
+			"wallet": "0x9dd94070afd9d75ffbd6336a57b7fb1e0a367c58",
+			"fills": "36",
+			"unique_ids": "36",
+			"first": "2025-12-19 17:16:25",
+			"last": "2026-01-01 16:46:33",
+			"cash_outcome_fills": "36"
+		},
+		{
+			"wallet": "0x91784d82fbe4543459ee85fc9809be185d70a2b2",
+			"fills": "538",
+			"unique_ids": "538",
+			"first": "2025-12-19 01:32:43",
+			"last": "2026-01-02 22:32:25",
+			"cash_outcome_fills": "538"
+		},
+		{
+			"wallet": "0x3a8651c42ac19aa3e3141531a298abc72f51dea8",
+			"fills": "7990",
+			"unique_ids": "7990",
+			"first": "2025-12-18 23:36:05",
+			"last": "2026-01-03 05:56:31",
+			"cash_outcome_fills": "7990"
+		},
+		{
+			"wallet": "0xf5cfe6f998d597085e366f915b140e82e0869fc6",
+			"fills": "1065",
+			"unique_ids": "1065",
+			"first": "2025-12-19 01:01:49",
+			"last": "2026-01-03 05:47:29",
+			"cash_outcome_fills": "1065"
+		},
+		{
+			"wallet": "0x578f78e6d312d081f0406150158a0bbe0b6df112",
+			"fills": "2633",
+			"unique_ids": "2633",
+			"first": "2025-12-18 23:48:53",
+			"last": "2026-01-03 05:56:55",
+			"cash_outcome_fills": "2633"
+		},
+		{
+			"wallet": "0x8b061efbc841f93380eb1014ed2601b0725c86e6",
+			"fills": "6744",
+			"unique_ids": "6744",
+			"first": "2025-12-18 23:41:41",
+			"last": "2026-01-03 05:45:39",
+			"cash_outcome_fills": "6744"
+		},
+		{
+			"wallet": "0xc02147dee42356b7a4edbb1c35ac4ffa95f61fa8",
+			"fills": "9943",
+			"unique_ids": "9943",
+			"first": "2025-12-18 23:35:41",
+			"last": "2026-01-03 05:59:59",
+			"cash_outcome_fills": "9943"
+		},
+		{
+			"wallet": "0x8c4fb8950d54d9ddc86a8f69d25e582ea545c6c6",
+			"fills": "18",
+			"unique_ids": "18",
+			"first": "2025-12-31 14:17:35",
+			"last": "2026-01-03 03:48:21",
+			"cash_outcome_fills": "18"
+		},
+		{
+			"wallet": "0xd51683dd4869397079929a842c25b3ae1a74bfec",
+			"fills": "12",
+			"unique_ids": "12",
+			"first": "2025-12-30 13:59:15",
+			"last": "2026-01-01 19:50:09",
+			"cash_outcome_fills": "12"
+		},
+		{
+			"wallet": "0xf1a2f936e355b9cb8ff3b9996e7fb2c8a735f1b6",
+			"fills": "6393",
+			"unique_ids": "6393",
+			"first": "2025-12-18 23:41:41",
+			"last": "2026-01-03 05:44:43",
+			"cash_outcome_fills": "6393"
+		},
+		{
+			"wallet": "0x2577c59314e3efd45f9dd31067ea329d5a4ea5ec",
+			"fills": "1",
+			"unique_ids": "1",
+			"first": "2026-01-02 07:49:55",
+			"last": "2026-01-02 07:49:55",
+			"cash_outcome_fills": "1"
+		},
+		{
+			"wallet": "0xe194c638670b0a0acedc8efa00fc1c98aa49cd47",
+			"fills": "137",
+			"unique_ids": "137",
+			"first": "2025-12-25 06:21:47",
+			"last": "2026-01-03 03:27:09",
+			"cash_outcome_fills": "137"
+		},
+		{
+			"wallet": "0x390d8d9784aac488f59af5954713bdf68a64180c",
+			"fills": "9",
+			"unique_ids": "9",
+			"first": "2025-12-20 14:36:18",
+			"last": "2026-01-01 18:02:25",
+			"cash_outcome_fills": "9"
+		},
+		{
+			"wallet": "0xdfd888eed8707946044b9275839cbd061fcae65b",
+			"fills": "6",
+			"unique_ids": "6",
+			"first": "2025-12-31 06:06:49",
+			"last": "2025-12-31 06:08:47",
+			"cash_outcome_fills": "6"
+		},
+		{
+			"wallet": "0x839876e0574ccadaad39a3d97da154e0bd56749a",
+			"fills": "916",
+			"unique_ids": "916",
+			"first": "2025-12-19 22:15:19",
+			"last": "2026-01-03 05:58:33",
+			"cash_outcome_fills": "916"
+		},
+		{
+			"wallet": "0x0523ff55bd7525d5fbda5c77f80f61662db4e38b",
+			"fills": "1867",
+			"unique_ids": "1867",
+			"first": "2025-12-18 23:49:29",
+			"last": "2026-01-03 05:52:59",
+			"cash_outcome_fills": "1867"
+		},
+		{
+			"wallet": "0x714e43a7052878ee7a361e53054039e4c5b59005",
+			"fills": "9",
+			"unique_ids": "9",
+			"first": "2025-12-22 22:24:43",
+			"last": "2026-01-03 05:45:19",
+			"cash_outcome_fills": "9"
+		},
+		{
+			"wallet": "0x6d1e233e7af0db0fbd7981742ab9ca22b803ce59",
+			"fills": "170",
+			"unique_ids": "170",
+			"first": "2025-12-28 13:49:45",
+			"last": "2025-12-31 17:45:31",
+			"cash_outcome_fills": "170"
+		},
+		{
+			"wallet": "0x076ca0207aaa48365da2eb6a917edcbdee5e4e7b",
+			"fills": "26131",
+			"unique_ids": "26131",
+			"first": "2025-12-18 23:36:09",
+			"last": "2026-01-03 05:59:59",
+			"cash_outcome_fills": "26131"
+		},
+		{
+			"wallet": "0x7b2e0880807cc19f553c9569c873f23a770b36fd",
+			"fills": "9",
+			"unique_ids": "9",
+			"first": "2025-12-31 03:18:31",
+			"last": "2026-01-02 02:25:21",
+			"cash_outcome_fills": "9"
+		},
+		{
+			"wallet": "0x6d7776a0f954be1a7c975a1e8244de6268f7b72c",
+			"fills": "2715",
+			"unique_ids": "2715",
+			"first": "2025-12-19 00:08:25",
+			"last": "2026-01-03 05:22:21",
+			"cash_outcome_fills": "2715"
+		},
+		{
+			"wallet": "0x43cfb584c8bfa7f322ea258e251bd656b30788fa",
+			"fills": "828",
+			"unique_ids": "828",
+			"first": "2025-12-19 08:32:08",
+			"last": "2026-01-02 16:29:03",
+			"cash_outcome_fills": "828"
+		},
+		{
+			"wallet": "0x73972affc16667672530a63ea6451def29281968",
+			"fills": "116",
+			"unique_ids": "116",
+			"first": "2025-12-19 17:26:37",
+			"last": "2026-01-03 03:48:21",
+			"cash_outcome_fills": "116"
+		},
+		{
+			"wallet": "0x86f2c4c9f2f81950d337647e188f77c4aea3c7a8",
+			"fills": "1",
+			"unique_ids": "1",
+			"first": "2025-12-31 20:37:51",
+			"last": "2025-12-31 20:37:51",
+			"cash_outcome_fills": "1"
+		},
+		{
+			"wallet": "0x8298d2a9c05718f543645083590a7aefe887b978",
+			"fills": "5313",
+			"unique_ids": "5313",
+			"first": "2025-12-18 23:48:29",
+			"last": "2026-01-03 05:56:27",
+			"cash_outcome_fills": "5313"
+		},
+		{
+			"wallet": "0x8204c2803f9b69e6a623ac70c92a049699ed56ea",
+			"fills": "119",
+			"unique_ids": "119",
+			"first": "2025-12-29 19:27:07",
+			"last": "2026-01-03 00:33:21",
+			"cash_outcome_fills": "119"
+		},
+		{
+			"wallet": "0xff9152ac8cb6260419ea8940248177083aceab3a",
+			"fills": "840",
+			"unique_ids": "840",
+			"first": "2025-12-18 23:58:49",
+			"last": "2026-01-03 04:30:11",
+			"cash_outcome_fills": "840"
+		},
+		{
+			"wallet": "0xbb917b91d7c946d5898f19ab6865e27f850cb15e",
+			"fills": "9",
+			"unique_ids": "9",
+			"first": "2026-01-01 23:37:51",
+			"last": "2026-01-03 04:03:31",
+			"cash_outcome_fills": "9"
+		},
+		{
+			"wallet": "0xfc70fdfd803ce350ef14a536c81ead38014d4aed",
+			"fills": "144",
+			"unique_ids": "144",
+			"first": "2025-12-20 01:56:42",
+			"last": "2026-01-01 19:41:13",
+			"cash_outcome_fills": "144"
+		},
+		{
+			"wallet": "0xdcdd69a814ca1b2c8f0611fd4e10c9376fa61e87",
+			"fills": "1",
+			"unique_ids": "1",
+			"first": "2026-01-01 02:34:53",
+			"last": "2026-01-01 02:34:53",
+			"cash_outcome_fills": "1"
+		},
+		{
+			"wallet": "0x1604f8f090eed56d7eccb033d9e9223b32566e8c",
+			"fills": "90",
+			"unique_ids": "90",
+			"first": "2025-12-19 01:01:25",
+			"last": "2026-01-02 14:23:41",
+			"cash_outcome_fills": "90"
+		},
+		{
+			"wallet": "0x8b24a5e26873c9674fbb073b79941c29ca93c4be",
+			"fills": "254",
+			"unique_ids": "254",
+			"first": "2025-12-19 13:50:24",
+			"last": "2026-01-03 01:27:31",
+			"cash_outcome_fills": "254"
+		},
+		{
+			"wallet": "0xdbddb8bc3d3dca058a8b19c539effab1363c7417",
+			"fills": "1",
+			"unique_ids": "1",
+			"first": "2026-01-01 08:08:05",
+			"last": "2026-01-01 08:08:05",
+			"cash_outcome_fills": "1"
+		},
+		{
+			"wallet": "0x4b7410aefbf0f38012b0dfb1131a4de147a9e8d7",
+			"fills": "17565",
+			"unique_ids": "17565",
+			"first": "2025-12-18 23:37:49",
+			"last": "2026-01-03 05:59:45",
+			"cash_outcome_fills": "17565"
+		},
+		{
+			"wallet": "0xa082d00dc28915c776b735c94a622c044839aad7",
+			"fills": "16",
+			"unique_ids": "16",
+			"first": "2025-12-30 20:38:03",
+			"last": "2026-01-01 11:51:39",
+			"cash_outcome_fills": "16"
+		},
+		{
+			"wallet": "0x3f62acb989dd53789f8453faa0b24060656ae744",
+			"fills": "1375",
+			"unique_ids": "1375",
+			"first": "2025-12-19 00:19:11",
+			"last": "2026-01-03 03:30:27",
+			"cash_outcome_fills": "1375"
+		},
+		{
+			"wallet": "0x9dcf8b89f054f883f7201f7ff7ebdbd7f150f879",
+			"fills": "22",
+			"unique_ids": "22",
+			"first": "2026-01-01 09:51:37",
+			"last": "2026-01-02 08:37:05",
+			"cash_outcome_fills": "22"
+		},
+		{
+			"wallet": "0x04f6a4be17f7a665bf70369fc35f5596efd31dfe",
+			"fills": "14",
+			"unique_ids": "14",
+			"first": "2025-12-31 10:35:59",
+			"last": "2026-01-03 03:43:45",
+			"cash_outcome_fills": "14"
+		},
+		{
+			"wallet": "0x6baf05d193692bb208d616709e27442c910a94c5",
+			"fills": "2",
+			"unique_ids": "2",
+			"first": "2026-01-03 03:42:01",
+			"last": "2026-01-03 03:48:21",
+			"cash_outcome_fills": "2"
+		},
+		{
+			"wallet": "0x28cbc50cc7012d84d7b96a8430969b02d3683453",
+			"fills": "50",
+			"unique_ids": "50",
+			"first": "2025-12-21 08:15:13",
+			"last": "2026-01-02 07:49:55",
+			"cash_outcome_fills": "50"
+		},
+		{
+			"wallet": "0x01f80d9248903591327044613b1e3e83770a3ee7",
+			"fills": "6",
+			"unique_ids": "6",
+			"first": "2025-12-19 14:58:50",
+			"last": "2026-01-02 15:46:31",
+			"cash_outcome_fills": "6"
+		},
+		{
+			"wallet": "0x06adcea9605a44b05addd1e1f7ff8a985ec9d0d5",
+			"fills": "90",
+			"unique_ids": "90",
+			"first": "2025-12-19 09:06:56",
+			"last": "2026-01-02 03:17:23",
+			"cash_outcome_fills": "90"
+		},
+		{
+			"wallet": "0xeb7fd9831e163254dd1ed007533af5620c483d85",
+			"fills": "126",
+			"unique_ids": "126",
+			"first": "2025-12-20 18:11:09",
+			"last": "2026-01-01 09:34:57",
+			"cash_outcome_fills": "126"
+		},
+		{
+			"wallet": "0xd1f4531dd0edfc4d5eb3c138d51f232eee597a37",
+			"fills": "319",
+			"unique_ids": "319",
+			"first": "2026-01-02 08:26:07",
+			"last": "2026-01-03 05:57:15",
+			"cash_outcome_fills": "319"
+		},
+		{
+			"wallet": "0x21ffd2b7a212a6f277ed3eca1a9f8efcbca90d71",
+			"fills": "36018",
+			"unique_ids": "36018",
+			"first": "2025-12-18 23:36:45",
+			"last": "2026-01-03 05:59:51",
+			"cash_outcome_fills": "36018"
+		},
+		{
+			"wallet": "0xbacd00c9080a82ded56f504ee8810af732b0ab35",
+			"fills": "14169",
+			"unique_ids": "14169",
+			"first": "2025-12-18 23:35:57",
+			"last": "2026-01-03 05:56:55",
+			"cash_outcome_fills": "14169"
+		},
+		{
+			"wallet": "0x84207208bc185f902f452ea384d81560c9876183",
+			"fills": "196",
+			"unique_ids": "196",
+			"first": "2025-12-18 23:40:37",
+			"last": "2026-01-03 02:33:45",
+			"cash_outcome_fills": "196"
+		},
+		{
+			"wallet": "0xa8af4c7923857533b687df9bf02115156e3a325e",
+			"fills": "3799",
+			"unique_ids": "3799",
+			"first": "2025-12-19 00:20:23",
+			"last": "2026-01-03 05:56:21",
+			"cash_outcome_fills": "3799"
+		},
+		{
+			"wallet": "0xb8e4df9d65d1aba07e8c8d02570fec2d9024b01f",
+			"fills": "55",
+			"unique_ids": "55",
+			"first": "2025-12-19 09:06:22",
+			"last": "2026-01-01 14:20:45",
+			"cash_outcome_fills": "55"
+		},
+		{
+			"wallet": "0xb2dc4eea6f4c455a25dd0f2a72e35f0960cde9eb",
+			"fills": "1970",
+			"unique_ids": "1970",
+			"first": "2025-12-19 00:31:43",
+			"last": "2026-01-03 05:51:25",
+			"cash_outcome_fills": "1970"
+		},
+		{
+			"wallet": "0xf0729143cbf9ade46743017ec4e1832a3564cee7",
+			"fills": "1072",
+			"unique_ids": "1072",
+			"first": "2025-12-18 23:38:09",
+			"last": "2026-01-03 05:48:09",
+			"cash_outcome_fills": "1072"
+		},
+		{
+			"wallet": "0x264cbb7263b0c336c58fb5a5de1773896e6bbaca",
+			"fills": "179",
+			"unique_ids": "179",
+			"first": "2025-12-19 09:54:40",
+			"last": "2026-01-03 04:26:43",
+			"cash_outcome_fills": "179"
+		},
+		{
+			"wallet": "0xb86df0b99a90a4596d024852147832cf6e487a56",
+			"fills": "49",
+			"unique_ids": "49",
+			"first": "2025-12-26 03:08:37",
+			"last": "2026-01-02 06:36:09",
+			"cash_outcome_fills": "49"
+		},
+		{
+			"wallet": "0xb6bed94e75c333dae24eb9c80b3fef47ef3cfcfe",
+			"fills": "865",
+			"unique_ids": "865",
+			"first": "2025-12-19 00:15:03",
+			"last": "2026-01-03 03:48:21",
+			"cash_outcome_fills": "865"
+		},
+		{
+			"wallet": "0x24c8cf69a0e0a17eee21f69d29752bfa32e823e1",
+			"fills": "4673",
+			"unique_ids": "4673",
+			"first": "2025-12-19 00:08:57",
+			"last": "2026-01-03 03:51:57",
+			"cash_outcome_fills": "4673"
+		},
+		{
+			"wallet": "0x682c92615993fd1f75cdfe101efdc1a8adcb17ae",
+			"fills": "34227",
+			"unique_ids": "34227",
+			"first": "2025-12-18 23:36:05",
+			"last": "2026-01-03 05:59:19",
+			"cash_outcome_fills": "34227"
+		},
+		{
+			"wallet": "0x3078db4a9737866b4d6529f655025b3a20f80389",
+			"fills": "104852",
+			"unique_ids": "104852",
+			"first": "2025-12-18 23:35:33",
+			"last": "2026-01-03 05:58:31",
+			"cash_outcome_fills": "104852"
+		},
+		{
+			"wallet": "0x8d655cdd0cca3bd763e8a5b4062605b02366c8ce",
+			"fills": "735",
+			"unique_ids": "735",
+			"first": "2025-12-18 23:59:31",
+			"last": "2026-01-03 05:35:41",
+			"cash_outcome_fills": "735"
+		},
+		{
+			"wallet": "0xa72db1749e9ac2379d49a3c12708325ed17febd4",
+			"fills": "1",
+			"unique_ids": "1",
+			"first": "2026-01-02 21:44:21",
+			"last": "2026-01-02 21:44:21",
+			"cash_outcome_fills": "1"
+		},
+		{
+			"wallet": "0xee213de5ec7ab93c72bcad3c2c76552cb56de2fe",
+			"fills": "375",
+			"unique_ids": "375",
+			"first": "2025-12-19 03:46:59",
+			"last": "2026-01-03 05:42:05",
+			"cash_outcome_fills": "375"
+		},
+		{
+			"wallet": "0xc20c3ccd49e06eda6c336539abc16714872be2bd",
+			"fills": "510",
+			"unique_ids": "510",
+			"first": "2025-12-19 01:19:23",
+			"last": "2026-01-03 04:26:43",
+			"cash_outcome_fills": "510"
+		},
+		{
+			"wallet": "0xcf6a714618a328c608a1c70cb62a31a6bef3f9d0",
+			"fills": "1769",
+			"unique_ids": "1769",
+			"first": "2025-12-18 23:44:47",
+			"last": "2026-01-03 05:21:41",
+			"cash_outcome_fills": "1769"
+		},
+		{
+			"wallet": "0x69af844d4fbacebfc1c4124b0978801db3600a19",
+			"fills": "13112",
+			"unique_ids": "13112",
+			"first": "2025-12-18 23:36:57",
+			"last": "2026-01-03 05:59:25",
+			"cash_outcome_fills": "13112"
+		},
+		{
+			"wallet": "0xa8b7f8b34185e9cc62c471e1d353595148a3ee3c",
+			"fills": "3829",
+			"unique_ids": "3829",
+			"first": "2025-12-19 00:16:21",
+			"last": "2026-01-03 05:57:45",
+			"cash_outcome_fills": "3829"
+		},
+		{
+			"wallet": "0x7e30c3a56d89edac738d788dd218a9e64fb91e50",
+			"fills": "1239",
+			"unique_ids": "1239",
+			"first": "2025-12-19 14:27:12",
+			"last": "2026-01-03 03:29:39",
+			"cash_outcome_fills": "1239"
+		},
+		{
+			"wallet": "0x26be5b2ef2ae5e65ed3a15f79e7abdcc110dd699",
+			"fills": "4213",
+			"unique_ids": "4213",
+			"first": "2025-12-19 01:53:33",
+			"last": "2026-01-03 05:24:25",
+			"cash_outcome_fills": "4213"
+		},
+		{
+			"wallet": "0xbf32f7a77ccea8bba647fea63d438ce1778b1762",
+			"fills": "21",
+			"unique_ids": "21",
+			"first": "2025-12-30 03:48:11",
+			"last": "2026-01-01 05:56:09",
+			"cash_outcome_fills": "21"
+		},
+		{
+			"wallet": "0xee292e8cbca9cf11b394a98f0ee6904c00e389d8",
+			"fills": "9142",
+			"unique_ids": "9142",
+			"first": "2025-12-18 23:38:47",
+			"last": "2026-01-03 05:41:47",
+			"cash_outcome_fills": "9142"
+		},
+		{
+			"wallet": "0x858d551d073e9c647c17079ad9021de830201047",
+			"fills": "475",
+			"unique_ids": "475",
+			"first": "2025-12-21 16:47:01",
+			"last": "2026-01-03 05:59:03",
+			"cash_outcome_fills": "475"
+		},
+		{
+			"wallet": "0x5ecde7348ea5100af4360dd7a6e0a3fb1d420787",
+			"fills": "3175",
+			"unique_ids": "3175",
+			"first": "2025-12-19 00:15:05",
+			"last": "2026-01-03 05:59:21",
+			"cash_outcome_fills": "3175"
+		},
+		{
+			"wallet": "0xd335750d2a3f7a781725982657ba528b254df24a",
+			"fills": "47",
+			"unique_ids": "47",
+			"first": "2025-12-22 13:41:01",
+			"last": "2026-01-02 15:51:13",
+			"cash_outcome_fills": "47"
+		},
+		{
+			"wallet": "0x9ed9fb24166d7aae9ec0f8eef267c46cb34ef365",
+			"fills": "20",
+			"unique_ids": "20",
+			"first": "2025-12-19 17:38:37",
+			"last": "2026-01-03 04:08:15",
+			"cash_outcome_fills": "20"
+		},
+		{
+			"wallet": "0x8b848fcd84a1dfb6d056ea135f39bb3f95b85061",
+			"fills": "283",
+			"unique_ids": "283",
+			"first": "2025-12-18 23:59:31",
+			"last": "2026-01-03 03:44:59",
+			"cash_outcome_fills": "283"
+		},
+		{
+			"wallet": "0xb8ad2849635c9ce413f1fdd2e7b364bbfafeff58",
+			"fills": "795",
+			"unique_ids": "795",
+			"first": "2025-12-19 00:17:47",
+			"last": "2026-01-03 05:34:09",
+			"cash_outcome_fills": "795"
+		},
+		{
+			"wallet": "0xf797d4d1c038d1eb0593edae0e66bf8e4b2e0bf2",
+			"fills": "1510",
+			"unique_ids": "1510",
+			"first": "2025-12-18 23:38:45",
+			"last": "2026-01-03 05:53:11",
+			"cash_outcome_fills": "1510"
+		},
+		{
+			"wallet": "0x2c06e519c7fbb715fb7dedef092bcf27596f9c4a",
+			"fills": "765",
+			"unique_ids": "765",
+			"first": "2025-12-26 19:05:21",
+			"last": "2026-01-03 05:55:09",
+			"cash_outcome_fills": "765"
+		},
+		{
+			"wallet": "0x334932d9cb8effcb325fcb898e045feffc92c0b8",
+			"fills": "1373",
+			"unique_ids": "1373",
+			"first": "2025-12-19 01:01:29",
+			"last": "2026-01-03 04:41:57",
+			"cash_outcome_fills": "1373"
+		},
+		{
+			"wallet": "0xa1ffbb2952fcd18b3b4759ccddeb7fdf90f655bd",
+			"fills": "568",
+			"unique_ids": "568",
+			"first": "2025-12-19 01:24:29",
+			"last": "2026-01-03 05:56:55",
+			"cash_outcome_fills": "568"
+		},
+		{
+			"wallet": "0x72bf21e954e4a01d4dba08dcfd1a461e143cecc3",
+			"fills": "92",
+			"unique_ids": "92",
+			"first": "2025-12-23 09:51:47",
+			"last": "2026-01-03 01:23:21",
+			"cash_outcome_fills": "92"
+		},
+		{
+			"wallet": "0xc77a8ae3de307d7b4aa910c997015d1c45b4daf8",
+			"fills": "318",
+			"unique_ids": "318",
+			"first": "2025-12-24 21:27:27",
+			"last": "2026-01-02 15:33:55",
+			"cash_outcome_fills": "318"
+		},
+		{
+			"wallet": "0x0feffea276c7f6f002ac696f20eb7e57203e34a4",
+			"fills": "625",
+			"unique_ids": "625",
+			"first": "2025-12-27 05:40:17",
+			"last": "2026-01-03 05:55:19",
+			"cash_outcome_fills": "625"
+		},
+		{
+			"wallet": "0xa3d7da511f8fa63aa79d0c36dba9533729f845f2",
+			"fills": "3232",
+			"unique_ids": "3232",
+			"first": "2025-12-19 00:12:45",
+			"last": "2026-01-03 05:42:01",
+			"cash_outcome_fills": "3232"
+		},
+		{
+			"wallet": "0x22e645acff2bbb2cd7a74462f8779eb6f53d409f",
+			"fills": "3908",
+			"unique_ids": "3908",
+			"first": "2025-12-19 04:31:35",
+			"last": "2026-01-03 05:33:21",
+			"cash_outcome_fills": "3908"
+		},
+		{
+			"wallet": "0xc40e934c6aefc54fa1fc1255324a0ac79398ebf5",
+			"fills": "6",
+			"unique_ids": "6",
+			"first": "2026-01-01 09:39:23",
+			"last": "2026-01-02 05:47:31",
+			"cash_outcome_fills": "6"
+		},
+		{
+			"wallet": "0x4fd3503c78bd1ececdbe034a4dfe156ce659ef31",
+			"fills": "179",
+			"unique_ids": "179",
+			"first": "2025-12-19 04:53:39",
+			"last": "2026-01-03 03:05:41",
+			"cash_outcome_fills": "179"
+		},
+		{
+			"wallet": "0x4f2588e436338df99206e6a643d13f59db5025c7",
+			"fills": "79",
+			"unique_ids": "79",
+			"first": "2025-12-19 00:42:21",
+			"last": "2026-01-02 07:53:33",
+			"cash_outcome_fills": "79"
+		},
+		{
+			"wallet": "0xf70ff98d103ef06a8d9f05938f47ea1989c044dd",
+			"fills": "6",
+			"unique_ids": "6",
+			"first": "2025-12-31 05:20:21",
+			"last": "2026-01-03 05:19:49",
+			"cash_outcome_fills": "6"
+		},
+		{
+			"wallet": "0xb0141f9f31a56708928b8ef07f67dab35744b3fa",
+			"fills": "786",
+			"unique_ids": "786",
+			"first": "2025-12-19 05:51:53",
+			"last": "2026-01-03 05:21:41",
+			"cash_outcome_fills": "786"
+		},
+		{
+			"wallet": "0x5ec284748d0abdc6aa3eadb108ba2dbaa88f2482",
+			"fills": "15",
+			"unique_ids": "15",
+			"first": "2025-12-25 09:28:15",
+			"last": "2025-12-31 07:33:43",
+			"cash_outcome_fills": "15"
+		},
+		{
+			"wallet": "0xca8f0374e3fc79b485499cc0b038d4f7e783d963",
+			"fills": "75068",
+			"unique_ids": "75068",
+			"first": "2025-12-18 23:35:53",
+			"last": "2026-01-03 05:59:49",
+			"cash_outcome_fills": "75068"
+		},
+		{
+			"wallet": "0x3d8d9190eb1fac736f93e3df9456fc60cca019e9",
+			"fills": "38",
+			"unique_ids": "38",
+			"first": "2025-12-24 02:52:55",
+			"last": "2026-01-01 15:04:21",
+			"cash_outcome_fills": "38"
+		},
+		{
+			"wallet": "0x08458f7e9d2858027de579e4c3ca305475496b6f",
+			"fills": "11275",
+			"unique_ids": "11275",
+			"first": "2025-12-18 23:49:23",
+			"last": "2026-01-03 05:56:59",
+			"cash_outcome_fills": "11275"
+		},
+		{
+			"wallet": "0x0b61ef5e23512203bc634e407cac1a41b175f675",
+			"fills": "378",
+			"unique_ids": "378",
+			"first": "2025-12-31 10:16:23",
+			"last": "2026-01-02 07:52:01",
+			"cash_outcome_fills": "378"
+		},
+		{
+			"wallet": "0xf25b97c7b6b9cc2a8f898ae3bdf157781a6882d0",
+			"fills": "1911",
+			"unique_ids": "1911",
+			"first": "2025-12-19 01:45:05",
+			"last": "2026-01-03 05:52:51",
+			"cash_outcome_fills": "1911"
+		},
+		{
+			"wallet": "0xc8ab97a9089a9ff7e6ef0688e6e591a066946418",
+			"fills": "29605",
+			"unique_ids": "29605",
+			"first": "2025-12-18 23:35:37",
+			"last": "2026-01-03 05:56:49",
+			"cash_outcome_fills": "29605"
+		},
+		{
+			"wallet": "0x5fe10daab0c49a775a882dbec4f48a68c93033e4",
+			"fills": "8",
+			"unique_ids": "8",
+			"first": "2025-12-26 17:59:19",
+			"last": "2025-12-31 07:47:47",
+			"cash_outcome_fills": "8"
+		},
+		{
+			"wallet": "0x8597ca63e722d6216bfc3057591fdc67ec49daee",
+			"fills": "457",
+			"unique_ids": "457",
+			"first": "2025-12-19 09:39:06",
+			"last": "2026-01-03 00:39:41",
+			"cash_outcome_fills": "457"
+		},
+		{
+			"wallet": "0x10b289276b2b69cac7b1bbc58601009b6ee74ceb",
+			"fills": "1078",
+			"unique_ids": "1078",
+			"first": "2025-12-23 02:16:43",
+			"last": "2026-01-03 05:55:25",
+			"cash_outcome_fills": "1078"
+		},
+		{
+			"wallet": "0xc2dba869680b8c7a580ed7d1a9bfd9b329ca86cf",
+			"fills": "1",
+			"unique_ids": "1",
+			"first": "2026-01-01 21:16:51",
+			"last": "2026-01-01 21:16:51",
+			"cash_outcome_fills": "1"
+		},
+		{
+			"wallet": "0x9d63202c6d705e94db24d35873c34bb5bb06348d",
+			"fills": "39",
+			"unique_ids": "39",
+			"first": "2025-12-19 01:51:29",
+			"last": "2026-01-02 16:02:05",
+			"cash_outcome_fills": "39"
+		},
+		{
+			"wallet": "0x910d272f17391eec10f1f7f3f595a88e538dcfc0",
+			"fills": "73",
+			"unique_ids": "73",
+			"first": "2025-12-26 09:08:41",
+			"last": "2026-01-03 04:10:51",
+			"cash_outcome_fills": "73"
+		},
+		{
+			"wallet": "0x1f0a343513aa6060488fabe96960e6d1e177f7aa",
+			"fills": "10285",
+			"unique_ids": "10285",
+			"first": "2025-12-18 23:35:33",
+			"last": "2026-01-03 05:51:31",
+			"cash_outcome_fills": "10285"
+		},
+		{
+			"wallet": "0x686ca88a9d69898acbe5d924f098c30f616b1763",
+			"fills": "101",
+			"unique_ids": "101",
+			"first": "2025-12-21 23:17:06",
+			"last": "2026-01-01 19:41:13",
+			"cash_outcome_fills": "101"
+		},
+		{
+			"wallet": "0xeb8984bd4aad72274f170bfc71ef4fa21a4646f1",
+			"fills": "887",
+			"unique_ids": "887",
+			"first": "2025-12-19 01:04:07",
+			"last": "2026-01-03 03:57:15",
+			"cash_outcome_fills": "887"
+		},
+		{
+			"wallet": "0x458c5bfd9bff538f98216a67b156832e7486c504",
+			"fills": "6926",
+			"unique_ids": "6926",
+			"first": "2025-12-18 23:44:41",
+			"last": "2026-01-03 05:49:21",
+			"cash_outcome_fills": "6926"
+		},
+		{
+			"wallet": "0xa61ef8773ec2e821962306ca87d4b57e39ff0abd",
+			"fills": "27218",
+			"unique_ids": "27218",
+			"first": "2025-12-18 23:54:05",
+			"last": "2026-01-03 05:57:57",
+			"cash_outcome_fills": "27218"
+		},
+		{
+			"wallet": "0x3f3bfc6d754e416699793901ffb12ddeee9f1d77",
+			"fills": "551",
+			"unique_ids": "551",
+			"first": "2025-12-19 00:02:43",
+			"last": "2026-01-03 05:31:59",
+			"cash_outcome_fills": "551"
+		},
+		{
+			"wallet": "0x64e93f87d8a0c1b2cde6f20d71f211372a95eb4c",
+			"fills": "3445",
+			"unique_ids": "3445",
+			"first": "2025-12-19 00:19:43",
+			"last": "2026-01-03 05:57:57",
+			"cash_outcome_fills": "3445"
+		},
+		{
+			"wallet": "0x3ed16e13ba4b46c67c2e27ab2806240157031ed8",
+			"fills": "14",
+			"unique_ids": "14",
+			"first": "2025-12-30 03:09:11",
+			"last": "2026-01-02 06:36:09",
+			"cash_outcome_fills": "14"
+		}
+	],
+
+	"rows": 116,
+
+	"statistics":
+	{
+		"elapsed": 17.712996303,
+		"rows_read": 258397331,
+		"bytes_read": 20058121842
+	}
+}

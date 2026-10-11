@@ -1,0 +1,66 @@
+{
+  "data/prepared/history_fills.csv": {
+    "sha256": "bd9abff7f766e68554b930c4497ffabcf0458461bbc8d43b63ddcbc22f3de483",
+    "bytes": 184103592,
+    "parts": [
+      {
+        "path": "data/prepared/history_fills_parts/part_001.csv",
+        "sha256": "bec8aa0c440495328495dba2c0056fa2fbd47440d44edd266eb8cb7467fb1b6d"
+      },
+      {
+        "path": "data/prepared/history_fills_parts/part_002.csv",
+        "sha256": "a380a9eca63a30a7dec339826967aa47e73d9a9e75ae75e0ae944f946dd2c733"
+      },
+      {
+        "path": "data/prepared/history_fills_parts/part_003.csv",
+        "sha256": "e1d2dea78f6abf3bddcd3f0517b8e6c6d9717ecc5e6faf46c8616228078c259a"
+      },
+      {
+        "path": "data/prepared/history_fills_parts/part_004.csv",
+        "sha256": "d70f709fbf157a69f9e831034a44b0931bb52e03df88d6389d36c979ff0df5f7"
+      },
+      {
+        "path": "data/prepared/history_fills_parts/part_005.csv",
+        "sha256": "8fd4ad9e2f4ceff57b362887c0aeeea96e2eec5cfe92ae027021bd8d0cf1e974"
+      }
+    ]
+  },
+  "data/prepared/history_trades.csv": {
+    "sha256": "f1b5d01750ea01659f65b8c64753cf43474285816490b7386ab7ad95e2e96f60",
+    "bytes": 318688156,
+    "parts": [
+      {
+        "path": "data/prepared/history_trades_parts/part_001.csv",
+        "sha256": "11c40bbbf79f4f3bc0c5569d8cb06350c02113f4fe1c9817bb59ef9b8439288a"
+      },
+      {
+        "path": "data/prepared/history_trades_parts/part_002.csv",
+        "sha256": "b141eef732e16d1c98b80bc80e3c4a6165380e94df7b086e472cd3030e2f2ffe"
+      },
+      {
+        "path": "data/prepared/history_trades_parts/part_003.csv",
+        "sha256": "1e0b0c8608519c363b6e2385246365a9444645b4dca741a35ab0b46dd20aa12a"
+      },
+      {
+        "path": "data/prepared/history_trades_parts/part_004.csv",
+        "sha256": "e5feb2b62c395fa3d41c4a9213af1d994dc466cb512df3160b4b4e573feefe85"
+      },
+      {
+        "path": "data/prepared/history_trades_parts/part_005.csv",
+        "sha256": "0cb9b8a1ead4785f04951e2f3fae7f0ccc190bc50fbba0f6deea8e301201fc8b"
+      },
+      {
+        "path": "data/prepared/history_trades_parts/part_006.csv",
+        "sha256": "73cd50b9f0e920cff257bf2f66583a39e70e737be5632b37d0a60e8e692ff683"
+      },
+      {
+        "path": "data/prepared/history_trades_parts/part_007.csv",
+        "sha256": "367c3641d683e56467d40f3b1c0715f7c0b06cd966fdf2de0d2901622feed09b"
+      },
+      {
+        "path": "data/prepared/history_trades_parts/part_008.csv",
+        "sha256": "ccabb83478fe2d1e72201f9e8f9e9d33efdd7b2aa5cd4c4f39edcf1b3ca59688"
+      }
+    ]
+  }
+}

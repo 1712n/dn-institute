@@ -1,0 +1,191 @@
+{
+  "_description": "Parameters for collection, screening, six metrics, ranking and sensitivity. Read by all pipeline stages.",
+  "collection_start": "2025-12-27 00:00:00",
+  "collection_end": "2026-01-04 00:00:00",
+  "analysis_cutoff": "2026-01-03T05:00:00Z",
+  "public_observation_reference": "2026-01-03T06:05:00Z",
+  "official_announcement": "2026-01-03T09:21:00Z",
+  "data_preparation": {
+    "screening_window_hours": 72,
+    "coverage_review_windows_hours": [
+      24,
+      72,
+      168
+    ],
+    "screening_sensitivity_windows_hours": [
+      168
+    ],
+    "selection_threshold_usdc": 100,
+    "screening_market": "maduro_jan31",
+    "screening_cash_basis": "yes_buy_cash_plus_no_sell_cash",
+    "require_positive_net_position": false,
+    "screening_sensitivity_thresholds_usdc": [
+      50,
+      100,
+      250,
+      500
+    ],
+    "reuse_saved_collection": true,
+    "candidate_history_requires_individual_fills": true
+  },
+  "candidate_history": {
+    "start_inclusive_utc": "2025-12-01T05:00:00Z",
+    "end_exclusive_utc": "2026-01-03T06:00:00Z",
+    "effective_baseline_start_inclusive_utc": "2025-12-19T05:00:00Z",
+    "main_baseline_end_exclusive_utc": "2025-12-31T05:00:00Z",
+    "page_size": 2000,
+    "wallet_role": "maker",
+    "market_scope": "all_outcome_tokens"
+  },
+  "metrics": {
+    "minimum_baseline_active_days": 3,
+    "minimum_market_day_observations_per_side": 5,
+    "minimum_baseline_transactions": 5,
+    "minimum_baseline_transactions_for_concentration": 10,
+    "late_window_hours": 6
+  },
+  "ranking": {
+    "weights": {
+      "metric_timing": 0.2,
+      "metric_size": 0.05,
+      "metric_direction": 0.25,
+      "metric_volume": 0.2,
+      "metric_activity": 0.15,
+      "metric_concentration": 0.15
+    },
+    "missing_metric_policy": "split_cohorts_available_weight_normalization",
+    "tie_break": "score_desc_then_wallet_asc"
+  },
+  "benchmark_wallet": "0x31a56e9e690c621ed21de08cb559e9524cdb8ed9",
+  "markets": [
+    {
+      "key": "maduro_jan31",
+      "question": "Maduro out by January 31, 2026?",
+      "condition_id": "0x580adc1327de9bf7c179ef5aaffa3377bb5cb252b7d6390b027172d43fd6f993",
+      "yes_token": "24918067747661759048720135607687934209172945708698786072564741153847301974566",
+      "no_token": "98590363695810976489755414330258191966783137178752226225745237702303580425394",
+      "url": "https://polymarket.com/event/maduro-out-in-2025",
+      "title_mapping_status": "Public API response reproduced in source; outcome indices verified in indexer"
+    }
+  ],
+  "sensitivity": {
+    "window_variants_hours": [
+      24,
+      168
+    ],
+    "selection_threshold_variants_usdc": [
+      50,
+      250,
+      500
+    ],
+    "weight_variants": {
+      "equal_weights": {
+        "metric_timing": 0.16666666666666666,
+        "metric_size": 0.16666666666666666,
+        "metric_direction": 0.16666666666666666,
+        "metric_volume": 0.16666666666666666,
+        "metric_activity": 0.16666666666666666,
+        "metric_concentration": 0.16666666666666666
+      },
+      "without_timing": {
+        "metric_timing": 0,
+        "metric_size": 0.0625,
+        "metric_direction": 0.3125,
+        "metric_volume": 0.25,
+        "metric_activity": 0.1875,
+        "metric_concentration": 0.1875
+      },
+      "history_emphasis": {
+        "metric_timing": 0.1,
+        "metric_size": 0.05,
+        "metric_direction": 0.2,
+        "metric_volume": 0.25,
+        "metric_activity": 0.2,
+        "metric_concentration": 0.2
+      }
+    },
+    "history_requirement_variants": {
+      "history_lenient": {
+        "minimum_baseline_active_days": 2,
+        "minimum_market_day_observations_per_side": 3,
+        "minimum_baseline_transactions": 3,
+        "minimum_baseline_transactions_for_concentration": 6
+      },
+      "history_strict": {
+        "minimum_baseline_active_days": 5,
+        "minimum_market_day_observations_per_side": 10,
+        "minimum_baseline_transactions": 10,
+        "minimum_baseline_transactions_for_concentration": 20
+      }
+    },
+    "missing_metric_diagnostics": [
+      "no_contribution_no_weight_redistribution",
+      "complete_cases_only"
+    ],
+    "top_count": 10,
+    "cohort_scope": "fixed_collected_pool",
+    "design": "one_change_at_a_time"
+  },
+  "timing_context": {
+    "status": "stage_9_complete_report_pending",
+    "base_config": "config.json",
+    "information_timeline": "data/prepared/information_timeline.csv",
+    "timing": {
+      "analysis_cutoff": "2026-01-03T05:00:00Z",
+      "cutoff_is_earliest_public_information": false,
+      "trade_at_cutoff_is_included": false,
+      "eyewitness_observation_reference": "2026-01-03T06:05:00Z",
+      "official_announcement_reference": "2026-01-03T09:21:00Z",
+      "earliest_public_information_time": null,
+      "sensitivity_scenarios": [
+        {
+          "name": "earlier_cutoff",
+          "cutoff": "2026-01-03T04:00:00Z",
+          "role": "Earlier analyst-selected boundary; does not establish absence of rumors."
+        },
+        {
+          "name": "main_cutoff",
+          "cutoff": "2026-01-03T05:00:00Z",
+          "role": "Main analyst-selected boundary; does not establish the earliest public information."
+        },
+        {
+          "name": "later_cutoff",
+          "cutoff": "2026-01-03T06:00:00Z",
+          "role": "Boundary near reported observable activity; may include public reactions."
+        }
+      ]
+    },
+    "candidate_selection": {
+      "parameters_source": "config.json:data_preparation",
+      "pool_path": "data/prepared/candidates.csv",
+      "sensitivity_path": "data/prepared/screening_sensitivity.csv",
+      "history_pool_scope": "main_screening_only"
+    },
+    "history_metrics": {
+      "status": "metrics_calculated_and_ranked",
+      "parameters_source": "config.json:candidate_history",
+      "trades_path": "data/prepared/history_trades.csv",
+      "coverage_path": "data/prepared/history_coverage.csv",
+      "source_coverage_path": "data/prepared/history_source_coverage.csv",
+      "metrics_parameters_source": "config.json:metrics",
+      "metrics_path": "data/prepared/candidate_metrics.csv",
+      "definitions_path": "README_rus.md"
+    },
+    "metric_weights": {
+      "parameters_source": "config.json:ranking",
+      "ranking_path": "results/ranking.csv",
+      "summary_path": "data/prepared/run_log.json#ranking_summary",
+      "ranking_paths": {
+        "complete": "results/ranking_complete.csv",
+        "incomplete": "results/ranking_incomplete.csv"
+      }
+    },
+    "sensitivity": {
+      "parameters_source": "config.json:sensitivity",
+      "summary_path": "results/sensitivity.csv",
+      "rankings_path": "data/prepared/sensitivity_rankings.csv",
+      "stability_path": "results/candidate_stability.csv",
+      "definitions_path": "README_rus.md"
+    }
+  }
+}

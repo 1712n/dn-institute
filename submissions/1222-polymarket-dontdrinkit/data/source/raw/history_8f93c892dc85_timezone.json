@@ -1,0 +1,25 @@
+{
+	"meta":
+	[
+		{
+			"name": "timezone",
+			"type": "String"
+		}
+	],
+
+	"data":
+	[
+		{
+			"timezone": "UTC"
+		}
+	],
+
+	"rows": 1,
+
+	"statistics":
+	{
+		"elapsed": 0.000802112,
+		"rows_read": 1,
+		"bytes_read": 1
+	}
+}

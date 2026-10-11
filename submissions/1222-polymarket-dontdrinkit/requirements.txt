@@ -1,0 +1,4 @@
+# Python dependencies pinned to the environment used to reproduce this study.
+numpy==2.4.2
+pandas==3.0.1
+matplotlib==3.10.7

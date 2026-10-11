@@ -1,0 +1,36 @@
+{
+  "meta": [
+    {
+      "name": "token_id",
+      "type": "String"
+    },
+    {
+      "name": "complement",
+      "type": "String"
+    },
+    {
+      "name": "condition_id",
+      "type": "String"
+    },
+    {
+      "name": "outcome_index",
+      "type": "Decimal(76, 18)"
+    }
+  ],
+  "data": [
+    {
+      "token_id": "98590363695810976489755414330258191966783137178752226225745237702303580425394",
+      "complement": "24918067747661759048720135607687934209172945708698786072564741153847301974566",
+      "condition_id": "0x580adc1327de9bf7c179ef5aaffa3377bb5cb252b7d6390b027172d43fd6f993",
+      "outcome_index": 1
+    },
+    {
+      "token_id": "24918067747661759048720135607687934209172945708698786072564741153847301974566",
+      "complement": "98590363695810976489755414330258191966783137178752226225745237702303580425394",
+      "condition_id": "0x580adc1327de9bf7c179ef5aaffa3377bb5cb252b7d6390b027172d43fd6f993",
+      "outcome_index": 0
+    }
+  ],
+  "rows": 2,
+  "origin_kind": "filtered_saved_snapshot"
+}
