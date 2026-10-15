@@ -4,8 +4,12 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import pandas as pd
 
+import config
 from src.pm_client import PolymarketClient
 from src import osint
+
+LIFETIME_CACHE = config.INPUT_DIR / "lifetime_profiles.csv"
+FIRST_ACTIVITY_CACHE = config.INPUT_DIR / "wallet_first_activity.csv"
 
 _tl = threading.local()
 
@@ -18,14 +22,66 @@ def _client():
 
 def fetch_lifetime_parallel(wallets, workers=16):
     def work(w):
-        lt = osint._lifetime(_client(), w)
-        return w, lt["lt_markets"], lt["lt_pnl"]
+        try:
+            lt = osint._lifetime(_client(), w)
+        except Exception:
+            return None
+        return {"wallet": w, "lt_markets": lt["lt_markets"], "lt_pnl": lt["lt_pnl"]}
     rows = []
     with ThreadPoolExecutor(max_workers=workers) as ex:
         for fut in as_completed([ex.submit(work, w) for w in wallets]):
-            w, m, p = fut.result()
-            rows.append({"wallet": w, "lt_markets": m, "lt_pnl": p})
-    return pd.DataFrame(rows)
+            r = fut.result()
+            if r is not None:
+                rows.append(r)
+    return pd.DataFrame(rows, columns=["wallet", "lt_markets", "lt_pnl"])
+
+
+def lifetime_profiles(wallets, offline=False, workers=16):
+    """Lifetime profile per wallet, served from a snapshot so reruns are reproducible.
+
+    Wallets missing from the snapshot are fetched from /positions and appended, unless
+    `offline`; wallets that stay unknown get no row (and later M_lifetime = 1).
+    """
+    wallets = set(wallets)
+    cols = ["wallet", "lt_markets", "lt_pnl"]
+    cache = pd.read_csv(LIFETIME_CACHE) if LIFETIME_CACHE.exists() else pd.DataFrame(columns=cols)
+    missing = sorted(wallets - set(cache["wallet"]))
+    if missing and not offline:
+        fresh = fetch_lifetime_parallel(missing, workers=workers)
+        if len(fresh):
+            cache = pd.concat([cache, fresh], ignore_index=True)
+            cache = cache.drop_duplicates("wallet").sort_values("wallet")
+            LIFETIME_CACHE.parent.mkdir(parents=True, exist_ok=True)
+            cache.round({"lt_pnl": 4}).to_csv(LIFETIME_CACHE, index=False)
+    return cache[cache["wallet"].isin(wallets)].reset_index(drop=True)
+
+
+def _first_activity(wallet):
+    act = _client().activity(wallet, limit=1, oldest_first=True)
+    if act is None:
+        raise RuntimeError(f"activity lookup failed for {wallet}")
+    return {"wallet": wallet, "first_activity_ts": act[0]["timestamp"] if act else None}
+
+
+def first_activity(wallets, offline=False, workers=8):
+    """Timestamp of each wallet's first Polymarket activity, served from a snapshot like
+    lifetime_profiles; wallets missing from it are fetched unless `offline`."""
+    cols = ["wallet", "first_activity_ts"]
+    cache = pd.read_csv(FIRST_ACTIVITY_CACHE) if FIRST_ACTIVITY_CACHE.exists() else pd.DataFrame(columns=cols)
+    missing = sorted(set(wallets) - set(cache["wallet"]))
+    if missing and not offline:
+        rows = []
+        with ThreadPoolExecutor(max_workers=workers) as ex:
+            for fut in as_completed([ex.submit(_first_activity, w) for w in missing]):
+                try:
+                    rows.append(fut.result())
+                except Exception:
+                    pass
+        if rows:
+            cache = pd.concat([cache, pd.DataFrame(rows, columns=cols)], ignore_index=True)
+            cache.sort_values("wallet").to_csv(FIRST_ACTIVITY_CACHE, index=False)
+            cache = pd.read_csv(FIRST_ACTIVITY_CACHE)
+    return cache[cache["wallet"].isin(set(wallets))].reset_index(drop=True)
 
 
 def lifetime_multiplier(lt_markets, lt_pnl):

@@ -1,12 +1,11 @@
 ---
 title: "Informed trading on Polymarket: a wallet that bought Maduro's ouster at 7¢ hours before it was public"
-description: "All political Polymarket markets over Nov 2025 – May 2026 (13.2M trades, 734k wallets), scored with an interpretable episode model and filtered through survivorship, lifetime and on-chain controls. Most 'surprise' resolutions are explained by public events; one wallet is not: it accumulated 'Maduro out by Jan 31' at ~7¢ up to 6 hours before a covert US operation became public, made +$404k, and cashed out."
+description: "All political Polymarket markets over Nov 2025 – May 2026 (13.2M trades, 734k wallets), scored with an interpretable episode model and filtered through survivorship, lifetime, event-publicity and on-chain controls. Most 'surprise' resolutions are explained by public events; one wallet is not: a days-old account accumulated 'Maduro out by Jan 31' at ~7¢, with its last buy about three hours before the first explosions in Caracas, made +$404k, and cashed out."
 date: 2026-10-12
 entities:
   - Polymarket
   - Maduro
   - Venezuela
-  - Binance
 ---
 
 ## Summary
@@ -18,127 +17,176 @@ a **non-public** outcome, **before** it became public, in a way that is abnormal
 and not explained by blanket-betting every sibling outcome?
 
 We collected every political Polymarket market resolving between 1 November 2025 and 1 May 2026
-(**15,604 markets, 13.2M trades, 734k wallets**), scored each (wallet × market) episode with an
-interpretable model, and then — crucially — ran it through four controls that remove false
-positives: survivorship, lifetime profile, event publicity, and on-chain single-operator checks.
+(**15,604 markets, 13.2M trades, 734k wallets**), picked candidate markets with two independent
+screens (a price-jump screen and a wallet screen), scored each (wallet × market) episode with an
+interpretable model, and then ran it through four controls that remove false positives:
+survivorship, lifetime profile, event publicity, and on-chain single-operator checks.
 
-- **28 of 35** "surprise" markets are explained by **public** events (vote counts, exit polls,
+- **36 of 48** candidate markets are explained by **public** events (vote counts, exit polls,
   announcements). A sharp price jump is not insider trading.
-- The headline "Iran-strike" suspects turn out to be **serial gamblers** who bet 14–21 strike
-  dates and won one.
-- Synchronous "clusters" are **not** a single operator: their shared funders are infrastructure
-  contracts, and the wallets span 2022–2026.
-- One wallet survives every control: `0x31a56e…` accumulated **"Maduro out by Jan 31"** at
-  **~7¢** up to **6 hours before** US special forces seized Maduro publicly, made **+$404,221**,
-  and cashed out.
+- The headline "Iran-strike" suspects turn out to be **serial gamblers** who bet up to 33 strike
+  dates across the Iran ladders and won one.
+- Synchronous "clusters" are a weak signal: the two we traced on-chain are **not** a single
+  operator — their shared funders are infrastructure contracts, and the wallets span 2022–2026.
+- One wallet survives every control: `0x31a56e…`, a days-old wallet, accumulated **"Maduro out by Jan 31"** at **~7¢**. Its last buy was at **02:58 UTC on
+  3 January**, about **3 hours before** the first explosions in Caracas and 6.4 hours before the
+  capture was announced. It made **+$404,221** and cashed out.
 
 Read every flag below as a priority for review, not a verdict.
 
-{{< figure src="maduro-timeline.png" alt="Maduro-out price path with wallet buys before the public capture" caption="'Maduro out by Jan 31' traded at 7–20% all December. Wallet 0x31a56e… (red, size ∝ $) accumulated ~$32.5k at ~7¢, last buy at 02:58 UTC on Jan 3 — 6.4h before US special forces seized Maduro and the price jumped to ~1 (09:22 UTC)." >}}
+{{< figure src="maduro-timeline.png" alt="Maduro-out price path with wallet buys before the public capture" caption="'Maduro out by Jan 31' traded at 7–20% all December. Wallet 0x31a56e… (red, size ∝ $) accumulated ~$32.5k at ~7¢ from 31 December; the last buy was at 02:58 UTC on 3 January, before the first explosions in Caracas (~05:50 UTC, dotted) and Trump's announcement (09:21 UTC), when the price jumped to ~1 (dashed)." >}}
 
 ## Data
 
 All public, keyless: Polymarket **Gamma** (market metadata and resolution), **Data API**
-(`/trades`, `/positions`), **CLOB**; and on-chain Polygon via **Etherscan v2** for wallet
-funding. Scope: binary, resolved political markets (`tag_id=2`) with resolution date inside the
-window. The unit of analysis is the **episode = (wallet × market)**.
+(`/trades`, `/positions`, `/activity`), **CLOB**; and on-chain Polygon via **Etherscan v2** for
+wallet funding. Scope: binary, resolved political markets (`tag_id=2`) with resolution date inside
+the window. The unit of analysis is the **episode = (wallet × market)**: all buys of the winning
+outcome by one wallet before the market's jump, at least $100 in total.
 
 Key derived fields: the winning outcome from `outcomePrices`; the outcome's **price path
-reconstructed from the trade tape** (CLOB `prices-history` is empty for neg-risk markets); and
-`t_event`, the **resolution-jump** — the moment the winner's price snaps toward 1, i.e. when the
-market absorbs the information. Per-wallet baselines (median trade size, breadth, cheap-bet
-success) come from the data; lifetime PnL comes from `/positions`.
+reconstructed from the trade tape** (CLOB `prices-history` is empty for neg-risk markets);
+`t_event`, the **resolution-jump** — the first trade of the final sustained move of the winner
+above 80%, i.e. when the market absorbs the information; and `t_public`, the **first public
+signal** of the event from the OSINT timeline (explosions in Caracas came hours before the
+capture was announced). For most events the two coincide. Per-wallet baselines (median trade
+size, average position, cheap-bet record) come from the full trade tape; lifetime PnL comes from
+`/positions`, and the date of a wallet's first Polymarket action from `/activity`.
 
-Limitations: `data-api/trades` returns at most ~11k recent trades per market, so the earliest
-history of 242 mega-markets is truncated; baselines are politics-only; Polymarket proxies are
-gasless (no gas-funding link between wallets).
+Limitations: `data-api/trades` pages newest-first and stops after roughly 10k trades, so the
+earliest history of large markets is truncated. The detector marks a market `history_truncated`
+when it has 9,000 or more collected trades — 334 markets, including "Maduro out by Jan 31", whose
+collected tape (9,367 trades) starts on 12 December. Baselines are politics-only; Polymarket
+proxies are gasless (no gas-funding link between wallets).
 
 ## Interpretable heuristics
 
-Each episode gets an explainable score **S = 2·T + 2·V + P + 2·A + R** (time and size weighted
-higher, as they tie most directly to informed entry):
+Each episode gets an explainable score **S = 2·T + 2·V + P + 2·A + R** (time, size and anomaly
+weighted higher, as they tie most directly to informed entry):
 
 | Signal | Definition | Threshold → points |
 |---|---|---|
-| **T** timing | closeness of volume-weighted entry to `t_event` | <5m=5 · 1–6h=2 · >24h=0 |
-| **V** volume | `max_buy / median(wallet's trades)` | 2–3×=1 · >10×=4 |
-| **P** price | entry cheapness into the winner (`vwap`) | ≤0.15=4 · ≤0.40=2 · >0.55=0 |
-| **A** anomaly | position vs the wallet's own average | 2×=1 · >3×=+1 |
-| **R** record | luck-adjusted hit-rate on cheap bets | ≥5/5=4 · ≥7/10=5 |
+| **T** timing | volume-weighted entry before `t_public` | <5m=5 · <15m=4 · <1h=3 · <6h=2 · <24h=1 · later=0 |
+| **V** volume | `max_buy / median(wallet's trades)` | 2–3×=1 · 3–5×=2 · 5–10×=3 · >10×=4 |
+| **P** price | entry price of the winner (`vwap`) | ≤0.15=4 · ≤0.25=3 · ≤0.40=2 · ≤0.55=1 |
+| **A** anomaly | position vs the wallet's average position | 2×=1 · 3×=2 · >3×=3 · ≥5×=4 |
+| **R** record | cheap-bet wins elsewhere (scored market excluded) | 2 wins at 66%=1 · 3 at 75%=2 · 4 at 80%=3 · 5 at 80%=4 · 7 at 70%=5 |
 
-Modifiers: a **lifetime multiplier** (fresh wallet ↑, high-activity net-loser "degen" ↓) and a
-**+3 cluster bonus** for synchronized bursts, giving `S_final = S · M_lifetime + cluster`.
+**Fresh wallets.** A wallet created days before its bet has no history to compare the bet
+against: its median trade is the bet itself, so V and A come out near zero exactly where they
+matter most. If the wallet's first Polymarket action was at most **7 days** before its first buy
+in the market, and the bet is a long shot (≤25¢) of at least **$1,000**, V and A are taken at
+the cap. 39 episodes meet this rule.
+
+Modifiers turn `S` into `S_final`:
+
+- **M_lifetime** ∈ [0.3, 1.4] — few markets over the wallet's life ↑, high-activity net losers ↓;
+- **M_sibling** = 0.5 for fan bettors (survivorship control, below);
+- **M_event** by OSINT tier: HIGH 1 · MED-HIGH 0.85 · MED 0.7 · LOW-MED 0.45 · LOW 0.3;
+- **M_public** = 0.3 if more than half of the episode was bought after `t_public` (news reaction);
+- **+3** if the wallet belongs to a synchronous co-occurrence cluster.
+
+`S_final = S · M_lifetime · M_sibling · M_event · M_public + cluster`. An episode with
+`S_final ≥ 12` is flagged.
 
 ## Method
 
-1. **Event selection** — detect markets where the winner was cheap early and snapped to ~1; fix `t_event`.
+1. **Event selection** — two screens. The *price-jump screen* takes markets where the winner was
+   cheap early in the collected tape (≤55%) and ended above 80%. It ranks markets by the whole
+   move, so it misses markets that broke in their last hours, such as "Maduro out by Jan 31". The
+   *wallet screen* closes that gap: wallets that won every market they traded, at long odds, hand
+   their markets to the same scoring. The screens give 37 and 12 markets, one in common. One of
+   the 48, the novelty market `will-pete-hegseth-ban-claude-by-march-31`, gets an OSINT tier but
+   is left out of scoring.
 2. **Episode scoring** — `S_final` for everyone who bought the winner **before** the jump.
-3. **Survivorship control** — did the wallet also buy the *losing* sibling markets (other dates in a series)? If so, winning once is luck.
-4. **OSINT event verification** — reconstruct the public timeline; was the entry before the public news about a *non-public* fact?
+3. **Survivorship control** — did the wallet also buy the same cheap outcome on the *losing*
+   sibling markets (other dates in a series)? If it bet at least 3 dates and won at most a third
+   of them, winning once is luck.
+4. **OSINT event verification** — reconstruct the public timeline; was the entry before the first
+   public signal about a *non-public* fact? The event tier is set by rule from the event type, one
+   step up when the fact existed privately before it was disclosed.
 5. **On-chain tracing** — wallet age, funding source, cash-out; test the single-operator hypothesis.
 6. **Skill vs insider** — consistently profitable sharp traders (who win on *public* events) are not insiders.
 
 ### Ranking
 
 With no ground-truth labels, the ranking is an **interpretable, unsupervised priority**, not a
-calibrated probability. A wallet's rank is the maximum `S_final` among its episodes **that
-survive the controls**: public-event and blanket-bet episodes are demoted; cheap, early,
-abnormal entries on non-public events are promoted; repetition across independent non-public
-events raises the rank. Every component is auditable, so each flag carries a traceable chain:
-episode → signals → event → on-chain.
+calibrated probability. Wallets are ordered by the number of independent markets on which they
+were flagged, then by the profit of their flagged episodes. Public-event, news-reaction and
+blanket-bet episodes are demoted before the threshold, so they rarely reach the list; repetition
+across independent events comes first, then the money at stake. Every component is auditable,
+so each flag carries a traceable chain: episode → signals → event → on-chain.
+
+The threshold produces **258 flagged episodes from 249 wallets**; only 7 wallets are flagged on
+more than one market.
 
 ## Results
 
 ### Most "surprises" are public
 
-Of the 35 substantive surprise markets, OSINT places **28** in the LOW / LOW-MED tier —
-elections (NJ, VA, Peru, Hungary, Japan, Portugal), congressional votes, Fed-chair announcements.
-Their price jumps coincide with public vote counts, exit polls, or statements. Only four reach
-HIGH / MED-HIGH: the Trump–Maduro secret call and the Iran/Syria strikes.
+Of the 48 candidate markets, OSINT places **36** in the LOW / LOW-MED tier — elections (NJ, VA,
+Peru, Hungary, Japan, Portugal), congressional votes, Fed-chair announcements, shutdown votes.
+Their price jumps coincide with public vote counts, exit polls, or statements. Six reach HIGH /
+MED-HIGH: the Trump–Maduro secret call (two markets), the Maduro capture, the 28 February strike
+on Iran (two markets) and the strike on Syria.
 
-{{< figure src="event-relevance.png" alt="distribution of 35 surprise markets by insider-relevance" caption="A sharp resolution jump is not insider trading: 28 of 35 surprise markets are explained by public events." >}}
+{{< figure src="event-relevance.png" alt="distribution of 48 candidate markets by insider-relevance" caption="A sharp resolution jump is not insider trading: 36 of 48 candidate markets are explained by public events." >}}
 
 ### The control that matters: survivorship
 
-The "will the US strike Iran on [date]" series has ~40 daily markets; only Feb 28 won. The
-wallets that looked surgical in a winner-only view actually bought cheap YES across many dates
-and lost almost all of them — a tail-betting strategy, not information.
+Polymarket runs the strike on Iran as several ladders — daily "will the US next strike Iran on
+[date]", weekly markets, and "US / Israel strikes Iran by [date]" deadlines — and only the
+28 February dates won. We treat all of them as one series. The wallets that looked surgical in a
+winner-only view actually bought cheap YES across many dates and lost almost all of them —
+`Embarrassed-Wording` 23 dates, `Next-Reader` 15, `Present-Plunger` 12 — a tail-betting strategy,
+not information. Across all date series, 357 episodes are demoted this way.
 
-{{< figure src="iran-baserate.png" alt="Iran-strike suspects bet many dates and won one" caption="Base-rate control. Each 'Iran-strike' suspect bought cheap YES on 3–21 strike dates and won exactly one. Winning Feb 28 is survivorship, not precision." >}}
+{{< figure src="iran-baserate.png" alt="Iran-strike suspects bet many dates and won one" caption="Base-rate control. Each top 'Iran-strike' episode that bet several dates bought cheap YES on 3–33 strike dates across the Iran ladders and won exactly one. Winning Feb 28 is survivorship, not precision." >}}
 
-Synchronous clusters fail a different control: on-chain, their shared funders are
-high-fan-out infrastructure contracts, and member wallets were created years apart (2022–2026) —
-inconsistent with one operator.
+The first-public control works the same way on the Maduro market: 183 of its 296 episodes were
+bought mostly after the first explosions in Caracas and before the announcement — fast reaction
+to breaking news, not prior knowledge — and are demoted.
+
+Synchronous clusters fail a different control. Co-occurrence links 499 wallets into 60 clusters,
+which only adds +3 to a score. The two clusters we traced on-chain share funders that are
+high-fan-out infrastructure contracts, and their member wallets were created years apart
+(2022–2026) — inconsistent with one operator.
 
 ### The wallet that survives every control
 
 `0x31a56e9e690c621ed21de08cb559e9524cdb8ed9` was **created on 26 December 2025**, five days
-before its first trade, and funded with ~$478k. It bought **"Maduro out by Jan 31"** — an
-outcome the market priced at ~7% through 2 January — accumulating ~$32.5k at an average of
-**7.4¢**, with its last buys at **02:58 UTC on 3 January**. At **09:22 UTC on 3 January**, US
-special forces seized Maduro in Caracas and the price jumped to ~1. The wallet realised
-**+$404,221**, then zeroed out its positions.
+before its first trade, and funded with ~$478k. Between 31 December and 3 January it bought
+**"Maduro out by Jan 31"** — an outcome the market priced at ~7% through 2 January — accumulating
+**$32,538** at an average of **7.4¢**, with its last buy at **02:58 UTC on 3 January**. The first
+explosions in Caracas were reported at about 05:50 UTC; Trump announced the capture at 09:21 UTC,
+and the price jumped to ~1 a minute later. The wallet realised **+$404,221**, then zeroed out its
+positions.
 
 Every signal aligns: a non-public covert operation, a fresh purpose-built wallet, large size, a
-cheap entry against a 7% consensus in the hours before the public break, and an immediate
-cash-out. It also won two smaller related bets (US war-powers vs Venezuela at 4.7¢).
+cheap entry against a 7% consensus in the hours before the first public sign, and an immediate
+cash-out. It also won two smaller related bets (US war-powers vs Venezuela at 4.7¢). The
+pipeline flags it with `S_final = 22`: entry 12.4 hours before the first public signal (T=1), a
+long shot (P=4), and size at the cap under the fresh-wallet rule (V=A=4).
+
+It was not alone. 35 episodes on this market are flagged, 10 of them from wallets that were at
+most a week old: `French-Incense` put $10,000 at 11¢ two hours before the first explosions with
+its very first Polymarket trade (+$78k), and `Wee-Pseudoscience` $5,783 at 7¢ eight hours before
+(+$75k). A wallet with some history, `Wobbly-Female`, bought $697 at 7.5¢ about 14 hours before
+(+$8.6k).
 
 ### Other candidates
 
 | Wallet | Bet | Entry | Profit | Why |
 |---|---|---|---|---|
-| `0x957015a2…` | Trump pardons CZ (Binance) | 25¢ | +$13,871 | pardons are non-public until signed; personal-EOA funder |
-| `0x54520a06…` | Russia takes Lyman + Kostiantynivka | 21–39¢ | +$12,562 | battlefield longshots |
-| `0x8517b980…` | US strike Iran, Feb 28 | 4¢ | +$12,749 | very cheap, fresh — but subject to the date-series caveat |
-| `0xaec0bf01…` | both Trump–Maduro call markets | 17–40¢ | +$4,971 | entry before the NYT report of a private call; fresh wallet |
+| `0xaec0bf01…` | both Trump–Maduro call markets | 17–40¢ | +$5,665 | entry around the private call, before the NYT report; fresh wallet; flagged on both |
+| `0x54520a06…` | Russia does **not** take Kostiantynivka / Lyman by 31 March (NO) | 21–39¢ | +$12,548 | bought the day after the wallet appeared; battlefield long shots |
+| `0x8517b980…` | US strike Iran, Feb 28 | 4¢ | +$12,749 | very cheap — but it bet four strike dates and won one; not flagged |
 
-{{< figure src="cz-pardon-timeline.png" alt="CZ pardon market price with wallet buys before the pardon" caption="Wallet 0x957015… bought 'Trump pardons CZ (Binance)' at ~25¢ in late August, about two months before the Oct 23 pardon. Pardons are non-public until signed — though CZ's pardon push was itself publicly reported, so this is a softer flag than Maduro." >}}
+{{< figure src="russia-towns-timeline.png" alt="Russia town-capture markets with wallet buys of NO" caption="Wallet 0x54520a… bought NO on 'Russia takes Kostiantynivka' (~21¢) and 'Lyman' (~39¢) on 9–10 January, when the market gave the captures 60–80%. Neither town fell by 31 March and both resolved No. A good battlefield read rather than a single pre-public spike: only the Kostiantynivka bet is flagged." >}}
 
-{{< figure src="russia-towns-timeline.png" alt="Russia town-capture markets with wallet buys" caption="Wallet 0x54520a… entered 'Russia takes Lyman' (~39¢) and 'Kostiantynivka' (~21¢) cheaply in January; both then rose gradually as the front advanced publicly and resolved YES. Good battlefield reads rather than a single pre-public spike." >}}
+{{< figure src="maduro-call-0xaec0bf.png" alt="Maduro-call markets with wallet buys in the private-call window" caption="Wallet 0xaec0bf01 bought both 'Trump talks to Maduro' markets at ~17–40% between 17 and 25 November, around the private call (~Nov 20–24, shaded) and before the NYT reported it on Nov 28 (dashed), when the price went to 1. A clean illustration of trading between a private fact and its public disclosure." >}}
 
-{{< figure src="maduro-call-0xaec0bf.png" alt="Maduro-call markets with wallet buys in the private-call window" caption="Wallet 0xaec0bf01 bought both 'Trump talks to Maduro' markets at ~17–40% inside the private-call window (~Nov 20–24, shaded), before the NYT reported the call on Nov 28 (dashed) and the price went to 1. A clean illustration of trading between a private fact and its public disclosure." >}}
-
-{{< figure src="iran-strike-0x8517.png" alt="Iran-strike market with wallet buys, plus the base-rate caveat" caption="Wallet 0x8517b980 entered 'US strikes Iran on Feb 28' at ~4¢ — but it also bought YES on four strike-dates and won only one, so the cheap entry is partly tail-betting, not clean precision. Shown as the honest counter-example." >}}
+{{< figure src="iran-strike-0x8517.png" alt="Iran-strike market with wallet buys, plus the base-rate caveat" caption="Wallet 0x8517b980 entered 'US strikes Iran on Feb 28' at ~4¢ — but it also bought YES on other strike dates and won only one, so the cheap entry is partly tail-betting, not clean precision. Shown as the honest counter-example." >}}
 
 ## Limitations and ethics
 
@@ -147,11 +195,27 @@ public escalation context (there was visible US pressure on Venezuela), fast rea
 news, copy-trading, market-making, and plain luck on tail bets. Conclusions about any specific
 wallet require off-chain corroboration.
 
+Known weak spots of the model:
+
+- Timing is only as good as the OSINT timeline. `Uneven-Skean` scores highest of all
+  (`S_final = 40.7`) for buying "Israel strikes Iran by Feb 28" seconds before the recorded first
+  report — more likely a reaction to the same news than prior knowledge.
+- A crowd trading toward a public deadline looks like many small insiders: the Iran ceasefire
+  market accounts for 105 of the 258 flagged episodes, most bought in the hours before Trump's
+  Strait of Hormuz deadline.
+- Ranking by profit lifts large positions that only just cross the threshold (several wallets in
+  the top 20 sit at `S_final` 12–13).
+- Truncated tapes hide early buyers on mega-markets, and the fresh-wallet rule depends on
+  `/activity`, which records Polymarket actions only.
+
 ## Reproducing
 
-Code and CSV artifacts are in `code/` and `data/` next to this article. In short:
-`run_collect_all.py` (collect) → `detect_surprises.py` (jump detector) → `run_account_phase.py`
-(episode scoring + lifetime + clusters); OSINT verification and on-chain tracing use
-`ETHERSCAN_KEY` (see `code/src/trace.py`). Artifacts include `event_analysis.csv` (35 events),
-`suspects_by_event.csv`, `longshot_perfect.csv`, `perfect_winrate.csv`, and the ranked
+Code and CSV artifacts are in `code/` and `data/` next to this article; `code/README.md` lists
+every step. In short: `run_collect_all.py` (collect) → `detect_surprises.py` (price-jump
+screen) → `screen_wallets.py` (wallet screen) → `run_account_phase.py` (episode scoring,
+controls, lifetime, clusters) → `build_artifacts.py` (event tiers, suspects per event) →
+`make_figures.py` (every figure above). The OSINT timeline and the event classification are in
+`code/inputs/event_analysis.csv`; on-chain tracing uses `ETHERSCAN_KEY` (see `code/src/trace.py`).
+Artifacts include `event_tiers.csv` (48 events), `episode_scores.csv`, `suspects_by_event.csv`,
+`longshot_perfect.csv`, `perfect_winrate.csv`, `clusters.csv`, and the ranked
 `suspicious_accounts.csv`.

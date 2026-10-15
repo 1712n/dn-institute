@@ -49,6 +49,8 @@ class PolymarketClient:
         return self._get(f"{config.DATA_API}/positions",
                          {"user": wallet, "limit": limit})
 
-    def activity(self, wallet, limit=500):
-        return self._get(f"{config.DATA_API}/activity",
-                         {"user": wallet, "limit": limit})
+    def activity(self, wallet, limit=500, oldest_first=False):
+        p = {"user": wallet, "limit": limit}
+        if oldest_first:
+            p.update(sortBy="TIMESTAMP", sortDirection="ASC")
+        return self._get(f"{config.DATA_API}/activity", p)

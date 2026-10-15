@@ -80,7 +80,7 @@ def r_score(wins, attempts):
 
 
 def score_row(r):
-    T = t_score(r["hours_before_jump"])
+    T = t_score(r["t_hours"])
     V = v_score(r["v_ratio"])
     P = p_score(r["vwap_entry"])
     A = a_score(r["a_ratio"])
