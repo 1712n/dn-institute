@@ -2,11 +2,8 @@
 name = "trade-feed-validator"
 version = "0.1.0"
 description = "Validate trade event feeds before they reach analytics."
-requires-python = ">=3.11"
+requires-python = ">=3.9"
 dependencies = []
-
-[dependency-groups]
-dev = ["pytest>=8"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

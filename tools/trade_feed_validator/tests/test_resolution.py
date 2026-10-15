@@ -1,4 +1,4 @@
-from datetime import UTC, datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from pathlib import Path
 
@@ -201,7 +201,7 @@ def test_resolver_time_is_converted_to_utc():
     plus_two = utc(11, 58, 20).replace(tzinfo=timezone(timedelta(hours=2)))
     _, resolved = run(MockChainResolver(txs={"0xaa4": plus_two}))
     assert by_id(resolved.loaded)["evt_005"].block_time == utc(9, 58, 20)
-    assert by_id(resolved.loaded)["evt_005"].block_time.tzinfo == UTC
+    assert by_id(resolved.loaded)["evt_005"].block_time.tzinfo == timezone.utc
 
 
 def test_resolver_time_without_timezone_is_rejected():

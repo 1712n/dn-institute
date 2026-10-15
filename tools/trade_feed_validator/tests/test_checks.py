@@ -1,5 +1,5 @@
 from dataclasses import replace
-from datetime import UTC, datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from pathlib import Path
 
@@ -14,11 +14,11 @@ SAMPLE = Path(__file__).parent.parent / "sample_feed.csv"
 EVENT = TradeEvent(
     event_id="evt_a",
     tx_hash="0xaa1",
-    block_time=datetime(2026, 1, 1, 9, 0, 0, tzinfo=UTC),
+    block_time=datetime(2026, 1, 1, 9, 0, 0, tzinfo=timezone.utc),
     wallet="0xD4…",
     side=Side.BUY,
     amount=Decimal("100"),
-    ingested_at=datetime(2026, 1, 1, 9, 0, 3, tzinfo=UTC),
+    ingested_at=datetime(2026, 1, 1, 9, 0, 3, tzinfo=timezone.utc),
 )
 
 

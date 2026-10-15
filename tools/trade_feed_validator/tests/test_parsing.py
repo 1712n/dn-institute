@@ -1,4 +1,4 @@
-from datetime import UTC, datetime, time, timedelta
+from datetime import datetime, time, timedelta, timezone
 from decimal import Decimal
 from pathlib import Path
 
@@ -33,7 +33,7 @@ def test_valid_row_parses_into_typed_event():
     assert parsed.violations == ()
     assert parsed.event.side is Side.BUY
     assert parsed.event.amount == Decimal("120000")
-    assert parsed.event.block_time == datetime(2026, 1, 1, 9, 14, 2, tzinfo=UTC)
+    assert parsed.event.block_time == datetime(2026, 1, 1, 9, 14, 2, tzinfo=timezone.utc)
 
 
 def test_sample_feed_parses_with_only_evt_005_missing_block_time():
@@ -65,13 +65,13 @@ def test_fractional_amount_is_kept_exactly():
 
 def test_timestamps_are_normalized_to_utc():
     parsed = parse(block_time="2026-01-01T11:14:02+02:00")
-    assert parsed.event.block_time == datetime(2026, 1, 1, 9, 14, 2, tzinfo=UTC)
+    assert parsed.event.block_time == datetime(2026, 1, 1, 9, 14, 2, tzinfo=timezone.utc)
 
 
 def test_time_of_day_is_taken_as_utc_on_a_single_day():
     parsed = parse(block_time="09:14:02", ingested_at="09:14:05")
     assert parsed.violations == ()
-    assert parsed.event.block_time == datetime.combine(TIME_ONLY_DATE, time(9, 14, 2), tzinfo=UTC)
+    assert parsed.event.block_time == datetime.combine(TIME_ONLY_DATE, time(9, 14, 2), tzinfo=timezone.utc)
     assert parsed.event.ingested_at - parsed.event.block_time == timedelta(seconds=3)
 
 

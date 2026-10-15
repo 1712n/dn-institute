@@ -11,7 +11,7 @@ import csv
 import re
 from collections.abc import Callable, Iterator
 from dataclasses import dataclass
-from datetime import UTC, datetime, time
+from datetime import datetime, time, timezone
 from decimal import Decimal
 from pathlib import Path
 
@@ -124,17 +124,19 @@ def _parse_timestamp(text: str) -> datetime:
         # Built from the fields, not time.fromisoformat, which reads 24:00:00
         # as midnight on some Python versions and rejects it on others.
         try:
-            return datetime.combine(TIME_ONLY_DATE, time(*map(int, match.groups())), tzinfo=UTC)
+            return datetime.combine(TIME_ONLY_DATE, time(*map(int, match.groups())), tzinfo=timezone.utc)
         except ValueError:
             raise ValueError(f"not a valid time: {text!r}") from None
+    # fromisoformat accepts a trailing "Z" only from Python 3.11.
+    iso = text[:-1] + "+00:00" if text.endswith("Z") else text
     try:
-        ts = datetime.fromisoformat(text)
+        ts = datetime.fromisoformat(iso)
     except ValueError:
         raise ValueError(f"not an ISO 8601 timestamp or HH:MM:SS time: {text!r}") from None
     if ts.tzinfo is None:
         raise ValueError(f"timestamp has no timezone: {text!r}")
     try:
-        return ts.astimezone(UTC)
+        return ts.astimezone(timezone.utc)
     except OverflowError:
         raise ValueError(f"timestamp out of range in UTC: {text!r}") from None
 

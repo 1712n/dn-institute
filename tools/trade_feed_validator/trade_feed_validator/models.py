@@ -5,7 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date, datetime
 from decimal import Decimal
-from enum import StrEnum
+from enum import Enum
+from typing import Optional, Union
 
 # Times given without a date (HH:MM:SS) are placed on this day so they can be
 # compared; a feed that gives times only is taken to cover a single day. The
@@ -15,7 +16,14 @@ TIME_ONLY_DATE = date.min
 # A CSV row as read by csv.DictReader, before any conversion. Fields missing
 # from a short row are None; fields beyond the header are kept as a list under
 # the key None, which can't collide with a column name.
-RawRow = dict[str | None, str | list[str] | None]
+RawRow = dict[Optional[str], Union[str, list[str], None]]
+
+
+class StrEnum(str, Enum):
+    """Like enum.StrEnum (Python 3.11+): each member is, and prints as, its value."""
+
+    def __str__(self) -> str:
+        return self.value
 
 
 class Side(StrEnum):

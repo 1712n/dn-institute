@@ -6,13 +6,15 @@ Built for [#1209](https://github.com/1712n/dn-institute/issues/1209), where an e
 
 ## Quick start
 
-Requires Python 3.11+ and [uv](https://docs.astral.sh/uv/).
+Requires Python 3.9 or newer. The tool itself uses only the standard library; the tests need pytest.
 
 ```bash
 cd tools/trade_feed_validator
-uv sync                                                  # install dependencies (pytest)
-uv run python -m trade_feed_validator sample_feed.csv   # run the pipeline, writes out/
-uv run pytest                                            # run the tests
+python3 -m venv .venv
+. .venv/bin/activate                              # Windows: .venv\Scripts\activate
+pip install pytest                                # install dependencies
+python -m trade_feed_validator sample_feed.csv   # run the pipeline, writes out/
+python -m pytest                                  # run the tests
 ```
 
 Running the pipeline on the sample prints:

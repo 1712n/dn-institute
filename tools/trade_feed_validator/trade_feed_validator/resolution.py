@@ -15,7 +15,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 from dataclasses import dataclass, field, replace
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from decimal import Decimal
 from typing import Protocol
 
@@ -41,7 +41,7 @@ class TxLookup:
             return
         if self.block_time.tzinfo is None:
             raise ValueError(f"block_time must be timezone-aware, got {self.block_time.isoformat()}")
-        object.__setattr__(self, "block_time", self.block_time.astimezone(UTC))
+        object.__setattr__(self, "block_time", self.block_time.astimezone(timezone.utc))
 
 
 class ChainResolver(Protocol):

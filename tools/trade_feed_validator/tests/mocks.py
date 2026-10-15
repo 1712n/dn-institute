@@ -1,6 +1,6 @@
 """Test doubles shared across test modules."""
 
-from datetime import UTC, datetime, time
+from datetime import datetime, time, timezone
 from decimal import Decimal
 
 from trade_feed_validator.models import TIME_ONLY_DATE, Side
@@ -9,7 +9,7 @@ from trade_feed_validator.resolution import TxLookup
 
 def utc(hh, mm, ss):
     """A UTC time of day, as parsed from an HH:MM:SS value."""
-    return datetime.combine(TIME_ONLY_DATE, time(hh, mm, ss), tzinfo=UTC)
+    return datetime.combine(TIME_ONLY_DATE, time(hh, mm, ss), tzinfo=timezone.utc)
 
 
 def trade(tx_hash, wallet, side, amount):
