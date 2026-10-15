@@ -71,6 +71,25 @@ def test_backfilled_row_is_rechecked_for_duplicates():
     assert held.event.flags == {Flag.BLOCK_TIME_BACKFILLED}
 
 
+def test_backfilled_duplicate_is_loaded_when_the_chain_confirms_a_separate_trade():
+    rows = [(2, row("evt_a")), (3, row("evt_b", block_time=""))]
+    _, resolved = run(MockChainResolver(txs={"0xbb1": utc(9, 0, 0)}, trades={ROW_TRADE: 2}), rows)
+    assert resolved.quarantined == [] and resolved.dropped == []
+    [loaded] = resolved.loaded
+    assert loaded.event_id == "evt_b"
+    assert loaded.block_time == utc(9, 0, 0)
+    assert loaded.flags == {Flag.BLOCK_TIME_BACKFILLED, Flag.CONFIRMED_DISTINCT_TRADE}
+
+
+def test_second_backfilled_row_of_a_trade_is_a_duplicate_of_the_first():
+    rows = [(2, row("evt_a", block_time="")), (3, row("evt_b", block_time=""))]
+    _, resolved = run(MockChainResolver(txs={"0xbb1": utc(9, 0, 0)}, trades={ROW_TRADE: 1}), rows)
+    assert resolved.quarantined == []
+    [loaded] = resolved.loaded
+    assert (loaded.event_id, loaded.flags) == ("evt_a", {Flag.BLOCK_TIME_BACKFILLED})
+    assert dropped(resolved) == {"evt_b": DropReason.DUPLICATE_CONFIRMED}
+
+
 def test_backfilled_row_with_ingest_before_chain_time_flags_ingested_at():
     _, resolved = run(MockChainResolver(txs={"0xaa4": utc(9, 59, 0)}))
     assert by_id(resolved.loaded)["evt_005"].flags == {
