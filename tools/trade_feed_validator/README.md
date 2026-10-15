@@ -125,7 +125,7 @@ Violations are then handled at three levels:
 
 Each row goes through three stages, in arrival order:
 
-1. **Parse** (`parsing.py`): the row becomes a typed event, or is quarantined with every problem found. Timestamps must be ISO 8601 with a timezone and are converted to UTC; `null` or an empty field counts as missing. A header without the seven schema columns, or with a repeated column, stops the run.
+1. **Parse** (`parsing.py`): the row becomes a typed event, or is quarantined with every problem found. Timestamps are either ISO 8601 with a timezone, converted to UTC, or a time of day (`HH:MM:SS`) taken as UTC; `null` or an empty field counts as missing. A header without the seven schema columns, or with a repeated column, stops the run.
 2. **Check** (`checks.py`, `pipeline.py`): the invariant, then suspected duplicates. Rows with any violation are quarantined; the rest are clean.
 3. **Resolve** (`resolution.py`): quarantined rows are checked through the `ChainResolver` interface (transaction facts from the chain, trade counts from decoding the transaction afresh) and are loaded, dropped or left in quarantine. The run uses `DummyChainResolver` (`dummy_resolver.py`), whose answers are synthetic; see [Assumptions](#assumptions).
 
@@ -146,7 +146,7 @@ Input columns outside the schema aren't copied; `line` points to the full source
 | Code | Where | Meaning |
 |---|---|---|
 | `malformed_row` | reasons | Row has more or fewer fields than the header. |
-| `invalid_timestamp` | reasons | Not ISO 8601, no timezone, or out of range in UTC. |
+| `invalid_timestamp` | reasons | Neither ISO 8601 with a timezone nor a valid `HH:MM:SS` time, or out of range in UTC. |
 | `invalid_amount` | reasons | Not a positive number in plain decimal notation (`1e5` is rejected). |
 | `invalid_side` | reasons | Not `BUY` or `SELL`. |
 | `missing_required_value` | reasons | Empty or `null`. Only a missing `block_time` can be resolved. |
@@ -169,7 +169,7 @@ Input columns outside the schema aren't copied; `line` points to the full source
 
 ## Assumptions
 
-- The sample gives times only. `sample_feed.csv` places every event on 2026-01-01 (UTC), in ISO 8601; the date itself is arbitrary.
+- The sample gives times only, and `sample_feed.csv` keeps them as given. A feed of times without dates is taken to cover a single day, as the issue states, so an event crossing midnight can't be represented; `clean.csv` writes such times back without a date.
 - `null` is kept as in the sample; an empty field is treated the same way.
 - Wallets and tx hashes stay in their shortened form and are compared exactly as written.
 - The run's chain answers are synthetic, made up to fit the sample rather than derived from it: `0xaa4` (evt_005) is in a block at 09:58:27; `0xaa6` (evt_008) is in a block at 10:10:00, as the feed says; `0xaa2` holds one trade matching evt_003, and `0xaa5` holds two matching evt_007.

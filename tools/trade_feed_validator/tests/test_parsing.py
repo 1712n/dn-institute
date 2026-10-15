@@ -1,10 +1,10 @@
-from datetime import UTC, datetime
+from datetime import UTC, datetime, time, timedelta
 from decimal import Decimal
 from pathlib import Path
 
 import pytest
 
-from trade_feed_validator.models import Reason, Side
+from trade_feed_validator.models import TIME_ONLY_DATE, Reason, Side
 from trade_feed_validator.parsing import COLUMNS, FeedSchemaError, parse_row, read_rows
 
 SAMPLE = Path(__file__).parent.parent / "sample_feed.csv"
@@ -68,15 +68,25 @@ def test_timestamps_are_normalized_to_utc():
     assert parsed.event.block_time == datetime(2026, 1, 1, 9, 14, 2, tzinfo=UTC)
 
 
+def test_time_of_day_is_taken_as_utc_on_a_single_day():
+    parsed = parse(block_time="09:14:02", ingested_at="09:14:05")
+    assert parsed.violations == ()
+    assert parsed.event.block_time == datetime.combine(TIME_ONLY_DATE, time(9, 14, 2), tzinfo=UTC)
+    assert parsed.event.ingested_at - parsed.event.block_time == timedelta(seconds=3)
+
+
 @pytest.mark.parametrize(
     "value",
     [
-        "09:14:02",
         "2026-01-01 09:14:02",
         "yesterday",
         "2026-13-01T00:00:00Z",
         "0001-01-01T00:00:00+01:00",
         "9999-12-31T23:59:59-01:00",
+        "9:14:02",
+        "24:00:00",
+        "09:14",
+        "09:14:02Z",
     ],
 )
 def test_invalid_or_naive_timestamp_is_rejected(value):

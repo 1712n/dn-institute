@@ -20,14 +20,14 @@ def test_sample_run_writes_every_output_and_summary(tmp_path, capsys):
 
     clean = {r["event_id"]: r for r in read(tmp_path / "clean.csv")}
     assert list(clean) == ["evt_001", "evt_002", "evt_004", "evt_006", "evt_005", "evt_007", "evt_008"]
-    assert clean["evt_001"]["block_time"] == "2026-01-01T09:14:02Z"
+    assert clean["evt_001"]["block_time"] == "09:14:02"
     assert clean["evt_001"]["amount"] == "120000"
     assert {e: r["flags"] for e, r in clean.items() if r["flags"]} == {
         "evt_005": "block_time_backfilled",
         "evt_007": "confirmed_distinct_trade",
         "evt_008": "ingested_at_unreliable",
     }
-    assert clean["evt_005"]["block_time"] == "2026-01-01T09:58:27Z"
+    assert clean["evt_005"]["block_time"] == "09:58:27"
 
     assert read(tmp_path / "quarantine.csv") == []
     [dropped] = read(tmp_path / "dropped.csv")

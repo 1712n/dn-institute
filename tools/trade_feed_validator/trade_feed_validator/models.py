@@ -3,9 +3,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import date, datetime
 from decimal import Decimal
 from enum import StrEnum
+
+# Times given without a date (HH:MM:SS) are placed on this day so they can be
+# compared; a feed that gives times only is taken to cover a single day. The
+# day itself never reaches the output.
+TIME_ONLY_DATE = date.min
 
 # A CSV row as read by csv.DictReader, before any conversion. Fields missing
 # from a short row are None; fields beyond the header are kept as a list under

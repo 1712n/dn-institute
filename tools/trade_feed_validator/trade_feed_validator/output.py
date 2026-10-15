@@ -13,7 +13,7 @@ from collections.abc import Iterable
 from datetime import datetime
 from pathlib import Path
 
-from .models import QuarantinedRow, TradeEvent
+from .models import TIME_ONLY_DATE, QuarantinedRow, TradeEvent
 from .parsing import COLUMNS
 from .resolution import DroppedRow
 
@@ -93,7 +93,11 @@ def _raw_values(row: QuarantinedRow) -> list[str]:
 
 
 def _timestamp(value: datetime | None) -> str:
-    return "" if value is None else value.isoformat().replace("+00:00", "Z")
+    if value is None:
+        return ""
+    if value.date() == TIME_ONLY_DATE:
+        return value.strftime("%H:%M:%S")
+    return value.isoformat().replace("+00:00", "Z")
 
 
 def _join(codes: Iterable[str]) -> str:

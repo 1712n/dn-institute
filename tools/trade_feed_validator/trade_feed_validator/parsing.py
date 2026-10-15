@@ -11,11 +11,11 @@ import csv
 import re
 from collections.abc import Callable, Iterator
 from dataclasses import dataclass
-from datetime import UTC, datetime
+from datetime import UTC, datetime, time
 from decimal import Decimal
 from pathlib import Path
 
-from .models import RawRow, Reason, Side, TradeEvent, Violation
+from .models import TIME_ONLY_DATE, RawRow, Reason, Side, TradeEvent, Violation
 
 COLUMNS = (
     "event_id",
@@ -33,6 +33,9 @@ NULL_TOKENS = frozenset({"", "null"})
 # Plain decimal notation only: exponents like 1e999999999 are valid Decimals
 # but can't be written back out in reasonable time or space.
 AMOUNT_PATTERN = re.compile(r"\d+(\.\d+)?")
+
+# A time of day without a date, taken as UTC.
+TIME_PATTERN = re.compile(r"(\d{2}):(\d{2}):(\d{2})")
 
 
 class FeedSchemaError(ValueError):
@@ -117,10 +120,17 @@ def _parse_amount(text: str) -> Decimal:
 
 
 def _parse_timestamp(text: str) -> datetime:
+    if match := TIME_PATTERN.fullmatch(text):
+        # Built from the fields, not time.fromisoformat, which reads 24:00:00
+        # as midnight on some Python versions and rejects it on others.
+        try:
+            return datetime.combine(TIME_ONLY_DATE, time(*map(int, match.groups())), tzinfo=UTC)
+        except ValueError:
+            raise ValueError(f"not a valid time: {text!r}") from None
     try:
         ts = datetime.fromisoformat(text)
     except ValueError:
-        raise ValueError(f"not an ISO 8601 timestamp: {text!r}") from None
+        raise ValueError(f"not an ISO 8601 timestamp or HH:MM:SS time: {text!r}") from None
     if ts.tzinfo is None:
         raise ValueError(f"timestamp has no timezone: {text!r}")
     try:

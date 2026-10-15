@@ -27,7 +27,7 @@ def dropped(resolved):
     return {d.row.raw["event_id"]: d.reason for d in resolved.dropped}
 
 
-def row(event_id, block_time="2026-01-01T09:00:00Z", ingested_at="2026-01-01T09:00:03Z"):
+def row(event_id, block_time="09:00:00", ingested_at="09:00:03"):
     values = {
         "event_id": event_id,
         "tx_hash": "0xbb1",
@@ -144,7 +144,7 @@ def test_duplicate_is_dropped_when_chain_has_no_such_trade():
 
 
 def test_corrected_row_is_matched_for_duplicates_on_its_chain_time():
-    impossible = row("evt_b", block_time="2026-01-01T09:10:00Z")
+    impossible = row("evt_b", block_time="09:10:00")
     rows = [(2, row("evt_a")), (3, impossible)]
     _, resolved = run(MockChainResolver(txs={"0xbb1": utc(9, 0, 0)}, trades={ROW_TRADE: 1}), rows)
     assert dropped(resolved) == {"evt_b": DropReason.DUPLICATE_CONFIRMED}
@@ -198,7 +198,7 @@ def test_sample_with_full_chain_answers_resolves_every_row():
 
 
 def test_resolver_time_is_converted_to_utc():
-    plus_two = datetime(2026, 1, 1, 11, 58, 20, tzinfo=timezone(timedelta(hours=2)))
+    plus_two = utc(11, 58, 20).replace(tzinfo=timezone(timedelta(hours=2)))
     _, resolved = run(MockChainResolver(txs={"0xaa4": plus_two}))
     assert by_id(resolved.loaded)["evt_005"].block_time == utc(9, 58, 20)
     assert by_id(resolved.loaded)["evt_005"].block_time.tzinfo == UTC
