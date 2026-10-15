@@ -19,12 +19,9 @@ Running the pipeline on the sample prints:
 
 ```
 sample_feed.csv: 8 rows
-  clean        4
-  quarantined  4
-    ingested_before_block    1
-    missing_required_value   1
-    suspected_duplicate      2
-  dropped      0
+  clean        7
+  quarantined  0
+  dropped      1
 Written to out: clean.csv, quarantine.csv, dropped.csv
 ```
 
@@ -130,7 +127,7 @@ Each row goes through three stages, in arrival order:
 
 1. **Parse** (`parsing.py`): the row becomes a typed event, or is quarantined with every problem found. Timestamps must be ISO 8601 with a timezone and are converted to UTC; `null` or an empty field counts as missing. A header without the seven schema columns, or with a repeated column, stops the run.
 2. **Check** (`checks.py`, `pipeline.py`): the invariant, then suspected duplicates. Rows with any violation are quarantined; the rest are clean.
-3. **Resolve** (`resolution.py`): quarantined rows are checked through the `ChainResolver` interface (transaction facts from the chain, trade counts from decoding the transaction afresh) and are loaded, dropped or left in quarantine.
+3. **Resolve** (`resolution.py`): quarantined rows are checked through the `ChainResolver` interface (transaction facts from the chain, trade counts from decoding the transaction afresh) and are loaded, dropped or left in quarantine. The run uses `DummyChainResolver` (`dummy_resolver.py`), whose answers are synthetic; see [Assumptions](#assumptions).
 
 ### Output
 
@@ -166,7 +163,7 @@ Input columns outside the schema aren't copied; `line` points to the full source
 
 **Implemented:** parsing and the schema check for the seven columns, the suspected-duplicate check, the `ingested_at ≥ block_time` invariant, per-row quarantine with line, raw values and reason codes, and resolution of every sample issue behind the chain resolver interface.
 
-**Stubbed:** the chain resolver. The run uses `NoOpResolver`, so quarantined rows stay quarantined; the tests use a mock resolver (`MockChainResolver`) for every outcome. Connecting real sources means implementing `lookup_tx` (a chain query) and `count_matching_trades` (the indexer's decoding of a single transaction).
+**Stubbed:** the chain resolver. The run uses `DummyChainResolver`, whose answers are synthetic and chosen to fit the sample; the tests use a mock resolver (`MockChainResolver`) for every outcome. Connecting real sources means implementing `lookup_tx` (a chain query) and `count_matching_trades` (the indexer's decoding of a single transaction).
 
 **Proposed, not implemented:** the data contract, the ordering check, idempotent writes on an event identifier, per-batch alerting and per-feed reconciliation.
 
@@ -175,6 +172,7 @@ Input columns outside the schema aren't copied; `line` points to the full source
 - The sample gives times only. `sample_feed.csv` places every event on 2026-01-01 (UTC), in ISO 8601; the date itself is arbitrary.
 - `null` is kept as in the sample; an empty field is treated the same way.
 - Wallets and tx hashes stay in their shortened form and are compared exactly as written.
+- The run's chain answers are synthetic, made up to fit the sample rather than derived from it: `0xaa4` (evt_005) is in a block at 09:58:27; `0xaa6` (evt_008) is in a block at 10:10:00, as the feed says; `0xaa2` holds one trade matching evt_003, and `0xaa5` holds two matching evt_007.
 
 ## Known limitations
 

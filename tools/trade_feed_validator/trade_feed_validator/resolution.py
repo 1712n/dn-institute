@@ -7,9 +7,8 @@ the transaction afresh, independent of the feed that delivered the row. Trade
 content (wallet, side, amount) is the indexer's responsibility and is trusted,
 as it is for clean rows.
 
-Both sources are behind the ChainResolver interface. This package ships only
-NoOpResolver, which can't answer anything, so rows stay quarantined; a real
-implementation would query a node or indexer.
+Both sources are behind the ChainResolver interface. The run uses
+DummyChainResolver (dummy_resolver.py), whose answers are synthetic.
 """
 
 from __future__ import annotations
@@ -51,16 +50,6 @@ class ChainResolver(Protocol):
 
     def count_matching_trades(self, tx_hash: str, wallet: str, side: Side, amount: Decimal) -> int | None:
         """How many matching trades a fresh decode of the transaction finds; None if it can't be resolved."""
-
-
-class NoOpResolver:
-    """Answers nothing, so every quarantined row stays quarantined."""
-
-    def lookup_tx(self, tx_hash: str) -> TxLookup | None:
-        return None
-
-    def count_matching_trades(self, tx_hash: str, wallet: str, side: Side, amount: Decimal) -> int | None:
-        return None
 
 
 @dataclass(frozen=True)

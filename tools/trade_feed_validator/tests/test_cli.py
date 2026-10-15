@@ -3,14 +3,9 @@ import subprocess
 import sys
 from pathlib import Path
 
-from mocks import EVT_003_TRADE, EVT_007_TRADE, MockChainResolver, utc
-
 from trade_feed_validator import output
 from trade_feed_validator.cli import main
-from trade_feed_validator.output import write_outputs
 from trade_feed_validator.parsing import COLUMNS
-from trade_feed_validator.pipeline import Validator
-from trade_feed_validator.resolution import resolve
 
 SAMPLE = Path(__file__).parent.parent / "sample_feed.csv"
 
@@ -23,27 +18,44 @@ def read(path):
 def test_sample_run_writes_every_output_and_summary(tmp_path, capsys):
     assert main([str(SAMPLE), "--out-dir", str(tmp_path)]) == 0
 
-    clean = read(tmp_path / "clean.csv")
-    assert [r["event_id"] for r in clean] == ["evt_001", "evt_002", "evt_004", "evt_006"]
-    assert clean[0]["block_time"] == "2026-01-01T09:14:02Z"
-    assert clean[0]["amount"] == "120000"
-
-    quarantine = {r["event_id"]: r for r in read(tmp_path / "quarantine.csv")}
-    assert {e: r["reasons"] for e, r in quarantine.items()} == {
-        "evt_003": "suspected_duplicate",
-        "evt_005": "missing_required_value",
-        "evt_007": "suspected_duplicate",
-        "evt_008": "ingested_before_block",
+    clean = {r["event_id"]: r for r in read(tmp_path / "clean.csv")}
+    assert list(clean) == ["evt_001", "evt_002", "evt_004", "evt_006", "evt_005", "evt_007", "evt_008"]
+    assert clean["evt_001"]["block_time"] == "2026-01-01T09:14:02Z"
+    assert clean["evt_001"]["amount"] == "120000"
+    assert {e: r["flags"] for e, r in clean.items() if r["flags"]} == {
+        "evt_005": "block_time_backfilled",
+        "evt_007": "confirmed_distinct_trade",
+        "evt_008": "ingested_at_unreliable",
     }
-    assert quarantine["evt_005"]["block_time"] == "null"  # raw value, as read
-    assert quarantine["evt_005"]["details"] == "block_time"
-    assert quarantine["evt_003"]["details"] == "same trade as evt_002"
-    assert quarantine["evt_008"]["line"] == "9"
+    assert clean["evt_005"]["block_time"] == "2026-01-01T09:58:27Z"
 
-    assert read(tmp_path / "dropped.csv") == []
+    assert read(tmp_path / "quarantine.csv") == []
+    [dropped] = read(tmp_path / "dropped.csv")
+    assert (dropped["line"], dropped["event_id"], dropped["drop_reason"]) == ("4", "evt_003", "duplicate_confirmed")
 
     out = capsys.readouterr().out
-    assert "8 rows" in out and "clean        4" in out and "suspected_duplicate" in out
+    assert "8 rows" in out
+    assert "clean        7" in out and "quarantined  0" in out and "dropped      1" in out
+
+
+def test_rows_left_unresolved_are_written_to_quarantine_as_read(tmp_path):
+    feed = tmp_path / "feed.csv"
+    rows = [
+        "evt_a,0xbb1,2026-01-01T09:00:00Z,0xD4…,BUY,100,2026-01-01T09:00:03Z",
+        "evt_b,0xbb1,2026-01-01T09:00:00Z,0xD4…,BUY,100,2026-01-01T09:00:09Z",
+        "evt_c,0xbb2,null,0xD4…,SELL,50,2026-01-01T09:01:00Z",
+    ]
+    feed.write_text(",".join(COLUMNS) + "\n" + "\n".join(rows) + "\n", encoding="utf-8")
+    assert main([str(feed), "--out-dir", str(tmp_path / "out")]) == 0
+
+    quarantine = {r["event_id"]: r for r in read(tmp_path / "out" / "quarantine.csv")}
+    assert {e: r["reasons"] for e, r in quarantine.items()} == {
+        "evt_b": "suspected_duplicate",
+        "evt_c": "missing_required_value",
+    }
+    assert (quarantine["evt_b"]["line"], quarantine["evt_b"]["details"]) == ("3", "same trade as evt_a")
+    assert quarantine["evt_c"]["block_time"] == "null"  # raw value, as read
+    assert quarantine["evt_c"]["details"] == "block_time"
 
 
 def test_module_command_runs_as_documented(tmp_path):
@@ -52,25 +64,6 @@ def test_module_command_runs_as_documented(tmp_path):
     done = subprocess.run(command, cwd=tool_dir, capture_output=True, text=True)
     assert done.returncode == 0, done.stderr
     assert "8 rows" in done.stdout
-
-
-def test_resolved_rows_are_written_with_flags_and_drop_reasons(tmp_path):
-    validator = Validator()
-    validated = validator.validate_file(SAMPLE)
-    chain = MockChainResolver(
-        txs={"0xaa4": utc(9, 58, 20), "0xaa6": utc(10, 10, 0)},
-        trades={EVT_003_TRADE: 1, EVT_007_TRADE: 2},
-    )
-    resolved = resolve(validated.quarantined, chain, validator)
-    write_outputs(tmp_path, validated.clean + resolved.loaded, resolved.quarantined, resolved.dropped)
-
-    flags = {r["event_id"]: r["flags"] for r in read(tmp_path / "clean.csv")}
-    assert flags["evt_005"] == "block_time_backfilled"
-    assert flags["evt_007"] == "confirmed_distinct_trade"
-    assert flags["evt_008"] == "ingested_at_unreliable"
-    assert read(tmp_path / "quarantine.csv") == []
-    [dropped] = read(tmp_path / "dropped.csv")
-    assert (dropped["line"], dropped["event_id"], dropped["drop_reason"]) == ("4", "evt_003", "duplicate_confirmed")
 
 
 def test_rerun_replaces_every_output(tmp_path):

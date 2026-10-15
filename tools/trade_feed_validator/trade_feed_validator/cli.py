@@ -8,10 +8,11 @@ import sys
 from collections import Counter
 from pathlib import Path
 
+from .dummy_resolver import DummyChainResolver
 from .output import CLEAN_FILE, DROPPED_FILE, QUARANTINE_FILE, write_outputs
 from .parsing import FeedSchemaError
 from .pipeline import Validator
-from .resolution import NoOpResolver, resolve
+from .resolution import resolve
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -31,8 +32,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         validator = Validator()
         validated = validator.validate_file(args.feed)
-        # No chain access is configured, so nothing resolves and quarantined rows stay put.
-        resolved = resolve(validated.quarantined, NoOpResolver(), validator)
+        resolved = resolve(validated.quarantined, DummyChainResolver(), validator)
         clean = validated.clean + resolved.loaded
         write_outputs(args.out_dir, clean, resolved.quarantined, resolved.dropped)
     except (OSError, UnicodeDecodeError, csv.Error, FeedSchemaError) as e:

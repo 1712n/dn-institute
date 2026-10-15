@@ -8,7 +8,7 @@ from mocks import EVT_003_TRADE, EVT_007_TRADE, MockChainResolver, trade, utc
 from trade_feed_validator.models import DropReason, Flag, Reason
 from trade_feed_validator.parsing import COLUMNS
 from trade_feed_validator.pipeline import Validator
-from trade_feed_validator.resolution import NoOpResolver, TxLookup, resolve
+from trade_feed_validator.resolution import TxLookup, resolve
 
 SAMPLE = Path(__file__).parent.parent / "sample_feed.csv"
 
@@ -42,12 +42,6 @@ def row(event_id, block_time="2026-01-01T09:00:00Z", ingested_at="2026-01-01T09:
 
 # The trade behind every row built by `row`.
 ROW_TRADE = trade("0xbb1", "0xD4…", "BUY", "100")
-
-
-def test_noop_resolver_keeps_every_row_quarantined():
-    validated, resolved = run(NoOpResolver())
-    assert resolved.loaded == [] and resolved.dropped == []
-    assert resolved.quarantined == validated.quarantined
 
 
 @pytest.mark.parametrize(
