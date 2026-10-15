@@ -50,6 +50,20 @@ def test_noop_resolver_keeps_every_row_quarantined():
     assert resolved.quarantined == validated.quarantined
 
 
+@pytest.mark.parametrize(
+    "rows",
+    [
+        [(2, row("evt_a", block_time=""))],
+        [(2, row("evt_a")), (3, row("evt_b"))],
+    ],
+    ids=["missing block time", "suspected duplicate"],
+)
+def test_row_stays_quarantined_when_the_resolver_cannot_resolve_it(rows):
+    validated, resolved = run(MockChainResolver(), rows)
+    assert resolved.loaded == [] and resolved.dropped == []
+    assert resolved.quarantined == validated.quarantined
+
+
 def test_backfill_fills_block_time_from_chain():
     _, resolved = run(MockChainResolver(txs={"0xaa4": utc(9, 58, 20)}))
     evt = by_id(resolved.loaded)["evt_005"]

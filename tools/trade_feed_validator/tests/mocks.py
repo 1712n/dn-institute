@@ -22,7 +22,7 @@ EVT_007_TRADE = trade("0xaa5", "0xF6…", "BUY", "90000")
 
 
 class MockChainResolver:
-    """A ChainResolver with known answers. Anything not listed has no answer yet.
+    """A ChainResolver with known answers. Anything not listed can't be resolved (None).
 
     `txs` maps tx_hash to its block time, or to None if it isn't on chain;
     `trades` maps a trade (see `trade`) to the number of matching trades a

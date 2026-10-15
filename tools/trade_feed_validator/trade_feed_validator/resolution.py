@@ -47,10 +47,10 @@ class TxLookup:
 
 class ChainResolver(Protocol):
     def lookup_tx(self, tx_hash: str) -> TxLookup | None:
-        """None when there's no answer yet: source unavailable or tx not final."""
+        """TxLookup(None) if the transaction isn't on chain; None if it can't be resolved."""
 
     def count_matching_trades(self, tx_hash: str, wallet: str, side: Side, amount: Decimal) -> int | None:
-        """How many matching trades a fresh decode of the transaction finds; None when there's no answer yet."""
+        """How many matching trades a fresh decode of the transaction finds; None if it can't be resolved."""
 
 
 class NoOpResolver:
