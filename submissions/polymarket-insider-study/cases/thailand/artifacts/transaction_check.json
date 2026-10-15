@@ -1,0 +1,9 @@
+{
+  "transaction_hash": "0x8c2ad462a25e188971194b19218a9fa6a5ff640d6bc29a353160187545fe4204",
+  "utc": "2026-02-07T06:19:47Z",
+  "wallet": "0x1cfc6f041b5b8dad3c14b867be8482a69d45b8e0",
+  "net_usdc_out": 6257.7547,
+  "net_yes_shares_in": 32520.52,
+  "receipt_status": "0x1",
+  "api_match": true
+}

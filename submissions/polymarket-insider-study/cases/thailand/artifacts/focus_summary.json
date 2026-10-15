@@ -1,0 +1,14 @@
+{
+  "wallet": "0x1cfc6f041b5b8dad3c14b867be8482a69d45b8e0",
+  "history_rows": 2225,
+  "history_markets": 2,
+  "first_observed_utc": "2026-01-08T17:54:08Z",
+  "history_sell_records": 0,
+  "bjt_buy_records": 1529,
+  "bjt_buy_usdc": 124136.46684961974,
+  "bjt_buy_shares": 454778.392141,
+  "bjt_buy_vwap": 0.27296034507095124,
+  "bjt_last_72h_buy_usdc": 107198.33046848048,
+  "bjt_last_72h_buy_share": 0.8635522919976585,
+  "other_buy_usdc": 14072.52533942315
+}

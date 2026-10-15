@@ -1,0 +1,18 @@
+{
+  "challenge": "https://github.com/1712n/dn-institute/issues/1222",
+  "event_slug": "maduro-out-in-2025",
+  "market_id": "916440",
+  "market_question": "Maduro out by January 31, 2026?",
+  "condition_id": "0x580adc1327de9bf7c179ef5aaffa3377bb5cb252b7d6390b027172d43fd6f993",
+  "start_utc": "2025-12-11T00:00:00Z",
+  "end_exclusive_utc": "2026-01-04T00:00:00Z",
+  "cutoff_utc": "2026-01-03T05:30:00Z",
+  "lookback_start_utc": "2025-11-01T00:00:00Z",
+  "recent_hours": 24,
+  "minimum_recent_yes_buy_usdc": 500,
+  "size_saturation_usdc": 10000,
+  "weights": {"size": 30, "recency": 25, "direction": 20, "surprise": 25},
+  "taker_only": true,
+  "page_limit": 1000,
+  "history_top_n": 10
+}

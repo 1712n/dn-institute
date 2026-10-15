@@ -1,0 +1,11 @@
+{
+  "rows": 9367,
+  "wallets": 3533,
+  "transaction_hashes": 9367,
+  "equal_economic_keys_beyond_first_retained": 0,
+  "leaf_windows": 17,
+  "first_utc": "2025-12-12T01:20:24Z",
+  "last_utc": "2026-01-03T12:13:39Z",
+  "taker_only": true,
+  "all_leaves_below_cap": true
+}

@@ -1,0 +1,10 @@
+{
+  "rows": 10053,
+  "wallets": 1375,
+  "transaction_hashes": 10053,
+  "leaf_windows": 17,
+  "first_utc": "2025-12-16T02:38:45Z",
+  "last_utc": "2026-02-09T08:58:25Z",
+  "all_leaves_below_cap": true,
+  "taker_only": true
+}
