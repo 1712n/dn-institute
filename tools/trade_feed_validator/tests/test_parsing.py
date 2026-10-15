@@ -76,6 +76,17 @@ def test_time_of_day_is_taken_as_utc_on_a_single_day():
 
 
 @pytest.mark.parametrize(
+    ("block_time", "ingested_at"),
+    [("2026-01-01T09:14:02Z", "09:14:05"), ("09:14:02", "2026-01-01T09:14:05Z")],
+    ids=["dated block_time", "dated ingested_at"],
+)
+def test_row_mixing_dated_and_time_only_values_is_rejected(block_time, ingested_at):
+    parsed = parse(block_time=block_time, ingested_at=ingested_at)
+    assert reasons(parsed) == [(Reason.INVALID_TIMESTAMP, None)]
+    assert parsed.event is None
+
+
+@pytest.mark.parametrize(
     "value",
     [
         "2026-01-01 09:14:02",

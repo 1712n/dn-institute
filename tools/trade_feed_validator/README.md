@@ -149,7 +149,7 @@ Input columns outside the schema aren't copied; `line` points to the full source
 | Code | Where | Meaning |
 |---|---|---|
 | `malformed_row` | reasons | Row has more or fewer fields than the header. |
-| `invalid_timestamp` | reasons | Neither ISO 8601 with a timezone nor a valid `HH:MM:SS` time, or out of range in UTC. |
+| `invalid_timestamp` | reasons | Neither ISO 8601 with a timezone nor a valid `HH:MM:SS` time, out of range in UTC, or a row mixing a dated and a time-only value. |
 | `invalid_amount` | reasons | Not a positive number in plain decimal notation (`1e5` is rejected). |
 | `invalid_side` | reasons | Not `BUY` or `SELL`. |
 | `missing_required_value` | reasons | Empty or `null`. Only a missing `block_time` can be resolved. |

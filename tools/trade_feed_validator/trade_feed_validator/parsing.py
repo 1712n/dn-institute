@@ -95,12 +95,21 @@ def parse_row(line: int, raw: RawRow) -> ParsedRow:
         except ValueError as e:
             violations.append(Violation(reason, column, str(e)))
 
+    if _mixes_dated_and_time_only(values.get("block_time"), values.get("ingested_at")):
+        # A time of day has no date to compare with a dated value.
+        violations.append(Violation(Reason.INVALID_TIMESTAMP, None, "mixed date and time-only values"))
+
     resolvable = all(
         v.reason is Reason.MISSING_REQUIRED_VALUE and v.field == "block_time"
         for v in violations
     )
     event = TradeEvent(**values) if resolvable else None
     return ParsedRow(line, raw, event, tuple(violations))
+
+
+def _mixes_dated_and_time_only(*values: object) -> bool:
+    times = [v for v in values if isinstance(v, datetime)]
+    return len(times) == 2 and len({t.date() == TIME_ONLY_DATE for t in times}) == 2
 
 
 def _parse_side(text: str) -> Side:
