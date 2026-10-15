@@ -9,8 +9,8 @@ def utc(hh, mm, ss):
     return datetime(2026, 1, 1, hh, mm, ss, tzinfo=UTC)
 
 
-class FakeChain:
-    """A chain with known answers. Anything not listed has no answer yet.
+class MockChainResolver:
+    """A ChainResolver with known answers. Anything not listed has no answer yet.
 
     `txs` maps tx_hash to its block time, or to None if it isn't on chain;
     `trades` maps tx_hash to the number of matching trades a fresh decode finds.

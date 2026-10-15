@@ -166,7 +166,7 @@ Input columns outside the schema aren't copied; `line` points to the full source
 
 **Implemented:** parsing and the schema check for the seven columns, the suspected-duplicate check, the `ingested_at ≥ block_time` invariant, per-row quarantine with line, raw values and reason codes, and resolution of every sample issue behind the chain resolver interface.
 
-**Stubbed:** the chain resolver. The run uses `NoOpResolver`, so quarantined rows stay quarantined; the tests use a fake chain for every outcome. Connecting real sources means implementing `lookup_tx` (a chain query) and `count_matching_trades` (the indexer's decoding of a single transaction).
+**Stubbed:** the chain resolver. The run uses `NoOpResolver`, so quarantined rows stay quarantined; the tests use a mock resolver (`MockChainResolver`) for every outcome. Connecting real sources means implementing `lookup_tx` (a chain query) and `count_matching_trades` (the indexer's decoding of a single transaction).
 
 **Proposed, not implemented:** the data contract, the ordering check, idempotent writes on an event identifier, per-batch alerting and per-feed reconciliation.
 

@@ -3,7 +3,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from fakes import FakeChain, utc
+from mocks import MockChainResolver, utc
 
 from trade_feed_validator import output
 from trade_feed_validator.cli import main
@@ -57,7 +57,7 @@ def test_module_command_runs_as_documented(tmp_path):
 def test_resolved_rows_are_written_with_flags_and_drop_reasons(tmp_path):
     validator = Validator()
     validated = validator.validate_file(SAMPLE)
-    chain = FakeChain(txs={"0xaa4": utc(9, 58, 20), "0xaa6": utc(10, 10, 0)}, trades={"0xaa2": 1, "0xaa5": 2})
+    chain = MockChainResolver(txs={"0xaa4": utc(9, 58, 20), "0xaa6": utc(10, 10, 0)}, trades={"0xaa2": 1, "0xaa5": 2})
     resolved = resolve(validated.quarantined, chain, validator)
     write_outputs(tmp_path, validated.clean + resolved.loaded, resolved.quarantined, resolved.dropped)
 
