@@ -3,6 +3,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 from trade_feed_validator import output
 from trade_feed_validator.cli import main
 from trade_feed_validator.parsing import COLUMNS
@@ -106,8 +108,9 @@ def test_failed_write_keeps_the_previous_output_set(tmp_path, monkeypatch, capsy
     assert {p.name: p.read_text(encoding="utf-8") for p in out_dir.iterdir()} == before
 
 
-def test_feed_at_an_output_path_is_not_overwritten(tmp_path, capsys):
-    feed = tmp_path / "clean.csv"
+@pytest.mark.parametrize("name", ["clean.csv", ".quarantine.csv.tmp"], ids=["output file", "temporary file"])
+def test_feed_at_an_output_path_is_not_overwritten(tmp_path, capsys, name):
+    feed = tmp_path / name
     feed.write_text(SAMPLE.read_text(encoding="utf-8"), encoding="utf-8")
     assert main([str(feed), "--out-dir", str(tmp_path)]) == 1
     assert "would be overwritten" in capsys.readouterr().err

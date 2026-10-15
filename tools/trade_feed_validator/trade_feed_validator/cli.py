@@ -9,7 +9,7 @@ from collections import Counter
 from pathlib import Path
 
 from .dummy_resolver import DummyChainResolver
-from .output import CLEAN_FILE, DROPPED_FILE, QUARANTINE_FILE, write_outputs
+from .output import CLEAN_FILE, DROPPED_FILE, QUARANTINE_FILE, output_paths, write_outputs
 from .parsing import FeedSchemaError
 from .pipeline import Validator
 from .resolution import resolve
@@ -24,7 +24,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--out-dir", type=Path, default=Path("out"), help="directory for output files (default: out)")
     args = parser.parse_args(argv)
 
-    outputs = {(args.out_dir / name).resolve() for name in (CLEAN_FILE, QUARANTINE_FILE, DROPPED_FILE)}
+    outputs = {path.resolve() for path in output_paths(args.out_dir)}
     if args.feed.resolve() in outputs:
         print(f"error: {args.feed} would be overwritten by the output; choose another --out-dir", file=sys.stderr)
         return 1

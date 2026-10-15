@@ -142,7 +142,7 @@ All three files are written on every successful run, even when empty.
 | `quarantine.csv` | `line` in the source file, schema columns as read, `reasons`, `details`, `flags`. |
 | `dropped.csv` | `line`, schema columns as read, `drop_reason`. |
 
-Input columns outside the schema aren't copied; `line` points to the full source row. `reasons` list what is still unresolved; `flags` record what resolution changed or verified. If the feed can't be read, or is itself one of the output files, the run exits with code 1 and writes nothing.
+Input columns outside the schema aren't copied; `line` points to the full source row. `reasons` list what is still unresolved; `flags` record what resolution changed or verified. If the feed can't be read, or is itself one of the output files or their temporary copies, the run exits with code 1 and writes nothing.
 
 ### Reason codes
 

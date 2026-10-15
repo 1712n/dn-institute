@@ -20,6 +20,12 @@ from .resolution import DroppedRow
 CLEAN_FILE = "clean.csv"
 QUARANTINE_FILE = "quarantine.csv"
 DROPPED_FILE = "dropped.csv"
+OUTPUT_FILES = (CLEAN_FILE, QUARANTINE_FILE, DROPPED_FILE)
+
+
+def output_paths(out_dir: Path) -> list[Path]:
+    """Every path a run writes to: the three output files and their temporary copies."""
+    return [out_dir / n for name in OUTPUT_FILES for n in (name, _staging_name(name))]
 
 
 def write_outputs(
@@ -40,7 +46,7 @@ def write_outputs(
         QUARANTINE_FILE: (["line", *COLUMNS, "reasons", "details", "flags"], map(_quarantine_row, quarantined)),
         DROPPED_FILE: (["line", *COLUMNS, "drop_reason"], map(_dropped_row, dropped)),
     }
-    staged = {name: out_dir / f".{name}.tmp" for name in files}
+    staged = {name: out_dir / _staging_name(name) for name in files}
     try:
         for name, (header, rows) in files.items():
             _write(staged[name], header, rows)
@@ -50,6 +56,10 @@ def write_outputs(
         raise
     for name, tmp in staged.items():
         tmp.replace(out_dir / name)
+
+
+def _staging_name(name: str) -> str:
+    return f".{name}.tmp"
 
 
 def _write(path: Path, header: list[str], rows: Iterable[list[str]]) -> None:
