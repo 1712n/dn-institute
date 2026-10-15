@@ -71,7 +71,7 @@ I repeated the scoring at seven earlier daily cutoffs. None had a score of 90 or
 
 The chart shows hourly averages weighted by share count. NO prices are converted to `1-price`. Trades after the cutoff show the later market reaction and do not enter the score. A wallet's own trades can affect the average. [Chart data](artifacts/hourly_market.csv).
 
-The CSV also includes `Q-C`, a possible return if every recent YES share was held for a $1 payout with no costs. Wallet 2's value is $322,239.90. This is not actual profit and is not part of the score. Sales, transfers, fees and other positions could change the real result.
+The CSV's `buy_and_hold_upside_scenario_usdc` column also includes a possible return if every recent YES share was held for a $1 payout with no costs. Wallet 2's value is $322,239.90. This is not actual profit and is not part of the score. Sales, transfers, fees and other positions could change the real result.
 
 I selected the Maduro case after the outcome was known and downloaded the data later. The API may have changed since the event. I did not decode blockchain receipts for this case or identify the wallet owners. A first observed trade also cannot establish an account's creation date.
 
