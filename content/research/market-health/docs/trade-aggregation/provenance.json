@@ -1,0 +1,62 @@
+{
+  "analysis_script_sha256": "167d24bafe375d998c1d2ce87b39ebfaafd1dfa9ec3273be4c9c7a739ddff34f",
+  "archive_verification": [
+    {
+      "archive": "ADAUSDT-trades-2026-09-10.zip",
+      "sha256": "5a0e9637b65bd62ab3c5ea2af10b4ed5ab5526b070b1cbd50cb97abe4b02fa61",
+      "sidecar": "ADAUSDT-trades-2026-09-10.zip.CHECKSUM",
+      "verified": true
+    },
+    {
+      "archive": "ADAUSDT-aggTrades-2026-09-10.zip",
+      "sha256": "da9d4a49f0508e3b9b4e77b6464986c04af16d9e62581cb59442fae7a317d245",
+      "sidecar": "ADAUSDT-aggTrades-2026-09-10.zip.CHECKSUM",
+      "verified": true
+    }
+  ],
+  "generated_at_utc": "2026-09-13T06:43:07.498440Z",
+  "official_sources": {
+    "aggregate_archive": "https://data.binance.vision/data/spot/daily/aggTrades/ADAUSDT/ADAUSDT-aggTrades-2026-09-10.zip",
+    "aggregate_checksum": "https://data.binance.vision/data/spot/daily/aggTrades/ADAUSDT/ADAUSDT-aggTrades-2026-09-10.zip.CHECKSUM",
+    "public_data_readme_schema": "https://raw.githubusercontent.com/binance/binance-public-data/master/README.md",
+    "trades_archive": "https://data.binance.vision/data/spot/daily/trades/ADAUSDT/ADAUSDT-trades-2026-09-10.zip",
+    "trades_checksum": "https://data.binance.vision/data/spot/daily/trades/ADAUSDT/ADAUSDT-trades-2026-09-10.zip.CHECKSUM"
+  },
+  "outputs": [
+    "metrics.json",
+    "first_digit_distribution.png",
+    "round_number_rates.png"
+  ],
+  "requirements": {
+    "path": "requirements.txt",
+    "pinned": [
+      "matplotlib==3.11.2",
+      "numpy==2.5.3"
+    ],
+    "sha256": "2b7af937bbd6f44236acaeb7316c2aa376d5a1a81c1d776a2d66ae70a54b837b"
+  },
+  "schema_reference": {
+    "aggregate_columns": [
+      "aggregate_id",
+      "price",
+      "base_quantity",
+      "first_trade_id",
+      "last_trade_id",
+      "timestamp",
+      "buyer_is_maker",
+      "best_match"
+    ],
+    "note": "Reference document is cited, not bundled; offline execution verifies the two pinned data archives.",
+    "raw_trade_columns": [
+      "trade_id",
+      "price",
+      "base_quantity",
+      "quote_quantity",
+      "timestamp",
+      "buyer_is_maker",
+      "best_match"
+    ],
+    "reference_readme_sha256_observed_2026_09_13": "085ab91377aa9325d44f4c7ad27cce4ab381e158403e1d7df2bad39d1a66f7c6",
+    "url": "https://raw.githubusercontent.com/binance/binance-public-data/master/README.md"
+  }
+}
