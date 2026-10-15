@@ -269,7 +269,7 @@ func TestWriteOutputs(t *testing.T) {
 			if row[3] != "null" || row[codeCol] != string(models.CodeMissingBlockTime) {
 				t.Errorf("evt_005 must keep its raw values and reason, got %v", row)
 			}
-			if want := "evt_005,0xaa4,null,0xE5,SELL,30000,09:58:30"; row[rawCol] != want {
+			if want := "evt_005,0xaa4,null,0xE5…,SELL,30000,09:58:30"; row[rawCol] != want {
 				t.Errorf("evt_005 raw_line = %q, want %q", row[rawCol], want)
 			}
 			return

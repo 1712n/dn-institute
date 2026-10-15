@@ -136,13 +136,13 @@ Loading the feed as-is gives a total volume of 705 000; after validation it is
 
 1. **evt_003 (redelivery)** — the indexer re-sent the same trade (same tx, wallet,
    amount, block_time; later `ingested_at`). Volume and VWAP weight are doubled:
-   `0xD4` shows 360 000 BUY instead of 240 000, and its trade count is inflated,
+   `0xD4…` shows 360 000 BUY instead of 240 000, and its trade count is inflated,
    which skews wallet activity and clustering.
 2. **evt_007 (exact duplicate)** — even `ingested_at` is identical. This hints at
    the same record being written twice (e.g. a batch replay) rather than a later
    re-delivery, but the feed has no provenance to confirm where it came from, so
    it gets its own code to make it easy to investigate separately. Same effect:
-   `0xF6` shows 180 000 BUY instead of 90 000.
+   `0xF6…` shows 180 000 BUY instead of 90 000.
 3. **evt_005 (null block_time)** — the trade cannot be placed in any time bucket.
    Time-windowed volume and VWAP either skip it or, if `null` is replaced by a
    default, put it in the wrong window. Ordering by chain time breaks.
@@ -159,7 +159,7 @@ evt_005 goes to `dead_letter.csv` with its raw values and code
 `missing_block_time`. It is neither loaded nor dropped.
 
 - **Not drop:** the trade is probably real; dropping it silently loses 30 000 of
-  `0xE5` SELL volume.
+  `0xE5…` SELL volume.
 - **Not backfill with a guess:** `ingested_at` is not chain time; guessing puts
   the trade in a possibly wrong window without anyone noticing.
 - **Dead-letter:** nothing is lost and nothing wrong is loaded. The `tx_hash` is
