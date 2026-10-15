@@ -1,8 +1,8 @@
 """Read a CSV feed and turn its rows into typed events.
 
 Parsing never raises on a bad row: every problem becomes a Violation, so one
-corrupt record can't stop the run. Only a header without the required columns
-is fatal, because then no row can be interpreted.
+corrupt record can't stop the run. Only a broken header (missing or repeated
+columns) is fatal, because then no row can be interpreted.
 """
 
 from __future__ import annotations

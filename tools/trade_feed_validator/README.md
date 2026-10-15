@@ -97,7 +97,7 @@ Lag and freshness monitoring report impossible values and can mask real delays. 
 - **Dead-letter queue:** nothing incorrect is loaded, and the row is preserved and resolvable later. But totals are incomplete until resolution, and without monitoring and a deadline it becomes a slow drop. On its own it decides nothing.
 
 **Decision: dead-letter queue, resolved by authoritative backfill.**
-The queue keeps guesses out of analytics; the chain lookup supplies the exact value without blocking the pipeline.
+The queue keeps guesses out of analytics; the chain lookup supplies the exact value.
 - **Confirmed and final:** fill `block_time`, re-check the invariant, then load.
 - **Not found, reverted or reorged out:** drop, with the reason recorded.
 
@@ -181,4 +181,4 @@ Input columns outside the schema aren't copied; `line` points to the full source
 ## Known limitations
 
 - If the transaction has no matching trade at all, the later records are dropped, but the first is already in `clean.csv` and isn't withdrawn.
-- When the feed can't be read, output from an earlier run stays in place; only the exit code reports the failure.
+- When the feed can't be read, output from an earlier run stays in place; the run exits with code 1 and prints the error.

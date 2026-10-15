@@ -43,7 +43,7 @@ class Reason(StrEnum):
     # Schema: a required value is empty.
     MISSING_REQUIRED_VALUE = "missing_required_value"
 
-    # Identity: the row repeats a trade already seen.
+    # Duplicates: the row repeats a trade already seen (see checks.trade_key).
     SUSPECTED_DUPLICATE = "suspected_duplicate"
 
     # Invariants: the values can't all be true.
