@@ -173,6 +173,7 @@ Input columns outside the schema aren't copied; `line` points to the full source
 ## Assumptions
 
 - The sample gives times only, and `sample_feed.csv` keeps them as given. A feed of times without dates is taken to cover a single day, as the issue states, so an event crossing midnight can't be represented; `clean.csv` writes such times back without a date.
+- The CSV header leaves out the table's `#` column (row numbers) and the "(UTC)" notes on two column names; times are read as UTC.
 - `null` is kept as in the sample; an empty field is treated the same way.
 - Wallets and tx hashes stay in their shortened form and are compared exactly as written.
 - The run's chain answers are synthetic, made up to fit the sample rather than derived from it: `0xaa4` (evt_005) is in a block at 09:58:27; `0xaa6` (evt_008) is in a block at 10:10:00, as the feed says; `0xaa2` holds one trade matching evt_003, and `0xaa5` holds two matching evt_007.
