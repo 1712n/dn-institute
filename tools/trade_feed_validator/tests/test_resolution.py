@@ -16,7 +16,7 @@ SAMPLE = Path(__file__).parent.parent / "sample_feed.csv"
 def run(chain, rows=None):
     validator = Validator()
     validated = validator.validate_file(SAMPLE) if rows is None else validator.validate(rows)
-    return validated, resolve(validated.quarantined, chain, validator)
+    return validated, resolve(validated.quarantined, chain)
 
 
 def by_id(events):
@@ -70,7 +70,7 @@ def test_backfill_drops_row_when_tx_is_not_on_chain():
     assert dropped(resolved) == {"evt_005": DropReason.TX_NOT_FOUND}
 
 
-def test_backfilled_row_is_rechecked_for_duplicates():
+def test_backfilled_duplicate_keeps_its_time_while_its_count_is_unresolved():
     rows = [(2, row("evt_a")), (3, row("evt_b", block_time=""))]
     _, resolved = run(MockChainResolver(txs={"0xbb1": utc(9, 0, 0)}), rows)
     [held] = resolved.quarantined
@@ -143,7 +143,7 @@ def test_duplicate_is_dropped_when_chain_has_no_such_trade():
     assert dropped(resolved) == {"evt_003": DropReason.DUPLICATE_CONFIRMED}
 
 
-def test_corrected_row_is_matched_for_duplicates_on_its_chain_time():
+def test_corrected_duplicate_is_dropped_when_the_chain_has_one_trade():
     impossible = row("evt_b", block_time="09:10:00")
     rows = [(2, row("evt_a")), (3, impossible)]
     _, resolved = run(MockChainResolver(txs={"0xbb1": utc(9, 0, 0)}, trades={ROW_TRADE: 1}), rows)

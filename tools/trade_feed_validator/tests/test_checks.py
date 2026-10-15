@@ -60,7 +60,6 @@ def test_wallet_buying_then_selling_is_not_a_duplicate(sample):
         {"wallet": "0xE5…"},
         {"side": Side.SELL},
         {"amount": Decimal("101")},
-        {"block_time": EVENT.block_time + timedelta(seconds=1)},
     ],
 )
 def test_any_differing_trade_value_means_a_different_trade(change):
@@ -89,12 +88,14 @@ def test_every_later_match_points_to_the_first_record():
     assert details == ["same trade as evt_a"] * 3
 
 
-def test_event_without_block_time_is_not_matched_or_registered():
+@pytest.mark.parametrize(
+    "block_time", [EVENT.block_time + timedelta(minutes=5), None], ids=["other time", "missing time"]
+)
+def test_block_time_is_not_part_of_the_trade(block_time):
     index = DuplicateIndex()
-    pending = replace(EVENT, block_time=None)
-    assert index.check(pending) == []
-    assert index.check(pending) == []
-    assert index.check(EVENT) == []
+    index.check(EVENT)
+    [violation] = index.check(replace(EVENT, event_id="evt_b", block_time=block_time))
+    assert violation.detail == "same trade as evt_a"
 
 
 def test_ingested_at_equal_to_block_time_is_valid():

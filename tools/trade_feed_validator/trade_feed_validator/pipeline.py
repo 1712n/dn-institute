@@ -20,13 +20,7 @@ class ValidationResult:
 class Validator:
     """Validates rows in arrival order.
 
-    State lives across a run: the duplicate index remembers every trade seen,
-    so rows resolved later (e.g. backfilled) are checked against the same
-    reference set.
-
-    Duplicates are matched on block_time, so only rows whose block_time can
-    be trusted are matched: a missing or impossible time is matched once the
-    chain has supplied the real one.
+    State lives across a run: the duplicate index remembers every trade seen.
     """
 
     def __init__(self) -> None:
@@ -36,9 +30,7 @@ class Validator:
         parsed = parse_row(line, raw)
         violations = list(parsed.violations)
         if parsed.event is not None:
-            # An impossible block_time would match the wrong trade, so such a
-            # row is matched for duplicates only after resolution.
-            violations += check_invariants(parsed.event) or self.duplicates.check(parsed.event)
+            violations += check_invariants(parsed.event) + self.duplicates.check(parsed.event)
         if violations:
             return QuarantinedRow(line, raw, tuple(violations), parsed.event)
         return parsed.event

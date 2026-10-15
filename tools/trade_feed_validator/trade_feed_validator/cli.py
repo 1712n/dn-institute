@@ -32,7 +32,7 @@ def main(argv: list[str] | None = None) -> int:
     try:
         validator = Validator()
         validated = validator.validate_file(args.feed)
-        resolved = resolve(validated.quarantined, DummyChainResolver(), validator)
+        resolved = resolve(validated.quarantined, DummyChainResolver())
         clean = validated.clean + resolved.loaded
         write_outputs(args.out_dir, clean, resolved.quarantined, resolved.dropped)
     except (OSError, UnicodeDecodeError, csv.Error, FeedSchemaError) as e:

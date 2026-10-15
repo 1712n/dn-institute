@@ -21,7 +21,6 @@ from typing import Protocol
 
 from .checks import TradeKey, check_invariants, trade_key
 from .models import DropReason, Flag, QuarantinedRow, Reason, Side, TradeEvent
-from .pipeline import Validator
 
 
 @dataclass(frozen=True)
@@ -65,19 +64,12 @@ class ResolutionResult:
     quarantined: list[QuarantinedRow] = field(default_factory=list)
 
 
-def resolve(
-    rows: Iterable[QuarantinedRow], resolver: ChainResolver, validator: Validator
-) -> ResolutionResult:
-    """Resolve quarantined rows in one pass, in arrival order.
-
-    `validator` must be the one that produced the rows: once a row's
-    block_time is resolved, it is matched for duplicates against the trades
-    the validator has already seen.
-    """
+def resolve(rows: Iterable[QuarantinedRow], resolver: ChainResolver) -> ResolutionResult:
+    """Resolve quarantined rows in one pass, in arrival order."""
     result = ResolutionResult()
     occurrences: dict[TradeKey, int] = {}
     for row in rows:
-        outcome = _resolve_row(row, resolver, validator, occurrences)
+        outcome = _resolve_row(row, resolver, occurrences)
         if isinstance(outcome, TradeEvent):
             result.loaded.append(outcome)
         elif isinstance(outcome, DroppedRow):
@@ -90,7 +82,6 @@ def resolve(
 def _resolve_row(
     row: QuarantinedRow,
     resolver: ChainResolver,
-    validator: Validator,
     occurrences: dict[TradeKey, int],
 ) -> TradeEvent | DroppedRow | QuarantinedRow:
     event = row.event
@@ -100,8 +91,7 @@ def _resolve_row(
     flags = set(event.flags)
     duplicates = [v for v in row.violations if v.reason is Reason.SUSPECTED_DUPLICATE]
 
-    # Missing or impossible block_time: take the time from the chain, then
-    # match duplicates on it (the row wasn't matched while its time was untrusted).
+    # Missing or impossible block_time: take the time from the chain.
     if {Reason.MISSING_REQUIRED_VALUE, Reason.INGESTED_BEFORE_BLOCK} & set(row.reasons):
         lookup = resolver.lookup_tx(event.tx_hash)
         if lookup is None:
@@ -114,7 +104,6 @@ def _resolve_row(
         if check_invariants(event):
             # block_time is now verified, so the ingest clock is what's wrong.
             flags.add(Flag.INGESTED_AT_UNRELIABLE)
-        duplicates = validator.duplicates.check(event)
 
     # Suspected duplicate: a fresh decode says how many such trades really exist,
     # and records beyond that count are duplicates.

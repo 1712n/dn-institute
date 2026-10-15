@@ -73,12 +73,13 @@ def test_unparseable_row_is_quarantined_and_the_run_continues():
     assert held.event is None
 
 
-def test_row_with_impossible_block_time_is_not_matched_for_duplicates():
+def test_row_with_impossible_block_time_is_also_matched_for_duplicates():
     impossible = {"block_time": "2026-01-01T09:10:00Z", "ingested_at": "2026-01-01T09:00:03Z"}
-    rows = [(2, row("evt_a", **impossible)), (3, row("evt_b", **impossible)), (4, row("evt_c"))]
+    rows = [(2, row("evt_a")), (3, row("evt_b", **impossible))]
     result = Validator().validate(rows)
-    assert [e.event_id for e in result.clean] == ["evt_c"]
-    assert [q.reasons for q in result.quarantined] == [(Reason.INGESTED_BEFORE_BLOCK,)] * 2
+    assert [e.event_id for e in result.clean] == ["evt_a"]
+    [held] = result.quarantined
+    assert held.reasons == (Reason.INGESTED_BEFORE_BLOCK, Reason.SUSPECTED_DUPLICATE)
 
 
 def test_empty_feed_gives_empty_result():

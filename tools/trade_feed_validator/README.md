@@ -50,7 +50,8 @@ Each pair is the same trade (transaction, wallet, side, amount, time) with a dif
 - evt_003 arrived well after evt_002, much later than the usual ingestion lag, so it's likely a redelivery (retry or reorg reprocessing).
 - evt_007 arrived together with evt_006, which also fits two legitimate trades in one transaction. Without an event identifier this can't be decided.
 
-**Handling:** the first record is loaded; later records matching it on transaction, wallet, side, amount and block time are quarantined as suspected duplicates, not dropped. A row whose block time is missing or impossible is matched only once the chain has supplied the real one. Decoding the transaction afresh from chain data resolves them: if it contains fewer matching trades than there are records, the extra records are duplicates (dropped); otherwise they're separate trades (loaded).
+**Handling:** the feed doesn't define a trade, so the validator works with a stand-in definition until a contract provides one: **a trade is its transaction, wallet, side and amount.** `event_id` and `ingested_at` describe the delivery, not the trade, and `block_time` is fixed by the transaction, so it adds nothing and a wrong one would only split records of one trade. The definition can't tell two identical trades in one transaction apart, so a match is only a suspicion.
+The first record of a trade is loaded; later records of the same trade are quarantined as suspected duplicates, not dropped. Decoding the transaction afresh from chain data resolves them: if it contains fewer matching trades than there are records, the extra records are duplicates (dropped); otherwise they're separate trades (loaded).
 Once the contract defines an event identifier, loads become idempotent upserts on it, so retries and backfills can't create duplicates; redeliveries are still counted, so a misbehaving source stays visible.
 
 **2. Missing required value** (evt_005)
@@ -97,7 +98,7 @@ Lag and freshness monitoring report impossible values and can mask real delays. 
 
 **Decision: dead-letter queue, resolved by authoritative backfill.**
 The queue keeps guesses out of analytics; the chain lookup supplies the exact value without blocking the pipeline.
-- **Confirmed and final:** fill `block_time`, re-run the checks (invariant, duplicates), then load.
+- **Confirmed and final:** fill `block_time`, re-check the invariant, then load.
 - **Not found, reverted or reorged out:** drop, with the reason recorded.
 
 **What would change the answer**
@@ -128,7 +129,7 @@ Violations are then handled at three levels:
 Each row goes through three stages, in arrival order:
 
 1. **Parse** (`parsing.py`): the row becomes a typed event, or is quarantined with every problem found. Timestamps are either ISO 8601 with a timezone, converted to UTC, or a time of day (`HH:MM:SS`) taken as UTC; `null` or an empty field counts as missing. A header without the seven schema columns, or with a repeated column, stops the run.
-2. **Check** (`checks.py`, `pipeline.py`): the invariant, then suspected duplicates. Rows with any violation are quarantined; the rest are clean.
+2. **Check** (`checks.py`, `pipeline.py`): the invariant and suspected duplicates. Rows with any violation are quarantined; the rest are clean.
 3. **Resolve** (`resolution.py`): quarantined rows are checked through the `ChainResolver` interface (transaction facts from the chain, trade counts from decoding the transaction afresh) and are loaded, dropped or left in quarantine. The run uses `DummyChainResolver` (`dummy_resolver.py`), whose answers are synthetic; see [Assumptions](#assumptions).
 
 ### Output
@@ -152,7 +153,7 @@ Input columns outside the schema aren't copied; `line` points to the full source
 | `invalid_amount` | reasons | Not a positive number in plain decimal notation (`1e5` is rejected). |
 | `invalid_side` | reasons | Not `BUY` or `SELL`. |
 | `missing_required_value` | reasons | Empty or `null`. Only a missing `block_time` can be resolved. |
-| `suspected_duplicate` | reasons | Same transaction, wallet, side, amount and block time as an earlier row. |
+| `suspected_duplicate` | reasons | Same transaction, wallet, side and amount as an earlier row. |
 | `ingested_before_block` | reasons | `ingested_at` is earlier than `block_time`. |
 | `block_time_backfilled` | flags | Missing `block_time` filled from the chain. |
 | `block_time_corrected` | flags | `block_time` replaced with the chain's value. |
