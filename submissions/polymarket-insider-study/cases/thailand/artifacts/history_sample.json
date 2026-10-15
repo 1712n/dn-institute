@@ -1,0 +1,20 @@
+[
+  {
+    "file": "artifacts/history_sample/0x61f2853af4d13ff71d7a3c9dc5f1a5f6e7788519-earliest.csv",
+    "rows": 100,
+    "request_limit": 100,
+    "cap_reached": true,
+    "markets": 19,
+    "first_utc": "2025-11-12T06:35:23Z",
+    "last_utc": "2026-01-04T11:23:01Z"
+  },
+  {
+    "file": "artifacts/history_sample/0x61f2853af4d13ff71d7a3c9dc5f1a5f6e7788519.csv",
+    "rows": 1,
+    "request_limit": 100,
+    "cap_reached": false,
+    "markets": 1,
+    "first_utc": "2026-02-07T09:33:55Z",
+    "last_utc": "2026-02-07T09:33:55Z"
+  }
+]

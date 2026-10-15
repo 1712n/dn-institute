@@ -1,0 +1,12 @@
+{
+  "market_records": 10053,
+  "all_wallets": 1375,
+  "pre_cutoff_records": 6555,
+  "pre_cutoff_wallets_ranked": 784,
+  "eligible_wallets": 4,
+  "recent_records": 1408,
+  "score_ge_80": 2,
+  "score_ge_90": 0,
+  "observed_total_taker_notional_usdc": 1862278.4017433745,
+  "top10_recent_yes_buy_usdc": 14940.26329274617
+}

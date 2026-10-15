@@ -1,4 +1,3 @@
-"""Optional static research figures. pip install matplotlib==3.11.2"""
 import csv
 from datetime import datetime, timezone
 import matplotlib

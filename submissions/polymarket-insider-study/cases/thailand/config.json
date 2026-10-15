@@ -1,0 +1,30 @@
+{
+  "challenge": "https://github.com/1712n/dn-institute/issues/1222",
+  "event_slug": "thai-legislative-election-winner",
+  "market_id": "923042",
+  "market_question": "Will Bhumjaithai Party (BJT) win the most seats in the 2026 Thai legislative election?",
+  "condition_id": "0x91fd3b7cf10e925f169ff49dd657baf9794025b241965fecd0c1b9cbd9c1e115",
+  "start_utc": "2025-12-16T00:36:34.097527Z",
+  "end_exclusive_utc": "2026-02-10T00:00:00Z",
+  "cutoff_utc": "2026-02-08T00:30:00Z",
+  "lookback_start_utc": "2025-11-01T00:00:00Z",
+  "recent_hours": 24,
+  "minimum_recent_yes_buy_usdc": 500,
+  "size_saturation_usdc": 10000,
+  "weights": {
+    "size": 30,
+    "recency": 25,
+    "direction": 20,
+    "surprise": 25
+  },
+  "taker_only": true,
+  "page_limit": 1000,
+  "history_top_n": 4,
+  "full_history_wallets": [
+    "0x1cfc6f041b5b8dad3c14b867be8482a69d45b8e0",
+    "0x05a4bae4fc7d24308111c39d643cf6cb2dc427cf",
+    "0x0224bb9eb0a5c9fd261ac9123a72cbdd5748292a"
+  ],
+  "sample_history_wallet": "0x61f2853af4d13ff71d7a3c9dc5f1a5f6e7788519",
+  "polls_open_utc": "2026-02-08T01:00:00Z"
+}

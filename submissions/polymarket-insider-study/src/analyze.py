@@ -1,4 +1,3 @@
-"""Deterministic, retrospective triage; no trained or calibrated probability model."""
 import csv
 import json
 import math
@@ -111,12 +110,11 @@ def main():
     hourly_rows = []
     for t, trades in sorted(hourly.items()):
         shares = sum(r['size'] for r in trades)
-        # Convert NO token prices into the corresponding YES price before aggregation.
+        # Put NO trades on the YES price scale.
         yes_vwap = sum(r['size'] * (r['price'] if r['outcome'] == 'Yes' else 1-r['price']) for r in trades) / shares
         hourly_rows.append({'hour_utc': utc(t), 'records': len(trades), 'wallets': len(set(r['wallet'] for r in trades)),
                            'trade_notional_usdc': sum(r['notional_usdc'] for r in trades), 'yes_equivalent_vwap': yes_vwap})
     write_csv(ROOT / 'artifacts/hourly_market.csv', hourly_rows)
-    # Matched wallet profiles use only observations before the same information cutoff.
     history = []
     for r in ranked[:cfg['history_top_n']]:
         file = ROOT / f"artifacts/history/{r['wallet']}.csv"

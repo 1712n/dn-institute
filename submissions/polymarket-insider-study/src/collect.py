@@ -1,4 +1,3 @@
-"""Public, unauthenticated read-only collector. Python 3.10+, standard library only."""
 import argparse
 import csv
 import gzip
@@ -79,11 +78,10 @@ class Client:
 
 
 def collect_windows(fetch, base_params, start, end, limit, coverage, label):
-    """Inclusive, disjoint windows. Never silently accept a capped response.
+    """Split capped responses into disjoint, inclusive windows.
 
-    Exact repeated rows within an API response are retained: no log index is
-    supplied, so equal-valued fills cannot safely be collapsed. Saturated
-    one-second windows fail closed instead of silently truncating.
+    Keep repeated rows: without log indices, identical fills cannot be
+    distinguished from duplicates. Raise if a one-second window hits the cap.
     """
     data = fetch({**base_params, 'start': start, 'end': end, 'limit': limit, 'offset': 0})
     if not isinstance(data, list):

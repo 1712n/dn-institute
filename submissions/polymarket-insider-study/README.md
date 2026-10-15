@@ -1,5 +1,5 @@
 # Polymarket trading analysis
 
-I studied trading in the Maduro market before 3 January 2026 and ranked wallets using purchase size, timing, trading direction and entry price.
+I studied trading before Maduro's removal and before Thailand's February 2026 election. I used the same score in both cases, then checked wallet histories and earlier trading days.
 
-[Report](REPORT.md)
+[Main report](REPORT.md) · [Thailand case](THAILAND.md)
