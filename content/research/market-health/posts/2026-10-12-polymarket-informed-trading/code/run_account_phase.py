@@ -103,13 +103,12 @@ def record_excluding_own(ep, bets):
 
 
 def realized_pnl(shares, notional, sells):
-    """Profit of an episode as traded: winner shares sold after the first buy count at their sale
-    price (up to the shares bought), the rest pays $1 at resolution."""
-    sold = sells["size"].sum()
-    if sold <= 0:
-        return shares - notional
-    q = min(sold, shares)
-    return q * (sells["size"] * sells["price"]).sum() / sold + (shares - q) - notional
+    """Profit of an episode as traded: winner sales after the first buy are matched to the
+    episode's shares in time order (first in, first out) at their sale price; shares not sold
+    pay $1 at resolution. Sales beyond the episode's shares belong to later buys and are ignored."""
+    sold_before = sells["size"].cumsum().shift(fill_value=0)
+    taken = (shares - sold_before).clip(lower=0).clip(upper=sells["size"])
+    return (taken * sells["price"]).sum() + (shares - taken.sum()) - notional
 
 
 def episodes(con, tg):

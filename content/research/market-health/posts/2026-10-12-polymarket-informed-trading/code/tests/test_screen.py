@@ -69,9 +69,9 @@ def test_seed_markets_bring_late_break_and_drop_out_of_window(screen_db):
     assert late["seed_wallets"] == "0xlongshot"
 
 
-def _pnl_row(pnl, inv, win_usd, win_sell_usd=0.0, lose_sell_usd=0.0):
-    return {"pnl": pnl, "inv": inv, "win_usd": win_usd,
-            "win_sell_usd": win_sell_usd, "lose_sell_usd": lose_sell_usd}
+def _pnl_row(pnl, inv, win_usd, win_sell_usd=0.0, lose_sell_usd=0.0, win_pnl=None):
+    return {"pnl": pnl, "inv": inv, "win_usd": win_usd, "win_sell_usd": win_sell_usd,
+            "lose_sell_usd": lose_sell_usd, "win_pnl": pnl if win_pnl is None else win_pnl}
 
 
 def test_market_won_needs_the_resolved_winner():
@@ -81,8 +81,9 @@ def test_market_won_needs_the_resolved_winner():
         _pnl_row(200.0, 200.0, 0.0, lose_sell_usd=400.0),    # traded the losing side up
         _pnl_row(300.0, 0.0, 0.0, win_sell_usd=300.0),       # split, sold the winning half
         _pnl_row(-50.0, 100.0, 100.0),                       # bought the winner, lost on sales
+        _pnl_row(150.0, 300.0, 100.0, win_pnl=-50.0),        # lost on the winner, won on the loser
     ])
-    assert list(sw.market_won(wm)) == [True, True, False, False, False]
+    assert list(sw.market_won(wm)) == [True, True, False, False, False, False]
 
 
 @pytest.fixture
@@ -94,6 +95,11 @@ def split_db(make_db):
     # bought the losing Yes cheap and sold it higher: profit, but not a won market
     trades.append(trade_row("m", T0 + 200, 0.2, wallet="0xflip", size=1_000))
     trades.append(trade_row("m", T0 + 300, 0.4, wallet="0xflip", side="SELL", size=1_000))
+    # bought the winning No and sold it at a loss, but made more on the losing Yes
+    trades.append(trade_row("m", T0 + 400, 0.8, wallet="0xmixed", size=500, outcome_index=1))
+    trades.append(trade_row("m", T0 + 500, 0.7, wallet="0xmixed", side="SELL", size=500, outcome_index=1))
+    trades.append(trade_row("m", T0 + 600, 0.2, wallet="0xmixed", size=1_000))
+    trades.append(trade_row("m", T0 + 700, 0.4, wallet="0xmixed", side="SELL", size=1_000))
     return make_db(markets, trades)
 
 
@@ -101,6 +107,9 @@ def test_split_position_counts_as_won_and_losing_side_trade_does_not(split_db):
     wm = sw.wallet_market_pnl(split_db).set_index("wallet")
     assert wm.loc["0xsplit", "pnl"] == pytest.approx(400)
     assert wm.loc["0xflip", "pnl"] == pytest.approx(200)
+    assert wm.loc["0xmixed", "pnl"] == pytest.approx(150)
+    assert wm.loc["0xmixed", "win_pnl"] == pytest.approx(-50)
     won = sw.market_won(wm)
     assert won["0xsplit"]
     assert not won["0xflip"]
+    assert not won["0xmixed"]

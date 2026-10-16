@@ -1,6 +1,6 @@
 ---
 title: "Informed trading on Polymarket: a wallet that bought Maduro's ouster at 7¢ hours before it was public"
-description: "All political Polymarket markets over Nov 2025 – May 2026 (13.2M trades, 734k wallets), scored with an interpretable episode model and filtered through survivorship, lifetime, event-publicity and first-public-signal controls. Most 'surprise' resolutions are explained by public events; one wallet is not: a days-old account accumulated 'Maduro out by Jan 31' at ~7¢, with its last buy about three hours before the first explosions in Caracas, and made +$404k."
+description: "All political Polymarket markets over Nov 2025 – May 2026 (13.2M trades, 734k wallets), scored with an interpretable episode model and filtered through survivorship, lifetime, event-publicity and first-public-signal controls. Most 'surprise' resolutions are explained by public events. The largest bet that survives every control came from a days-old account that accumulated 'Maduro out by Jan 31' at ~7¢, with its last buy about three hours before the first explosions in Caracas, and made +$404k."
 date: 2026-10-12
 entities:
   - Polymarket
@@ -28,7 +28,7 @@ survivorship, lifetime profile, event publicity, and timing against the first pu
   dates across the Iran ladders and won one.
 - Synchronous "clusters" are a weak signal: co-occurrence links wallets that trade the same
   markets at the same time, and it only adds +3 to a score.
-- One wallet survives every control: `0x31a56e…`, a days-old wallet, accumulated **"Maduro out by Jan 31"** at **~7¢**. Its last buy was at **02:58 UTC on
+- The largest bet that survives every control: `0x31a56e…`, a days-old wallet, accumulated **"Maduro out by Jan 31"** at **~7¢**. Its last buy was at **02:58 UTC on
   3 January**, about **3 hours before** the first explosions in Caracas and 6.4 hours before the
   capture was announced. Held to resolution, the position paid **+$404,221**.
 
@@ -159,7 +159,7 @@ Synchronous clusters are kept as a weak signal. Co-occurrence links 499 wallets 
 clusters; the largest has 192 wallets across 26 markets, which looks like a crowd trading the
 same news rather than one operator. Membership only adds +3 to a score.
 
-### The wallet that survives every control
+### The largest bet that survives every control
 
 [`0x31a56e9e690c621ed21de08cb559e9524cdb8ed9`](https://polymarket.com/profile/0x31a56e9e690c621ed21de08cb559e9524cdb8ed9)
 shows its **first recorded Polymarket activity on 27 December 2025**, four days before its first buy in this
@@ -186,7 +186,7 @@ its very first Polymarket trade (+$78k), and `Wee-Pseudoscience` $5,783 at 7¢ e
 | Wallet | Bet | Entry | Profit | Why |
 |---|---|---|---|---|
 | `0xaec0bf01…` | both Trump–Maduro call markets | 17–40¢ | +$4,937 | entry around the private call, before the NYT report; fresh wallet; flagged on both |
-| `0x54520a06…` | Russia does **not** take Kostiantynivka / Lyman by 31 March (NO) | 21–39¢ | +$12,548 | bought within two days of the wallet's first recorded Polymarket activity; battlefield long shots ([ISW, 29 March](https://www.kyivpost.com/post/72821)) |
+| `0x54520a06…` | Russia does **not** take Kostiantynivka / Lyman by 31 March (NO) | 21–39¢ | +$12,548 | bought within two days of the wallet's first recorded Polymarket activity; battlefield long shots ([ISW, 29 March](https://www.criticalthreats.org/analysis/russian-offensive-campaign-assessment-march-29-2026)) |
 | `0x8517b980…` | US strike Iran, Feb 28 | 4¢ | +$12,749 | very cheap — but it bet four strike dates and won one; not flagged |
 
 {{< figure src="russia-towns-timeline.png" alt="Russia town-capture markets with wallet buys of NO" caption="Wallet 0x54520a… bought NO on 'Russia takes Kostiantynivka' (~21¢) and 'Lyman' (~39¢) on 9–10 January, when the market gave the captures 60–80%. Neither town fell by 31 March and both resolved No. A good battlefield read rather than a single pre-public spike: only the Kostiantynivka bet is flagged." >}}

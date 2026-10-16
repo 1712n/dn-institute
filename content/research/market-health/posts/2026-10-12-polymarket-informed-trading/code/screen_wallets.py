@@ -42,7 +42,9 @@ def wallet_market_pnl(con):
                sum(CASE WHEN p.outcome_index = m.win_index THEN p.buy_usd ELSE 0 END) win_usd,
                sum(CASE WHEN p.outcome_index = m.win_index THEN p.buy_shares ELSE 0 END) win_shares,
                sum(CASE WHEN p.outcome_index = m.win_index THEN p.sell_usd ELSE 0 END) win_sell_usd,
-               sum(CASE WHEN p.outcome_index <> m.win_index THEN p.sell_usd ELSE 0 END) lose_sell_usd
+               sum(CASE WHEN p.outcome_index <> m.win_index THEN p.sell_usd ELSE 0 END) lose_sell_usd,
+               round(sum(CASE WHEN p.outcome_index = m.win_index
+                   THEN p.net_shares + p.sell_usd - p.buy_usd ELSE 0 END), 6) win_pnl
         FROM pos p JOIN markets m USING (condition_id)
         GROUP BY 1, 2, 3
         ORDER BY 1, 2""").df()
@@ -51,11 +53,11 @@ def wallet_market_pnl(con):
 def market_won(wm):
     """The wallet came out ahead on the resolved winner, not on trading the losing side.
 
-    Either it bought the winner, or it bought nothing and only sold the loser: shares minted by a
-    split (one dollar for a Yes/No pair) never appear in the trade tape, so selling the losing
-    half is how a split position shows up.
+    Either it bought the winner and made money on it, or it bought nothing and only sold the
+    loser: shares minted by a split (one dollar for a Yes/No pair) never appear in the trade tape,
+    so selling the losing half is how a split position shows up.
     """
-    bought_winner = wm["win_usd"] > 0
+    bought_winner = (wm["win_usd"] > 0) & (wm["win_pnl"] > 0)
     split_position = (wm["inv"] == 0) & (wm["lose_sell_usd"] > 0) & (wm["win_sell_usd"] == 0)
     return (wm["pnl"] > 0) & (bought_winner | split_position)
 
