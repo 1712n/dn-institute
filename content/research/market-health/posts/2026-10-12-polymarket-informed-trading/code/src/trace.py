@@ -10,23 +10,32 @@ CHAIN = 137
 
 
 def _get(params):
+    """Transfers from Etherscan. An empty list only when Etherscan says there are none; a bad key,
+    any other error answer or exhausted retries raise, so a failed lookup never reads as a wallet
+    without history."""
     params = {**params, "chainid": CHAIN, "apikey": os.environ.get("ETHERSCAN_KEY", "")}
     url = BASE + "?" + urllib.parse.urlencode(params)
+    last = None
     for i in range(4):
         try:
             r = urllib.request.urlopen(
                 urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"}), timeout=30)
             d = json.loads(r.read())
-            time.sleep(0.25)
-            if isinstance(d.get("result"), list):
-                return d["result"]
-            if d.get("status") == "0" and "rate limit" in str(d.get("result", "")).lower():
-                time.sleep(1.2)
-                continue
-            return []
-        except Exception:
+        except Exception as e:
+            last = e
             time.sleep(0.8)
-    return []
+            continue
+        time.sleep(0.25)
+        if isinstance(d.get("result"), list):
+            return d["result"]
+        if str(d.get("message", "")).lower().startswith("no transactions found"):
+            return []
+        last = RuntimeError(f"Etherscan {params.get('action')}: {d.get('message')} {d.get('result')}")
+        if "rate limit" in str(d.get("result", "")).lower():
+            time.sleep(1.2)
+            continue
+        break
+    raise last
 
 
 def wallet_profile(wallet):

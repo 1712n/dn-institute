@@ -77,6 +77,8 @@ def fetch_trades(client, condition_id):
         if not page:
             break
         for t in page:
+            if t.get("outcomeIndex") is None:
+                continue  # side unknown: counting it on outcome 0 would misprice the winner
             out.append({
                 "condition_id": condition_id,
                 "wallet": t.get("proxyWallet"),
@@ -84,7 +86,7 @@ def fetch_trades(client, condition_id):
                 "size": _f(t.get("size")),
                 "price": _f(t.get("price")),
                 "timestamp": int(t.get("timestamp") or 0),
-                "outcome_index": int(t.get("outcomeIndex") or 0),
+                "outcome_index": int(t["outcomeIndex"]),
                 "tx_hash": t.get("transactionHash"),
                 "pseudonym": t.get("pseudonym"),
                 "name": t.get("name"),
@@ -109,7 +111,6 @@ def run(db_path=None, verbose=True):
     if verbose:
         print(f"[markets] selected {len(markets)} politics markets in window")
 
-    con.execute("CREATE TABLE markets AS SELECT * FROM markets")
     all_trades = []
     for i, row in markets.iterrows():
         tdf, capped = fetch_trades(client, row["condition_id"])
@@ -202,11 +203,7 @@ def run_full(db_path=None, min_volume=1.0, verbose=True):
     for i, row in targets.iterrows():
         cid = row["condition_id"]
         tdf, capped = fetch_trades(client, cid)
-        if len(tdf):
-            con.register("tmp", tdf)
-            con.execute("INSERT INTO trades SELECT * FROM tmp")
-            con.unregister("tmp")
-        con.execute("INSERT INTO collected VALUES (?,?,?)", [cid, int(len(tdf)), bool(capped)])
+        _store(con, cid, tdf, capped)
         tcount += len(tdf)
         if verbose and (i % 25 == 0 or len(tdf) >= 5000):
             print(f"[{done + i + 1}/{total}] vol={int(row['volume']):>9} n={len(tdf):6d}"
@@ -221,6 +218,21 @@ def run_full(db_path=None, min_volume=1.0, verbose=True):
         print(f"[done] trades={nt:,} wallets={nw:,}", flush=True)
     con.close()
     return nt, nw
+
+
+def _store(con, cid, tdf, capped):
+    """Write one market's trades and its `collected` row together, or neither."""
+    con.execute("BEGIN")
+    try:
+        if len(tdf):
+            con.register("tmp", tdf)
+            con.execute("INSERT INTO trades SELECT * FROM tmp")
+            con.unregister("tmp")
+        con.execute("INSERT INTO collected VALUES (?,?,?)", [cid, int(len(tdf)), bool(capped)])
+        con.execute("COMMIT")
+    except Exception:
+        con.execute("ROLLBACK")
+        raise
 
 
 _tl = threading.local()
@@ -266,17 +278,19 @@ def run_full_parallel(db_path=None, min_volume=1.0, workers=16, verbose=True):
     t0 = time.time()
     done = done0
     tcount = 0
+    failed = []
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        futs = [ex.submit(work, c) for c in targets["condition_id"]]
+        futs = {ex.submit(work, c): c for c in targets["condition_id"]}
         for fut in as_completed(futs):
-            cid, tdf, capped = fut.result()
-            con.execute("BEGIN")
-            if len(tdf):
-                con.register("tmp", tdf)
-                con.execute("INSERT INTO trades SELECT * FROM tmp")
-                con.unregister("tmp")
-            con.execute("INSERT INTO collected VALUES (?,?,?)", [cid, int(len(tdf)), bool(capped)])
-            con.execute("COMMIT")
+            try:
+                cid, tdf, capped = fut.result()
+            except Exception as e:
+                # not marked collected, so the next run retries it
+                failed.append(futs[fut])
+                if verbose:
+                    print(f"[failed] {futs[fut]}: {e}", flush=True)
+                continue
+            _store(con, cid, tdf, capped)
             done += 1
             tcount += len(tdf)
             if verbose and done % 100 == 0:
@@ -292,5 +306,7 @@ def run_full_parallel(db_path=None, min_volume=1.0, workers=16, verbose=True):
     nw = con.execute("SELECT count(DISTINCT wallet) FROM trades").fetchone()[0]
     if verbose:
         print(f"[done] markets_collected={done} trades={nt:,} wallets={nw:,} in {(time.time()-t0)/60:.1f}m", flush=True)
+        if failed:
+            print(f"[retry] {len(failed)} markets failed; run again to collect them", flush=True)
     con.close()
     return nt, nw

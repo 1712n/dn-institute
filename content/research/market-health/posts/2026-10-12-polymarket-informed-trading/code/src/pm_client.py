@@ -9,6 +9,9 @@ class PolymarketClient:
         self.s.headers.update({"User-Agent": config.USER_AGENT, "Accept": "application/json"})
 
     def _get(self, url, params=None):
+        """JSON of a 200 answer; None for a request the API rejects (400/404/422), which callers
+        read as the end of the list. Rate limits and server errors that outlast the retries raise,
+        so a half-fetched list is never taken for a complete one."""
         last = None
         for i in range(config.MAX_RETRIES):
             try:
@@ -17,6 +20,7 @@ class PolymarketClient:
                     time.sleep(config.REQUEST_PAUSE)
                     return r.json()
                 if r.status_code in (429, 500, 502, 503):
+                    last = RuntimeError(f"{url}: HTTP {r.status_code} after {i + 1} attempts")
                     time.sleep(1.5 * (i + 1))
                     continue
                 if r.status_code in (400, 404, 422):
@@ -25,9 +29,7 @@ class PolymarketClient:
             except requests.RequestException as e:
                 last = e
                 time.sleep(1.0 * (i + 1))
-        if last:
-            raise last
-        return None
+        raise last or RuntimeError(f"{url}: no usable answer after {config.MAX_RETRIES} attempts")
 
     def markets_page(self, tag_id, offset, limit=100, closed=True,
                      end_min=None, end_max=None):
