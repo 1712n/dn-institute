@@ -19,11 +19,26 @@ Pipeline (run from this folder, in order):
 
 `src/`: `pm_client.py` (HTTP client), `collect.py` (collection), `episode_score.py` (signal
 points), `controls.py` (date-series survivorship control, OSINT tiers), `enrich.py` (lifetime
-profiles, wallet age, co-occurrence clusters), `osint.py` (profile enrichment), `trace.py`
-(on-chain funding via Etherscan v2, reads `ETHERSCAN_KEY` from the environment).
+profiles, wallet age, co-occurrence clusters), `osint.py` (profile enrichment). `trace.py` is an
+optional helper for looking up inbound transfers on Polygon via Etherscan v2 (needs a free
+`ETHERSCAN_KEY`); no pipeline step calls it and no output depends on it.
 
 The public timeline of every scored event (first public signal, event type, whether the fact
 existed privately before disclosure) was compiled by hand and is recorded in
-`inputs/event_analysis.csv`; `src/controls.py` turns it into tiers by rule.
+`inputs/event_analysis.csv`, with a `source_url` for every non-public event;
+`src/controls.py` turns it into tiers by rule.
+
+## Trade database
+
+The DuckDB file (`data/polymarket.duckdb`, ~1.1 GB: 15,604 markets, 13.2M trades) is too large
+to commit. `run_collect_all.py` rebuilds it from the public API. The API serves the current
+state of each market and its newest ~10k trades, so a rebuild made later can differ slightly
+from the snapshot used for the post:
+
+```
+sha256  9f3f53a35abe29901234a816cddbff72ab52e2d9a6ba954234ada0ffb8b5e5c7  polymarket.duckdb
+```
+
+Point the scripts at another copy with `PM_DB_PATH`.
 
 Tests: `pytest tests`. Tests that need the trade database are skipped without it.

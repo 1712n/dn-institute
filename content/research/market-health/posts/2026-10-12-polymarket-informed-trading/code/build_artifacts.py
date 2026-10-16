@@ -28,7 +28,7 @@ def event_tiers():
     ev = controls.load_event_analysis(EVENT_ANALYSIS)
     m = scored_markets().merge(ev, on="slug", how="left")
     cols = ["slug", "event", "screen", "jump_utc", "event_public_time", "event_type", "private_lead",
-            "tier", "M_event", "timing_verdict", "note"]
+            "tier", "M_event", "timing_verdict", "note", "source_url"]
     m["tier_order"] = m["tier"].map(controls.TIERS.index)
     return m.sort_values(["tier_order", "jump_utc", "slug"])[cols].reset_index(drop=True)
 

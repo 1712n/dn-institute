@@ -152,6 +152,12 @@ def test_every_scored_event_has_an_osint_tier(pipeline_out):
     assert read(pipeline_out, "episode_scores.csv")["tier"].notna().all()
 
 
+def test_non_public_events_cite_a_source(pipeline_out):
+    tiers = read(pipeline_out, "event_tiers.csv")
+    top = tiers[tiers["tier"].isin(["HIGH", "MED-HIGH"])]
+    assert top["source_url"].fillna("").str.startswith("https://").all()
+
+
 def test_iran_fan_bettors_are_demoted(pipeline_out):
     ep = read(pipeline_out, "episode_scores.csv")
     iran = ep[(ep.slug == IRAN) & ep.pseudonym.isin(IRAN_FAN_BETTORS)]
