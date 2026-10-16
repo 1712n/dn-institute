@@ -9,6 +9,7 @@ import config
 
 MADURO = "maduro-out-by-january-31-2026-318"
 MADURO_WALLET = "0x31a56e9e690c621ed21de08cb559e9524cdb8ed9"
+CALL_WALLET = "0xaec0bf01dbdb9e874ba26afad77c42386c885a19"
 CZ = "will-trump-pardon-changpeng-zhao-in-2025-162-949-658"
 IRAN = "will-the-us-next-strike-iran-on-february-28-2026-et"
 IRAN_FAN_BETTORS = {"Embarrassed-Wording", "Next-Reader", "Present-Plunger", "Automatic-Decade"}
@@ -21,8 +22,9 @@ OUTPUTS = {
     "episode_scores.csv": {"S_final", "S_base", "M_lifetime", "M_sibling", "M_event", "M_public",
                            "post_public_share", "hours_before_public", "tier",
                            "series_bets", "series_wins", "sib_tag", "wallet", "slug",
-                           "last_buy_ts", "hours_before_jump", "episode_pnl"},
-    "suspicious_accounts.csv": {"rank", "wallet", "pseudonym", "max_S_final", "n_flagged"},
+                           "last_buy_ts", "hours_before_jump", "episode_pnl", "realized_pnl"},
+    "suspicious_accounts.csv": {"rank", "wallet", "pseudonym", "max_S_final", "n_flagged",
+                                "tot_episode_pnl", "tot_realized_pnl"},
     "clusters.csv": {"cluster_id", "n_wallets", "wallets"},
     "event_tiers.csv": {"slug", "event", "event_type", "private_lead", "tier", "M_event"},
     "suspects_by_event.csv": {"tier", "event", "S_final", "wallet", "slug"},
@@ -88,6 +90,7 @@ def test_maduro_wallet_is_scored(pipeline_out):
     assert row["vwap_entry"] == pytest.approx(0.0745, abs=0.001)
     assert row["win_buy_notional"] == pytest.approx(32538, abs=1)
     assert row["episode_pnl"] == pytest.approx(404221, abs=2)
+    assert row["realized_pnl"] == pytest.approx(row["episode_pnl"])
     assert row["tier"] == "HIGH"
     assert row["sib_tag"] != "fan_bettor"
 
@@ -116,6 +119,16 @@ def test_news_reactions_on_maduro_market_are_demoted(pipeline_out):
     assert len(after) > 0
     assert (after["M_public"] < 1).all()
     assert (after.loc[after["post_public_share"] == 1, "T"] == 0).all()
+
+
+def test_ranking_uses_realized_profit(pipeline_out):
+    wal = read(pipeline_out, "suspicious_accounts.csv")
+    assert (wal["tot_realized_pnl"] <= wal["tot_episode_pnl"] + 1e-6).all()
+    order = wal.sort_values(["n_flagged", "tot_realized_pnl", "wallet"], ascending=[False, False, True])
+    assert list(order["wallet"]) == list(wal["wallet"])
+    call = wal.set_index("wallet").loc[CALL_WALLET]
+    assert call["tot_realized_pnl"] == pytest.approx(4937, abs=1)
+    assert call["tot_episode_pnl"] == pytest.approx(5665, abs=1)
 
 
 def test_episode_pnl_matches_trade_tape(real_db):

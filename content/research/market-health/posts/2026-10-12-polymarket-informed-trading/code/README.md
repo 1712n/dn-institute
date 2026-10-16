@@ -8,10 +8,15 @@ Pipeline (run from this folder, in order):
 |---|---|---|
 | Collect all political markets + trades (parallel, resumable) | `run_collect_all.py` | `data/polymarket.duckdb` |
 | Price-jump screen | `detect_surprises.py` | `surprise_markets.csv`, `surprise_substantive.csv` |
-| Wallet screen: wallets that won every market, at long odds | `screen_wallets.py` | `perfect_winrate.csv`, `longshot_perfect.csv`, `wallet_seed_markets.csv` |
+| Wallet screen: wallets that won every market, at long odds (won = ahead on the winning outcome) | `screen_wallets.py` | `perfect_winrate.csv`, `longshot_perfect.csv`, `wallet_seed_markets.csv` |
 | Episode scoring `S = 2T+2V+P+2A+R`, fresh-wallet rule, controls, lifetime multiplier, clusters | `run_account_phase.py` | `episode_scores.csv`, `suspicious_accounts.csv`, `clusters.csv` |
 | OSINT tiers per event, top suspects per event | `build_artifacts.py` | `event_tiers.csv`, `suspects_by_event.csv` |
 | Figures of the write-up | `make_figures.py` | `output/figures/*.png` |
+
+Profit columns: `episode_pnl` is what the pre-jump buys of the winner pay if held to
+resolution; `realized_pnl` counts winner shares the wallet sold after its first buy at their sale
+price (up to the shares bought) and the rest at $1. Wallets are ranked by the number of flagged
+markets, then by `tot_realized_pnl`.
 
 `run_account_phase.py --offline` and `screen_wallets.py --offline` use the cached API answers in
 `inputs/` (`lifetime_profiles.csv` from `/positions`, `wallet_first_activity.csv` from

@@ -27,7 +27,7 @@ def _flagged(pseudonyms):
     return pd.DataFrame({
         "wallet": [f"0x{i}" for i in range(n)], "pseudonym": pseudonyms,
         "S_final": np.linspace(20, 30, n), "S_base": 10.0, "slug": "m",
-        "win_buy_notional": 1000.0, "episode_pnl": 5000.0, "M_lifetime": 1.0,
+        "win_buy_notional": 1000.0, "episode_pnl": 5000.0, "realized_pnl": 5000.0, "M_lifetime": 1.0,
         "M_sibling": 1.0, "M_event": 1.0, "M_public": 1.0, "lt_markets": 1, "lt_pnl": 0.0, "lt_tag": "fresh",
         "in_cluster": False, "cluster_id": np.nan, "wins": 0, "attempts": 0,
         "sib_tag": "standalone", "tier": "HIGH",
@@ -41,8 +41,17 @@ def test_wallets_without_pseudonym_are_ranked():
 
 
 def test_rank_wallets_orders_by_markets_then_profit():
-    fl = _flagged(["a", "b", "c"]).assign(episode_pnl=[9000.0, 1000.0, 400000.0])
+    fl = _flagged(["a", "b", "c"]).assign(realized_pnl=[9000.0, 1000.0, 400000.0])
     fl = pd.concat([fl, fl.iloc[[1]].assign(slug="n")], ignore_index=True)
     wal = rap.rank_wallets(fl)
     assert list(wal["pseudonym"]) == ["b", "c", "a"]
     assert list(wal["rank"]) == [1, 2, 3]
+
+
+def test_rank_wallets_uses_realized_profit_not_payoff():
+    # "a" would have been paid more had it held, but sold early
+    fl = _flagged(["a", "b"]).assign(episode_pnl=[30000.0, 10000.0], realized_pnl=[8000.0, 10000.0])
+    wal = rap.rank_wallets(fl)
+    assert list(wal["pseudonym"]) == ["b", "a"]
+    assert list(wal["tot_realized_pnl"]) == [10000.0, 8000.0]
+    assert list(wal["tot_episode_pnl"]) == [10000.0, 30000.0]

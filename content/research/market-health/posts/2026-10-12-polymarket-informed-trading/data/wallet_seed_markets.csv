@@ -1,6 +1,5 @@
 slug,question,wout,vol,history_truncated,n_tr,p_early,p_late,p_post,jump_ts,jump_utc,end_date,seed_wallets,seed_pnl
 maduro-out-by-january-31-2026-318,"Maduro out by January 31, 2026?",Yes,10966929.0,True,9367,0.191,0.732,0.992,1767432125,2026-01-03 09:22,2026-01-31T12:00:00Z,0x31a56e9e690c621ed21de08cb559e9524cdb8ed9,404221.27
-will-the-us-next-strike-iran-on-february-28-2026-et,"Will the US next strike Iran on February 28, 2026 (ET)?",Yes,5837357.0,True,11000,0.037,0.993,0.99,1772261069,2026-02-28 06:44,2026-02-28T00:00:00Z,0x8517b980e32611ed689e64c131e841a094002ce5,12749.36
 will-the-government-shutdown-end-november-13-182,Will the government shutdown end November 13?,Yes,6006067.0,True,11000,0.327,0.985,0.971,1763014450,2025-11-13 06:14,2025-11-21T00:00:00Z,0x86a6a0c5a10c3913ef806a31a1c7105f3ca33674;0xda1e45554d6ad35d2f6d7e75286817677cf0f3cd,10512.07
 will-russia-capture-kostyantynivka-by-march-31-872-578,Will Russia capture Kostyantynivka by March 31?,No,965801.0,False,4658,0.187,0.954,0.928,1772720611,2026-03-05 14:23,2026-03-31T12:00:00Z,0x54520a0661afd0c6580ce45773097c0f0c2f6f80,8069.61
 israel-strikes-iran-by-february-28-2026,"Israel strikes Iran by February 28, 2026?",Yes,4085751.0,True,11000,0.203,0.501,0.98,1772259281,2026-02-28 06:14,2026-02-28T00:00:00Z,0x95c78cb27149cd59d3240a05fb75571edec3b007,6488.1

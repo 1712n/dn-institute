@@ -67,3 +67,40 @@ def test_seed_markets_bring_late_break_and_drop_out_of_window(screen_db):
     late = seeds.set_index("slug").loc["maduro-style-late-break"]
     assert late["jump_ts"] == T0 + 300 * 1800
     assert late["seed_wallets"] == "0xlongshot"
+
+
+def _pnl_row(pnl, inv, win_usd, win_sell_usd=0.0, lose_sell_usd=0.0):
+    return {"pnl": pnl, "inv": inv, "win_usd": win_usd,
+            "win_sell_usd": win_sell_usd, "lose_sell_usd": lose_sell_usd}
+
+
+def test_market_won_needs_the_resolved_winner():
+    wm = pd.DataFrame([
+        _pnl_row(900.0, 100.0, 100.0),                       # bought the winner
+        _pnl_row(400.0, 0.0, 0.0, lose_sell_usd=400.0),      # split, sold the losing half
+        _pnl_row(200.0, 200.0, 0.0, lose_sell_usd=400.0),    # traded the losing side up
+        _pnl_row(300.0, 0.0, 0.0, win_sell_usd=300.0),       # split, sold the winning half
+        _pnl_row(-50.0, 100.0, 100.0),                       # bought the winner, lost on sales
+    ])
+    assert list(sw.market_won(wm)) == [True, True, False, False, False]
+
+
+@pytest.fixture
+def split_db(make_db):
+    markets = [market_row("m", "market-resolved-no", win_index=1, win_outcome="No")]
+    trades = price_path("m", T0, [0.2] * 10, step=600)
+    # shares from a split: only the sale of the losing Yes half reaches the tape
+    trades.append(trade_row("m", T0 + 100, 0.4, wallet="0xsplit", side="SELL", size=1_000))
+    # bought the losing Yes cheap and sold it higher: profit, but not a won market
+    trades.append(trade_row("m", T0 + 200, 0.2, wallet="0xflip", size=1_000))
+    trades.append(trade_row("m", T0 + 300, 0.4, wallet="0xflip", side="SELL", size=1_000))
+    return make_db(markets, trades)
+
+
+def test_split_position_counts_as_won_and_losing_side_trade_does_not(split_db):
+    wm = sw.wallet_market_pnl(split_db).set_index("wallet")
+    assert wm.loc["0xsplit", "pnl"] == pytest.approx(400)
+    assert wm.loc["0xflip", "pnl"] == pytest.approx(200)
+    won = sw.market_won(wm)
+    assert won["0xsplit"]
+    assert not won["0xflip"]

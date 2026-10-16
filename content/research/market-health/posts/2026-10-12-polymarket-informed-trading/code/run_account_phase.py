@@ -102,6 +102,16 @@ def record_excluding_own(ep, bets):
     return out.drop(columns=["own_won"])
 
 
+def realized_pnl(shares, notional, sells):
+    """Profit of an episode as traded: winner shares sold after the first buy count at their sale
+    price (up to the shares bought), the rest pays $1 at resolution."""
+    sold = sells["size"].sum()
+    if sold <= 0:
+        return shares - notional
+    q = min(sold, shares)
+    return q * (sells["size"] * sells["price"]).sum() / sold + (shares - q) - notional
+
+
 def episodes(con, tg):
     con.register("tgt", tg[["condition_id"]])
     tr = con.execute("""
@@ -120,6 +130,7 @@ def episodes(con, tg):
         if not len(wb):
             continue
         wb["notional"] = wb["size"] * wb["price"]
+        ws = g[(g["outcome_index"] == win) & (g["side"] == "SELL")]
         public = float(meta.at[cid, "public_ts"])
         for w, b in wb.groupby("wallet"):
             notional = b["notional"].sum()
@@ -128,13 +139,16 @@ def episodes(con, tg):
             shares = b["size"].sum()
             vwap = notional / shares
             vwt = (b["size"] * b["timestamp"]).sum() / shares
+            first = float(b["timestamp"].min())
+            realized = realized_pnl(shares, notional, ws[(ws["wallet"] == w) & (ws["timestamp"] >= first)])
             rows.append({
                 "condition_id": cid, "slug": meta.at[cid, "slug"], "source": meta.at[cid, "source"],
                 "jump_ts": jump,
                 "wallet": w, "pseudonym": b["pseudonym"].iloc[0], "bio": b["bio"].iloc[0],
                 "win_buy_notional": notional, "max_single_buy": b["notional"].max(),
                 "shares": shares, "vwap_entry": vwap, "episode_pnl": shares - notional,
-                "entry_ts": float(vwt), "first_ts": float(b["timestamp"].min()),
+                "realized_pnl": realized,
+                "entry_ts": float(vwt), "first_ts": first,
                 "last_buy_ts": float(b["timestamp"].max()),
                 "hours_before_jump": (jump - vwt) / 3600.0,
                 "p_edge": p_late - vwap, "n_buys": len(b),
@@ -182,7 +196,7 @@ def rank_wallets(flagged):
         pseudonym=("pseudonym", "first"),
         max_S_final=("S_final", "max"), max_S_base=("S_base", "max"),
         n_flagged=("slug", "nunique"), tot_notional=("win_buy_notional", "sum"),
-        tot_episode_pnl=("episode_pnl", "sum"),
+        tot_episode_pnl=("episode_pnl", "sum"), tot_realized_pnl=("realized_pnl", "sum"),
         M_lifetime=("M_lifetime", "max"), M_sibling=("M_sibling", "min"), M_event=("M_event", "max"),
         M_public=("M_public", "max"),
         lt_markets=("lt_markets", "max"), lt_pnl=("lt_pnl", "max"), lt_tag=("lt_tag", "first"),
@@ -191,7 +205,7 @@ def rank_wallets(flagged):
         in_cluster=("in_cluster", "max"), cluster_id=("cluster_id", "max"),
         wins=("wins", "max"), attempts=("attempts", "max"),
     ).reset_index()
-    wal = wal.sort_values(["n_flagged", "tot_episode_pnl", "wallet"], ascending=[False, False, True])
+    wal = wal.sort_values(["n_flagged", "tot_realized_pnl", "wallet"], ascending=[False, False, True])
     wal.insert(0, "rank", np.arange(1, len(wal) + 1))
     wal["profile"] = "https://polymarket.com/profile/" + wal["wallet"]
     return wal.reset_index(drop=True)
@@ -255,7 +269,7 @@ def main():
 
     cols = ["S_final", "S_base", "M_lifetime", "M_sibling", "M_event", "M_public", "cooc_bonus",
             "T", "V", "P", "A", "R", "wallet", "pseudonym", "slug", "source", "event", "tier",
-            "win_buy_notional", "vwap_entry", "episode_pnl", "hours_before_jump",
+            "win_buy_notional", "vwap_entry", "episode_pnl", "realized_pnl", "hours_before_jump",
             "first_ts", "last_buy_ts", "jump_ts", "hours_before_public", "post_public_share",
             "series_bets", "series_wins", "sib_tag", "fresh_bet", "wallet_age_days",
             "lt_markets", "lt_pnl", "lt_tag", "in_cluster", "cluster_id",
@@ -283,7 +297,7 @@ def main():
     print("fan bettors demoted:", int((ep["sib_tag"] == "fan_bettor").sum()))
     print("\nTop 15 suspicious accounts:")
     show = wal.head(15)[["rank", "wallet", "pseudonym", "n_flagged", "max_S_final", "max_S_base",
-                         "M_lifetime", "M_sibling", "top_tier", "lt_tag", "tot_episode_pnl"]]
+                         "M_lifetime", "M_sibling", "top_tier", "lt_tag", "tot_realized_pnl"]]
     with pd.option_context("display.width", 260, "display.max_columns", 25):
         print(show.to_string(index=False))
 

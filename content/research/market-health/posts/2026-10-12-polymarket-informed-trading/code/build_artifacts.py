@@ -39,7 +39,7 @@ def suspects_by_event(ep):
     s = s.sort_values(["tier_order", "slug", "S_final", "wallet"], ascending=[True, True, False, True])
     s = s.groupby("slug", sort=False).head(TOP_PER_EVENT)
     cols = ["tier", "event", "S_final", "wallet", "pseudonym", "win_buy_notional", "vwap_entry",
-            "hours_before_jump", "episode_pnl", "series_bets", "series_wins", "sib_tag",
+            "hours_before_jump", "episode_pnl", "realized_pnl", "series_bets", "series_wins", "sib_tag",
             "lt_markets", "lt_pnl", "lt_tag", "in_cluster", "wins", "attempts", "slug", "source"]
     return s[cols].reset_index(drop=True)
 

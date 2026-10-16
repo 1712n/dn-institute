@@ -40,15 +40,30 @@ def wallet_market_pnl(con):
                    + p.sell_usd - p.buy_usd), 6) pnl,
                sum(p.buy_usd) inv,
                sum(CASE WHEN p.outcome_index = m.win_index THEN p.buy_usd ELSE 0 END) win_usd,
-               sum(CASE WHEN p.outcome_index = m.win_index THEN p.buy_shares ELSE 0 END) win_shares
+               sum(CASE WHEN p.outcome_index = m.win_index THEN p.buy_shares ELSE 0 END) win_shares,
+               sum(CASE WHEN p.outcome_index = m.win_index THEN p.sell_usd ELSE 0 END) win_sell_usd,
+               sum(CASE WHEN p.outcome_index <> m.win_index THEN p.sell_usd ELSE 0 END) lose_sell_usd
         FROM pos p JOIN markets m USING (condition_id)
         GROUP BY 1, 2, 3
         ORDER BY 1, 2""").df()
 
 
+def market_won(wm):
+    """The wallet came out ahead on the resolved winner, not on trading the losing side.
+
+    Either it bought the winner, or it bought nothing and only sold the loser: shares minted by a
+    split (one dollar for a Yes/No pair) never appear in the trade tape, so selling the losing
+    half is how a split position shows up.
+    """
+    bought_winner = wm["win_usd"] > 0
+    split_position = (wm["inv"] == 0) & (wm["lose_sell_usd"] > 0) & (wm["win_sell_usd"] == 0)
+    return (wm["pnl"] > 0) & (bought_winner | split_position)
+
+
 def perfect_winrate(wm):
+    wm = wm.assign(won=market_won(wm))
     w = wm.groupby("wallet").agg(
-        n_mk=("condition_id", "nunique"), n_won=("pnl", lambda s: int((s > 0).sum())),
+        n_mk=("condition_id", "nunique"), n_won=("won", "sum"),
         pnl=("pnl", "sum"), inv=("inv", "sum"),
         win_usd=("win_usd", "sum"), win_shares=("win_shares", "sum")).reset_index()
     w["win_vwap"] = w["win_usd"] / w["win_shares"]

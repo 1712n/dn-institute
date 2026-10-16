@@ -97,7 +97,9 @@ Modifiers turn `S` into `S_final`:
    cheap early in the collected tape (≤55%) and ended above 80%. It ranks markets by the whole
    move, so it misses markets that broke in their last hours, such as "Maduro out by Jan 31". The
    *wallet screen* closes that gap: wallets that won every market they traded, at long odds, hand
-   their markets to the same scoring. The screens give 37 and 12 markets, one in common. One of
+   their markets to the same scoring. A market counts as won only if the wallet came out ahead on
+   the outcome that won, not on trading the losing side. The screens give 37 and 11 markets, none
+   in common. One of
    the 48, the novelty market `will-pete-hegseth-ban-claude-by-march-31`, gets an OSINT tier but
    is left out of scoring.
 2. **Episode scoring** — `S_final` for everyone who bought the winner **before** the jump.
@@ -115,7 +117,8 @@ Modifiers turn `S` into `S_final`:
 
 With no ground-truth labels, the ranking is an **interpretable, unsupervised priority**, not a
 calibrated probability. Wallets are ordered by the number of independent markets on which they
-were flagged, then by the profit of their flagged episodes. Public-event, news-reaction and
+were flagged, then by the realised profit of their flagged episodes: shares sold before
+resolution count at their sale price, the rest at $1. Public-event, news-reaction and
 blanket-bet episodes are demoted before the threshold, so they rarely reach the list; repetition
 across independent events comes first, then the money at stake. Every component is auditable,
 so each flag carries a traceable chain: episode → signals → event.
@@ -182,7 +185,7 @@ its very first Polymarket trade (+$78k), and `Wee-Pseudoscience` $5,783 at 7¢ e
 
 | Wallet | Bet | Entry | Profit | Why |
 |---|---|---|---|---|
-| `0xaec0bf01…` | both Trump–Maduro call markets | 17–40¢ | +$5,665 | entry around the private call, before the NYT report; fresh wallet; flagged on both |
+| `0xaec0bf01…` | both Trump–Maduro call markets | 17–40¢ | +$4,937 | entry around the private call, before the NYT report; fresh wallet; flagged on both |
 | `0x54520a06…` | Russia does **not** take Kostiantynivka / Lyman by 31 March (NO) | 21–39¢ | +$12,548 | bought within two days of the wallet's first recorded Polymarket activity; battlefield long shots ([ISW, 29 March](https://www.kyivpost.com/post/72821)) |
 | `0x8517b980…` | US strike Iran, Feb 28 | 4¢ | +$12,749 | very cheap — but it bet four strike dates and won one; not flagged |
 
