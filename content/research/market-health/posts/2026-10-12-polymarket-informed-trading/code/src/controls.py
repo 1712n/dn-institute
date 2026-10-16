@@ -36,6 +36,10 @@ EVENT_TYPES = {
     "covert_military": "HIGH",       # covert operations under operational secrecy
 }
 
+# Columns of inputs/event_analysis.csv that the pipeline reads.
+EVENT_COLUMNS = ["slug", "event", "event_type", "private_lead", "event_public_time",
+                 "first_public_utc", "timing_verdict", "note", "source_url"]
+
 
 MONTHS = "january|february|march|april|may|june|july|august|september|october|november|december"
 
@@ -133,12 +137,15 @@ def event_tier(event_type, private_lead):
 
 def load_event_analysis(path):
     ev = pd.read_csv(path)
+    missing = [c for c in EVENT_COLUMNS if c not in ev.columns]
+    if missing:
+        raise ValueError(f"missing columns in {path}: {missing}")
     unknown = sorted(set(ev["event_type"]) - set(EVENT_TYPES))
     if unknown:
         raise ValueError(f"unknown event_type in {path}: {unknown}")
     if ev["slug"].duplicated().any():
         raise ValueError(f"duplicate slugs in {path}")
     ev["private_lead"] = ev["private_lead"].astype(str).str.lower().isin(["true", "1", "yes"])
-    ev["tier"] = [event_tier(t, p) for t, p in zip(ev["event_type"], ev["private_lead"])]
+    ev["tier"] = [event_tier(t, p) for t, p in zip(ev["event_type"], ev["private_lead"], strict=True)]
     ev["M_event"] = ev["tier"].map(TIER_MULT).astype(float)
     return ev

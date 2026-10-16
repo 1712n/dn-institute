@@ -118,21 +118,31 @@ def test_tier_multiplier_is_monotonic():
     assert controls.TIER_MULT["HIGH"] == 1.0
 
 
+def event_rows(**cols):
+    n = len(cols["slug"])
+    base = {"event": ["x"] * n, "private_lead": [False] * n, "event_public_time": ["2026-01-01 00:00"] * n,
+            "first_public_utc": ["2026-01-01 00:00"] * n, "timing_verdict": [""] * n,
+            "note": [""] * n, "source_url": [""] * n}
+    return pd.DataFrame({**base, **cols})
+
+
 def test_event_analysis_rejects_unknown_type(tmp_path):
     p = tmp_path / "ev.csv"
-    pd.DataFrame({"slug": ["a"], "event": ["x"], "event_type": ["rumour"],
-                  "private_lead": [False], "event_public_utc": ["2026-01-01 00:00"],
-                  "source": ["s"], "note": [""]}).to_csv(p, index=False)
-    with pytest.raises(ValueError):
+    event_rows(slug=["a"], event_type=["rumour"]).to_csv(p, index=False)
+    with pytest.raises(ValueError, match="unknown event_type"):
+        controls.load_event_analysis(p)
+
+
+def test_event_analysis_rejects_missing_columns(tmp_path):
+    p = tmp_path / "ev.csv"
+    event_rows(slug=["a"], event_type=["election"]).drop(columns="first_public_utc").to_csv(p, index=False)
+    with pytest.raises(ValueError, match="first_public_utc"):
         controls.load_event_analysis(p)
 
 
 def test_event_analysis_adds_tier_and_multiplier(tmp_path):
     p = tmp_path / "ev.csv"
-    pd.DataFrame({"slug": ["a", "b"], "event": ["x", "y"],
-                  "event_type": ["covert_military", "election"], "private_lead": [False, False],
-                  "event_public_utc": ["2026-01-03 09:22", "2026-02-01 00:00"],
-                  "source": ["s", "s"], "note": ["", ""]}).to_csv(p, index=False)
+    event_rows(slug=["a", "b"], event_type=["covert_military", "election"]).to_csv(p, index=False)
     ev = controls.load_event_analysis(p).set_index("slug")
     assert ev.loc["a", "tier"] == "HIGH" and ev.loc["a", "M_event"] == 1.0
     assert ev.loc["b", "tier"] == "LOW" and ev.loc["b", "M_event"] < 0.5
