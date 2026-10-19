@@ -1,0 +1,54 @@
+{
+  "month": "2026-05",
+  "venues": [
+    "Gate.io",
+    "Bybit"
+  ],
+  "markets": [
+    {
+      "symbol": "HOODX",
+      "gate_clip_share": 0.4938,
+      "gate_score": 0.972,
+      "gate_n": 65164,
+      "bybit_clip_share": 0.0189,
+      "bybit_score": 0.488,
+      "bybit_n": 36551
+    },
+    {
+      "symbol": "TSLAX",
+      "gate_clip_share": 0.2395,
+      "gate_score": 0.975,
+      "gate_n": 242598,
+      "bybit_clip_share": 0.056,
+      "bybit_score": 0.561,
+      "bybit_n": 44633
+    },
+    {
+      "symbol": "NVDAX",
+      "gate_clip_share": 0.2297,
+      "gate_score": 0.834,
+      "gate_n": 196025,
+      "bybit_clip_share": 0.0473,
+      "bybit_score": 0.526,
+      "bybit_n": 302708
+    },
+    {
+      "symbol": "AAPLX",
+      "gate_clip_share": 0.1711,
+      "gate_score": 0.955,
+      "gate_n": 37753,
+      "bybit_clip_share": 0.0542,
+      "bybit_score": 0.651,
+      "bybit_n": 13372
+    },
+    {
+      "symbol": "GOOGLX",
+      "gate_clip_share": 0.1676,
+      "gate_score": 0.939,
+      "gate_n": 33819,
+      "bybit_clip_share": 0.053,
+      "bybit_score": 0.632,
+      "bybit_n": 25930
+    }
+  ]
+}

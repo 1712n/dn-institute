@@ -1,0 +1,16 @@
+{
+  "markets": [
+    "HOODX",
+    "SPYX",
+    "TSLAX",
+    "NVDAX",
+    "AAPLX",
+    "GOOGLX"
+  ],
+  "clip_minute_corr": 0.0803,
+  "all_minute_corr": 0.1121,
+  "same_second_ge3_share": 0.00242,
+  "matched_pairs": 5,
+  "matched_pairs_shuffled": 19604,
+  "hoodx_busiest_second_share": 0.036
+}

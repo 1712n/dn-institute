@@ -1,0 +1,108 @@
+{
+  "symbol": "HOODX",
+  "flag_threshold": 0.8,
+  "first_elevated_month": "202510",
+  "flag_crossed_month": "202603",
+  "cumulative_clip_usd": 945877.0,
+  "months": [
+    {
+      "month": "202507",
+      "n_trades": 264734,
+      "clip_share": 0.0045,
+      "clip_net": 0.814,
+      "benford_ks": 0.048,
+      "clip_notional": 23634.0,
+      "score": 0.121
+    },
+    {
+      "month": "202508",
+      "n_trades": 194910,
+      "clip_share": 0.018,
+      "clip_net": 0.004,
+      "benford_ks": 0.021,
+      "clip_notional": 10915.0,
+      "score": 0.255
+    },
+    {
+      "month": "202509",
+      "n_trades": 159107,
+      "clip_share": 0.0185,
+      "clip_net": 0.011,
+      "benford_ks": 0.034,
+      "clip_notional": 9142.0,
+      "score": 0.303
+    },
+    {
+      "month": "202510",
+      "n_trades": 187684,
+      "clip_share": 0.0608,
+      "clip_net": 0.003,
+      "benford_ks": 0.119,
+      "clip_notional": 35353.0,
+      "score": 0.684
+    },
+    {
+      "month": "202511",
+      "n_trades": 223122,
+      "clip_share": 0.059,
+      "clip_net": 0.0,
+      "benford_ks": 0.09,
+      "clip_notional": 40935.0,
+      "score": 0.617
+    },
+    {
+      "month": "202512",
+      "n_trades": 123467,
+      "clip_share": 0.0514,
+      "clip_net": 0.006,
+      "benford_ks": 0.056,
+      "clip_notional": 19708.0,
+      "score": 0.503
+    },
+    {
+      "month": "202601",
+      "n_trades": 78696,
+      "clip_share": 0.0244,
+      "clip_net": 0.071,
+      "benford_ks": 0.036,
+      "clip_notional": 5918.0,
+      "score": 0.332
+    },
+    {
+      "month": "202602",
+      "n_trades": 93087,
+      "clip_share": 0.0344,
+      "clip_net": 0.018,
+      "benford_ks": 0.171,
+      "clip_notional": 11911.0,
+      "score": 0.608
+    },
+    {
+      "month": "202603",
+      "n_trades": 113169,
+      "clip_share": 0.1836,
+      "clip_net": 0.108,
+      "benford_ks": 0.105,
+      "clip_notional": 182290.0,
+      "score": 0.854
+    },
+    {
+      "month": "202604",
+      "n_trades": 79597,
+      "clip_share": 0.3996,
+      "clip_net": 0.104,
+      "benford_ks": 0.262,
+      "clip_notional": 299928.0,
+      "score": 0.964
+    },
+    {
+      "month": "202605",
+      "n_trades": 65164,
+      "clip_share": 0.4938,
+      "clip_net": 0.083,
+      "benford_ks": 0.346,
+      "clip_notional": 306143.0,
+      "score": 0.972
+    }
+  ]
+}
