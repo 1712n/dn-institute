@@ -91,14 +91,14 @@ def fig_maduro(con):
     ax.axvline(jump, color=LINE, ls="--", lw=1)
     ax.text(jump + pd.Timedelta(hours=4), 0.62,
             f"first blasts in Caracas ~{CARACAS_FIRST_BLASTS:%H:%M} UTC (dotted)\n"
-            f"capture announced {jump:%b %d, %H:%M} UTC (dashed)", fontsize=8.5, va="center")
+            f"price jump after the announcement {jump:%b %d, %H:%M} UTC (dashed)", fontsize=8.5, va="center")
     ax.plot([], [], color=PRICE, label="Market price: 'Maduro out by Jan 31' (YES)")
-    ax.scatter([], [], color=BUY, label="Wallet 0x31a56e… buys (size ∝ $)")
+    ax.scatter([], [], color=BUY, label="Wallet 0x31a56e... buys (marker size = $)")
     ax.legend(loc="upper left", fontsize=8.5)
     ax.set_ylabel("Implied probability (YES)")
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
     last = buys["t"].max()
-    ax.set_title(f"Accumulation at ~{buys['notional'].sum() / buys['size'].sum() * 100:.0f}¢; "
+    ax.set_title(f"Accumulation at ~{buys['notional'].sum() / buys['size'].sum() * 100:.0f} cents; "
                  f"last buy {last:%H:%M} UTC, {(jump - last).total_seconds() / 3600:.1f}h before "
                  f"the announcement", fontsize=11)
     save(fig, "maduro-timeline.png")
@@ -123,7 +123,7 @@ def fig_iran_baserate():
     ep = pd.read_csv(config.OUTPUT_DIR / "episode_scores.csv")
     top = ep[ep["slug"] == IRAN].sort_values(["S_base", "wallet"], ascending=[False, True]).head(10)
     fan = top[top["series_bets"] >= 3].sort_values(["series_bets", "wallet"])
-    labels = [p if isinstance(p, str) else w[:10] + "…" for p, w in zip(fan["pseudonym"], fan["wallet"])]
+    labels = [p if isinstance(p, str) else w[:10] + "..." for p, w in zip(fan["pseudonym"], fan["wallet"])]
     fig, ax = plt.subplots(figsize=(8, 0.6 * len(fan) + 1.6))
     ax.barh(labels, fan["series_bets"], color="#95a5a6", label="Strike-dates bet (YES, cheap)")
     ax.barh(labels, fan["series_wins"], color=BUY, label="Dates that actually won")
@@ -140,10 +140,10 @@ def fig_russia_towns(con):
         buys = wallet_buys(path, TOWN_WALLET).assign(price=lambda d: d["wp"])
         price_panel(ax, path, buys, scale=0.15)
         vwap = buys["notional"].sum() / buys["size"].sum()
-        ax.set_title(f"'Russia captures {town} by Mar 31' → NO  (entry ~{vwap * 100:.0f}%)", fontsize=10)
+        ax.set_title(f"'Russia captures {town} by Mar 31': bought NO  (entry ~{vwap * 100:.0f}%)", fontsize=10)
         ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
     axes[0].set_ylabel("Implied probability (NO)")
-    fig.suptitle("Wallet 0x54520a…: cheap bets that the towns would hold (red = buys of NO, size ∝ $)",
+    fig.suptitle("Wallet 0x54520a...: cheap bets that the towns would hold (red = buys of NO, marker size = $)",
                  fontsize=11)
     save(fig, "russia-towns-timeline.png")
 
@@ -159,14 +159,14 @@ def fig_maduro_call(con):
         ax.axvspan(*CALL_WINDOW, color=SHADE, alpha=0.5, lw=0)
         ax.axvline(jump, color=LINE, ls="--", lw=1)
         vwap = buys["notional"].sum() / buys["size"].sum()
-        ax.set_title(f"'Trump talks to Maduro' ({label}) — entry ~{vwap * 100:.0f}%", fontsize=10)
+        ax.set_title(f"'Trump talks to Maduro' ({label}), entry ~{vwap * 100:.0f}%", fontsize=10)
         ax.xaxis.set_major_locator(mdates.DayLocator(interval=5))
         ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
     axes[0].text(CALL_WINDOW[0] + pd.Timedelta(days=2), 0.93, "private\ncall", ha="center",
                  fontsize=9, color="#7d6608")
     axes[1].text(jump_of(CALL_SLUGS[1]) + pd.Timedelta(hours=8), 0.6, "NYT reports\n(Nov 28)", fontsize=8.5)
     axes[0].set_ylabel("Implied probability (YES)")
-    fig.suptitle("Wallet 0xaec0bf01…: bought the Maduro-call outcome in the private-call window, "
+    fig.suptitle("Wallet 0xaec0bf01...: bought the Maduro-call outcome in the private-call window, "
                  "before the NYT report", fontsize=11)
     save(fig, "maduro-call-0xaec0bf.png")
 
@@ -182,12 +182,12 @@ def fig_iran_strike(con):
     ax.axvline(jump, color=LINE, ls="--", lw=1)
     ax.text(jump + pd.Timedelta(hours=3), 0.55, f"strike public\n({jump:%b %d, %H:%M} UTC)", fontsize=8.5)
     ax.plot([], [], color=PRICE, label="'US strikes Iran on Feb 28' (YES)")
-    ax.scatter([], [], color=BUY, label="Wallet 0x8517b9… buys")
+    ax.scatter([], [], color=BUY, label="Wallet 0x8517b9... buys")
     ax.legend(loc="center left", fontsize=8.5)
     ax.set_ylabel("Implied probability (YES)")
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
     vwap = buys["notional"].sum() / buys["size"].sum()
-    ax.set_title(f"US strike on Iran: entry at ~{vwap * 100:.0f}¢ — the wallet bet "
+    ax.set_title(f"US strike on Iran: entry at ~{vwap * 100:.0f} cents, but the wallet bet "
                  f"{int(row['series_bets'])} strike-dates, won {int(row['series_wins'])}",
                  fontsize=11, color="#7d6608")
     save(fig, "iran-strike-0x8517.png")

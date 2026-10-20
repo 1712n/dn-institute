@@ -7,6 +7,8 @@ INPUT_DIR = ROOT / "inputs"
 OUTPUT_DIR = Path(os.environ.get("PM_OUTPUT_DIR", ROOT / "output"))
 FIGURES_DIR = Path(os.environ.get("PM_FIGURES_DIR", OUTPUT_DIR / "figures"))
 DB_PATH = Path(os.environ.get("PM_DB_PATH", DATA_DIR / "polymarket.duckdb"))
+# committed Parquet copy of the database, next to the code folder in the submission
+TAPE_DIR = Path(os.environ.get("PM_TAPE_DIR", ROOT.parent / "data" / "tape"))
 
 GAMMA = "https://gamma-api.polymarket.com"
 DATA_API = "https://data-api.polymarket.com"
