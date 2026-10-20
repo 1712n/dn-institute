@@ -6,7 +6,7 @@ import pytest
 import config
 import make_figures
 
-POST_DIR = config.ROOT.parent if (config.ROOT.parent / "index.md").exists() else None
+POST_DIR = config.ROOT.parent if (config.ROOT.parent / "REPORT.md").exists() else None
 
 
 def _figures(out):
@@ -27,14 +27,15 @@ def test_figures_are_reproducible(pipeline_out, pipeline_out_repeat):
         assert a == b, n
 
 
-@pytest.mark.skipif(POST_DIR is None, reason="runs inside the published post bundle only")
+@pytest.mark.skipif(POST_DIR is None, reason="runs inside the submission folder only")
 def test_post_figures_match_generator():
-    referenced = set(re.findall(r'src="([^"]+\.png)"', (POST_DIR / "index.md").read_text("utf-8")))
-    on_disk = {p.name for p in POST_DIR.glob("*.png")}
+    text = (POST_DIR / "REPORT.md").read_text("utf-8")
+    referenced = set(re.findall(r"\]\(figures/([^)]+\.png)\)", text))
+    on_disk = {p.name for p in (POST_DIR / "figures").glob("*.png")}
     assert referenced == on_disk == set(make_figures.FIGURES)
 
 
-@pytest.mark.skipif(POST_DIR is None, reason="runs inside the published post bundle only")
+@pytest.mark.skipif(POST_DIR is None, reason="runs inside the submission folder only")
 def test_post_data_is_generated_by_pipeline(pipeline_out):
     committed = {p.name for p in (POST_DIR / "data").glob("*.csv")}
     generated = {p.name for p in pipeline_out.glob("*.csv")}

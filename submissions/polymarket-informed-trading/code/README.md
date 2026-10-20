@@ -15,7 +15,7 @@ python build_artifacts.py
 python make_figures.py
 ```
 
-`build_db.py` reads the Parquet files in `../data/tape/` and writes `data/polymarket.duckdb` (about 1.1 GB). The scripts write to `output/`; the CSV files there match `../data/` and the figures in `output/figures/` match `../figures/` byte for byte.
+`build_db.py` reads the Parquet files in `../data/tape/` and writes `data/polymarket.duckdb` (about 1.1 GB). The scripts write to `output/`; the CSV files there match `../data/` and the figures in `output/figures/` match `../figures/` byte for byte. The committed figures were drawn with matplotlib 3.11.2; another version draws the same charts, but the PNG bytes can differ.
 
 ## Pipeline
 

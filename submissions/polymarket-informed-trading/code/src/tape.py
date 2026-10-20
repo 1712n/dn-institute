@@ -6,6 +6,8 @@ API values exactly. Full transaction hashes would take most of the space, and th
 uses them to order trades of one market made in the same second; they are kept for those trades
 only, cut to their first 8 hex digits, which orders them the same way.
 """
+import shutil
+import tempfile
 from pathlib import Path
 
 import duckdb
@@ -15,26 +17,54 @@ TX_PREFIX = 10         # "0x" + 8 hex digits
 PARQUET = "FORMAT parquet, COMPRESSION zstd, COMPRESSION_LEVEL 19, ROW_GROUP_SIZE 1000000"
 
 
+def _sql_path(path):
+    """A path as an SQL string literal."""
+    return "'" + Path(path).as_posix().replace("'", "''") + "'"
+
+
 def pack(con, out_dir, part_rows=PART_ROWS):
+    """Write the files to a folder next to `out_dir` and swap them in only once all are written,
+    so a failed export leaves the previous tape as it was."""
     out = Path(out_dir)
-    out.mkdir(parents=True, exist_ok=True)
-    for old in out.glob("*.parquet"):
-        old.unlink()
+    out.parent.mkdir(parents=True, exist_ok=True)
+    tmp = Path(tempfile.mkdtemp(prefix=f".{out.name}-", dir=out.parent))
+    try:
+        n = _write(con, tmp, part_rows)
+        out.mkdir(exist_ok=True)
+        for old in out.glob("*.parquet"):
+            old.unlink()
+        for new in tmp.iterdir():
+            new.replace(out / new.name)
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+    return n
+
+
+def _write(con, out, part_rows):
+    try:
+        return _write_files(con, out, part_rows)
+    finally:
+        con.execute("DROP TABLE IF EXISTS profiles")
+        con.execute("DROP TABLE IF EXISTS shared_second")
+
+
+def _write_files(con, out, part_rows):
     con.execute(f"COPY (SELECT * FROM markets ORDER BY condition_id) "
-                f"TO '{(out / 'markets.parquet').as_posix()}' ({PARQUET})")
+                f"TO {_sql_path(out / 'markets.parquet')} ({PARQUET})")
     con.execute("""
         CREATE TEMP TABLE profiles AS
         SELECT (row_number() OVER (ORDER BY wallet, pseudonym, "name", bio) - 1)::INTEGER pid,
                wallet, pseudonym, "name", bio
         FROM (SELECT DISTINCT wallet, pseudonym, "name", bio FROM trades)""")
     con.execute(f"COPY (SELECT * FROM profiles ORDER BY pid) "
-                f"TO '{(out / 'wallets.parquet').as_posix()}' ({PARQUET})")
+                f"TO {_sql_path(out / 'wallets.parquet')} ({PARQUET})")
     con.execute("""
         CREATE TEMP TABLE shared_second AS
         SELECT condition_id, timestamp FROM trades
         GROUP BY 1, 2 HAVING count(DISTINCT tx_hash) > 1""")
     # whole markets per file, in condition_id order
-    counts = con.execute("SELECT condition_id, count(*) n FROM trades GROUP BY 1 ORDER BY 1").fetchall()
+    counts = con.execute(
+        "SELECT condition_id, count(*) n FROM trades GROUP BY 1 ORDER BY 1").fetchall()
     parts, cur, n = [], [], 0
     for cid, k in counts:
         if cur and n + k > part_rows:
@@ -59,23 +89,22 @@ def pack(con, out_dir, part_rows=PART_ROWS):
                   LEFT JOIN shared_second s USING (condition_id, timestamp)
                   WHERE t.condition_id BETWEEN ? AND ?
                   ORDER BY t.condition_id, t.timestamp, tx, p.pid, price_e10, size_e6)
-            TO '{(out / f'trades_{i}.parquet').as_posix()}' ({PARQUET})""", [cids[0], cids[-1]])
-    con.execute("DROP TABLE profiles")
-    con.execute("DROP TABLE shared_second")
+            TO {_sql_path(out / f'trades_{i}.parquet')} ({PARQUET})""", [cids[0], cids[-1]])
     return len(parts)
 
 
 def build(tape_dir, db_path):
-    tape = Path(tape_dir).as_posix()
+    tape = Path(tape_dir)
     con = duckdb.connect(str(db_path))
-    con.execute(f"CREATE TABLE markets AS SELECT * FROM read_parquet('{tape}/markets.parquet')")
+    con.execute("CREATE TABLE markets AS "
+                f"SELECT * FROM read_parquet({_sql_path(tape / 'markets.parquet')})")
     con.execute(f"""
         CREATE TABLE trades AS
         SELECT t.condition_id, w.wallet, CASE WHEN t.buy THEN 'BUY' ELSE 'SELL' END side,
                t.size_e6 / 1e6 size, t.price_e10 / 1e10 price, t.timestamp,
                t.outcome_index::INTEGER outcome_index, t.tx tx_hash, w.pseudonym, w."name", w.bio
-        FROM read_parquet('{tape}/trades_*.parquet') t
-        JOIN read_parquet('{tape}/wallets.parquet') w USING (pid)
+        FROM read_parquet({_sql_path(tape / 'trades_*.parquet')}) t
+        JOIN read_parquet({_sql_path(tape / 'wallets.parquet')}) w USING (pid)
         ORDER BY t.condition_id, t.timestamp, t.tx, t.pid, t.price_e10, t.size_e6""")
     n = con.execute("SELECT count(*) FROM trades").fetchone()[0]
     con.close()

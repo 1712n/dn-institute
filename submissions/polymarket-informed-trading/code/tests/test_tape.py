@@ -69,3 +69,44 @@ def test_pack_replaces_old_files(make_db, tmp_path):
     (out / "trades_9.parquet").write_bytes(b"stale")
     tape.pack(make_db(*_sample()), out)
     assert not (out / "trades_9.parquet").exists()
+
+
+def test_paths_with_quotes(make_db, tmp_path):
+    folder = tmp_path / "o'brien"
+    src = make_db(*_sample())
+    tape.pack(src, folder / "tape")
+    assert tape.build(folder / "tape", folder / "rebuilt.duckdb") == 10
+    out = duckdb.connect(str(folder / "rebuilt.duckdb"), read_only=True)
+    assert _rows(out) == _rows(src)
+
+
+class _FailOn:
+    """Connection that raises on the first statement containing `marker`."""
+
+    def __init__(self, con, marker):
+        self.con, self.marker = con, marker
+
+    def execute(self, sql, *args):
+        if self.marker in sql:
+            raise duckdb.IOException("disk full")
+        return self.con.execute(sql, *args)
+
+
+def test_failed_pack_keeps_the_old_tape(make_db, tmp_path):
+    out = tmp_path / "tape"
+    src = make_db(*_sample())
+    tape.pack(src, out, part_rows=3)
+    before = {p.name: p.read_bytes() for p in out.iterdir()}
+    try:
+        tape.pack(_FailOn(src, "trades_2.parquet"), out, part_rows=3)
+    except duckdb.IOException:
+        pass
+    else:
+        raise AssertionError("the injected failure did not happen")
+    assert {p.name: p.read_bytes() for p in out.iterdir()} == before
+    # no half-written folder left next to the tape
+    db_files = {"synthetic.duckdb", "synthetic.duckdb.wal"}
+    assert {p.name for p in tmp_path.iterdir()} - db_files == {"tape"}
+    # the same connection can pack again: no temporary tables left behind
+    tape.pack(src, out, part_rows=3)
+    assert {p.name: p.read_bytes() for p in out.iterdir()} == before
