@@ -16,7 +16,7 @@ Low-cap Bybit spot markets carry several distinct kinds of non-organic activity.
 
 1. **Recurring-clip wash trading, WCT/USDT and LMWR/USDT (2026-06-09 to 13).** A handful of identical clip sizes carry far more of the tape than any single size would in a healthy market: a 1432-token clip is **8.7%** of all WCT trades, WCT starts **59.6%** of trades on leading digit 1 (against Benford's 30.1%), LMWR's recurring clips split **near 50/50** buy and sell, and **13.6%** of LMWR trades land on one second of the minute.
 2. **A scheduled wash bot on a fixed clock, CBK/USDT (May 2026).** A self-trading bot fires about every **90 seconds**, alternating side, so **74.6%** of trades land on just two seconds (:05 all sells, :35 all buys). It churns about **$448k** with no pump and pays the spread on essentially every round trip, so it loses money rather than earning it.
-3. **A pump-and-dump, MCRT/USDT (2026-05-26).** A flat ~0.000097 USDT market ran **162%** to a 0.000255 blow-off and crashed **66%** within the same hour, leaving **276** late buyers (about $14.7k) down roughly **53%** the next day. Price impact, not volume inflation.
+3. **A pump-and-dump, MCRT/USDT (2026-05-26).** A flat ~0.000097 USDT market ran **162%** to a 0.000255 blow-off and crashed **66%** within the same hour. Across **276** late buy executions (about 14.7k USDT in total), the average next-day mark-to-market return was **−52%**.
 
 Read each as a flag, not a verdict: these are statistical and microstructure signatures of automated or otherwise non-organic activity. They mark markets whose reported activity deserves scrutiny, not a proof of who placed the orders.
 
@@ -92,7 +92,9 @@ The run-up is gradual then violent. From 2026-05-25 the price grinds up from the
 
 {{< figure src="mcrt-intraday-pump-dump.png" alt="five-minute MCRT price and volume from 2026-05-25 to 26 showing the ramp, blow-off to 0.000255, and same-hour crash" caption="Five-minute high price (line) and volume (bars), 2026-05-25 to 26 UTC. A slow ramp off the 0.000097 base, a failed dry run near 08:00, a vertical blow-off to 0.000255, then a same-hour collapse." loading="lazy" >}}
 
-A pump and dump transfers money from whoever buys near the top to whoever was already holding. The buy tape shows who paid: 276 buy trades, about $14.7k, executed above 1.5x the base price, almost all within half an hour of the 0.000255 peak, at an average fill of 0.000185 per trade (0.000166 weighted by notional). By the next day the token had settled near 0.000086, leaving those fills down about 53% per trade and about 48% dollar-weighted, below the level MCRT traded at before the pump began.
+Above 1.5x the base price, [276 buy executions](data/mcrt/late_buyers.csv) exchanged **88,298,742.19 MCRT** for **14,658.26 USDT**, almost all within half an hour of the 0.000255 peak. The mean price per execution was 0.00018532 USDT per MCRT. The volume-weighted average price (total USDT divided by total MCRT) was 0.00016601 USDT per MCRT.
+
+The median price across [all 6,512 trades on 27 May UTC](data/mcrt/trades_2026-05-27.csv) was 0.0000863 USDT per MCRT. Marking each of the 276 buy executions at that price gives a mean return of **−52.17%**. Valuing all tokens together gives **−48.01%** on the total USDT spent, before fees. The [calculation](verify_mcrt_returns.py) uses trade prices and quantities. The records contain no account identifiers or linked sales, so they cannot establish the number of distinct buyers or their realised losses.
 
 {{< figure src="mcrt-late-buyers.png" alt="scatter of MCRT buy execution prices over 2026-05-25 to 26, with buys above 1.5x base highlighted near the top and the next-day settled price below base" caption="Every buy trade over the event. Buys filled above 1.5x base (highlighted) cluster at the top; the dotted line is where MCRT settled the next day, below the pre-pump base." loading="lazy" >}}
 
@@ -108,7 +110,7 @@ All figures use free, key-less data: Bybit's public spot trade dumps (`public.by
 
 A robustness note on WCT: its signature is stable week to week. In the preceding week (2026-06-02 to 06) WCT still puts 61% of trades on leading digit 1 and the 1432 clip is still 9% of the tape. LMWR's one-second clustering also persists, but its exact clip sizes rotate between weeks, so its footprint is that of an episodic bot rather than a fixed one.
 
-Each case is fully reproducible from its companion repository, run against the dated dumps above: [mkzung/bybit-wash-trading-analysis](https://github.com/mkzung/bybit-wash-trading-analysis) (WCT, LMWR), [mkzung/cbk-scheduled-wash-analysis](https://github.com/mkzung/cbk-scheduled-wash-analysis) (CBK), and [mkzung/mcrt-pump-dump-analysis](https://github.com/mkzung/mcrt-pump-dump-analysis) (MCRT). Each recomputes and asserts its headline numbers; the processed per-figure datasets for the CBK and MCRT cases are committed alongside this post under `data/`.
+The companion repositories provide the original analyses for [WCT and LMWR](https://github.com/mkzung/bybit-wash-trading-analysis), [CBK](https://github.com/mkzung/cbk-scheduled-wash-analysis) and [MCRT](https://github.com/mkzung/mcrt-pump-dump-analysis). The CBK and MCRT figure datasets are under `data/`. To reproduce the revised MCRT mark and returns offline, run `python verify_mcrt_returns.py` in this post’s directory. To compare every row in the committed 27 May tape with the [Bybit May archive](https://public.bybit.com/spot/MCRTUSDT/MCRTUSDT-2026-05.csv.gz), add `--archive MCRTUSDT-2026-05.csv.gz`.
 
 ## Scope
 
